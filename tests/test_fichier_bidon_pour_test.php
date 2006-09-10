@@ -2,7 +2,7 @@
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'fichier_bidon_pour_test.php';
 
-class BidonTest extends PHPUnit_Framework_TestCase
+class TestBidon extends PHPUnit_Framework_TestCase
 {
     public function test_returnVrais()
     {

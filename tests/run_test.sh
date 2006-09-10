@@ -1,5 +1,5 @@
 #!/bin/bash
 
 svn update
-phpUnit *.php
+php AllTests.php
 

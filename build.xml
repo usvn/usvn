@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<project name="USVN" basedir="." default="test">
+  <target name="test">
+    <phpunit2 haltonfailure="true" printsummary="true">
+      <batchtest>
+        <fileset dir=".">
+          <include name="tests/test_*.php"/>
+        </fileset>
+      </batchtest>
+      <formatter type="xml" todir="report" outfile="logfile.xml"/>
+    </phpunit2>
+
+    <phpunit2report infile="report/logfile.xml"
+                   styledir="/usr/share/php/data/phing/etc"
+                   format="frames"
+                   todir="report"/>
+  </target>
+
+  <target name="doc">
+     <phpdoc title="USVN Documentation" destdir="apidocs" sourcepath="." output="HTML:Smarty:PHP"/>
+  </target>
+</project>

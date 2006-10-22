@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
-
 <project name="USVN" basedir="." default="all">
+  <property name="version" value="0.1" override="true" />
   <property name="docdir" value="apidocs" override="true" />
-  <property name="srcdir" value="." override="true" />
   <property name="testdir" value="tests" override="true" />
   <property name="reportdir" value="report" override="true" />
-
+  <property name="archivedir" value="archive" override="true" />
 
   <target name="all">
+    <echo msg="Build USVN ${version}" />
+    <phingcall target="test" />
+    <phingcall target="doc" />
+  </target>
+
+  <target name="release">
+    <echo msg="Release USVN ${version}" />
     <phingcall target="test" />
     <phingcall target="doc" />
     <phingcall target="tar" />
@@ -16,35 +22,48 @@
   <target name="test">
     <delete file="${reportdir}/*" />
     <mkdir dir="${reportdir}" />
-    <phpunit2 haltonfailure="true" printsummary="true">
+    <phpunit2 haltonfailure="false" failureproperty="unit_test_failure" printsummary="true">
       <batchtest>
         <fileset dir="${testdir}">
-          <include name="**/test_*.php"/>
+          <include name="**/test_*.php" />
         </fileset>
       </batchtest>
-      <formatter type="xml" todir="${reportdir}" outfile="logfile.xml"/>
+      <formatter type="xml" todir="${reportdir}"
+      outfile="logfile.xml" />
     </phpunit2>
-
     <phpunit2report infile="${reportdir}/logfile.xml"
-                   styledir="${testdir}"
-                   format="frames"
-                   todir="${reportdir}"/>
+    styledir="phing" format="frames" todir="${reportdir}" />
+    <fail if="unit_test_failure" message="Unit tests failed!!!" />
   </target>
 
   <target name="doc">
-     <delete dir="${docdir}" />
-     <mkdir dir="${docdir}" />
-     <phpdoc title="USVN Documentation" destdir="${docdir}" sourcepath="${srcdir}" output="HTML:Smarty:PHP"/>
+    <delete dir="${docdir}" />
+    <mkdir dir="${docdir}" />
+    <phpdoc title="USVN Documentation" destdir="${docdir}"
+    sourcepath="." output="HTML:Smarty:PHP" />
   </target>
 
+<!-- Generation des archives -->
+  <fileset id="projectfile" dir=".">
+    <include name="**/*.php" />
+    <include name="*.xml" />
+  </fileset>
+
   <target name="tar">
-    <delete file="usvn.tgz" />
-    <tar destfile="usvn.tgz" compression="gzip">
-      <fileset dir="${srcdir}">
-        <include name="*.php" />
-        <include name="${testdir}/*.php" />
-        <include name="*.txt" />
-        <include name="*.xml" />
+    <mkdir dir="${archivedir}" />
+    <delete file="${archivedir}/usvn-${version}.tgz" />
+    <delete file="${archivedir}/usvn-${version}.tgz.md5" />
+    <delete file="${archivedir}/usvn-doc-${version}.tgz" />
+    <tar destfile="${archivedir}/usvn-${version}.tgz" compression="gzip">
+        <fileset refid="projectfile" />
+    </tar>
+    <php function="md5_file" returnProperty="md5file">
+        <param value="${archivedir}/usvn-${version}.tgz"/>
+    </php>
+    <echo msg="${md5file}" file="${archivedir}/usvn-${version}.tgz.md5"/>
+    <tar destfile="${archivedir}/usvn-doc-${version}.tgz" compression="gzip">
+      <fileset id="docfile" dir="${docdir}">
+        <include name="**" />
       </fileset>
     </tar>
   </target>

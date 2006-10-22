@@ -7,7 +7,7 @@ class TestBidon extends PHPUnit2_Framework_TestCase
     public function test_returnVrais()
     {
         $bidon = new Bidon();
-        $this->assertEquals($bidon->returnVrais(), true);
+        $this->assertEquals($bidon->returnVrais(), false);
     }
 }
 ?>

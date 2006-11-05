@@ -30,21 +30,12 @@
       </batchtest>
       <formatter type="xml" todir="${reportdir}"
       outfile="logfile.xml" />
+      <formatter type="plain" todir="${reportdir}"
+      outfile="logfile.txt" />
     </phpunit2>
     <phpunit2report infile="${reportdir}/logfile.xml"
     styledir="phing" format="frames" todir="${reportdir}" />
-    
-	<if>
-		<isset property="unit_test_failure" />
-		<then>
-			<php function="mail">
-				<param value="noplay@noplay.net"/>
-				<param value="Test unitaire fail"/>
-				<param value="Les tests unitaire ne marche plus"/>				
-			</php>
-		</then>
-	</if>
-    
+        
     <fail if="unit_test_failure" message="Unit tests failed!!!" />
   </target>
 
@@ -79,4 +70,5 @@
       </fileset>
     </tar>
   </target>
+
 </project>

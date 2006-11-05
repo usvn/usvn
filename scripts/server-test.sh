@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd ..
+svn update
 phing test
 if [ $? = 1 ]
 then

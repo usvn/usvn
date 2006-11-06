@@ -1,4 +1,8 @@
 <?php
+/**
+* @package test
+*/
+
 require_once 'PHPUnit2/Framework/TestCase.php';
 require_once 'fichier_bidon_pour_test.php';
 

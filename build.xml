@@ -8,12 +8,14 @@
 
   <target name="all">
     <echo msg="Build USVN ${version}" />
+    <phingcall target="lint" />
     <phingcall target="test" />
     <phingcall target="doc" />
   </target>
 
   <target name="release">
     <echo msg="Release USVN ${version}" />
+    <phingcall target="lint" />
     <phingcall target="test" />
     <phingcall target="doc" />
     <phingcall target="tar" />

@@ -45,6 +45,14 @@
     <phpdoc title="USVN Documentation" destdir="${docdir}"
     sourcepath="." output="HTML:Smarty:PHP" />
   </target>
+  
+  <target name="lint">  
+    <phplint>
+        <fileset dir=".">
+            <include name="**/*.php"/>
+        </fileset>
+    </phplint>
+</target>
 
 <!-- Generation des archives -->
   <fileset id="projectfile" dir=".">

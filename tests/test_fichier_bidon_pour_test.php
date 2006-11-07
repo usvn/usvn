@@ -14,4 +14,3 @@ class TestBidon extends PHPUnit2_Framework_TestCase
         $this->assertEquals($bidon->returnVrais(), true);
     }
 }
-?>

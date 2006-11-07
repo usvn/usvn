@@ -32,5 +32,5 @@ class Bidon
 	{
 		return true;
 	}
-}
+
 ?>

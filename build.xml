@@ -3,7 +3,7 @@
   <property name="version" value="0.1" override="true" />
   <property name="docdir" value="apidocs" override="true" />
   <property name="testdir" value="tests" override="true" />
-  <property name="report_test_dir" value="report" override="true" />
+  <property name="report_test_dir" value="test-report" override="true" />
   <property name="cover_report_dir" value="cover-report" override="true" />
   <property name="archivedir" value="archive" override="true" />
 

@@ -3,9 +3,24 @@
   <property name="version" value="0.1" override="true" />
   <property name="docdir" value="apidocs" override="true" />
   <property name="testdir" value="tests" override="true" />
-  <property name="reportdir" value="report" override="true" />
+  <property name="report_test_dir" value="report" override="true" />
+  <property name="cover_report_dir" value="cover-report" override="true" />
   <property name="archivedir" value="archive" override="true" />
 
+ <!-- File set -->
+  <fileset id="testfile" dir="${testdir}">
+        <include name="**/test_*.php" />
+  </fileset>
+
+    <fileset id="projectfile" dir=".">
+        <include name="**/*.php" />
+        <include name="*.xml" />
+        <exclude name="${docdir}/**" />
+        <exclude name="${report_test_dir}/**" />
+        <exclude name="${testdir}/**" />
+    </fileset>
+
+<!-- Target -->
   <target name="all">
     <echo msg="Build USVN ${version}" />
     <phingcall target="lint" />
@@ -21,25 +36,40 @@
     <phingcall target="tar" />
   </target>
 
-  <target name="test">
-    <delete file="${reportdir}/*" />
-    <mkdir dir="${reportdir}" />
-    <phpunit2 haltonfailure="false" failureproperty="unit_test_failure" printsummary="true">
-      <batchtest>
-        <fileset dir="${testdir}">
-          <include name="**/test_*.php" />
-        </fileset>
-      </batchtest>
-      <formatter type="xml" todir="${reportdir}"
-      outfile="logfile.xml" />
-      <formatter type="plain" todir="${reportdir}"
-      outfile="logfile.txt" />
-    </phpunit2>
-    <phpunit2report infile="${reportdir}/logfile.xml"
-    styledir="phing" format="frames" todir="${reportdir}" />
-        
-    <fail if="unit_test_failure" message="Unit tests failed!!!" />
-  </target>
+    <target name="test">
+        <delete file="${report_test_dir}/*" />
+        <mkdir dir="${report_test_dir}" />
+        <phpunit2 haltonfailure="false" failureproperty="unit_test_failure" printsummary="true">
+            <batchtest>
+                <fileset refid="testfile" />
+            </batchtest>
+            <formatter type="xml" todir="${report_test_dir}" outfile="logfile.xml" />
+            <formatter type="plain" todir="${report_test_dir}" outfile="logfile.txt" />
+        </phpunit2>
+        <phpunit2report infile="${report_test_dir}/logfile.xml" styledir="phing" format="frames" todir="${report_test_dir}" />
+        <fail if="unit_test_failure" message="Unit tests failed!!!" />
+    </target>
+
+    <target name="cover">
+        <delete file="${cover_report_dir}/*" />
+        <mkdir dir="${cover_report_dir}" />
+        <coverage-setup database="${cover_report_dir}/database">
+            <fileset dir=".">
+                <include name="**/*.php"/>
+                <exclude name="${testdir}/**" />
+            </fileset>
+        </coverage-setup>
+
+        <phpunit2 codecoverage="true">
+            <batchtest>
+                <fileset refid="testfile" />
+            </batchtest>
+        </phpunit2>
+
+        <coverage-report outfile="${cover_report_dir}/coverage.xml">
+            <report styledir="phing" todir="${cover_report_dir}"/>
+        </coverage-report>
+    </target>
 
   <target name="doc">
     <delete dir="${docdir}" />
@@ -47,26 +77,18 @@
     <phpdoc title="USVN Documentation" destdir="${docdir}"
     sourcepath="." output="HTML:Smarty:PHP" />
   </target>
-  
-  <target name="lint">  
+
+  <target name="lint">
     <phplint>
         <fileset dir=".">
             <exclude name="${docdir}/**" />
-            <exclude name="${reportdir}/**" />
+            <exclude name="${report_test_dir}/**" />
             <include name="**/*.php"/>
         </fileset>
     </phplint>
 </target>
 
 <!-- Generation des archives -->
-  <fileset id="projectfile" dir=".">
-    <include name="**/*.php" />
-    <include name="*.xml" />
-    <exclude name="${docdir}/**" />
-    <exclude name="${reportdir}/**" />
-    <exclude name="${testdir}/**" />
-  </fileset>
-
   <target name="tar">
     <mkdir dir="${archivedir}" />
     <delete file="${archivedir}/usvn-${version}.tgz" />

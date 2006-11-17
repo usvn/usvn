@@ -31,6 +31,6 @@ class Bidon
 	*/
 	public function returnVraisAvecChaine($str)
 	{
-		return true;
+		return true
 	}
 }

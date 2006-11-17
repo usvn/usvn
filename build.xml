@@ -5,7 +5,7 @@
   <property name="testdir" value="tests" override="true" />
   <property name="report_test_dir" value="test-report" override="true" />
   <property name="cover_report_dir" value="cover-report" override="true" />
-  <property name="archivedir" value="archive" override="true" />
+  <property name="archive_dir" value="archive" override="true" />
 
  <!-- File set -->
   <fileset id="testfile" dir="${testdir}">
@@ -28,13 +28,22 @@
     <phingcall target="doc" />
   </target>
 
-  <target name="release">
-    <echo msg="Release USVN ${version}" />
-    <phingcall target="lint" />
-    <phingcall target="test" />
-    <phingcall target="doc" />
-    <phingcall target="tar" />
-  </target>
+    <target name="release">
+        <echo msg="Release USVN ${version}" />
+        <phingcall target="lint" />
+        <phingcall target="test" />
+        <phingcall target="doc" />
+        <phingcall target="tar" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${docdir}" />
+        <delete dir="${report_test_dir}" />
+        <delete dir="${cover_report_dir}" />
+        <delete dir="${archive_dir}" />
+        <delete file="**/*~" />
+        <delete file="svn-commit*" />
+    </target>
 
     <target name="test">
         <delete file="${report_test_dir}/*" />
@@ -90,18 +99,18 @@
 
 <!-- Generation des archives -->
   <target name="tar">
-    <mkdir dir="${archivedir}" />
-    <delete file="${archivedir}/usvn-${version}.tgz" />
-    <delete file="${archivedir}/usvn-${version}.tgz.md5" />
-    <delete file="${archivedir}/usvn-doc-${version}.tgz" />
-    <tar destfile="${archivedir}/usvn-${version}.tgz" compression="gzip">
+    <mkdir dir="${archive_dir}" />
+    <delete file="${archive_dir}/usvn-${version}.tgz" />
+    <delete file="${archive_dir}/usvn-${version}.tgz.md5" />
+    <delete file="${archive_dir}/usvn-doc-${version}.tgz" />
+    <tar destfile="${archive_dir}/usvn-${version}.tgz" compression="gzip">
         <fileset refid="projectfile" />
     </tar>
     <php function="md5_file" returnProperty="md5file">
-        <param value="${archivedir}/usvn-${version}.tgz"/>
+        <param value="${archive_dir}/usvn-${version}.tgz"/>
     </php>
-    <echo msg="${md5file}" file="${archivedir}/usvn-${version}.tgz.md5"/>
-    <tar destfile="${archivedir}/usvn-doc-${version}.tgz" compression="gzip">
+    <echo msg="${md5file}" file="${archive_dir}/usvn-${version}.tgz.md5"/>
+    <tar destfile="${archive_dir}/usvn-doc-${version}.tgz" compression="gzip">
       <fileset id="docfile" dir="${docdir}">
         <include name="**" />
       </fileset>

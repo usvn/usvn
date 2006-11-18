@@ -71,6 +71,7 @@
             <fileset dir=".">
                 <include name="**/*.php"/>
                 <exclude name="${testdir}/**" />
+                <exclude name="**/Abstract*.php" />
             </fileset>
         </coverage-setup>
 
@@ -88,8 +89,7 @@
   <target name="doc">
     <delete dir="${docdir}" />
     <mkdir dir="${docdir}" />
-    <phpdoc title="USVN Documentation" destdir="${docdir}"
-    sourcepath="." output="HTML:frames:DOM/earthli" />
+    <phpdoc title="USVN Documentation" destdir="${docdir}" sourcepath="." output="HTML:frames:DOM/earthli" />
   </target>
 
   <target name="lint">

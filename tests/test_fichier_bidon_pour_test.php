@@ -1,6 +1,6 @@
 <?php
 /**
-* @package test
+* @package bidon
 */
 
 require_once 'PHPUnit2/Framework/TestCase.php';

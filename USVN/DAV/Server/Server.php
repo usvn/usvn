@@ -20,6 +20,10 @@ class Server
     * @var str
     */
     private $request_method;
+    /**
+    * @var str
+    */
+    private $request_url;
 
     /**
     * @var stream Stream with request data, you should never change this.
@@ -30,6 +34,7 @@ class Server
         $this->request_content =stream_get_contents($f);
         fclose($f);
         $this->request_method =  $_SERVER['REQUEST_METHOD'];
+        $this->request_url = $_SERVER['SCRIPT_NAME'];
     }
 
     /**
@@ -43,12 +48,22 @@ class Server
     }
 
     /**
-    * Return the body of request
+    * Return the body of the request
     *
     * @return str content
     */
-    public function getContent()
+    public function getRequestContent()
     {
         return $this->request_content;
+    }
+
+    /**
+    * Return the request url for example /toto/tutu
+    *
+    * @return str url
+    */
+    public function getRequestUrl()
+    {
+        return $this->request_url;
     }
 }

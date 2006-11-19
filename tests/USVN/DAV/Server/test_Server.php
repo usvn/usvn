@@ -19,15 +19,22 @@ class TestDavServer extends PHPUnit2_Framework_TestCase
         $this->assertEquals($server->getRequestMethod(), 'GET');
     }
 
-    public function test_getContent()
+    public function test_getUrl()
+    {
+        $_SERVER['SCRIPT_NAME'] = '/test/toto';
+        $server = new Server();
+        $this->assertEquals($server->getRequestUrl(), '/test/toto');
+    }
+
+    public function test_getRequestContent()
     {
         $server = new Server();
-        $this->assertEquals($server->getContent(), '');
+        $this->assertEquals($server->getRequestContent(), '');
 
         $f = fopen('test.tmp', 'w+');
         fputs($f, 'Youpi');
         fclose($f);
         $server = new Server('test.tmp');
-        $this->assertEquals($server->getContent(), 'Youpi');
+        $this->assertEquals($server->getRequestContent(), 'Youpi');
     }
 }

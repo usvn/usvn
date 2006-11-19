@@ -2,8 +2,7 @@
 /**
 * A WebDav Server where we can change his content for test purpose
 *
-* @package webdav
-* @subpackage server
+* @package test
 */
 
 require_once 'USVN/DAV/Server/Server.php';
@@ -15,7 +14,7 @@ class StubServer extends Server
     */
     public $fake_content;
 
-    public function getContent()
+    public function getRequestContent()
     {
         return $this->fake_content;
     }

@@ -62,7 +62,6 @@ abstract class AbstractPropfindRequestHandler extends AbstractRequestHandler
     * Add a property to the response
     *
     * @param str Property name
-    * @todo namespace
     */
     private function _addProperty($prop)
     {
@@ -78,25 +77,15 @@ abstract class AbstractPropfindRequestHandler extends AbstractRequestHandler
      */
     private function _startTag($parser, $name, $attrs)
     {
-        if (strstr($name, " ")) {
-            list($namespace, $tag) = explode(" ", $name);
-        } else {
-            $namespace  = "";
-            $tag = $name;
-        }
         if ($this->xml_deep == 1) {
-            if ($tag  == "allprop") {
+            if ($name  == "DAV: allprop") {
                 foreach ($this->properties as $prop) {
                     $this->_addProperty($prop);
                 }
             }
-            elseif ($tag  == "propname") {
-                foreach ($this->properties as $prop) {
-                }
-            }
         }
         elseif ($this->xml_deep == 2) {
-            $this->_addProperty($tag);
+            $this->_addProperty($name);
         }
         $this->xml_deep++;
     }
@@ -115,6 +104,6 @@ abstract class AbstractPropfindRequestHandler extends AbstractRequestHandler
 
     public function getResponse()
     {
-        return '<?xml version="1.0" encoding="utf-8" ?><D:multistatus xmlns:D="DAV:"><D:response>'.$this->xml_response.' </D:response></D:multistatus>';
+        return '<?xml version="1.0" encoding="utf-8" ?><D:multistatus xmlns:D="DAV:"><D:response><D:propstat>'.$this->xml_response.'</D:propstat><D:status>HTTP/1.1 200 OK</D:status></D:response></D:multistatus>';
     }
 }

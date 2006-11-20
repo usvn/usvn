@@ -46,7 +46,7 @@
         <delete dir="${report_test_dir}" />
         <delete dir="${cover_report_dir}" />
         <delete dir="${archive_dir}" />
-        <delete file="**/*~" />
+        <delete file="*~" />
         <delete file="svn-commit*" />
     </target>
 

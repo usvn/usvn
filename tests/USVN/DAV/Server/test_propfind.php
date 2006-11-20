@@ -7,18 +7,18 @@ class MyPROPFIND extends AbstractPropfindRequestHandler
 {
     public $property_call;
 
-    protected $properties = array('prenom', 'nom', 'dog');
+    protected $properties = array('prenom', 'nom', 'DAV: dog');
 
     function __construct($server)
     {
         $this->property = array();
         $this->property['prenom'] = 'julien';
         $this->property['nom'] = 'duponchelle';
-        $this->property['dog'] = 'tolstoi';
+        $this->property['DAV: dog'] = 'tolstoi';
         $this->property_call = array();
         $this->property_call['nom'] = false;
         $this->property_call['prenom'] = false;
-        $this->property_call['dog'] = false;
+        $this->property_call['DAV: dog'] = false;
         parent::__construct($server);
     }
 
@@ -45,16 +45,16 @@ class TestPropfind extends PHPUnit2_Framework_TestCase
         $server = new StubServer();
         $server->fake_content = '<?xml version="1.0" encoding="utf-8" ?>
             <D:propfind xmlns:D="DAV:">
-                <D:prop xmlns:R="http://www.foo.bar/boxschema/">
-                    <R:nom/>
-                    <R:prenom/>
+                <D:prop>
+                    <nom/>
+                    <D:dog/>
                 </D:prop>
             </D:propfind>
         ';
         $propfind = new MyPROPFIND($server);
         $this->assertEquals($propfind->property_call['nom'], true);
-        $this->assertEquals($propfind->property_call['prenom'], true);
-        $this->assertEquals($propfind->property_call['dog'], false);
+        $this->assertEquals($propfind->property_call['prenom'], false);
+        $this->assertEquals($propfind->property_call['DAV: dog'], true);
     }
 
     public function test_allprop()
@@ -68,7 +68,7 @@ class TestPropfind extends PHPUnit2_Framework_TestCase
         $propfind = new MyPROPFIND($server);
         $this->assertEquals($propfind->property_call['nom'], true);
         $this->assertEquals($propfind->property_call['prenom'], true);
-        $this->assertEquals($propfind->property_call['dog'], true);
+        $this->assertEquals($propfind->property_call['DAV: dog'], true);
     }
 
     public function test_getResponse()
@@ -80,6 +80,8 @@ class TestPropfind extends PHPUnit2_Framework_TestCase
             </D:propfind>
         ';
         $propfind = new MyPROPFIND($server);
-        $this->assertEquals($propfind->getResponse(), '<?xml version="1.0" encoding="utf-8" ?><D:multistatus xmlns:D="DAV:"><D:response><prenom>julien</prenom><nom>duponchelle</nom><dog>tolstoi</dog> </D:response></D:multistatus>');
+        $test = '<?xml version="1.0" encoding="utf-8" ?><D:multistatus xmlns:D="DAV:"><D:response><D:propstat><prenom>julien</prenom><nom>duponchelle</nom><DAV: dog>tolstoi</DAV: dog></D:propstat><D:status>HTTP/1.1 200 OK</D:status></D:response></D:multistatus>';
+        $response = $propfind->getResponse();
+        $this->assertEquals($response, $test, "Wait \n$test\n\nbut\n$response\n\n");
     }
 }

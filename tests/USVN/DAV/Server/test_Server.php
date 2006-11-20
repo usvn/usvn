@@ -31,10 +31,10 @@ class TestDavServer extends PHPUnit2_Framework_TestCase
         $server = new Server();
         $this->assertEquals($server->getRequestContent(), '');
 
-        $f = fopen('test.tmp', 'w+');
+        $f = fopen('tests/tmp/test.tmp', 'w+');
         fputs($f, 'Youpi');
         fclose($f);
-        $server = new Server('test.tmp');
+        $server = new Server('tests/tmp/test.tmp');
         $this->assertEquals($server->getRequestContent(), 'Youpi');
     }
 }

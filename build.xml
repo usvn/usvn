@@ -92,7 +92,7 @@
   <target name="doc">
     <delete dir="${docdir}" />
     <mkdir dir="${docdir}" />
-    <phpdoc title="USVN Documentation" destdir="${docdir}" sourcepath="." output="HTML:frames:DOM/earthli" />
+    <exec command="phpdoc -c phpDocumentor.ini"/>
   </target>
 
   <target name="lint">

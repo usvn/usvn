@@ -13,17 +13,17 @@ class TestDavServer extends PHPUnit2_Framework_TestCase
     {
         $_SERVER['REQUEST_METHOD'] = 'MKACTIVITY';
         $server = new Server();
-        $this->assertEquals($server->getRequestMethod(), 'MKACTIVITY');
+        $this->assertEquals('MKACTIVITY', $server->getRequestMethod());
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $server = new Server();
-        $this->assertEquals($server->getRequestMethod(), 'GET');
+        $this->assertEquals('GET', $server->getRequestMethod());
     }
 
     public function test_getUrl()
     {
         $_SERVER['SCRIPT_NAME'] = '/test/toto';
         $server = new Server();
-        $this->assertEquals($server->getRequestUrl(), '/test/toto');
+        $this->assertEquals('/test/toto', $server->getRequestUrl());
     }
 
     public function test_getRequestContent()
@@ -35,6 +35,6 @@ class TestDavServer extends PHPUnit2_Framework_TestCase
         fputs($f, 'Youpi');
         fclose($f);
         $server = new Server('tests/tmp/test.tmp');
-        $this->assertEquals($server->getRequestContent(), 'Youpi');
+        $this->assertEquals('Youpi', $server->getRequestContent());
     }
 }

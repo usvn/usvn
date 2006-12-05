@@ -35,7 +35,12 @@ Second paragraph.'));
 
     public function test_Underline2()
     {
-        $this->assertEquals('This <u>is a</u> another <u>test</u>', Parser::parse('This __is a__ another __test__'));
+        $this->assertEquals('This <u>is a</u> another <u>test</u> youpi!', Parser::parse('This __is a__ another __test__ youpi!'));
+    }
+
+    public function test_Underline3()
+    {
+        $this->assertEquals('This <u>is a</u> another <u>test  with an _ at the middle</u>', Parser::parse('This __is a__ another __test  with an _ at the middle__'));
     }
 }
 ?>

@@ -83,5 +83,17 @@ Second paragraph.'));
 ");
         $this->assertEquals('<h3>This is = a test</h3>', $test, "Result: #".$test."#\n");
     }
+
+    public function test_link()
+    {
+        $test = Parser::parse('I love http://www.noplay.net YOUPI');
+        $this->assertEquals('I love <a href="http://www.noplay.net">http://www.noplay.net</a> YOUPI', $test, "Result: #".$test."#\n");
+    }
+
+    public function test_httpsLink()
+    {
+        $test = Parser::parse('I love https://www.noplay.net YOUPI');
+        $this->assertEquals('I love <a href="https://www.noplay.net">https://www.noplay.net</a> YOUPI', $test, "Result: #".$test."#\n");
+    }
 }
 ?>

@@ -63,9 +63,11 @@ class Parser
     static public function parse($str)
     {
         $str = htmlspecialchars($str, ENT_NOQUOTES);
-        $str = preg_replace('/===[ ]*((.*)[:punct::alnum:]+)[ ]*===\n/','<h3>\1</h3>', $str);
-        $str = preg_replace('/==[ ]*((.*)[:punct::alnum:]+)[ ]*==\n/','<h2>\1</h2>', $str);
-        $str = preg_replace('/=[ ]*((.*)[:punct::alnum:]+)[ ]*=\n/','<h1>\1</h1>', $str);
+        $str = preg_replace('/===[ ]*((.*)[[:punct:][:alnum:]]+)[ ]*===\n/','<h3>\1</h3>', $str);
+        $str = preg_replace('/==[ ]*((.*)[[:punct:][:alnum:]]+)[ ]*==\n/','<h2>\1</h2>', $str);
+        $str = preg_replace('/=[ ]*((.*)[[:punct:][:alnum:]]+)[ ]*=\n/','<h1>\1</h1>', $str);
+
+        $str = preg_replace('/(http[s]?:\/\/[^[:space:]]*)/','<a href="\1">\1</a>', $str);
 
         $str = str_replace("\n\n", '<br /><br />', $str);
         $str = str_replace("\n", ' ', $str);

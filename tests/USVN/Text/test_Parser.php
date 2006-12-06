@@ -42,5 +42,15 @@ Second paragraph.'));
     {
         $this->assertEquals('This <u>is a</u> another <u>test  with an _ at the middle</u>', Parser::parse('This __is a__ another __test  with an _ at the middle__'));
     }
+
+    public function test_italic()
+    {
+        $this->assertEquals('This <i>is a</i> test', Parser::parse("This ''is a'' test"));
+    }
+
+    public function test_bold()
+    {
+        $this->assertEquals('This <b>is a</b> test', Parser::parse("This '''is a''' test"));
+    }
 }
 ?>

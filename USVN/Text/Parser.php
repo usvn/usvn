@@ -11,18 +11,17 @@
 class Parser
 {
     static private $replace_status;
-    static private $replace_start = array('__' => '<u>');
-    static private $replace_end = array('__' => '</u>');
+    static private $replace_tag = array('__' => 'u', "'''" => 'b' , "''" => 'i');
 
     static private function replaceTags($str)
     {
         if (self::$replace_status[$str]) {
             self::$replace_status[$str] = 0;
-            return self::$replace_start[$str];
+            return '<'.self::$replace_tag[$str].'>';
         }
         else {
             self::$replace_status[$str] = 1;
-            return self::$replace_end[$str];
+            return '</'.self::$replace_tag[$str].'>';
         }
     }
 
@@ -34,13 +33,17 @@ class Parser
     */
     static public function parse($str)
     {
-        self::$replace_status['__'] = 1;
-
         $str = htmlspecialchars($str, ENT_NOQUOTES);
         $str = str_replace("\n\n", '<br /><br />', $str);
         $str = str_replace("\n", ' ', $str);
 
-        $str = preg_replace("/(__)/e","Parser::replaceTags('\\1')", $str);
+        $array = self::$replace_tag;
+        while (current($array)) {
+            $tag = key($array);
+            self::$replace_status[$tag] = 1;
+            $str = preg_replace("/($tag)/e","Parser::replaceTags('\\1')", $str);
+            next($array);
+        }
         return $str;
     }
 }

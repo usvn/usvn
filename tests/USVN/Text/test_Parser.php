@@ -98,10 +98,39 @@ Second paragraph.'));
 
     public function test_list()
     {
-        $test = Parser::parse('Liste de course:
+        // For list test espace are useless
+        $test = str_replace(Parser::parse('Liste de course:
 * un Canon EOS 400D
-* Une wii');
-        $this->assertEquals('Liste de course: <li><ul>un Canon EOS 400D</ul> <ul>Une wii</ul> </li>', $test, "Result: #".$test."#\n");
+* Une wii'), ' ', '');
+        $search = str_replace('Liste de course: <li><ul>un Canon EOS 400D</ul> <ul>Une wii</ul> </li>', ' ', '');
+        $this->assertEquals($search, $test, "Result: #".$test."#\n");
+    }
+
+    public function test_listTwoLevel()
+    {
+        // For list test espace are useless
+        $test = str_replace(Parser::parse('Liste de course:
+* un Canon EOS 400D
+** Carte memoire 4 GO
+** Grip
+* Une wii'), ' ', '');
+        $search = str_replace('Liste de course: <li><ul>un Canon EOS 400D</ul> <li><ul>Carte memoire 4 GO</ul> <ul>Grip</ul></li> <ul>Une wii</ul> </li>', ' ', '');
+        $this->assertEquals($search, $test, "Result: #".$test."#\n");
+    }
+
+    public function test_listThreeLevel()
+    {
+        // For list test espace are useless
+        $test = str_replace(Parser::parse('Liste de course:
+* un Canon EOS 400D
+** Carte memoire 4 GO
+** Grip
+*** Batterie
+*** Couroie
+** Objectif
+* Une wii'), ' ', '');
+        $search = str_replace('Liste de course: <li><ul>un Canon EOS 400D</ul> <li><ul>Carte memoire 4 GO</ul> <ul>Grip<li><ul>Batterie</ul><ul>Courroie</ul></li></ul><ul>Objectif</ul></li> <ul>Une wii</ul> </li>', ' ', '');
+        $this->assertEquals($search, $test, "Result: #".$test."#\n");
     }
 }
 ?>

@@ -47,25 +47,26 @@ class Parser
     static private function parseLineByLine($str)
     {
         $result = "";
-        $list = False;
+        $list_level = 0;
         foreach(explode("\n", $str) as $line) {
-            if (strncmp($line, '* ' , 2) == 0) {
-                $line = '<ul>'.substr($line, 2).'</ul>';
-                if (!$list) {
-                    $list = True;
-                    $line = '<li>'.$line;
-                }
-            }
-            else {
-                if ($list) {
-                    $list = False;
+            $level = strspn($line, '*');
+            if ($level) {
+                $line = substr($line, $level);
+                $line = trim($line);
+                $line = '<ul>'.$line.'</ul>';
+                while ($level < $list_level) {
                     $line = '</li>'.$line;
+                    $list_level--;
+                }
+                while ($level > $list_level) {
+                    $line = '<li>'.$line;
+                    $list_level++;
                 }
             }
             $result .= $line."\n";
         }
-        if ($list) {
-            $list = False;
+        while ($list_level) {
+            $list_level--;
             $result .= '</li>';
         }
         return $result;

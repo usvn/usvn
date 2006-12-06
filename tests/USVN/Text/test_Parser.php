@@ -52,5 +52,36 @@ Second paragraph.'));
     {
         $this->assertEquals('This <b>is a</b> test', Parser::parse("This '''is a''' test"));
     }
+
+    public function test_bolditalic()
+    {
+        $this->assertEquals('This <b><i>is a</i></b> test', Parser::parse("This '''''is a''''' test"));
+    }
+
+    public function test_hr()
+    {
+        $this->assertEquals('This is a test<hr />Youpi', Parser::parse('This is a test----Youpi'), "Result: #".Parser::parse('This is a test----Youpi')."#\n");
+    }
+
+    public function test_head1()
+    {
+        $test = Parser::parse("= This is a test =
+");
+        $this->assertEquals('<h1>This is a test</h1>', $test, "Result: #".$test."#\n");
+    }
+
+    public function test_head2()
+    {
+        $test = Parser::parse("== This is a test ==
+");
+        $this->assertEquals('<h2>This is a test</h2>', $test, "Result: #".$test."#\n");
+    }
+
+    public function test_head3()
+    {
+        $test = Parser::parse("=== This is = a test ===
+");
+        $this->assertEquals('<h3>This is = a test</h3>', $test, "Result: #".$test."#\n");
+    }
 }
 ?>

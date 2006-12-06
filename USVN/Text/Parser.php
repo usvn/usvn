@@ -10,19 +10,48 @@
 
 class Parser
 {
+    /**
+    * Start or end of tag
+    *
+    * @var bool
+    */
     static private $replace_status;
-    static private $replace_tag = array('__' => 'u', "'''" => 'b' , "''" => 'i');
 
-    static private function replaceTags($str)
+    /**
+    * Simple replace of '' __ ''' by html tags.
+    *
+    * This method is call by findAndReplaceTags for each event.
+    *
+    * @var string wiki tag
+    * @var string start tag
+    * @var string end tag
+    * @return string html tag
+    */
+    static private function replaceTags($str, $start, $end)
     {
-        if (self::$replace_status[$str]) {
-            self::$replace_status[$str] = 0;
-            return '<'.self::$replace_tag[$str].'>';
+        if (self::$replace_status) {
+            self::$replace_status = 0;
+            return $start;
         }
         else {
-            self::$replace_status[$str] = 1;
-            return '</'.self::$replace_tag[$str].'>';
+            self::$replace_status = 1;
+            return $end;
         }
+    }
+
+    /**
+    * Search tag and replace it by corresponding start and end
+    *
+    * @var string text
+    * @var string
+    * @var string start tag
+    * @var string end tag
+    * @return string
+    */
+    private static function findAndReplaceTags($str, $tag, $start, $end)
+    {
+        self::$replace_status = 1;
+        return preg_replace("/($tag)/e","self::replaceTags('\\1', '$start', '$end')", $str);
     }
 
     /**
@@ -34,15 +63,26 @@ class Parser
     static public function parse($str)
     {
         $str = htmlspecialchars($str, ENT_NOQUOTES);
+        $str = preg_replace('/===[ ]*((.*)[:punct::alnum:]+)[ ]*===\n/','<h3>\1</h3>', $str);
+        $str = preg_replace('/==[ ]*((.*)[:punct::alnum:]+)[ ]*==\n/','<h2>\1</h2>', $str);
+        $str = preg_replace('/=[ ]*((.*)[:punct::alnum:]+)[ ]*=\n/','<h1>\1</h1>', $str);
+
         $str = str_replace("\n\n", '<br /><br />', $str);
         $str = str_replace("\n", ' ', $str);
+        $str = str_replace("----", '<hr />', $str);
 
-        $array = self::$replace_tag;
-        while (current($array)) {
-            $tag = key($array);
-            self::$replace_status[$tag] = 1;
-            $str = preg_replace("/($tag)/e","Parser::replaceTags('\\1')", $str);
-            next($array);
+        $str = self::findAndReplaceTags($str, "'''''", '<b><i>',  '</i></b>');
+
+        $replace_tag = array(
+            '__' => 'u',
+            "'''" => 'b' ,
+            "''" => 'i',);
+        while ($html = current($replace_tag)) {
+            $tag = key($replace_tag);
+            $start = "<$html>";
+            $end = "</$html>";
+            $str = self::findAndReplaceTags($str, $tag, $start, $end);
+            next($replace_tag);
         }
         return $str;
     }

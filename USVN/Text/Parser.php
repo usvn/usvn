@@ -40,6 +40,38 @@ class Parser
     }
 
     /**
+    * Analyse line by line to transform wiki syntax to HTML tags
+    *
+    * @todo noplay: Clean this method
+    */
+    static private function parseLineByLine($str)
+    {
+        $result = "";
+        $list = False;
+        foreach(explode("\n", $str) as $line) {
+            if (strncmp($line, '* ' , 2) == 0) {
+                $line = '<ul>'.substr($line, 2).'</ul>';
+                if (!$list) {
+                    $list = True;
+                    $line = '<li>'.$line;
+                }
+            }
+            else {
+                if ($list) {
+                    $list = False;
+                    $line = '</li>'.$line;
+                }
+            }
+            $result .= $line."\n";
+        }
+        if ($list) {
+            $list = False;
+            $result .= '</li>';
+        }
+        return $result;
+    }
+
+    /**
     * Search tag and replace it by corresponding start and end
     *
     * @var string text
@@ -69,6 +101,9 @@ class Parser
 
         $str = preg_replace('/(http[s]?:\/\/[^[:space:]]*)/','<a href="\1">\1</a>', $str);
 
+        $str = self::parseLineByLine($str);
+
+        $str = rtrim($str);
         $str = str_replace("\n\n", '<br /><br />', $str);
         $str = str_replace("\n", ' ', $str);
         $str = str_replace("----", '<hr />', $str);

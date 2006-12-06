@@ -95,5 +95,13 @@ Second paragraph.'));
         $test = Parser::parse('I love https://www.noplay.net YOUPI');
         $this->assertEquals('I love <a href="https://www.noplay.net">https://www.noplay.net</a> YOUPI', $test, "Result: #".$test."#\n");
     }
+
+    public function test_list()
+    {
+        $test = Parser::parse('Liste de course:
+* un Canon EOS 400D
+* Une wii');
+        $this->assertEquals('Liste de course: <li><ul>un Canon EOS 400D</ul> <ul>Une wii</ul> </li>', $test, "Result: #".$test."#\n");
+    }
 }
 ?>

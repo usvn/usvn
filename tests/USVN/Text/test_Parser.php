@@ -105,7 +105,7 @@ Second paragraph.'));
 
     public  function test_externalLinkWithText()
     {
-        $test = USVN_Text_Parser::parse('I love [http://www.noplay.net Noplay Network] YOUPI');
+        $test = USVN_Text_Parser::parse('I love [[http://www.noplay.net|Noplay Network]] YOUPI');
         $this->assertEquals('I love <a href="http://www.noplay.net">Noplay Network</a> YOUPI', $test, "Result: #".$test."#\n");
     }
 

@@ -101,7 +101,7 @@ class USVN_Text_Parser
         $str = preg_replace('/=[ ]*((.*)[[:punct:][:alnum:]]+)[ ]*=\n/','<h1>\1</h1>', $str);
 
         $str = preg_replace('/(^|[^\[]+)(http[s]?:\/\/[^[:space:]]*)/','\1<a href="\2">\2</a>', $str);
-        $str = preg_replace('/\[(http[s]?:\/\/[^[:space:]]*) ([^\]]*)\]/','<a href="\1">\2</a>', $str);
+        $str = preg_replace('/\[\[(http[s]?:\/\/[^[:space:]]*)\|([^\]]*)\]\]/','<a href="\1">\2</a>', $str);
 
         $str = self::parseLineByLine($str);
 

@@ -90,10 +90,23 @@ Second paragraph.'));
         $this->assertEquals('I love <a href="http://www.noplay.net">http://www.noplay.net</a> YOUPI', $test, "Result: #".$test."#\n");
     }
 
+    public function test_link2()
+    {
+        $test = USVN_Text_Parser::parse('http://www.noplay.net');
+        $this->assertEquals('<a href="http://www.noplay.net">http://www.noplay.net</a>', $test, "Result: #".$test."#\n");
+    }
+
     public function test_httpsLink()
     {
         $test = USVN_Text_Parser::parse('I love https://www.noplay.net YOUPI');
         $this->assertEquals('I love <a href="https://www.noplay.net">https://www.noplay.net</a> YOUPI', $test, "Result: #".$test."#\n");
+    }
+
+
+    public  function test_externalLinkWithText()
+    {
+        $test = USVN_Text_Parser::parse('I love [http://www.noplay.net Noplay Network] YOUPI');
+        $this->assertEquals('I love <a href="http://www.noplay.net">Noplay Network</a> YOUPI', $test, "Result: #".$test."#\n");
     }
 
     public function test_list()

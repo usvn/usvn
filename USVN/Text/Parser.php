@@ -8,7 +8,7 @@
 * @since 0.1
 */
 
-class Parser
+class USVN_Text_Parser
 {
     /**
     * Start or end of tag

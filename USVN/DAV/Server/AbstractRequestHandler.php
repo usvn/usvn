@@ -13,7 +13,7 @@
 * Never inherit directly of this class! Use method specific request handler.
 *
 */
-abstract class AbstractRequestHandler
+abstract class USVN_DAV_Server_AbstractRequestHandler
 {
     /**
     * @var Server WebDav Server

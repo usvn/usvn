@@ -10,7 +10,7 @@
 * @since 0.1
 */
 
-class Server
+class USVN_DAV_Server_Server
 {
     /**
     * @var str

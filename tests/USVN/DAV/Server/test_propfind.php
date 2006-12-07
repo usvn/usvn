@@ -3,7 +3,7 @@ require_once 'USVN/DAV/Server/AbstractPropfindRequestHandler.php';
 require_once 'PHPUnit2/Framework/TestCase.php';
 require_once 'StubServer.php';
 
-class MyPROPFIND extends AbstractPropfindRequestHandler
+class MyPROPFIND extends USVN_DAV_Server_AbstractPropfindRequestHandler
 {
     public $property_call;
 

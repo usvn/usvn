@@ -17,7 +17,7 @@ require_once 'USVN/DAV/Server/AbstractRequestHandler.php';
 * @todo propname
 * @todo access control
 */
-abstract class AbstractPropfindRequestHandler extends AbstractRequestHandler
+abstract class USVN_DAV_Server_AbstractPropfindRequestHandler extends USVN_DAV_Server_AbstractRequestHandler
 {
     /**
     * List of available properties.

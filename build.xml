@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
   <property name="license" value="EPITECH licence" override="true" />
-  <property name="version" value="0.1" override="true" />
+  <property name="version" value="0.1.0" override="true" />
   <property name="status" value="alpha" override="true" />
   <property name="docdir" value="apidocs" override="true" />
   <property name="testdir" value="tests" override="true" />
@@ -109,7 +109,7 @@
         <echo msg="############################################" />
         <echo msg="Don't forget to change release note" />
         <echo msg="############################################" />
-        <pearpkg name="phing" dir="$." destFile="package.xml">
+        <pearpkg name="USVN" dir="." destFile="package.xml">
             <fileset refid="projectfile" />
             <option name="notes">${release_note}</option>
             <option name="description">USVN is a simple configuration tools for SVN</option>
@@ -133,7 +133,7 @@
                 <element>
                     <element key="handle" value="guyoll_o"/>
                     <element key="name" value="Olivier Guyollot"/>
-                    <element key="email" value="guyoll_o@epitech.net"/>
+                    <element key="email" value="olivier.guyollot@gmail.com"/>
                     <element key="role" value="developer"/>
                 </element>
                 <element>
@@ -148,9 +148,16 @@
                     <element key="email" value="attal_m@epitech.net"/>
                     <element key="role" value="developer"/>
                 </element>
+                <element>
+                    <element key="handle" value="joanic_g"/>
+                    <element key="name" value="Gabriel Joanicot"/>
+                    <element key="email" value="joanic_g@epitech.net"/>
+                    <element key="role" value="communication"/>
+                </element>
             </mapping>
         </pearpkg>
-        <phingcall target="tar" />
+        <exec command="pear package-validate package.xml" checkreturn="true" passthru="true"/>
+        <exec command="pear package package.xml" checkreturn="true" passthru="true"/>
     </target>
 
 <!-- Generation des archives -->

@@ -7,7 +7,7 @@
 
 require_once 'USVN/DAV/Server/Server.php';
 
-class StubServer extends Server
+class StubServer extends USVN_DAV_Server_Server
 {
     /**
     * @var str

@@ -53,6 +53,11 @@ Second paragraph.'));
         $this->assertEquals('This <b>is a</b> test', USVN_Text_Parser::parse("This '''is a''' test"));
     }
 
+    public function test_strike()
+    {
+        $this->assertEquals('This <del>is a</del> test', USVN_Text_Parser::parse("This --is a-- test"));
+    }
+
     public function test_bolditalic()
     {
         $this->assertEquals('This <b><i>is a</i></b> test', USVN_Text_Parser::parse("This '''''is a''''' test"));

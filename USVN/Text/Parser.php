@@ -133,7 +133,8 @@ class USVN_Text_Parser
         $replace_tag = array(
             '__' => 'u',
             "'''" => 'b' ,
-            "''" => 'i');
+            "''" => 'i',
+            '--' => 'del');
         while ($html = current($replace_tag)) {
             $tag = key($replace_tag);
             $start = "<$html>";

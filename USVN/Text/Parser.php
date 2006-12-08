@@ -105,15 +105,8 @@ class USVN_Text_Parser
         return preg_replace("/($tag)/e","self::replaceTags('\\1', '$start', '$end')", $str);
     }
 
-    /**
-    * Transform wiki syntax to HTML syntax
-    *
-    * @var string String to transform from wiki syntax to HTML syntax
-    * @return string HTML version
-    */
-    static public function parse($str)
+    static private function parseBloc($str)
     {
-        $str = htmlspecialchars($str, ENT_NOQUOTES);
         $str = preg_replace('/===[ ]*((.*)[[:punct:][:alnum:]]+)[ ]*===\n/','<h3>\1</h3>', $str);
         $str = preg_replace('/==[ ]*((.*)[[:punct:][:alnum:]]+)[ ]*==\n/','<h2>\1</h2>', $str);
         $str = preg_replace('/=[ ]*((.*)[[:punct:][:alnum:]]+)[ ]*=\n/','<h1>\1</h1>', $str);
@@ -144,5 +137,35 @@ class USVN_Text_Parser
         }
         return $str;
     }
+
+    /**
+    * Transform wiki syntax to HTML syntax
+    *
+    * @var string String to transform from wiki syntax to HTML syntax
+    * @return string HTML version
+    */
+    static public function parse($str)
+    {
+        $str = htmlspecialchars($str, ENT_NOQUOTES);
+        $result = "";
+        $is_verbatim = False;
+        foreach (explode("{{{", $str) as $bloc) {
+            if (!$is_verbatim) {
+                $result .= self::parseBloc($bloc);
+            }
+            else {
+                $pos = strrpos($bloc, '}}}');
+                if ($pos === false) {
+                    $result .= '<pre>'.$bloc.'</pre>';
+                }
+                else{
+                    $len = strlen($bloc);
+                    $result .= '<pre>'.substr($bloc, 0, $pos).'</pre>'.substr($bloc, $pos + 3, $len - $pos - 3);
+                    $is_verbatim = False;
+                }
+            }
+            $is_verbatim = ($is_verbatim == True) ? False : True;
+        }
+        return $result;
+    }
 }
-?>

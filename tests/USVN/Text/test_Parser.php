@@ -165,5 +165,19 @@ Second paragraph.'));
         $search = '<table><tr><td>M</td><td>y</td><td>S</td><td>Q</td><td>L</td></tr></table>';
         $this->assertEquals($search, $test, "Result: #".$test."#\n");
     }
+
+    public function test_verbatim()
+    {
+        $test = USVN_Text_Parser::parse('{{{--strike--}}}');
+        $search = '<pre>--strike--</pre>';
+        $this->assertEquals($search, $test, "Result: #".$test."#\n");
+    }
+
+    public function test_verbatim2()
+    {
+        $test = USVN_Text_Parser::parse('{{{--strike--}}} This is a test {{{__underline__}}}');
+        $search = '<pre>--strike--</pre> This is a test <pre>__underline__</pre>';
+        $this->assertEquals($search, $test, "Result: #".$test."#\n");
+    }
 }
 ?>

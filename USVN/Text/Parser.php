@@ -48,6 +48,7 @@ class USVN_Text_Parser
     {
         $result = "";
         $list_level = 0;
+        $table = False;
         foreach(explode("\n", $str) as $line) {
             $level = strspn($line, '*');
             if ($level) {
@@ -63,11 +64,28 @@ class USVN_Text_Parser
                     $list_level++;
                 }
             }
+            if (substr($line, -2) == '||') {
+                $line = preg_replace('/^\|\|(.*)\|\|$/', '<tr><td>\1</td></tr>', $line);
+                $line = str_replace('||', '</td><td>', $line);
+                if (!$table) {
+                    $line = '<table>'.$line;
+                    $table = True;
+                }
+            }
+            else {
+                if ($table) {
+                    $line = '</table>'.$line;
+                    $table = False;
+                }
+            }
             $result .= $line."\n";
         }
         while ($list_level) {
             $list_level--;
             $result .= '</li>';
+        }
+        if ($table) {
+            $result .= '</table>';
         }
         return $result;
     }
@@ -115,7 +133,7 @@ class USVN_Text_Parser
         $replace_tag = array(
             '__' => 'u',
             "'''" => 'b' ,
-            "''" => 'i',);
+            "''" => 'i');
         while ($html = current($replace_tag)) {
             $tag = key($replace_tag);
             $start = "<$html>";

@@ -112,37 +112,52 @@ Second paragraph.'));
     public function test_list()
     {
         // For list test espace are useless
-        $test = str_replace(USVN_Text_Parser::parse('Liste de course:
+        $test = str_replace(' ', '',USVN_Text_Parser::parse('Liste de course:
 * un Canon EOS 400D
-* Une wii'), ' ', '');
-        $search = str_replace('Liste de course: <li><ul>un Canon EOS 400D</ul> <ul>Une wii</ul> </li>', ' ', '');
+* Une wii'));
+        $search = str_replace(' ', '','Liste de course: <li><ul>un Canon EOS 400D</ul> <ul>Une wii</ul> </li>');
         $this->assertEquals($search, $test, "Result: #".$test."#\n");
     }
 
     public function test_listTwoLevel()
     {
         // For list test espace are useless
-        $test = str_replace(USVN_Text_Parser::parse('Liste de course:
+        $test = str_replace(' ', '',USVN_Text_Parser::parse('Liste de course:
 * un Canon EOS 400D
 ** Carte memoire 4 GO
 ** Grip
-* Une wii'), ' ', '');
-        $search = str_replace('Liste de course: <li><ul>un Canon EOS 400D</ul> <li><ul>Carte memoire 4 GO</ul> <ul>Grip</ul></li> <ul>Une wii</ul> </li>', ' ', '');
+* Une wii'));
+        $search = str_replace(' ', '','Liste de course: <li><ul>un Canon EOS 400D</ul> <li><ul>Carte memoire 4 GO</ul> <ul>Grip</ul></li> <ul>Une wii</ul> </li>');
         $this->assertEquals($search, $test, "Result: #".$test."#\n");
     }
 
     public function test_listThreeLevel()
     {
         // For list test espace are useless
-        $test = str_replace(USVN_Text_Parser::parse('Liste de course:
+        $test = str_replace(' ', '',USVN_Text_Parser::parse('Liste de course:
 * un Canon EOS 400D
 ** Carte memoire 4 GO
 ** Grip
 *** Batterie
 *** Couroie
 ** Objectif
-* Une wii'), ' ', '');
-        $search = str_replace('Liste de course: <li><ul>un Canon EOS 400D</ul> <li><ul>Carte memoire 4 GO</ul> <ul>Grip<li><ul>Batterie</ul><ul>Courroie</ul></li></ul><ul>Objectif</ul></li> <ul>Une wii</ul> </li>', ' ', '');
+* Une wii'));
+        $search = str_replace(' ', '','Liste de course: <li><ul>un Canon EOS 400D</ul><li><ul>Carte memoire 4 GO</ul><ul>Grip</ul><li><ul>Batterie</ul><ul>Couroie</ul></li><ul>Objectif</ul></li><ul>Une wii</ul></li>');
+        $this->assertEquals($search, $test, "Result: #".$test."#\n");
+    }
+
+    public function test_table()
+    {
+        $test =  USVN_Text_Parser::parse('||P||H||P||
+||My||SQL||Light Database||');
+        $search = '<table><tr><td>P</td><td>H</td><td>P</td></tr> <tr><td>My</td><td>SQL</td><td>Light Database</td></tr> </table>';
+        $this->assertEquals($search, $test, "Result: #".$test."#\n");
+    }
+
+    public function test_table2()
+    {
+        $test = str_replace(' ', '', USVN_Text_Parser::parse('||M||y||S||Q||L||'));
+        $search = '<table><tr><td>M</td><td>y</td><td>S</td><td>Q</td><td>L</td></tr></table>';
         $this->assertEquals($search, $test, "Result: #".$test."#\n");
     }
 }

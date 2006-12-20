@@ -1,0 +1,8 @@
+#Cas utilisation 
+Checkout selon un numero de version
+les autres requetes decoulent de celle-ci
+
+#SELECT 	MAX(num_rev) , filename, pahtfile
+ FROM   	Project_management
+ WHERE  	num_rev < "le numero de version demande"
+ GROUP BY 	filename, pathfile

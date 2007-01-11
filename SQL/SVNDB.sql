@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     10/01/2007 11:01:12                          */
+/* Created on:     11/01/2007 17:14:40                          */
 /*==============================================================*/
 
 
@@ -75,6 +75,7 @@ create table PROJECT_MANAGEMENT
    TYP_REV                        char(1),
    PM_ID                          numeric(8,0)                   not null,
    PROJECT_ID                     numeric(8,0)                   not null,
+   PROPERTY                       text,
    primary key (PM_ID)
 )
 type = InnoDB;

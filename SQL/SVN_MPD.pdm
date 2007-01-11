@@ -12,7 +12,7 @@
 <a:Code>SVN_MPD</a:Code>
 <a:CreationDate>1168423145</a:CreationDate>
 <a:Creator>Dark</a:Creator>
-<a:ModificationDate>1168532025</a:ModificationDate>
+<a:ModificationDate>1168532080</a:ModificationDate>
 <a:Modifier>Dark</a:Modifier>
 <a:History>ORG {4A50325F-01EB-4ECF-B48D-96692F41D958}
 DAT 1168531729
@@ -195,7 +195,7 @@ GenIndxFkey=Yes
 GenIndxAkey=No
 GenIndxClus=Yes
 GenIndxOthr=Yes
-GenIndxOpts=Yes
+GenIndxOpts=No
 GenIndxCmmt=No
 GenIndxDrop=Yes
 GenViewCrea=No

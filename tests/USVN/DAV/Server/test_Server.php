@@ -31,6 +31,7 @@ class TestDavServer extends PHPUnit2_Framework_TestCase
         $server = new USVN_DAV_Server_Server();
         $this->assertEquals($server->getRequestContent(), '');
 
+        mkdir("tests/tmp/", 0700);
         $f = fopen('tests/tmp/test.tmp', 'w+');
         fputs($f, 'Youpi');
         fclose($f);

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
   <property name="license" value="CECILLE" override="true" />
-  <property name="version" value="0.1.0" override="true" />
+  <property name="version" value="0.5.0" override="true" />
   <property name="status" value="alpha" override="true" />
   <property name="docdir" value="apidocs" override="true" />
   <property name="testdir" value="tests" override="true" />

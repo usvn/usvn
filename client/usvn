@@ -1,2 +1,15 @@
 #!/usr/bin/env php
+<?php
+require_once 'USVN/Client/Client.php';
 
+$args = $argv;
+array_shift($args);
+try
+{
+    new USVN_Client_Client($args);
+}
+catch (Exception $e)
+{
+    echo $e->getMessage();
+    exit(1);
+}

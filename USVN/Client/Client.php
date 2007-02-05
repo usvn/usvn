@@ -4,6 +4,7 @@
 */
 
 require_once 'USVN/Client/Install.php';
+require_once 'USVN/Client/Uninstall.php';
 
 /**
 * Main class of command line client
@@ -36,6 +37,14 @@ class USVN_Client_Client
         $cmd = array_shift($args);
         switch ($cmd)
         {
+            case 'install':
+                $this->cmdInstall($args);
+            break;
+
+            case 'uninstall':
+                $this->cmdUninstall($args);
+            break;
+
             case 'help':
                 $this->cmdDisplayHelp($args);
             break;
@@ -86,6 +95,12 @@ class USVN_Client_Client
         $user = $args[2];
         $password = $args[3];
         new USVN_Client_Install($path, $url, $user, $password);
+    }
+
+    private function cmdUninstall($args)
+    {
+        $path = $args[0];
+        new USVN_Client_Uninstall($path);
     }
 
     /**

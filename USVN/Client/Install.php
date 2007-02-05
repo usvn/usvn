@@ -29,7 +29,7 @@ class USVN_Client_Install
         {
             $src = $this->getHookPath()."/{$hook}";
             $dst = $this->path."/hooks/{$hook}";
-            if (!copy($src, $dst))
+            if (!@copy($src, $dst))
             {
                 throw new Exception("Can't copy $src to $dst.");
             }

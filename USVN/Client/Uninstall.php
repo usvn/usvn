@@ -28,9 +28,9 @@ class USVN_Client_Uninstall
         foreach (USVN_Client_SVNUtils::$hooks as $hook)
         {
             $dst = $this->path."/hooks/{$hook}";
-            if (!unlink($dst))
+            if (!@unlink($dst))
             {
-                throw new Exception("Can't remove $dst. Are your sure that {$this->path} is an usvn repository?");
+                throw new Exception("Can't remove $dst.\nAre your sure that {$this->path} is an usvn repository?");
             }
         }
     }

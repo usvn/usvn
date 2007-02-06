@@ -21,6 +21,7 @@ class USVN_Client_Uninstall
         }
         $this->path = $path.'/';
         $this->removeHooks();
+        rmdir($this->path.'/usvn');
     }
 
     private function removeHooks()

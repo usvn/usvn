@@ -48,5 +48,6 @@ class TestClientUninstall extends PHPUnit2_Framework_TestCase
         $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'user', 'pass');
         $unistall = new USVN_Client_Uninstall('tests/tmp/testrepository');
         $this->assertFalse(file_exists('tests/tmp/testrepository/hooks/start-commit'));
+        $this->assertFalse(file_exists('tests/tmp/testrepository/usvn'));
     }
 }

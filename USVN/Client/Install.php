@@ -20,6 +20,7 @@ class USVN_Client_Install
             throw new Exception("$path is not a valid SVN repository");
         }
         $this->path = $path.'/';
+        mkdir($this->path.'/usvn');
         $this->installHooks();
     }
 

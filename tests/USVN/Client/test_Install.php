@@ -47,5 +47,15 @@ class TestClientInstall extends PHPUnit2_Framework_TestCase
         $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'user', 'pass');
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/start-commit'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/pre-commit'));
-        $this->assertTrue(file_exists('tests/tmp/testrepository/usvn'));    }
+        $this->assertTrue(file_exists('tests/tmp/testrepository/usvn'));
+    }
+
+    public function test_configFile()
+    {
+        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'user', 'pass');
+        $xml = simplexml_load_file('tests/tmp/testrepository/usvn/config.xml');
+        $this->assertEquals('http://bidon', (string)$xml->url);
+        $this->assertEquals('user', (string)$xml->user);
+        $this->assertEquals('pass', (string)$xml->password);
+    }
 }

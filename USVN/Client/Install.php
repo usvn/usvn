@@ -12,6 +12,9 @@ require_once 'USVN/Client/SVNUtils.php';
 class USVN_Client_Install
 {
     private $path;
+    private $url;
+    private $password;
+    private $user;
 
     public function USVN_Client_Install($path, $url, $user, $password)
     {
@@ -20,7 +23,11 @@ class USVN_Client_Install
             throw new Exception("$path is not a valid SVN repository");
         }
         $this->path = $path.'/';
+        $this->url = $url;
+        $this->user = $user;
+        $this->password = $password;
         mkdir($this->path.'/usvn');
+        $this->createConfigFile();
         $this->installHooks();
     }
 
@@ -34,6 +41,18 @@ class USVN_Client_Install
             {
                 throw new Exception("Can't copy $src to $dst.");
             }
+        }
+    }
+
+    private function createConfigFile()
+    {
+        $xml = new SimpleXMLElement("<usvn></usvn>");
+        $xml->url = $this->url;
+        $xml->user = $this->user;
+        $xml->password = $this->password;
+        if (!@file_put_contents($this->path.'/usvn/config.xml', $xml->asXml()))
+        {
+                throw new Exception("Can't write config file.");
         }
     }
 

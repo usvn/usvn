@@ -5,6 +5,7 @@
 */
 
 require_once 'USVN/Client/SVNUtils.php';
+require_once 'USVN/DirectoryUtils.php';
 
 /**
 * The uninstall command
@@ -21,7 +22,7 @@ class USVN_Client_Uninstall
         }
         $this->path = $path.'/';
         $this->removeHooks();
-        rmdir($this->path.'/usvn');
+        USVN_DirectoryUtils::removeDirectory($this->path.'/usvn');
     }
 
     private function removeHooks()

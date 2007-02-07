@@ -2,6 +2,7 @@
 /**
 * @package utils
 * @subpackage directory
+* @since 0.5
 */
 
 /**
@@ -14,7 +15,14 @@ class USVN_DirectoryUtils
     */
     public function removeDirectory($path)
     {
-        $dir = new RecursiveDirectoryIterator($path);
+        try
+        {
+            $dir = new RecursiveDirectoryIterator($path);
+        }
+        catch(Exception $e)
+        {
+            return;
+        }
         foreach(new RecursiveIteratorIterator($dir) as $file)
         {
             unlink($file);

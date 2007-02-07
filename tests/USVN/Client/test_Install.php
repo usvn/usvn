@@ -2,12 +2,13 @@
 /**
 * @package client
 * @subpackage install
+* @since 0.5
 *
-* This test use UNIX commands rm and svnadmin. It's probably easy to remove
-* use of rm but you can't remove use of svnadmin.
+* This test use UNIX command svnadmin.
 */
 
 require_once 'USVN/Client/Install.php';
+require_once 'USVN/DirectoryUtils.php';
 
 class TestClientInstall extends PHPUnit2_Framework_TestCase
 {
@@ -25,8 +26,8 @@ class TestClientInstall extends PHPUnit2_Framework_TestCase
 
     private function clean()
     {
-        exec("rm -Rf tests/tmp/testrepository");
-        @rmdir('tests/tmp/fakerepository');
+        USVN_DirectoryUtils::removeDirectory("tests/tmp/testrepository");
+        USVN_DirectoryUtils::removeDirectory('tests/tmp/fakerepository');
     }
 
     public function test_notSvnRepository()

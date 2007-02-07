@@ -2,9 +2,11 @@
 /**
 * @package client
 * @subpackage install
+* @since 0.5
 */
 
 require_once 'USVN/Client/SVNUtils.php';
+require_once 'USVN/Client/Config.php';
 
 /**
 * The install command
@@ -46,14 +48,11 @@ class USVN_Client_Install
 
     private function createConfigFile()
     {
-        $xml = new SimpleXMLElement("<usvn></usvn>");
-        $xml->url = $this->url;
-        $xml->user = $this->user;
-        $xml->password = $this->password;
-        if (!@file_put_contents($this->path.'/usvn/config.xml', $xml->asXml()))
-        {
-                throw new Exception("Can't write config file.");
-        }
+        $config = new USVN_Client_Config($this->path);
+        $config->url = $this->url;
+        $config->user = $this->user;
+        $config->password = $this->password;
+        $config->save();
     }
 
     private function getHookPath()

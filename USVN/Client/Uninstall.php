@@ -2,6 +2,7 @@
 /**
 * @package client
 * @subpackage uninstall
+* @since 0.5
 */
 
 require_once 'USVN/Client/SVNUtils.php';

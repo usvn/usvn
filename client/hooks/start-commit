@@ -1,3 +1,16 @@
 #!/usr/bin/env php
 <?php
-exit(0);
+set_include_path(get_include_path().PATH_SEPARATOR .dirname(__FILE__).'../usvn');
+
+require_once('USVN/Client/Hook/StartCommir.php');
+
+try
+{
+    $hook = new USVN_Client_Hook_StartCommit($args[1], $args[2]);
+    exit($hook->send());
+}
+catch (Exception $e)
+{
+    echo $e->getMessage()."\n";
+    exit(1);
+}

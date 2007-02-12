@@ -43,6 +43,10 @@ class USVN_Client_Install
             {
                 throw new Exception("Can't copy $src to $dst.");
             }
+            if (!@chmod($dst, 0700))
+            {
+                throw new Exception("Can't change right of $dst.");
+            }
         }
     }
 

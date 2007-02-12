@@ -48,6 +48,7 @@ class TestClientInstall extends PHPUnit2_Framework_TestCase
         $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'user', 'pass');
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/start-commit'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/pre-commit'));
+        $this->assertTrue(is_executable('tests/tmp/testrepository/hooks/pre-commit'), "Hook is not executable");
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn'));
     }
 

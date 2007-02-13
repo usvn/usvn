@@ -2,11 +2,11 @@
 <?php
 set_include_path(get_include_path().PATH_SEPARATOR .dirname(__FILE__).'../usvn');
 
-require_once('USVN/Client/Hook/StartCommir.php');
+require_once('USVN/Client/Hooks/StartCommit.php');
 
 try
 {
-    $hook = new USVN_Client_Hook_StartCommit($args[1], $args[2]);
+    $hook = new USVN_Client_Hooks_StartCommit($args[1], $args[2]);
     exit($hook->send());
 }
 catch (Exception $e)

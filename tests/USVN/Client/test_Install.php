@@ -50,6 +50,7 @@ class TestClientInstall extends PHPUnit2_Framework_TestCase
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/pre-commit'));
         $this->assertTrue(is_executable('tests/tmp/testrepository/hooks/pre-commit'), "Hook is not executable");
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn'));
+        $this->assertTrue(file_exists('tests/tmp/testrepository/usvn/USVN/Client/Hooks/StartCommit.php'), "Source code of hooks class is not available.");
     }
 
     public function test_configFile()

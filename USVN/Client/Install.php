@@ -31,6 +31,7 @@ class USVN_Client_Install
         mkdir($this->path.'/usvn');
         $this->createConfigFile();
         $this->installHooks();
+        $this->installSourceFiles();
     }
 
     private function installHooks()
@@ -47,6 +48,26 @@ class USVN_Client_Install
             {
                 throw new Exception("Can't change right of $dst.");
             }
+        }
+    }
+
+    private function installSourceFiles()
+    {
+        mkdir($this->path.'/usvn/USVN');
+        mkdir($this->path.'/usvn/USVN/Client');
+        $hookdst = $this->path.'/usvn/USVN/Client/Hooks/';
+        mkdir($hookdst);
+        $hookdir = 'USVN/Client/Hooks/';
+         if ($dh = opendir($hookdir))
+         {
+            while (($file = readdir($dh)) !== false)
+            {
+                if ($file != '.' && $file != '..')
+                {
+                    copy($hookdir.'/'.$file, $hookdst.'/'.$file);
+                }
+            }
+            closedir($dh);
         }
     }
 

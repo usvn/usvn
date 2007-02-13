@@ -8,7 +8,7 @@
 require_once 'Zend/XmlRpc/Client.php';
 require_once 'USVN/Client/Config.php';
 
-class USVN_Client_Hook_Hook
+class USVN_Client_Hooks_Hook
 {
     protected $xmlrpc;
     protected $config;
@@ -17,7 +17,7 @@ class USVN_Client_Hook_Hook
     /**
     * @var repos_path Path of the svn repository
     */
-    public function USVN_Client_Hook_Hook($repos_path)
+    public function USVN_Client_Hooks_Hook($repos_path)
     {
         $this->repos_path = $repos_path.'/';
         $this->config = new USVN_Client_Config($repos_path);

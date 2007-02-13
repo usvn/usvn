@@ -5,15 +5,15 @@
 * @since 0.5
 */
 
-require_once 'USVN/Client/Hook/Hook.php';
+require_once 'USVN/Client/Hooks/Hook.php';
 
-class USVN_Client_Hook_StartCommit extends USVN_Client_Hook_Hook
+class USVN_Client_Hooks_StartCommit extends USVN_Client_Hooks_Hook
 {
     private $user;
 
-    public function USVN_Client_Hook_StartCommit($repos_path, $user)
+    public function USVN_Client_Hooks_StartCommit($repos_path, $user)
     {
-        parent::USVN_Client_Hook_Hook($repos_path);
+        parent::USVN_Client_Hooks_Hook($repos_path);
         $this->user = $user;
     }
 

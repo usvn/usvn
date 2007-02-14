@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteBase	/~stem
+RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
+
+php_value magic_quotes off
+php_value register_globals off

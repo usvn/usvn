@@ -6,4 +6,4 @@ define('USVN_CONFIG_SECTION', 'general');
 
 define('BASE_URL', '/~stem/');
 
-require_once dirname(__FILE__) . '/../application/bootstrap.php';
+require_once 'USVN/bootstrap.php';

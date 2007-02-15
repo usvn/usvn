@@ -1,6 +1,8 @@
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/library');
+if (is_dir(dirname(__FILE__) . '/library')) {
+	set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/library');
+}
 
 require_once 'Zend.php';
 require_once dirname(__FILE__) . '/modules/_default/controllers/IndexController.php';

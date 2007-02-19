@@ -1,13 +1,14 @@
 <?php
 
 define('USVN_DIRECTORY', dirname(__FILE__) . '/USVN');
+define('USVN_LIBRARY_DIRECTORY', dirname(__FILE__) . '/library');
 define('USVN_CONFIG_FILE', USVN_DIRECTORY . '/config.ini');
 define('USVN_CONFIG_SECTION', 'general');
 
-define('BASE_URL', '/~stem/');
+define('BASE_URL', '/');
 
-if (is_dir(USVN_DIRECTORY . '/library')) {
-	set_include_path(get_include_path() . PATH_SEPARATOR . USVN_DIRECTORY . '/library');
+if (is_dir(USVN_LIBRARY_DIRECTORY)) {
+	set_include_path(get_include_path() . PATH_SEPARATOR . USVN_LIBRARY_DIRECTORY);
 }
 
 require_once 'USVN/bootstrap.php';

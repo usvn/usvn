@@ -6,4 +6,8 @@ define('USVN_CONFIG_SECTION', 'general');
 
 define('BASE_URL', '/~stem/');
 
+if (is_dir(USVN_DIRECTORY . '/library')) {
+	set_include_path(get_include_path() . PATH_SEPARATOR . USVN_DIRECTORY . '/library');
+}
+
 require_once 'USVN/bootstrap.php';

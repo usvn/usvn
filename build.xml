@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
-  <property name="license" value="CECILLE" override="true" />
+  <property name="license" value="CECILL" override="true" />
   <property name="version" value="0.5.0" override="true" />
   <property name="status" value="alpha" override="true" />
   <property name="docdir" value="apidocs" override="true" />
@@ -29,6 +29,7 @@
   <target name="all">
     <echo msg="Build USVN ${version} ${status}" />
     <phingcall target="lint" />
+    <phingcall target="translation-compilation" />
     <phingcall target="test" />
     <phingcall target="doc" />
   </target>
@@ -160,6 +161,12 @@
         <exec command="pear package-validate package.xml" checkreturn="true" passthru="true"/>
         <exec command="pear package package.xml" checkreturn="true" passthru="true"/>
     </target>
+
+<target name="translation-compilation">
+    <taskdef name="gettext-compilation" classname="phing.tasks.CompilationGetTextTask" />
+    <gettext-compilation localedirectory="locale/" />
+</target>
+
 
 <!-- Generation des archives -->
   <target name="tar">

@@ -6,7 +6,7 @@
 * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
 * @copyright Copyright 2007, Team USVN
 * @since 0.5
-* @package install
+* @package usvn
 *
 ** This software has been written in EPITECH <http://www.epitech.net>
 ** EPITECH is computer science school in Paris - FRANCE -
@@ -37,6 +37,6 @@ class TestTranslation extends PHPUnit2_Framework_TestCase
 	public function test_translation()
     {
 		USVN_Translation::initTranslation('fr_FR');
-		$this->assertEquals("Bienvenue dans USVN", T_("Welcome to USVN"));
+		$this->assertEquals("Bienvenue dans USVN", T_("Welcome to USVN"), "Translation error.");
 	}
 }

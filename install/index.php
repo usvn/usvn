@@ -3,6 +3,7 @@
 * Root for installation.
 *
 * @author Team USVN <contact@usvn.info>
+* @link http://www.usvn.info
 * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
 * @copyright Copyright 2007, Team USVN
 * @since 0.5

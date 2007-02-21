@@ -68,6 +68,7 @@
         <fail if="unit_test_failure" message="Unit tests failed!!!" />
     </target>
 
+
     <target name="cover">
         <delete file="${cover_report_dir}/*" />
         <mkdir dir="${cover_report_dir}" />
@@ -162,13 +163,19 @@
         <exec command="pear package package.xml" checkreturn="true" passthru="true"/>
     </target>
 
+
+<!-- Translation -->
 <target name="translation-compilation">
     <taskdef name="gettext-compilation" classname="phing.tasks.CompilationGetTextTask" />
     <gettext-compilation localedirectory="locale/" />
 </target>
 
+<target name="translation-findstr">
+    <taskdef name="gettext-findstr" classname="phing.tasks.FindStrGetTextTask" />
+    <gettext-findstr />
+</target>
 
-<!-- Generation des archives -->
+<!-- Archives -->
   <target name="tar">
     <mkdir dir="${archive_dir}" />
     <delete file="${archive_dir}/usvn-${version}.tgz" />

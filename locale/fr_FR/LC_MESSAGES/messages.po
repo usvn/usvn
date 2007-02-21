@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-19 18:20-0500\n"
+"POT-Creation-Date: 2007-02-20 19:26-0500\n"
 "PO-Revision-Date: 2007-02-19 18:29-0500\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team: Français <contact@usvn.fr>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../../../install/index.php:16
-msgid "Welcome to USVN"
-msgstr "Bienvenue dans USVN"
-
-#: ../../../install/index.php:18
-msgid "Copyright USVN"
-msgstr "Copyright l'équipe USVN 2007."
-
-#: ../../../install/index.php:8
+#: ../../../install/index.php:26
+#, php-format
 msgid "Local %s is not supported by the system."
 msgstr "La local %s n'est pas supporté par le système."
 
+#: ../../../install/index.php:34
+msgid "Welcome to USVN"
+msgstr "Bienvenue dans USVN"
+
+#: ../../../install/index.php:36
+msgid "Copyright USVN"
+msgstr "Copyright l'équipe USVN 2007."

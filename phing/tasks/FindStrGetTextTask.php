@@ -22,7 +22,6 @@ require_once "phing/Task.php";
 class FindStrGetTextTask extends Task {
 
     protected $localedirectory = "locale"; // directory where translation are save
-//    protected $filesets = array(); // all fileset objects assigned to this task
 
     /**
     *
@@ -84,17 +83,6 @@ class FindStrGetTextTask extends Task {
 		file_put_contents ("messages.po", $messagepo);
 		exec("msgmerge old.po messages.po --output-file=messages.po");
 		unlink("old.po");
- /*
-        $project = $this->getProject();
-        foreach($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($project);
-            $files = $ds->getIncludedFiles();
-            $dir = $fs->getDir($this->project)->getPath();
-            foreach($files as $file) {
-                echo $dir.DIRECTORY_SEPARATOR.$file;
-            }
-        }
-*/
 		chdir($savepath);
     }
 }

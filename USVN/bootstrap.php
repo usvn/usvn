@@ -1,5 +1,4 @@
 <?php
-
 if (is_dir(dirname(__FILE__) . '/library')) {
 	set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/library');
 }
@@ -9,7 +8,7 @@ require_once dirname(__FILE__) . '/modules/_default/controllers/IndexController.
 
 /**
  * Autoload a class when requested.
- * 
+ *
  * This is a PHP magic function which is call
  * when a script use a class that does not exist.
  *
@@ -25,6 +24,12 @@ try {
 	 * Load our ini conf file
 	 */
 	$config = new Zend_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+
+	/**
+	* Configure language
+	*/
+	require_once 'USVN/Translation.php';
+	USVN_Translation::initTranslation($config->translation->locale);
 
 	/**
 	 * Configure our default db adapter
@@ -63,7 +68,7 @@ try {
 		$modules[$module] = $path .'/controllers';
 		if (isset($config->$module) && isset($config->$module->routes)) {
 			$router->addConfig($config->$module, 'routes');
-			
+
 		}
 	}
 	$modules['default'] = dirname(__FILE__) . '/modules/_default/controllers';

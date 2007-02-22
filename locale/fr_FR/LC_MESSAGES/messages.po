@@ -20,7 +20,7 @@ msgstr ""
 #: ../../../install/index.php:26
 #, php-format
 msgid "Local %s is not supported by the system."
-msgstr "La local %s n'est pas supporté par le système."
+msgstr "La locale %s n'est pas supportée par le système."
 
 #: ../../../install/index.php:34
 msgid "Welcome to USVN"

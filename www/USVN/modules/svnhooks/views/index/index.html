@@ -1,0 +1,7 @@
+<?php
+require_once 'Zend/XmlRpc/Server.php';
+require_once 'USVN/modules/svnhooks/models/Hooks.php';
+
+$server = new Zend_XmlRpc_Server();
+$server->setClass('USVN_modules_svnhooks_Hooks', 'usvn.client.hooks');
+echo $server->handle();

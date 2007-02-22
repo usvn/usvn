@@ -1,16 +1,25 @@
 #!/usr/bin/env php
 <?php
-set_include_path(get_include_path().PATH_SEPARATOR .dirname(__FILE__).'../usvn');
+set_include_path(get_include_path().PATH_SEPARATOR .dirname(__FILE__).'/../usvn');
 
 require_once('USVN/Client/Hooks/StartCommit.php');
 
 try
 {
-    $hook = new USVN_Client_Hooks_StartCommit($args[1], $args[2]);
-    exit($hook->send());
+    $hook = new USVN_Client_Hooks_StartCommit($argv[1], $argv[2]);
+	$res = $hook->send();
+	if ($res) {
+		$stderr = fopen('php://stderr', 'w');
+		fwrite($stderr,$res."\n");
+		fclose($stderr);
+		exit(1);
+	}
+	exit(0);
 }
 catch (Exception $e)
 {
-    echo $e->getMessage()."\n";
+	$stderr = fopen('php://stderr', 'w');
+	fwrite($stderr,$e->getMessage()."\n");
+	fclose($stderr);
     exit(1);
 }

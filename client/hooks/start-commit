@@ -3,23 +3,20 @@
 set_include_path(get_include_path().PATH_SEPARATOR .dirname(__FILE__).'/../usvn');
 
 require_once('USVN/Client/Hooks/StartCommit.php');
+require_once('USVN/Client/ConsoleUtils.php');
 
 try
 {
     $hook = new USVN_Client_Hooks_StartCommit($argv[1], $argv[2]);
 	$res = $hook->send();
 	if ($res) {
-		$stderr = fopen('php://stderr', 'w');
-		fwrite($stderr,$res."\n");
-		fclose($stderr);
+		USVN_Client_ConsoleUtils::writeOnStdError($res."\n");
 		exit(1);
 	}
 	exit(0);
 }
 catch (Exception $e)
 {
-	$stderr = fopen('php://stderr', 'w');
-	fwrite($stderr,$e->getMessage()."\n");
-	fclose($stderr);
+	USVN_Client_ConsoleUtils::writeOnStdError($e->getMessage()."\n");
     exit(1);
 }

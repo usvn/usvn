@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 require_once 'USVN/Client/Client.php';
+require_once('USVN/Client/ConsoleUtils.php');
 
 $args = $argv;
 array_shift($args);
@@ -10,6 +11,6 @@ try
 }
 catch (Exception $e)
 {
-    echo $e->getMessage()."\n";
+	USVN_Client_ConsoleUtils::writeOnStdError($e->getMessage()."\n");
     exit(1);
 }

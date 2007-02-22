@@ -51,24 +51,32 @@ class USVN_Client_Install
         }
     }
 
-    private function installSourceFiles()
-    {
-        mkdir($this->path.'/usvn/USVN');
-        mkdir($this->path.'/usvn/USVN/Client');
-        $hookdst = $this->path.'/usvn/USVN/Client/Hooks/';
-        mkdir($hookdst);
-        $hookdir = 'USVN/Client/Hooks/';
-         if ($dh = opendir($hookdir))
+	private function copyLibraryFiles($dir)
+	{
+		$dst = $this->path.'/usvn/'.$dir;
+		mkdir($dst);
+         if ($dh = opendir($dir))
          {
             while (($file = readdir($dh)) !== false)
             {
-                if ($file != '.' && $file != '..')
+                if ($file[0] != '.')
                 {
-                    copy($hookdir.'/'.$file, $hookdst.'/'.$file);
+					if (is_dir($dir.'/'.$file)) {
+						$this->copyLibraryFiles($dir.'/'.$file);
+					}
+					else {
+						copy($dir.'/'.$file, $dst.'/'.$file);
+					}
                 }
             }
             closedir($dh);
         }
+	}
+
+    private function installSourceFiles()
+    {
+        mkdir($this->path.'/usvn/USVN');
+		$this->copyLibraryFiles('USVN/Client');
     }
 
     private function createConfigFile()

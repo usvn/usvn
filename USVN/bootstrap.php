@@ -6,6 +6,8 @@ if (is_dir(dirname(__FILE__) . '/library')) {
 require_once 'Zend.php';
 require_once dirname(__FILE__) . '/modules/_default/controllers/IndexController.php';
 
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/modules/_default/models/');
+
 /**
  * Autoload a class when requested.
  *
@@ -35,6 +37,9 @@ try {
 	 * Configure our default db adapter
 	 */
 	Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->asArray()));
+	if (isset($config->database->prefixe)) {
+		USVN_Db_Table::$prefix = $config->database->prefixe;
+	}
 
 
 	/**

@@ -56,8 +56,19 @@ class IndexController extends Zend_Controller_Action {
 		$this->_view->assign('module', $this->getRequest()->getParam('module'));
 		$this->_view->assign('controller', $this->getRequest()->getParam('controller'));
 		$this->_view->assign('action', $this->getRequest()->getParam('action'));
+		
+		$this->_checkAccess(Zend_Auth::getInstance()->getIdentity());
 	}
 
+	/**
+	 * Check if the current identity can access this module/controller/action
+	 *
+	 * @param Array $identity
+	 */
+	protected function _checkAccess($identity)
+	{
+	}
+	
 	/**
 	 * Default action for evry controller.
 	 *

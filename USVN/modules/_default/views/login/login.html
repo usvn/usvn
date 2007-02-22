@@ -1,0 +1,16 @@
+<form action="" method="post">
+	<input type="text" name="login" value="<?php echo (isset($this->login) ? $this->login : ""); ?>" /><br>
+	<input type="password" name="password" /><br>
+	<input type="submit" value="<?php echo T_("Login"); ?>" />
+</form>
+<p class="error">
+<?php
+if (isset($this->messages)) {
+	// Authentication failed; print the reasons why
+	foreach ($this->messages as $message) {
+		echo "$message<br>\n";
+	}
+}
+
+?>
+</p>

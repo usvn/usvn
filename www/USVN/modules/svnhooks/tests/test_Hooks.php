@@ -6,7 +6,7 @@
 
 require_once 'www/USVN/modules/svnhooks/models/Hooks.php';
 
-class TestStartCommit extends PHPUnit2_Framework_TestCase
+class Test_SvnHooks_Hooks extends PHPUnit2_Framework_TestCase
 {
     public function test_startCommit()
     {

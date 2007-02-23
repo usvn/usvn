@@ -22,6 +22,7 @@ require_once "phing/Task.php";
 class CompilationGetTextTask extends Task {
 
     protected $localedirectory = "locale"; // directory where translation are save
+    protected $file = "messages"; //  translation file
 
     /**
     *
@@ -30,6 +31,15 @@ class CompilationGetTextTask extends Task {
 	function setLocaledirectory($value)
 	{
 		$this->localedirectory = $value;
+	}
+
+    /**
+    *
+    * @param string file name for translations. By default it's messages
+    */
+	function setFile($value)
+	{
+		$this->file = $value;
 	}
 
     /**
@@ -42,8 +52,8 @@ class CompilationGetTextTask extends Task {
         while (($lang = readdir($dh)) !== false) {
             if ($lang[0] != '.') {
                 $this->log("Compilation of $lang", PROJECT_MSG_INFO);
-                $src = $this->localedirectory.'/'.$lang.'/LC_MESSAGES/messages.po';
-                $dst = $this->localedirectory.'/'.$lang.'/LC_MESSAGES/messages.mo';
+                $src = $this->localedirectory.'/'.$lang.'/LC_MESSAGES/'.$this->file.'.po';
+                $dst = $this->localedirectory.'/'.$lang.'/LC_MESSAGES/'.$this->file.'.mo';
                 if (!is_file($src)) {
                     throw new BuildException("File $src doesn't exist.");
                 }

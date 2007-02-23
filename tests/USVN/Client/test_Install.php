@@ -34,7 +34,7 @@ class TestClientInstall extends PHPUnit2_Framework_TestCase
     {
         try
         {
-            new USVN_Client_Install('tests/tmp/fakerepository', 'http://bidon', 'user', 'pass');
+            new USVN_Client_Install('tests/tmp/fakerepository', 'http://bidon', 'auth007');
         }
         catch (Exception $e)
         {
@@ -45,7 +45,7 @@ class TestClientInstall extends PHPUnit2_Framework_TestCase
 
     public function test_installHook()
     {
-        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'user', 'pass');
+        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'auth007');
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/start-commit'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/pre-commit'));
         $this->assertTrue(is_executable('tests/tmp/testrepository/hooks/pre-commit'), "Hook is not executable");
@@ -56,10 +56,9 @@ class TestClientInstall extends PHPUnit2_Framework_TestCase
 
     public function test_configFile()
     {
-        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'user', 'pass');
+        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'auth007');
         $xml = simplexml_load_file('tests/tmp/testrepository/usvn/config.xml');
         $this->assertEquals('http://bidon', (string)$xml->url);
-        $this->assertEquals('user', (string)$xml->user);
-        $this->assertEquals('pass', (string)$xml->password);
+        $this->assertEquals('auth007', (string)$xml->auth);
     }
 }

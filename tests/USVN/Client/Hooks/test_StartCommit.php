@@ -25,6 +25,6 @@ class TestStartCommit extends HookTest
         $this->assertEquals("Start commit error", $this->hook->send());
         $request  = $this->hook->getLastRequest();
         $this->assertSame('usvn.client.hooks.startCommit', $request->getMethod());
-        $this->assertSame(array('tests/tmp/testrepository/', 'toto'), $request->getParams());
+        $this->assertSame(array('007', 'toto'), $request->getParams());
     }
 }

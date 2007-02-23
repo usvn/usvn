@@ -13,7 +13,7 @@ class HookTest extends PHPUnit2_Framework_TestCase
     {
         @mkdir('tests/tmp/testrepository');
         @mkdir('tests/tmp/testrepository/usvn');
-        $xml = new SimpleXMLElement("<usvn><url>http://foo</url></usvn>");
+        $xml = new SimpleXMLElement("<usvn><url>http://foo</url><auth>007</auth></usvn>");
         file_put_contents('tests/tmp/testrepository/usvn/config.xml', $xml->asXml());
 
         $this->httpAdapter = new Zend_Http_Client_Adapter_Test();

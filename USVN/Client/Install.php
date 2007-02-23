@@ -18,7 +18,12 @@ class USVN_Client_Install
     private $password;
     private $user;
 
-    public function USVN_Client_Install($path, $url, $user, $password)
+	/**
+	* @param string Local path of svn repository
+	* @param string Url of USVN
+	* @param string Auth id
+	*/
+    public function USVN_Client_Install($path, $url, $authid)
     {
         if (!USVN_Client_SVNUtils::isSVNRepository($path))
         {
@@ -26,8 +31,7 @@ class USVN_Client_Install
         }
         $this->path = $path.'/';
         $this->url = $url;
-        $this->user = $user;
-        $this->password = $password;
+        $this->authid = $authid;
         mkdir($this->path.'/usvn');
         $this->createConfigFile();
         $this->installHooks();
@@ -83,8 +87,7 @@ class USVN_Client_Install
     {
         $config = new USVN_Client_Config($this->path);
         $config->url = $this->url;
-        $config->user = $this->user;
-        $config->password = $this->password;
+        $config->auth = $this->authid;
         $config->save();
     }
 

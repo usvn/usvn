@@ -12,8 +12,8 @@ require_once 'USVN/Client/Uninstall.php';
 class USVN_Client_Client
 {
     private $commands = array(
-        "install" => array('min' => 4, 'max' => 4, 'help' => '/svn/path http://usvn/url usvn_user usvn_password', "description" => "Install hooks into svn repository"),
-        "create" => array('min' => 4, 'max' => 4, 'help' => '/svn/path http://usvn/url usvn_user usvn_password', "description" => "Create an svn repository"),
+        "install" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Install hooks into svn repository"),
+        "create" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Create an svn repository"),
         "uninstall" => array('min' => 1, 'max' => 1, 'help' => '/svn/path', "description" => "Remove hooks from svn repository"),
         "update" => array('min' => 1, 'max' => 1, 'help' => '/svn/path', "description" => "Update hooks from an svn repository"),
         "help" => array('min' => 0, 'max' => 1, 'help' => '[command]', "description" => "Display general help or specific help for a command"),

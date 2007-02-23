@@ -19,6 +19,6 @@ class USVN_Client_Hooks_StartCommit extends USVN_Client_Hooks_Hook
 
     public function send()
     {
-        return $this->xmlrpc->call('usvn.client.hooks.startCommit', array($this->repos_path, $this->user));
+        return $this->xmlrpc->call('usvn.client.hooks.startCommit', array($this->config->auth, $this->user));
     }
 }

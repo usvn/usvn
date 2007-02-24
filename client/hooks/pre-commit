@@ -1,3 +1,22 @@
 #!/usr/bin/env php
 <?php
-exit(0);
+set_include_path(get_include_path().PATH_SEPARATOR .dirname(__FILE__).'/../usvn');
+
+require_once('USVN/Client/Hooks/PreCommit.php');
+require_once('USVN/Client/ConsoleUtils.php');
+
+try
+{
+    $hook = new USVN_Client_Hooks_PreCommit($argv[1], $argv[2]);
+	$res = $hook->send();
+	if ($res) {
+		USVN_Client_ConsoleUtils::writeOnStdError($res."\n");
+		exit(1);
+	}
+	exit(0);
+}
+catch (Exception $e)
+{
+	USVN_Client_ConsoleUtils::writeOnStdError($e->getMessage()."\n");
+    exit(1);
+}

@@ -6,6 +6,7 @@
 */
 
 require_once 'Zend/Http/Client/Adapter/Test.php';
+require_once 'USVN/Client/SVNUtils.php';
 
 class HookTest extends PHPUnit2_Framework_TestCase
 {
@@ -19,7 +20,22 @@ class HookTest extends PHPUnit2_Framework_TestCase
         $this->httpAdapter = new Zend_Http_Client_Adapter_Test();
         $this->httpClient = new Zend_Http_Client('http://foo',
                                     array('adapter' => $this->httpAdapter));
+		$this->hook->setHttpClient($this->httpClient);
     }
+
+	/**
+	* Replacement for USVN_Client_SVNUtils::svnLookTransaction
+	*
+	* @param string svnlook command (see svnlook help)
+	* @param string repository path
+	* @param string transaction (call TXN into svn hooks samples)
+	* @return string Output of svnlook
+	* @see http://svnbook.red-bean.com/en/1.1/ch09s03.html
+	*/
+	protected function svnLook($command, $repository, $transaction)
+	{
+		return USVN_Client_SVNUtils::svnLookTransaction($command, $repository, $transaction);
+	}
 
     // Helpers from Zend Framework
 

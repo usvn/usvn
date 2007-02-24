@@ -39,30 +39,27 @@ class USVN_Client_SVNUtils
 	public static function changedFiles($list)
 	{
 		$res = array();
-		$list = explode(" ", $list);
-		$first = true;
-		$action = "";
-		$file = "";
-		foreach ($list as $item) {
-			if ($first && in_array($item, array('M', 'D', 'A'))) {
-				if ($action) {
-					array_push($res, array($action, $file));
-				}
-				$action = $item;
-				$file = "";
-				$first = false;
-			}
-			else{
-				if ($file) {
-					$file .= " $item";
-				}
-				else {
-					$file = $item;
-				}
-				$first = true;
+		$list = explode("\n", $list);
+		foreach($list as $line) {
+			if ($line) {
+				$ex = explode(" ", $line, 2);
+				array_push($res, $ex);
 			}
 		}
-		array_push($res, array($action, $file));
 		return $res;
+	}
+
+	/**
+	* Call the svnlook binary on an svn transaction.
+	*
+	* @param string svnlook command (see svnlook help)
+	* @param string repository path
+	* @param string transaction (call TXN into svn hooks samples)
+	* @return string Output of svnlook
+	* @see http://svnbook.red-bean.com/en/1.1/ch09s03.html
+	*/
+	public static function svnLookTransaction($command, $repository, $transaction)
+	{
+		return `svnlook $command -t $transaction $repository`;
 	}
 }

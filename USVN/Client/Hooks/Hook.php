@@ -7,6 +7,7 @@
 
 require_once 'Zend/XmlRpc/Client.php';
 require_once 'USVN/Client/Config.php';
+require_once 'USVN/Client/SVNUtils.php';
 
 class USVN_Client_Hooks_Hook
 {
@@ -40,4 +41,18 @@ class USVN_Client_Hooks_Hook
     {
         return $this->xmlrpc->getLastRequest();
     }
+
+	/**
+	* Call the svnlook binary on an svn transaction.
+	*
+	* @param string svnlook command (see svnlook help)
+	* @param string repository path
+	* @param string transaction (call TXN into svn hooks samples)
+	* @return string Output of svnlook
+	* @see http://svnbook.red-bean.com/en/1.1/ch09s03.html
+	*/
+	protected function svnLookTransaction($command, $repository, $transaction)
+	{
+		return USVN_Client_SVNUtils::svnLookTransaction($command, $repository, $transaction);
+	}
 }

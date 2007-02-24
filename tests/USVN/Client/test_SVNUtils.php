@@ -37,9 +37,9 @@ class TestClientSVNUtils extends PHPUnit2_Framework_TestCase
 
 	public function test_changedFiles()
 	{
-        $this->assertEquals(array(array('M', 'tutu')), USVN_Client_SVNUtils::changedFiles('M tutu'));
-        $this->assertEquals(array(array('M', 'tutu'), array('M', 'tata')), USVN_Client_SVNUtils::changedFiles('M tutu M tata'));
-        $this->assertEquals(array(array('M', 'tutu'), array('M', 'M')), USVN_Client_SVNUtils::changedFiles('M tutu M M'));
-        $this->assertEquals(array(array('M', 'tutu'), array('M', 'hello world')), USVN_Client_SVNUtils::changedFiles('M tutu M hello world'));
+        $this->assertEquals(array(array("U", "tutu")), USVN_Client_SVNUtils::changedFiles("U tutu\n"));
+        $this->assertEquals(array(array("U", "tutu"), array("U", "tata")), USVN_Client_SVNUtils::changedFiles("U tutu\nU tata\n"));
+        $this->assertEquals(array(array("U", "tutu"), array("U", "U")), USVN_Client_SVNUtils::changedFiles("U tutu\nU U\n"));
+        $this->assertEquals(array(array("U", "tutu"), array("U", "hello world"), array("U", "toto")), USVN_Client_SVNUtils::changedFiles("U tutu\nU hello world\nU toto\n"));
 	}
 }

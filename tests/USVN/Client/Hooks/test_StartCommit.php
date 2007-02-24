@@ -12,9 +12,8 @@ class TestStartCommit extends HookTest
 {
     public function setUp()
     {
-        parent::setUp();
         $this->hook = new USVN_Client_Hooks_StartCommit('tests/tmp/testrepository', 'toto');
-        $this->hook->setHttpClient($this->httpClient);
+        parent::setUp();
     }
 
     public function test_startCommit()

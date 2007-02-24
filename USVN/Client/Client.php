@@ -92,9 +92,8 @@ class USVN_Client_Client
     {
         $path = $args[0];
         $url = $args[1];
-        $user = $args[2];
-        $password = $args[3];
-        new USVN_Client_Install($path, $url, $user, $password);
+        $auth = $args[2];
+        new USVN_Client_Install($path, $url, $auth);
     }
 
     private function cmdUninstall($args)

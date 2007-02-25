@@ -62,4 +62,18 @@ class USVN_Client_SVNUtils
 	{
 		return `svnlook $command -t $transaction $repository`;
 	}
+
+	/**
+	* Call the svnlook binary on an svn revision.
+	*
+	* @param string svnlook command (see svnlook help)
+	* @param string repository path
+	* @param integer revision
+	* @return string Output of svnlook
+	* @see http://svnbook.red-bean.com/en/1.1/ch09s03.html
+	*/
+	public static function svnLookRevision($command, $repository, $revision)
+	{
+		return `svnlook $command -r $revision $repository`;
+	}
 }

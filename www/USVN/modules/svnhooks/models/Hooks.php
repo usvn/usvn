@@ -26,6 +26,20 @@ class USVN_modules_svnhooks_Hooks
 	public function preCommit($authid, $user, $log, $changedfiles)
 	{
 		file_put_contents('/tmp/testhooksPreCommit', "$authid\n$user\n$log\n--------------------\n".var_export($changedfiles, true)."\n");
-		return "Youpi";
+		return 0;
+	}
+
+	/**
+	* Post commit hook publish for XML-RPC
+	*
+	* @param string The auth id for identify the server
+	* @param integer Revision number
+	* @param string The user login
+	* @param string Log message
+	* @param array List of changed files and here status (exemple: array(array('U', 'test'), array('A', 'toto')))
+	*/
+	public function postCommit($authid, $revision, $user, $log, $changedfiles)
+	{
+		file_put_contents('/tmp/testhooksPostCommit', "$authid\n$revision\n$user\n$log\n--------------------\n".var_export($changedfiles, true)."\n");
 	}
 }

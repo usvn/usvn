@@ -44,7 +44,7 @@ class USVN_modules_svnhooks_Hooks
 	}
 
 	/**
-	* Post commit hook publish for XML-RPC
+	* Pre lock hook publish for XML-RPC
 	*
 	* @param string The auth id for identify the server
 	* @param string Path
@@ -54,6 +54,20 @@ class USVN_modules_svnhooks_Hooks
 	public function preLock($authid, $path, $user)
 	{
 		file_put_contents('/tmp/testhooksPreLock', "$authid\n$path\n$user\n");
-		return "Don't lock this!!!!!";
+		return 0;
+	}
+
+	/**
+	* Pre unlock hook publish for XML-RPC
+	*
+	* @param string The auth id for identify the server
+	* @param string Path
+	* @param string The user login
+	* @return string or 0 String if error in lock, 0 if it's OK
+	*/
+	public function preUnlock($authid, $path, $user)
+	{
+		file_put_contents('/tmp/testhooksPreUnlock', "$authid\n$path\n$user\n");
+		return "Don't unlock this!!!!!";
 	}
 }

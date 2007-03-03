@@ -13,10 +13,13 @@ require_once 'USVN/Client/Hooks/Hook.php';
 class USVN_Client_Hooks_PreCommit extends USVN_Client_Hooks_Hook
 {
     private $txn;
+	private $user;
+	private $log;
+	private $changed;
 
 	/**
-	* @param string
-	* @param string
+	* @param string repository path
+	* @param string transaction
 	*/
     public function USVN_Client_Hooks_PreCommit($repos_path, $txn)
     {

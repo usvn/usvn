@@ -42,4 +42,18 @@ class USVN_modules_svnhooks_Hooks
 	{
 		file_put_contents('/tmp/testhooksPostCommit', "$authid\n$revision\n$user\n$log\n--------------------\n".var_export($changedfiles, true)."\n");
 	}
+
+	/**
+	* Post commit hook publish for XML-RPC
+	*
+	* @param string The auth id for identify the server
+	* @param string Path
+	* @param string The user login
+	* @return string or 0 String if error in lock, 0 if it's OK
+	*/
+	public function preLock($authid, $path, $user)
+	{
+		file_put_contents('/tmp/testhooksPreLock', "$authid\n$path\n$user\n");
+		return "Don't lock this!!!!!";
+	}
 }

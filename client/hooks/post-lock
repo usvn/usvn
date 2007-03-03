@@ -1,3 +1,23 @@
 #!/usr/bin/env php
 <?php
-exit(0);
+set_include_path(get_include_path().PATH_SEPARATOR .dirname(__FILE__).'/../usvn');
+
+require_once('USVN/Client/Hooks/PostLock.php');
+require_once('USVN/Client/ConsoleUtils.php');
+
+try
+{
+	$file = rtrim(fread(STDIN, 1024), "\n");
+    $hook = new USVN_Client_Hooks_PostLock($argv[1], $file, $argv[2]);
+	$res = $hook->send();
+	if ($res) {
+		USVN_Client_ConsoleUtils::writeOnStdError($res."\n");
+		exit(1);
+	}
+	exit(0);
+}
+catch (Exception $e)
+{
+	USVN_Client_ConsoleUtils::writeOnStdError($e->getMessage()."\n");
+    exit(1);
+}

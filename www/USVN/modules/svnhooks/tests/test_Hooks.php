@@ -32,6 +32,12 @@ class Test_SvnHooks_Hooks extends PHPUnit2_Framework_TestCase
 		$hook->preLock("007", "tutu", "test");
     }
 
+    public function test_postLock()
+    {
+		$hook = new USVN_modules_svnhooks_Hooks();
+		$hook->postLock("007", "tutu", "test");
+    }
+
     public function test_preUnlock()
     {
 		$hook = new USVN_modules_svnhooks_Hooks();

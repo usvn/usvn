@@ -25,7 +25,7 @@ class USVN_modules_svnhooks_Hooks
 	*/
 	public function preCommit($authid, $user, $log, $changedfiles)
 	{
-		file_put_contents('/tmp/testhooksPreCommit', "$authid\n$user\n$log\n--------------------\n".var_export($changedfiles, true)."\n");
+		file_put_contents('/tmp/testhooksPreCommit', "$authid\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 		return 0;
 	}
 
@@ -40,7 +40,7 @@ class USVN_modules_svnhooks_Hooks
 	*/
 	public function postCommit($authid, $revision, $user, $log, $changedfiles)
 	{
-		file_put_contents('/tmp/testhooksPostCommit', "$authid\n$revision\n$user\n$log\n--------------------\n".var_export($changedfiles, true)."\n");
+		file_put_contents('/tmp/testhooksPostCommit', "$authid\n$revision\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 	}
 
 	/**
@@ -53,8 +53,20 @@ class USVN_modules_svnhooks_Hooks
 	*/
 	public function preLock($authid, $path, $user)
 	{
-		file_put_contents('/tmp/testhooksPreLock', "$authid\n$path\n$user\n");
+		file_put_contents('/tmp/testhooksPreLock', "$authid\n$path\nUser: $user\n");
 		return 0;
+	}
+
+	/**
+	* Post lock hook publish for XML-RPC
+	*
+	* @param string The auth id for identify the server
+	* @param string Path
+	* @param string The user login
+	*/
+	public function postLock($authid, $path, $user)
+	{
+		file_put_contents('/tmp/testhooksPostLock', "$authid\nLock file: $path\nUser: $user\n");
 	}
 
 	/**
@@ -67,7 +79,7 @@ class USVN_modules_svnhooks_Hooks
 	*/
 	public function preUnlock($authid, $path, $user)
 	{
-		file_put_contents('/tmp/testhooksPreUnlock', "$authid\n$path\n$user\n");
-		return "Don't unlock this!!!!!";
+		file_put_contents('/tmp/testhooksPreUnlock', "$authid\nUnmock file: $path\nUser: $user\n");
+		return 0;
 	}
 }

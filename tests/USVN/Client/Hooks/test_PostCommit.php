@@ -36,8 +36,10 @@ class TestPostCommit extends HookTest
         parent::setUp();
     }
 
-    public function test_PostCommit()
+    public function test_postCommit()
     {
+		$this->setServerResponseTo(0);
+		$this->hook->send();
         $request  = $this->hook->getLastRequest();
         $this->assertEquals('usvn.client.hooks.postCommit', $request->getMethod());
         $this->assertSame(array('007', 1, 'toto', 'message de commit', array(array('U', 'tutu'), array('U', 'tata'))), $request->getParams());

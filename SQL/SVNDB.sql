@@ -1,9 +1,57 @@
 /*==============================================================*/
-/* Table: `GROUP`                                               */
+/* DBMS name:      MySQL 4.0                                    */
+/* Created on:     05/03/2007 23:29:01                          */
 /*==============================================================*/
-create table `GROUP`
+
+
+drop index TO_MANAGE_FK on REPOSITORY;
+
+drop index TO_ASSIGN2_FK on TO_ASSIGN;
+
+drop index TO_ASSIGN_FK on TO_ASSIGN;
+
+drop index TO_ATTRIBUTE2_FK on TO_ATTRIBUTE;
+
+drop index TO_ATTRIBUTE3_FK on TO_ATTRIBUTE;
+
+drop index TO_ATTRIBUTE_FK on TO_ATTRIBUTE;
+
+drop index TO_BELONG2_FK on TO_BELONG;
+
+drop index TO_BELONG_FK on TO_BELONG;
+
+drop index TO_HAVE2_FK on TO_HAVE;
+
+drop index TO_HAVE3_FK on TO_HAVE;
+
+drop index TO_HAVE_FK on TO_HAVE;
+
+drop table if exists GROUPS;
+
+drop table if exists PROJECT;
+
+drop table if exists PROPERTY;
+
+drop table if exists REPOSITORY;
+
+drop table if exists RIGHTS;
+
+drop table if exists TO_ASSIGN;
+
+drop table if exists TO_ATTRIBUTE;
+
+drop table if exists TO_BELONG;
+
+drop table if exists TO_HAVE;
+
+drop table if exists USERS;
+
+/*==============================================================*/
+/* Table: GROUPS                                                */
+/*==============================================================*/
+create table `GROUPS`
 (
-   GROUP_ID                       INT                   not null,
+   GROUP_ID                       int                            not null,
    GROUP_LABEL                    varchar(100),
    GROUP_NOM                      text,
    primary key (GROUP_ID)
@@ -13,9 +61,9 @@ type = InnoDB;
 /*==============================================================*/
 /* Table: PROJECT                                               */
 /*==============================================================*/
-create table PROJECT
+create table `PROJECT`
 (
-   PROJECT_ID                     INT                   not null,
+   PROJECT_ID                     int                            not null,
    PROJECT_NAME                   varchar(255),
    PROJECT_DATE_START             date,
    PROJECT_DESCRIPTION            text,
@@ -24,18 +72,30 @@ create table PROJECT
 type = InnoDB;
 
 /*==============================================================*/
-/* Table: PROJECT_MANAGEMENT                                    */
+/* Table: PROPERTY                                              */
 /*==============================================================*/
-create table PROJECT_MANAGEMENT
+create table `PROPERTY`
+(
+   VERSION                        int                            not null,
+   VALUE                          text                           not null,
+   LABEL_PROPERTY                 text                           not null,
+   PATH                           text                           not null,
+   primary key (PATH, LABEL_PROPERTY, VERSION)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: REPOSITORY                                            */
+/*==============================================================*/
+create table `REPOSITORY`
 (
    DATE                           date,
    FILENAME                       varchar(255),
-   PATHFILE                       text,
-   NUM_REV                        INT,
+   NUM_REV                        int,
    TYP_REV                        char(1),
-   PM_ID                          INT                   not null,
-   PROJECT_ID                     INT                   not null,
-   PROPERTY                       text,
+   PM_ID                          int                            not null,
+   PROJECT_ID                     int                            not null,
+   MESSAGE                        text,
    primary key (PM_ID)
 )
 type = InnoDB;
@@ -43,7 +103,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_MANAGE_FK                                          */
 /*==============================================================*/
-create index TO_MANAGE_FK on PROJECT_MANAGEMENT
+create index TO_MANAGE_FK on `REPOSITORY`
 (
    PROJECT_ID
 );
@@ -51,21 +111,88 @@ create index TO_MANAGE_FK on PROJECT_MANAGEMENT
 /*==============================================================*/
 /* Table: RIGHTS                                                */
 /*==============================================================*/
-create table RIGHTS
+create table `RIGHTS`
 (
-   RIGHT_ID                       INT                   not null,
+   RIGHT_ID                       int                            not null,
    RIGHT_LABEL                    varchar(255),
    primary key (RIGHT_ID)
 )
 type = InnoDB;
 
 /*==============================================================*/
+/* Table: TO_ASSIGN                                             */
+/*==============================================================*/
+create table `TO_ASSIGN`
+(
+   PATH                           text                           not null,
+   LABEL_PROPERTY                 text                           not null,
+   VERSION                        int                            not null,
+   PM_ID                          int                            not null,
+   primary key (PATH, LABEL_PROPERTY, VERSION, PM_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: TO_ASSIGN_FK                                          */
+/*==============================================================*/
+create index TO_ASSIGN_FK on `TO_ASSIGN`
+(
+   PATH,
+   LABEL_PROPERTY,
+   VERSION
+);
+
+/*==============================================================*/
+/* Index: TO_ASSIGN2_FK                                         */
+/*==============================================================*/
+create index TO_ASSIGN2_FK on `TO_ASSIGN`
+(
+   PM_ID
+);
+
+/*==============================================================*/
+/* Table: TO_ATTRIBUTE                                          */
+/*==============================================================*/
+create table `TO_ATTRIBUTE`
+(
+   RIGHT_ID                       int                            not null,
+   GROUP_ID                       int                            not null,
+   PROJECT_ID                     int                            not null,
+   primary key (RIGHT_ID, GROUP_ID, PROJECT_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: TO_ATTRIBUTE_FK                                       */
+/*==============================================================*/
+create index TO_ATTRIBUTE_FK on `TO_ATTRIBUTE`
+(
+   RIGHT_ID
+);
+
+/*==============================================================*/
+/* Index: TO_ATTRIBUTE2_FK                                      */
+/*==============================================================*/
+create index TO_ATTRIBUTE2_FK on `TO_ATTRIBUTE`
+(
+   GROUP_ID
+);
+
+/*==============================================================*/
+/* Index: TO_ATTRIBUTE3_FK                                      */
+/*==============================================================*/
+create index TO_ATTRIBUTE3_FK on `TO_ATTRIBUTE`
+(
+   PROJECT_ID
+);
+
+/*==============================================================*/
 /* Table: TO_BELONG                                             */
 /*==============================================================*/
-create table TO_BELONG
+create table `TO_BELONG`
 (
-   USERS_ID                       INT                   not null,
-   GROUP_ID                       INT                   not null,
+   USERS_ID                       int                            not null,
+   GROUP_ID                       int                            not null,
    primary key (USERS_ID, GROUP_ID)
 )
 type = InnoDB;
@@ -73,7 +200,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_BELONG_FK                                          */
 /*==============================================================*/
-create index TO_BELONG_FK on TO_BELONG
+create index TO_BELONG_FK on `TO_BELONG`
 (
    USERS_ID
 );
@@ -81,7 +208,7 @@ create index TO_BELONG_FK on TO_BELONG
 /*==============================================================*/
 /* Index: TO_BELONG2_FK                                         */
 /*==============================================================*/
-create index TO_BELONG2_FK on TO_BELONG
+create index TO_BELONG2_FK on `TO_BELONG`
 (
    GROUP_ID
 );
@@ -89,11 +216,11 @@ create index TO_BELONG2_FK on TO_BELONG
 /*==============================================================*/
 /* Table: TO_HAVE                                               */
 /*==============================================================*/
-create table TO_HAVE
+create table `TO_HAVE`
 (
-   RIGHT_ID                       INT                   not null,
-   USERS_ID                       INT                   not null,
-   PROJECT_ID                     INT                   not null,
+   RIGHT_ID                       int                            not null,
+   USERS_ID                       int                            not null,
+   PROJECT_ID                     int                            not null,
    primary key (RIGHT_ID, USERS_ID, PROJECT_ID)
 )
 type = InnoDB;
@@ -101,7 +228,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_HAVE_FK                                            */
 /*==============================================================*/
-create index TO_HAVE_FK on TO_HAVE
+create index TO_HAVE_FK on `TO_HAVE`
 (
    RIGHT_ID
 );
@@ -109,51 +236,15 @@ create index TO_HAVE_FK on TO_HAVE
 /*==============================================================*/
 /* Index: TO_HAVE2_FK                                           */
 /*==============================================================*/
-create index TO_HAVE2_FK on TO_HAVE
+create index TO_HAVE2_FK on `TO_HAVE`
 (
    USERS_ID
 );
 
 /*==============================================================*/
-/* Index: TO_HAVE6_FK                                           */
-/*==============================================================*/
-create index TO_HAVE6_FK on TO_HAVE
-(
-   PROJECT_ID
-);
-
-/*==============================================================*/
-/* Table: TO_HAVE2                                              */
-/*==============================================================*/
-create table TO_HAVE2
-(
-   RIGHT_ID                       INT                   not null,
-   GROUP_ID                       INT                   not null,
-   PROJECT_ID                     INT                   not null,
-   primary key (RIGHT_ID, GROUP_ID, PROJECT_ID)
-)
-type = InnoDB;
-
-/*==============================================================*/
 /* Index: TO_HAVE3_FK                                           */
 /*==============================================================*/
-create index TO_HAVE3_FK on TO_HAVE2
-(
-   RIGHT_ID
-);
-
-/*==============================================================*/
-/* Index: TO_HAVE4_FK                                           */
-/*==============================================================*/
-create index TO_HAVE4_FK on TO_HAVE2
-(
-   GROUP_ID
-);
-
-/*==============================================================*/
-/* Index: TO_HAVE5_FK                                           */
-/*==============================================================*/
-create index TO_HAVE5_FK on TO_HAVE2
+create index TO_HAVE3_FK on `TO_HAVE`
 (
    PROJECT_ID
 );
@@ -161,9 +252,9 @@ create index TO_HAVE5_FK on TO_HAVE2
 /*==============================================================*/
 /* Table: USERS                                                 */
 /*==============================================================*/
-create table USERS
+create table `USERS`
 (
-   USERS_ID                       INT                   not null,
+   USERS_ID                       int                            not null,
    USERS_LOGIN                    varchar(255)                   not null,
    USERS_PASSWD                   text                           not null,
    USERS_NOM                      text,
@@ -173,14 +264,29 @@ create table USERS
 )
 type = InnoDB;
 
-alter table PROJECT_MANAGEMENT add constraint FK_TO_MANAGE foreign key (PROJECT_ID)
+alter table REPOSITORY add constraint FK_TO_MANAGE foreign key (PROJECT_ID)
+      references PROJECT (PROJECT_ID) on delete restrict on update restrict;
+
+alter table TO_ASSIGN add constraint FK_TO_ASSIGN foreign key (PATH, LABEL_PROPERTY, VERSION)
+      references PROPERTY (PATH, LABEL_PROPERTY, VERSION) on delete restrict on update restrict;
+
+alter table TO_ASSIGN add constraint FK_TO_ASSIGN2 foreign key (PM_ID)
+      references REPOSITORY (PM_ID) on delete restrict on update restrict;
+
+alter table TO_ATTRIBUTE add constraint FK_TO_ATTRIBUTE foreign key (RIGHT_ID)
+      references RIGHTS (RIGHT_ID) on delete restrict on update restrict;
+
+alter table TO_ATTRIBUTE add constraint FK_TO_ATTRIBUTE2 foreign key (GROUP_ID)
+      references GROUPS (GROUP_ID) on delete restrict on update restrict;
+
+alter table TO_ATTRIBUTE add constraint FK_TO_ATTRIBUTE3 foreign key (PROJECT_ID)
       references PROJECT (PROJECT_ID) on delete restrict on update restrict;
 
 alter table TO_BELONG add constraint FK_TO_BELONG foreign key (USERS_ID)
       references USERS (USERS_ID) on delete restrict on update restrict;
 
 alter table TO_BELONG add constraint FK_TO_BELONG2 foreign key (GROUP_ID)
-      references `GROUP` (GROUP_ID) on delete restrict on update restrict;
+      references GROUPS (GROUP_ID) on delete restrict on update restrict;
 
 alter table TO_HAVE add constraint FK_TO_HAVE foreign key (RIGHT_ID)
       references RIGHTS (RIGHT_ID) on delete restrict on update restrict;
@@ -188,15 +294,6 @@ alter table TO_HAVE add constraint FK_TO_HAVE foreign key (RIGHT_ID)
 alter table TO_HAVE add constraint FK_TO_HAVE2 foreign key (USERS_ID)
       references USERS (USERS_ID) on delete restrict on update restrict;
 
-alter table TO_HAVE add constraint FK_TO_HAVE6 foreign key (PROJECT_ID)
-      references PROJECT (PROJECT_ID) on delete restrict on update restrict;
-
-alter table TO_HAVE2 add constraint FK_TO_HAVE3 foreign key (RIGHT_ID)
-      references RIGHTS (RIGHT_ID) on delete restrict on update restrict;
-
-alter table TO_HAVE2 add constraint FK_TO_HAVE4 foreign key (GROUP_ID)
-      references `GROUP` (GROUP_ID) on delete restrict on update restrict;
-
-alter table TO_HAVE2 add constraint FK_TO_HAVE5 foreign key (PROJECT_ID)
+alter table TO_HAVE add constraint FK_TO_HAVE3 foreign key (PROJECT_ID)
       references PROJECT (PROJECT_ID) on delete restrict on update restrict;
 

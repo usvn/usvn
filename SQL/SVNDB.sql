@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     05/03/2007 23:29:01                          */
+/* Created on:     06/03/2007 14:33:38                          */
 /*==============================================================*/
 
 
@@ -49,11 +49,11 @@ drop table if exists USERS;
 /*==============================================================*/
 /* Table: GROUPS                                                */
 /*==============================================================*/
-create table `GROUPS`
+create table GROUPS
 (
    GROUP_ID                       int                            not null,
    GROUP_LABEL                    varchar(100),
-   GROUP_NOM                      text,
+   GROUP_NOM                      varchar(150),
    primary key (GROUP_ID)
 )
 type = InnoDB;
@@ -61,12 +61,12 @@ type = InnoDB;
 /*==============================================================*/
 /* Table: PROJECT                                               */
 /*==============================================================*/
-create table `PROJECT`
+create table PROJECT
 (
    PROJECT_ID                     int                            not null,
    PROJECT_NAME                   varchar(255),
    PROJECT_DATE_START             date,
-   PROJECT_DESCRIPTION            text,
+   PROJECT_DESCRIPTION            varchar(1000),
    primary key (PROJECT_ID)
 )
 type = InnoDB;
@@ -74,12 +74,12 @@ type = InnoDB;
 /*==============================================================*/
 /* Table: PROPERTY                                              */
 /*==============================================================*/
-create table `PROPERTY`
+create table PROPERTY
 (
    VERSION                        int                            not null,
-   VALUE                          text                           not null,
-   LABEL_PROPERTY                 text                           not null,
-   PATH                           text                           not null,
+   VALUE                          varchar(500)                   not null,
+   LABEL_PROPERTY                 varchar(500)                   not null,
+   PATH                           varchar(500)                   not null,
    primary key (PATH, LABEL_PROPERTY, VERSION)
 )
 type = InnoDB;
@@ -87,7 +87,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Table: REPOSITORY                                            */
 /*==============================================================*/
-create table `REPOSITORY`
+create table REPOSITORY
 (
    DATE                           date,
    FILENAME                       varchar(255),
@@ -95,7 +95,7 @@ create table `REPOSITORY`
    TYP_REV                        char(1),
    PM_ID                          int                            not null,
    PROJECT_ID                     int                            not null,
-   MESSAGE                        text,
+   MESSAGE                        varchar(1000),
    primary key (PM_ID)
 )
 type = InnoDB;
@@ -103,7 +103,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_MANAGE_FK                                          */
 /*==============================================================*/
-create index TO_MANAGE_FK on `REPOSITORY`
+create index TO_MANAGE_FK on REPOSITORY
 (
    PROJECT_ID
 );
@@ -111,7 +111,7 @@ create index TO_MANAGE_FK on `REPOSITORY`
 /*==============================================================*/
 /* Table: RIGHTS                                                */
 /*==============================================================*/
-create table `RIGHTS`
+create table RIGHTS
 (
    RIGHT_ID                       int                            not null,
    RIGHT_LABEL                    varchar(255),
@@ -122,10 +122,10 @@ type = InnoDB;
 /*==============================================================*/
 /* Table: TO_ASSIGN                                             */
 /*==============================================================*/
-create table `TO_ASSIGN`
+create table TO_ASSIGN
 (
-   PATH                           text                           not null,
-   LABEL_PROPERTY                 text                           not null,
+   PATH                           varchar(500)                   not null,
+   LABEL_PROPERTY                 varchar(500)                   not null,
    VERSION                        int                            not null,
    PM_ID                          int                            not null,
    primary key (PATH, LABEL_PROPERTY, VERSION, PM_ID)
@@ -135,7 +135,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_ASSIGN_FK                                          */
 /*==============================================================*/
-create index TO_ASSIGN_FK on `TO_ASSIGN`
+create index TO_ASSIGN_FK on TO_ASSIGN
 (
    PATH,
    LABEL_PROPERTY,
@@ -145,7 +145,7 @@ create index TO_ASSIGN_FK on `TO_ASSIGN`
 /*==============================================================*/
 /* Index: TO_ASSIGN2_FK                                         */
 /*==============================================================*/
-create index TO_ASSIGN2_FK on `TO_ASSIGN`
+create index TO_ASSIGN2_FK on TO_ASSIGN
 (
    PM_ID
 );
@@ -153,7 +153,7 @@ create index TO_ASSIGN2_FK on `TO_ASSIGN`
 /*==============================================================*/
 /* Table: TO_ATTRIBUTE                                          */
 /*==============================================================*/
-create table `TO_ATTRIBUTE`
+create table TO_ATTRIBUTE
 (
    RIGHT_ID                       int                            not null,
    GROUP_ID                       int                            not null,
@@ -165,7 +165,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_ATTRIBUTE_FK                                       */
 /*==============================================================*/
-create index TO_ATTRIBUTE_FK on `TO_ATTRIBUTE`
+create index TO_ATTRIBUTE_FK on TO_ATTRIBUTE
 (
    RIGHT_ID
 );
@@ -173,7 +173,7 @@ create index TO_ATTRIBUTE_FK on `TO_ATTRIBUTE`
 /*==============================================================*/
 /* Index: TO_ATTRIBUTE2_FK                                      */
 /*==============================================================*/
-create index TO_ATTRIBUTE2_FK on `TO_ATTRIBUTE`
+create index TO_ATTRIBUTE2_FK on TO_ATTRIBUTE
 (
    GROUP_ID
 );
@@ -181,7 +181,7 @@ create index TO_ATTRIBUTE2_FK on `TO_ATTRIBUTE`
 /*==============================================================*/
 /* Index: TO_ATTRIBUTE3_FK                                      */
 /*==============================================================*/
-create index TO_ATTRIBUTE3_FK on `TO_ATTRIBUTE`
+create index TO_ATTRIBUTE3_FK on TO_ATTRIBUTE
 (
    PROJECT_ID
 );
@@ -189,7 +189,7 @@ create index TO_ATTRIBUTE3_FK on `TO_ATTRIBUTE`
 /*==============================================================*/
 /* Table: TO_BELONG                                             */
 /*==============================================================*/
-create table `TO_BELONG`
+create table TO_BELONG
 (
    USERS_ID                       int                            not null,
    GROUP_ID                       int                            not null,
@@ -200,7 +200,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_BELONG_FK                                          */
 /*==============================================================*/
-create index TO_BELONG_FK on `TO_BELONG`
+create index TO_BELONG_FK on TO_BELONG
 (
    USERS_ID
 );
@@ -208,7 +208,7 @@ create index TO_BELONG_FK on `TO_BELONG`
 /*==============================================================*/
 /* Index: TO_BELONG2_FK                                         */
 /*==============================================================*/
-create index TO_BELONG2_FK on `TO_BELONG`
+create index TO_BELONG2_FK on TO_BELONG
 (
    GROUP_ID
 );
@@ -216,7 +216,7 @@ create index TO_BELONG2_FK on `TO_BELONG`
 /*==============================================================*/
 /* Table: TO_HAVE                                               */
 /*==============================================================*/
-create table `TO_HAVE`
+create table TO_HAVE
 (
    RIGHT_ID                       int                            not null,
    USERS_ID                       int                            not null,
@@ -228,7 +228,7 @@ type = InnoDB;
 /*==============================================================*/
 /* Index: TO_HAVE_FK                                            */
 /*==============================================================*/
-create index TO_HAVE_FK on `TO_HAVE`
+create index TO_HAVE_FK on TO_HAVE
 (
    RIGHT_ID
 );
@@ -236,7 +236,7 @@ create index TO_HAVE_FK on `TO_HAVE`
 /*==============================================================*/
 /* Index: TO_HAVE2_FK                                           */
 /*==============================================================*/
-create index TO_HAVE2_FK on `TO_HAVE`
+create index TO_HAVE2_FK on TO_HAVE
 (
    USERS_ID
 );
@@ -244,7 +244,7 @@ create index TO_HAVE2_FK on `TO_HAVE`
 /*==============================================================*/
 /* Index: TO_HAVE3_FK                                           */
 /*==============================================================*/
-create index TO_HAVE3_FK on `TO_HAVE`
+create index TO_HAVE3_FK on TO_HAVE
 (
    PROJECT_ID
 );
@@ -252,14 +252,14 @@ create index TO_HAVE3_FK on `TO_HAVE`
 /*==============================================================*/
 /* Table: USERS                                                 */
 /*==============================================================*/
-create table `USERS`
+create table USERS
 (
    USERS_ID                       int                            not null,
    USERS_LOGIN                    varchar(255)                   not null,
-   USERS_PASSWD                   text                           not null,
-   USERS_NOM                      text,
-   USERS_PRENOM                   text,
-   USERS_EMAIL                    text,
+   USERS_PASSWD                   varchar(44)                    not null,
+   USERS_NOM                      varchar(100),
+   USERS_PRENOM                   varchar(100),
+   USERS_EMAIL                    varchar(150),
    primary key (USERS_ID)
 )
 type = InnoDB;

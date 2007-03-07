@@ -20,9 +20,9 @@ class USVN_Client_Hooks_PreUnlock extends USVN_Client_Hooks_Hook
 	* @param string file to lock path
 	* @param string user
 	*/
-    public function USVN_Client_Hooks_PreUnlock($repos_path, $path, $user)
+    public function __construct($repos_path, $path, $user)
     {
-        parent::USVN_Client_Hooks_Hook($repos_path);
+        parent::__construct($repos_path);
         $this->path = $path;
 		$this->user = $user;
     }

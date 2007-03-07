@@ -28,13 +28,19 @@ class PreCommit_For_Test extends USVN_Client_Hooks_PreCommit
 	}
 }
 
+/**
+* @package client
+* @subpackage hook
+* @since 0.5
+*/
 class TestPreCommit extends HookTest
 {
     public function setUp()
     {
-        $this->hook = new PreCommit_For_Test('tests/tmp/testrepository', '1');
         parent::setUp();
-    }
+        $this->hook = new PreCommit_For_Test('tests/tmp/testrepository', '1');
+		$this->setHttp();
+	}
 
     public function test_preCommit()
     {

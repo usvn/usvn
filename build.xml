@@ -58,14 +58,14 @@
     <target name="test">
         <delete file="${report_test_dir}/*" />
         <mkdir dir="${report_test_dir}" />
-        <phpunit2 haltonfailure="false" failureproperty="unit_test_failure" printsummary="true">
+        <phpunit haltonfailure="false" failureproperty="unit_test_failure" errorproperty="unit_test_failure" printsummary="true">
             <batchtest>
                 <fileset refid="testfile" />
             </batchtest>
             <formatter type="xml" todir="${report_test_dir}" outfile="logfile.xml" />
             <formatter type="plain" todir="${report_test_dir}" outfile="logfile.txt" />
-        </phpunit2>
-        <phpunit2report infile="${report_test_dir}/logfile.xml" styledir="phing" format="frames" todir="${report_test_dir}" />
+        </phpunit>
+        <phpunitreport infile="${report_test_dir}/logfile.xml" styledir="phing" format="frames" todir="${report_test_dir}" />
         <fail if="unit_test_failure" message="Unit tests failed!!!" />
     </target>
 

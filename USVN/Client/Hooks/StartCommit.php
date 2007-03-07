@@ -18,9 +18,9 @@ class USVN_Client_Hooks_StartCommit extends USVN_Client_Hooks_Hook
 	* @param string
 	* @param string
 	*/
-    public function USVN_Client_Hooks_StartCommit($repos_path, $user)
+    public function __construct($repos_path, $user)
     {
-        parent::USVN_Client_Hooks_Hook($repos_path);
+        parent::__construct($repos_path);
         $this->user = $user;
     }
 

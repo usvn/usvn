@@ -12,8 +12,9 @@ class TestPreLock extends HookTest
 {
     public function setUp()
     {
-        $this->hook = new USVN_Client_Hooks_PreLock('tests/tmp/testrepository', 'titi', 'test');
         parent::setUp();
+        $this->hook = new USVN_Client_Hooks_PreLock('tests/tmp/testrepository', 'titi', 'test');
+		$this->setHttp();
     }
 
     public function test_preLock()

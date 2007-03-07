@@ -17,7 +17,7 @@ class USVN_DirectoryUtils
     {
         try
         {
-            $dir = new RecursiveDirectoryIterator($path);
+            @$dir = new RecursiveDirectoryIterator($path);
         }
         catch(Exception $e)
         {
@@ -34,6 +34,6 @@ class USVN_DirectoryUtils
                 USVN_DirectoryUtils::removeDirectory($subDir);
             }
         }
-        rmdir($path);
+        @rmdir($path);
     }
 }

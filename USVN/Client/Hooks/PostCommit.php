@@ -18,9 +18,9 @@ class USVN_Client_Hooks_PostCommit extends USVN_Client_Hooks_Hook
 	* @param string
 	* @param string
 	*/
-    public function USVN_Client_Hooks_PostCommit($repos_path, $revision)
+    public function __construct($repos_path, $revision)
     {
-        parent::USVN_Client_Hooks_Hook($repos_path);
+        parent::__construct($repos_path);
         $this->revision = intval($revision);
 		$this->user = $this->svnLookRevision('author', $repos_path, $revision);
 		$this->log = $this->svnLookRevision('log', $repos_path, $revision);

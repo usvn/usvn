@@ -21,9 +21,9 @@ class USVN_Client_Hooks_PreCommit extends USVN_Client_Hooks_Hook
 	* @param string repository path
 	* @param string transaction
 	*/
-    public function USVN_Client_Hooks_PreCommit($repos_path, $txn)
+    public function __construct($repos_path, $txn)
     {
-        parent::USVN_Client_Hooks_Hook($repos_path);
+        parent::__construct($repos_path);
         $this->txn = $txn;
 		$this->user = $this->svnLookTransaction('author', $repos_path, $txn);
 		$this->log = $this->svnLookTransaction('log', $repos_path, $txn);

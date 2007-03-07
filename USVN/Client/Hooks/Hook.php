@@ -18,7 +18,7 @@ class USVN_Client_Hooks_Hook
     /**
     * @var repos_path Path of the svn repository
     */
-    public function USVN_Client_Hooks_Hook($repos_path)
+    public function __construct($repos_path)
     {
         $this->repos_path = $repos_path.'/';
         $this->config = new USVN_Client_Config($repos_path);

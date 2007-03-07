@@ -28,12 +28,18 @@ class PostCommit_For_Test extends USVN_Client_Hooks_PostCommit
 	}
 }
 
+/**
+* @package client
+* @subpackage hook
+* @since 0.5
+*/
 class TestPostCommit extends HookTest
 {
     public function setUp()
     {
+		parent::setUp();
         $this->hook = new PostCommit_For_Test('tests/tmp/testrepository', 1);
-        parent::setUp();
+		$this->setHttp();
     }
 
     public function test_postCommit()

@@ -6,19 +6,19 @@
 <xsl:decimal-format decimal-separator="." grouping-separator="," />
 <!--
     Copyright  2001-2004 The Apache Software Foundation
-
+   
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
+   
          http://www.apache.org/licenses/LICENSE-2.0
-
+   
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
-
+   
 -->
 
 <!--
@@ -172,30 +172,20 @@ TD.uncovered {
     color: #df0000;
 }
 PRE.srcLine {
-  BACKGROUND: #ffffff; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
+  BACKGROUND: #ffffff; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
 }
-
 td.lineCount, td.coverageCount {
       BACKGROUND: #F0F0F0; PADDING-RIGHT: 3px;
       text-align: right;
 }
-
 td.lineCountHighlight {
       background: #C8C8F0; PADDING-RIGHT: 3px;
       text-align: right;
 }
-
 td.coverageCountHighlight {
-      background: #00df00; PADDING-RIGHT: 3px;
+      background: #F0C8C8; PADDING-RIGHT: 3px;
       text-align: right;
 }
-
-td.coverageCountHighlightError {
-      background: red; PADDING-RIGHT: 3px;
-      text-align: right;
-}
-
-
 span.srcLineHighlight {
       background: #F0C8C8;
 }
@@ -203,7 +193,7 @@ span.srcLine {
       background: #C8C8F0;
 }
 TD.srcLineClassStart {
-   WIDTH: 100%; BORDER-TOP:#dcdcdc 1px solid; FONT-WEIGHT: bold;
+   WIDTH: 100%; BORDER-TOP:#dcdcdc 1px solid; FONT-WEIGHT: bold;    
 }
 .srcLine , .srcLine ol, .srcLine ol li {margin: 0;}
 .srcLine .de1, .srcLine .de2 {font-family: 'Courier New', Courier, monospace; font-weight: normal;}
@@ -303,7 +293,7 @@ TD.srcLineClassStart {
                 <td class="small">LOC: <xsl:value-of select="count(package/class/sourcefile/sourceline)"/></td>
                 <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
             </tr>
-        </table>
+        </table>        
         <br/>
 
         <table class="log" cellpadding="5" cellspacing="0" width="100%">
@@ -427,7 +417,7 @@ TD.srcLineClassStart {
                     <td class="small">LOC: <xsl:value-of select="count(class/sourcefile/sourceline)"/></td>
                     <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
-            </table>
+            </table>        
             <br/>
 
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
@@ -476,7 +466,7 @@ TD.srcLineClassStart {
                     <td class="small">LOC: <xsl:value-of select="count(sourcefile/sourceline)"/></td>
                     <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
-            </table>
+            </table>        
             <br/>
 
             <!-- class summary -->
@@ -611,11 +601,11 @@ TD.srcLineClassStart {
     <tr>
         <xsl:if test="@coveredcount>0">
             <td class="lineCountHighlight"><xsl:value-of select="position()"/></td>
-            <td class="coverageCountHighlight"><xsl:value-of select="@coveredcount"/></td>
+            <td class="lineCountHighlight"><xsl:value-of select="@coveredcount"/></td>
         </xsl:if>
         <xsl:if test="@coveredcount&lt;0">
             <td class="lineCountHighlight"><xsl:value-of select="position()"/></td>
-            <td class="coverageCountHighlightError">0</td>
+            <td class="coverageCountHighlight">0</td>
         </xsl:if>
         <xsl:if test="@coveredcount=0">
             <td class="lineCount"><xsl:value-of select="position()"/></td>
@@ -632,7 +622,7 @@ TD.srcLineClassStart {
             </xsl:if>
             <xsl:if test="@coveredcount&lt;0">
                 <span class="srcLineHighlight">
-                <pre class="srcLine" style="background-color: red"><xsl:value-of select="."/></pre>
+                <pre class="srcLine"><xsl:value-of select="."/></pre>
                 </span>
             </xsl:if>
             <xsl:if test="@coveredcount=0">

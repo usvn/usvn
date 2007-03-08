@@ -7,7 +7,7 @@ require_once('USVN/Client/ConsoleUtils.php');
 
 try
 {
-	$file = rtrim(fread(STDIN, 1024), "\n");
+	$file = rtrim(stream_get_contents(STDIN), "\n");
     $hook = new USVN_Client_Hooks_PostLock($argv[1], $file, $argv[2]);
 	$res = $hook->send();
 	if ($res) {

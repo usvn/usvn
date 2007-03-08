@@ -79,7 +79,19 @@ class USVN_modules_svnhooks_Hooks
 	*/
 	public function preUnlock($authid, $path, $user)
 	{
-		file_put_contents('/tmp/testhooksPreUnlock', "$authid\nUnmock file: $path\nUser: $user\n");
+		file_put_contents('/tmp/testhooksPreUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 		return 0;
+	}
+
+	/**
+	* Post unlock hook publish for XML-RPC
+	*
+	* @param string The auth id for identify the server
+	* @param string Path
+	* @param string The user login
+	*/
+	public function postUnlock($authid, $path, $user)
+	{
+		file_put_contents('/tmp/testhooksPostUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 	}
 }

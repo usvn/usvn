@@ -111,4 +111,19 @@ class USVN_modules_svnhooks_Hooks
 		file_put_contents('/tmp/testhooksPreRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
 		return 0;
 	}
+
+	/**
+	* Pre revprop change hook publish for XML-RPC
+	*
+	* @param string The auth id for identify the server
+	* @param integer Revision
+	* @param string The user login
+	* @param string Property will be change (ex: svn:log)
+	* @param string Action (ex: M)
+	* @param string Old property value
+	*/
+	public function postRevpropChange($authid, $revision, $user, $property, $action, $value)
+	{
+		file_put_contents('/tmp/testhooksPostRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
+	}
 }

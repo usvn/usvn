@@ -25,6 +25,7 @@ class HookTest extends PHPUnit2_Framework_TestCase
         $this->httpClient = new Zend_Http_Client('http://example.com',
                                     array('adapter' => $this->httpAdapter));
 		$this->hook->setHttpClient($this->httpClient);
+		$this->setServerResponseTo(0);
 	}
 
 	/**

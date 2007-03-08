@@ -55,4 +55,10 @@ class Test_SvnHooks_Hooks extends PHPUnit2_Framework_TestCase
 		$hook = new USVN_modules_svnhooks_Hooks();
 		$hook->preRevpropChange("007", 1, "test", "svn:log", "M", "message de log");
     }
+
+    public function test_postRevpropChange()
+    {
+		$hook = new USVN_modules_svnhooks_Hooks();
+		$hook->postRevpropChange("007", 1, "test", "svn:log", "M", "message de log");
+    }
 }

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'USVN/modules/default/controllers/IndexController.php';
+
 class LoginController extends IndexController
 {
 	public function loginAction()

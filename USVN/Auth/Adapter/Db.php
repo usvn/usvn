@@ -31,7 +31,7 @@ class USVN_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface {
 		$result['identity']['username'] = $this->_login;
 		$result['messages'] = array();
 
-		$table = new Users();
+		$table = new USVN_modules_default_models_Users();
 		$user = $table->fetchRow(array('user_login = ?' => $this->_login));
 
 
@@ -40,7 +40,7 @@ class USVN_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface {
 			return new Zend_Auth_Result($result['isValid'], $result['identity'], $result['messages']);
 		}
 
-		if (md5($this->_password) != $user->password) {
+		if (crypt($this->_password, $user->password) != $user->password) {
 			$result['messages'][] = T_('Incorrect password');
 			return new Zend_Auth_Result($result['isValid'], $result['identity'], $result['messages']);
 		}

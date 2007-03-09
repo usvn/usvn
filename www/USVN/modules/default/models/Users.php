@@ -1,6 +1,6 @@
 <?php
 
-class Users extends USVN_Db_Table {
+class USVN_modules_default_models_Users extends USVN_Db_Table {
 	/**
 	 * The primary key column (underscore format).
 	 * 
@@ -16,4 +16,11 @@ class Users extends USVN_Db_Table {
 	 * @var string
 	 */
 	protected $_fieldPrefix = "user_";
+	
+	/**
+	 * The table name derived from the class name (underscore format).
+	 *
+	 * @var array
+	 */
+    protected $_name = "users";
 }

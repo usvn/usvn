@@ -4,7 +4,6 @@ if (is_dir(dirname(__FILE__) . '/library')) {
 }
 
 require_once 'Zend.php';
-require_once dirname(__FILE__) . '/modules/_default/controllers/IndexController.php';
 
 set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/modules/_default/models/');
 
@@ -63,7 +62,9 @@ try {
 	 * Configure current modules
 	 */
 	$tmp = $modules = array();
-	$glob_path = '{' . USVN_DIRECTORY . ',' . dirname(__FILE__) . '}/modules/[a-zA-Z0-9]*';
+	//  ca posait trop de confusion d'avoir deux repertoire de modules alors on supprime le global
+	//	$glob_path = '{' . USVN_DIRECTORY . ',' . dirname(__FILE__) . '}/modules/[a-zA-Z0-9]*';
+	$glob_path = USVN_DIRECTORY . '/modules/[a-zA-Z0-9]*';
 	foreach (glob($glob_path, GLOB_BRACE | GLOB_ONLYDIR) as $path) {
 		$module = basename($path);
 		if (isset($tmp[$module])) {
@@ -76,11 +77,13 @@ try {
 
 		}
 	}
-	$modules['default'] = dirname(__FILE__) . '/modules/_default/controllers';
+	//	$modules['default'] = dirname(__FILE__) . '/modules/_default/controllers';
 	$front->setControllerDirectory($modules);
 
 	$tmp = array();
-	$glob_path = '{' . USVN_DIRECTORY . ',' . dirname(__FILE__) . '}/plugins/[a-zA-Z0-9]*.php';
+	//  ca posait trop de confusion d'avoir deux repertoire de plugins alors on supprime le global
+	//	$glob_path = '{' . USVN_DIRECTORY . ',' . dirname(__FILE__) . '}/plugins/[a-zA-Z0-9]*.php';
+	$glob_path = USVN_DIRECTORY . '/plugins/[a-zA-Z0-9]*.php';
 	foreach (glob($glob_path, GLOB_BRACE) as $path) {
 		$plugin = basename($path);
 		if (isset($tmp[$plugin])) {

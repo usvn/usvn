@@ -41,15 +41,12 @@ class IndexController extends Zend_Controller_Action {
 
 		$module = $this->getRequest()->getModuleName();
 		$controller = $this->getRequest()->getControllerName();
-		if ($module == "default" || $module === null) {
-			$module = "_default";
+		if ($module === null) {
+			$module = "default";
 		}
 		$dir = realpath(USVN_DIRECTORY . "/modules/$module/views/$controller");
 		if ($dir === false || !is_dir($dir)) {
-			$dir = realpath(dirname(__FILE__) . "/../../$module/views/$controller");
-			if ($dir === false || !is_dir($dir)) {
-				throw new Zend_Controller_Exception("Controller's views directory not found");
-			}
+			throw new Zend_Controller_Exception("Controller's views directory not found");
 		}
 		$this->_view->setScriptPath($dir);
 		$this->_view->assign('project', $this->getRequest()->getParam('project'));

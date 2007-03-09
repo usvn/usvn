@@ -77,9 +77,9 @@ type = InnoDB;
 create table PROPERTY
 (
    VERSION                        int                            not null,
-   VALUE                          varchar(500)                   not null,
+   VALUE                          text                           not null,
    LABEL_PROPERTY                 varchar(64)                    not null,
-   PATH                           varchar(255)                   not null,
+   PATH                           varchar(256)                   not null,
    primary key (PATH, LABEL_PROPERTY, VERSION)
 )
 type = InnoDB;
@@ -124,8 +124,8 @@ type = InnoDB;
 /*==============================================================*/
 create table TO_ASSIGN
 (
-   PATH                           varchar(255)                   not null,
-   LABEL_PROPERTY                 varchar(64)                    not null,
+   PATH                           varchar(256)                   not null,
+   LABEL_PROPERTY                 varchar(64)                   not null,
    VERSION                        int                            not null,
    PM_ID                          int                            not null,
    primary key (PATH, LABEL_PROPERTY, VERSION, PM_ID)
@@ -255,7 +255,7 @@ create index TO_HAVE3_FK on TO_HAVE
 create table USERS
 (
    USERS_ID                       int                            not null,
-   USERS_LOGIN                    varchar(255)                   not null,
+   USERS_LOGIN                    varchar(100)                   not null,
    USERS_PASSWD                   varchar(44)                    not null,
    USERS_NOM                      varchar(100),
    USERS_PRENOM                   varchar(100),

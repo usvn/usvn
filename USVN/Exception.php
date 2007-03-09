@@ -1,5 +1,5 @@
 <?php
-
+require_once 'Zend/Exception.php';
 
 /**
  * @category   USVN

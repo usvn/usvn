@@ -2,7 +2,7 @@
 /**
 * @package client
 */
-
+require_once 'USVN/Exception.php';
 require_once 'USVN/Client/Install.php';
 require_once 'USVN/Client/Uninstall.php';
 
@@ -31,15 +31,15 @@ class USVN_Client_Client
     {
         if (count($args) == 0)
         {
-            throw new Exception($this->getHelp());
+            throw new USVN_Exception($this->getHelp());
         }
         if (!array_key_exists($args[0], $this->commands))
         {
-            throw new Exception($args[0].": unknow command\n".$this->getHelp());
+            throw new USVN_Exception($args[0].": unknow command\n".$this->getHelp());
         }
         if ((count($args) - 1) < $this->commands[$args[0]]['min'] || (count($args) - 1) > $this->commands[$args[0]]['max'])
         {
-            throw new Exception($this->getCommandHelp($args[0]));
+            throw new USVN_Exception($this->getCommandHelp($args[0]));
         }
         $cmd = array_shift($args);
         switch ($cmd)

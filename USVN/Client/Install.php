@@ -7,6 +7,7 @@
 
 require_once 'USVN/Client/SVNUtils.php';
 require_once 'USVN/Client/Config.php';
+require_once 'USVN/Exception.php';
 
 /**
 * The install command
@@ -27,7 +28,7 @@ class USVN_Client_Install
     {
         if (!USVN_Client_SVNUtils::isSVNRepository($path))
         {
-            throw new Exception("$path is not a valid SVN repository");
+            throw new USVN_Exception("$path is not a valid SVN repository");
         }
         $this->path = $path.'/';
         $this->url = $url;
@@ -46,11 +47,11 @@ class USVN_Client_Install
             $dst = $this->path."/hooks/{$hook}";
             if (!@copy($src, $dst))
             {
-                throw new Exception("Can't copy $src to $dst.");
+                throw new USVN_Exception("Can't copy $src to $dst.");
             }
             if (!@chmod($dst, 0700))
             {
-                throw new Exception("Can't change right of $dst.");
+                throw new USVN_Exception("Can't change right of $dst.");
             }
         }
     }

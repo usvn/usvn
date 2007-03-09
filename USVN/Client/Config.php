@@ -4,6 +4,7 @@
 * @subpackage config
 * @since 0.5
 */
+require_once 'USVN/Exception.php';
 
 /**
 * Manipulate the config file. If the the config doesn't exists, it will be create.
@@ -33,7 +34,7 @@ class USVN_Client_Config
     {
         if (!@file_put_contents($this->config_path, $this->xml->asXml()))
         {
-                throw new Exception("Can't write config file.");
+                throw new USVN_Exception("Can't write config file.");
         }
     }
 

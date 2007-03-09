@@ -78,8 +78,8 @@ create table PROPERTY
 (
    VERSION                        int                            not null,
    VALUE                          varchar(500)                   not null,
-   LABEL_PROPERTY                 varchar(500)                   not null,
-   PATH                           varchar(500)                   not null,
+   LABEL_PROPERTY                 varchar(64)                    not null,
+   PATH                           varchar(255)                   not null,
    primary key (PATH, LABEL_PROPERTY, VERSION)
 )
 type = InnoDB;
@@ -124,8 +124,8 @@ type = InnoDB;
 /*==============================================================*/
 create table TO_ASSIGN
 (
-   PATH                           varchar(500)                   not null,
-   LABEL_PROPERTY                 varchar(500)                   not null,
+   PATH                           varchar(255)                   not null,
+   LABEL_PROPERTY                 varchar(64)                    not null,
    VERSION                        int                            not null,
    PM_ID                          int                            not null,
    primary key (PATH, LABEL_PROPERTY, VERSION, PM_ID)

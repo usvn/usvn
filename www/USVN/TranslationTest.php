@@ -7,7 +7,7 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-require_once 'Translation.php';
+require_once 'www/USVN/autoload.php';
 
 /**
  * Test class for USVN_Translation.

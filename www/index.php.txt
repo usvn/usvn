@@ -11,4 +11,4 @@ if (is_dir(USVN_LIBRARY_DIRECTORY)) {
 	set_include_path(get_include_path() . PATH_SEPARATOR . USVN_LIBRARY_DIRECTORY);
 }
 
-require_once 'USVN/bootstrap.php';
+require_once USVN_DIRECTORY . '/bootstrap.php';

@@ -33,7 +33,7 @@ class MyPROPFIND extends USVN_DAV_Server_AbstractPropfindRequestHandler
 * @package webdav
 * @subpackage server
 */
-class TestPropfind extends PHPUnit2_Framework_TestCase
+class TestPropfind extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

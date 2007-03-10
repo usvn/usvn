@@ -5,7 +5,7 @@
 
 require_once 'USVN/Client/Client.php';
 
-class TestClient extends PHPUnit2_Framework_TestCase
+class TestClient extends PHPUnit_Framework_TestCase
 {
     public function test_noArgs()
     {

@@ -7,7 +7,7 @@
 
 require_once 'USVN/DirectoryUtils.php';
 
-class TestDirectoryUtils extends PHPUnit2_Framework_TestCase
+class TestDirectoryUtils extends PHPUnit_Framework_TestCase
 {
     public function test_removeDirectory()
     {

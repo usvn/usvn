@@ -4,10 +4,10 @@
 * @subpackage syntax
 */
 
-require_once 'PHPUnit2/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'USVN/Text/Parser.php';
 
-class TestParser extends PHPUnit2_Framework_TestCase
+class TestParser extends PHPUnit_Framework_TestCase
 {
     public function test_stripTags()
     {

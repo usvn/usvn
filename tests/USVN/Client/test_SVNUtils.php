@@ -9,7 +9,7 @@
 
 require_once 'USVN/Client/SVNUtils.php';
 
-class TestClientSVNUtils extends PHPUnit2_Framework_TestCase
+class TestClientSVNUtils extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

@@ -10,7 +10,7 @@
 require_once 'USVN/Client/Install.php';
 require_once 'USVN/DirectoryUtils.php';
 
-class TestClientInstall extends PHPUnit2_Framework_TestCase
+class TestClientInstall extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

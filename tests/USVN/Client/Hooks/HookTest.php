@@ -8,7 +8,7 @@
 require_once 'Zend/Http/Client/Adapter/Test.php';
 require_once 'USVN/Client/SVNUtils.php';
 
-class HookTest extends PHPUnit2_Framework_TestCase
+class HookTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

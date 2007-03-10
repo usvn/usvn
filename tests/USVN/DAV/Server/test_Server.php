@@ -7,7 +7,7 @@
 require_once 'PHPUnit2/Framework/TestCase.php';
 require_once 'USVN/DAV/Server/Server.php';
 
-class TestDavServer extends PHPUnit2_Framework_TestCase
+class TestDavServer extends PHPUnit_Framework_TestCase
 {
     public function test_getMethod()
     {

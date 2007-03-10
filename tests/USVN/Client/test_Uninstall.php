@@ -11,7 +11,7 @@ require_once 'USVN/Client/Install.php';
 require_once 'USVN/Client/Uninstall.php';
 require_once 'USVN/DirectoryUtils.php';
 
-class TestClientUninstall extends PHPUnit2_Framework_TestCase
+class TestClientUninstall extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

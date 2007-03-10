@@ -8,7 +8,7 @@
 require_once 'USVN/Client/Config.php';
 require_once 'USVN/DirectoryUtils.php';
 
-class TestClientConfig extends PHPUnit2_Framework_TestCase
+class TestClientConfig extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

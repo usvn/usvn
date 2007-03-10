@@ -18,10 +18,10 @@
 ** Date    : $Date$
 */
 
-set_include_path(get_include_path() .PATH_SEPARATOR ."library");
+set_include_path(get_include_path() . PATH_SEPARATOR . "library");
 require_once 'USVN/Translation.php';
 
-class TestTranslation extends PHPUnit2_Framework_TestCase
+class TestTranslation extends PHPUnit_Framework_TestCase
 {
     public function test_getLanguage()
     {

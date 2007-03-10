@@ -7,8 +7,4 @@ define('USVN_CONFIG_SECTION', 'general');
 
 define('BASE_URL', '/');
 
-if (is_dir(USVN_LIBRARY_DIRECTORY)) {
-	set_include_path(get_include_path() . PATH_SEPARATOR . USVN_LIBRARY_DIRECTORY);
-}
-
 require_once USVN_DIRECTORY . '/bootstrap.php';

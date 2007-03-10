@@ -14,8 +14,7 @@
 
  <!-- File set -->
   <fileset id="testfile" dir=".">
-		<include name="${testdir}/**/test_*.php" />
-		<include name="www/USVN/modules/**/tests/test_*.php" />
+		<include name="**/*Test.php" />
   </fileset>
 
     <fileset id="projectfile" dir=".">

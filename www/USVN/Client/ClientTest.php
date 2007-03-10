@@ -7,7 +7,9 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-require_once 'USVN/autoload.php';
+echo getcwd();
+
+require_once 'www/USVN/autoload.php';
 require_once 'USVN/Client/Client.php';
 
 /**

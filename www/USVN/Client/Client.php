@@ -1,23 +1,20 @@
 <?php
 /**
-* @package client
-*/
-require_once 'USVN/Exception.php';
-require_once 'USVN/Client/Install.php';
-require_once 'USVN/Client/Uninstall.php';
+ * @package client
+ */
 
 /**
-* Main class of command line client
-*/
+ * Main class of command line client
+ */
 class USVN_Client_Client
 {
 	/**
-	* Array fields:
-	* min: minimum number of args
-	* max: maximum number of args
-	* help: synopis
-	* description: What the command do
-	*/
+	 * Array fields:
+	 * min: minimum number of args
+	 * max: maximum number of args
+	 * help: synopis
+	 * description: What the command do
+	 */
     private $commands = array(
         "install" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Install hooks into svn repository"),
         "create" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Create an svn repository"),
@@ -110,10 +107,10 @@ class USVN_Client_Client
     }
 
     /**
-    * How the client display result.
-    *
-    * @var string
-    */
+	 * How the client display result.
+	 *
+	 * @var string
+	 */
     protected function display($str)
     {
         echo $str;

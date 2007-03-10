@@ -31,6 +31,10 @@ LC_MESSAGES	5
 LC_ALL			6
 */
 
+if (!defined(LC_MESSAGES)) {   
+    define(LC_MESSAGES, 5);
+}
+   
 require('streams.php');
 require('gettext.php');
 

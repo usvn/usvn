@@ -9,7 +9,7 @@ class USVN_Exception extends Zend_Exception {
 	public function __construct($message)
 	{
 		$params = func_get_args();
-		$params[0] = T_($message);
+		$params[0] = $message;
 		$message = call_user_func_array("sprintf", $params);
 		parent::__construct($message);
 	}

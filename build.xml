@@ -56,7 +56,7 @@
     </target>
 
     <target name="test">
-        <delete file="${report_test_dir}/*" />
+        <delete dir="${report_test_dir}" />
         <mkdir dir="${report_test_dir}" />
         <phpunit haltonfailure="false" failureproperty="unit_test_failure" errorproperty="unit_test_failure" printsummary="true">
             <batchtest>

@@ -9,7 +9,7 @@ require_once 'Zend/XmlRpc/Client.php';
 require_once 'USVN/Client/Config.php';
 require_once 'USVN/Client/SVNUtils.php';
 
-class USVN_Client_Hooks_Hook
+abstract class USVN_Client_Hooks_Hook
 {
     protected $xmlrpc;
     protected $config;

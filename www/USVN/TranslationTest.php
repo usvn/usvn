@@ -1,4 +1,10 @@
 <?php
+/**
+* @package usvn
+* @subpackage utils
+*
+*/
+
 // Call USVN_TranslationTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
     define("PHPUnit_MAIN_METHOD", "USVN_TranslationTest::main");

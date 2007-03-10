@@ -5,10 +5,6 @@
 * @since 0.5
 */
 
-require_once 'USVN/Client/SVNUtils.php';
-require_once 'USVN/Client/Config.php';
-require_once 'USVN/Exception.php';
-
 /**
 * The install command
 */
@@ -26,14 +22,15 @@ class USVN_Client_Install
 	*/
     public function USVN_Client_Install($path, $url, $authid)
     {
-        if (!USVN_Client_SVNUtils::isSVNRepository($path))
-        {
+        if (!USVN_Client_SVNUtils::isSVNRepository($path)) {
             throw new USVN_Exception("$path is not a valid SVN repository");
         }
         $this->path = $path.'/';
         $this->url = $url;
         $this->authid = $authid;
-        mkdir($this->path.'/usvn');
+		if (!@mkdir($this->path.'/usvn')) {
+			throw new USVN_Exception("Can't create ".$this->path.'/usvn'.".");
+		}
         $this->createConfigFile();
         $this->installHooks();
         $this->installSourceFiles();
@@ -45,12 +42,10 @@ class USVN_Client_Install
         {
             $src = $this->getHookPath()."/{$hook}";
             $dst = $this->path."/hooks/{$hook}";
-            if (!@copy($src, $dst))
-            {
+            if (!@copy($src, $dst)) {
                 throw new USVN_Exception("Can't copy $src to $dst.");
             }
-            if (!@chmod($dst, 0700))
-            {
+            if (!@chmod($dst, 0700)) {
                 throw new USVN_Exception("Can't change right of $dst.");
             }
         }
@@ -59,23 +54,26 @@ class USVN_Client_Install
 	private function copyLibraryFiles($dir)
 	{
 		$dst = $this->path.'/usvn/'.$dir;
-		mkdir($dst);
-         if ($dh = opendir($dir))
-         {
-            while (($file = readdir($dh)) !== false)
-            {
-                if ($file[0] != '.')
-                {
-					if (is_dir($dir.'/'.$file)) {
+		if (!@mkdir($dst)) {
+			throw new USVN_Exception("Can't create $dst");
+		}
+		$src = "www/".$dir;
+         if ($dh = @opendir($src)) {
+            while (($file = readdir($dh)) !== false) {
+                if ($file[0] != '.') {
+					if (is_dir($src.'/'.$file)) {
 						$this->copyLibraryFiles($dir.'/'.$file);
 					}
 					else {
-						copy($dir.'/'.$file, $dst.'/'.$file);
+						copy($src.'/'.$file, $dst.'/'.$file);
 					}
                 }
             }
             closedir($dh);
         }
+		else {
+			throw new USVN_Exception("Can't read USVN library source code. Check right of $dir");
+		}
 	}
 
     private function installSourceFiles()

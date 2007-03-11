@@ -30,7 +30,7 @@ class USVN_Client_UninstallTest extends PHPUnit_Framework_TestCase {
     public function setUp()
     {
         $this->clean();
-        exec("svnadmin create tests/tmp/testrepository");
+        USVN_Client_SVNUtils::createSvnDirectoryStruct("tests/tmp/testrepository");
         mkdir('tests/tmp/fakerepository');
     }
 

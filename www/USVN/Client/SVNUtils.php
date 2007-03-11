@@ -76,4 +76,19 @@ class USVN_Client_SVNUtils
 	{
 		return `svnlook $command -r $revision $repository`;
 	}
+
+	/**
+	* It's for use with testunit. This method simulate svnadmin create $path
+	*
+	* @param string Path to create directory structs
+	*/
+	public static function createSvnDirectoryStruct($path)
+	{
+		@mkdir($path);
+		@mkdir($path."/hooks");
+		@mkdir($path."/locks");
+		@mkdir($path."/conf");
+		@mkdir($path."/dav");
+		@mkdir($path."/db");
+	}
 }

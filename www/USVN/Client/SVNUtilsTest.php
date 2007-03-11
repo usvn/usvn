@@ -2,9 +2,6 @@
 /**
 * @package client
 * @subpackage utils
-*
-* This test use UNIX commands rm and svnadmin. It's probably easy to remove
-* use of rm but you can't remove use of svnadmin.
 */
 
 // Call USVN_Client_SVNUtilsTest::main() if this source file is executed directly.
@@ -38,7 +35,7 @@ class USVN_Client_SVNUtilsTest extends PHPUnit_Framework_TestCase {
     public function setUp()
     {
         $this->clean();
-        exec("svnadmin create tests/tmp/testrepository");
+        USVN_Client_SVNUtils::createSvnDirectoryStruct("tests/tmp/testrepository");
         mkdir('tests/tmp/fakerepository');
     }
 
@@ -49,8 +46,8 @@ class USVN_Client_SVNUtilsTest extends PHPUnit_Framework_TestCase {
 
     private function clean()
     {
-        exec("rm -Rf tests/tmp/testrepository");
-        @rmdir('tests/tmp/fakerepository');
+		USVN_DirectoryUtils::removeDirectory('tests/tmp/testrepository');
+		USVN_DirectoryUtils::removeDirectory('tests/tmp/fakerepository');
     }
 
     public function test_isSVNRepository()
@@ -65,6 +62,13 @@ class USVN_Client_SVNUtilsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(array(array("U", "tutu"), array("U", "tata")), USVN_Client_SVNUtils::changedFiles("U tutu\nU tata\n"));
         $this->assertEquals(array(array("U", "tutu"), array("U", "U")), USVN_Client_SVNUtils::changedFiles("U tutu\nU U\n"));
         $this->assertEquals(array(array("U", "tutu"), array("U", "hello world"), array("U", "toto")), USVN_Client_SVNUtils::changedFiles("U tutu\nU hello world\nU toto\n"));
+	}
+
+	public function test_createSvnDirectoryStruct()
+	{
+		USVN_Client_SVNUtils::createSvnDirectoryStruct('tests/tmp/svndirectorystruct');
+		 $this->assertTrue(file_exists('tests/tmp/svndirectorystruct'));
+		 $this->assertTrue(file_exists('tests/tmp/svndirectorystruct/hooks'));
 	}
 }
 

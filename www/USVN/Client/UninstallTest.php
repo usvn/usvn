@@ -47,12 +47,10 @@ class USVN_Client_UninstallTest extends PHPUnit_Framework_TestCase {
 
     public function test_notSvnRepository()
     {
-        try
-        {
+        try {
             new USVN_Client_Uninstall('tests/tmp/fakerepository');
         }
-        catch (Exception $e)
-        {
+        catch (Exception $e) {
             return;
         }
         $this->fail();

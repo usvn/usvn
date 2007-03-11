@@ -8,7 +8,7 @@
 require_once 'Zend/Http/Client/Adapter/Test.php';
 require_once 'www/USVN/autoload.php';
 
-abstract class HookTest extends PHPUnit_Framework_TestCase
+abstract class USVN_Client_Hooks_HookTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

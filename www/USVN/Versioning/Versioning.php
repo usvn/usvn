@@ -1,5 +1,9 @@
 <?php
-class USVN_Versioning extends Zend_Db_Table {
+
+/**
+* Manipulate internal repository
+*/
+class USVN_Versioning_Versioning extends Zend_Db_Table {
 
 	/**
 	 * Function which return the last file's version
@@ -38,7 +42,7 @@ class USVN_Versioning extends Zend_Db_Table {
 	 * Function which makes a commit
 	 *
 	 * @param USVN_FileVersion $Array
-	 * 
+	 *
 	 * @param char $typ_rev which be C as commit, D as Delete
 	 */
 

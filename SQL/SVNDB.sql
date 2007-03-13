@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     13/03/2007 14:01:11                          */
+/* Created on:     13/03/2007 14:38:40                          */
 /*==============================================================*/
 
 
@@ -242,7 +242,7 @@ create table users
 (
    users_id                       int                            not null,
    users_login                    varchar(255)                   not null,
-   users_passwd                   varchar(44)                    not null,
+   users_password                 varchar(44)                    not null,
    users_nom                      varchar(100),
    users_prenom                   varchar(100),
    users_email                    varchar(150),

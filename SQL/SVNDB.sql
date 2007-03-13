@@ -1,10 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     13/03/2007 14:38:40                          */
+/* Created on:     13/03/2007 17:59:15                          */
 /*==============================================================*/
 
 
-drop index to_manage_fk on repositories;
+drop index to_manage_fk on files;
 
 drop index to_assign2_fk on to_assign;
 
@@ -24,13 +24,13 @@ drop index to_have2_fk on to_have;
 
 drop index to_have_fk on to_have;
 
+drop table if exists files;
+
 drop table if exists groups;
 
 drop table if exists projects;
 
 drop table if exists properties;
-
-drop table if exists repositories;
 
 drop table if exists rights;
 
@@ -43,6 +43,31 @@ drop table if exists to_belong;
 drop table if exists to_have;
 
 drop table if exists users;
+
+/*==============================================================*/
+/* Table: files                                                 */
+/*==============================================================*/
+create table files
+(
+   files_rep_id                   int                            not null,
+   projects_id                    int                            not null,
+   files_date                     date,
+   files_filename                 varchar(255),
+   files_directory                text,
+   files_num_rev                  int,
+   files_typ_rev                  char(1),
+   files_message                  varchar(1000),
+   primary key (files_rep_id)
+)
+type = innodb;
+
+/*==============================================================*/
+/* Index: to_manage_fk                                          */
+/*==============================================================*/
+create index to_manage_fk on files
+(
+   projects_id
+);
 
 /*==============================================================*/
 /* Table: groups                                                */
@@ -84,30 +109,6 @@ create table properties
 type = innodb;
 
 /*==============================================================*/
-/* Table: repositories                                          */
-/*==============================================================*/
-create table repositories
-(
-   repositories_rep_id            int                            not null,
-   projects_id                    int                            not null,
-   repositories_date              date,
-   repositories_filename          varchar(255),
-   repositories_num_rev           int,
-   repositories_typ_rev           char(1),
-   repositories_message           varchar(1000),
-   primary key (repositories_rep_id)
-)
-type = innodb;
-
-/*==============================================================*/
-/* Index: to_manage_fk                                          */
-/*==============================================================*/
-create index to_manage_fk on repositories
-(
-   projects_id
-);
-
-/*==============================================================*/
 /* Table: rights                                                */
 /*==============================================================*/
 create table rights
@@ -124,8 +125,8 @@ type = innodb;
 create table to_assign
 (
    properties_id                  int                            not null,
-   repositories_rep_id            int                            not null,
-   primary key (properties_id, repositories_rep_id)
+   files_rep_id                   int                            not null,
+   primary key (properties_id, files_rep_id)
 )
 type = innodb;
 
@@ -142,7 +143,7 @@ create index to_assign_fk on to_assign
 /*==============================================================*/
 create index to_assign2_fk on to_assign
 (
-   repositories_rep_id
+   files_rep_id
 );
 
 /*==============================================================*/
@@ -250,14 +251,14 @@ create table users
 )
 type = innodb;
 
-alter table repositories add constraint fk_to_manage foreign key (projects_id)
+alter table files add constraint fk_to_manage foreign key (projects_id)
       references projects (projects_id) on delete restrict on update restrict;
 
 alter table to_assign add constraint fk_to_assign foreign key (properties_id)
       references properties (properties_id) on delete restrict on update restrict;
 
-alter table to_assign add constraint fk_to_assign2 foreign key (repositories_rep_id)
-      references repositories (repositories_rep_id) on delete restrict on update restrict;
+alter table to_assign add constraint fk_to_assign2 foreign key (files_rep_id)
+      references files (files_rep_id) on delete restrict on update restrict;
 
 alter table to_attribute add constraint fk_to_attribute foreign key (rights_id)
       references rights (rights_id) on delete restrict on update restrict;

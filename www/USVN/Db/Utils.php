@@ -21,10 +21,15 @@ class USVN_Db_Utils
 		$query = ereg_replace("--[^\n]*\n", "", $query);
 		$tab = explode(";", $query);
 		foreach($tab as $ligne) {
-			$ligne = trim($ligne, " \n\t");
-			$ligne = rtrim($ligne, " \n\t");
+			$ligne = trim($ligne, " \n\t\r");
+			$ligne = rtrim($ligne, " \n\t\r");
 			if (strlen($ligne)) {
-				$db->query($ligne);
+				try {
+					$db->query($ligne);
+				}
+				catch (Exception $e) {
+					throw new USVN_Exception("Can't load file at:\n$ligne");
+				}
 			}
 		}
 	}

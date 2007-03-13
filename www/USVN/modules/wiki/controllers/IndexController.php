@@ -1,5 +1,7 @@
 <?php
 
+require_once 'USVN/modules/default/controllers/IndexController.php';
+
 class wiki_IndexController extends IndexController
 {
 	public function preDispatch()

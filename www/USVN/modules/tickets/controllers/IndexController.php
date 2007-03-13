@@ -1,5 +1,7 @@
 <?php
 
-class tickets_IndexController extends IndexController 
+require_once 'USVN/modules/default/controllers/IndexController.php';
+
+class tickets_IndexController extends IndexController
 {
 }

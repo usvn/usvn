@@ -1,10 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     10/03/2007 10:19:12                          */
+/* Created on:     13/03/2007 14:01:11                          */
 /*==============================================================*/
 
 
-drop index to_manage_fk on repository;
+drop index to_manage_fk on repositories;
 
 drop index to_assign2_fk on to_assign;
 
@@ -22,17 +22,15 @@ drop index to_belong_fk on to_belong;
 
 drop index to_have2_fk on to_have;
 
-drop index to_have3_fk on to_have;
-
 drop index to_have_fk on to_have;
 
 drop table if exists groups;
 
-drop table if exists project;
+drop table if exists projects;
 
-drop table if exists property;
+drop table if exists properties;
 
-drop table if exists repository;
+drop table if exists repositories;
 
 drop table if exists rights;
 
@@ -51,62 +49,62 @@ drop table if exists users;
 /*==============================================================*/
 create table groups
 (
-   group_id                       int                            not null,
-   group_label                    varchar(100),
-   group_nom                      varchar(150),
-   primary key (group_id)
+   groups_id                      int                            not null,
+   groups_label                   varchar(100),
+   groups_nom                     varchar(150),
+   primary key (groups_id)
 )
 type = innodb;
 
 /*==============================================================*/
-/* Table: project                                               */
+/* Table: projects                                              */
 /*==============================================================*/
-create table project
+create table projects
 (
-   project_id                     int                            not null,
-   project_name                   varchar(255),
-   project_date_start             date,
-   project_description            varchar(1000),
-   primary key (project_id)
+   projects_id                    int                            not null,
+   projects_name                  varchar(255),
+   projects_date_start            date,
+   projects_description           varchar(1000),
+   primary key (projects_id)
 )
 type = innodb;
 
 /*==============================================================*/
-/* Table: property                                              */
+/* Table: properties                                            */
 /*==============================================================*/
-create table property
+create table properties
 (
-   version                        int                            not null,
-   value                          text                           not null,
-   label_property                 varchar(64)                    not null,
-   path                           varchar(255)                   not null,
-   pro_id                         int                            not null,
-   primary key (pro_id)
+   properties_id                  int                            not null,
+   properties_version             int                            not null,
+   properties_value               text                           not null,
+   properties_label_property      varchar(64)                    not null,
+   properties_path                varchar(255)                   not null,
+   primary key (properties_id)
 )
 type = innodb;
 
 /*==============================================================*/
-/* Table: repository                                            */
+/* Table: repositories                                          */
 /*==============================================================*/
-create table repository
+create table repositories
 (
-   date                           date,
-   filename                       varchar(255),
-   num_rev                        int,
-   typ_rev                        char(1),
-   rep_id                         int                            not null,
-   project_id                     int                            not null,
-   message                        varchar(1000),
-   primary key (rep_id)
+   repositories_rep_id            int                            not null,
+   projects_id                    int                            not null,
+   repositories_date              date,
+   repositories_filename          varchar(255),
+   repositories_num_rev           int,
+   repositories_typ_rev           char(1),
+   repositories_message           varchar(1000),
+   primary key (repositories_rep_id)
 )
 type = innodb;
 
 /*==============================================================*/
 /* Index: to_manage_fk                                          */
 /*==============================================================*/
-create index to_manage_fk on repository
+create index to_manage_fk on repositories
 (
-   project_id
+   projects_id
 );
 
 /*==============================================================*/
@@ -114,9 +112,9 @@ create index to_manage_fk on repository
 /*==============================================================*/
 create table rights
 (
-   right_id                       int                            not null,
-   right_label                    varchar(255),
-   primary key (right_id)
+   rights_id                      int                            not null,
+   rights_label                   varchar(255),
+   primary key (rights_id)
 )
 type = innodb;
 
@@ -125,9 +123,9 @@ type = innodb;
 /*==============================================================*/
 create table to_assign
 (
-   pro_id                         int                            not null,
-   rep_id                         int                            not null,
-   primary key (pro_id, rep_id)
+   properties_id                  int                            not null,
+   repositories_rep_id            int                            not null,
+   primary key (properties_id, repositories_rep_id)
 )
 type = innodb;
 
@@ -136,7 +134,7 @@ type = innodb;
 /*==============================================================*/
 create index to_assign_fk on to_assign
 (
-   pro_id
+   properties_id
 );
 
 /*==============================================================*/
@@ -144,7 +142,7 @@ create index to_assign_fk on to_assign
 /*==============================================================*/
 create index to_assign2_fk on to_assign
 (
-   rep_id
+   repositories_rep_id
 );
 
 /*==============================================================*/
@@ -152,10 +150,10 @@ create index to_assign2_fk on to_assign
 /*==============================================================*/
 create table to_attribute
 (
-   right_id                       int                            not null,
-   group_id                       int                            not null,
-   project_id                     int                            not null,
-   primary key (right_id, group_id, project_id)
+   rights_id                      int                            not null,
+   groups_id                      int                            not null,
+   projects_id                    int                            not null,
+   primary key (rights_id, groups_id, projects_id)
 )
 type = innodb;
 
@@ -164,7 +162,7 @@ type = innodb;
 /*==============================================================*/
 create index to_attribute_fk on to_attribute
 (
-   right_id
+   rights_id
 );
 
 /*==============================================================*/
@@ -172,7 +170,7 @@ create index to_attribute_fk on to_attribute
 /*==============================================================*/
 create index to_attribute2_fk on to_attribute
 (
-   group_id
+   groups_id
 );
 
 /*==============================================================*/
@@ -180,7 +178,7 @@ create index to_attribute2_fk on to_attribute
 /*==============================================================*/
 create index to_attribute3_fk on to_attribute
 (
-   project_id
+   projects_id
 );
 
 /*==============================================================*/
@@ -189,8 +187,8 @@ create index to_attribute3_fk on to_attribute
 create table to_belong
 (
    users_id                       int                            not null,
-   group_id                       int                            not null,
-   primary key (users_id, group_id)
+   groups_id                      int                            not null,
+   primary key (users_id, groups_id)
 )
 type = innodb;
 
@@ -207,7 +205,7 @@ create index to_belong_fk on to_belong
 /*==============================================================*/
 create index to_belong2_fk on to_belong
 (
-   group_id
+   groups_id
 );
 
 /*==============================================================*/
@@ -215,10 +213,9 @@ create index to_belong2_fk on to_belong
 /*==============================================================*/
 create table to_have
 (
-   right_id                       int                            not null,
    users_id                       int                            not null,
-   project_id                     int                            not null,
-   primary key (right_id, users_id, project_id)
+   projects_id                    int                            not null,
+   primary key (users_id, projects_id)
 )
 type = innodb;
 
@@ -227,7 +224,7 @@ type = innodb;
 /*==============================================================*/
 create index to_have_fk on to_have
 (
-   right_id
+   users_id
 );
 
 /*==============================================================*/
@@ -235,15 +232,7 @@ create index to_have_fk on to_have
 /*==============================================================*/
 create index to_have2_fk on to_have
 (
-   users_id
-);
-
-/*==============================================================*/
-/* Index: to_have3_fk                                           */
-/*==============================================================*/
-create index to_have3_fk on to_have
-(
-   project_id
+   projects_id
 );
 
 /*==============================================================*/
@@ -261,36 +250,33 @@ create table users
 )
 type = innodb;
 
-alter table repository add constraint fk_to_manage foreign key (project_id)
-      references project (project_id) on delete restrict on update restrict;
+alter table repositories add constraint fk_to_manage foreign key (projects_id)
+      references projects (projects_id) on delete restrict on update restrict;
 
-alter table to_assign add constraint fk_to_assign foreign key (pro_id)
-      references property (pro_id) on delete restrict on update restrict;
+alter table to_assign add constraint fk_to_assign foreign key (properties_id)
+      references properties (properties_id) on delete restrict on update restrict;
 
-alter table to_assign add constraint fk_to_assign2 foreign key (rep_id)
-      references repository (rep_id) on delete restrict on update restrict;
+alter table to_assign add constraint fk_to_assign2 foreign key (repositories_rep_id)
+      references repositories (repositories_rep_id) on delete restrict on update restrict;
 
-alter table to_attribute add constraint fk_to_attribute foreign key (right_id)
-      references rights (right_id) on delete restrict on update restrict;
+alter table to_attribute add constraint fk_to_attribute foreign key (rights_id)
+      references rights (rights_id) on delete restrict on update restrict;
 
-alter table to_attribute add constraint fk_to_attribute2 foreign key (group_id)
-      references groups (group_id) on delete restrict on update restrict;
+alter table to_attribute add constraint fk_to_attribute2 foreign key (groups_id)
+      references groups (groups_id) on delete restrict on update restrict;
 
-alter table to_attribute add constraint fk_to_attribute3 foreign key (project_id)
-      references project (project_id) on delete restrict on update restrict;
+alter table to_attribute add constraint fk_to_attribute3 foreign key (projects_id)
+      references projects (projects_id) on delete restrict on update restrict;
 
 alter table to_belong add constraint fk_to_belong foreign key (users_id)
       references users (users_id) on delete restrict on update restrict;
 
-alter table to_belong add constraint fk_to_belong2 foreign key (group_id)
-      references groups (group_id) on delete restrict on update restrict;
+alter table to_belong add constraint fk_to_belong2 foreign key (groups_id)
+      references groups (groups_id) on delete restrict on update restrict;
 
-alter table to_have add constraint fk_to_have foreign key (right_id)
-      references rights (right_id) on delete restrict on update restrict;
-
-alter table to_have add constraint fk_to_have2 foreign key (users_id)
+alter table to_have add constraint fk_to_have foreign key (users_id)
       references users (users_id) on delete restrict on update restrict;
 
-alter table to_have add constraint fk_to_have3 foreign key (project_id)
-      references project (project_id) on delete restrict on update restrict;
+alter table to_have add constraint fk_to_have2 foreign key (projects_id)
+      references projects (projects_id) on delete restrict on update restrict;
 

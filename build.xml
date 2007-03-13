@@ -23,6 +23,7 @@
         <exclude name="${docdir}/**" />
         <exclude name="${report_test_dir}/**" />
         <exclude name="${testdir}/**" />
+        <exclude name="www/USVN/Test/**" />
     </fileset>
 
 <!-- Target -->

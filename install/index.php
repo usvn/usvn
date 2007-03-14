@@ -15,7 +15,7 @@
 ** and Jerome Landrieu.
 **
 ** Project : USVN
-** Date    : $Date$
+** Date    : $Date: 2007-02-21 09:47:21 -0500 (mer, 21 fév 2007) $
 */
 
 set_include_path(get_include_path() .PATH_SEPARATOR ."..");

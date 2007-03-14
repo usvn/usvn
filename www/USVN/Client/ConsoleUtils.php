@@ -15,7 +15,7 @@
 ** and Jerome Landrieu.
 **
 ** Project : USVN
-** Date    : $Date$
+** Date    : $Date: 2007-03-10 13:22:45 -0500 (sam, 10 mar 2007) $
 */
 
 

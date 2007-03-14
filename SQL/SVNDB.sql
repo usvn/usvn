@@ -1,4 +1,50 @@
 /*==============================================================*/
+/* DBMS name:      MySQL 4.0                                    */
+/* Created on:     14/03/2007 10:18:31                          */
+/*==============================================================*/
+
+
+drop index to_manage_fk on files;
+
+drop index to_assign2_fk on to_assign;
+
+drop index to_assign_fk on to_assign;
+
+drop index to_attribute2_fk on to_attribute;
+
+drop index to_attribute3_fk on to_attribute;
+
+drop index to_attribute_fk on to_attribute;
+
+drop index to_belong2_fk on to_belong;
+
+drop index to_belong_fk on to_belong;
+
+drop index to_have2_fk on to_have;
+
+drop index to_have_fk on to_have;
+
+drop table if exists files;
+
+drop table if exists groups;
+
+drop table if exists projects;
+
+drop table if exists properties;
+
+drop table if exists rights;
+
+drop table if exists to_assign;
+
+drop table if exists to_attribute;
+
+drop table if exists to_belong;
+
+drop table if exists to_have;
+
+drop table if exists users;
+
+/*==============================================================*/
 /* Table: files                                                 */
 /*==============================================================*/
 create table files
@@ -11,6 +57,7 @@ create table files
    files_num_rev                  int,
    files_typ_rev                  char(1),
    files_message                  varchar(1000),
+   files_drect_checked            bool,
    primary key (files_rep_id)
 )
 type = innodb;
@@ -29,8 +76,7 @@ create index to_manage_fk on files
 create table groups
 (
    groups_id                      int                            not null,
-   groups_label                   varchar(100),
-   groups_nom                     varchar(150),
+   groups_name                    varchar(150),
    primary key (groups_id)
 )
 type = innodb;
@@ -198,8 +244,8 @@ create table users
    users_id                       int                            not null,
    users_login                    varchar(255)                   not null,
    users_password                 varchar(44)                    not null,
-   users_nom                      varchar(100),
-   users_prenom                   varchar(100),
+   users_lastname                 varchar(100),
+   users_firstname                varchar(100),
    users_email                    varchar(150),
    primary key (users_id)
 )

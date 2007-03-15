@@ -1,7 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 4.0                                    */
-/* Created on:     14/03/2007 16:20:29                          */
+/* Created on:     15/03/2007 09:02:19                          */
 /*==============================================================*/
+
 
 
 /*==============================================================*/
@@ -9,18 +10,19 @@
 /*==============================================================*/
 create table files
 (
-   files_rep_id                   int                            not null,
+   files_id                       int                            not null,
    projects_id                    int                            not null,
-   files_date                     date,
-   files_filename                 varchar(255),
-   files_directory                text,
+   files_filename                 varchar(255)                   not null,
+   files_path                     text                           not null,
+   files_date                     datetime,
+   files_isdir                    bool,
    files_num_rev                  int,
    files_typ_rev                  char(1),
    files_message                  varchar(1000),
-   files_isdir                    bool,
-   primary key (files_rep_id)
+   primary key (files_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Index: to_manage_fk                                          */
@@ -36,10 +38,11 @@ create index to_manage_fk on files
 create table groups
 (
    groups_id                      int                            not null,
-   groups_name                    varchar(150),
+   groups_name                    varchar(150)                   not null,
    primary key (groups_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Table: projects                                              */
@@ -47,12 +50,13 @@ type = innodb;
 create table projects
 (
    projects_id                    int                            not null,
-   projects_name                  varchar(255),
-   projects_date_start            date,
+   projects_name                  varchar(255)                   not null,
+   projects_date_start            datetime,
    projects_description           varchar(1000),
    primary key (projects_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Table: properties                                            */
@@ -66,7 +70,8 @@ create table properties
    properties_path                varchar(255)                   not null,
    primary key (properties_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Table: rights                                                */
@@ -74,10 +79,11 @@ type = innodb;
 create table rights
 (
    rights_id                      int                            not null,
-   rights_label                   varchar(255),
+   rights_label                   varchar(255)                   not null,
    primary key (rights_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Table: to_assign                                             */
@@ -85,10 +91,11 @@ type = innodb;
 create table to_assign
 (
    properties_id                  int                            not null,
-   files_rep_id                   int                            not null,
-   primary key (properties_id, files_rep_id)
+   files_id                       int                            not null,
+   primary key (properties_id, files_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Index: to_assign_fk                                          */
@@ -103,7 +110,7 @@ create index to_assign_fk on to_assign
 /*==============================================================*/
 create index to_assign2_fk on to_assign
 (
-   files_rep_id
+   files_id
 );
 
 /*==============================================================*/
@@ -116,7 +123,8 @@ create table to_attribute
    projects_id                    int                            not null,
    primary key (rights_id, groups_id, projects_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Index: to_attribute_fk                                       */
@@ -151,7 +159,8 @@ create table to_belong
    groups_id                      int                            not null,
    primary key (users_id, groups_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Index: to_belong_fk                                          */
@@ -178,7 +187,8 @@ create table to_have
    projects_id                    int                            not null,
    primary key (users_id, projects_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 /*==============================================================*/
 /* Index: to_have_fk                                            */
@@ -209,7 +219,8 @@ create table users
    users_email                    varchar(150),
    primary key (users_id)
 )
-type = innodb;
+type = InnoDB;
+
 
 alter table files add constraint fk_to_manage foreign key (projects_id)
       references projects (projects_id) on delete restrict on update restrict;
@@ -217,8 +228,8 @@ alter table files add constraint fk_to_manage foreign key (projects_id)
 alter table to_assign add constraint fk_to_assign foreign key (properties_id)
       references properties (properties_id) on delete restrict on update restrict;
 
-alter table to_assign add constraint fk_to_assign2 foreign key (files_rep_id)
-      references files (files_rep_id) on delete restrict on update restrict;
+alter table to_assign add constraint fk_to_assign2 foreign key (files_id)
+      references files (files_id) on delete restrict on update restrict;
 
 alter table to_attribute add constraint fk_to_attribute foreign key (rights_id)
       references rights (rights_id) on delete restrict on update restrict;

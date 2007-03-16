@@ -37,18 +37,18 @@ class USVN_Versioning_FileVersionTest extends USVN_Test_DB {
 		$this->db->insert("projects", $data);
 
 		$data = array(
-			"files_rep_id" => 1,
+			"files_id" => 1,
 			"files_filename" => 'test',
-			"files_directory" => 'trunk/',
+			"files_path" => 'trunk/',
 			"files_num_rev" => 1,
 			"projects_id" => 1
 		);
 		$this->db->insert("files", $data);
 
 		$data = array(
-			"files_rep_id" => 2,
+			"files_id" => 2,
 			"files_filename" => 'test',
-			"files_directory" => 'trunk/',
+			"files_path" => 'trunk/',
 			"files_num_rev" => 2,
 			"projects_id" => 1
 		);

@@ -82,6 +82,7 @@
                 <include name="**/*.php"/>
                 <exclude name="${testdir}/**" />
                 <exclude name="**/Abstract*.php" />
+                <exclude name="scripts/**" />
             </fileset>
         </coverage-setup>
 

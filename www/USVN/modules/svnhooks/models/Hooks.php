@@ -1,5 +1,5 @@
 <?php
-class USVN_modules_svnhooks_Hooks
+class USVN_modules_svnhooks_models_Hooks
 {
 	/**
 	* Start commit hook publish for XML-RPC

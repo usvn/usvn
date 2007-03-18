@@ -12,6 +12,7 @@ try {
 	 * Load our ini conf file
 	 */
 	$config = new Zend_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+	$routes_config = new Zend_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
 
 	/**
 	* Configure language
@@ -41,7 +42,7 @@ try {
 	 * Initialize router
 	 */
 	$router = new Zend_Controller_Router_Rewrite();
-	$router->addConfig($config, 'routes');
+	$router->addConfig($routes_config, 'routes');
 
 	$front->setRouter($router);
 

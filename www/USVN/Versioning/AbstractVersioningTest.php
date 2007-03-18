@@ -4,7 +4,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class USVN_Versioning_AbstractVersioningTest extends USVN_Test_DB {
+ abstract class USVN_Versioning_AbstractVersioningTest extends USVN_Test_DB {
 	public function setUp()
 	{
 		parent::setUp();

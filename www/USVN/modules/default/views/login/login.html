@@ -3,14 +3,12 @@
 	<input type="password" name="password" /><br>
 	<input type="submit" value="<?php echo T_("Login"); ?>" />
 </form>
-<p class="error">
 <?php
 if (isset($this->messages)) {
+	echo '<p class="error">';
 	// Authentication failed; print the reasons why
 	foreach ($this->messages as $message) {
 		echo "$message<br>\n";
 	}
+	echo '</p>';
 }
-
-?>
-</p>

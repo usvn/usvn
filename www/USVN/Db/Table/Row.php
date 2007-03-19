@@ -40,12 +40,14 @@ class USVN_Db_Table_Row extends Zend_Db_Table_Row {
 
 	protected function _uncamelize($camel)
 	{
-		$under = array_search($camel, $this->_info['cols']);
+		$cols = $this->_info['cols'];
+		$under = array_search($camel, $cols);
 		if ($under === false) {
-			$under = isset($this->_data[$camel]) ? $camel : false;
+			$under = isset($cols[$camel]) ? $camel : false;
 		}
 		if ($under === false) {
-			$under = isset($this->_data[$this->_info['fieldPrefix'] . $camel]) ? $this->_info['fieldPrefix'] . $camel : false;
+			$tmp = $this->_info['fieldPrefix'] . $camel;
+			$under = isset($cols[$tmp]) ? $tmp : false;
 		}
 		if ($under === false) {
 			throw new Zend_Db_Table_Row_Exception("column '$camel' not in row");

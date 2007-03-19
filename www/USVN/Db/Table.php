@@ -12,7 +12,7 @@
 abstract class USVN_Db_Table extends Zend_Db_Table {
 	/**
 	 * The table prefix.
-	 * 
+	 *
 	 * Must be the same for all tables and is configurable via .ini (database.prefixe)
 	 *
 	 * @var string
@@ -22,7 +22,7 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 
 	/**
 	 * The field's prefix for this table.
-	 * 
+	 *
 	 * All fields must have the same prefixe.
 	 * Configurable via your class declaration.
 	 *
@@ -33,7 +33,7 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 
 	/**
 	 * Name of the Row object to instantiate when needed.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $_tableRowName = "USVN_Db_Table_Row";
@@ -47,7 +47,7 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 
 	/**
 	 * The primary key column (underscore format).
-	 * 
+	 *
 	 * Without your prefixe...
 	 *
 	 * @var string

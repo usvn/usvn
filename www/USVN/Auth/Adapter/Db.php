@@ -34,12 +34,12 @@ class USVN_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface {
 		$table = new USVN_modules_default_models_Users();
 		$user = $table->fetchRow(array('users_login = ?' => $this->_login));
 
-		if (! $user->users_login) {
+		if (! $user->login) {
 			$result['messages'][] = sprintf(T_('Login %s not found'), $this->_login);
 			return new Zend_Auth_Result($result['isValid'], $result['identity'], $result['messages']);
 		}
 
-		if (crypt($this->_password, $user->users_password) != $user->users_password) {
+		if (crypt($this->_password, $user->password) != $user->password) {
 			$result['messages'][] = T_('Incorrect password');
 			return new Zend_Auth_Result($result['isValid'], $result['identity'], $result['messages']);
 		}

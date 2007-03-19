@@ -15,6 +15,7 @@ class USVN_Test_DB extends PHPUnit_Framework_TestCase {
 
 		$this->db = Zend_Db::factory('PDO_MYSQL', $params);
 		Zend_Db_Table::setDefaultAdapter($this->db);
+		USVN_Db_Table::$prefix = "usvn_";
 		USVN_Db_Utils::deleteAllTables($this->db);
 		USVN_Db_Utils::loadFile($this->db, "SQL/SVNDB.sql");
     }

@@ -12,7 +12,7 @@ require_once 'www/USVN/autoload.php';
 			"projects_id" => 1,
 			"projects_name" => 'Projet Love'
 		);
-		$this->db->insert("projects", $data);
+		$this->db->insert("usvn_projects", $data);
 
 		$data = array(
 			"files_id" => 1,
@@ -21,7 +21,7 @@ require_once 'www/USVN/autoload.php';
 			"files_num_rev" => 1,
 			"projects_id" => 1
 		);
-		$this->db->insert("files", $data);
+		$this->db->insert("usvn_files", $data);
 
 		$data = array(
 			"files_id" => 2,
@@ -30,7 +30,7 @@ require_once 'www/USVN/autoload.php';
 			"files_num_rev" => 2,
 			"projects_id" => 1
 		);
-		$this->db->insert("files", $data);
+		$this->db->insert("usvn_files", $data);
 	}
 
 }

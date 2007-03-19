@@ -1,12 +1,3 @@
-/*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     19/03/2007 16:38:03                          */
-/*==============================================================*/
-
-
-/*==============================================================*/
-/* Table: usvn_files                                            */
-/*==============================================================*/
 create table usvn_files
 (
    files_id             int not null,
@@ -21,9 +12,6 @@ create table usvn_files
    primary key (files_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_groups                                           */
-/*==============================================================*/
 create table usvn_groups
 (
    groups_id            int not null,
@@ -31,9 +19,6 @@ create table usvn_groups
    primary key (groups_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_projects                                         */
-/*==============================================================*/
 create table usvn_projects
 (
    projects_id          int not null,
@@ -43,9 +28,6 @@ create table usvn_projects
    primary key (projects_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_properties                                       */
-/*==============================================================*/
 create table usvn_properties
 (
    properties_id        int not null,
@@ -56,9 +38,6 @@ create table usvn_properties
    primary key (properties_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_rights                                           */
-/*==============================================================*/
 create table usvn_rights
 (
    rights_id            int not null,
@@ -66,9 +45,6 @@ create table usvn_rights
    primary key (rights_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_to_assign                                        */
-/*==============================================================*/
 create table usvn_to_assign
 (
    properties_id        int not null,
@@ -76,9 +52,6 @@ create table usvn_to_assign
    primary key (properties_id, files_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_to_attribute                                     */
-/*==============================================================*/
 create table usvn_to_attribute
 (
    rights_id            int not null,
@@ -87,9 +60,6 @@ create table usvn_to_attribute
    primary key (rights_id, groups_id, projects_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_to_belong                                        */
-/*==============================================================*/
 create table usvn_to_belong
 (
    users_id             int not null,
@@ -97,9 +67,7 @@ create table usvn_to_belong
    primary key (users_id, groups_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_to_have                                          */
-/*==============================================================*/
+
 create table usvn_to_have
 (
    users_id             int not null,
@@ -107,9 +75,6 @@ create table usvn_to_have
    primary key (users_id, projects_id)
 );
 
-/*==============================================================*/
-/* Table: usvn_users                                            */
-/*==============================================================*/
 create table usvn_users
 (
    users_id             int not null,

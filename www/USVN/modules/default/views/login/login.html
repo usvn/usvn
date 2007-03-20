@@ -1,6 +1,15 @@
 <form method="post">
-	<?php echo $this->formText('login', (isset($this->login) ? $this->login : "")); ?><br>
-	<?php echo $this->formPassword('password'); ?><br>
-	<?php echo $this->formSubmit('submit', T_("Login")); ?><br>
-
+	<table>
+		<tr>
+			<td><?php echo T_("Login"); ?></td>
+			<td><?php echo $this->formText('login', (isset($this->login) ? $this->login : "")); ?></td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Password"); ?></td>
+			<td><?php echo $this->formPassword('password'); ?><br></td>
+		</tr>
+		<tr>
+			<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit")); ?></td>
+		</tr>
+	</table>
 </form>

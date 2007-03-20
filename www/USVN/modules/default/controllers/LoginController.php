@@ -20,7 +20,7 @@ class LoginController extends IndexController
 		if (!empty($_POST)) {
 			$this->_doLogin();
 		}
-		
+
 		/**
 		 * Render the template form
 		 */
@@ -47,7 +47,9 @@ class LoginController extends IndexController
 		$result = $auth->authenticate($authAdapter);
 
 		if (!$result->isValid()) {
+			$this->_view->login = $_POST['login'];
 			$this->_view->messages = $result->getMessages();
+			$this->_render('errors.html');
 		} else {
 			$this->_redirect("/");
 		}

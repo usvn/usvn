@@ -12,7 +12,7 @@
 <a:Code>SVN_MPD</a:Code>
 <a:CreationDate>1174318428</a:CreationDate>
 <a:Creator>Dark</a:Creator>
-<a:ModificationDate>1174318504</a:ModificationDate>
+<a:ModificationDate>1174318644</a:ModificationDate>
 <a:Modifier>Dark</a:Modifier>
 <a:History>ORG {4A50325F-01EB-4ECF-B48D-96692F41D958}
 DAT 1174318441
@@ -102,7 +102,7 @@ GenScriptTitle=Yes
 GenScriptNamLabl=No
 GenScriptQDtbs=No
 GenScriptQOwnr=No
-GenScriptCase=0
+GenScriptCase=2
 GenScriptEncoding=ANSI
 GenScriptNAcct=No
 
@@ -190,7 +190,7 @@ Permission=No
 
 [FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Table]
 Create=Yes
-Drop=Yes
+Drop=No
 Comment=Yes
 Permission=No
 
@@ -247,14 +247,14 @@ Update constraint restrict=Yes
 Update constraint cascade=Yes
 Update constraint set null=Yes
 Update constraint set default=Yes
-Delete constraint restrict=Yes
-Delete constraint cascade=Yes
-Delete constraint set null=Yes
+Delete constraint restrict=No
+Delete constraint cascade=No
+Delete constraint set null=No
 Delete constraint set default=Yes
 
 [FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Index]
 Create=Yes
-Drop=Yes
+Drop=No
 Comment=Yes
 
 [FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Index\Create]

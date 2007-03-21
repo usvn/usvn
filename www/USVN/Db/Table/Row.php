@@ -14,9 +14,9 @@ class USVN_Db_Table_Row extends Zend_Db_Table_Row {
      * @param string $camel The camelCaps property name; e.g., 'columnName' maps to 'column_name'.
      * @return string The mapped column value.
      */
-	public function __get($camel)
+	public function __get($key)
 	{
-		$under = $this->_uncamelize($camel);
+		$under = $this->_checkKey($key);
 		return $this->_data[$under];
 	}
 
@@ -28,30 +28,30 @@ class USVN_Db_Table_Row extends Zend_Db_Table_Row {
      * @return void
      * @throws Zend_Db_Table_Row_Exception
      */
-	public function __set($camel, $value)
+	public function __set($key, $value)
 	{
-		$under = $this->_uncamelize($camel);
-		if ($under == $this->_info['primary']) {
-			throw new Zend_Db_Table_Row_Exception("not allowed to change primary key value");
-		} else {
-			$this->_data[$under] = $value;
+		$under = $this->_checkKey($key);
+		// @todo this should permit a primary key value to be set
+		// not all table have an auto-generated primary key
+		if (in_array($under, $this->_primary)) {
+			require_once 'Zend/Db/Table/Row/Exception.php';
+			throw new Zend_Db_Table_Row_Exception("Changing the primary key value(s) is not allowed");
 		}
+
+		$this->_data[$under] = $value;
 	}
 
-	protected function _uncamelize($camel)
+	protected function _checkKey($key)
 	{
-		$cols = $this->_info['cols'];
-		$under = array_search($camel, $cols);
-		if ($under === false) {
-			$under = isset($cols[$camel]) ? $camel : false;
+		if (array_key_exists($key, $this->_data)) {
+			return $key;
 		}
-		if ($under === false) {
-			$tmp = $this->_info['fieldPrefix'] . $camel;
-			$under = isset($cols[$tmp]) ? $tmp : false;
+
+		$info = $this->_getTable()->info();
+		if (array_key_exists($info['fieldPrefix'] . $key, $this->_data)) {
+			return $info['fieldPrefix'] . $key;
 		}
-		if ($under === false) {
-			throw new Zend_Db_Table_Row_Exception("column '$camel' not in row");
-		}
-		return $under;
+
+		throw new Zend_Db_Table_Row_Exception("column '$key' not in row");
 	}
 }

@@ -1,1 +1,14 @@
-<h1>Project</h1>
+<h1><?php echo T_("Projects list"); ?></h1>
+<ul>
+<?php
+$urlOptions = array();
+$urlOptions['module'] = 'admin';
+$urlOptions['controller'] = 'projects';
+$urlOptions['action'] = 'edit';
+
+foreach ($this->projects as $project) {
+	$urlOptions['project'] = $project->projects_name;
+	echo "<li><a href=\"", $this->url(array($urlOptions), 'project'), "\">", $project->projects_name, "</a></li>";
+}
+?>
+</ul>

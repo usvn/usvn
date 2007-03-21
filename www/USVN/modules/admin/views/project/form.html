@@ -1,0 +1,15 @@
+<form method="post" action="<?php echo $this->url(); ?>">
+	<table>
+		<tr>
+			<td><?php echo T_("Project name"); ?></td>
+			<td><?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null)); ?></td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Project description"); ?></td>
+			<td><?php echo $this->formTextarea('projects_description'); ?><br></td>
+		</tr>
+		<tr>
+			<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit")/*, array("onClick" => 'return false;')*/); ?></td>
+		</tr>
+	</table>
+</form>

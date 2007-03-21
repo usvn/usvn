@@ -16,18 +16,14 @@ require_once 'www/USVN/autoload.php';
 
 		$data = array(
 			"files_id" => 1,
-			"files_filename" => 'test',
-			"files_path" => 'trunk/',
-			"files_num_rev" => 1,
+			"files_path" => 'trunk/test',
 			"projects_id" => 1
 		);
 		$this->db->insert("usvn_files", $data);
 
 		$data = array(
 			"files_id" => 2,
-			"files_filename" => 'test',
-			"files_path" => 'trunk/',
-			"files_num_rev" => 2,
+			"files_path" => 'trunk/test',
 			"projects_id" => 1
 		);
 		$this->db->insert("usvn_files", $data);

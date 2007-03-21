@@ -57,13 +57,14 @@ class FindStrGetTextTask extends Task {
 
     private function list_dir($name) {
 		$res = array();
+		echo $name."\n";
         if ($dir = opendir($name)) {
             while($file = readdir($dir)) {
-				if (preg_match('/\.php$/', $file)) {
+				if (preg_match('/\.php$/', $file) || preg_match('/\.html$/', $file)) {
 					$res[] = "$name/$file";
 				}
-				if(is_dir($file) && !in_array($file, array(".",".."))) {
-					$res = array_merge ($res, $this->list_dir($file));
+				if(is_dir($name."/".$file) && !in_array($file, array(".","..", ".svn"))) {
+					$res = array_merge ($res, $this->list_dir($name."/".$file));
 				}
 			}
 			closedir($dir);
@@ -77,7 +78,7 @@ class FindStrGetTextTask extends Task {
         $files = $this->list_dir(".");
 		chdir($this->localedirectory.'/'.$lang.'/LC_MESSAGES');
 		rename("messages.po", "old.po");
-		$command = "xgettext --keyword=T_ --keyword=T_ngettext";
+		$command = "xgettext  --language=PHP --keyword=T_ --keyword=T_ngettext";
 		foreach ($files as $file) {
 			$command .= " ../../../$file";
 		}

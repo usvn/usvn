@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-20 19:26-0500\n"
+"POT-Creation-Date: 2007-03-21 10:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../../install/index.php:26
-#, php-format
-msgid "Local %s is not supported by the system."
+#: ../../.././www/USVN/modules/default/views/login/login.html:4
+msgid "Login"
 msgstr ""
 
-#: ../../../install/index.php:34
+#: ../../.././www/USVN/modules/default/views/login/login.html:8
+msgid "Password"
+msgstr ""
+
+#: ../../.././www/USVN/modules/default/views/login/login.html:12
+msgid "Submit"
+msgstr ""
+
+#: ../../.././www/USVN/modules/admin/views/config/index.html:1
+msgid "Configuration"
+msgstr ""
+
+#: ../../.././www/USVN/modules/admin/views/config/index.html:5
+msgid "Default language"
+msgstr ""
+
+#: ../../.././www/USVN/modules/admin/views/config/index.html:9
+msgid "Save"
+msgstr ""
+
+#: ../../.././www/USVN/Auth/Adapter/Db.php:38
+#, php-format
+msgid "Login %s not found"
+msgstr ""
+
+#: ../../.././www/USVN/Auth/Adapter/Db.php:43
+msgid "Incorrect password"
+msgstr ""
+
+#: ../../.././www/USVN/TranslationTest.php:69 ../../.././install/index.php:26
 msgid "Welcome to USVN"
 msgstr ""
 
-#: ../../../install/index.php:36
+#: ../../.././install/index.php:28
 msgid "Copyright USVN"
 msgstr ""

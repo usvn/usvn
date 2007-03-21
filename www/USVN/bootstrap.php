@@ -18,7 +18,7 @@ try {
 	* Configure language
 	*/
 	require_once 'USVN/Translation.php';
-	USVN_Translation::initTranslation($config->translation->locale);
+	USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIRECTORY);
 
 	/**
 	 * Configure our default db adapter

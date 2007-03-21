@@ -53,7 +53,7 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 
     public function test_getLanguage()
     {
-		USVN_Translation::initTranslation('fr_FR');
+		USVN_Translation::initTranslation('fr_FR', 'locale');
 		$this->assertEquals('fr_FR', USVN_Translation::getLanguage());
 	}
 
@@ -65,8 +65,18 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 
 	public function test_translation()
     {
-		USVN_Translation::initTranslation('fr_FR');
+		USVN_Translation::initTranslation('fr_FR', 'locale');
 		$this->assertEquals("Bienvenue dans USVN", T_("Welcome to USVN"), "Translation error.");
+	}
+
+	public function test_listTranslation()
+	{
+		$list = USVN_Translation::listTranslation();
+		$this->assertTrue(in_array('fr_FR', $list));
+		$this->assertTrue(in_array('en_US', $list));
+		$this->assertFalse(in_array('.', $list));
+		$this->assertFalse(in_array('..', $list));
+		$this->assertFalse(in_array('.svn', $list));
 	}
 }
 

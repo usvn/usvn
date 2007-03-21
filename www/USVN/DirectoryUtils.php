@@ -15,22 +15,17 @@ class USVN_DirectoryUtils
     */
     public function removeDirectory($path)
     {
-        try
-        {
+        try {
             @$dir = new RecursiveDirectoryIterator($path);
         }
-        catch(Exception $e)
-        {
+        catch(Exception $e) {
             return;
         }
-        foreach(@new RecursiveIteratorIterator($dir) as $file)
-        {
+        foreach(@new RecursiveIteratorIterator($dir) as $file) {
             unlink($file);
         }
-        foreach($dir as $subDir)
-        {
-            if(!@rmdir($subDir))
-            {
+        foreach($dir as $subDir) {
+            if(!@rmdir($subDir)) {
                 USVN_DirectoryUtils::removeDirectory($subDir);
             }
         }

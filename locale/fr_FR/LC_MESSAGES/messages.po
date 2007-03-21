@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-20 19:26-0500\n"
+"POT-Creation-Date: 2007-03-21 10:08-0400\n"
 "PO-Revision-Date: 2007-02-19 18:29-0500\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team: Français <contact@usvn.fr>\n"
@@ -17,15 +17,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../../../install/index.php:26
-#, php-format
-msgid "Local %s is not supported by the system."
-msgstr "La locale %s n'est pas supportée par le système."
+#: ../../.././www/USVN/modules/default/views/login/login.html:4
+msgid "Login"
+msgstr "Identifiant"
 
-#: ../../../install/index.php:34
+#: ../../.././www/USVN/modules/default/views/login/login.html:8
+msgid "Password"
+msgstr "Mot de passe"
+
+#: ../../.././www/USVN/modules/default/views/login/login.html:12
+msgid "Submit"
+msgstr "Soumettre"
+
+#: ../../.././www/USVN/modules/admin/views/config/index.html:1
+msgid "Configuration"
+msgstr ""
+
+#: ../../.././www/USVN/modules/admin/views/config/index.html:5
+msgid "Default language"
+msgstr "Langue par d&eacute;faut"
+
+#: ../../.././www/USVN/modules/admin/views/config/index.html:9
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: ../../.././www/USVN/Auth/Adapter/Db.php:38
+#, php-format
+msgid "Login %s not found"
+msgstr "L'identifiant %s n'existe pas"
+
+#: ../../.././www/USVN/Auth/Adapter/Db.php:43
+msgid "Incorrect password"
+msgstr "Mot de passe incorrect"
+
+#: ../../.././www/USVN/TranslationTest.php:69 ../../.././install/index.php:26
 msgid "Welcome to USVN"
 msgstr "Bienvenue dans USVN"
 
-#: ../../../install/index.php:36
+#: ../../.././install/index.php:28
 msgid "Copyright USVN"
 msgstr "Copyright l'équipe USVN 2007."
+
+#~ msgid "Local %s is not supported by the system."
+#~ msgstr "La locale %s n'est pas supportée par le système."

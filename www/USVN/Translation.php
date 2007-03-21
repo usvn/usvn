@@ -34,7 +34,7 @@ class USVN_Translation
 	* @var string language code (ex: fr_Fr)
 	* @var string directory of locales
 	*/
-	static function initTranslation($language, $locale_directory = "locale/")
+	static function initTranslation($language, $locale_directory)
 	{
 		USVN_Translation::$language = $language;
 		USVN_Translation::$locale_directory = $locale_directory;
@@ -65,5 +65,23 @@ class USVN_Translation
 	static function getLocaleDirectory()
 	{
 		return USVN_Translation::$locale_directory;
+	}
+
+	/**
+	* Return available translations
+	*
+	*listTranslation()
+	* @return array
+	*/
+	static function listTranslation()
+	{
+		$res = array();
+		$dh = opendir(USVN_Translation::$locale_directory);
+		while (($subDir = readdir($dh)) !== false) {
+            if ($subDir != '.' && $subDir != '..' && $subDir != '.svn') {
+				array_push($res, $subDir);
+			}
+        }
+		return $res;
 	}
 }

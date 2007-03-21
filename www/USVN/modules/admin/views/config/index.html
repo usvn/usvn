@@ -1,0 +1,23 @@
+<h1><?php echo T_("Configuration");?></h1>
+<form method="POST" action="save/">
+<table>
+	<tr>
+		<td><?php echo T_("Default language");?>:</td>
+		<td>
+			<select name="language">
+				<?php
+					foreach (USVN_Translation::listTranslation() as $language) {
+						if ($language == USVN_Translation::getLanguage()) {
+							echo "<option selected>$language</option>";
+						}
+						else {
+							echo "<option>$language</option>";
+						}
+					}
+				?>
+			</select>
+		</td>
+	</tr>
+</table>
+<input type="submit" value="<?php echo T_("Save");?>">
+</form>

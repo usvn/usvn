@@ -31,7 +31,7 @@ class USVN_Client_UninstallTest extends PHPUnit_Framework_TestCase {
     {
         $this->clean();
         USVN_Client_SVNUtils::createSvnDirectoryStruct("tests/tmp/testrepository");
-        mkdir('tests/tmp/fakerepository');
+        @mkdir('tests/tmp/fakerepository');
     }
 
     public function tearDown()

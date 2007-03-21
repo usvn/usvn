@@ -10,7 +10,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function startCommit($authid, $user)
 	{
-		file_put_contents('/tmp/testhooksStartCommit', "$authid $user\n");
+		file_put_contents('tests/tmp/testhooksStartCommit', "$authid $user\n");
 		return 0;
 	}
 
@@ -25,7 +25,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preCommit($authid, $user, $log, $changedfiles)
 	{
-		file_put_contents('/tmp/testhooksPreCommit', "$authid\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
+		file_put_contents('tests/tmp/testhooksPreCommit', "$authid\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 		return 0;
 	}
 
@@ -40,7 +40,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postCommit($authid, $revision, $user, $log, $changedfiles)
 	{
-		file_put_contents('/tmp/testhooksPostCommit', "$authid\n$revision\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
+		file_put_contents('tests/tmp/testhooksPostCommit', "$authid\n$revision\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 	}
 
 	/**
@@ -53,7 +53,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preLock($authid, $path, $user)
 	{
-		file_put_contents('/tmp/testhooksPreLock', "$authid\n$path\nUser: $user\n");
+		file_put_contents('tests/tmp/testhooksPreLock', "$authid\n$path\nUser: $user\n");
 		return 0;
 	}
 
@@ -66,7 +66,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postLock($authid, $path, $user)
 	{
-		file_put_contents('/tmp/testhooksPostLock', "$authid\nLock file: $path\nUser: $user\n");
+		file_put_contents('tests/tmp/testhooksPostLock', "$authid\nLock file: $path\nUser: $user\n");
 	}
 
 	/**
@@ -79,7 +79,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preUnlock($authid, $path, $user)
 	{
-		file_put_contents('/tmp/testhooksPreUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
+		file_put_contents('tests/tmp/testhooksPreUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 		return 0;
 	}
 
@@ -92,7 +92,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postUnlock($authid, $path, $user)
 	{
-		file_put_contents('/tmp/testhooksPostUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
+		file_put_contents('tests/tmp/testhooksPostUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 	}
 
 	/**
@@ -108,7 +108,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preRevpropChange($authid, $revision, $user, $property, $action, $value)
 	{
-		file_put_contents('/tmp/testhooksPreRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
+		file_put_contents('tests/tmp/testhooksPreRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
 		return 0;
 	}
 
@@ -124,6 +124,6 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postRevpropChange($authid, $revision, $user, $property, $action, $value)
 	{
-		file_put_contents('/tmp/testhooksPostRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
+		file_put_contents('tests/tmp/testhooksPostRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
 	}
 }

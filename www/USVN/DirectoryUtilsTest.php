@@ -27,30 +27,12 @@ class USVN_DirectoryUtilsTest extends PHPUnit_Framework_TestCase {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     *
-     * @access protected
-     */
-    protected function setUp() {
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @access protected
-     */
-    protected function tearDown() {
-    }
-
 	public function test_removeDirectory()
 	{
-		mkdir('tests/tmp/dir');
-		mkdir('tests/tmp/dir/1');
-		mkdir('tests/tmp/dir/2');
-		mkdir('tests/tmp/dir/2/3');
+		@mkdir('tests/tmp/dir');
+		@mkdir('tests/tmp/dir/1');
+		@mkdir('tests/tmp/dir/2');
+		@mkdir('tests/tmp/dir/2/3');
 		file_put_contents('tests/tmp/dir/2/3/test', 'tutu');
 		file_put_contents('tests/tmp/dir/test', 'tutu');
 		USVN_DirectoryUtils::removeDirectory('tests/tmp/dir');

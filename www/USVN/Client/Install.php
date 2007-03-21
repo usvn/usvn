@@ -28,9 +28,11 @@ class USVN_Client_Install
         $this->path = $path.'/';
         $this->url = $url;
         $this->authid = $authid;
-		if (!@mkdir($this->path.'/usvn')) {
-			throw new USVN_Exception("Can't create ".$this->path.'/usvn'.".");
-		}
+        if (!file_exists($this->path.'/usvn')) {
+            if (!@mkdir($this->path.'/usvn')) {
+                throw new USVN_Exception("Can't create ".$this->path.'/usvn'.".");
+            }
+        }
         $this->createConfigFile();
         $this->installHooks();
         $this->installSourceFiles();
@@ -78,7 +80,7 @@ class USVN_Client_Install
 
     private function installSourceFiles()
     {
-        mkdir($this->path.'/usvn/USVN');
+        @mkdir($this->path.'/usvn/USVN');
 		$this->copyLibraryFiles('USVN/Client');
     }
 

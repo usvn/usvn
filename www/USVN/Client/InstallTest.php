@@ -31,7 +31,7 @@ class USVN_Client_InstallTest extends PHPUnit_Framework_TestCase {
     {
         $this->clean();
         USVN_Client_SVNUtils::createSvnDirectoryStruct("tests/tmp/testrepository");
-        mkdir('tests/tmp/fakerepository');
+        @mkdir('tests/tmp/fakerepository');
     }
 
     public function tearDown()
@@ -63,7 +63,9 @@ class USVN_Client_InstallTest extends PHPUnit_Framework_TestCase {
         $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://bidon', 'auth007');
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/start-commit'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/pre-commit'));
-        $this->assertTrue(is_executable('tests/tmp/testrepository/hooks/pre-commit'), "Hook is not executable");
+        if (!substr(php_uname(), 0, 7) == "Windows") {
+            $this->assertTrue(is_executable('tests/tmp/testrepository/hooks/pre-commit'), "Hook is not executable");
+        }
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn/USVN/Client/Hooks/StartCommit.php'), "Source code of hooks class is not available.");
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn/USVN/Client/Config.php'), "Source code of some client class is not available.");

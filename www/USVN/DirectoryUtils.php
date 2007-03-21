@@ -23,7 +23,7 @@ class USVN_DirectoryUtils
         {
             return;
         }
-        foreach(new RecursiveIteratorIterator($dir) as $file)
+        foreach(@new RecursiveIteratorIterator($dir) as $file)
         {
             unlink($file);
         }
@@ -34,6 +34,7 @@ class USVN_DirectoryUtils
                 USVN_DirectoryUtils::removeDirectory($subDir);
             }
         }
+        $dir = NULL; // Else on windows that doesn't work....
         @rmdir($path);
     }
 }

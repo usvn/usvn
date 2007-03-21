@@ -30,8 +30,8 @@ class USVN_Client_ConfigTest extends PHPUnit_Framework_TestCase {
     public function setUp()
     {
         $this->clean();
-        mkdir('tests/tmp/testrepository');
-        mkdir('tests/tmp/testrepository/usvn');
+        @mkdir('tests/tmp/testrepository');
+        @mkdir('tests/tmp/testrepository/usvn');
     }
 
     public function tearDown()

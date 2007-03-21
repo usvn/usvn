@@ -24,12 +24,4 @@ class USVN_modules_default_models_Users extends USVN_Db_Table {
 	 */
     protected $_name = "users";
 
-    /**
-     * Edit profile of a user
-     *
-     */
-    public function editProfile()
-    {
-    	//Zend::dump($this);
-    }
 }

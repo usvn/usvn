@@ -11,13 +11,12 @@ try {
 	/**
 	 * Load our ini conf file
 	 */
-	$config = new Zend_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-	$routes_config = new Zend_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
+	$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+	$routes_config = new USVN_Config(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
 
 	/**
 	* Configure language
 	*/
-	require_once 'USVN/Translation.php';
 	USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIRECTORY);
 
 	/**

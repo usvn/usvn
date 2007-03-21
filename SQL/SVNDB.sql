@@ -1,15 +1,14 @@
+
 create table usvn_files
 (
-   files_id             int not null,
    projects_id          int not null,
-   files_filename       varchar(255) not null,
+   revisions_num        int not null,
+   files_id             int not null,
    files_path           text not null,
    files_date           datetime,
    files_isdir          bool,
-   files_num_rev        int,
    files_typ_rev        char(1),
-   files_message        varchar(1000),
-   primary key (files_id)
+   primary key (projects_id, revisions_num, files_id)
 );
 
 create table usvn_groups
@@ -18,6 +17,7 @@ create table usvn_groups
    groups_name          varchar(150) not null,
    primary key (groups_id)
 );
+
 
 create table usvn_projects
 (
@@ -28,14 +28,24 @@ create table usvn_projects
    primary key (projects_id)
 );
 
+
 create table usvn_properties
 (
-   properties_id        int not null,
-   properties_version   int not null,
+   projects_id          int not null,
+   revisions_num        int not null,
+   files_id             int not null,
+   properties_name      varchar(64) not null,
    properties_value     text not null,
-   properties_label_property varchar(64) not null,
-   properties_path      varchar(255) not null,
-   primary key (properties_id)
+   primary key (projects_id, revisions_num, files_id, properties_name)
+);
+
+
+create table usvn_revision
+(
+   projects_id          int not null,
+   revisions_num        int not null,
+   revisions_message    text not null,
+   primary key (projects_id, revisions_num)
 );
 
 create table usvn_rights
@@ -45,20 +55,16 @@ create table usvn_rights
    primary key (rights_id)
 );
 
-create table usvn_to_assign
-(
-   properties_id        int not null,
-   files_id             int not null,
-   primary key (properties_id, files_id)
-);
 
 create table usvn_to_attribute
 (
    rights_id            int not null,
    groups_id            int not null,
    projects_id          int not null,
+   files_id             int not null,
    primary key (rights_id, groups_id, projects_id)
 );
+
 
 create table usvn_to_belong
 (
@@ -75,6 +81,7 @@ create table usvn_to_have
    primary key (users_id, projects_id)
 );
 
+
 create table usvn_users
 (
    users_id             int not null,
@@ -86,14 +93,14 @@ create table usvn_users
    primary key (users_id)
 );
 
-alter table usvn_files add constraint fk_usvn_to_manage foreign key (projects_id)
+alter table usvn_files add constraint fk_usvn_to_link foreign key (projects_id, revisions_num)
+      references usvn_revision (projects_id, revisions_num) on delete restrict on update restrict;
+
+alter table usvn_properties add constraint fk_usvn_to_assign foreign key (projects_id, revisions_num, files_id)
+      references usvn_files (projects_id, revisions_num, files_id) on delete restrict on update restrict;
+
+alter table usvn_revision add constraint fk_usvn_to_manage foreign key (projects_id)
       references usvn_projects (projects_id) on delete restrict on update restrict;
-
-alter table usvn_to_assign add constraint fk_usvn_to_assign foreign key (properties_id)
-      references usvn_properties (properties_id) on delete restrict on update restrict;
-
-alter table usvn_to_assign add constraint fk_usvn_to_assign2 foreign key (files_id)
-      references usvn_files (files_id) on delete restrict on update restrict;
 
 alter table usvn_to_attribute add constraint fk_usvn_to_attribute foreign key (rights_id)
       references usvn_rights (rights_id) on delete restrict on update restrict;

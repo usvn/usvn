@@ -47,7 +47,7 @@
 	{
 		$f = fopen($this->_filename, 'w');
 		if (!$f) {
-			throw new USVN_Exception("Can't open {$this->filename} for write.");
+			throw new USVN_Exception(_T("Can't write into config file."));
 		}
 		fwrite($f, "[".$this->getSectionName()."]\n");
 		$this->dumpLevel($f, "", $this);

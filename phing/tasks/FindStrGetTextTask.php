@@ -76,7 +76,7 @@ class FindStrGetTextTask extends Task {
     {
 		$savepath = getcwd();
         $files = $this->list_dir(".");
-		chdir($this->localedirectory.'/'.$lang.'/LC_MESSAGES');
+		chdir($this->localedirectory.'/'.$lang);
 		rename("messages.po", "old.po");
 		$command = "xgettext  --language=PHP --keyword=T_ --keyword=T_ngettext";
 		foreach ($files as $file) {

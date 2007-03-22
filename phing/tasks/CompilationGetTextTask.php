@@ -56,8 +56,8 @@ class CompilationGetTextTask extends Task {
         while (($lang = readdir($dh)) !== false) {
             if ($lang[0] != '.') {
                 $this->log("Compilation of $lang", PROJECT_MSG_INFO);
-                $src = $this->localedirectory.'/'.$lang.'/LC_MESSAGES/'.$this->file.'.po';
-                $dst = $this->localedirectory.'/'.$lang.'/LC_MESSAGES/'.$this->file.'.mo';
+                $src = $this->localedirectory.'/'.$lang.'/'.$this->file.'.po';
+                $dst = $this->localedirectory.'/'.$lang.'/'.$this->file.'.mo';
                 if (!is_file($src)) {
                     throw new BuildException("File $src doesn't exist.");
                 }

@@ -1,32 +1,28 @@
 <?php
 /**
-* Tools for translatioon.
-*
-* @author Team USVN <contact@usvn.info>
-* @link http://www.usvn.info
-* @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
-* @copyright Copyright 2007, Team USVN
-* @since 0.5
-* @package usvn
-*
-** This software has been written in EPITECH <http://www.epitech.net>
-** EPITECH is computer science school in Paris - FRANCE -
-** under the direction of Flavien Astraud <http://www.epita.fr/~flav>.
-** and Jerome Landrieu.
-**
-** Project : USVN
-** Date    : $Date$
-*/
+ * Tools for translation
+ *
+ * @author Team USVN <contact@usvn.info>
+ * @link http://www.usvn.info
+ * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
+ * @copyright Copyright 2007, Team USVN
+ * @since 0.5
+ * @package Un_package_par_exemple_client
+ * @subpackage Le_sous_package_par_exemple_hooks
+ *
+ * This software has been written at EPITECH <http://www.epitech.net>
+ * EPITECH, European Institute of Technology, Paris - FRANCE -
+ * This project has been realised as part of
+ * end of studies project.
+ *
+ * $Id$
+ */
 
-require_once('library/gettext/gettext.inc');
-
-/**
-*
-*/
 class USVN_Translation
 {
 	static private $language;
 	static private $locale_directory;
+	static private $translation_instance;
 
 	/**
 	* Set language use by PHP and gettext.
@@ -34,17 +30,11 @@ class USVN_Translation
 	* @var string language code (ex: fr_Fr)
 	* @var string directory of locales
 	*/
-	static function initTranslation($language, $locale_directory)
+	public static function initTranslation($language, $locale_directory)
 	{
 		USVN_Translation::$language = $language;
 		USVN_Translation::$locale_directory = $locale_directory;
-		$encoding = 'UTF-8';
-		T_setlocale(LC_MESSAGES, $language.'.'.$encoding);
-		putenv("LANG=$language.$encoding");
-		putenv("LANGUAGE=$language.$encoding");
-		bindtextdomain("messages", USVN_Translation::$locale_directory);
-		bind_textdomain_codeset("messages", "UTF-8");
-		textdomain("messages");
+		USVN_Translation::$translation_instance = new Zend_Translate('gettext', "$locale_directory/$language/messages.mo", $language);
 	}
 
 	/**
@@ -52,7 +42,7 @@ class USVN_Translation
 	*
 	* @return string language code (ex: fr_Fr)
 	*/
-	static function getLanguage()
+	public static function getLanguage()
 	{
 		return USVN_Translation::$language;
 	}
@@ -62,7 +52,7 @@ class USVN_Translation
 	*
 	* @return string directory of locales
 	*/
-	static function getLocaleDirectory()
+	public static function getLocaleDirectory()
 	{
 		return USVN_Translation::$locale_directory;
 	}
@@ -73,7 +63,7 @@ class USVN_Translation
 	*listTranslation()
 	* @return array
 	*/
-	static function listTranslation()
+	public static function listTranslation()
 	{
 		$res = array();
 		$dh = opendir(USVN_Translation::$locale_directory);
@@ -84,4 +74,14 @@ class USVN_Translation
         }
 		return $res;
 	}
+
+	public static function  _($str)
+	{
+		return USVN_Translation::$translation_instance->_($str);
+	}
+}
+
+function T_($str)
+{
+	return USVN_Translation::_($str);
 }

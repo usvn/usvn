@@ -172,7 +172,7 @@
 <!-- Translation -->
 <target name="translation-compilation">
     <taskdef name="gettext-compilation" classname="phing.tasks.CompilationGetTextTask" />
-    <gettext-compilation localedirectory="locale/" />
+    <gettext-compilation localedirectory="www/locale/" />
 </target>
 
 <target name="translation-findstr">

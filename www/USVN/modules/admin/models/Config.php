@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for configuration pages
+ * Model for configuration pages
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -18,14 +18,16 @@
  * $Id$
  */
 
-require_once 'USVN/modules/admin/controllers/IndexController.php';
-
-
-class admin_ConfigController extends admin_IndexController
+class USVN_modules_admin_models_Config
 {
-	public function saveAction()
+	static public function setLanguage($language)
 	{
-		USVN_modules_admin_models_Config::setLanguage($_POST['language']);
-		$this->_redirect('admin/config/');
+		var_dump($language);
+		var_dump(USVN_Translation::listTranslation());
+		if (in_array($language, USVN_Translation::listTranslation())) {
+			$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+			$config->translation->locale  = $language;
+			$config->save();
+		}
 	}
 }

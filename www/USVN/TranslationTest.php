@@ -1,9 +1,21 @@
 <?php
 /**
-* @package usvn
-* @subpackage utils
-*
-*/
+ * Tools for translation
+ *
+ * @author Team USVN <contact@usvn.info>
+ * @link http://www.usvn.info
+ * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
+ * @copyright Copyright 2007, Team USVN
+ * @since 0.5
+ * @package usvn
+ *
+ * This software has been written at EPITECH <http://www.epitech.net>
+ * EPITECH, European Institute of Technology, Paris - FRANCE -
+ * This project has been realised as part of
+ * end of studies project.
+ *
+ * $Id$
+ */
 
 // Call USVN_TranslationTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
@@ -53,19 +65,19 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 
     public function test_getLanguage()
     {
-		USVN_Translation::initTranslation('fr_FR', 'locale');
+		USVN_Translation::initTranslation('fr_FR', 'www/locale');
 		$this->assertEquals('fr_FR', USVN_Translation::getLanguage());
 	}
 
     public function test_getLocaleDirectory()
     {
-		USVN_Translation::initTranslation('fr_FR', 'tests');
-		$this->assertEquals('tests', USVN_Translation::getLocaleDirectory());
+		USVN_Translation::initTranslation('fr_FR', 'www/locale');
+		$this->assertEquals('www/locale', USVN_Translation::getLocaleDirectory());
 	}
 
 	public function test_translation()
     {
-		USVN_Translation::initTranslation('fr_FR', 'locale');
+		USVN_Translation::initTranslation('fr_FR', 'www/locale');
 		$this->assertEquals("Bienvenue dans USVN", T_("Welcome to USVN"), "Translation error.");
 	}
 

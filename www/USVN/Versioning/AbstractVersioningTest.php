@@ -36,12 +36,31 @@ require_once 'www/USVN/autoload.php';
 		$data = array(
 			"projects_id" => 1,
 			"revisions_num" => 1,
+			"revisions_message" => "First commit"
 		);
 		$this->db->insert("usvn_revisions", $data);
 
 		$data = array(
+			"files_id" => 0,
+			"files_path" => 'trunk',
+			"files_isdir" => true,
+			"revisions_num" => 1,
+			"projects_id" => 1
+		);
+		$this->db->insert("usvn_files", $data);
+
+		$data = array(
 			"files_id" => 1,
 			"files_path" => 'trunk/test',
+			"revisions_num" => 1,
+			"projects_id" => 1
+		);
+		$this->db->insert("usvn_files", $data);
+
+		$data = array(
+			"files_id" => 2,
+			"files_path" => 'trunk/test2',
+			"revisions_num" => 1,
 			"projects_id" => 1
 		);
 		$this->db->insert("usvn_files", $data);
@@ -57,31 +76,62 @@ require_once 'www/USVN/autoload.php';
 		$data = array(
 			"projects_id" => 1,
 			"revisions_num" => 2,
+			"revisions_message" => "Second commit"
 		);
 		$this->db->insert("usvn_revisions", $data);
 
 		$data = array(
-			"files_id" => 2,
+			"files_id" => 3,
 			"files_path" => 'trunk/test',
+			"revisions_num" => 2,
 			"projects_id" => 1
 		);
 		$this->db->insert("usvn_files", $data);
 
 		$data = array(
-			"files_id" => 2,
+			"files_id" => 3,
 			"projects_id" => 1,
 			"properties_name" => 'mime',
 			"properties_value" => 'jpg'
 		);
 
 		$data = array(
-			"files_id" => 2,
+			"files_id" => 3,
 			"projects_id" => 1,
 			"properties_name" => 'eof',
 			"properties_value" => "\r\n"
 		);
 		$this->db->insert("usvn_properties", $data);
-	}
 
+		//Second Project
+		$data = array(
+			"projects_id" => 2,
+			"projects_name" => 'Projet FENEC'
+		);
+		$this->db->insert("usvn_projects", $data);
+		//Revision 1
+		$data = array(
+			"projects_id" => 2,
+			"revisions_num" => 1,
+			"revisions_message" => "Commit to another project"
+		);
+		$this->db->insert("usvn_revisions", $data);
+
+		$data = array(
+			"files_id" => 4,
+			"files_path" => 'trunk',
+			"files_isdir" => true,
+			"projects_id" => 1
+		);
+		$this->db->insert("usvn_files", $data);
+
+		$data = array(
+			"files_id" => 5,
+			"files_path" => 'trunk/test',
+			"revisions_num" => 2,
+			"projects_id" => 1
+		);
+		$this->db->insert("usvn_files", $data);
+	}
 }
 ?>

@@ -8,6 +8,7 @@
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
  * @package usvn
+ * @subpackage config
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -

@@ -15,8 +15,8 @@ function  scandirPHP($dir)
 				&& $file != 'gettext') {
 					if (preg_match ('/.*\.php$/', $file)) {
 						$content = file_get_contents($dir."/".$file);
-						if (!preg_match ('/\$LastChangedBy\$/', $content)
-							|| !preg_match ('/<http://www.epitech.net>/', $content)) {
+						if (strpos($content, '$Id') === False
+							|| strpos($content, '<http://www.epitech.net>') === False) {
 							echo "$dir/$file\n";
 						}
 					}

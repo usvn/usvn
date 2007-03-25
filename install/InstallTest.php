@@ -1,4 +1,22 @@
 <?php
+/**
+ * Installation operations
+ *
+ * @author Team USVN <contact@usvn.info>
+ * @link http://www.usvn.info
+ * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
+ * @copyright Copyright 2007, Team USVN
+ * @since 0.5
+ * @package install
+ *
+ * This software has been written at EPITECH <http://www.epitech.net>
+ * EPITECH, European Institute of Technology, Paris - FRANCE -
+ * This project has been realised as part of
+ * end of studies project.
+ *
+ * $Id$
+ */
+
 // Call InstallTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
     define("PHPUnit_MAIN_METHOD", "InstallTest::main");

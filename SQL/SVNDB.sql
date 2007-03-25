@@ -40,7 +40,7 @@ create table usvn_properties
 );
 
 
-create table usvn_revision
+create table usvn_revisions
 (
    projects_id          int not null,
    revisions_num        int not null,
@@ -94,12 +94,12 @@ create table usvn_users
 );
 
 alter table usvn_files add constraint fk_usvn_to_link foreign key (projects_id, revisions_num)
-      references usvn_revision (projects_id, revisions_num) on delete restrict on update restrict;
+      references usvn_revisions (projects_id, revisions_num) on delete restrict on update restrict;
 
 alter table usvn_properties add constraint fk_usvn_to_assign foreign key (projects_id, revisions_num, files_id)
       references usvn_files (projects_id, revisions_num, files_id) on delete restrict on update restrict;
 
-alter table usvn_revision add constraint fk_usvn_to_manage foreign key (projects_id)
+alter table usvn_revisions add constraint fk_usvn_to_manage foreign key (projects_id)
       references usvn_projects (projects_id) on delete restrict on update restrict;
 
 alter table usvn_to_attribute add constraint fk_usvn_to_attribute foreign key (rights_id)

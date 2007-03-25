@@ -32,6 +32,13 @@ require_once 'www/USVN/autoload.php';
 		);
 		$this->db->insert("usvn_projects", $data);
 
+		//Revision 1
+		$data = array(
+			"projects_id" => 1,
+			"revisions_num" => 1,
+		);
+		$this->db->insert("usvn_revisions", $data);
+
 		$data = array(
 			"files_id" => 1,
 			"files_path" => 'trunk/test',
@@ -40,11 +47,40 @@ require_once 'www/USVN/autoload.php';
 		$this->db->insert("usvn_files", $data);
 
 		$data = array(
+			"files_id" => 1,
+			"projects_id" => 1,
+			"properties_name" => 'eof',
+			"properties_value" => "\n"
+		);
+
+		//Revision 2
+		$data = array(
+			"projects_id" => 1,
+			"revisions_num" => 2,
+		);
+		$this->db->insert("usvn_revisions", $data);
+
+		$data = array(
 			"files_id" => 2,
 			"files_path" => 'trunk/test',
 			"projects_id" => 1
 		);
 		$this->db->insert("usvn_files", $data);
+
+		$data = array(
+			"files_id" => 2,
+			"projects_id" => 1,
+			"properties_name" => 'mime',
+			"properties_value" => 'jpg'
+		);
+
+		$data = array(
+			"files_id" => 2,
+			"projects_id" => 1,
+			"properties_name" => 'eof',
+			"properties_value" => "\r\n"
+		);
+		$this->db->insert("usvn_properties", $data);
 	}
 
 }

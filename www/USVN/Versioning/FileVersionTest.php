@@ -48,7 +48,8 @@ class USVN_Versioning_FileVersionTest extends USVN_Versioning_AbstractVersioning
 	public function testGetVersion() {
 	}
 /*
-    public function testGetVersion() {
+    public function testGetVersion()
+	{
 		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 1);
 		$this->assertEquals(1, $file->getVersion());
 		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 2);
@@ -57,10 +58,21 @@ class USVN_Versioning_FileVersionTest extends USVN_Versioning_AbstractVersioning
 		$this->assertEquals(2, $file->getVersion());
     }
 
-    public function testGetPath() {
+    public function testGetPath()
+	{
 		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 1);
 		$this->assertEquals('trunk/test', $file->getPath());
     }
+
+	public function testGetMeta()
+	{
+		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 2);
+		$this->assertEquals("jpg", $file->getMeta('mime'));
+		$this->assertEquals("\r\n", $file->getMeta('eof'));
+		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 1);
+		$this->assertEquals("", $file->getMeta('mime'));
+		$this->assertEquals("\n", $file->getMeta('eof'));
+	}
 	*/
 }
 

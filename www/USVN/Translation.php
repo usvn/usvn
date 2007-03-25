@@ -7,8 +7,7 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package Un_package_par_exemple_client
- * @subpackage Le_sous_package_par_exemple_hooks
+ * @package usvn
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
@@ -60,7 +59,6 @@ class USVN_Translation
 	/**
 	* Return available translations
 	*
-	*listTranslation()
 	* @return array
 	*/
 	public static function listTranslation()
@@ -75,13 +73,14 @@ class USVN_Translation
 		return $res;
 	}
 
+	/**
+	* Translate the given string
+	*
+	* @param string
+	* @return string
+	*/
 	public static function  _($str)
 	{
 		return USVN_Translation::$translation_instance->_($str);
 	}
-}
-
-function T_($str)
-{
-	return USVN_Translation::_($str);
 }

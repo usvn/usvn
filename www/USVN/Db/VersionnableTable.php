@@ -2,7 +2,7 @@
 
 require_once 'USVN/Db/VersionnableTable.php';
 
-class VersionnableTable extends USVN_Db_Table {
+class USVN_Db_VersionnableTable extends USVN_Db_Table {
 
 	/**
      * Updates existing rows after

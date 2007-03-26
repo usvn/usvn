@@ -1,4 +1,3 @@
-
 create table usvn_files
 (
    projects_id          int not null,
@@ -18,7 +17,6 @@ create table usvn_groups
    primary key (groups_id)
 );
 
-
 create table usvn_projects
 (
    projects_id          int not null,
@@ -27,7 +25,6 @@ create table usvn_projects
    projects_description varchar(1000),
    primary key (projects_id)
 );
-
 
 create table usvn_properties
 (
@@ -39,11 +36,11 @@ create table usvn_properties
    primary key (projects_id, revisions_num, files_id, properties_name)
 );
 
-
 create table usvn_revisions
 (
    projects_id          int not null,
    revisions_num        int not null,
+   users_id             int not null,
    revisions_message    text not null,
    primary key (projects_id, revisions_num)
 );
@@ -55,7 +52,6 @@ create table usvn_rights
    primary key (rights_id)
 );
 
-
 create table usvn_to_attribute
 (
    rights_id            int not null,
@@ -64,23 +60,6 @@ create table usvn_to_attribute
    files_id             int not null,
    primary key (rights_id, groups_id, projects_id)
 );
-
-
-create table usvn_to_belong
-(
-   users_id             int not null,
-   groups_id            int not null,
-   primary key (users_id, groups_id)
-);
-
-
-create table usvn_to_have
-(
-   users_id             int not null,
-   projects_id          int not null,
-   primary key (users_id, projects_id)
-);
-
 
 create table usvn_users
 (
@@ -93,11 +72,28 @@ create table usvn_users
    primary key (users_id)
 );
 
+create table usvn_users_to_groups
+(
+   users_id             int not null,
+   groups_id            int not null,
+   primary key (users_id, groups_id)
+);
+
+create table usvn_users_to_projects
+(
+   users_id             int not null,
+   projects_id          int not null,
+   primary key (users_id, projects_id)
+);
+
 alter table usvn_files add constraint fk_usvn_to_link foreign key (projects_id, revisions_num)
       references usvn_revisions (projects_id, revisions_num) on delete restrict on update restrict;
 
 alter table usvn_properties add constraint fk_usvn_to_assign foreign key (projects_id, revisions_num, files_id)
       references usvn_files (projects_id, revisions_num, files_id) on delete restrict on update restrict;
+
+alter table usvn_revisions add constraint fk_usvn_to_add foreign key (users_id)
+      references usvn_users (users_id) on delete restrict on update restrict;
 
 alter table usvn_revisions add constraint fk_usvn_to_manage foreign key (projects_id)
       references usvn_projects (projects_id) on delete restrict on update restrict;
@@ -111,15 +107,15 @@ alter table usvn_to_attribute add constraint fk_usvn_to_attribute2 foreign key (
 alter table usvn_to_attribute add constraint fk_usvn_to_attribute3 foreign key (projects_id)
       references usvn_projects (projects_id) on delete restrict on update restrict;
 
-alter table usvn_to_belong add constraint fk_usvn_to_belong foreign key (users_id)
+alter table usvn_users_to_groups add constraint fk_usvn_users_to_groups foreign key (users_id)
       references usvn_users (users_id) on delete restrict on update restrict;
 
-alter table usvn_to_belong add constraint fk_usvn_to_belong2 foreign key (groups_id)
+alter table usvn_users_to_groups add constraint fk_usvn_users_to_groups2 foreign key (groups_id)
       references usvn_groups (groups_id) on delete restrict on update restrict;
 
-alter table usvn_to_have add constraint fk_usvn_to_have foreign key (users_id)
+alter table usvn_users_to_projects add constraint fk_usvn_users_to_projects foreign key (users_id)
       references usvn_users (users_id) on delete restrict on update restrict;
 
-alter table usvn_to_have add constraint fk_usvn_to_have2 foreign key (projects_id)
+alter table usvn_users_to_projects add constraint fk_usvn_users_to_projects2 foreign key (projects_id)
       references usvn_projects (projects_id) on delete restrict on update restrict;
 

@@ -103,6 +103,10 @@
     <exec command="phpdoc -c phpDocumentor.ini"/>
   </target>
 
+  <target name="reset">
+    <exec command="php scripts/reset.php"/>
+  </target>
+
   <target name="lint">
     <phplint>
         <fileset dir=".">

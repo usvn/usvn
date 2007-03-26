@@ -22,12 +22,13 @@ class USVN_modules_admin_models_Config
 {
 	static public function setLanguage($language)
 	{
-		var_dump($language);
-		var_dump(USVN_Translation::listTranslation());
 		if (in_array($language, USVN_Translation::listTranslation())) {
 			$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 			$config->translation->locale  = $language;
 			$config->save();
+		}
+		else {
+			throw new USVN_Exception(T_("Invalid language"));
 		}
 	}
 }

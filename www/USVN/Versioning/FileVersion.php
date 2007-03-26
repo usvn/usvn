@@ -80,6 +80,13 @@ class USVN_Versioning_FileVersion
 		*/
 		return $this->version;
 	}
+
+	/**
+	* Get type of operation: M, A or D
+	*/
+	public function getType()
+	{
+	}
 }
 
 ?>

@@ -68,11 +68,14 @@ class USVN_Versioning_RevisionTest extends USVN_Versioning_AbstractVersioningTes
 		$this->assertEquals("Commit to another project", $revision->getMessage());
     }
 
-    public function testGetAuthor() {
-        // Remove the following line when you implement this test.
-        $this->markTestIncomplete(
-          "This test has not been implemented yet."
-        );
+    public function testGetAuthor()
+	{
+		$revision = new USVN_Versioning_Revision(1, 1);
+		$this->assertEquals(1, $revision->getAuthor());
+		$revision = new USVN_Versioning_Revision(1, 2);
+		$this->assertEquals(2, $revision->getAuthor());
+		$revision = new USVN_Versioning_Revision(2, 2);
+		$this->assertEquals(1, $revision->getAuthor());
     }
 */
     public function testGetFiles()

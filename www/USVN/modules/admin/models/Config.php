@@ -20,6 +20,12 @@
 
 class USVN_modules_admin_models_Config
 {
+	/**
+	* Set default language in the config file
+	*
+	* @param string The default language
+	* @throw USVN_Exception
+	*/
 	static public function setLanguage($language)
 	{
 		if (in_array($language, USVN_Translation::listTranslation())) {

@@ -20,18 +20,18 @@
 
 /**
  * @category   USVN
- * @package    USVN_Db
+ * @package	USVN_Db
  * @subpackage Table
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
 class USVN_Db_TableRow extends Zend_Db_Table_Row {
 	/**
-     * Getter for camelCaps properties mapped to underscore_word columns.
-     *
-     * @param string $camel The camelCaps property name; e.g., 'columnName' maps to 'column_name'.
-     * @return string The mapped column value.
-     */
+	 * Getter for camelCaps properties mapped to underscore_word columns.
+	 *
+	 * @param string $camel The camelCaps property name; e.g., 'columnName' maps to 'column_name'.
+	 * @return string The mapped column value.
+	 */
 	public function __get($key)
 	{
 		$under = $this->_checkKey($key);
@@ -39,13 +39,13 @@ class USVN_Db_TableRow extends Zend_Db_Table_Row {
 	}
 
 	/**
-     * Setter for camelCaps properties mapped to underscore_word columns.
-     *
-     * @param string $camel The camelCaps property name; e.g., 'columnName' maps to 'column_name'.
-     * @param mixed $value The value for the property.
-     * @return void
-     * @throws Zend_Db_Table_Row_Exception
-     */
+	 * Setter for camelCaps properties mapped to underscore_word columns.
+	 *
+	 * @param string $camel The camelCaps property name; e.g., 'columnName' maps to 'column_name'.
+	 * @param mixed $value The value for the property.
+	 * @return void
+	 * @throws Zend_Db_Table_Row_Exception
+	 */
 	public function __set($key, $value)
 	{
 		$under = $this->_checkKey($key);

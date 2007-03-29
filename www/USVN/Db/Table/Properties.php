@@ -33,14 +33,14 @@ class USVN_Db_Table_Properties extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_primary = array("projects_id", "revisions_num");
-	
+
 	/**
 	 * The table name derived from the class name (underscore format).
 	 *
 	 * @var array
 	 */
-    protected $_name = "properties";
+	protected $_name = "properties";
 
-    
+
 
 }

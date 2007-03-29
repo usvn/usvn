@@ -33,15 +33,15 @@ class USVN_Db_Table_Revisions extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_primary = array("projects_id", "revisions_num");
-	
+
 	/**
 	 * The table name derived from the class name (underscore format).
 	 *
 	 * @var array
 	 */
-    protected $_name = "revisions";
+	protected $_name = "revisions";
 
-    
+
 }
 
 ?>

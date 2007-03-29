@@ -86,7 +86,7 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 
 		return $this->fetchAll($where);
 	}
-	
+
 	/**
 	 * 
 	 * @todo Faire le tag PHPdoc
@@ -99,10 +99,10 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 	{
 		$this->path = $path;
 		$this->project = $project;
-		//On recherche le fichier dans la DB et on met $this->version ˆ la version trouvŽe (Voir getVersion pour plus d'explication)
+		//On recherche le fichier dans la DB et on met $this->version ï¿½ la version trouvï¿½e (Voir getVersion pour plus d'explication)
 		//on recherche l'id du fichier en private
 		$files = new USVN_Db_Table_Files();
-		
+
 		$files = $table->fetchRow('files_path =' . $this->path);
 		$this->files_id = $files->files_id;
 

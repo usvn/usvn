@@ -24,7 +24,7 @@ class admin_GroupController extends admin_IndexController
 {
 	public function indexAction()
     {
-    	$table = new USVN_modules_admin_models_Groups();
+    	$table = new USVN_Db_Table_Groups();
 		$this->_view->groups = $table->fetchAll();
 		$this->_render('index.html');
     }
@@ -33,7 +33,7 @@ class admin_GroupController extends admin_IndexController
 	{
 		if (!empty($_POST)) {
 			//pouvoir ajouter en parametre pointeur sur fonction pour verification/manips des donnees
-			$this->save("USVN_modules_admin_models_Groups", "group");
+			$this->save("USVN_Db_Table_Groups", "group");
 		}
 		$this->_render('form.html');
 	}
@@ -41,9 +41,9 @@ class admin_GroupController extends admin_IndexController
 	public function editAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_modules_admin_models_Groups", "group");
+			$this->save("USVN_Db_Table_Groups", "group");
 		} else {
-			$groupTable = new USVN_modules_admin_models_Groups();
+			$groupTable = new USVN_Db_Table_Groups();
 			$this->_view->group = $groupTable->fetchRow(array('groups_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');
@@ -52,9 +52,9 @@ class admin_GroupController extends admin_IndexController
 	public function deleteAction()
 	{
 		if (!empty($_POST)) {
-			$this->delete("USVN_modules_admin_models_Groups", "group");
+			$this->delete("USVN_Db_Table_Groups", "group");
 		} else {
-			$groupTable = new USVN_modules_admin_models_Groups();
+			$groupTable = new USVN_Db_Table_Groups();
 			$this->_view->group = $groupTable->fetchRow(array('groups_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');

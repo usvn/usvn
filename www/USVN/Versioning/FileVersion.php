@@ -35,16 +35,16 @@ class USVN_Versioning_FileVersion
 	{
 		$this->path = $path;
 		$this->project = $project;
-		//On recherche le fichier dans la DB et on met $this->version à la version trouvé (Voir getVersion pour plus d'explication)
+		//On recherche le fichier dans la DB et on met $this->version ï¿½ la version trouvï¿½ (Voir getVersion pour plus d'explication)
 		//$this->version = getversion();
-		$table = new USVN_modules_default_models_Files();
+		$table = new USVN_Db_Table_Files();
 
 		$result = $table->fetchMaxVersionFiles($this->files_id);
 		
 		$this->version = $result->revisions_num;
 
 		//on recherche l'id du fichier en private
-		$files = new USVN_modules_default_models_Files();
+		$files = new USVN_Db_Table_Files();
 		$files = $table->fetchRow('path =' . $this->path);
 		$this->files_id = $files->files_id;
 	}
@@ -64,7 +64,7 @@ class USVN_Versioning_FileVersion
 	*/
 	public function getType()
 	{
-		$files = new USVN_modules_default_models_Files();
+		$files = new USVN_Db_Table_Files();
 		
 		$res = $files->find(array("projects_id"=>$this->project,"revisions_num"=>$this->version,"files_id"=>$this->files_id ));
 		
@@ -78,7 +78,7 @@ class USVN_Versioning_FileVersion
 	*/
 	public function getData()
 	{
-		//Requete sur la DB ou le filesystem pour récuperer le contenu
+		//Requete sur la DB ou le filesystem pour rï¿½cuperer le contenu
 		return file_get_contents($this->path);
 	}
 
@@ -90,9 +90,9 @@ class USVN_Versioning_FileVersion
 	*/
 	public function getMeta($key)
 	{
-		//Requete sur la DB pour recuperer la propriete demandé
+		//Requete sur la DB pour recuperer la propriete demandï¿½
 
-		$properties = new USVN_modules_default_models_Properties();
+		$properties = new USVN_Db_Table_Files();
 
 		$res = $properties->find(array("projects_id"=>$this->project,"revisions_num"=>$this->version,"files_id"=>$files->files_id,"properties_name"=>$key));
 
@@ -108,12 +108,12 @@ class USVN_Versioning_FileVersion
 	public function getVersion()
 	{
 		/*
-		La vrais version du fichier c'est pas forcement celle passé au constructeur
+		La vrais version du fichier c'est pas forcement celle passï¿½ au constructeur
 		car si je demande la version 42 et que le fichier a pas eu de modif depuis la
 		version 10 je doit renvoyer 10.
 		*/
 
-		$table = new USVN_modules_default_models_Files();
+		$table = new USVN_Db_Table_Files();
 
 		$result = $table->fetchMaxVersionFiles($this->files_id);
 

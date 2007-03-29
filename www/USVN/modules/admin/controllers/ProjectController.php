@@ -6,7 +6,7 @@ class admin_ProjectController extends admin_IndexController
 {
 	public function indexAction()
 	{
-		$table = new USVN_modules_default_models_Projects();
+		$table = new USVN_Db_Table_Projects();
 		$this->_view->projects = $table->fetchAll(null, "projects_name");
 		$this->_render('index.html');
 	}
@@ -14,7 +14,7 @@ class admin_ProjectController extends admin_IndexController
 	public function newAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_modules_default_models_Projects", "project");
+			$this->save("USVN_Db_Table_Projects", "project");
 		}
 		$this->_render('form.html');
 	}
@@ -22,9 +22,9 @@ class admin_ProjectController extends admin_IndexController
 	public function editAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_modules_default_models_Projects", "project");
+			$this->save("USVN_Db_Table_Projects", "project");
 		} else {
-			$projectTable = new USVN_modules_default_models_Projects();
+			$projectTable = new USVN_Db_Table_Projects();
 			$this->_view->project = $projectTable->fetchRow(array('projects_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');
@@ -33,9 +33,9 @@ class admin_ProjectController extends admin_IndexController
 	public function deleteAction()
 	{
 		if (!empty($_POST)) {
-			$this->delete("USVN_modules_default_models_Projects", "project");
+			$this->delete("USVN_Db_Table_Projects", "project");
 		} else {
-			$projectTable = new USVN_modules_default_models_Projects();
+			$projectTable = new USVN_Db_Table_Projects();
 			$this->_view->project = $projectTable->fetchRow(array('projects_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');

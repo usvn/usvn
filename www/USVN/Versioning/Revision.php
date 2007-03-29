@@ -59,7 +59,7 @@ class USVN_Versioning_Revision
 	*/
 	public function getMessage()
 	{
-		$revision = new USVN_modules_default_models_Revisions();
+		$revision = new USVN_Db_Table_Revisions();
 		
 		$res = $revision->find(array("project_id"=>$this->project,"revisions_num"=>$this->revision));
 		
@@ -73,7 +73,7 @@ class USVN_Versioning_Revision
 	*/
 	public function getAuthor()
 	{
-		$revision = new USVN_modules_default_models_Revisions();
+		$revision = new USVN_Db_Table_Revisions();
 		
 		$res = $revision->find(array("project_id"=>$this->project,"revisions_num"=>$this->revision));
 		

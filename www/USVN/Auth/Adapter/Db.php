@@ -47,7 +47,7 @@ class USVN_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface {
 		$result['identity']['username'] = $this->_login;
 		$result['messages'] = array();
 
-		$table = new USVN_modules_default_models_Users();
+		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchRow(array('users_login = ?' => $this->_login));
 
 		if (! $user->login) {

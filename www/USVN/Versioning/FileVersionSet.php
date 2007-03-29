@@ -38,7 +38,7 @@ class USVN_Versioning_FileVersionSet implements Iterator, countable
 		$this->project = $project;
 		$this->revision = $revision;
 				
-		$table = new USVN_modules_default_models_Files();
+		$table = new USVN_Db_Table_Files();
 
 		$this->list_files = $table->fetchGetFiles($this->project, $this->revision);
 	}

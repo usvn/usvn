@@ -23,8 +23,6 @@ if (is_dir(dirname(__FILE__) . '/library')) {
 	set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/library');
 }
 
-// set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/modules/_default/models/');
-
 require_once dirname(__FILE__) . '/autoload.php';
 
 try {

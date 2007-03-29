@@ -1,6 +1,6 @@
 <?php
 /**
- * Small description of the file.
+ * Model for users table
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -18,7 +18,13 @@
  * $Id$
  */
 
-class USVN_modules_default_models_Users extends USVN_Db_Table {
+/**
+ * Model for users table
+ * 
+ * Extends USVN_Db_Table for magic configuration and methods
+ *
+ */
+class USVN_Db_Table_Users extends USVN_Db_Table {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -73,7 +79,7 @@ class USVN_modules_default_models_Users extends USVN_Db_Table {
      * @var array
      */
     protected $_dependentTables = array(
-    	"USVN_modules_default_models_UsersToProjects");
+    	"USVN_Db_Table_UsersToProjects");
 
 
 }

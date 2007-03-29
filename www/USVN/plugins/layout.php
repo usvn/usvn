@@ -81,7 +81,19 @@ EOF;
 	 */
 	protected function addFooter($response)
 	{
-		$footer = <<<EOF
+		$footer = "";
+		$profiler = Zend_Db_Table::getDefaultAdapter()->getProfiler();
+		if (is_array($profiler->getQueryProfiles())) {
+			$footer .= "</div><div>";
+			foreach ($profiler->getQueryProfiles() as $query) {
+				/* @var $query Zend_Db_Profiler_Query */
+				$footer .= "<dl>";
+				$footer .= "<dt>" . $query->getElapsedSecs() . "</dt>";
+				$footer .= "<dd>" . $query->getQuery() . "</dd>";
+				$footer .= "</dl>";
+			}
+		}
+		$footer .= <<<EOF
 		</div>
 		<div id="usvn_footer">Powered by USVN</div>
 	</body>

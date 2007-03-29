@@ -43,6 +43,7 @@ try {
 	 * Configure our default db adapter
 	 */
 	Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->asArray()));
+	Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
 	if (isset($config->database->prefixe)) {
 		USVN_Db_Table::$prefix = $config->database->prefixe;
 	}

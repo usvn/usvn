@@ -20,7 +20,7 @@
 
 /**
  * Model for files table
- * 
+ *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
@@ -29,7 +29,7 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 	 * The primary key column (underscore format).
 	 *
 	 * Without our prefixe...
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $_primary = array("projects_id", "revisions_num","files_id");
@@ -58,7 +58,6 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 			$where .= $db->quoteInto(' AND revisions_num <= ?', $version);
 		}
 
-		Zend_Debug::dump($this->_cols);
 		$cols = $this->_cols;
 		$this->_cols = array('max(revisions_num) as revisions_num');
 		$ret = $this->fetchRow($where, null, 'files_path');
@@ -71,7 +70,7 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 	 *
 	 * Return a Zend_Db_Table_Rowset containing all matching files for $project_id and $revisions
 	 * where revisions is the actual max value
-	 * 
+	 *
 	 * @param int $project_id
 	 * @param int $revisions
 	 * @return Zend_Db_Table_Rowset
@@ -88,7 +87,7 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 	}
 
 	/**
-	 * 
+	 *
 	 * @todo Faire le tag PHPdoc
 	 * @todo Renommer la methode; elle doit permettre de trouver un rowset de fichier facilement
 	 * @param unknown_type $project

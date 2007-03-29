@@ -7,7 +7,7 @@ class admin_ProjectController extends admin_IndexController
 	public function indexAction()
 	{
 		$table = new USVN_modules_default_models_Projects();
-		$this->_view->projects = $table->fetchAll();
+		$this->_view->projects = $table->fetchAll(null, "projects_name");
 		$this->_render('index.html');
 	}
 

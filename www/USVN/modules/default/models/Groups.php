@@ -1,6 +1,6 @@
 <?php
 
-class USVN_modules_default_models_Projects extends USVN_Db_Table {
+class USVN_modules_default_models_Groups extends USVN_Db_Table {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -15,14 +15,15 @@ class USVN_modules_default_models_Projects extends USVN_Db_Table {
 	 *
 	 * @var string
 	 */
-	protected $_fieldPrefix = "projects_";
+	protected $_fieldPrefix = "groups_";
 
 	/**
 	 * The table name derived from the class name (underscore format).
 	 *
 	 * @var array
 	 */
-    protected $_name = "projects";
+    protected $_name = "groups";
+
 
     /**
      * Associative array map of declarative referential integrity rules.
@@ -42,7 +43,13 @@ class USVN_modules_default_models_Projects extends USVN_Db_Table {
      *
      * @var array
      */
-    protected $_referenceMap = array();
+    protected $_referenceMap = array(
+    	"Users" => array(
+    			"columns"    => array("users_id"),
+    			"refTable"   => "USVN_modules_default_models_Users",
+    			"refColumns" => array("users_id"),
+    		),
+    	);
 
     /**
      * Simple array of class names of tables that are "children" of the current
@@ -52,19 +59,7 @@ class USVN_modules_default_models_Projects extends USVN_Db_Table {
      *
      * @var array
      */
-    protected $_dependentTables = array("USVN_modules_default_models_UsersToProjects");
+    protected $_dependentTables = array("USVN_modules_default_models_Users");
 
-    /**
-     * Return the project by his name
-     *
-     * @param string $name
-     * @return USVN_Db_Table_Row
-     */
-    public function findByName($name)
-    {
-		$db = $this->getAdapter();
-		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
-        $where = $db->quoteInto("projects_name = ?", $name);
-        return $this->fetchRow($where, "projects_name");
-    }
+
 }

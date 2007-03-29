@@ -1,21 +1,13 @@
 <?php
+
 /**
- * Base class for SQL table interface.
+ * Class for SQL table interface.
  *
- * @author Team USVN <contact@usvn.info>
- * @link http://www.usvn.info
- * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
- * @copyright Copyright 2007, Team USVN
- * @since 0.5
- * @package db
- * @subpackage table
- *
- * This software has been written at EPITECH <http://www.epitech.net>
- * EPITECH, European Institute of Technology, Paris - FRANCE -
- * This project has been realised as part of
- * end of studies project.
- *
- * $Id$
+ * @category   USVN
+ * @package	USVN_Db
+ * @subpackage Table
+ * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license	http://framework.zend.com/license/new-bsd	 New BSD License
  */
 abstract class USVN_Db_Table extends Zend_Db_Table {
 	/**
@@ -75,7 +67,6 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 		}
 
 		$this->_name = self::$prefix . $this->_name;
-
 		if ($this->_fieldPrefix) {
 			if (!is_array($this->_primary)) {
 				$this->_primary = $this->_fieldPrefix . $this->_primary;

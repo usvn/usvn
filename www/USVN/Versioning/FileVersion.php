@@ -36,20 +36,17 @@ class USVN_Versioning_FileVersion
 		$this->path = $path;
 		$this->project = $project;
 		//On recherche le fichier dans la DB et on met $this->version à la version trouvé (Voir getVersion pour plus d'explication)
-		//on recherche l'id du fichier en private
-		$files = new USVN_modules_default_models_Files();
-		
-		$files = $table->fetchRow('files_path =' . $this->path);
-		$this->files_id = $files->files_id;
-
 		//$this->version = getversion();
 		$table = new USVN_modules_default_models_Files();
 
 		$result = $table->fetchMaxVersionFiles($this->files_id);
-
+		
 		$this->version = $result->revisions_num;
 
-
+		//on recherche l'id du fichier en private
+		$files = new USVN_modules_default_models_Files();
+		$files = $table->fetchRow('path =' . $this->path);
+		$this->files_id = $files->files_id;
 	}
 
 	/**
@@ -68,9 +65,9 @@ class USVN_Versioning_FileVersion
 	public function getType()
 	{
 		$files = new USVN_modules_default_models_Files();
-
-		$res = $files->find(array($this->project,$this->version,$this->files_id ));
-
+		
+		$res = $files->find(array("projects_id"=>$this->project,"revisions_num"=>$this->version,"files_id"=>$this->files_id ));
+		
 		return ($res->type);
 	}
 
@@ -97,7 +94,7 @@ class USVN_Versioning_FileVersion
 
 		$properties = new USVN_modules_default_models_Properties();
 
-		$res = $properties->find(array($this->project,$this->version,$files->files_id,$key));
+		$res = $properties->find(array("projects_id"=>$this->project,"revisions_num"=>$this->version,"files_id"=>$files->files_id,"properties_name"=>$key));
 
 		return($res->value);
 

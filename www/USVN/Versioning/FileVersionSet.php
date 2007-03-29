@@ -72,6 +72,7 @@ class USVN_Versioning_FileVersionSet implements Iterator, countable
      */
     public function rewind()
     {
+
 		return $this->list_files->rewind();
     }
 

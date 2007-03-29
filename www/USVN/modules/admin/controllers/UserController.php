@@ -1,43 +1,67 @@
 <?php
+/**
+ * User management controller's.
+ *
+ * @author Team USVN <contact@usvn.info>
+ * @link http://www.usvn.info
+ * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
+ * @copyright Copyright 2007, Team USVN
+ * @since 0.5
+ * @package admin
+ * @subpackage users
+ *
+ * This software has been written at EPITECH <http://www.epitech.net>
+ * EPITECH, European Institute of Technology, Paris - FRANCE -
+ * This project has been realised as part of
+ * end of studies project.
+ *
+ * $Id$
+ */
 
 require_once 'USVN/modules/admin/controllers/IndexController.php';
 
 class admin_UserController extends admin_IndexController
 {
-	public function addAction()
-	{
-		$user = new USVN_modules_admin_models_Users();
+	public function indexAction()
+    {
+    	$table = new USVN_modules_admin_models_Users();
+		$this->_view->users = $table->fetchAll();
+		$this->_render('index.html');
+    }
 
-		$user->add(
-						$this->getRequest()->getParam('login'),
-						crypt($this->getRequest()->getParam('password')),
-						$this->getRequest()->getParam('lastname'),
-						$this->getRequest()->getParam('firstname'),
-						$this->getRequest()->getParam('email')
-					);
+	public function newAction()
+	{
+		if (!empty($_POST)) {
+			//pouvoir ajouter en parametre pointeur sur fonction pour verification/manips des donnees
+			$this->save("USVN_modules_admin_models_Users", "user", "manageUserData");
+		}
+		$this->_render('form.html');
 	}
 
 	public function editAction()
 	{
-
+		if (!empty($_POST)) {
+			$this->save("USVN_modules_admin_models_Users", "user", "manageUserData");
+		} else {
+			$userTable = new USVN_modules_admin_models_Users();
+			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
+		}
+		$this->_render('form.html');
 	}
 
 	public function deleteAction()
 	{
-		$user = new USVN_modules_admin_models_Users();
-
-		$user->deleteUser($this->getRequest()->getParam('id'));
+		if (!empty($_POST)) {
+			$this->delete("USVN_modules_admin_models_Users", "user");
+		} else {
+			$userTable = new USVN_modules_admin_models_Users();
+			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
+		}
+		$this->_render('form.html');
 	}
 
 	public function noRouteAction()
     {
         $this->_redirect('/');
-    }
-
-    public function listAction()
-    {
-    	$user = new USVN_modules_admin_models_Users();
-
-    	$listUser = $user->listAll();
     }
 }

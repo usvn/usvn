@@ -1,1 +1,29 @@
-<h1>User</h1>
+<h1 id="usvnPageTitle"><?php echo T_("Users list"); ?></h1>
+
+<?php
+print '<table class="tborder">' .
+		'<thead><tr class="titlebg">' .
+		'<th>' . T_('Login') . '</th>' .
+		'<th>' . T_('Firstname') . '</th>' .
+		'<th>' . T_('Lastname') . '</th>' .
+		'<th>' . T_('Email') . '</th>' .
+		'<th>' . T_('Action') . '</th>';
+		'</tr></thead><tbody>';
+
+if (count($this->users)) {
+	foreach ($this->users as $user) {
+		$line = <<<EOF
+		<tr class='odd'>
+			<td>{$user->users_login}</td>
+			<td>{$user->users_firstname}</td>
+			<td>{$user->users_lastname}</td>
+			<td>{$user->users_email}</td>
+			<td><a href="edit/id/{$user->users_id}">Edit</a>&nbsp;<a href="delete/id/{$user->users_id}">Delete</a></td>
+		</tr>\n
+EOF;
+		echo $line;
+	}
+}
+print '</tbody></table><br />';
+print "<a href='new/'>" . T_('Add a new user') . "</a>";
+?>

@@ -1,0 +1,27 @@
+<form name="User" action="" method="POST">
+<?php
+//arriver a m'expliquer pk isset et autre trouve rien dans ces variables... print'mais'; if (strlen($this->user->login)) zend::dump($this->user->login); print 'non...';
+//strlen pas class mais seul truc assez court qui fonctionne
+//bug mystique... \0 ?
+?>
+	<span class="usvn_label"><?php echo T_("Login"); ?>:</span>
+	<?php echo $this->formText('users_login', (strlen($this->user->login) ? $this->user->login : null)); ?>
+	<br />
+	<span class="usvn_label"><?php echo T_("Password"); ?>:</span>
+	<?php echo $this->formPassword('users_password',  null); ?>
+	<?php echo $this->formPassword('users_password2',  null); ?>
+	<br />
+	<span class="usvn_label"><?php echo T_("Lastname"); ?>:</span>
+	<?php echo $this->formText('users_lastname', (strlen($this->user->lastname) ? $this->user->lastname : null)); ?>
+	<br />
+	<span class="usvn_label"><?php echo T_("Firstname"); ?>:</span>
+	<?php echo $this->formText('users_firstname', (strlen($this->user->firstname) ? $this->user->firstname : null)); ?>
+	<br />
+	<span class="usvn_label"><?php echo T_("Email"); ?>:</span>
+	<?php echo $this->formText('users_email', (strlen($this->user->email) ? $this->user->email : null)); ?>
+	<br />
+	<?php if ($this->user->id) echo $this->formHidden('users_id', $this->user->id); ?>
+	<?php echo $this->formSubmit('submit', T_("Submit")); ?>
+</form>
+<br />
+<a href="/admin/user/">Retour</a>

@@ -1,14 +1,38 @@
-<h1><?php echo T_("Projects list"); ?></h1>
-<ul>
+<h1 id="usvnPageTitle"><?php echo T_("Projects list"); ?></h1>
+
 <?php
+/*<ul>
 $urlOptions = array();
 $urlOptions['module'] = 'admin';
 $urlOptions['controller'] = 'projects';
-$urlOptions['action'] = 'edit';
+$urlOptions['action'] = 'edit';*/
 
-foreach ($this->projects as $project) {
+print '<table class="tborder">' .
+		'<thead><tr class="titlebg">' .
+		'<th>' . T_('Name') . '</th>' .
+		'<th>' . T_('Start Date') . '</th>' .
+		'<th>' . T_('Description') . '</th>' .
+		'<th>' . T_('Action') . '</th>';
+		'</tr></thead><tbody>';
+
+if (count($this->projects)) {
+	foreach ($this->projects as $project) {
+		$line = <<<EOF
+		<tr class='odd'>
+			<td>{$project->projects_name}</td>
+			<td>{$project->projects_date_start}</td>
+			<td>{$project->projects_description}</td>
+			<td><a href="edit/id/{$project->projects_id}">Edit</a>&nbsp;<a href="delete/id/{$project->projects_id}">Delete</a></td>
+		</tr>\n
+EOF;
+		echo $line;
+	}
+}
+print '</tbody></table><br />';
+print "<a href='new/'>" . T_('Add a new project') . "</a>";
+
+/*foreach ($this->projects as $project) {
 	$urlOptions['project'] = $project->projects_name;
 	echo "<li><a href=\"", $this->url(array($urlOptions), 'project'), "\">", $project->projects_name, "</a></li>";
-}
+}*/
 ?>
-</ul>

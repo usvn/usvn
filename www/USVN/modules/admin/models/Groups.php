@@ -1,4 +1,22 @@
 <?php
+/**
+ * Small description of the file.
+ *
+ * @author Team USVN <contact@usvn.info>
+ * @link http://www.usvn.info
+ * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
+ * @copyright Copyright 2007, Team USVN
+ * @since 0.5
+ * @package Un_package_par_exemple_client
+ * @subpackage Le_sous_package_par_exemple_hooks
+ *
+ * This software has been written at EPITECH <http://www.epitech.net>
+ * EPITECH, European Institute of Technology, Paris - FRANCE -
+ * This project has been realised as part of
+ * end of studies project.
+ *
+ * $Id$
+ */
 
 class USVN_modules_admin_models_Groups extends USVN_Db_Table {
 	/**
@@ -24,41 +42,4 @@ class USVN_modules_admin_models_Groups extends USVN_Db_Table {
 	 */
     protected $_name = "groups";
 
-    /**
-	 * Table of users (cache)
-	 *
-	 * @var array
-	 */
-    //private $_users = array();
-
-    /**
-     * Add group in database
-     * @param string $name user's name
-     * @return bool action performed or not
-     */
-    public function add($name)
-    {
-		$row = array('name' => $name);
-
-		$last_insert_id = $this->insert($row);
-    }
-
-    public function edit()
-    {
-
-    }
-
-    public function deleteGroup($id)
-    {
-		$db = $this->getAdapter();
-		$where = $db->quoteInto('id = ?', $id);
-		$rows_affected = $this->delete($where);
-    }
-
-    public function listAll()
-    {
-    	$table = new USVN_modules_default_models_Group();
-		$groups = $table->fetchAll();
-		return $groups;
-    }
 }

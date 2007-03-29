@@ -6,10 +6,17 @@
 		</tr>
 		<tr>
 			<td><?php echo T_("Project description"); ?></td>
-			<td><?php echo $this->formTextarea('projects_description'); ?><br></td>
+			<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null)); ?><br></td>
 		</tr>
 		<tr>
 			<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit")/*, array("onClick" => 'return false;')*/); ?></td>
 		</tr>
 	</table>
+	<?php
+	if (!isset($this->project->id)) {
+		echo $this->formHidden('projects_date_start', date("Y/m/d h:m:s"));
+	}
+	?>
 </form>
+<br />
+<a href="/admin/project/">Retour</a>

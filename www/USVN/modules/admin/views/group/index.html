@@ -1,1 +1,23 @@
-<h1>Group</h1>
+<h1 id="usvnPageTitle"><?php echo T_("Groups list"); ?></h1>
+
+<?php
+print '<table class="tborder">' .
+		'<thead><tr class="titlebg">' .
+		'<th>' . T_('Name') . '</th>' .
+		'<th>' . T_('Action') . '</th>' .
+		'</tr></thead><tbody>';
+
+if (count($this->groups)) {
+	foreach ($this->groups as $group) {
+		$line = <<<EOF
+		<tr class='odd'>
+			<td>{$group->groups_name}</td>
+			<td><a href="edit/id/{$group->groups_id}">Edit</a>&nbsp;<a href="delete/id/{$group->groups_id}">Delete</a></td>
+		</tr>\n
+EOF;
+		echo $line;
+	}
+}
+print '</tbody></table><br />';
+print "<a href='new/'>" . T_('Add a new group') . "</a>";
+?>

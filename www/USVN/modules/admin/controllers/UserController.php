@@ -24,7 +24,7 @@ class admin_UserController extends admin_IndexController
 {
 	public function indexAction()
     {
-    	$table = new USVN_modules_admin_models_Users();
+    	$table = new USVN_Db_Table_Users();
 		$this->_view->users = $table->fetchAll();
 		$this->_render('index.html');
     }
@@ -33,7 +33,7 @@ class admin_UserController extends admin_IndexController
 	{
 		if (!empty($_POST)) {
 			//pouvoir ajouter en parametre pointeur sur fonction pour verification/manips des donnees
-			$this->save("USVN_modules_admin_models_Users", "user", "manageUserData");
+			$this->save("USVN_Db_Table_Users", "user", "manageUserData");
 		}
 		$this->_render('form.html');
 	}
@@ -41,9 +41,9 @@ class admin_UserController extends admin_IndexController
 	public function editAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_modules_admin_models_Users", "user", "manageUserData");
+			$this->save("USVN_Db_Table_Users", "user", "manageUserData");
 		} else {
-			$userTable = new USVN_modules_admin_models_Users();
+			$userTable = new USVN_Db_Table_Users();
 			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');
@@ -52,9 +52,9 @@ class admin_UserController extends admin_IndexController
 	public function deleteAction()
 	{
 		if (!empty($_POST)) {
-			$this->delete("USVN_modules_admin_models_Users", "user");
+			$this->delete("USVN_Db_Table_Users", "user");
 		} else {
-			$userTable = new USVN_modules_admin_models_Users();
+			$userTable = new USVN_Db_Table_Users();
 			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');

@@ -88,6 +88,7 @@ require_once 'www/USVN/autoload.php';
 			"properties_value" => "\n"
 		);
 
+		
 		//Revision 2
 		$data = array(
 			"projects_id" => 1,
@@ -108,19 +109,24 @@ require_once 'www/USVN/autoload.php';
 
 		$data = array(
 			"files_id" => 3,
+			"revisions_num" => 2,
 			"projects_id" => 1,
 			"properties_name" => 'mime',
 			"properties_value" => 'jpg'
 		);
 
-		$data = array(
+		/*$data = array(
 			"files_id" => 3,
 			"projects_id" => 1,
 			"properties_name" => 'eof',
 			"properties_value" => "\r\n"
-		);
+		);*/
 		$this->db->insert("usvn_properties", $data);
 
+		
+		// bug de phing test sur l'insertrion precedente
+		
+		
 		//Second Project
 		$data = array(
 			"projects_id" => 2,
@@ -139,6 +145,7 @@ require_once 'www/USVN/autoload.php';
 
 		$data = array(
 			"files_id" => 4,
+			"revisions_num" => 2,
 			"files_path" => 'trunk',
 			"files_isdir" => true,
 			"projects_id" => 1,
@@ -154,6 +161,7 @@ require_once 'www/USVN/autoload.php';
 			"files_typ_rev" => "A"
 		);
 		$this->db->insert("usvn_files", $data);
+		
 	}
 }
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Get a file at a precise version
  *
@@ -17,11 +18,13 @@
  *
  * $Id$
  */
+
 class USVN_Versioning_FileVersion
 {
 	private $path;
 	private $version;
 	private $project;
+	private $files_id;
 
 	/**
 	* @param int Project id
@@ -33,6 +36,20 @@ class USVN_Versioning_FileVersion
 		$this->path = $path;
 		$this->project = $project;
 		//On recherche le fichier dans la DB et on met $this->version à la version trouvé (Voir getVersion pour plus d'explication)
+		//on recherche l'id du fichier en private
+		$files = new USVN_modules_default_models_Files();
+		
+		$files = $table->fetchRow('files_path =' . $this->path);
+		$this->files_id = $files->files_id;
+
+		//$this->version = getversion();
+		$table = new USVN_modules_default_models_Files();
+
+		$result = $table->fetchMaxVersionFiles($this->files_id);
+
+		$this->version = $result->revisions_num;
+
+
 	}
 
 	/**
@@ -46,6 +63,18 @@ class USVN_Versioning_FileVersion
 	}
 
 	/**
+	* Get type of operation: M, A or D
+	*/
+	public function getType()
+	{
+		$files = new USVN_modules_default_models_Files();
+
+		$res = $files->find(array($this->project,$this->version,$this->files_id ));
+
+		return ($res->type);
+	}
+
+	/**
 	* Get content of the file revision
 	*
 	* @return string content
@@ -53,6 +82,7 @@ class USVN_Versioning_FileVersion
 	public function getData()
 	{
 		//Requete sur la DB ou le filesystem pour récuperer le contenu
+		return file_get_contents($this->path);
 	}
 
 	/**
@@ -64,6 +94,13 @@ class USVN_Versioning_FileVersion
 	public function getMeta($key)
 	{
 		//Requete sur la DB pour recuperer la propriete demandé
+
+		$properties = new USVN_modules_default_models_Properties();
+
+		$res = $properties->find(array($this->project,$this->version,$files->files_id,$key));
+
+		return($res->value);
+
 	}
 
 	/**
@@ -78,14 +115,12 @@ class USVN_Versioning_FileVersion
 		car si je demande la version 42 et que le fichier a pas eu de modif depuis la
 		version 10 je doit renvoyer 10.
 		*/
-		return $this->version;
-	}
 
-	/**
-	* Get type of operation: M, A or D
-	*/
-	public function getType()
-	{
+		$table = new USVN_modules_default_models_Files();
+
+		$result = $table->fetchMaxVersionFiles($this->files_id);
+
+		return $result;
 	}
 }
 

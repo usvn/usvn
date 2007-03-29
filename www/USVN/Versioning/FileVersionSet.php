@@ -17,19 +17,30 @@
  *
  * $Id$
  */
-class USVN_Versioning_FileVersionSet implements Iterator
+class USVN_Versioning_FileVersionSet implements Iterator, countable
 {
 	private $project;
 	private $revision;
+	/**
+	 * Enter description here...
+	 *
+	 * @var Zend_Db_Table_Rowset
+	 */
+	private $list_files;
 
 	/**
 	* @param integer Project number
+	* 
 	* @param integer Revison number
 	*/
 	public function __construct($project, $revision)
 	{
 		$this->project = $project;
 		$this->revision = $revision;
+				
+		$table = new USVN_modules_default_models_Files();
+
+		$this->list_files = $table->fetchGetFiles($this->project, $this->revision);
 	}
 
 	/**
@@ -61,6 +72,7 @@ class USVN_Versioning_FileVersionSet implements Iterator
      */
     public function rewind()
     {
+		return $this->list_files->rewind();
     }
 
     /**
@@ -72,6 +84,7 @@ class USVN_Versioning_FileVersionSet implements Iterator
      */
     public function current()
     {
+    	return $this->list_files->current();
     }
 
     /**
@@ -83,6 +96,7 @@ class USVN_Versioning_FileVersionSet implements Iterator
      */
     public function key()
     {
+    	return $this->list_files->key();
     }
 
     /**
@@ -94,6 +108,7 @@ class USVN_Versioning_FileVersionSet implements Iterator
      */
     public function next()
     {
+    	return $this->list_files->next();
     }
 
     /**
@@ -105,5 +120,27 @@ class USVN_Versioning_FileVersionSet implements Iterator
      */
     public function valid()
     {
+    	return $this->list_files->valid();
+    }
+    
+        /**
+     * Returns the number of elements in the collection.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return $this->list_files->count();
+    }
+    
+     /**
+     * Returns true if $this->count > 0, false otherwise.
+     * Required by interface Countable.
+     *
+     * @return bool
+     */
+    public function exists()
+    {
+        return $list_files->count() > 0;
     }
 }

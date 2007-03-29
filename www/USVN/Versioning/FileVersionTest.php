@@ -45,9 +45,6 @@ class USVN_Versioning_FileVersionTest extends USVN_Versioning_AbstractVersioning
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-	public function testGetVersion() {
-	}
-/*
     public function testGetVersion()
 	{
 		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 1);
@@ -87,7 +84,7 @@ class USVN_Versioning_FileVersionTest extends USVN_Versioning_AbstractVersioning
 		$file = new USVN_Versioning_FileVersion(2, 'trunk/test', 2);
 		$this->assertEquals("A", $file->getType());
 	}
-	*/
+	
 }
 
 // Call USVN_Versioning_FileVersionTest::main() if this source file is executed directly.

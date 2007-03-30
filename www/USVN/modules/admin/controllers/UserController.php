@@ -25,7 +25,7 @@ class admin_UserController extends admin_IndexController
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Users();
-		$this->_view->users = $table->fetchAll();
+		$this->_view->users = $table->fetchAll(null, "users_login");
 		$this->_render('index.html');
     }
 

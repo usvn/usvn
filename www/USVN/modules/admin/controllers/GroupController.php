@@ -25,14 +25,13 @@ class admin_GroupController extends admin_IndexController
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Groups();
-		$this->_view->groups = $table->fetchAll();
+		$this->_view->groups = $table->fetchAll(null, "groups_name");
 		$this->_render('index.html');
     }
 
 	public function newAction()
 	{
 		if (!empty($_POST)) {
-			//pouvoir ajouter en parametre pointeur sur fonction pour verification/manips des donnees
 			$this->save("USVN_Db_Table_Groups", "group");
 		}
 		$this->_render('form.html');

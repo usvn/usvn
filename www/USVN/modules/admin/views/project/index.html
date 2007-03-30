@@ -20,7 +20,7 @@ if (count($this->projects)) {
 		$line = <<<EOF
 		<tr class='odd'>
 			<td>{$project->projects_name}</td>
-			<td>{$project->projects_date_start}</td>
+			<td>{$project->projects_start_date}</td>
 			<td>{$project->projects_description}</td>
 			<td><a href="edit/id/{$project->projects_id}">Edit</a>&nbsp;<a href="delete/id/{$project->projects_id}">Delete</a></td>
 		</tr>\n
@@ -29,7 +29,7 @@ EOF;
 	}
 }
 print '</tbody></table><br />';
-print "<a href='new/'>" . T_('Add a new project') . "</a>";
+print "<a href='" . $this->url(array('action' => 'new')) . "'>" . T_('Add a new project') . "</a>";
 
 /*foreach ($this->projects as $project) {
 	$urlOptions['project'] = $project->projects_name;

@@ -1,4 +1,4 @@
-<form method="post" action="<?php echo $this->url(); ?>">
+<form name="project" method="post" action="<?php echo $this->url(); ?>">
 	<table>
 		<tr>
 			<td><?php echo T_("Project name"); ?></td>
@@ -13,10 +13,11 @@
 		</tr>
 	</table>
 	<?php
-	if (!isset($this->project->id)) {
-		echo $this->formHidden('projects_date_start', date("Y/m/d h:m:s"));
+	if (isset($this->project)) {
+		echo $this->formHidden('projects_id', $this->project->id);
+		echo $this->formHidden('projects_start_date', date("Y/m/d h:m:s"));
 	}
 	?>
 </form>
 <br />
-<a href="<?php echo $this->url(array('action' => '')); ?>"><?php T_('Return'); ?></a>
+<a href="<?php echo $this->url(array('action' => '')); ?>"><?php echo T_('Return'); ?></a>

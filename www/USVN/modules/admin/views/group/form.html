@@ -1,14 +1,9 @@
-<form name="Group" action="" method="POST">
-<?php
-//arriver a m'expliquer pk isset et autre trouve rien dans ces variables... print'mais'; if (strlen($this->user->login)) zend::dump($this->user->login); print 'non...';
-//strlen pas class mais seul truc assez court qui fonctionne
-//bug mystique... \0 ?
-?>
+<form name="group" method="POST" action="<?php echo $this->url(); ?>">
 	<span class="usvn_label"><?php echo T_("Name"); ?>:</span>
-	<?php echo $this->formText('groups_name', (strlen($this->group->name) ? $this->group->name : null)); ?>
+	<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null)); ?>
 	<br />
-	<?php if ($this->group->id) echo $this->formHidden('groups_id', $this->group->id); ?>
+	<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
 	<?php echo $this->formSubmit('submit', T_("Submit")); ?>
 </form>
 <br />
-<a href="/admin/group/">Retour</a>
+<a href="<?php echo $this->url(array('action' => '')); ?>"><?php echo T_('Return'); ?></a>

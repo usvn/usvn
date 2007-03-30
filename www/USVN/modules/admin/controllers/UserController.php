@@ -32,7 +32,6 @@ class admin_UserController extends admin_IndexController
 	public function newAction()
 	{
 		if (!empty($_POST)) {
-			//pouvoir ajouter en parametre pointeur sur fonction pour verification/manips des donnees
 			$this->save("USVN_Db_Table_Users", "user", "manageUserData");
 		}
 		$this->_render('form.html');

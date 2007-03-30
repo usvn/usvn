@@ -1,5 +1,7 @@
 <?php
 
+//require_once 'USVN/modules/default/models/Access.php';
+
 class IndexController extends Zend_Controller_Action {
 	/**
 	 * Zend_Controller_Request_Abstract object wrapping the request environment
@@ -64,6 +66,18 @@ class IndexController extends Zend_Controller_Action {
 	 */
 	protected function _checkAccess($identity)
 	{
+		$module = $this->getRequest()->getModuleName();
+		$controller = $this->getRequest()->getControllerName();
+		$project = $this->getRequest()->getParam('project');
+		$action = $this->getRequest()->getParam('action');
+		//echo $module . " ". $controller . " " .$project . " " .$action."<br>";
+		//$right = $module . "_" . $controller . "_" . $action;
+		$user = $identity['username'];
+		if (!$identity['username']) {
+			$user = "anonymous";
+		}
+		$access = new USVN_modules_default_models_Access();
+		$access->access($user, $project, $module, $controller, $action);
 	}
 	
 	/**

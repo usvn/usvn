@@ -23,9 +23,9 @@ class USVN_Versioning_Revision
 	private $revision;
 
 	/**
-	* @param integer Project number
-	* @param integer Revison number
-	*/
+	 * @param integer Project number
+	 * @param integer Revison number
+	 */
 	public function __construct($project, $revision)
 	{
 		$this->project = $project;
@@ -33,58 +33,59 @@ class USVN_Versioning_Revision
 	}
 
 	/**
-	* Get the project id of the revision
-	*
-	* @return integer
-	*/
+	 * Get the project id of the revision
+	 *
+	 * @return integer
+	 */
 	public function getProject()
 	{
 		return $this->project;
 	}
 
 	/**
-	* Get the revision number
-	*
-	* @return integer
-	*/
+	 * Get the revision number
+	 *
+	 * @return integer
+	 */
 	public function getRevisionNumber()
 	{
 		return $this->revision;
 	}
 
 	/**
-	* Get the commit message of a revision
-	*
-	* @return string Commit message
-	*/
+	 * Get the commit message of a revision
+	 *
+	 * @return string Commit message
+	 */
 	public function getMessage()
 	{
 		$revision = new USVN_Db_Table_Revisions();
 		
-		$res = $revision->find(array("project_id"=>$this->project,"revisions_num"=>$this->revision));
+		$res = $revision->find($this->project, $this->revision);
 		
 		return ($res->revisions_message);
 	}
 
 	/**
-	* Get the author of the revison
-	*
-	* @return integer Author id
-	*/
+	 * Get the author of the revison
+	 *
+	 * @return integer Author id
+	 */
 	public function getAuthor()
 	{
+
 		$revision = new USVN_Db_Table_Revisions();
 		
-		$res = $revision->find(array("project_id"=>$this->project,"revisions_num"=>$this->revision));
+		$res = $revision->find($this->project, $this->revision);
 		
 		return ($res->users_id);
 	}
 
 	/**
-	* Get an iterator on files into this revision
-	*
-	* @return USVN_Versioning_FileVersionSet
-	*/
+	 * Get an iterator on files into this revision
+	 *
+	 * @return USVN_Versioning_FileVersionSet
+	 */
 	public function getFiles()
 	{
 		return new USVN_Versioning_FileVersionSet($this->project, $this->revision);

@@ -68,16 +68,17 @@ class USVN_Versioning_FileVersionSetTest extends USVN_Versioning_AbstractVersion
 		$this->assertEquals(2, $set->key());
     }
 
-    public function testNextCurrentRewind()
+    /*public function testNextCurrentRewind()
 	{
+		$set = new USVN_Versioning_FileVersionSet(2, 1);
 		$first = $set->current()->getPath();
 		$set->next();
 		$this->assertNotEquals($first, $set->current()->getPath());
 		$set->rewind();
 		$this->assertEquals($first, $set->current()->getPath());
-    }
+    }*/
 
-    public function testValid()
+  /*  public function testValid()
 	{
 		$set = new USVN_Versioning_FileVersionSet(2, 1);
 		$this->assertTrue($set->valid());
@@ -85,8 +86,8 @@ class USVN_Versioning_FileVersionSetTest extends USVN_Versioning_AbstractVersion
 		$this->assertTrue($set->valid());
 		$set->next();
 		$this->assertFalse($set->valid());
-    }
-*/
+    }*/
+
 }
 
 // Call USVN_Versioning_FileVersionSetTest::main() if this source file is executed directly.

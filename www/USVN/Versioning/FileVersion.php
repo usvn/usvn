@@ -40,7 +40,7 @@ class USVN_Versioning_FileVersion
 		$table = new USVN_Db_Table_Files();
 
 		$result = $table->fetchMaxVersionFiles($this->files_id);
-		
+
 		$this->version = $result->revisions_num;
 
 		//on recherche l'id du fichier en private
@@ -65,9 +65,9 @@ class USVN_Versioning_FileVersion
 	public function getType()
 	{
 		$files = new USVN_Db_Table_Files();
-		
-		$res = $files->find(array("projects_id"=>$this->project,"revisions_num"=>$this->version,"files_id"=>$this->files_id ));
-		
+
+		$res = $files->find(array($this->project, $this->version, $this->files_id ));
+
 		return ($res->type);
 	}
 
@@ -94,7 +94,7 @@ class USVN_Versioning_FileVersion
 
 		$properties = new USVN_Db_Table_Files();
 
-		$res = $properties->find(array("projects_id"=>$this->project,"revisions_num"=>$this->version,"files_id"=>$files->files_id,"properties_name"=>$key));
+		$res = $properties->find(array($this->project, $this->version, $files->files_id, $key));
 
 		return($res->value);
 

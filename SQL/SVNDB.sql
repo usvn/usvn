@@ -20,7 +20,7 @@ create table usvn_projects
 (
    projects_id          int not null,
    projects_name        varchar(255) not null,
-   projects_date_start  datetime,
+   projects_start_date  datetime,
    projects_description varchar(1000),
    primary key (projects_id)
 );

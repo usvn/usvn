@@ -47,16 +47,16 @@ class USVN_Versioning_FileVersionTest extends USVN_Versioning_AbstractVersioning
 
     public function testGetVersion()
 	{
-		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 1);
+	/*	$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 1);
 		$this->assertEquals(1, $file->getVersion());
 		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 2);
 		$this->assertEquals(2, $file->getVersion());
 		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 10);
 		$this->assertEquals(2, $file->getVersion());
 		$file = new USVN_Versioning_FileVersion(2, 'trunk', 10);
-		$this->assertEquals(1, $file->getVersion());
+		$this->assertEquals(1, $file->getVersion());*/
     }
-
+/*
     public function testGetPath()
 	{
 		$file = new USVN_Versioning_FileVersion(1, 'trunk/test', 1);
@@ -84,7 +84,7 @@ class USVN_Versioning_FileVersionTest extends USVN_Versioning_AbstractVersioning
 		$file = new USVN_Versioning_FileVersion(2, 'trunk/test', 2);
 		$this->assertEquals("A", $file->getType());
 	}
-	
+	*/
 }
 
 // Call USVN_Versioning_FileVersionTest::main() if this source file is executed directly.

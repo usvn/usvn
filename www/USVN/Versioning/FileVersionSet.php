@@ -30,7 +30,7 @@ class USVN_Versioning_FileVersionSet implements Iterator, countable
 
 	/**
 	* @param integer Project number
-	* 
+	*
 	* @param integer Revison number
 	*/
 	public function __construct($project, $revision)

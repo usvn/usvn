@@ -35,18 +35,26 @@ class USVN_Versioning_FileVersion
 	{
 		$this->path = $path;
 		$this->project = $project;
-		//On recherche le fichier dans la DB et on met $this->version � la version trouv� (Voir getVersion pour plus d'explication)
+
 		//$this->version = getversion();
+		//on recherche l'id du fichier en private
+		$files = new USVN_Db_Table_Files();
+
+		/* @var $table Zend_Db_Adapter_Abstract */
+
+		$file = $files->fetchRow('files_path =' . $this->path);
+
+		$this->files_id = $file->files_id;
+
+		//On recherche le fichier dans la DB et on met $this->version a la version trouve (Voir getVersion pour plus d'explication)
+
 		$table = new USVN_Db_Table_Files();
 
 		$result = $table->fetchMaxVersionFiles($this->files_id);
 
 		$this->version = $result->revisions_num;
 
-		//on recherche l'id du fichier en private
-		$files = new USVN_Db_Table_Files();
-		$files = $table->fetchRow('path =' . $this->path);
-		$this->files_id = $files->files_id;
+
 	}
 
 	/**

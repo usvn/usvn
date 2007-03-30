@@ -65,7 +65,7 @@ create table usvn_users
 (
    users_id             int not null,
    users_login          varchar(255) not null,
-   users_password       varchar(44) not null,
+   users_password       varchar(64) not null,
    users_lastname       varchar(100),
    users_firstname      varchar(100),
    users_email          varchar(150),

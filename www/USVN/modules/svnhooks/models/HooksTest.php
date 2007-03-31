@@ -98,6 +98,12 @@ class USVN_modules_svnhooks_models_HooksTest extends PHPUnit_Framework_TestCase 
 		$hook = new USVN_modules_svnhooks_models_Hooks();
 		$hook->postRevpropChange("007", 1, "test", "svn:log", "M", "message de log");
     }
+
+	public function test_validUSVNServer()
+    {
+		$hook = new USVN_modules_svnhooks_models_Hooks();
+		$this->assertTrue($hook->validUSVNServer("007"));
+    }
 }
 
 // Call USVN_modules_svnhooks_models_HooksTest::main() if this source file is executed directly.

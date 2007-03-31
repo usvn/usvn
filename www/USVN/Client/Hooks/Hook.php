@@ -44,6 +44,7 @@ abstract class USVN_Client_Hooks_Hook
     /**
     * Don't use this! It's only for change the HTTP Client use
     * by XMLRPC for test unit.
+	* @param Zend_Http_Client
     */
     public function setHttpClient($httpclient)
     {

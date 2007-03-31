@@ -21,7 +21,7 @@ class USVN_DirectoryUtils
     /**
     * Remove a directory even if it is not empty.
     */
-    public function removeDirectory($path)
+    static public function removeDirectory($path)
     {
         try {
             @$dir = new RecursiveDirectoryIterator($path);

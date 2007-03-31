@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for client hooks tests
+ * Base class for test of a command
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -8,7 +8,6 @@
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
  * @package client
- * @subpackage hook
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
@@ -18,45 +17,38 @@
  * $Id$
  */
 
+require_once "PHPUnit/Framework/TestCase.php";
+require_once "PHPUnit/Framework/TestSuite.php";
+
 require_once 'www/USVN/autoload.php';
 
-abstract class USVN_Client_Hooks_HookTest extends PHPUnit_Framework_TestCase
-{
-    private $httpAdapter;
-	private $httpClient;
+abstract class USVN_Client_CommandTest extends PHPUnit_Framework_TestCase {
+    protected $httpAdapter;
+	protected $httpClient;
 
-    public function setUp()
+	public function setUp()
     {
-        @mkdir('tests/tmp/testrepository');
-        @mkdir('tests/tmp/testrepository/usvn');
-        $xml = new SimpleXMLElement("<usvn><url>http://example.com</url><auth>007</auth></usvn>");
-        file_put_contents('tests/tmp/testrepository/usvn/config.xml', $xml->asXml());
-    }
-
-	protected function setHttp()
-	{
+		$this->clean();
+        USVN_Client_SVNUtils::createSvnDirectoryStruct("tests/tmp/testrepository");
+        @mkdir('tests/tmp/fakerepository');
         $this->httpAdapter = new Zend_Http_Client_Adapter_Test();
         $this->httpClient = new Zend_Http_Client('http://example.com',
                                     array('adapter' => $this->httpAdapter));
-		$this->hook->setHttpClient($this->httpClient);
-		$this->setServerResponseTo(0);
-	}
+		$this->setServerResponseTo(true);
+    }
 
-	/**
-	* Replacement for USVN_Client_SVNUtils::svnLookTransaction
-	*
-	* @param string svnlook command (see svnlook help)
-	* @param string repository path
-	* @param string transaction (call TXN into svn hooks samples)
-	* @return string Output of svnlook
-	* @see http://svnbook.red-bean.com/en/1.1/ch09s03.html
-	*/
-	protected function svnLook($command, $repository, $transaction)
-	{
-		return USVN_Client_SVNUtils::svnLookTransaction($command, $repository, $transaction);
-	}
+    public function tearDown()
+    {
+        $this->clean();
+    }
 
-    // Helpers from Zend Framework
+    private function clean()
+    {
+        USVN_DirectoryUtils::removeDirectory("tests/tmp/testrepository");
+        USVN_DirectoryUtils::removeDirectory('tests/tmp/fakerepository');
+    }
+
+	 // Helpers from Zend Framework
 
     protected function setServerResponseTo($nativeVars)
     {
@@ -64,7 +56,7 @@ abstract class USVN_Client_Hooks_HookTest extends PHPUnit_Framework_TestCase
         $this->httpAdapter->setResponse($response);
     }
 
-    protected function getServerResponseFor($nativeVars)
+	protected function getServerResponseFor($nativeVars)
     {
         $response = new Zend_XmlRpc_Response();
         $response->setReturnValue($nativeVars);
@@ -84,3 +76,4 @@ abstract class USVN_Client_Hooks_HookTest extends PHPUnit_Framework_TestCase
         return implode("\r\n", $headers) . "\r\n\r\n$data\r\n\r\n";
     }
 }
+?>

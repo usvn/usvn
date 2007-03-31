@@ -133,7 +133,6 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Pre revprop change hook publish for XML-RPC
 	*
-	* @param string The auth id for identify the server
 	* @param integer Revision
 	* @param string The user login
 	* @param string Property will be change (ex: svn:log)
@@ -143,5 +142,16 @@ class USVN_modules_svnhooks_models_Hooks
 	public function postRevpropChange($authid, $revision, $user, $property, $action, $value)
 	{
 		file_put_contents('tests/tmp/testhooksPostRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
+	}
+
+	/**
+	* Use by client to check if he speak to a valid  USVN server
+	*
+	* @param string The auth id for identify the server
+	* @return bool False if authid is invalid
+	*/
+	public function validUSVNServer($authid)
+	{
+		return true;
 	}
 }

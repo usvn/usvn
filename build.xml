@@ -80,8 +80,11 @@
         <coverage-setup database="${cover_report_dir}/database">
             <fileset dir=".">
                 <include name="**/*.php"/>
+				<exclude name="**/*Test.php"/>
                 <exclude name="${testdir}/**" />
                 <exclude name="**/Abstract*.php" />
+				<exclude name="**/bootstrap.php" />
+				<exclude name="**/index.php" />
                 <exclude name="scripts/**" />
             </fileset>
         </coverage-setup>

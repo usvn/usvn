@@ -5,7 +5,7 @@ create table usvn_files
    files_id             int not null,
    files_path           text not null,
    files_isdir          bool,
-   files_typ_rev        char(1),
+   files_typ_rev        char(1) not null,
    primary key (projects_id, revisions_num, files_id)
 );
 
@@ -20,7 +20,7 @@ create table usvn_projects
 (
    projects_id          int not null,
    projects_name        varchar(255) not null,
-   projects_start_date  datetime,
+   projects_start_date  datetime not null,
    projects_description varchar(1000),
    primary key (projects_id)
 );
@@ -41,7 +41,7 @@ create table usvn_revisions
    revisions_num        int not null,
    users_id             int not null,
    revisions_message    text not null,
-   revisions_date       datetime,
+   revisions_date       datetime not null,
    primary key (projects_id, revisions_num)
 );
 

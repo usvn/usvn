@@ -2237,8 +2237,9 @@ AssociationComment 0 Arial,8,N</a:FontList>
 <a:ObjectID>040A1139-2F26-4968-87AE-83FA92F899B1</a:ObjectID>
 <a:CreationDate>1164207003</a:CreationDate>
 <a:Creator>Dark</a:Creator>
-<a:ModificationDate>1164207003</a:ModificationDate>
+<a:ModificationDate>1175324872</a:ModificationDate>
 <a:Modifier>Dark</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
 <c:DataItem>
 <o:DataItem Ref="o119"/>
 </c:DataItem>
@@ -2367,8 +2368,9 @@ AssociationComment 0 Arial,8,N</a:FontList>
 <a:ObjectID>97C9C517-4C7A-49E7-9BFA-BBF2E3240B2F</a:ObjectID>
 <a:CreationDate>1173789525</a:CreationDate>
 <a:Creator>Dark</a:Creator>
-<a:ModificationDate>1173789525</a:ModificationDate>
+<a:ModificationDate>1175324884</a:ModificationDate>
 <a:Modifier>Dark</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
 <c:DataItem>
 <o:DataItem Ref="o135"/>
 </c:DataItem>
@@ -2477,8 +2479,9 @@ AssociationComment 0 Arial,8,N</a:FontList>
 <a:ObjectID>0C77ABFD-669E-44DA-923D-98DC169775B7</a:ObjectID>
 <a:CreationDate>1174981388</a:CreationDate>
 <a:Creator>Dark</a:Creator>
-<a:ModificationDate>1174981388</a:ModificationDate>
+<a:ModificationDate>1175324879</a:ModificationDate>
 <a:Modifier>Dark</a:Modifier>
+<a:BaseAttribute.Mandatory>1</a:BaseAttribute.Mandatory>
 <c:DataItem>
 <o:DataItem Ref="o147"/>
 </c:DataItem>
@@ -2514,10 +2517,10 @@ AssociationComment 0 Arial,8,N</a:FontList>
 <a:Code>USERS_PASSWORD</a:Code>
 <a:CreationDate>1164205982</a:CreationDate>
 <a:Creator>Dark</a:Creator>
-<a:ModificationDate>1173793015</a:ModificationDate>
+<a:ModificationDate>1175324949</a:ModificationDate>
 <a:Modifier>Dark</a:Modifier>
-<a:DataType>VA44</a:DataType>
-<a:Length>44</a:Length>
+<a:DataType>VA64</a:DataType>
+<a:Length>64</a:Length>
 </o:DataItem>
 <o:DataItem Id="o110">
 <a:ObjectID>8C490D80-64F2-4B6E-B453-6F003B659C9E</a:ObjectID>

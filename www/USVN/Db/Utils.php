@@ -25,7 +25,7 @@ class USVN_Db_Utils
 	*  @param Zend_Db_Adapter_Abstract Connection to Database
 	*  @param string Path to the SQL file
     */
-	public function loadFile($db, $path)
+	static public function loadFile($db, $path)
 	{
 		$query = file_get_contents($path);
 		$query = ereg_replace("--[^\n]*\n", "", $query);
@@ -51,7 +51,7 @@ class USVN_Db_Utils
 	*
 	*  @param Zend_Db_Adapter_Abstract Connection to Database
     */
-	public function deleteAllTables($db)
+	static public function deleteAllTables($db)
 	{
 		$todelete = $db->listTables();
 		while (count($todelete)) {

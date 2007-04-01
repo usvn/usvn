@@ -2,6 +2,8 @@
 database.adapterName = "pdo_mysql"
 database.options.host = "localhost"
 database.options.username = "root"
+database.options.password = ""
 database.options.dbname = "usvn"
 database.prefixe = "usvn_"
 translation.locale = "fr_FR"
+url.base = "/"

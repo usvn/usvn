@@ -54,7 +54,7 @@ try {
 	$front->setParam('view', new Zend_View());
 	$front->throwExceptions(true);
 
-	$front->setBaseUrl(BASE_URL);
+	$front->setBaseUrl($config->url->base);
 
 	/**
 	 * Initialize router

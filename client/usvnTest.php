@@ -24,8 +24,16 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
+require_once "www/USVN/autoload.php";
 
-class USVN_ClientTest extends PHPUnit_Framework_TestCase {
+class USVN_ClientTest extends USVN_Test_DB {
+	private $config;
+	private $base_url;
+	private $old_db_user;
+	private $old_db_password;
+	private $old_db_database;
+
+
 	public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
@@ -33,33 +41,57 @@ class USVN_ClientTest extends PHPUnit_Framework_TestCase {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-	protected function setUp()
+	public function setUp()
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
 			if (!file_exists('USVN')) {
 				exec("ln -s www/USVN");
 			}
 		}
+		$this->config = new USVN_Config("www/USVN/config.ini", "general");
+		$this->old_db_database = $this->config->database->options->dbname;
+		$this->config->database->options->dbname = "usvn-test";
+		$this->old_db_password = $this->config->database->options->password;
+		$this->config->database->options->password = "usvn-test";
+		$this->old_db_user = $this->config->database->options->username;
+		$this->config->database->options->username = "usvn-test";
+		$this->base_url = $this->config->url->base;
+		$this->config->save();
+		parent::setUp();
+	}
+
+	public function tearDown()
+	{
+		$this->config->database->options->dbname = $this->old_db_database ;
+		$this->config->database->options->password = $this->old_db_password;
+		$this->config->database->options->username = $this->old_db_user;
+		$this->config->save();
+		parent::tearDown();
 	}
 
 	public function testinstallLinux()
 	{
-	/*	if (!(substr(php_uname(), 0, 7) == "Windows")) {
+		/*
+		if (!(substr(php_uname(), 0, 7) == "Windows")) {
 			exec('rm -Rf /tmp/test');
-//			exec('rm -Rf /tmp/titi');
 			exec('svnadmin create /tmp/test');
-//			exec('svn co file:///tmp/test /tmp/titi');
-			$this->assertEquals("", system('./client/usvn install /tmp/test http://localhost/~noplay/usvn/www/project/love/svnhooks/ 007', $return));
+			$this->assertEquals("", system('./client/usvn install /tmp/test http://localhost/$baseurl/project/love/svnhooks/ 007', $return));
 			$this->assertEquals(0, $return);
-/*			chdir('/tmp/titi');
-			exec('touch fichier1');
-			exec('touch fichier2');
-			exec('svn add fichier1 fichier2');
-			exec("svn commit -m 'Test de commit'");
-			exec('svn lock fichier1');
-			exec('svn unlock fichier1');
-			exec('svn propset -r 1 --revprop svn:log "new log message"');*/
-		//}
+			exec('rm -Rf /tmp/titi');
+			exec('svn co file:///tmp/test /tmp/titi');
+			chdir('/tmp/titi');
+			file_put_contents('fichier1', "Fichier 1");
+			file_put_contents('fichier2', "Fichier 2");
+			system('svn add fichier1 fichier2', $return);
+			$this->assertEquals(0, $return);
+			system("svn commit -m 'Test de commit'", $return);
+			$this->assertEquals(0, $return);
+			system('svn lock fichier1', $return);
+			$this->assertEquals(0, $return);
+			system('svn unlock fichier1', $return);
+			$this->assertEquals(0, $return);
+			system('svn propset -r 1 --revprop svn:log "new log message"', $return);
+		}*/
 	}
 }
 

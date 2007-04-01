@@ -36,6 +36,7 @@ class USVN_Test_DB extends PHPUnit_Framework_TestCase {
 		USVN_Db_Table::$prefix = "usvn_";
 		USVN_Db_Utils::deleteAllTables($this->db);
 		USVN_Db_Utils::loadFile($this->db, "SQL/SVNDB.sql");
+		USVN_Db_Utils::loadFile($this->db, "SQL/data.sql");
     }
 
     public function tearDown() {

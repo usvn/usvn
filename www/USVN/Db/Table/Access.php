@@ -46,17 +46,18 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     	$right = $module . "_" . $controller . "_" . $action;
     	$db = $this->getAdapter();
     	$select = $db->select();
-    	$select->from('usvn_to_attribute', '*');
-    	$select->join('usvn_projects', 'usvn_to_attribute.projects_id = usvn_projects.projects_id');
-    	$select->join('usvn_rights', 'usvn_to_attribute.rights_id = usvn_rights.rights_id');
-    	$select->join('usvn_to_have', 'usvn_to_attribute.projects_id = usvn_to_have.projects_id');
-    	$select->join('usvn_to_belong', 'usvn_to_attribute.groups_id = usvn_to_belong.groups_id');
-    	$select->join('usvn_users', 'usvn_to_have.users_id = usvn_users.users_id');
-    	$select->where('usvn_to_have.users_id = usvn_users.users_id');
-    	$select->where('usvn_users.users_login = ?', $login);
-    	$select->where('lower(usvn_rights.rights_label) = lower(?)', $right);
+    	$select->from(USVN_Db_Table::$prefix . 'to_attribute', '*');
+    	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
+    	$select->join(USVN_Db_Table::$prefix . 'rights', USVN_Db_Table::$prefix . 'to_attribute.rights_id = ' . USVN_Db_Table::$prefix . 'rights.rights_id');
+    	$select->join(USVN_Db_Table::$prefix . 'to_have', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'to_have.projects_id');
+    	$select->join(USVN_Db_Table::$prefix . 'to_belong', USVN_Db_Table::$prefix . 'to_attribute.groups_id = ' . USVN_Db_Table::$prefix . 'to_belong.groups_id');
+    	$select->join(USVN_Db_Table::$prefix . 'users', USVN_Db_Table::$prefix . 'to_have.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
+    	$select->where(USVN_Db_Table::$prefix . 'to_have.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
+    	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
+    	$select->where('lower(' . USVN_Db_Table::$prefix . 'rights.rights_label) = lower(?)', $right);
 		$result = $db->fetchAll($select);
-    	/*
+    	
+		/*
     	$res = $db->query("
 			select count(*) as cn
 			from usvn_to_attribute, usvn_projects, usvn_rights, usvn_to_have, usvn_to_belong, usvn_users
@@ -72,6 +73,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			");
 			*/
     	//$tab = $res->fetchAll();
+    	
     	if (empty($result)) {
     		echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
     		return false;

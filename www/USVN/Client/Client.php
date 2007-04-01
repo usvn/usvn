@@ -16,6 +16,7 @@
  *
  * $Id$
  */
+
 class USVN_Client_Client
 {
 	/**

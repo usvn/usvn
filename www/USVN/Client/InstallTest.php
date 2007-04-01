@@ -62,7 +62,7 @@ class USVN_Client_InstallTest extends USVN_Client_CommandTest {
         $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'auth007', $this->httpClient);
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/start-commit'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/pre-commit'));
-        if (!substr(php_uname(), 0, 7) == "Windows") {
+        if (!(substr(php_uname(), 0, 7) == "Windows")) {
             $this->assertTrue(is_executable('tests/tmp/testrepository/hooks/pre-commit'), "Hook is not executable");
         }
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn'));

@@ -56,7 +56,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
     	$select->where('lower(' . USVN_Db_Table::$prefix . 'rights.rights_label) = lower(?)', $right);
 		$result = $db->fetchAll($select);
-    	
+
 		/*
     	$res = $db->query("
 			select count(*) as cn
@@ -73,13 +73,14 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			");
 			*/
     	//$tab = $res->fetchAll();
-    	
+
+		/*
     	if (empty($result)) {
     		echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
     		return false;
     	} else {
     		echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login dispose du droit $right</b><br>";
     		return true;
-    	}
+    	}*/
     }
 }

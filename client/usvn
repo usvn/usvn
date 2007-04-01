@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
-require_once 'USVN/Client/Client.php';
-require_once('USVN/Client/ConsoleUtils.php');
+require_once 'Zend/Loader.php';
+spl_autoload_register(array('Zend_Loader', 'autoload'));
 
 $args = $argv;
 array_shift($args);

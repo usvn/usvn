@@ -49,10 +49,10 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     	$select->from(USVN_Db_Table::$prefix . 'to_attribute', '*');
     	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
     	$select->join(USVN_Db_Table::$prefix . 'rights', USVN_Db_Table::$prefix . 'to_attribute.rights_id = ' . USVN_Db_Table::$prefix . 'rights.rights_id');
-    	$select->join(USVN_Db_Table::$prefix . 'to_have', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'to_have.projects_id');
-    	$select->join(USVN_Db_Table::$prefix . 'to_belong', USVN_Db_Table::$prefix . 'to_attribute.groups_id = ' . USVN_Db_Table::$prefix . 'to_belong.groups_id');
-    	$select->join(USVN_Db_Table::$prefix . 'users', USVN_Db_Table::$prefix . 'to_have.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
-    	$select->where(USVN_Db_Table::$prefix . 'to_have.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
+    	$select->join(USVN_Db_Table::$prefix . 'users_to_projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'users_to_projects.projects_id');
+    	$select->join(USVN_Db_Table::$prefix . 'users_to_groups', USVN_Db_Table::$prefix . 'to_attribute.groups_id = ' . USVN_Db_Table::$prefix . 'users_to_groups.groups_id');
+    	$select->join(USVN_Db_Table::$prefix . 'users', USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
+    	$select->where(USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
     	$select->where('lower(' . USVN_Db_Table::$prefix . 'rights.rights_label) = lower(?)', $right);
 		$result = $db->fetchAll($select);

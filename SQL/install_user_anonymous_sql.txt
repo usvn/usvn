@@ -4,8 +4,7 @@ NULL , 'anonymous', 'usvn', 'anonymous', 'anonymous', 'anonymous@anonymous.com'
 );
 
 
-
-INSERT INTO `usvn_projects` ( `projects_id` , `projects_name` , `projects_date_start` , `projects_description` )
+INSERT INTO `usvn_projects` ( `projects_id` , `projects_name` , `projects_start_date` , `projects_description` )
 VALUES (
 NULL , 'default', '2007-04-01 15:29:57', 'poisson'
 );
@@ -25,12 +24,12 @@ VALUES (
 '1', '1', '1', '0'
 );
 
-INSERT INTO `usvn_to_belong` ( `users_id` , `groups_id` )
+INSERT INTO `usvn_users_to_groups` ( `users_id` , `groups_id` )
 VALUES (
 '1', '1'
 );
 
-INSERT INTO `usvn_to_have` ( `users_id` , `projects_id` )
+INSERT INTO `usvn_users_to_projects` ( `users_id` , `projects_id` )
 VALUES (
 '1', '1'
 );

@@ -91,7 +91,7 @@ class IndexController extends Zend_Controller_Action {
 		if (!$identity['username']) {
 			$user = "anonymous";
 		}
-		$access = new USVN_modules_default_models_Access();
+		$access = new USVN_Db_Table_Access();
 		$access->access($user, $project, $module, $controller, $action);
 	}
 

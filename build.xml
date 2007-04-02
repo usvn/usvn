@@ -15,7 +15,16 @@
  <!-- File set -->
   <fileset id="testfile" dir=".">
 		<include name="**/*Test.php" />
-  </fileset>
+        <exclude name="${docdir}/**" />
+        <exclude name="${report_test_dir}/**" />
+        <exclude name="${testdir}/**" />
+        <exclude name="**/.svn/**" />
+        <exclude name="phing/**" />
+        <exclude name="scripts**" />
+		<exclude name="private/**" />
+		<exclude name="SQL/**" />
+		<exclude name="LICENSE/**" />
+</fileset>
 
     <fileset id="projectfile" dir=".">
         <include name="**/*.php" />

@@ -37,7 +37,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
-        $suite  = new PHPUnit_Framework_TestSuite("USVN_Auth_Adapter_DbTest");
+        $suite  = new PHPUnit_Framework_TestSuite("USVN_Db_Table_UsersTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 

@@ -38,8 +38,10 @@ class USVN_Test extends Abstract_USVN_ClientTest {
 	public function testinstallLinux()
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
-			$this->assertEquals(0, $this->runCmd('cd tests/testclient/titi &&svn lock fichier1'));
-			$this->assertEquals(0, $this->runCmd('cd tests/testclient/titi && svn unlock fichier1'));
+			if (USVN_Client_SVNUtils::getSvnMinorVersion() >= 3) {
+				$this->assertEquals(0, $this->runCmd('cd tests/testclient/titi &&svn lock fichier1'));
+				$this->assertEquals(0, $this->runCmd('cd tests/testclient/titi && svn unlock fichier1'));
+			}
 			$this->assertEquals(0, $this->runCmd('cd tests/testclient/titi && svn propset -r 1 --revprop svn:log "new log message"'));
 		}
 	}

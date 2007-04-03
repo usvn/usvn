@@ -18,7 +18,9 @@ if (count($this->users)) {
 			<td>{$user->users_firstname}</td>
 			<td>{$user->users_lastname}</td>
 			<td>{$user->users_email}</td>
-			<td><a href="edit/id/{$user->users_id}">Edit</a>&nbsp;<a href="delete/id/{$user->users_id}">Delete</a></td>
+			<td><a href="edit/id/{$user->users_id}">Edit</a>
+			&nbsp;
+			<!--<a href="delete/id/{$user->users_id}">Delete</a>--></td>
 		</tr>\n
 EOF;
 		echo $line;

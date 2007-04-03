@@ -21,7 +21,7 @@ require_once 'USVN/modules/default/controllers/IndexController.php';
 
 class admin_IndexController extends IndexController
 {
-	protected function save($className, $name, $callback = null)
+	protected function save($className, $name)
 	{
 		$table = new $className();
 		/* @var $table USVN_Db_Table */
@@ -38,9 +38,6 @@ class admin_IndexController extends IndexController
 		}
 
 		try {
-			if ($callback !== null && method_exists($className, $callback)) {
-				call_user_func(array($className, $callback));
-			}
 			//unset($_POST[$primaryKey]);
 			$obj->setFromArray($_POST);
 			$obj->save();

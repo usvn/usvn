@@ -20,7 +20,7 @@
 
 /**
  * Model for projects table
- * 
+ *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
@@ -90,5 +90,67 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
 		$where = $db->quoteInto("projects_name = ?", $name);
 		return $this->fetchRow($where, "projects_name");
+	}
+
+	/**
+	 * Check if the project's name is valid or not
+	 *
+	 * @throws exception
+	 * @param string $name project's name
+	 */
+	public function checkProjectName($name)
+	{
+		//check if we have a project's name
+		if (empty($name)) {
+			throw new Exception(T_('The project\'s name is empty.'));
+		}
+		//other rules to define...
+	}
+
+	/**
+	 * Overload insert's method to check some data before insert
+	 *
+	 * @param array $data
+	 * @return integer the last insert ID.
+	 */
+	public function insert($data)
+	{
+
+		//check the validity of the project's name
+		$this->checkProjectName($data['projects_name']);
+
+		return parent::insert($data);
+	}
+
+	/**
+	 * Overload update's method to check some data before update
+	 *
+	 * @param array $data
+	 * @return integer The number of rows updated.
+	 */
+	public function update($data)
+	{
+		//check the validity of the project's name
+		$this->checkProjectName($data['projects_name']);
+
+		//check on project start date ?
+		//check on project's description ? (length)
+
+		return parent::update($data);
+	}
+
+	/**
+	 * To know if the project already exists or not
+	 *
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function isAProject($name)
+	{
+		$project = $this->fetchRow(array('projects_name = ?' => $name));
+		if ($project->name) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -20,7 +20,7 @@
 
 /**
  * Model for users table
- * 
+ *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
@@ -79,27 +79,115 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_UsersToProjects");
 
-	public function manageUserData()
+
+	/**
+	 * Check if the login is valid or not
+	 *
+	 * @throws exception
+	 * @param string $login
+	 */
+	public function checkLogin($login)
 	{
-		$validator = new Zend_Validate_EmailAddress();
-		if (!$validator->isValid($_POST['users_email'])) {
-			throw new Exception(T_('Invalid email adress.'));
+		//check if we have a login
+		if (empty($login)) {
+			throw new Exception(T_('Login empty.'));
 		}
-		if (!isset($_POST['users_id']) && (empty($_POST['users_password']) || empty($_POST['users_password2']))) {
-			throw new Exception(T_('No password.'));
-		}
-		if ($_POST['users_password'] !== $_POST['users_password2']) {
-			throw new Exception(T_('Not the same password.'));
-		}
-		if (isset($_POST['users_id']) && empty($_POST['users_password']) && empty($_POST['users_password2'])) {
-			unset($_POST['users_password']);
-		} else {
-			$_POST['users_password'] = crypt($_POST['users_password'], $_POST['users_password']);
-		}
-		//check du login, regexp, a definir
-		//unicite du login
-		//check sur nombre adresse mail
-		//regle metier quoi
+		//other rules to define...
+		//regexp on the login ?
+		//don't touch to the default's login ?
 	}
 
+	/**
+	 * Check if the password is valid or not
+	 *
+	 * @throws exception
+	 * @param string $password
+	 */
+	public function checkPassword($password)
+	{
+		//check if we have a password
+		if (empty($password)) {
+			throw new Exception(T_('Password empty.'));
+		}
+		//other rules to define...
+		//check for the password, if it length is big enough
+		if (strlen($password) < 8) {
+			throw new Exception(T_('Invalid password (more than 8 Characters).'));
+		}
+		//run some tests defined by a level of security (3 types) ?
+	}
+
+	/**
+	 * Check if the Email address is valid or not
+	 *
+	 * @throws exception
+	 * @param string $email
+	 */
+	public function checkEmailAddress($email)
+	{
+		$validator = new Zend_Validate_EmailAddress($email);
+		if (!$validator->isValid()) {
+			throw new Exception(T_('Invalid email adress.'));
+		}
+		//other rules to define...
+		//check if the email address already exists in database ?
+	}
+
+	/**
+	 * Overload insert's method to check some data before insert
+	 *
+	 * @param array $data
+	 * @return integer the last insert ID.
+	 */
+	public function insert($data)
+	{
+		//check the validity of the login
+		$this->checkLogin($data['users_login']);
+
+		//check the validity of the password
+		$this->checkPassword($data['users_password']);
+
+		//check the validity of the email address
+		$this->checkEmailAddress($data['users_email']);
+
+		//then crypt the password
+		$data['users_password'] = crypt($data['users_password'], $data['users_password']);
+		return parent::insert($data);
+	}
+
+	/**
+	 * Overload update's method to check some data before update
+	 *
+	 * @param array $data
+	 * @return integer The number of rows updated.
+	 */
+	public function update($data)
+	{
+		//check the validity of the login
+		$this->checkLogin($data['users_login']);
+
+		//check the validity of the password
+		$this->checkPassword($data['users_password']);
+
+		//check the validity of the email address
+		$this->checkEmailAddress($data['users_email']);
+
+		$data['users_password'] = crypt($data['users_password'], $data['users_password']);
+		return parent::update($data);
+	}
+
+	/**
+	 * To know if the user already exists or not
+	 *
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function isAUser($login)
+	{
+		$user = $this->fetchRow(array('users_login = ?' => $login));
+		if ($user->login) {
+			return true;
+		}
+		return false;
+	}
 }

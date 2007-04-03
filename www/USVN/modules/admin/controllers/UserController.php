@@ -25,6 +25,7 @@ class admin_UserController extends admin_IndexController
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Users();
+    	$table->isAUser('anonymous');
 		$this->_view->users = $table->fetchAll(null, "users_login");
 		$this->_render('index.html');
     }
@@ -32,7 +33,11 @@ class admin_UserController extends admin_IndexController
 	public function newAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_Db_Table_Users", "user", "manageUserData");
+			if (!empty($_POST['users_password']) && !empty($_POST['users_password'])
+				&& $_POST['users_password'] !== $_POST['users_password2']) {
+					throw new Exception(T_('Not the same password.'));
+			}
+			$this->save("USVN_Db_Table_Users", "user");
 		}
 		$this->_render('form.html');
 	}
@@ -40,7 +45,11 @@ class admin_UserController extends admin_IndexController
 	public function editAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_Db_Table_Users", "user", "manageUserData");
+			if (!empty($_POST['users_password']) && !empty($_POST['users_password'])
+				&& $_POST['users_password'] !== $_POST['users_password2']) {
+					throw new Exception(T_('Not the same password.'));
+			}
+			$this->save("USVN_Db_Table_Users", "user");
 		} else {
 			$userTable = new USVN_Db_Table_Users();
 			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
@@ -48,7 +57,8 @@ class admin_UserController extends admin_IndexController
 		$this->_render('form.html');
 	}
 
-	public function deleteAction()
+	/* Pas de suppression de user posant des problemes fonctionnels (perte de liaison non previsible) */
+	/*public function deleteAction()
 	{
 		if (!empty($_POST)) {
 			$this->delete("USVN_Db_Table_Users", "user");
@@ -57,7 +67,7 @@ class admin_UserController extends admin_IndexController
 			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');
-	}
+	}*/
 
 	public function importAction()
 	{

@@ -20,7 +20,7 @@
 
 /**
  * Model for groups table
- * 
+ *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
@@ -86,4 +86,62 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	protected $_dependentTables = array("USVN_Db_Table_Users");
 
 
+	/**
+	 * Check if the group's name is valid or not
+	 *
+	 * @throws exception
+	 * @param string $name group's name
+	 */
+	public function checkGroupName($name)
+	{
+		//check if we have a group's name
+		if (empty($name)) {
+			throw new Exception(T_('The group\'s name is empty.'));
+		}
+		//other rules to define...
+		//regexp on group's name ?
+	}
+
+	/**
+	 * Overload insert's method to check some data before insert
+	 *
+	 * @param array $data
+	 * @return integer the last insert ID.
+	 */
+	public function insert($data)
+	{
+		//check the validity of the group's name
+		$this->checkGroupName($data['groups_name']);
+
+		return parent::insert($data);
+	}
+
+	/**
+	 * Overload update's method to check some data before update
+	 *
+	 * @param array $data
+	 * @return integer The number of rows updated.
+	 */
+	public function update($data)
+	{
+		//check the validity of the group's name
+		$this->checkGroupName($data['groups_name']);
+
+		return parent::update($data);
+	}
+
+	/**
+	 * To know if the group already exists or not
+	 *
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function isAGroup($name)
+	{
+		$group = $this->fetchRow(array('groups_name = ?' => $name));
+		if ($group->name) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -1,3 +1,11 @@
+<script type="text/javascript">
+function checkPassword() {
+	if (document.user.users_password.value != document.user.users_password2.value) {
+		return false;
+	}
+	return true;
+}
+</script>
 <form name="user" method="POST" action="<?php echo $this->url(); ?>">
 	<span class="usvn_label"><?php echo T_("Login"); ?>:</span>
 	<?php echo $this->formText('users_login', (isset($this->user) ? $this->user->login : null)); ?>
@@ -16,7 +24,7 @@
 	<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null)); ?>
 	<br />
 	<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
-	<?php echo $this->formSubmit('submit', T_("Submit")); ?>
+	<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkPassword();')); ?>
 </form>
 <br />
 <a href="<?php echo $this->url(array('action' => '')); ?>"><?php echo T_('Return'); ?></a>

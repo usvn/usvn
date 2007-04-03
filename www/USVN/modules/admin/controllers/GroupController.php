@@ -48,7 +48,8 @@ class admin_GroupController extends admin_IndexController
 		$this->_render('form.html');
 	}
 
-	public function deleteAction()
+	/* Pas de suppression de group posant des problemes fonctionnels (perte de liaison non previsible) */
+	/*public function deleteAction()
 	{
 		if (!empty($_POST)) {
 			$this->delete("USVN_Db_Table_Groups", "group");
@@ -57,7 +58,7 @@ class admin_GroupController extends admin_IndexController
 			$this->_view->group = $groupTable->fetchRow(array('groups_id = ?' => $this->getRequest()->getParam('id')));
 		}
 		$this->_render('form.html');
-	}
+	}*/
 
 	public function noRouteAction()
     {

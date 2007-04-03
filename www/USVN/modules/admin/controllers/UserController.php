@@ -57,21 +57,15 @@ class admin_UserController extends admin_IndexController
 		$this->_render('form.html');
 	}
 
-	/* Pas de suppression de user posant des problemes fonctionnels (perte de liaison non previsible) */
-	/*public function deleteAction()
-	{
-		if (!empty($_POST)) {
-			$this->delete("USVN_Db_Table_Users", "user");
-		} else {
-			$userTable = new USVN_Db_Table_Users();
-			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
-		}
-		$this->_render('form.html');
-	}*/
-
 	public function importAction()
 	{
 		$this->_render('import.html');
+	}
+
+	public function importFileAction()
+	{
+		new USVN_modules_admin_models_ImportHtpasswd($_FILES['file']['tmp_name']);
+        $this->_redirect('/admin/user');
 	}
 
 	public function noRouteAction()

@@ -1,6 +1,6 @@
 INSERT INTO `usvn_users` ( `users_id` , `users_login` , `users_password` , `users_lastname` , `users_firstname` , `users_email` )
 VALUES (
-1 , 'anonymous', 'usvn', 'anonymous', 'anonymous', 'anonymous@anonymous.com'
+1 , 'anonymous', '', 'Anonymous', '', ''
 );
 
 

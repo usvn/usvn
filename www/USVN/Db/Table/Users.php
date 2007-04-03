@@ -48,7 +48,6 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	protected $_name = "users";
 
-
 	/**
 	 * Associative array map of declarative referential integrity rules.
 	 * This array has one entry per foreign key in the current table.
@@ -83,103 +82,82 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	/**
 	 * Check if the login is valid or not
 	 *
-	 * @throws exception
-	 * @param string $login
+	 * @throws USVN_Exception
+	 * @param string
+	 * @todo regexp on the login ?
+	 * @todo don't touch to the default's login
 	 */
 	public function checkLogin($login)
 	{
-		//check if we have a login
 		if (empty($login)) {
-			throw new Exception(T_('Login empty.'));
+			throw new USVN_Exception(T_('Login empty.'));
 		}
-		//other rules to define...
-		//regexp on the login ?
-		//don't touch to the default's login ?
 	}
 
 	/**
 	 * Check if the password is valid or not
 	 *
-	 * @throws exception
-	 * @param string $password
+	 * @throws USVN_Exception
+	 * @param string
 	 */
 	public function checkPassword($password)
 	{
-		//check if we have a password
 		if (empty($password)) {
-			throw new Exception(T_('Password empty.'));
+			throw new USVN_Exception(T_('Password empty.'));
 		}
-		//other rules to define...
-		//check for the password, if it length is big enough
 		if (strlen($password) < 8) {
-			throw new Exception(T_('Invalid password (more than 8 Characters).'));
+			throw new USVN_Exception(T_('Invalid password (more than 8 Characters).'));
 		}
-		//run some tests defined by a level of security (3 types) ?
 	}
 
 	/**
 	 * Check if the Email address is valid or not
 	 *
-	 * @throws exception
-	 * @param string $email
+	 * @throws USVN_Exception
+	 * @param string
 	 */
 	public function checkEmailAddress($email)
 	{
-		$validator = new Zend_Validate_EmailAddress($email);
-		if (!$validator->isValid()) {
-			throw new Exception(T_('Invalid email adress.'));
+		if (strlen($email)) {
+			$validator = new Zend_Validate_EmailAddress($email);
+			if (!$validator->isValid()) {
+				throw new USVN_Exception(T_('Invalid email adress.'));
+			}
 		}
-		//other rules to define...
-		//check if the email address already exists in database ?
+	}
+
+	/**
+	* Do all check
+	*/
+	private function check()
+	{
+		$this->checkLogin($data['users_login']);
+		$this->checkPassword($data['users_password']);
+		$this->checkEmailAddress($data['users_email']);
+		$data['users_password'] = crypt($data['users_password'], $data['users_password']);
 	}
 
 	/**
 	 * Overload insert's method to check some data before insert
 	 *
-	 * @param array $data
-	 * @return integer the last insert ID.
 	 */
-	public function insert($data)
+	protected function _insert()
 	{
-		//check the validity of the login
-		$this->checkLogin($data['users_login']);
-
-		//check the validity of the password
-		$this->checkPassword($data['users_password']);
-
-		//check the validity of the email address
-		$this->checkEmailAddress($data['users_email']);
-
-		//then crypt the password
-		$data['users_password'] = crypt($data['users_password'], $data['users_password']);
-		return parent::insert($data);
+		$this->check();
 	}
 
 	/**
 	 * Overload update's method to check some data before update
-	 *
-	 * @param array $data
-	 * @return integer The number of rows updated.
 	 */
-	public function update($data)
+	protected function _update()
 	{
-		//check the validity of the login
-		$this->checkLogin($data['users_login']);
-
-		//check the validity of the password
-		$this->checkPassword($data['users_password']);
-
-		//check the validity of the email address
-		$this->checkEmailAddress($data['users_email']);
-
-		$data['users_password'] = crypt($data['users_password'], $data['users_password']);
-		return parent::update($data);
+		$this->check();
 	}
 
 	/**
 	 * To know if the user already exists or not
 	 *
-	 * @param string $name
+	 * @param string
 	 * @return boolean
 	 */
 	public function isAUser($login)

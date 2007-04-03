@@ -20,7 +20,7 @@
 
 // Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "USVN_Auth_Adapter_DbTest::main");
+    define("PHPUnit_MAIN_METHOD", "USVN_Db_Table_UsersTest::main");
 }
 
 require_once "PHPUnit/Framework/TestCase.php";
@@ -97,7 +97,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 }
 
 // Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "USVN_Auth_Adapter_DbTest::main") {
+if (PHPUnit_MAIN_METHOD == "USVN_Db_Table_UsersTest::main") {
     USVN_Auth_Adapter_DbTest::main();
 }
 ?>

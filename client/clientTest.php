@@ -65,6 +65,7 @@ abstract class Abstract_USVN_ClientTest extends USVN_Test_DB {
 			exec('rm -Rf tests/testclient');
 			mkdir('tests/testclient');
 			exec('svnadmin create tests/testclient/test');
+			chmod('client/usvn', 0700);
 			$this->assertEquals("", system("./client/usvn install tests/testclient/test {$this->hooks_url} 007", $return));
 			$this->assertEquals(0, $return);
 			$this->repository_path = str_replace('/client/..', '', dirname(__FILE__).'/../tests/testclient/test');

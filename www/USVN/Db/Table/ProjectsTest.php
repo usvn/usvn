@@ -18,9 +18,9 @@
  * $Id$
  */
 
-// Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.
+// Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "USVN_Auth_Adapter_DbTest::main");
+    define("PHPUnit_MAIN_METHOD", "USVN_Db_Table_ProjectsTest::main");
 }
 
 require_once "PHPUnit/Framework/TestCase.php";
@@ -37,7 +37,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
-        $suite  = new PHPUnit_Framework_TestSuite("USVN_Auth_Adapter_DbTest");
+        $suite  = new PHPUnit_Framework_TestSuite("USVN_Db_Table_ProjectsTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
@@ -89,8 +89,8 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
     }
 }
 
-// Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "USVN_Auth_Adapter_DbTest::main") {
-    USVN_Auth_Adapter_DbTest::main();
+// Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.
+if (PHPUnit_MAIN_METHOD == "USVN_Db_Table_ProjectsTest::main") {
+    USVN_Db_Table_ProjectsTest::main();
 }
 ?>

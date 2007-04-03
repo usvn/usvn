@@ -133,6 +133,7 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Pre revprop change hook publish for XML-RPC
 	*
+	* @param string The auth id for identify the server
 	* @param integer Revision
 	* @param string The user login
 	* @param string Property will be change (ex: svn:log)

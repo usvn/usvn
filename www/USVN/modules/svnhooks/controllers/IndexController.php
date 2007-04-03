@@ -21,6 +21,8 @@ require_once 'USVN/modules/default/controllers/IndexController.php';
 
 class svnhooks_IndexController extends IndexController
 {
+	protected $_mimetype = 'text/xml';
+
 	public function preDispatch()
 	{
 		parent::preDispatch();

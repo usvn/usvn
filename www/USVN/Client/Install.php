@@ -61,7 +61,7 @@ class USVN_Client_Install
 			$res = $xmlrpc->call('usvn.client.hooks.validUSVNServer', array($this->authid));
 		}
 		catch (Exception $e) {
-                throw new USVN_Exception("Invalid server URL or not an USVN server.");
+                throw new USVN_Exception("Invalid server URL ({$this->url}) or not an USVN server.");
 		}
 		if (!$res) {
                 throw new USVN_Exception("Auth key is invalid.");
@@ -86,7 +86,7 @@ class USVN_Client_Install
 	private function copyLibraryFiles($dir)
 	{
 		$dst = $this->path.'/usvn/'.$dir;
-		if (!@mkdir($dst)) {
+		if (!@mkdir($dst, 0700)) {
 			throw new USVN_Exception("Can't create $dst");
 		}
 		$src = "www/".$dir;
@@ -110,8 +110,12 @@ class USVN_Client_Install
 
     private function installSourceFiles()
     {
-        @mkdir($this->path.'/usvn/USVN');
+		$dst = $this->path.'/usvn/USVN';
+        if (!@mkdir($dst, 0700)) {
+			throw new USVN_Exception("Can't create directory $dst.");
+		}
 		$this->copyLibraryFiles('USVN/Client');
+		copy('www/USVN/Exception.php', $this->path.'/usvn/USVN/Exception.php');
     }
 
     private function createConfigFile()

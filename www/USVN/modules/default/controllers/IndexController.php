@@ -31,6 +31,13 @@ class IndexController extends Zend_Controller_Action {
 	protected $_view = null;
 
 	/**
+	* Mime type render by the controller
+	*
+	* @var string
+	*/
+	protected $_mimetype = 'text/html';
+
+	/**
 	 * Init method.
 	 *
 	 * Call during construction of the controller to perform some default initialization.
@@ -106,7 +113,7 @@ class IndexController extends Zend_Controller_Action {
 	/**
 	 * A simple wrapper to render a template.
 	 *
-	 * It actually get the Response object, set the Content-Type to 'text/html' and
+	 * It actually get the Response object, set the Content-Type and
 	 * render our $template.
 	 *
 	 * If $template is null, it will automaticaly detect our current action and try to
@@ -120,7 +127,7 @@ class IndexController extends Zend_Controller_Action {
 			$template = $this->getRequest()->getActionName() . ".html";
 		}
 		$this->getResponse()
-			->setHeader('Content-Type', 'text/html')
+			->setHeader('Content-Type', $this->_mimetype)
 			->appendBody($this->_view->render($template));
 	}
 }

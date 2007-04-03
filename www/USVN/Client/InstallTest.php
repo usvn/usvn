@@ -68,6 +68,7 @@ class USVN_Client_InstallTest extends USVN_Client_CommandTest {
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn/USVN/Client/Hooks/StartCommit.php'), "Source code of hooks class is not available.");
         $this->assertTrue(file_exists('tests/tmp/testrepository/usvn/USVN/Client/Config.php'), "Source code of some client class is not available.");
+        $this->assertTrue(file_exists('tests/tmp/testrepository/usvn/USVN/Exception.php'), "Source code of some client class is not available.");
     }
 
     public function test_configFile()

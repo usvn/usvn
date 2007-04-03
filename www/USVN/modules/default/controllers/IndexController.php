@@ -70,7 +70,7 @@ class IndexController extends Zend_Controller_Action {
 		}
 		$dir = realpath(USVN_DIRECTORY . "/modules/$module/views/$controller");
 		if ($dir === false || !is_dir($dir)) {
-			throw new Zend_Controller_Exception("Controller's views directory not found");
+			throw new Zend_Controller_Exception("Controller's views directory not found. Controller is $controller and module is $module.");
 		}
 		$this->_view->setScriptPath($dir);
 		$this->_view->assign('project', $this->getRequest()->getParam('project'));

@@ -99,13 +99,13 @@ table tr.odd:hover th {
 
 a:link, a:visited
 {
-	color: #000000;
+	color: #0810E5;
 	background-color: transparent;
 	text-decoration: none;
 }
 a:hover
 {
-	color: #0810E5;
+	color: #8888E5;
 	background-color: transparent;
 	text-decoration: none;
 }

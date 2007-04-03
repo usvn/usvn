@@ -59,6 +59,11 @@ class admin_UserController extends admin_IndexController
 		$this->_render('form.html');
 	}
 
+	public function importAction()
+	{
+		$this->_render('import.html');
+	}
+
 	public function noRouteAction()
     {
         $this->_redirect('/');

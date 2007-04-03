@@ -7,8 +7,8 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package client
- * @subpackage hook
+ * @package test
+ * @subpackage db
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
@@ -22,10 +22,11 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class USVN_Test_DB extends PHPUnit_Framework_TestCase {
+class USVN_Test_DB extends USVN_Test_Test {
 	protected $db;
 
     public function setUp() {
+		parent::setUp();
 		$params = array ('host'     => 'localhost',
                  'username' => 'usvn-test',
                  'password' => 'usvn-test',
@@ -42,6 +43,7 @@ class USVN_Test_DB extends PHPUnit_Framework_TestCase {
 
     public function tearDown() {
 		USVN_Db_Utils::deleteAllTables($this->db);
+		parent::tearDown();
     }
 }
 

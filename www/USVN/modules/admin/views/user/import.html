@@ -1,0 +1,11 @@
+<h1><?php echo T_('Import htpasswd');?></h1>
+<?php echo T_('This form allow you to add to USVN all users contents into an apache password file.');?>
+<br />
+<form method="post" enctype="multipart/form-data" action="upload.php">
+<table>
+	<tr>
+		<td><input type="file" name="file" size="30"></td>
+		<td><input type="submit" name="upload" value="<?php echo T_('Upload');?>"></td>
+	</tr>
+</table>
+</form>

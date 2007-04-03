@@ -19,6 +19,11 @@
  */
 class USVN_modules_svnhooks_models_Hooks
 {
+	private function checkAuthId($authid)
+	{
+		return true;
+	}
+
 	/**
 	* Start commit hook publish for XML-RPC
 	*

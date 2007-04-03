@@ -50,7 +50,7 @@ class USVN_Auth_Adapter_DbTest extends USVN_Test_DB {
 		parent::setUp();
 		USVN_Translation::initTranslation("en_US", "www/locale");
 		$data = array(
-			"users_id" => 1,
+			"users_id" => 2,
 			"users_login" => 'testlogin',
 			"users_password" => crypt('testpassword')
 		);

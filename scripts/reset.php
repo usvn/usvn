@@ -25,4 +25,5 @@ $db = Zend_Db::factory($config->database->adapterName, $config->database->option
 Zend_Db_Table::setDefaultAdapter($db);
 USVN_Db_Utils::deleteAllTables($db);
 USVN_Db_Utils::loadFile($db, "SQL/SVNDB.sql");
+USVN_Db_Utils::loadFile($db, "SQL/mysql.sql");
 USVN_Db_Utils::loadFile($db, "SQL/data.sql");

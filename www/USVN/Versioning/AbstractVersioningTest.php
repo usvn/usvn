@@ -27,29 +27,29 @@ require_once 'www/USVN/autoload.php';
 	{
 		parent::setUp();
 		$data = array(
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"projects_name" => 'Projet Love'
 		);
 		$this->db->insert("usvn_projects", $data);
 
 		$data = array(
-			"users_id" => 1,
+			"users_id" => 2,
 			"users_login" => "test",
 		);
 		$this->db->insert("usvn_users", $data);
 
 		$data = array(
-			"users_id" => 2,
+			"users_id" => 3,
 			"users_login" => "root",
 		);
 		$this->db->insert("usvn_users", $data);
 
 		//Revision 1
 		$data = array(
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"revisions_num" => 1,
 			"revisions_message" => "First commit",
-			"users_id" => 1
+			"users_id" => 2
 		);
 		$this->db->insert("usvn_revisions", $data);
 
@@ -58,7 +58,7 @@ require_once 'www/USVN/autoload.php';
 			"files_path" => 'trunk',
 			"files_isdir" => true,
 			"revisions_num" => 1,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"files_typ_rev" => "A"
 		);
 		$this->db->insert("usvn_files", $data);
@@ -67,7 +67,7 @@ require_once 'www/USVN/autoload.php';
 			"files_id" => 1,
 			"files_path" => 'trunk/test',
 			"revisions_num" => 1,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"files_typ_rev" => "A"
 		);
 		$this->db->insert("usvn_files", $data);
@@ -76,25 +76,25 @@ require_once 'www/USVN/autoload.php';
 			"files_id" => 2,
 			"files_path" => 'trunk/test2',
 			"revisions_num" => 1,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"files_typ_rev" => "A"
 		);
 		$this->db->insert("usvn_files", $data);
 
 		$data = array(
 			"files_id" => 1,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"properties_name" => 'eof',
 			"properties_value" => "\n"
 		);
 
-		
+
 		//Revision 2
 		$data = array(
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"revisions_num" => 2,
 			"revisions_message" => "Second commit",
-			"users_id" => 2
+			"users_id" => 3
 		);
 		$this->db->insert("usvn_revisions", $data);
 
@@ -102,7 +102,7 @@ require_once 'www/USVN/autoload.php';
 			"files_id" => 3,
 			"files_path" => 'trunk/test',
 			"revisions_num" => 2,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"files_typ_rev" => "M"
 		);
 		$this->db->insert("usvn_files", $data);
@@ -110,36 +110,36 @@ require_once 'www/USVN/autoload.php';
 		$data = array(
 			"files_id" => 3,
 			"revisions_num" => 2,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"properties_name" => 'mime',
 			"properties_value" => 'jpg'
 		);
 
 		/*$data = array(
 			"files_id" => 3,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"properties_name" => 'eof',
 			"properties_value" => "\r\n"
 		);*/
 		$this->db->insert("usvn_properties", $data);
 
-		
+
 		// bug de phing test sur l'insertrion precedente
-		
-		
+
+
 		//Second Project
 		$data = array(
-			"projects_id" => 2,
+			"projects_id" => 3,
 			"projects_name" => 'Projet FENEC'
 		);
 		$this->db->insert("usvn_projects", $data);
 
 		//Revision 1
 		$data = array(
-			"projects_id" => 2,
+			"projects_id" => 3,
 			"revisions_num" => 1,
 			"revisions_message" => "Commit to another project",
-			"users_id" => 1
+			"users_id" => 2
 		);
 		$this->db->insert("usvn_revisions", $data);
 
@@ -148,7 +148,7 @@ require_once 'www/USVN/autoload.php';
 			"revisions_num" => 2,
 			"files_path" => 'trunk',
 			"files_isdir" => true,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"files_typ_rev" => "A"
 		);
 		$this->db->insert("usvn_files", $data);
@@ -157,11 +157,11 @@ require_once 'www/USVN/autoload.php';
 			"files_id" => 5,
 			"files_path" => 'trunk/test',
 			"revisions_num" => 2,
-			"projects_id" => 1,
+			"projects_id" => 2,
 			"files_typ_rev" => "A"
 		);
 		$this->db->insert("usvn_files", $data);
-		
+
 	}
 }
 ?>

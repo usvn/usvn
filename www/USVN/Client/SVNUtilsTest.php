@@ -84,6 +84,27 @@ class USVN_Client_SVNUtilsTest extends PHPUnit_Framework_TestCase {
 		 $this->assertTrue(file_exists('tests/tmp/svndirectorystruct'));
 		 $this->assertTrue(file_exists('tests/tmp/svndirectorystruct/hooks'));
 	}
+
+	public function test_parseSvnVersion()
+	{
+		$this->assertEquals(array(1, 1, 4), USVN_Client_SVNUtils::parseSvnVersion("svn, version 1.1.4 (r13838)
+   compiled May 13 2005, 06:29:47
+
+Copyright (C) 2000-2004 CollabNet.
+Subversion is open source software, see http://subversion.tigris.org/
+This product includes software developed by CollabNet (http://www.Collab.Net/).
+
+The following repository access (RA) modules are available:
+
+* ra_dav : Module for accessing a repository via WebDAV (DeltaV) protocol.
+  - handles 'http' schema
+  - handles 'https' schema
+* ra_local : Module for accessing a repository on local disk.
+  - handles 'file' schema
+* ra_svn : Module for accessing a repository using the svn network protocol.
+  - handles 'svn' schema
+"));
+	}
 }
 
 // Call USVN_Client_SVNUtilsTest::main() if this source file is executed directly.

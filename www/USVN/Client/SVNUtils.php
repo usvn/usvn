@@ -88,6 +88,41 @@ class USVN_Client_SVNUtils
 	}
 
 	/**
+	* Return minor version of svn client
+	*
+	* @return array  (ex: for svn version 1.3.3 array(1, 3, 3))
+	*/
+	public static function getSvnMinorVersion()
+	{
+		$version = USVN_Client_SVNUtils::getSvnVersion();
+		return $version[1];
+	}
+
+	/**
+	* Return version of svn client
+	*
+	* @return array  (ex: for svn version 1.3.3 array(1, 3, 3))
+	*/
+	public static function getSvnVersion()
+	{
+		return USVN_Client_SVNUtils::parseSvnVersion(`svn --version`);
+	}
+
+	/**
+	* Parse output of svn --version for return the version number
+	*
+	* @param string output of svn --version
+	* @return array  (ex: for svn version 1.3.3 array(1, 3, 3))
+	*/
+	public static function parseSvnVersion($version)
+	{
+		$lines = explode("\n", $version);
+		$version_number = explode(" ", $lines[0]);
+		return explode(".", $version_number[2]);
+	}
+
+
+	/**
 	* It's for use with testunit. This method simulate svnadmin create $path
 	*
 	* @param string Path to create directory structs

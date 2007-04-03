@@ -99,26 +99,32 @@ class USVN_HooksTest extends Abstract_USVN_ClientTest {
 	public function testHooksPreLock()
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
-			system("cd tests/testclient/test && ./hooks/pre-lock " . $this->repository_path . " fichier2 noplay", $return);
-			$this->assertEquals(0, $return);
+			if (USVN_Client_SVNUtils::getSvnMinorVersion() >= 3) {
+				system("cd tests/testclient/test && ./hooks/pre-lock " . $this->repository_path . " fichier2 noplay", $return);
+				$this->assertEquals(0, $return);
+			}
 		}
 	}
 
 	public function testHooksPreUnlock()
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
-			system("cd tests/testclient/test && ./hooks/pre-unlock " . $this->repository_path . " fichier2 noplay", $return);
-			$this->assertEquals(0, $return);
+			if (USVN_Client_SVNUtils::getSvnMinorVersion() >= 3) {
+				system("cd tests/testclient/test && ./hooks/pre-unlock " . $this->repository_path . " fichier2 noplay", $return);
+				$this->assertEquals(0, $return);
+			}
 		}
 	}
 
 	public function testHooksPostUnlock()
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
-			$p = popen("cd tests/testclient/test && ./hooks/post-unlock " . $this->repository_path . " noplay", "w");
-			fwrite($p, "fichier1");
-			$return = pclose($p);
-			$this->assertEquals(0, $return);
+			if (USVN_Client_SVNUtils::getSvnMinorVersion() >= 3) {
+				$p = popen("cd tests/testclient/test && ./hooks/post-unlock " . $this->repository_path . " noplay", "w");
+				fwrite($p, "fichier1");
+				$return = pclose($p);
+				$this->assertEquals(0, $return);
+			}
 		}
 	}
 

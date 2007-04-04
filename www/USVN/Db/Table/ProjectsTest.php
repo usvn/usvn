@@ -51,15 +51,22 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('projects_name' => ''));
-		$_id = $obj->save();
-		//test sur le nombre d'entree avant et apres
+		try {
+			$_id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("project's name is empty", $e->getMessage());
+			//test sur le nombre d'entree avant et apres
+			return;
+		}
+		$this->assertFalse(true);
     }
 
     public function testInsertProjectOk()
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'InsertProjectOk'));
+		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$obj->save();
 		$this->assertTrue($table->isAProject('InsertProjectOk'));
     }
@@ -68,9 +75,9 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'UpdateProjectNoName'));
+		$obj->setFromArray(array('projects_name' => 'UpdateProjectNoName',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$id = $obj->save();
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('projects_name' => ''));
 		//test sur le nombre d'entree avant et apres
     }
@@ -79,10 +86,10 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk'));
+		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$id = $obj->save();
 		$this->assertTrue($table->isAProject('UpdateProjectOk'));
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk2'));
 		$id = $obj->save();
 		$this->assertTrue($table->isAProject('UpdateProjectOk2'));

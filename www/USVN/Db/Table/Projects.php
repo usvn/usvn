@@ -100,11 +100,12 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 * @todo check on the default's name ?
 	 * @todo other rules to define ?
 	 * @param string $name project's name
+	 * @param throw USVN_Exception
 	 */
 	public function checkProjectName($name)
 	{
 		if (empty($name)) {
-			throw new Exception(T_('The project\'s name is empty.'));
+			throw new USVN_Exception(T_('The project\'s name is empty.'));
 		}
 	}
 
@@ -114,7 +115,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 * @param array $data
 	 * @return integer the last insert ID.
 	 */
-	public function insert($data)
+	public function insert(array $data)
 	{
 		$this->checkProjectName($data['projects_name']);
 		return parent::insert($data);
@@ -126,12 +127,13 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 * @todo check on project start date ?
 	 * @todo check on project's description ? (length)
 	 * @param array $data
+	 * @param string where SQL where
 	 * @return integer The number of rows updated.
 	 */
-	public function update($data)
+	public function update(&$data, $where)
 	{
 		$this->checkProjectName($data['projects_name']);
-		return parent::update($data);
+		return parent::update($data, $where);
 	}
 
 	/**

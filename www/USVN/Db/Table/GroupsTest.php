@@ -59,16 +59,16 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Groups();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('groups_name' => 'test'));
+		$obj->setFromArray(array('groups_name' => 'InsertGroupOk'));
 		$obj->save();
-		$this->assertTrue($table->isAGroup('test'));
+		$this->assertTrue($table->isAGroup('InsertGroupOk'));
     }
 
     public function testUpdateGroupNoName()
 	{
 		$table = new USVN_Db_Table_Groups();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('groups_name' => 'test'));
+		$obj->setFromArray(array('groups_name' => 'UpdateGroupNoName'));
 		$id = $obj->save();
 		$obj = $table->find($id);
 		$obj->setFromArray(array('groups_name' => ''));
@@ -79,13 +79,13 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Groups();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('groups_name' => 'test'));
+		$obj->setFromArray(array('groups_name' => 'UpdateGroupOk'));
 		$id = $obj->save();
-		$this->assertTrue($table->isAGroup('test'));
+		$this->assertTrue($table->isAGroup('UpdateGroupOk'));
 		$obj = $table->find($id);
-		$obj->setFromArray(array('groups_name' => 'testOK'));
+		$obj->setFromArray(array('groups_name' => 'UpdateGroupOk2'));
 		$id = $obj->save();
-		$this->assertTrue($table->isAGroup('testOK'));
+		$this->assertTrue($table->isAGroup('UpdateGroupOk2'));
     }
 }
 

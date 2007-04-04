@@ -46,53 +46,174 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     }
 
-    public function testUserInsertInvalidLogin()
+    public function testUserInsertNoLogin()
 	{
-    }
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> '',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$obj->save();
+		//check on number of insert
+	}
 
     public function testUserInsertInvalidEmailAddress()
 	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'InsertInvalidEmailAddress',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'BadEmail'));
+		$obj->save();
+		$this->assertFalse($table->isAUser('InsertInvalidEmailAddress'));
     }
 
     public function testUserInsertNoPassword()
 	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'InsertNoPassword',
+									'users_password' 	=> '',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$obj->save();
+		$this->assertTrue($table->isAUser('InsertNoPassword'));
     }
 
     public function testUserInsertInvalidPassword()
 	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'InsertNoPassword',
+									'users_password' 	=> 'badPass',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$obj->save();
+		$this->assertFalse($table->isAUser('InsertNoPassword'));
     }
 
     public function testUserInsertOk()
     {
     	$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('users_login' 			=> 'login',
+		$obj->setFromArray(array('users_login' 			=> 'InsertOk',
 									'users_password' 	=> 'password',
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$obj->save();
-		$this->assertTrue($table->isAUser('login'));
+		$this->assertTrue($table->isAUser('InsertOk'));
     }
 
-    public function testUserUpdateInvalidLogin()
+    public function testUserUpdateNoLogin()
 	{
+    	$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'InsertOkUpdateNoLogin',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$id = $obj->save();
+		$obj = $table->find($id);
+		$obj->setFromArray(array('users_login' 			=> '',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$obj->save();
+		$this->assertTrue($table->isAUser('InsertOkUpdateNoLogin'));
+		//check number of insert
     }
 
     public function testUserUpdateInvalidEmailAddress()
 	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidEmailAddress',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$id = $obj->save();
+		$obj = $table->find($id);
+		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidEmailAddress',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'badEmail'));
+		$obj->save();
+		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidEmailAddress'));
+		$this->assertEquals($user->email, 'email@email.fr');
     }
 
     public function testUserUpdateNoPassword()
 	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'UpdateNoPassword',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$id = $obj->save();
+		$obj = $table->find($id);
+		$obj->setFromArray(array('users_login' 			=> 'UpdateNoPassword',
+									'users_password' 	=> '',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$obj->save();
+		$user = $table->fetchRow(array('users_login = ?' => 'UpdateNoPassword'));
+		$this->assertEquals($user->password, 'password');
     }
 
     public function testUserUpdateInvalidPassword()
 	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidPassword',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$id = $obj->save();
+		$obj = $table->find($id);
+		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidPassword',
+									'users_password' 	=> 'badPass',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$obj->save();
+		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidPassword'));
+		$this->assertEquals($user->password, 'password');
     }
 
     public function testUserUpdateOk()
     {
+    	$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'UpdateOk',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$id = $obj->save();
+		$obj = $table->find($id);
+		$obj->setFromArray(array('users_login' 			=> 'newUpdateOk',
+									'users_password' 	=> 'newPassword',
+									'users_firstname' 	=> 'newFirstname',
+									'users_lastname' 	=> 'newLastname',
+									'users_email' 		=> 'newemail@email.fr'));
+		$obj->save();
+		$this->assertFalse($table->isAUser('UpdateOk'));
+		$this->assertTrue($table->isAUser('newUpdateOk'));
     }
 }
 

@@ -96,15 +96,16 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 * Check if the project's name is valid or not
 	 *
 	 * @throws exception
+	 * @todo regexp on project's name ?
+	 * @todo check on the default's name ?
+	 * @todo other rules to define ?
 	 * @param string $name project's name
 	 */
 	public function checkProjectName($name)
 	{
-		//check if we have a project's name
 		if (empty($name)) {
 			throw new Exception(T_('The project\'s name is empty.'));
 		}
-		//other rules to define...
 	}
 
 	/**
@@ -115,27 +116,21 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 */
 	public function insert($data)
 	{
-
-		//check the validity of the project's name
 		$this->checkProjectName($data['projects_name']);
-
 		return parent::insert($data);
 	}
 
 	/**
 	 * Overload update's method to check some data before update
 	 *
+	 * @todo check on project start date ?
+	 * @todo check on project's description ? (length)
 	 * @param array $data
 	 * @return integer The number of rows updated.
 	 */
 	public function update($data)
 	{
-		//check the validity of the project's name
 		$this->checkProjectName($data['projects_name']);
-
-		//check on project start date ?
-		//check on project's description ? (length)
-
 		return parent::update($data);
 	}
 

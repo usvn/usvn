@@ -59,16 +59,16 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'test'));
+		$obj->setFromArray(array('projects_name' => 'InsertProjectOk'));
 		$obj->save();
-		$this->assertTrue($table->isAProject('test'));
+		$this->assertTrue($table->isAProject('InsertProjectOk'));
     }
 
     public function testUpdateProjectNoName()
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'test'));
+		$obj->setFromArray(array('projects_name' => 'UpdateProjectNoName'));
 		$id = $obj->save();
 		$obj = $table->find($id);
 		$obj->setFromArray(array('projects_name' => ''));
@@ -79,13 +79,13 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'test'));
+		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk'));
 		$id = $obj->save();
-		$this->assertTrue($table->isAProject('test'));
+		$this->assertTrue($table->isAProject('UpdateProjectOk'));
 		$obj = $table->find($id);
-		$obj->setFromArray(array('projects_name' => 'testOK'));
+		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk2'));
 		$id = $obj->save();
-		$this->assertTrue($table->isAProject('testOK'));
+		$this->assertTrue($table->isAProject('UpdateProjectOk2'));
     }
 }
 

@@ -1,3 +1,14 @@
+<script type="text/javascript">
+function checkName() {
+	spanError = document.getElementById('error');
+	if (document.project.projects_name.value.length == 0) {
+		spanError.innerHTML = 'Project\'s name empty, please fill it.';
+		return false;
+	}
+	spanError.innerHTML = '';
+	return true;
+}
+</script>
 <form name="project" method="post" action="<?php echo $this->url(); ?>">
 	<table>
 		<tr>
@@ -9,9 +20,11 @@
 			<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null)); ?><br></td>
 		</tr>
 		<tr>
-			<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit")/*, array("onClick" => 'return false;')*/); ?></td>
+			<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?></td>
 		</tr>
 	</table>
+	<br /><br />
+	<div id="error" class="usvn_error"></div>
 	<?php
 	if (isset($this->project)) {
 		echo $this->formHidden('projects_id', $this->project->id);

@@ -90,16 +90,16 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 * Check if the group's name is valid or not
 	 *
 	 * @throws exception
+	 * @todo check on the default's name ?
+	 * @todo regexp on group's name ?
+	 * @todo other rules to define ?
 	 * @param string $name group's name
 	 */
 	public function checkGroupName($name)
 	{
-		//check if we have a group's name
 		if (empty($name)) {
 			throw new Exception(T_('The group\'s name is empty.'));
 		}
-		//other rules to define...
-		//regexp on group's name ?
 	}
 
 	/**
@@ -110,9 +110,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 */
 	public function insert($data)
 	{
-		//check the validity of the group's name
 		$this->checkGroupName($data['groups_name']);
-
 		return parent::insert($data);
 	}
 
@@ -124,9 +122,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 */
 	public function update($data)
 	{
-		//check the validity of the group's name
 		$this->checkGroupName($data['groups_name']);
-
 		return parent::update($data);
 	}
 

@@ -84,8 +84,8 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 *
 	 * @throws USVN_Exception
 	 * @param string
+	 * @todo check on the default's login ?
 	 * @todo regexp on the login ?
-	 * @todo don't touch to the default's login
 	 */
 	public function checkLogin($login)
 	{
@@ -113,45 +113,57 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	/**
 	 * Check if the Email address is valid or not
 	 *
+	 * @todo voir pb de Zend_Validate_EmailAddress qui veut pas du mail, remettre ce qui devait existait avant modif de duponc_j mais avec check sur existance de mail ou pas, si existe pas, pas de test
 	 * @throws USVN_Exception
 	 * @param string
 	 */
 	public function checkEmailAddress($email)
 	{
-		if (strlen($email)) {
-			$validator = new Zend_Validate_EmailAddress($email);
-			if (!$validator->isValid()) {
-				throw new USVN_Exception(T_('Invalid email adress.'));
-			}
-		}
+//		if (strlen($email)) {
+//			$validator = new Zend_Validate_EmailAddress($email);
+//			if (!$validator->isValid()) {
+//				throw new USVN_Exception(T_('Invalid email address (' . $email . ').'));
+//			}
+//		}
 	}
 
 	/**
-	* Do all check
+	* Do all checks
+	*
+	* @param array $data informations about the user to save
 	*/
-	private function check()
+	private function check($data)
 	{
 		$this->checkLogin($data['users_login']);
 		$this->checkPassword($data['users_password']);
 		$this->checkEmailAddress($data['users_email']);
-		$data['users_password'] = crypt($data['users_password'], $data['users_password']);
 	}
 
 	/**
 	 * Overload insert's method to check some data before insert
 	 *
 	 */
-	protected function _insert()
+	public function insert($data)
 	{
-		$this->check();
+		$this->check($data);
+		//do the encryption if needed
+		if (isset($data['users_password'])) {
+			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
+		}
+		parent::insert($data);
 	}
 
 	/**
 	 * Overload update's method to check some data before update
 	 */
-	protected function _update()
+	public function update($data)
 	{
-		$this->check();
+		$this->check($data);
+		//do the encryption if needed
+		if (isset($data['users_password'])) {
+			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
+		}
+		parent::update($data);
 	}
 
 	/**

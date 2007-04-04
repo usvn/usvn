@@ -1,8 +1,19 @@
 <script type="text/javascript">
 function checkPassword() {
-	if (document.user.users_password.value != document.user.users_password2.value) {
+	spanError = document.getElementById('error');
+	if (!document.user.users_password.value.length || !document.user.users_password2.value.length) {
+		spanError.innerHTML = 'Password empty.';
 		return false;
 	}
+	if (document.user.users_password.value != document.user.users_password2.value) {
+		spanError.innerHTML = 'Password incorrect (not the same).';
+		return false;
+	}
+	if (document.user.users_password.value.length < 8) {
+		spanError.innerHTML = 'Password incorrect (need more 8 characters).';
+		return false;
+	}
+	spanError.innerHTML = '';
 	return true;
 }
 </script>
@@ -25,6 +36,8 @@ function checkPassword() {
 	<br />
 	<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
 	<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkPassword();')); ?>
+	<br /><br />
+	<div id="error" class="usvn_error"></div>
 </form>
 <br />
 <a href="<?php echo $this->url(array('action' => '')); ?>"><?php echo T_('Return'); ?></a>

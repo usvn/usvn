@@ -67,6 +67,10 @@ img {border: 0;}
 	margin-bottom: 0.1em;
 }
 
+.usvn_error {
+	color: red;
+}
+
 table
 {
 	empty-cells: show;

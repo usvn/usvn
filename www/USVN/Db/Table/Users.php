@@ -113,18 +113,17 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	/**
 	 * Check if the Email address is valid or not
 	 *
-	 * @todo voir pb de Zend_Validate_EmailAddress qui veut pas du mail, remettre ce qui devait existait avant modif de duponc_j mais avec check sur existance de mail ou pas, si existe pas, pas de test
 	 * @throws USVN_Exception
 	 * @param string
 	 */
 	public function checkEmailAddress($email)
 	{
-//		if (strlen($email)) {
-//			$validator = new Zend_Validate_EmailAddress($email);
-//			if (!$validator->isValid()) {
-//				throw new USVN_Exception(T_('Invalid email address (' . $email . ').'));
-//			}
-//		}
+		if (strlen($email)) {
+			$validator = new Zend_Validate_EmailAddress();
+			if (!$validator->isValid($email)) {
+				throw new USVN_Exception(T_('Invalid email address (' . $email . ').'));
+			}
+		}
 	}
 
 	/**
@@ -140,30 +139,36 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	}
 
 	/**
-	 * Overload insert's method to check some data before insert
+	 * Inserts a new row
 	 *
+	 * @param array Column-value pairs.
+	 * @return integer The last insert ID.
 	 */
-	public function insert($data)
+	public function insert(array $data)
 	{
 		$this->check($data);
 		//do the encryption if needed
 		if (isset($data['users_password'])) {
 			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
 		}
-		parent::insert($data);
+		return parent::insert($data);
 	}
 
 	/**
-	 * Overload update's method to check some data before update
+	 * Updates existing rows.
+	 *
+	 * @param array Column-value pairs.
+	 * @param string An SQL WHERE clause.
+	 * @return int The number of rows updated.
 	 */
-	public function update($data)
+	public function update(&$data, $where)
 	{
 		$this->check($data);
 		//do the encryption if needed
 		if (isset($data['users_password'])) {
 			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
 		}
-		parent::update($data);
+		return parent::update($data, $where);
 	}
 
 	/**

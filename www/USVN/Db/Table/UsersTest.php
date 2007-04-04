@@ -55,8 +55,15 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
-		$obj->save();
-		//check on number of insert
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Login empty', $e->getMessage());
+			//check on number of insert
+			return;
+		}
+		$this->assertFalse(true);
 	}
 
     public function testUserInsertInvalidEmailAddress()
@@ -68,8 +75,15 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'BadEmail'));
-		$obj->save();
-		$this->assertFalse($table->isAUser('InsertInvalidEmailAddress'));
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Invalid email address', $e->getMessage());
+			$this->assertFalse($table->isAUser('InsertInvalidEmailAddress'));
+			return;
+		}
+		$this->assertFalse(true);
     }
 
     public function testUserInsertNoPassword()
@@ -81,8 +95,15 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
-		$obj->save();
-		$this->assertTrue($table->isAUser('InsertNoPassword'));
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Password empty', $e->getMessage());
+			$this->assertFalse($table->isAUser('InsertNoPassword'));
+			return;
+		}
+		$this->assertFalse(true);
     }
 
     public function testUserInsertInvalidPassword()
@@ -94,8 +115,15 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
-		$obj->save();
-		$this->assertFalse($table->isAUser('InsertNoPassword'));
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Invalid password', $e->getMessage());
+			$this->assertFalse($table->isAUser('InsertNoPassword'));
+			return;
+		}
+		$this->assertFalse(true);
     }
 
     public function testUserInsertOk()
@@ -121,7 +149,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$id = $obj->save();
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('users_login' 			=> '',
 									'users_password' 	=> 'password',
 									'users_firstname' 	=> 'firstname',
@@ -142,7 +170,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$id = $obj->save();
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidEmailAddress',
 									'users_password' 	=> 'password',
 									'users_firstname' 	=> 'firstname',
@@ -163,7 +191,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$id = $obj->save();
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('users_login' 			=> 'UpdateNoPassword',
 									'users_password' 	=> '',
 									'users_firstname' 	=> 'firstname',
@@ -184,7 +212,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$id = $obj->save();
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidPassword',
 									'users_password' 	=> 'badPass',
 									'users_firstname' 	=> 'firstname',
@@ -205,7 +233,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$id = $obj->save();
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('users_login' 			=> 'newUpdateOk',
 									'users_password' 	=> 'newPassword',
 									'users_firstname' 	=> 'newFirstname',
@@ -217,8 +245,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
     }
 }
 
-// Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.
 if (PHPUnit_MAIN_METHOD == "USVN_Db_Table_UsersTest::main") {
-    USVN_Auth_Adapter_DbTest::main();
+    USVN_Db_Table_UsersTest::main();
 }
 ?>

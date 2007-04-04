@@ -89,7 +89,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	/**
 	 * Check if the group's name is valid or not
 	 *
-	 * @throws exception
+	 * @throws USVN_Exception
 	 * @todo check on the default's name ?
 	 * @todo regexp on group's name ?
 	 * @todo other rules to define ?
@@ -98,7 +98,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	public function checkGroupName($name)
 	{
 		if (empty($name)) {
-			throw new Exception(T_('The group\'s name is empty.'));
+			throw new USVN_Exception(T_('The group\'s name is empty.'));
 		}
 	}
 
@@ -108,7 +108,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 * @param array $data
 	 * @return integer the last insert ID.
 	 */
-	public function insert($data)
+	public function insert(array $data)
 	{
 		$this->checkGroupName($data['groups_name']);
 		return parent::insert($data);
@@ -120,10 +120,10 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 * @param array $data
 	 * @return integer The number of rows updated.
 	 */
-	public function update($data)
+	public function update(&$data, $where)
 	{
 		$this->checkGroupName($data['groups_name']);
-		return parent::update($data);
+		return parent::update($data, $where);
 	}
 
 	/**

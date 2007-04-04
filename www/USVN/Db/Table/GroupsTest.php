@@ -41,18 +41,20 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-    public function setUp() {
-		parent::setUp();
-
-    }
-
     public function testInsertGroupNoName()
 	{
 		$table = new USVN_Db_Table_Groups();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('groups_name' => ''));
-		$_id = $obj->save();
-		//test sur le nombre d'entree avant et apres
+		try {
+			$id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("group's name is empty", $e->getMessage());
+			//test sur le nombre d'entree avant et apres
+			return;
+		}
+		$this->assertFalse(true);
     }
 
     public function testInsertGroupOk()
@@ -70,9 +72,17 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('groups_name' => 'UpdateGroupNoName'));
 		$id = $obj->save();
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('groups_name' => ''));
-		//test sur le nombre d'entree avant et apres
+		try {
+			$id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("group's name is empty", $e->getMessage());
+			//test sur le nombre d'entree avant et apres
+			return;
+		}
+		$this->assertFalse(true);
 	}
 
     public function testUpdateGroupOk()
@@ -82,7 +92,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$obj->setFromArray(array('groups_name' => 'UpdateGroupOk'));
 		$id = $obj->save();
 		$this->assertTrue($table->isAGroup('UpdateGroupOk'));
-		$obj = $table->find($id);
+		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('groups_name' => 'UpdateGroupOk2'));
 		$id = $obj->save();
 		$this->assertTrue($table->isAGroup('UpdateGroupOk2'));

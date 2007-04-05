@@ -121,9 +121,10 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 * Overload update's method to check some data before update
 	 *
 	 * @param array $data
+	 * @param string $where An SQL WHERE clause.
 	 * @return integer The number of rows updated.
 	 */
-	public function update(&$data, $where)
+	public function update(array $data, $where)
 	{
 		$this->checkGroupName($data['groups_name']);
 		return parent::update($data, $where);

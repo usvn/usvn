@@ -133,7 +133,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 * @param string where SQL where
 	 * @return integer The number of rows updated.
 	 */
-	public function update(&$data, $where)
+	public function update(array $data, $where)
 	{
 		$this->checkProjectName($data['projects_name']);
 		return parent::update($data, $where);

@@ -151,9 +151,9 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	{
 		$this->check($data);
 		//do the encryption if needed
-		if (isset($data['users_password'])) {
+		/*if (isset($data['users_password'])) {
 			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
-		}
+		}*/
 		return parent::insert($data);
 	}
 
@@ -164,13 +164,13 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 * @param string An SQL WHERE clause.
 	 * @return int The number of rows updated.
 	 */
-	public function update(&$data, $where)
+	public function update(array $data, $where)
 	{
 		$this->check($data);
 		//do the encryption if needed
-		if (isset($data['users_password'])) {
+		/*if (isset($data['users_password'])) {
 			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
-		}
+		}*/
 		return parent::update($data, $where);
 	}
 
@@ -183,7 +183,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	public function isAUser($login)
 	{
 		$user = $this->fetchRow(array('users_login = ?' => $login));
-		if ($user->login) {
+		if ($user != false) {
 			return true;
 		}
 		return false;

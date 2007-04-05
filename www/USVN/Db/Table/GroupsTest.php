@@ -60,7 +60,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Groups();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('groups_name2' => "   \t    "));
+		$obj->setFromArray(array('groups_name' => "   \t    "));
 		try {
 			$id = $obj->save();
 		}
@@ -75,7 +75,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 	{
 		$table = new USVN_Db_Table_Groups();
 		$obj = $table->fetchNew();
-		$obj->setFromArray(array('groups_name2' => "   !!!    "));
+		$obj->setFromArray(array('groups_name' => "   !!!    "));
 		try {
 			$id = $obj->save();
 		}

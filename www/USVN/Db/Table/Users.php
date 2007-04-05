@@ -7,8 +7,8 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package Un_package_par_exemple_client
- * @subpackage Le_sous_package_par_exemple_hooks
+ * @package USVN_Db
+ * @subpackage Table
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -

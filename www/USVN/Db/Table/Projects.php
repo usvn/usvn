@@ -104,8 +104,11 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 */
 	public function checkProjectName($name)
 	{
-		if (empty($name)) {
+		if (empty($name) || preg_match('/^\s+$/', $name)) {
 			throw new USVN_Exception(T_('The project\'s name is empty.'));
+		}
+		if (!preg_match('/\w+/', $name)) {
+			throw new USVN_Exception(T_('The project\'s name is invalid.'));
 		}
 	}
 

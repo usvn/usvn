@@ -1,7 +1,9 @@
 <script type="text/javascript">
 function checkName() {
-	spanError = document.getElementById('error');
-	if (document.group.groups_name.value.length == 0) {
+	var spanError = document.getElementById('error');
+	var checkRegExp = new RegExp("^[ \t]*$");
+	if (document.group.groups_name.value.length == 0
+		|| checkRegExp.test(document.group.groups_name.value)) {
 		spanError.innerHTML = 'Group\'s name empty, please fill it.';
 		return false;
 	}
@@ -9,7 +11,7 @@ function checkName() {
 	return true;
 }
 </script>
-<form name="group" method="POST" action="<?php echo $this->url(); ?>">
+<form name="group" method="post" action="<?php echo $this->url(); ?>">
 	<span class="usvn_label"><?php echo T_("Name"); ?>:</span>
 	<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null)); ?>
 	<br />

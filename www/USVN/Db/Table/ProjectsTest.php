@@ -56,11 +56,40 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		}
 		catch (USVN_Exception $e) {
 			$this->assertContains("project's name is empty", $e->getMessage());
-			//test sur le nombre d'entree avant et apres
 			return;
 		}
 		$this->assertFalse(true);
     }
+
+        public function testInsertProjectNoName2()
+	{
+		$table = new USVN_Db_Table_Projects();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('projects_name' => "   \t    "));
+		try {
+			$id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("project's name is empty", $e->getMessage());
+			return;
+		}
+		$this->assertFalse(true);
+    }
+
+    public function testInsertProjectInvalidName()
+	{
+		$table = new USVN_Db_Table_Projects();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('projects_name' => "   !!!    "));
+		try {
+			$id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("project's name is invalid", $e->getMessage());
+			return;
+		}
+		$this->assertFalse(true);
+	}
 
     public function testInsertProjectOk()
 	{
@@ -79,7 +108,14 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$id = $obj->save();
 		$obj = $table->find($id)->current();
 		$obj->setFromArray(array('projects_name' => ''));
-		//test sur le nombre d'entree avant et apres
+		try {
+			$_id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("project's name is empty", $e->getMessage());
+			return;
+		}
+		$this->assertFalse(true);
     }
 
     public function testUpdateProjectOk()

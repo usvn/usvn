@@ -83,7 +83,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_Users");
+	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups");
 
 
 	/**
@@ -97,8 +97,11 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 */
 	public function checkGroupName($name)
 	{
-		if (empty($name)) {
+		if (empty($name) || preg_match('/^\s+$/', $name)) {
 			throw new USVN_Exception(T_('The group\'s name is empty.'));
+		}
+		if (!preg_match('/\w+/', $name)) {
+			throw new USVN_Exception(T_('The group\'s name is invalid.'));
 		}
 	}
 

@@ -51,11 +51,40 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		}
 		catch (USVN_Exception $e) {
 			$this->assertContains("group's name is empty", $e->getMessage());
-			//test sur le nombre d'entree avant et apres
 			return;
 		}
 		$this->assertFalse(true);
     }
+
+    public function testInsertGroupNoName2()
+	{
+		$table = new USVN_Db_Table_Groups();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('groups_name2' => "   \t    "));
+		try {
+			$id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("group's name is empty", $e->getMessage());
+			return;
+		}
+		$this->assertFalse(true);
+    }
+
+    public function testInsertGroupInvalidName()
+	{
+		$table = new USVN_Db_Table_Groups();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('groups_name2' => "   !!!    "));
+		try {
+			$id = $obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("group's name is invalid", $e->getMessage());
+			return;
+		}
+		$this->assertFalse(true);
+	}
 
     public function testInsertGroupOk()
 	{
@@ -79,7 +108,6 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		}
 		catch (USVN_Exception $e) {
 			$this->assertContains("group's name is empty", $e->getMessage());
-			//test sur le nombre d'entree avant et apres
 			return;
 		}
 		$this->assertFalse(true);

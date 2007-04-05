@@ -60,7 +60,6 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 		}
 		catch (USVN_Exception $e) {
 			$this->assertContains('Login empty', $e->getMessage());
-			//check on number of insert
 			return;
 		}
 		$this->assertFalse(true);
@@ -101,6 +100,26 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 		catch (USVN_Exception $e) {
 			$this->assertContains('Password empty', $e->getMessage());
 			$this->assertFalse($table->isAUser('InsertNoPassword'));
+			return;
+		}
+		$this->assertFalse(true);
+    }
+
+    public function testUserInsertNoPassword2()
+	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' 			=> 'InsertNoPassword2',
+									'users_password' 	=> "   \t   ",
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Password empty', $e->getMessage());
+			$this->assertFalse($table->isAUser('InsertNoPassword2'));
 			return;
 		}
 		$this->assertFalse(true);
@@ -155,9 +174,14 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
-		$obj->save();
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Login empty', $e->getMessage());
+			return;
+		}
 		$this->assertTrue($table->isAUser('InsertOkUpdateNoLogin'));
-		//check number of insert
     }
 
     public function testUserUpdateInvalidEmailAddress()
@@ -176,7 +200,13 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'badEmail'));
-		$obj->save();
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Invalid email address', $e->getMessage());
+			return;
+		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidEmailAddress'));
 		$this->assertEquals($user->email, 'email@email.fr');
     }
@@ -197,7 +227,13 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
-		$obj->save();
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Password empty', $e->getMessage());
+			return;
+		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateNoPassword'));
 		$this->assertEquals($user->password, 'password');
     }
@@ -218,7 +254,13 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
-		$obj->save();
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Invalid password', $e->getMessage());
+			return;
+		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidPassword'));
 		$this->assertEquals($user->password, 'password');
     }

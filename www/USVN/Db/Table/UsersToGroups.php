@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for users_to_projects table
+ * Model for users_to_groups table
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info/
@@ -19,12 +19,12 @@
  */
 
 /**
- * Model for users_to_projects table
+ * Model for users_to_groups table
  *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
-class USVN_Db_Table_UsersToProjects extends USVN_Db_Table {
+class USVN_Db_Table_UsersToGroups extends USVN_Db_Table {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -32,14 +32,14 @@ class USVN_Db_Table_UsersToProjects extends USVN_Db_Table {
 	 *
 	 * @var string
 	 */
-	protected $_primary = array("users_id", "projects_id");
+	protected $_primary = array("users_id", "groups_id");
 
 	/**
 	 * The table name derived from the class name (underscore format).
 	 *
 	 * @var array
 	 */
-	protected $_name = "users_to_projects";
+	protected $_name = "users_to_groups";
 
 
 	/**
@@ -61,10 +61,10 @@ class USVN_Db_Table_UsersToProjects extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_referenceMap = array(
-	"Project" => array(
-	"columns"	   => array("projects_id"),
-	"refTableClass" => "USVN_Db_Table_Projects",
-	"refColumns"	=> array("projects_id"),
+	"Groups" => array(
+	"columns"	   => array("groups_id"),
+	"refTableClass" => "USVN_Db_Table_Groups",
+	"refColumns"	=> array("groups_id"),
 	),
 	"Users" => array(
 	"columns"		 => array("users_id"),

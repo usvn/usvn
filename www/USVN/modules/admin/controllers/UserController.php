@@ -57,6 +57,25 @@ class admin_UserController extends admin_IndexController
 		$this->_render('form.html');
 	}
 
+	public function editProfileAction()
+	{
+		if (!empty($_POST)) {
+			if (!empty($_POST['users_login'])) {
+				unset($_POST['users_login']);
+			}
+			if (!empty($_POST['users_password']) && !empty($_POST['users_password'])
+				&& $_POST['users_password'] !== $_POST['users_password2']) {
+					throw new Exception(T_('Not the same password.'));
+			}
+			$this->save("USVN_Db_Table_Users", "user");
+		} else {
+			$userTable = new USVN_Db_Table_Users();
+			$identity = Zend_Auth::getInstance()->getIdentity();
+			$this->_view->user = $userTable->fetchRow(array('users_login = ?' => $identity["username"]));
+		}
+		$this->_render('profile.html');
+	}
+
 	public function importAction()
 	{
 		$this->_render('import.html');

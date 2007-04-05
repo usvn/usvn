@@ -1,7 +1,9 @@
 <script type="text/javascript">
 function checkName() {
-	spanError = document.getElementById('error');
-	if (document.project.projects_name.value.length == 0) {
+	var spanError = document.getElementById('error');
+	var checkRegExp = new RegExp("^[ \t]*$");
+	if (document.project.projects_name.value.length == 0
+		|| checkRegExp.test(document.project.projects_name.value)) {
 		spanError.innerHTML = 'Project\'s name empty, please fill it.';
 		return false;
 	}
@@ -17,7 +19,7 @@ function checkName() {
 		</tr>
 		<tr>
 			<td><?php echo T_("Project description"); ?></td>
-			<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null)); ?><br></td>
+			<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?><br></td>
 		</tr>
 		<tr>
 			<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?></td>

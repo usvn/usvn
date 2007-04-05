@@ -69,6 +69,7 @@ img {border: 0;}
 
 .usvn_error {
 	color: red;
+	font-weight: bold;
 }
 
 table

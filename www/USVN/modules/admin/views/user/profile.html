@@ -2,20 +2,15 @@
 function checkForm() {
 	var spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
-	if (document.user.users_login.value.length == 0
-		|| checkRegExp.test(document.user.users_login.value)) {
-		spanError.innerHTML = 'Login empty.';
-		return false;
-	}
-	if (!document.user.users_password.value.length || !document.user.users_password2.value.length) {
+	if (!document.userProfile.users_password.value.length || !document.userProfile.users_password2.value.length) {
 		spanError.innerHTML = 'Password empty.';
 		return false;
 	}
-	if (document.user.users_password.value != document.user.users_password2.value) {
+	if (document.userProfile.users_password.value != document.userProfile.users_password2.value) {
 		spanError.innerHTML = 'Password incorrect (not the same).';
 		return false;
 	}
-	if (document.user.users_password.value.length < 8) {
+	if (document.userProfile.users_password.value.length < 8) {
 		spanError.innerHTML = 'Password incorrect (need more 8 characters).';
 		return false;
 	}
@@ -23,9 +18,8 @@ function checkForm() {
 	return true;
 }
 </script>
-<form name="user" method="post" action="<?php echo $this->url(); ?>">
-	<span class="usvn_label"><?php echo T_("Login"); ?>:</span>
-	<?php echo $this->formText('users_login', (isset($this->user) ? $this->user->login : null)); ?>
+<form name="userProfile" method="post" action="<?php echo $this->url(); ?>">
+	<span class="usvn_label"><?php echo T_("Login"); ?>: <?php echo $this->user->login; ?></span>
 	<br />
 	<span class="usvn_label"><?php echo T_("Password"); ?>:</span>
 	<?php echo $this->formPassword('users_password',  null); ?>

@@ -76,7 +76,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_UsersToProjects");
+	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups");
 
 
 	/**
@@ -89,8 +89,11 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	public function checkLogin($login)
 	{
-		if (empty($login)) {
+		if (empty($login) || preg_match('/^\s+$/', $login)) {
 			throw new USVN_Exception(T_('Login empty.'));
+		}
+		if (!preg_match('/\w+/', $login)) {
+			throw new USVN_Exception(T_('Login invalid.'));
 		}
 	}
 
@@ -102,7 +105,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	public function checkPassword($password)
 	{
-		if (empty($password)) {
+		if (empty($password) || preg_match('/^\s+$/', $password)) {
 			throw new USVN_Exception(T_('Password empty.'));
 		}
 		if (strlen($password) < 8) {
@@ -121,7 +124,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		if (strlen($email)) {
 			$validator = new Zend_Validate_EmailAddress();
 			if (!$validator->isValid($email)) {
-				throw new USVN_Exception(T_('Invalid email address (' . $email . ').'));
+				throw new USVN_Exception(T_('Invalid email address.'));
 			}
 		}
 	}

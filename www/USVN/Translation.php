@@ -65,6 +65,9 @@ class USVN_Translation
 	{
 		$res = array();
 		$dh = opendir(USVN_Translation::$locale_directory);
+		if (!$dh) {
+			throw new USVN_Exception(T_("Can't read translation directory (%s).", USVN_Translation::$locale_directory));
+		}
 		while (($subDir = readdir($dh)) !== false) {
             if ($subDir != '.' && $subDir != '..' && $subDir != '.svn') {
 				array_push($res, $subDir);

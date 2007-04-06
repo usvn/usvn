@@ -31,7 +31,7 @@ class USVN_Client_Install
 	* @param string Auth id
 	* @param Zend_Http_Client HTTP client for XML don't change this except for tests
 	*/
-    public function USVN_Client_Install($path, $url, $authid, $httpclient = NULL)
+    public function __construct($path, $url, $authid, $httpclient = NULL)
     {
         if (!USVN_Client_SVNUtils::isSVNRepository($path)) {
             throw new USVN_Exception("$path is not a valid SVN repository");

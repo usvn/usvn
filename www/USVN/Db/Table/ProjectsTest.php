@@ -58,7 +58,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$this->assertContains("project's name is empty", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
         public function testInsertProjectNoName2()
@@ -73,7 +73,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$this->assertContains("project's name is empty", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testInsertProjectInvalidName()
@@ -88,7 +88,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$this->assertContains("project's name is invalid", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
 	}
 
     public function testInsertProjectOk()
@@ -115,7 +115,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$this->assertContains("project's name is empty", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testUpdateProjectOk()

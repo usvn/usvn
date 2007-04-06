@@ -25,9 +25,9 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 require_once "www/USVN/autoload.php";
-require_once "client/clientTest.php";
+require_once "client/baseclientTest.php";
 
-class USVN_Test extends Abstract_USVN_ClientTest {
+class USVN_Test2 extends Abstract_USVN_BaseClientTest {
 	public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
@@ -35,23 +35,21 @@ class USVN_Test extends Abstract_USVN_ClientTest {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-	public function testinstallLinux()
+	public function testHelpLinux()
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
-			if (USVN_Client_SVNUtils::getSvnMinorVersion() >= 3) {
-				$this->assertEquals(0, USVN_Client_ConsoleUtils::runCmd('cd tests/testclient/titi &&svn lock fichier1'));
-				$this->assertEquals(0, USVN_Client_ConsoleUtils::runCmd('cd tests/testclient/titi && svn unlock fichier1'));
-			}
-			$this->assertEquals(0, USVN_Client_ConsoleUtils::runCmd('cd tests/testclient/titi && svn propset -r 1 --revprop svn:log "new log message"'));
+			$this->assertContains("install", USVN_Client_ConsoleUtils::runCmdCaptureMessage('client/usvn help', $return));
+			$this->assertEquals(0, $return);
+			$this->assertContains("Install hooks into svn repository", USVN_Client_ConsoleUtils::runCmdCaptureMessage('client/usvn help install', $return));
+			$this->assertEquals(0, $return);
 		}
 	}
 
-	public function testuninstallLinux()
+	public function testVersionLinux()
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
-			$this->assertEquals("", system("./client/usvn uninstall tests/testclient/test", $return));
+			$this->assertContains("USVN client version", USVN_Client_ConsoleUtils::runCmdCaptureMessage('client/usvn version', $return));
 			$this->assertEquals(0, $return);
-			$this->assertFalse(file_exists("tests/testclient/test/usvn"));
 		}
 	}
 }

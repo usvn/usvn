@@ -70,7 +70,7 @@ class InstallTest extends PHPUnit_Framework_TestCase {
 		catch (Exception $e) {
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testInstallDbUserIncorrect() {
@@ -80,7 +80,7 @@ class InstallTest extends PHPUnit_Framework_TestCase {
 		catch (Exception $e) {
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
 	public function testInstallDbPasswordIncorrect() {
@@ -90,7 +90,7 @@ class InstallTest extends PHPUnit_Framework_TestCase {
 		catch (Exception $e) {
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
 	public function testInstallDbDatabaseIncorrect() {
@@ -100,7 +100,7 @@ class InstallTest extends PHPUnit_Framework_TestCase {
 		catch (Exception $e) {
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
 	public function testInstallDbConfigFileNotWritable() {
@@ -110,7 +110,7 @@ class InstallTest extends PHPUnit_Framework_TestCase {
 		catch (Exception $e) {
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
 	public function testInstallDbTestLoadDb() {

@@ -28,4 +28,35 @@ class USVN_Client_ConsoleUtils
 		fwrite($stderr, $str);
 		fclose($stderr);
 	}
+
+	/**
+	* Run a cmd and return result from stdout and stderror
+	*
+	* @param string command line
+	* @param reference return value
+	* @return string Ouput of STDOUT and STDERR
+	*/
+	static public function runCmdCaptureMessage($command, &$return)
+	{
+		ob_start();
+		passthru($command . " 2>&1", $return);
+		$msg = ob_get_contents();
+		ob_end_clean();
+		return($msg);
+	}
+
+	/**
+	* Run a cmd and return result
+	*
+	* @param string command line
+	* @param reference return value
+	* @return int programm return code
+	*/
+	static public function runCmd($command)
+	{
+		ob_start();
+		system($command, $return);
+		ob_end_clean();
+		return($return);
+	}
 }

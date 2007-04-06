@@ -30,12 +30,12 @@ class USVN_Client_Client
         "install" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Install hooks into svn repository"),
         "create" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Create an svn repository"),
         "uninstall" => array('min' => 1, 'max' => 1, 'help' => '/svn/path', "description" => "Remove hooks from svn repository"),
-        "update" => array('min' => 1, 'max' => 1, 'help' => '/svn/path', "description" => "Update hooks from an svn repository"),
+        //"update" => array('min' => 1, 'max' => 1, 'help' => '/svn/path', "description" => "Update hooks from an svn repository"),
         "help" => array('min' => 0, 'max' => 1, 'help' => '[command]', "description" => "Display general help or specific help for a command"),
         "version" => array('min' => 0, 'max' => 0, 'help' => '', "description" => "Display version"),
     );
 
-    public function USVN_Client_Client($args)
+    public function __construct($args)
     {
         if (count($args) == 0)
         {
@@ -54,6 +54,10 @@ class USVN_Client_Client
         {
             case 'install':
                 $this->cmdInstall($args);
+            break;
+
+            case 'create':
+                $this->cmdCreate($args);
             break;
 
             case 'uninstall':
@@ -109,6 +113,14 @@ class USVN_Client_Client
         $url = $args[1];
         $auth = $args[2];
         new USVN_Client_Install($path, $url, $auth);
+    }
+
+    private function cmdCreate($args)
+    {
+        $path = $args[0];
+        $url = $args[1];
+        $auth = $args[2];
+        new USVN_Client_Create($path, $url, $auth);
     }
 
     private function cmdUninstall($args)

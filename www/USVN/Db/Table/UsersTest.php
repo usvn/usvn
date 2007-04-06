@@ -62,7 +62,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			$this->assertContains('Login empty', $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
 	}
 
     public function testUserInsertInvalidEmailAddress()
@@ -82,7 +82,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			$this->assertFalse($table->isAUser('InsertInvalidEmailAddress'));
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testUserInsertNoPassword()
@@ -102,7 +102,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			$this->assertFalse($table->isAUser('InsertNoPassword'));
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testUserInsertNoPassword2()
@@ -122,7 +122,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			$this->assertFalse($table->isAUser('InsertNoPassword2'));
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testUserInsertInvalidPassword()
@@ -142,7 +142,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			$this->assertFalse($table->isAUser('InsertNoPassword'));
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testUserInsertOk()

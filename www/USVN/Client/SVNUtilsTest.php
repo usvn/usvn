@@ -62,6 +62,7 @@ class USVN_Client_SVNUtilsTest extends PHPUnit_Framework_TestCase {
     {
 		USVN_DirectoryUtils::removeDirectory('tests/tmp/testrepository');
 		USVN_DirectoryUtils::removeDirectory('tests/tmp/fakerepository');
+		USVN_DirectoryUtils::removeDirectory('tests/tmp/svndirectorystruct');
     }
 
     public function test_isSVNRepository()

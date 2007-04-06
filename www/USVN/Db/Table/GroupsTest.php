@@ -53,7 +53,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 			$this->assertContains("group's name is empty", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testInsertGroupNoName2()
@@ -68,7 +68,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 			$this->assertContains("group's name is empty", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
     }
 
     public function testInsertGroupInvalidName()
@@ -83,7 +83,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 			$this->assertContains("group's name is invalid", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
 	}
 
     public function testInsertGroupOk()
@@ -110,7 +110,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 			$this->assertContains("group's name is empty", $e->getMessage());
 			return;
 		}
-		$this->assertFalse(true);
+		$this->fail();
 	}
 
     public function testUpdateGroupOk()

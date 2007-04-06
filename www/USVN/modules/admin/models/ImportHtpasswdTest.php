@@ -84,7 +84,7 @@ class USVN_modules_admin_models_ImportHtpasswdTest extends USVN_Test_DB {
 		catch (USVN_Exception $e) {
 			return;
 		}
-		$this->assertFalse(true, "This test need to throw an exception.");
+		$this->fail("This test need to throw an exception.");
 	}
 
 	public function test_invalidFile2()
@@ -96,7 +96,7 @@ class USVN_modules_admin_models_ImportHtpasswdTest extends USVN_Test_DB {
 		catch (USVN_Exception $e) {
 			return;
 		}
-		$this->assertFalse(true, "This test need to throw an exception.");
+		$this->fail("This test need to throw an exception.");
 	}
 
 	public function test_invalidFile3()
@@ -108,7 +108,7 @@ class USVN_modules_admin_models_ImportHtpasswdTest extends USVN_Test_DB {
 		catch (USVN_Exception $e) {
 			return;
 		}
-		$this->assertFalse(true, "This test need to throw an exception.");
+		$this->fail("This test need to throw an exception.");
 	}
 
 	public function test_invalidFile4()
@@ -125,7 +125,7 @@ class USVN_modules_admin_models_ImportHtpasswdTest extends USVN_Test_DB {
 			$this->assertFalse(isset($user->password));
 			return;
 		}
-		$this->assertFalse(true, "This test need to throw an exception.");
+		$this->fail("This test need to throw an exception.");
 	}
 }
 

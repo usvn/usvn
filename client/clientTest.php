@@ -40,9 +40,4 @@ abstract class Abstract_USVN_ClientTest extends Abstract_USVN_BaseClientTest {
 		}
 	}
 }
-
-// Call USVN_ClientTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "USVN_ClientTest::main") {
-    USVN_ClientTest::main();
-}
 ?>

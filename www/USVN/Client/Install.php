@@ -56,7 +56,8 @@ class USVN_Client_Install
 
 	private function checkServer()
 	{
-		 $xmlrpc = new Zend_XmlRpc_Client($this->url . "/project/" . $this->project . "/svnhooks/");
+		$url = str_replace("//project", "/project", $this->url . "/project/" . $this->project . "/svnhooks/");
+		 $xmlrpc = new Zend_XmlRpc_Client($url);
 		 if ($this->httpclient !== NULL) {
 			$xmlrpc->setHttpClient($this->httpclient);
 		}

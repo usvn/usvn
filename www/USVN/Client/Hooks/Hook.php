@@ -38,7 +38,8 @@ abstract class USVN_Client_Hooks_Hook
     {
         $this->repos_path = $repos_path.'/';
         $this->config = new USVN_Client_Config($repos_path);
-        $this->xmlrpc = new Zend_XmlRpc_Client($this->config->url . "/project/" . $this->config->project . "/svnhooks/");
+		$url = str_replace("//project", "/project", $this->config->url . "/project/" . $this->config->project . "/svnhooks/");
+        $this->xmlrpc = new Zend_XmlRpc_Client($url);
     }
 
     /**

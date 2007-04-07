@@ -42,7 +42,7 @@ abstract class Abstract_USVN_BaseClientTest extends USVN_Test_DB {
 		$this->config->database->options->username = "usvn-test";
 		$this->base_url = $this->config->url->base;
 		$this->config->save();
-		$this->hooks_url = "http://" . str_replace("//", "/", $this->config->url->host.$this->base_url."/project/love/svnhooks/");
+		$this->hooks_url = "http://" . str_replace("//", "/", $this->config->url->host.$this->base_url);
 
 		USVN_DirectoryUtils::removeDirectory('tests/testclient');
 		mkdir('tests/testclient');

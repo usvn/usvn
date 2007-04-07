@@ -49,7 +49,7 @@ class USVN_Client_InstallTest extends USVN_Client_CommandTest {
     public function test_notSvnRepository()
     {
         try {
-            new USVN_Client_Install('tests/tmp/fakerepository', 'http://example.com', 'auth007', $this->httpClient);
+            new USVN_Client_Install('tests/tmp/fakerepository', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
         }
         catch (Exception $e) {
             return;
@@ -59,7 +59,7 @@ class USVN_Client_InstallTest extends USVN_Client_CommandTest {
 
     public function test_installHook()
     {
-        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'auth007', $this->httpClient);
+        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/start-commit'));
         $this->assertTrue(file_exists('tests/tmp/testrepository/hooks/pre-commit'));
         if (!(substr(php_uname(), 0, 7) == "Windows")) {
@@ -73,16 +73,17 @@ class USVN_Client_InstallTest extends USVN_Client_CommandTest {
 
     public function test_configFile()
     {
-        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'auth007', $this->httpClient);
+        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
         $xml = simplexml_load_file('tests/tmp/testrepository/usvn/config.xml');
         $this->assertEquals('http://example.com', (string)$xml->url);
+        $this->assertEquals('project-love', (string)$xml->project);
         $this->assertEquals('auth007', (string)$xml->auth);
     }
 
 	public function test_badServer()
 	{
         try {
-            $install = new USVN_Client_Install('tests/tmp/fakerepository', 'http://localhost:31284', 'auth007', $this->httpClient);
+            $install = new USVN_Client_Install('tests/tmp/fakerepository', 'http://localhost:31284', 'project-love', 'auth007', $this->httpClient);
         }
         catch (USVN_Exception $e) {
             return;
@@ -94,7 +95,7 @@ class USVN_Client_InstallTest extends USVN_Client_CommandTest {
 	{
 		$this->setServerResponseTo(false);
         try {
-			$install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'auth007', $this->httpClient);
+			$install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
         }
         catch (USVN_Exception $e) {
             return;

@@ -27,8 +27,8 @@ class USVN_Client_Client
 	 * description: What the command do
 	 */
     private $commands = array(
-        "install" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Install hooks into svn repository"),
-        "create" => array('min' => 3, 'max' => 3, 'help' => '/svn/path http://usvn/url auth', "description" => "Create an svn repository"),
+        "install" => array('min' => 4, 'max' => 4, 'help' => '/svn/path http://usvn/url project auth', "description" => "Install hooks into svn repository"),
+        "create" => array('min' => 4, 'max' => 4, 'help' => '/svn/path http://usvn/url project auth', "description" => "Create an svn repository"),
         "uninstall" => array('min' => 1, 'max' => 1, 'help' => '/svn/path', "description" => "Remove hooks from svn repository"),
         //"update" => array('min' => 1, 'max' => 1, 'help' => '/svn/path', "description" => "Update hooks from an svn repository"),
         "help" => array('min' => 0, 'max' => 1, 'help' => '[command]', "description" => "Display general help or specific help for a command"),
@@ -111,16 +111,18 @@ class USVN_Client_Client
     {
         $path = $args[0];
         $url = $args[1];
-        $auth = $args[2];
-        new USVN_Client_Install($path, $url, $auth);
+        $project = $args[2];
+        $auth = $args[3];
+        new USVN_Client_Install($path, $url, $project, $auth);
     }
 
     private function cmdCreate($args)
     {
         $path = $args[0];
         $url = $args[1];
-        $auth = $args[2];
-        new USVN_Client_Create($path, $url, $auth);
+        $project = $args[2];
+        $auth = $args[3];
+        new USVN_Client_Create($path, $url, $project, $auth);
     }
 
     private function cmdUninstall($args)

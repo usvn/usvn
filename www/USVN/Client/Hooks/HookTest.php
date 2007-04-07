@@ -29,7 +29,7 @@ abstract class USVN_Client_Hooks_HookTest extends PHPUnit_Framework_TestCase
     {
         @mkdir('tests/tmp/testrepository');
         @mkdir('tests/tmp/testrepository/usvn');
-        $xml = new SimpleXMLElement("<usvn><url>http://example.com</url><auth>007</auth></usvn>");
+        $xml = new SimpleXMLElement("<usvn><url>http://example.com</url><project>love</project><auth>007</auth></usvn>");
         file_put_contents('tests/tmp/testrepository/usvn/config.xml', $xml->asXml());
     }
 

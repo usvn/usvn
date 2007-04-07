@@ -68,13 +68,13 @@ class USVN_Client_CreateTest extends USVN_Client_CommandTest {
 	}
 
 	public function testCreate() {
-	        new USVN_Client_Create('tests/tmp/testrepository2', 'http://example.com', 'auth007', $this->httpClient);
+	        new USVN_Client_Create('tests/tmp/testrepository2', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
 			$this->assertFileExists('tests/tmp/testrepository2/usvn');
 	}
 
 	public function testCreateTargetAlreadyExist() {
 			try {
-				new USVN_Client_Create('tests/tmp/testrepository', 'http://example.com', 'auth007', $this->httpClient);
+				new USVN_Client_Create('tests/tmp/testrepository', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
 			}
 			catch (USVN_Exception $e) {
 				$this->assertFileExists('tests/tmp/testrepository/');

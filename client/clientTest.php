@@ -29,7 +29,7 @@ abstract class Abstract_USVN_ClientTest extends Abstract_USVN_BaseClientTest {
 
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
 			exec('svnadmin create tests/testclient/test');
-			$this->assertEquals("", system("./client/usvn install tests/testclient/test {$this->hooks_url} 007", $return));
+			$this->assertEquals("", system("./client/usvn install tests/testclient/test {$this->hooks_url} project-love 007", $return));
 			$this->assertEquals(0, $return);
 			$this->repository_path = str_replace('/client/..', '', dirname(__FILE__).'/../tests/testclient/test');
 			exec('svn co file://' . $this->repository_path . ' tests/testclient/titi');

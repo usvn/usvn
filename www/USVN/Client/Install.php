@@ -24,14 +24,16 @@ class USVN_Client_Install
     private $password;
     private $user;
 	private $httpclient;
+	private $project;
 
 	/**
 	* @param string Local path of svn repository
 	* @param string Url of USVN
+	* @param string Project name
 	* @param string Auth id
 	* @param Zend_Http_Client HTTP client for XML don't change this except for tests
 	*/
-    public function __construct($path, $url, $authid, $httpclient = NULL)
+    public function __construct($path, $url, $project, $authid, $httpclient = NULL)
     {
         if (!USVN_Client_SVNUtils::isSVNRepository($path)) {
             throw new USVN_Exception("$path is not a valid SVN repository");
@@ -40,6 +42,7 @@ class USVN_Client_Install
         $this->url = $url;
         $this->authid = $authid;
 		$this->httpclient = $httpclient;
+		$this->project = $project;
 		$this->checkServer();
         if (!file_exists($this->path.'/usvn')) {
             if (!@mkdir($this->path.'/usvn')) {
@@ -53,7 +56,7 @@ class USVN_Client_Install
 
 	private function checkServer()
 	{
-		 $xmlrpc = new Zend_XmlRpc_Client($this->url);
+		 $xmlrpc = new Zend_XmlRpc_Client($this->url . "/project/" . $this->project . "/svnhooks/");
 		 if ($this->httpclient !== NULL) {
 			$xmlrpc->setHttpClient($this->httpclient);
 		}
@@ -123,6 +126,7 @@ class USVN_Client_Install
         $config = new USVN_Client_Config($this->path);
         $config->url = $this->url;
         $config->auth = $this->authid;
+		$config->project = $this->project;
         $config->save();
     }
 

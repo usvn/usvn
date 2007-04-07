@@ -59,7 +59,7 @@ class USVN_Client_UninstallTest extends USVN_Client_CommandTest {
 
     public function test_uninstallHook()
     {
-        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'auth007', $this->httpClient);
+        $install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
         $unistall = new USVN_Client_Uninstall('tests/tmp/testrepository');
         $this->assertFalse(file_exists('tests/tmp/testrepository/hooks/start-commit'));
         $this->assertFalse(file_exists('tests/tmp/testrepository/usvn'));

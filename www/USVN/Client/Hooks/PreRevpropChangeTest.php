@@ -61,7 +61,7 @@ class USVN_Client_Hooks_PreRevpropChangeTest extends USVN_Client_Hooks_HookTest 
         $this->assertEquals("Change error", $this->hook->send());
         $request  = $this->hook->getLastRequest();
         $this->assertEquals('usvn.client.hooks.preRevpropChange', $request->getMethod());
-        $this->assertSame(array('007', 1, "test", "svn:log", "M", "message de log"), $request->getParams());
+        $this->assertSame(array('love', '007', 1, "test", "svn:log", "M", "message de log"), $request->getParams());
     }
 }
 

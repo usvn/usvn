@@ -62,7 +62,7 @@ class USVN_Client_Install
 			$xmlrpc->setHttpClient($this->httpclient);
 		}
 		try {
-			$res = $xmlrpc->call('usvn.client.hooks.validUSVNServer', array($this->authid));
+			$res = $xmlrpc->call('usvn.client.hooks.validUSVNServer', array($this->project, $this->authid));
 		}
 		catch (Exception $e) {
                 throw new USVN_Exception("Invalid server URL ({$this->url}) or not an USVN server.");

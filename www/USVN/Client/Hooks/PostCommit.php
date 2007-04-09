@@ -45,6 +45,6 @@ class USVN_Client_Hooks_PostCommit extends USVN_Client_Hooks_Hook
 	*/
     public function send()
     {
-        $this->xmlrpc->call('usvn.client.hooks.postCommit', array($this->config->auth, $this->revision, $this->user, $this->log, $this->changed));
+        $this->xmlrpc->call('usvn.client.hooks.postCommit', array($this->config->project, $this->config->auth, $this->revision, $this->user, $this->log, $this->changed));
     }
 }

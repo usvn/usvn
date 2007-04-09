@@ -19,7 +19,7 @@
  */
 class USVN_modules_svnhooks_models_Hooks
 {
-	private function checkAuthId($authid)
+	private function checkAuthId($project, $authid)
 	{
 		return true;
 	}
@@ -27,26 +27,28 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Start commit hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param string The user login
 	* @return string or 0 String if error in commit, 0 if it's OK
 	*/
-	public function startCommit($authid, $user)
+	public function startCommit($project, $authid, $user)
 	{
-		//file_put_contents('tests/tmp/testhooksStartCommit', "$authid $user\n");
+		//file_put_contents('tests/tmp/testhooksStartCommit', "$authid $user $project\n");
 		return 0;
 	}
 
 	/**
 	* Pre commit hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param string The user login
 	* @param string Log message
 	* @param array List of changed files and here status (exemple: array(array('U', 'test'), array('A', 'toto')))
 	* @return string or 0 String if error in commit, 0 if it's OK
 	*/
-	public function preCommit($authid, $user, $log, $changedfiles)
+	public function preCommit($project, $authid, $user, $log, $changedfiles)
 	{
 		//file_put_contents('tests/tmp/testhooksPreCommit', "$authid\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 		return 0;
@@ -55,13 +57,14 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Post commit hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param integer Revision number
 	* @param string The user login
 	* @param string Log message
 	* @param array List of changed files and here status (exemple: array(array('U', 'test'), array('A', 'toto')))
 	*/
-	public function postCommit($authid, $revision, $user, $log, $changedfiles)
+	public function postCommit($project, $authid, $revision, $user, $log, $changedfiles)
 	{
 		//file_put_contents('tests/tmp/testhooksPostCommit', "$authid\n$revision\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 	}
@@ -69,12 +72,13 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Pre lock hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param string Path
 	* @param string The user login
 	* @return string or 0 String if error in lock, 0 if it's OK
 	*/
-	public function preLock($authid, $path, $user)
+	public function preLock($project, $authid, $path, $user)
 	{
 		//file_put_contents('tests/tmp/testhooksPreLock', "$authid\n$path\nUser: $user\n");
 		return 0;
@@ -83,11 +87,12 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Post lock hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param string Path
 	* @param string The user login
 	*/
-	public function postLock($authid, $path, $user)
+	public function postLock($project, $authid, $path, $user)
 	{
 		//file_put_contents('tests/tmp/testhooksPostLock', "$authid\nLock file: $path\nUser: $user\n");
 	}
@@ -95,12 +100,13 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Pre unlock hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param string Path
 	* @param string The user login
 	* @return string or 0 String if error in lock, 0 if it's OK
 	*/
-	public function preUnlock($authid, $path, $user)
+	public function preUnlock($project, $authid, $path, $user)
 	{
 		//file_put_contents('tests/tmp/testhooksPreUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 		return 0;
@@ -109,11 +115,12 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Post unlock hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param string Path
 	* @param string The user login
 	*/
-	public function postUnlock($authid, $path, $user)
+	public function postUnlock($project, $authid, $path, $user)
 	{
 		//file_put_contents('tests/tmp/testhooksPostUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 	}
@@ -121,6 +128,7 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Pre revprop change hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param integer Revision
 	* @param string The user login
@@ -129,7 +137,7 @@ class USVN_modules_svnhooks_models_Hooks
 	* @param string New property value
 	* @return string or 0 String if error in property change, 0 if it's OK
 	*/
-	public function preRevpropChange($authid, $revision, $user, $property, $action, $value)
+	public function preRevpropChange($project, $authid, $revision, $user, $property, $action, $value)
 	{
 		//file_put_contents('tests/tmp/testhooksPreRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
 		return 0;
@@ -138,6 +146,7 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Pre revprop change hook publish for XML-RPC
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @param integer Revision
 	* @param string The user login
@@ -145,7 +154,7 @@ class USVN_modules_svnhooks_models_Hooks
 	* @param string Action (ex: M)
 	* @param string Old property value
 	*/
-	public function postRevpropChange($authid, $revision, $user, $property, $action, $value)
+	public function postRevpropChange($project, $authid, $revision, $user, $property, $action, $value)
 	{
 		//file_put_contents('tests/tmp/testhooksPostRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
 	}
@@ -153,10 +162,11 @@ class USVN_modules_svnhooks_models_Hooks
 	/**
 	* Use by client to check if he speak to a valid  USVN server
 	*
+	* @param string Project name
 	* @param string The auth id for identify the server
 	* @return bool False if authid is invalid
 	*/
-	public function validUSVNServer($authid)
+	public function validUSVNServer($project, $authid)
 	{
 		return true;
 	}

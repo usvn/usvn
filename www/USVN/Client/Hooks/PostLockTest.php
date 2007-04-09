@@ -58,7 +58,7 @@ class USVN_Client_Hooks_PostLockTest extends USVN_Client_Hooks_HookTest {
 		$this->hook->send();
         $request  = $this->hook->getLastRequest();
         $this->assertEquals('usvn.client.hooks.postLock', $request->getMethod());
-        $this->assertSame(array('007', 'titi', 'test'), $request->getParams());
+        $this->assertSame(array('love', '007', 'titi', 'test'), $request->getParams());
     }
 }
 

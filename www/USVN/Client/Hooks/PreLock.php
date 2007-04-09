@@ -47,6 +47,6 @@ class USVN_Client_Hooks_PreLock extends USVN_Client_Hooks_Hook
 	*/
     public function send()
     {
-        return $this->xmlrpc->call('usvn.client.hooks.preLock', array($this->config->auth, $this->path, $this->user));
+        return $this->xmlrpc->call('usvn.client.hooks.preLock', array($this->config->project, $this->config->auth, $this->path, $this->user));
     }
 }

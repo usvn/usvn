@@ -44,6 +44,6 @@ class USVN_Client_Hooks_PostUnlock extends USVN_Client_Hooks_Hook
 	*/
     public function send()
     {
-        $this->xmlrpc->call('usvn.client.hooks.postUnlock', array($this->config->auth, $this->path, $this->user));
+        $this->xmlrpc->call('usvn.client.hooks.postUnlock', array($this->config->project, $this->config->auth, $this->path, $this->user));
     }
 }

@@ -28,8 +28,8 @@ class USVN_Client_Hooks_StartCommit extends USVN_Client_Hooks_Hook
     private $user;
 
 	/**
-	* @param string
-	* @param string
+	* @param string repositoiry path
+	* @param string user login
 	*/
     public function __construct($repos_path, $user)
     {
@@ -44,6 +44,6 @@ class USVN_Client_Hooks_StartCommit extends USVN_Client_Hooks_Hook
 	*/
     public function send()
     {
-        return $this->xmlrpc->call('usvn.client.hooks.startCommit', array($this->config->auth, $this->user));
+        return $this->xmlrpc->call('usvn.client.hooks.startCommit', array($this->config->project, $this->config->auth, $this->user));
     }
 }

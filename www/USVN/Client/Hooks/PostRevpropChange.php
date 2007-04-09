@@ -54,7 +54,7 @@ class USVN_Client_Hooks_PostRevpropChange extends USVN_Client_Hooks_Hook
 	*/
     public function send()
     {
-        $this->xmlrpc->call('usvn.client.hooks.postRevpropChange', array($this->config->auth,
+        $this->xmlrpc->call('usvn.client.hooks.postRevpropChange', array($this->config->project, $this->config->auth,
 																														$this->revision,
 																														$this->user,
 																														$this->property,

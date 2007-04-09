@@ -79,7 +79,7 @@ class USVN_Client_Hooks_PostCommitTest extends USVN_Client_Hooks_HookTest {
 		$this->hook->send();
         $request  = $this->hook->getLastRequest();
         $this->assertEquals('usvn.client.hooks.postCommit', $request->getMethod());
-        $this->assertSame(array('007', 1, 'toto', 'message de commit', array(array('U', 'tutu'), array('U', 'tata'))), $request->getParams());
+        $this->assertSame(array('love', '007' , 1, 'toto', 'message de commit', array(array('U', 'tutu'), array('U', 'tata'))), $request->getParams());
     }
 }
 

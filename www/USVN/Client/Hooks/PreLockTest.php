@@ -61,7 +61,7 @@ class USVN_Client_Hooks_PreLockTest extends USVN_Client_Hooks_HookTest {
         $this->assertEquals("Lock error", $this->hook->send());
         $request  = $this->hook->getLastRequest();
         $this->assertEquals('usvn.client.hooks.preLock', $request->getMethod());
-        $this->assertSame(array('007', 'titi', 'test'), $request->getParams());
+        $this->assertSame(array('love', '007', 'titi', 'test'), $request->getParams());
     }
 }
 

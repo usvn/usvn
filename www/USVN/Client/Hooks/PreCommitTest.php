@@ -80,7 +80,7 @@ class USVN_Client_Hooks_PreCommitTest extends USVN_Client_Hooks_HookTest {
         $this->assertEquals("Commit error", $this->hook->send());
         $request  = $this->hook->getLastRequest();
         $this->assertEquals('usvn.client.hooks.preCommit', $request->getMethod());
-        $this->assertSame(array('007', 'toto', 'message de commit', array(array('U', 'tutu'), array('U', 'tata'))), $request->getParams());
+        $this->assertSame(array('love', '007', 'toto', 'message de commit', array(array('U', 'tutu'), array('U', 'tata'))), $request->getParams());
     }
 }
 

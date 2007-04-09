@@ -61,7 +61,7 @@ class USVN_Client_Hooks_StartCommitTest extends USVN_Client_Hooks_HookTest {
         $this->assertEquals("Start commit error", $this->hook->send());
         $request  = $this->hook->getLastRequest();
         $this->assertSame('usvn.client.hooks.startCommit', $request->getMethod());
-        $this->assertSame(array('007', 'toto'), $request->getParams());
+        $this->assertSame(array('love', '007', 'toto'), $request->getParams());
     }
 }
 

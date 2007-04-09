@@ -50,6 +50,6 @@ class USVN_Client_Hooks_PreCommit extends USVN_Client_Hooks_Hook
 	*/
     public function send()
     {
-        return $this->xmlrpc->call('usvn.client.hooks.preCommit', array($this->config->auth, $this->user, $this->log, $this->changed));
+        return $this->xmlrpc->call('usvn.client.hooks.preCommit', array($this->config->project, $this->config->auth, $this->user, $this->log, $this->changed));
     }
 }

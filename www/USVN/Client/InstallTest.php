@@ -93,7 +93,7 @@ class USVN_Client_InstallTest extends USVN_Client_CommandTest {
 
 	public function test_invalidAuth()
 	{
-		$this->setServerResponseTo(false);
+		$this->setServerResponseTo("Error");
         try {
 			$install = new USVN_Client_Install('tests/tmp/testrepository', 'http://example.com', 'project-love', 'auth007', $this->httpClient);
         }

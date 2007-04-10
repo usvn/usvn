@@ -26,6 +26,12 @@ abstract class Abstract_USVN_ClientTest extends Abstract_USVN_BaseClientTest {
 	public function setUp()
 	{
 		parent::setUp();
+		$data = array(
+			"projects_id" => 2,
+			"projects_name" => 'project-love',
+			"projects_auth" => '007'
+		);
+		$this->db->insert("usvn_projects", $data);
 
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
 			exec('svnadmin create tests/testclient/test');

@@ -56,16 +56,28 @@ class USVN_modules_svnhooks_models_HooksTest extends USVN_Test_DB {
 		$this->db->insert("usvn_projects", $data);
 	}
 
-  public function test_startCommit()
+	public function test_startCommit()
     {
 		$hook = new USVN_modules_svnhooks_models_Hooks();
-		$hook->startCommit("love", "007", "test");
+		$this->assertEquals(0, $hook->startCommit("love", "007", "test"));
+    }
+
+	public function test_startCommitBadProject()
+    {
+		$hook = new USVN_modules_svnhooks_models_Hooks();
+		$this->assertEquals("Project fake doesn't exists.", $hook->startCommit("fake", "007", "test"));
+    }
+
+	public function test_startCommitBadAuth()
+    {
+		$hook = new USVN_modules_svnhooks_models_Hooks();
+		$this->assertEquals("Invalid authid.", $hook->startCommit("love", "8484", "test"));
     }
 
     public function test_preCommit()
     {
 		$hook = new USVN_modules_svnhooks_models_Hooks();
-		$hook->preCommit("love", "007", "test", "Ceci est un commit", array(array('M', 'tata'), array('A', 'tutu')));
+		$this->assertEquals(0, $hook->preCommit("love", "007", "test", "Ceci est un commit", array(array('M', 'tata'), array('A', 'tutu'))));
     }
 
     public function test_postCommit()
@@ -77,7 +89,7 @@ class USVN_modules_svnhooks_models_HooksTest extends USVN_Test_DB {
     public function test_preLock()
     {
 		$hook = new USVN_modules_svnhooks_models_Hooks();
-		$hook->preLock("love", "007", "tutu", "test");
+		$this->assertEquals(0, $hook->preLock("love", "007", "tutu", "test"));
     }
 
     public function test_postLock()
@@ -89,7 +101,7 @@ class USVN_modules_svnhooks_models_HooksTest extends USVN_Test_DB {
     public function test_preUnlock()
     {
 		$hook = new USVN_modules_svnhooks_models_Hooks();
-		$hook->preUnlock("love", "007", "tutu", "test");
+		$this->assertEquals(0, $hook->preUnlock("love", "007", "tutu", "test"));
     }
 
     public function test_postUnlock()
@@ -101,7 +113,7 @@ class USVN_modules_svnhooks_models_HooksTest extends USVN_Test_DB {
     public function test_preRevpropChange()
     {
 		$hook = new USVN_modules_svnhooks_models_Hooks();
-		$hook->preRevpropChange("love", "007", 1, "test", "svn:log", "M", "message de log");
+		$this->assertEquals(0, $hook->preRevpropChange("love", "007", 1, "test", "svn:log", "M", "message de log"));
     }
 
     public function test_postRevpropChange()
@@ -113,7 +125,9 @@ class USVN_modules_svnhooks_models_HooksTest extends USVN_Test_DB {
 	public function test_validUSVNServer()
     {
 		$hook = new USVN_modules_svnhooks_models_Hooks();
-		$this->assertTrue($hook->validUSVNServer("love", "007"));
+		$this->assertEquals(0, $hook->validUSVNServer("love", "007"));
+		$this->assertEquals("Project fake doesn't exists.", $hook->validUSVNServer("fake", "007"));
+		$this->assertEquals("Invalid authid.", $hook->validUSVNServer("love", "8484"));
     }
 }
 

@@ -19,9 +19,16 @@
  */
 class USVN_modules_svnhooks_models_Hooks
 {
-	private function checkAuthId($project, $authid)
+	private function checkAuthId($project_name, $authid)
 	{
-		return true;
+		$projectTable = new USVN_Db_Table_Projects();
+		$project = $projectTable->fetchRow(array('projects_name = ?' => $project_name));
+		if ($project == false) {
+			throw new USVN_Exception(T_("Project %s doesn't exists."), $project_name);
+		}
+		if ($project->auth != $authid) {
+			throw new USVN_Exception(T_("Invalid authid."));
+		}
 	}
 
 	/**
@@ -34,6 +41,12 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function startCommit($project, $authid, $user)
 	{
+		try {
+			$this->checkAuthId($project, $authid);
+		}
+		catch (USVN_Exception $e) {
+			return $e->getMessage();
+		}
 		//file_put_contents('tests/tmp/testhooksStartCommit', "$authid $user $project\n");
 		return 0;
 	}
@@ -50,6 +63,12 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preCommit($project, $authid, $user, $log, $changedfiles)
 	{
+		try {
+			$this->checkAuthId($project, $authid);
+		}
+		catch (USVN_Exception $e) {
+			return $e->getMessage();
+		}
 		//file_put_contents('tests/tmp/testhooksPreCommit', "$authid\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 		return 0;
 	}
@@ -66,6 +85,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postCommit($project, $authid, $revision, $user, $log, $changedfiles)
 	{
+		$this->checkAuthId($project, $authid);
 		//file_put_contents('tests/tmp/testhooksPostCommit', "$authid\n$revision\nUser: $user\nLog: $log\n--------------------\n".var_export($changedfiles, true)."\n");
 	}
 
@@ -80,6 +100,12 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preLock($project, $authid, $path, $user)
 	{
+		try {
+			$this->checkAuthId($project, $authid);
+		}
+		catch (USVN_Exception $e) {
+			return $e->getMessage();
+		}
 		//file_put_contents('tests/tmp/testhooksPreLock', "$authid\n$path\nUser: $user\n");
 		return 0;
 	}
@@ -94,6 +120,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postLock($project, $authid, $path, $user)
 	{
+		$this->checkAuthId($project, $authid);
 		//file_put_contents('tests/tmp/testhooksPostLock', "$authid\nLock file: $path\nUser: $user\n");
 	}
 
@@ -108,6 +135,12 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preUnlock($project, $authid, $path, $user)
 	{
+		try {
+			$this->checkAuthId($project, $authid);
+		}
+		catch (USVN_Exception $e) {
+			return $e->getMessage();
+		}
 		//file_put_contents('tests/tmp/testhooksPreUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 		return 0;
 	}
@@ -122,6 +155,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postUnlock($project, $authid, $path, $user)
 	{
+		$this->checkAuthId($project, $authid);
 		//file_put_contents('tests/tmp/testhooksPostUnlock', "$authid\nUnlock file: $path\nUser: $user\n");
 	}
 
@@ -139,6 +173,12 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function preRevpropChange($project, $authid, $revision, $user, $property, $action, $value)
 	{
+		try {
+			$this->checkAuthId($project, $authid);
+		}
+		catch (USVN_Exception $e) {
+			return $e->getMessage();
+		}
 		//file_put_contents('tests/tmp/testhooksPreRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
 		return 0;
 	}
@@ -156,6 +196,7 @@ class USVN_modules_svnhooks_models_Hooks
 	*/
 	public function postRevpropChange($project, $authid, $revision, $user, $property, $action, $value)
 	{
+		$this->checkAuthId($project, $authid);
 		//file_put_contents('tests/tmp/testhooksPostRevpropChange', "$authid\nRevision: $revision\nUser: $user\nProperty: $property\nAction: $action\nValue: $value\n");
 	}
 
@@ -164,10 +205,16 @@ class USVN_modules_svnhooks_models_Hooks
 	*
 	* @param string Project name
 	* @param string The auth id for identify the server
-	* @return bool False if authid is invalid
+	* @return or 0 String if error, 0 if it's OK
 	*/
 	public function validUSVNServer($project, $authid)
 	{
-		return true;
+		try {
+			$this->checkAuthId($project, $authid);
+		}
+		catch (USVN_Exception $e) {
+			return $e->getMessage();
+		}
+		return 0;
 	}
 }

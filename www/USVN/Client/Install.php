@@ -67,8 +67,8 @@ class USVN_Client_Install
 		catch (Exception $e) {
                 throw new USVN_Exception("Invalid server URL ({$this->url}) or not an USVN server.");
 		}
-		if (!$res) {
-                throw new USVN_Exception("Auth key is invalid.");
+		if ($res !== 0) {
+                throw new USVN_Exception($res);
 		}
 	}
 

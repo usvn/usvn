@@ -22,24 +22,33 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-abstract class USVN_Client_CommandTest extends PHPUnit_Framework_TestCase {
+abstract class USVN_Client_CommandTest extends USVN_Test_DB {
     protected $httpAdapter;
 	protected $httpClient;
 
 	public function setUp()
     {
+		parent::setUp();
+		$data = array(
+			"projects_id" => 2,
+			"projects_name" => 'project-love',
+			"projects_auth" => 'auth007'
+		);
+		$this->db->insert("usvn_projects", $data);
+
 		$this->clean();
         USVN_Client_SVNUtils::createSvnDirectoryStruct("tests/tmp/testrepository");
         @mkdir('tests/tmp/fakerepository');
         $this->httpAdapter = new Zend_Http_Client_Adapter_Test();
         $this->httpClient = new Zend_Http_Client('http://example.com',
                                     array('adapter' => $this->httpAdapter));
-		$this->setServerResponseTo(true);
+		$this->setServerResponseTo(0);
     }
 
     public function tearDown()
     {
         $this->clean();
+		parent::tearDown();
     }
 
     private function clean()

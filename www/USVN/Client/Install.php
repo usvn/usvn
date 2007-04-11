@@ -120,6 +120,7 @@ class USVN_Client_Install
 		}
 		$this->copyLibraryFiles('USVN/Client');
 		copy('www/USVN/Exception.php', $this->path.'/usvn/USVN/Exception.php');
+		$this->copyLibraryFiles('Zend/');
     }
 
     private function createConfigFile()

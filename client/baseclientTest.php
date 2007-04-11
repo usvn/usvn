@@ -52,6 +52,9 @@ abstract class Abstract_USVN_BaseClientTest extends USVN_Test_DB {
 			if (!file_exists('USVN')) {
 				exec("ln -s www/USVN");
 			}
+			if (!file_exists('Zend')) {
+				exec("ln -s www/Zend");
+			}
 		}
 	}
 
@@ -59,6 +62,9 @@ abstract class Abstract_USVN_BaseClientTest extends USVN_Test_DB {
 	{
 		if (file_exists('USVN')) {
 				unlink("USVN");
+		}
+		if (file_exists('Zend')) {
+				unlink("Zend");
 		}
 		$this->config->database->options->dbname = $this->old_db_database ;
 		$this->config->database->options->password = $this->old_db_password;

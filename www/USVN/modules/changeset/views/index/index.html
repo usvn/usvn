@@ -1,0 +1,12 @@
+<h1>Changeset <?php echo $this->revision; ?></h1>
+<div id="usvn_toolbox">
+	<ul>
+		<li><a href="<?php echo $this->url(array('revision' => 'last'))?>"><?php echo T_("Last revision");?></a></li>
+		<?php
+		if ($this->revision > 1) {
+			echo '<li><a href="' . $this->url(array('revision' => $this->revision - 1)) . '">' . T_("Previous revision") . '</a></li>';
+		}
+		?>
+		<li><a href="<?php echo $this->url(array('revision' => $this->revision + 1))?>"><?php echo T_("Next revision");?></a></li>
+	</ul>
+</div>

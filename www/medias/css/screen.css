@@ -62,6 +62,11 @@ img {border: 0;}
 	color: #FFFFFF;
 }
 
+#usvn_toolbox {
+	float: right;
+	background-color: #3355FF;
+}
+
 .usvn_label {
 	display: block;
 	margin-bottom: 0.1em;

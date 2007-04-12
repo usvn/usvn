@@ -19,7 +19,7 @@
 
 require_once('www/USVN/autoload.php');
 
-$config = new USVN_Config("www/USVN/config.ini", "general");
+$config = new USVN_Config("www/config.ini", "general");
 
 $db = Zend_Db::factory($config->database->adapterName, $config->database->options->asArray());
 Zend_Db_Table::setDefaultAdapter($db);

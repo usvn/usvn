@@ -49,7 +49,7 @@ class USVN_HooksTest extends Abstract_USVN_ClientTest {
 				exec("ln -s www/USVN");
 			}
 		}
-		$this->config = new USVN_Config("www/USVN/config.ini", "general");
+		$this->config = new USVN_Config("www/config.ini", "general");
 		$this->old_db_database = $this->config->database->options->dbname;
 		$this->config->database->options->dbname = "usvn-test";
 		$this->old_db_password = $this->config->database->options->password;

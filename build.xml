@@ -71,7 +71,7 @@
 			</not>
 			<then>
 				<php function="copy">
-					<param value="www/USVN/config.ini"/>
+					<param value="www/config.ini"/>
 					<param value="config.ini.save"/>
 				</php>
 			</then>
@@ -91,7 +91,7 @@
         </phpunit>
 	    <php function="copy">
 			<param value="config.ini.save"/>
-			<param value="www/USVN/config.ini"/>
+			<param value="www/config.ini"/>
 		</php>
 	    <php function="unlink">
 			<param value="config.ini.save"/>

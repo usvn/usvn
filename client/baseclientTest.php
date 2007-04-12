@@ -33,7 +33,7 @@ abstract class Abstract_USVN_BaseClientTest extends USVN_Test_DB {
 	public function setUp()
 	{
 		parent::setUp();
-		$this->config = new USVN_Config("www/USVN/config.ini", "general");
+		$this->config = new USVN_Config("www/config.ini", "general");
 		$this->old_db_database = $this->config->database->options->dbname;
 		$this->config->database->options->dbname = "usvn-test";
 		$this->old_db_password = $this->config->database->options->password;

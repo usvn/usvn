@@ -27,3 +27,4 @@ USVN_Db_Utils::deleteAllTables($db);
 USVN_Db_Utils::loadFile($db, "SQL/SVNDB.sql");
 USVN_Db_Utils::loadFile($db, "SQL/mysql.sql");
 USVN_Db_Utils::loadFile($db, "SQL/data.sql");
+USVN_Db_Utils::loadFile($db, "SQL/test.sql");

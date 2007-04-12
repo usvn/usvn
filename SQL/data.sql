@@ -6,12 +6,17 @@ VALUES (
 
 INSERT INTO `usvn_projects` ( `projects_id` , `projects_name` , `projects_start_date` , `projects_description` )
 VALUES (
-1 , 'default', '2117-14-12 25:29:57', 'poisson'
+1 , 'default', '2117-14-12 25:29:57', ''
 );
 
 INSERT INTO `usvn_groups` ( `groups_id` , `groups_name` )
 VALUES (
 1 , 'anonymous'
+);
+
+INSERT INTO `usvn_groups` ( `groups_id` , `groups_name` )
+VALUES (
+2 , 'admin'
 );
 
 INSERT INTO `usvn_rights` ( `rights_id` , `rights_label` )

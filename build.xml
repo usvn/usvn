@@ -65,6 +65,17 @@
     </target>
 
     <target name="test">
+		<if>
+			<not>
+				<available file="config.ini.save" />
+			</not>
+			<then>
+				<php function="copy">
+					<param value="www/USVN/config.ini"/>
+					<param value="config.ini.save"/>
+				</php>
+			</then>
+		</if>
         <delete file="${report_test_dir}/**" />
         <mkdir dir="${report_test_dir}" />
 		<php function="define">
@@ -78,9 +89,16 @@
             <formatter type="xml" todir="${report_test_dir}" outfile="logfile.xml" />
             <formatter type="plain" todir="${report_test_dir}" outfile="logfile.txt" />
         </phpunit>
+	    <php function="copy">
+			<param value="config.ini.save"/>
+			<param value="www/USVN/config.ini"/>
+		</php>
+	    <php function="unlink">
+			<param value="config.ini.save"/>
+		</php>
         <phpunitreport infile="${report_test_dir}/logfile.xml" styledir="phing" format="frames" todir="${report_test_dir}" />
         <fail if="unit_test_failure" message="Unit tests failed!!!" />
-    </target>
+	</target>
 
 
     <target name="cover">

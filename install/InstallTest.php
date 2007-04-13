@@ -58,12 +58,17 @@ class InstallTest extends USVN_Test_Test {
 		$this->db = Zend_Db::factory('PDO_MYSQL', $params);
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Utils::deleteAllTables($this->db);
+		$_SERVER['SERVER_NAME'] = "localhost";
+		$_SERVER['REQUEST_URI'] = "/test/install";
     }
 
     public function tearDown() {
 		USVN_Db_Utils::deleteAllTables($this->db);
 		if (file_exists('test/tmp/config.ini')) {
 			unlink('test/tmp/config.ini');
+		}
+		if (file_exists('test/tmp/.htaccess')) {
+			unlink('test/tmp/.htaccess');
 		}
 		parent::tearDown();
     }
@@ -147,6 +152,58 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals("pdo_mysql", $config->database->adapterName);
 		$this->assertEquals("usvn_", $config->database->prefix);
     }
+
+	public function testInstallLanguage()
+	{
+		Install::installLanguage("tests/tmp/config.ini", "fr_FR");
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("fr_FR", $config->translation->locale);
+	}
+
+	public function testInstallBadLanguage()
+	{
+		try {
+			Install::installLanguage("tests/tmp/config.ini", "fake");
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
+
+	public function testInstallUrl()
+	{
+		Install::installUrl("tests/tmp/.htaccess", "tests/tmp/config.ini");
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$this->assertTrue(file_exists("tests/tmp/.htaccess"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("/test", $config->url->base);
+		$this->assertEquals("localhost", $config->url->host);
+		$this->assertContains("RewriteBase /test", file_get_contents("tests/tmp/.htaccess"));
+	}
+
+	public function testInstallUrlCantWriteHtaccess()
+	{
+		try {
+			Install::installUrl("tests/fake/.htaccess", "tests/tmp/config.ini");
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
+
+	public function testInstallUrlCantWriteConfig()
+	{
+		try {
+			Install::installUrl("tests/tmp/.htaccess", "tests/fake/config.ini");
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
 }
 
 // Call InstallTest::main() if this source file is executed directly.

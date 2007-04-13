@@ -18,18 +18,29 @@
  */
 class Install
 {
+	private static function _loadConfig($config_file)
+	{
+		try {
+			return new USVN_Config($config_file, 'general', array("create" => true));
+		}
+		catch (Exception $e) {
+			throw new USVN_Exception(T_("Can't write config file %s.\n") ." ". $e->getMessage(),  $config_file);
+		}
+	}
+
 	/**
 	* This method will test connection to the database, load database schemas
 	* and finally write the config file.
 	*
 	* Throw an exception in case of problems.
 	*
-	* @param Path to the USVN config file
-	* @param Database host
-	* @param Database user
-	* @param Database password
-	* @param Database name
-	* @param Database table prefix (ex: usvn_)
+	* @param string Path to the USVN config file
+	* @param string Database host
+	* @param string Database user
+	* @param string Database password
+	* @param string Database name
+	* @param string Database table prefix (ex: usvn_)
+	* @throw USVN_Exception
 	*/
 	static public function installDb($config_file, $host, $user, $password, $database, $prefix)
 	{
@@ -56,10 +67,10 @@ class Install
 			$db->rollBack();
 		}
 		try {
-			$config = new USVN_Config($config_file, 'general', array("create" => true));
+			$config = Install::_loadConfig($config_file);
 		}
 		catch (Exception $e) {
-			throw new USVN_Exception(T_("Can't write config file.\n") ." ". $e->getMessage());
+			throw new USVN_Exception(T_("Can't write config file %s.\n") ." ". $e->getMessage(),  $config_file);
 			$db->rollBack();
 		}
 		$config->database = array (
@@ -74,5 +85,58 @@ class Install
 		);
 		$config->save();
 		$db->commit();
+	}
+
+	/**
+	* This method will  write the choosen language into config file.
+	*
+	* Throw an exception in case of problems.
+	*
+	* @param string Path to the USVN config file
+	* @param string Language
+	* @throw USVN_Exception
+	*/
+	static public function installLanguage($config_file, $language)
+	{
+		if (in_array($language, USVN_Translation::listTranslation())) {
+			$config = Install::_loadConfig($config_file);
+			$config->translation = array("locale"  => $language);
+			$config->save();
+		}
+		else {
+			throw new USVN_Exception(T_("Invalid language"));
+		}
+	}
+
+	/**
+	* This method will write htaccess and config file with urls informations
+	*
+	* Throw an exception in case of problems.
+	*
+	* @param string Path to the USVN config file
+	* @param string Language
+	* @throw USVN_Exception
+	*/
+	static public function installUrl($htaccess_file, $config_file)
+	{
+		$path = str_replace("/install", "", $_SERVER['REQUEST_URI']);
+		$config = Install::_loadConfig($config_file);
+		$config->url = array(
+			"base" => $path,
+			"host" => $_SERVER['SERVER_NAME']
+		);
+		$config->save();
+		$content = <<<EOF
+<Files *.ini>
+Order Allow,Deny
+Deny from all
+</Files>
+RewriteEngine on
+RewriteBase {$path}
+RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
+EOF;
+		if (@file_put_contents($htaccess_file, $content) === false) {
+			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
+		}
 	}
 }

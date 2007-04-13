@@ -26,7 +26,12 @@ class changeset_IndexController extends IndexController
 		if ($this->_view->project ===  __NONE__) {
 			throw new USVN_Exception(T_("Invalid project."));
 		}
-		$this->_view->assign('revision', $this->getRequest()->getParam('revision'));
+		if (isset($_POST['revision'])) {
+			$this->_view->assign('revision', $_POST['revision']);
+		}
+		else {
+			$this->_view->assign('revision', $this->getRequest()->getParam('revision'));
+		}
 		$this->_render('index.html');
     }
 }

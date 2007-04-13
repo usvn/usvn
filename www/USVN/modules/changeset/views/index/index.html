@@ -9,6 +9,10 @@
 		?>
 		<li><a href="<?php echo $this->url(array('revision' => $this->revision + 1))?>"><?php echo T_("Next revision");?></a></li>
 	</ul>
+	<form action="<?php echo $this->url(array('revision' => ''));?>" method="POST">
+		<input type="text" name="revision" size="4" value="<?php echo $this->revision;?>">
+		<input type="submit" value="<?php echo T_("Go to revision");?>">
+	</form>
 </div>
 <table>
 	<tr>

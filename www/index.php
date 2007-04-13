@@ -24,6 +24,4 @@ define('USVN_CONFIG_FILE', dirname(__FILE__) . '/config.ini');
 define('USVN_CONFIG_SECTION', 'general');
 define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
 
-define('BASE_URL', '/');
-
 require_once USVN_DIRECTORY . '/bootstrap.php';

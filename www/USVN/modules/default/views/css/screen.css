@@ -16,7 +16,6 @@
 
 html, body {
 	font-family: 'Trebuchet MS', 'Verdana', 'Helvetica';
-	font-size: 0.85em;
 	margin: auto;
 	height: 80%;
     background: #FFFFFF;
@@ -33,7 +32,7 @@ img {border: 0;}
 }
 
 #usvn_header {
-	background-image:url(/medias/images/bg_banner.png);
+	background-image:url(<?php echo $this->image_directory ;?>/bg_banner.png);
 	border-bottom: 4px solid #0A1648;
 	background-repeat:repeat-x;
 	height: 158px;

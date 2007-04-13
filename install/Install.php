@@ -33,8 +33,46 @@ class Install
 	*/
 	static public function installDb($config_file, $host, $user, $password, $database, $prefix)
 	{
-		//Se connecte à la DB (cherche $this->db = Zend_Db::factory('PDO_MYSQL', $params); dans le code tu verra un exemple d'utilisation)
-		//Charge le fichier SQL/SVNDB.sql dans la DB (voir USVN_Db_Utils::loadFile)
-		//Ecrit le fichier de conf
+		$params = array ('host' => $host,
+			 'username' => $user,
+			 'password' => $password,
+			 'dbname'   => $database);
+		try {
+			$db = Zend_Db::factory('PDO_MYSQL', $params);
+			$db->beginTransaction();
+		}
+		catch (Exception $e) {
+			throw new USVN_Exception(T_("Can't connect to database.\n") ." ". $e->getMessage());
+		}
+		Zend_Db_Table::setDefaultAdapter($db);
+		USVN_Db_Table::$prefix = $prefix;
+		try {
+			USVN_Db_Utils::loadFile($db, "SQL/SVNDB.sql");
+			USVN_Db_Utils::loadFile($db, "SQL/mysql.sql");
+			USVN_Db_Utils::loadFile($db, "SQL/data.sql");
+		}
+		catch (Exception $e) {
+			throw new USVN_Exception(T_("Can't load SQL file.\n") ." ". $e->getMessage());
+			$db->rollBack();
+		}
+		try {
+			$config = new USVN_Config($config_file, 'general', array("create" => true));
+		}
+		catch (Exception $e) {
+			throw new USVN_Exception(T_("Can't write config file.\n") ." ". $e->getMessage());
+			$db->rollBack();
+		}
+		$config->database = array (
+			"adapterName" => "pdo_mysql",
+			"prefix" => $prefix,
+			"options" => array (
+				"host" => $host,
+				"username" => $user,
+				"password" => $password,
+				"dbname" => $database
+			)
+		);
+		$config->save();
+		$db->commit();
 	}
 }

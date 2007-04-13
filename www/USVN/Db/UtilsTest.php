@@ -56,13 +56,13 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 		$this->db = Zend_Db::factory('PDO_MYSQL', $params);
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Utils::deleteAllTables($this->db);
-
+		USVN_Db_Table::$prefix = "usvn_";
 		file_put_contents($this->testfile,
 		"
 	/*==============================================================*/
 	/* Table: users                                                 */
 	/*==============================================================*/
-	create table users
+	create table usvn_users
 	(
 	   users_id                       int                            not null,
 	   users_login                    varchar(255)                   not null,
@@ -77,7 +77,7 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 	/*==============================================================*/
 	/* Table: groups                                                */
 	/*==============================================================*/
-	create table groups
+	create table usvn_groups
 	(
 	   groups_id                      int                            not null,
 	   groups_label                   varchar(100),
@@ -89,7 +89,7 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 	/*==============================================================*/
 	/* Table: to_belong                                             */
 	/*==============================================================*/
-	create table to_belong
+	create table usvn_to_belong
 	(
 	   users_id                       int                            not null,
 	   groups_id                      int                            not null,
@@ -100,7 +100,7 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 	/*==============================================================*/
 	/* Index: to_belong_fk                                          */
 	/*==============================================================*/
-	create index to_belong_fk on to_belong
+	create index to_belong_fk on usvn_to_belong
 	(
 		users_id
 	);
@@ -108,16 +108,16 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 	/*==============================================================*/
 	/* Index: to_belong2_fk                                         */
 	/*==============================================================*/
-	create index to_belong2_fk on to_belong
+	create index to_belong2_fk on usvn_to_belong
 	(
 		groups_id
 	);
 
-	alter table to_belong add constraint fk_to_belong foreign key (users_id)
-	references users (users_id) on delete restrict on update restrict;
+	alter table usvn_to_belong add constraint fk_to_belong foreign key (users_id)
+	references usvn_users (users_id) on delete restrict on update restrict;
 
-	alter table to_belong add constraint fk_to_belong2 foreign key (groups_id)
-	references groups (groups_id) on delete restrict on update restrict;
+	alter table usvn_to_belong add constraint fk_to_belong2 foreign key (groups_id)
+	references usvn_groups (groups_id) on delete restrict on update restrict;
 	");
 	}
 
@@ -128,7 +128,19 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 
 	public function testLoadFile() {
 		USVN_Db_Utils::loadFile($this->db, $this->testfile);
-		$this->assertEquals(3, sizeof($this->db->listTables()));
+		$list_tables =  $this->db->listTables();
+		$this->assertEquals(3, sizeof($list_tables));
+		$this->assertTrue(in_array('usvn_users', $list_tables));
+		$this->assertTrue(in_array('usvn_groups', $list_tables));
+	}
+
+	public function testLoadFileWithAnotherPrefix() {
+		USVN_Db_Table::$prefix = "fake_";
+		USVN_Db_Utils::loadFile($this->db, $this->testfile);
+		$list_tables =  $this->db->listTables();
+		$this->assertEquals(3, sizeof($list_tables));
+		$this->assertTrue(in_array('fake_users', $list_tables));
+		$this->assertTrue(in_array('fake_groups', $list_tables));
 	}
 
 	public function test_deleteAllTables()

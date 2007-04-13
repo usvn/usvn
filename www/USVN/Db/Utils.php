@@ -35,6 +35,7 @@ class USVN_Db_Utils
 			$ligne = rtrim($ligne, " \n\t\r");
 			if (strlen($ligne)) {
 				try {
+					$ligne = str_replace("usvn_", USVN_Db_Table::$prefix, $ligne);
 					$db->query($ligne);
 				}
 				catch (Exception $e) {

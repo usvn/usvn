@@ -76,6 +76,17 @@ img {border: 0;}
 	font-weight: bold;
 }
 
+#usvn_debug div:hover div{
+	display: block;
+}
+
+#usvn_debug_view {
+	display:none;
+	background-color: gray;
+	padding-bottom: 500px;
+}
+
+
 table
 {
 	empty-cells: show;

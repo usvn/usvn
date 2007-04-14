@@ -174,7 +174,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallUrl()
 	{
-		Install::installUrl("tests/tmp/.htaccess", "tests/tmp/config.ini");
+		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess");
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$this->assertTrue(file_exists("tests/tmp/.htaccess"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
@@ -186,7 +186,7 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallUrlCantWriteHtaccess()
 	{
 		try {
-			Install::installUrl("tests/fake/.htaccess", "tests/tmp/config.ini");
+			Install::installUrl("tests/tmp/config.ini", "tests/fake/.htaccess");
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -197,12 +197,22 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallUrlCantWriteConfig()
 	{
 		try {
-			Install::installUrl("tests/tmp/.htaccess", "tests/fake/config.ini");
+			Install::installUrl("tests/fake/config.ini", "tests/tmp/.htaccess");
 		}
 		catch (USVN_Exception $e) {
 			return;
 		}
 		$this->fail();
+	}
+
+	public function testInstallAdmin()
+	{
+		Install::installDb("tests/tmp/config.ini", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword");
+		$userTable = new USVN_Db_Table_Users();
+		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));
+		$this->assertNotEquals(False, $user);
+		$this->assertEquals($user->password, crypt("secretpassword", $user->password));
 	}
 }
 

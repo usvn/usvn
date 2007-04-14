@@ -108,8 +108,8 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		if (empty($password) || preg_match('/^\s+$/', $password)) {
 			throw new USVN_Exception(T_('Password empty.'));
 		}
-		if (strlen($password) < 8) {
-			throw new USVN_Exception(T_('Invalid password (more than 8 Characters).'));
+		if (strlen($password) <= 8) {
+			throw new USVN_Exception(T_('Invalid password (at least 8 Characters).'));
 		}
 	}
 
@@ -138,7 +138,9 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	{
 		$this->checkLogin($data['users_login']);
 		$this->checkPassword($data['users_password']);
-		$this->checkEmailAddress($data['users_email']);
+		if (isset($data['users_email'])) {
+			$this->checkEmailAddress($data['users_email']);
+		}
 	}
 
 	/**

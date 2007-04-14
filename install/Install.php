@@ -114,10 +114,10 @@ class Install
 	* Throw an exception in case of problems.
 	*
 	* @param string Path to the USVN config file
-	* @param string Language
+	* @param string Path to the USVN htaccess file
 	* @throw USVN_Exception
 	*/
-	static public function installUrl($htaccess_file, $config_file)
+	static public function installUrl($config_file, $htaccess_file)
 	{
 		$path = str_replace("/install", "", $_SERVER['REQUEST_URI']);
 		$config = Install::_loadConfig($config_file);
@@ -138,5 +138,24 @@ EOF;
 		if (@file_put_contents($htaccess_file, $content) === false) {
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
 		}
+	}
+
+	/**
+	* This method will write create an admin
+	*
+	* Throw an exception in case of problems.
+	*
+	* @param string login
+	* @param string password
+	* @throw USVN_Exception
+	*/
+	static public function installAdmin($config_file, $login, $password)
+	{
+		$userTable = new USVN_Db_Table_Users();
+		$user = $userTable->insert(array(
+																'users_login' => $login,
+																'users_password' => crypt($password)
+															)
+												);
 	}
 }

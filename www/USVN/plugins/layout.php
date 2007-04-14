@@ -84,7 +84,11 @@ EOF;
 		$footer = "";
 		$profiler = Zend_Db_Table::getDefaultAdapter()->getProfiler();
 		if (is_array($profiler->getQueryProfiles())) {
-			$footer .= "</div><div>";
+			$footer .= "	</div>
+								<div id=\"usvn_debug\">
+									<div>View debug
+									<div id=\"usvn_debug_view\">
+							";
 			foreach ($profiler->getQueryProfiles() as $query) {
 				/* @var $query Zend_Db_Profiler_Query */
 				$footer .= "<dl>";
@@ -94,6 +98,8 @@ EOF;
 			}
 		}
 		$footer .= <<<EOF
+				</div>
+			</div>
 		</div>
 		<div id="usvn_footer">Powered by USVN</div>
 	</body>

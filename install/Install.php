@@ -36,7 +36,7 @@ class Install
 	*
 	* @param string Path to the USVN config file
 	* @param string Database host
-	* @param string Database user
+	* @param string Database user
 	* @param string Database password
 	* @param string Database name
 	* @param string Database table prefix (ex: usvn_)
@@ -145,6 +145,7 @@ EOF;
 	*
 	* Throw an exception in case of problems.
 	*
+	* @param string Path to the USVN config file
 	* @param string login
 	* @param string password
 	* @throw USVN_Exception
@@ -153,9 +154,41 @@ EOF;
 	{
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->insert(array(
-																'users_login' => $login,
-																'users_password' => crypt($password)
-															)
-												);
+									'users_login' => $login,
+		   							'users_password' => crypt($password)
+										)
+                                 );
+	}
+
+	/**
+	* Mark USVN install
+	*
+	* @param string Path to the USVN config file
+	* @throw USVN_Exception
+	*/
+	static public function installEnd($config_file)
+	{
+		$config = Install::_loadConfig($config_file);
+		$config->version = "0.5";
+		$config->save();
+	}
+
+	/**
+	* Return true if USVN is not already install.
+	*
+	* @param string Path to the USVN config file
+	* @return boolean
+	* @throw USVN_Exception
+	*/
+	static public function installPossible($config_file)
+	{
+		if (!file_exists($config_file)) {
+			return true;
+		}
+		$config = Install::_loadConfig($config_file);
+		if (!isset($config->version)) {
+			return true;
+		}
+		return false;
 	}
 }

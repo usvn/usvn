@@ -48,9 +48,20 @@ class InstallTest extends USVN_Test_Test {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
+	private function clean()
+	{
+		USVN_Db_Utils::deleteAllTables($this->db);
+		if (file_exists('tests/tmp/config.ini')) {
+			unlink('tests/tmp/config.ini');
+		}
+		if (file_exists('tests/tmp/.htaccess')) {
+			unlink('tests/tmp/.htaccess');
+		}
+	}
+
     public function setUp() {
 		parent::setUp();
-		$params = array ('host'     => 'localhost',
+		$params = array ('host' => 'localhost',
                  'username' => 'usvn-test',
                  'password' => 'usvn-test',
                  'dbname'   => 'usvn-test');
@@ -60,16 +71,11 @@ class InstallTest extends USVN_Test_Test {
 		USVN_Db_Utils::deleteAllTables($this->db);
 		$_SERVER['SERVER_NAME'] = "localhost";
 		$_SERVER['REQUEST_URI'] = "/test/install";
+		$this->clean();
     }
 
     public function tearDown() {
-		USVN_Db_Utils::deleteAllTables($this->db);
-		if (file_exists('test/tmp/config.ini')) {
-			unlink('test/tmp/config.ini');
-		}
-		if (file_exists('test/tmp/.htaccess')) {
-			unlink('test/tmp/.htaccess');
-		}
+		$this->clean();
 		parent::tearDown();
     }
 
@@ -213,6 +219,30 @@ class InstallTest extends USVN_Test_Test {
 		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));
 		$this->assertNotEquals(False, $user);
 		$this->assertEquals($user->password, crypt("secretpassword", $user->password));
+	}
+
+	public function testInstallEnd()
+	{
+		Install::installEnd("tests/tmp/config.ini");
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("0.5", $config->version);
+	}
+
+	public function testInstallPossibleNoConfigFile()
+	{
+		$this->assertTrue(Install::installPossible("tests/tmp/config.ini"));
+	}
+
+	public function testInstallPossibleInstallNotEnd()
+	{
+		Install::installLanguage("tests/tmp/config.ini", "fr_FR");
+		$this->assertTrue(Install::installPossible("tests/tmp/config.ini"));
+	}
+
+	public function testInstallNotPossible()
+	{
+		Install::installEnd("tests/tmp/config.ini");
+		$this->assertFalse(Install::installPossible("tests/tmp/config.ini"));
 	}
 }
 

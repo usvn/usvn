@@ -132,6 +132,7 @@ Order Allow,Deny
 Deny from all
 </Files>
 RewriteEngine on
+RewriteCond %{REQUEST_URI} !/install*
 RewriteBase {$path}
 RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
 EOF;

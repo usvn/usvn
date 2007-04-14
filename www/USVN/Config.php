@@ -62,7 +62,7 @@
 	*/
 	public function save()
 	{
-		$f = fopen($this->_filename, 'w');
+		$f = @fopen($this->_filename, 'w');
 		if (!$f) {
 			throw new USVN_Exception(T_("Can't write into config file."));
 		}

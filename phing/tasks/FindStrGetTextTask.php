@@ -26,16 +26,24 @@ require_once "phing/Task.php";
 class FindStrGetTextTask extends Task {
 
     protected $localedirectory = "locale"; // directory where translation are save
+	protected $scandirectory = ".";
 
     /**
     *
-    * @param string root of local directory. By default it's locale
+    * @param string root of locale directory. By default it's locale
     */
 	function setLocaledirectory($value)
 	{
 		$this->localedirectory = $value;
 	}
 
+    /**
+    * @param string root of directory to scan. By default it's .
+    */
+	function setScandirectory($value)
+	{
+		$this->scandirectory = $value;
+	}
     /**
      * The main entry point method.
      */
@@ -75,7 +83,7 @@ class FindStrGetTextTask extends Task {
     private function findStr($lang)
     {
 		$savepath = getcwd();
-        $files = $this->list_dir(".");
+        $files = $this->list_dir($this->scandirectory);
 		chdir($this->localedirectory.'/'.$lang);
 		rename("messages.po", "old.po");
 		$command = "xgettext  --language=PHP --keyword=T_ --keyword=T_ngettext";

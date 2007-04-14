@@ -216,7 +216,7 @@
 
 <target name="translation-findstr">
     <taskdef name="gettext-findstr" classname="phing.tasks.FindStrGetTextTask" />
-    <gettext-findstr />
+    <gettext-findstr localedirectory="www/locale/" scandirectory="www/"/>
 </target>
 
 <!-- Archives -->

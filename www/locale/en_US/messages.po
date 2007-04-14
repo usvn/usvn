@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-21 10:08-0400\n"
+"POT-Creation-Date: 2007-04-14 15:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,43 +16,316 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../.././www/USVN/modules/default/views/login/login.html:4
+#: ../../../www//USVN/modules/svnhooks/models/Hooks.php:27
+#, php-format
+msgid "Project %s doesn't exists."
+msgstr ""
+
+#: ../../../www//USVN/modules/svnhooks/models/Hooks.php:30
+msgid "Invalid authid."
+msgstr ""
+
+#: ../../../www//USVN/modules/default/views/index/index.html:1
+#: ../../../www//USVN/modules/admin/views/index/index.html:1
+msgid "Administration"
+msgstr ""
+
+#: ../../../www//USVN/modules/default/views/login/login.html:6
+#: ../../../www//USVN/modules/admin/views/user/index.html:6
+#: ../../../www//USVN/modules/admin/views/user/form.html:27
+#: ../../../www//USVN/modules/admin/views/user/profile.html:22
 msgid "Login"
 msgstr ""
 
-#: ../../.././www/USVN/modules/default/views/login/login.html:8
+#: ../../../www//USVN/modules/default/views/login/login.html:10
+#: ../../../www//USVN/modules/admin/views/user/form.html:30
+#: ../../../www//USVN/modules/admin/views/user/profile.html:24
 msgid "Password"
 msgstr ""
 
-#: ../../.././www/USVN/modules/default/views/login/login.html:12
+#: ../../../www//USVN/modules/default/views/login/login.html:14
+#: ../../../www//USVN/modules/admin/views/project/form.html:25
+#: ../../../www//USVN/modules/admin/views/group/form.html:19
+#: ../../../www//USVN/modules/admin/views/user/form.html:44
+#: ../../../www//USVN/modules/admin/views/user/profile.html:38
 msgid "Submit"
 msgstr ""
 
-#: ../../.././www/USVN/modules/admin/views/config/index.html:1
+#: ../../../www//USVN/modules/admin/models/Config.php:37
+#: ../../../www//install/Install.php:107
+msgid "Invalid language"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/models/ImportHtpasswd.php:49
+msgid "Invalid htpasswd file."
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/models/ImportHtpasswd.php:52
+#, php-format
+msgid "User %s already exist into htpasswd file."
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/models/ImportHtpasswd.php:73
+#, php-format
+msgid "Can't add users %s. Import cancel."
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/controllers/UserController.php:38
+#: ../../../www//USVN/modules/admin/controllers/UserController.php:50
+#: ../../../www//USVN/modules/admin/controllers/UserController.php:68
+msgid "Not the same password."
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/index/index.html:3
+msgid "Groups"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/index/index.html:4
+msgid "Users"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/index/index.html:5
+msgid "Projects"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/index/index.html:6
+#: ../../../www//USVN/modules/admin/views/config/index.html:1
 msgid "Configuration"
 msgstr ""
 
-#: ../../.././www/USVN/modules/admin/views/config/index.html:5
+#: ../../../www//USVN/modules/admin/views/project/index.html:1
+msgid "Projects list"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/index.html:12
+#: ../../../www//USVN/modules/admin/views/group/index.html:6
+#: ../../../www//USVN/modules/admin/views/group/form.html:15
+msgid "Name"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/index.html:13
+msgid "Start Date"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/index.html:14
+msgid "Description"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/index.html:15
+#: ../../../www//USVN/modules/admin/views/group/index.html:7
+#: ../../../www//USVN/modules/admin/views/user/index.html:10
+msgid "Action"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/index.html:32
+msgid "Add a new project"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/form.html:17
+msgid "Project name"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/form.html:21
+msgid "Project description"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/project/form.html:38
+#: ../../../www//USVN/modules/admin/views/group/form.html:24
+#: ../../../www//USVN/modules/admin/views/user/form.html:49
+#: ../../../www//USVN/modules/admin/views/user/profile.html:43
+msgid "Return"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/group/index.html:1
+msgid "Groups list"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/group/index.html:24
+msgid "Add a new group"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/index.html:1
+msgid "Users list"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/index.html:7
+#: ../../../www//USVN/modules/admin/views/user/form.html:37
+#: ../../../www//USVN/modules/admin/views/user/profile.html:31
+msgid "Firstname"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/index.html:8
+#: ../../../www//USVN/modules/admin/views/user/form.html:34
+#: ../../../www//USVN/modules/admin/views/user/profile.html:28
+msgid "Lastname"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/index.html:9
+#: ../../../www//USVN/modules/admin/views/user/form.html:40
+#: ../../../www//USVN/modules/admin/views/user/profile.html:34
+msgid "Email"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/index.html:30
+msgid "Add a new user"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/index.html:31
+#: ../../../www//USVN/modules/admin/views/user/import.html:1
+msgid "Import htpasswd"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/index.html:32
+msgid "Edit my profile"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/import.html:2
+msgid ""
+"This form allow you to add to USVN all users contents into an apache "
+"password file."
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/user/import.html:8
+msgid "Upload"
+msgstr ""
+
+#: ../../../www//USVN/modules/admin/views/config/index.html:5
+#: ../../../www//install/views/step2.html:5
 msgid "Default language"
 msgstr ""
 
-#: ../../.././www/USVN/modules/admin/views/config/index.html:9
+#: ../../../www//USVN/modules/admin/views/config/index.html:22
 msgid "Save"
 msgstr ""
 
-#: ../../.././www/USVN/Auth/Adapter/Db.php:38
+#: ../../../www//USVN/modules/changeset/controllers/IndexController.php:27
+msgid "Invalid project."
+msgstr ""
+
+#: ../../../www//USVN/modules/changeset/views/index/index.html:4
+msgid "Last revision"
+msgstr ""
+
+#: ../../../www//USVN/modules/changeset/views/index/index.html:7
+msgid "Previous revision"
+msgstr ""
+
+#: ../../../www//USVN/modules/changeset/views/index/index.html:10
+msgid "Next revision"
+msgstr ""
+
+#: ../../../www//USVN/modules/changeset/views/index/index.html:14
+msgid "Go to revision"
+msgstr ""
+
+#: ../../../www//USVN/Config.php:39
+msgid "Can't write config file."
+msgstr ""
+
+#: ../../../www//USVN/Config.php:43
+msgid "Can't open config file."
+msgstr ""
+
+#: ../../../www//USVN/Config.php:67
+msgid "Can't write into config file."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Projects.php:108
+msgid "The project's name is empty."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Projects.php:111
+msgid "The project's name is invalid."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Groups.php:101
+msgid "The group's name is empty."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Groups.php:104
+msgid "The group's name is invalid."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Users.php:93
+msgid "Login empty."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Users.php:96
+msgid "Login invalid."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Users.php:109
+msgid "Password empty."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Users.php:112
+msgid "Invalid password (at least 8 Characters)."
+msgstr ""
+
+#: ../../../www//USVN/Db/Table/Users.php:127
+msgid "Invalid email address."
+msgstr ""
+
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
 #, php-format
 msgid "Login %s not found"
 msgstr ""
 
-#: ../../.././www/USVN/Auth/Adapter/Db.php:43
+#: ../../../www//USVN/Auth/Adapter/Db.php:59
 msgid "Incorrect password"
 msgstr ""
 
-#: ../../.././www/USVN/TranslationTest.php:69 ../../.././install/index.php:26
+#: ../../../www//USVN/Translation.php:69
+#, php-format
+msgid "Can't read translation directory (%s)."
+msgstr ""
+
+#: ../../../www//USVN/TranslationTest.php:81
+#: ../../../www//install/views/step1.html:2
 msgid "Welcome to USVN"
 msgstr ""
 
-#: ../../.././install/index.php:28
+#: ../../../www//install/Install.php:27 ../../../www//install/Install.php:73
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:56
+msgid "Can't connect to database.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:66
+msgid "Can't load SQL file.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:140
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:208
+msgid "Need a title."
+msgstr ""
+
+#: ../../../www//install/views/head.html:3
+msgid "USVN installation"
+msgstr ""
+
+#: ../../../www//install/views/step1.html:1
+#: ../../../www//install/views/step2.html:1
+#: ../../../www//install/views/step3.html:1
+msgid "Step"
+msgstr ""
+
+#: ../../../www//install/views/step1.html:6
+#: ../../../www//install/views/step2.html:17
+msgid "Next step"
+msgstr ""
+
+#: ../../../www//install/views/footer.html:2
 msgid "Copyright USVN"
+msgstr ""
+
+#: ../../../www//install/views/step3.html:1
+msgid "Database installation"
 msgstr ""

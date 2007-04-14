@@ -15,6 +15,7 @@
  <!-- File set -->
   <fileset id="testfile" dir=".">
 		<include name="**/*Test.php" />
+		<exclude name="www/Zend/**"/>
         <exclude name="${docdir}/**" />
         <exclude name="${report_test_dir}/**" />
         <exclude name="${testdir}/**" />
@@ -115,6 +116,7 @@
 				<exclude name="**/bootstrap.php" />
 				<exclude name="**/index.php" />
                 <exclude name="scripts/**" />
+				<exclude name="www/Zend/**"/>
             </fileset>
         </coverage-setup>
 
@@ -144,6 +146,7 @@
         <fileset dir=".">
             <exclude name="${docdir}/**" />
             <exclude name="${report_test_dir}/**" />
+            <exclude name="www/Zend/**" />
             <include name="**/*.php"/>
         </fileset>
     </phplint>

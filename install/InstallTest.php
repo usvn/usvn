@@ -244,6 +244,25 @@ class InstallTest extends USVN_Test_Test {
 		Install::installEnd("tests/tmp/config.ini");
 		$this->assertFalse(Install::installPossible("tests/tmp/config.ini"));
 	}
+
+	public function testInstallConfiguration()
+	{
+		Install::installConfiguration("tests/tmp/config.ini", "Noplay");
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("Noplay", $config->title);
+		$this->assertEquals("USVN", $config->style);
+	}
+
+	public function testInstallConfigurationNotTitle()
+	{
+		try {
+			Install::installConfiguration("tests/tmp/config.ini", "");
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
 }
 
 // Call InstallTest::main() if this source file is executed directly.

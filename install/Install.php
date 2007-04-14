@@ -191,4 +191,24 @@ EOF;
 		}
 		return false;
 	}
+
+	/**
+	* Some configurations informations
+	*
+	* @param string Path to the USVN config file
+	* @param string USVN page title
+	* @return boolean
+	* @throw USVN_Exception
+	*/
+	static public function installConfiguration($config_file, $title)
+	{
+		$title = rtrim($title);
+		if (strlen($title) == 0) {
+			throw new USVN_Exception(T_("Need a title."));
+		}
+		$config = Install::_loadConfig($config_file);
+		$config->style = "USVN";
+		$config->title = $title;
+		$config->save();
+	}
 }

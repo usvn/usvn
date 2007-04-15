@@ -141,6 +141,10 @@
     <exec command="php scripts/reset.php"/>
   </target>
 
+  <target name="clear">
+    <exec command="php scripts/clear.php"/>
+  </target>
+
   <target name="lint">
     <phplint>
         <fileset dir=".">

@@ -1,7 +1,0 @@
-<Files *.ini>
-Order Allow,Deny
-Deny from all
-</Files>
-RewriteEngine on
-RewriteBase	/
-RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php

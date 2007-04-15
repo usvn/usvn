@@ -29,16 +29,25 @@ class admin_IndexController extends IndexController
 		$info = $table->info();
 
 		//truc pas logique, a voir
-		$primary = array_intersect_key($_POST, array_keys($info['primary']));
+		$primary = array();
+		$count = 0;
+		foreach ($info['primary'] as $key) {
+			if (isset($_POST[$key]) && $_POST[$key]) {
+				$primary[] = $_POST[$key];
+				unset($_POST[$key]);
+				$count++;
+			}
+		}
 
-		if ($primary) {
-			$obj = $table->find($primary);
+		if ($count && $count == count($info['primary'])) {
+			$obj = call_user_func(array($table, "find"), $primary)->current();
+		} elseif ($count) {
+			throw new USVN_Exception(T_("Not enough primary key"));
 		} else {
 			$obj = $table->fetchNew();
 		}
 
 		try {
-			//unset($_POST[$primaryKey]);
 			$obj->setFromArray($_POST);
 			$obj->save();
 			if ($this->getRequest()->getActionName() == 'new') {

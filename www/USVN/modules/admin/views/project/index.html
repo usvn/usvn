@@ -17,12 +17,16 @@ print '<table class="tborder">' .
 
 if (count($this->projects)) {
 	foreach ($this->projects as $project) {
+		$edit = $this->url(array('action' => 'edit', 'id' => $project->id));
+		$delete = $this->url(array('action' => 'delete', 'id' => $project->id));
+		$edit_text = T_("Edit");
+		$delete_text = T_("Delete");
 		$line = <<<EOF
 		<tr class='odd'>
 			<td>{$project->projects_name}</td>
 			<td>{$project->projects_start_date}</td>
 			<td>{$project->projects_description}</td>
-			<td><a href="edit/id/{$project->projects_id}">Edit</a>&nbsp;<a href="delete/id/{$project->projects_id}">Delete</a></td>
+			<td><a href="{$edit}">{$edit_text}</a>&nbsp;<a href="{$delete}">{$delete_text}</a></td>
 		</tr>\n
 EOF;
 		echo $line;
@@ -31,8 +35,3 @@ EOF;
 print '</tbody></table><br />';
 print "<a href='" . $this->url(array('action' => 'new')) . "'>" . T_('Add a new project') . "</a>";
 
-/*foreach ($this->projects as $project) {
-	$urlOptions['project'] = $project->projects_name;
-	echo "<li><a href=\"", $this->url(array($urlOptions), 'project'), "\">", $project->projects_name, "</a></li>";
-}*/
-?>

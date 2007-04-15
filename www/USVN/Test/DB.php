@@ -36,9 +36,9 @@ class USVN_Test_DB extends USVN_Test_Test {
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
 		USVN_Db_Utils::deleteAllTables($this->db);
-		USVN_Db_Utils::loadFile($this->db, "SQL/SVNDB.sql");
-		USVN_Db_Utils::loadFile($this->db, "SQL/mysql.sql");
-		USVN_Db_Utils::loadFile($this->db, "SQL/data.sql");
+		USVN_Db_Utils::loadFile($this->db, "www/SQL/SVNDB.sql");
+		USVN_Db_Utils::loadFile($this->db, "www/SQL/mysql.sql");
+		USVN_Db_Utils::loadFile($this->db, "www/SQL/data.sql");
     }
 
     public function tearDown() {

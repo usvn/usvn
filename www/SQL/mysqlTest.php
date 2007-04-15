@@ -48,7 +48,7 @@ class SQL_mysqlTest extends USVN_Test_DB {
 
 	public function test_testFile()
 	{
-		USVN_Db_Utils::loadFile($this->db, "SQL/test.sql");
+		USVN_Db_Utils::loadFile($this->db, "www/SQL/test.sql");
 	}
 }
 

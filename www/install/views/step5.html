@@ -1,1 +1,27 @@
-<h1><?php echo T_("Step");?> 5: <?php echo T_("Configure USVN");?></h1>
+<h1><?php echo T_("Step");?> 5: <?php echo T_("Database installation");?></h1>
+<form action="index.php?step=6" method="POST">
+	<table>
+		<tr>
+			<td><?php echo T_("Host");?>:</td>
+			<td><input type="text" name="host" value="localhost" /></td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Login");?>:</td>
+			<td><input type="text" name="user" value="root" /></td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Password");?>:</td>
+			<td><input type="password" name="password" /></td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Database");?>:</td>
+			<td><input type="text" name="database" value="usvn" /></td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Table prefix");?>:</td>
+			<td><input type="text" name="prefix" value="usvn_" /></td>
+		</tr>
+	</table>
+	<input type="submit" value="<?php echo T_("Next step");?>">
+</form>
+

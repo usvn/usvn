@@ -24,10 +24,14 @@ class USVN_Db_Utils
 	*
 	*  @param Zend_Db_Adapter_Abstract Connection to Database
 	*  @param string Path to the SQL file
+	*  @throw USVN_Exception
     */
 	static public function loadFile($db, $path)
 	{
-		$query = file_get_contents($path);
+		$query = @file_get_contents($path);
+		if ($query === false) {
+			throw new USVN_Exception(T_("Can't open file %s."), $path);
+		}
 		$query = ereg_replace("--[^\n]*\n", "", $query);
 		$tab = explode(";", $query);
 		foreach($tab as $ligne) {

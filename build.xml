@@ -23,7 +23,7 @@
         <exclude name="phing/**" />
         <exclude name="scripts**" />
 		<exclude name="private/**" />
-		<exclude name="SQL/**" />
+		<exclude name="www/SQL/**" />
 		<exclude name="LICENSE/**" />
 </fileset>
 

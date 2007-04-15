@@ -25,7 +25,7 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-require_once 'install/Install.php';
+require_once 'www/install/Install.php';
 require_once 'www/USVN/autoload.php';
 
 /**
@@ -70,7 +70,7 @@ class InstallTest extends USVN_Test_Test {
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Utils::deleteAllTables($this->db);
 		$_SERVER['SERVER_NAME'] = "localhost";
-		$_SERVER['REQUEST_URI'] = "/test/install";
+		$_SERVER['REQUEST_URI'] = "/test/install/index.php?step=7";
 		$this->clean();
     }
 
@@ -81,7 +81,7 @@ class InstallTest extends USVN_Test_Test {
 
     public function testInstallDbHostIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "fake.usvn.info", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "fake.usvn.info", "usvn-test", "usvn-test", "usvn-test", "usvn_");
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -91,7 +91,7 @@ class InstallTest extends USVN_Test_Test {
 
     public function testInstallDbUserIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "localhost", "usvn-fake", "usvn-test", "usvn-test", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-fake", "usvn-test", "usvn-test", "usvn_");
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -101,7 +101,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallDbPasswordIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "localhost", "usvn-test", "usvn-fake", "usvn-test", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-fake", "usvn-test", "usvn_");
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -111,7 +111,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallDbDatabaseIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "localhost", "usvn-test", "usvn-test", "usvn-fake", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-fake", "usvn_");
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -121,7 +121,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallDbConfigFileNotWritable() {
 		try {
-			Install::installDb("tests/fake/config.ini", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+			Install::installDb("tests/fake/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -130,7 +130,7 @@ class InstallTest extends USVN_Test_Test {
     }
 
 	public function testInstallDbTestLoadDb() {
-		Install::installDb("tests/tmp/config.ini", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
 		$list_tables =  $this->db->listTables();
 		$this->assertTrue(in_array('usvn_users', $list_tables));
 		$this->assertTrue(in_array('usvn_files', $list_tables));
@@ -139,7 +139,7 @@ class InstallTest extends USVN_Test_Test {
     }
 
 	public function testInstallDbTestLoadDbOtherPrefixe() {
-		Install::installDb("tests/tmp/config.ini", "localhost", "usvn-test", "usvn-test", "usvn-test", "fake_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "fake_");
 		$list_tables =  $this->db->listTables();
 		$this->assertFalse(in_array('usvn_users', $list_tables));
 		$this->assertFalse(in_array('usvn_files', $list_tables));
@@ -148,7 +148,7 @@ class InstallTest extends USVN_Test_Test {
     }
 
 	public function testInstallDbTestConfigFile() {
-		Install::installDb("tests/tmp/config.ini", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("localhost", $config->database->options->host);
@@ -186,7 +186,8 @@ class InstallTest extends USVN_Test_Test {
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("/test", $config->url->base);
 		$this->assertEquals("localhost", $config->url->host);
-		$this->assertContains("RewriteBase /test", file_get_contents("tests/tmp/.htaccess"));
+		$htaccess = file_get_contents("tests/tmp/.htaccess");
+		$this->assertContains("RewriteBase /test", $htaccess);
 	}
 
 	public function testInstallUrlCantWriteHtaccess()
@@ -213,7 +214,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallAdmin()
 	{
-		Install::installDb("tests/tmp/config.ini", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
 		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword");
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));

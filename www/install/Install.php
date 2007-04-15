@@ -35,6 +35,7 @@ class Install
 	* Throw an exception in case of problems.
 	*
 	* @param string Path to the USVN config file
+	* @param string Path to the SQL files
 	* @param string Database host
 	* @param string Database user
 	* @param string Database password
@@ -42,7 +43,7 @@ class Install
 	* @param string Database table prefix (ex: usvn_)
 	* @throw USVN_Exception
 	*/
-	static public function installDb($config_file, $host, $user, $password, $database, $prefix)
+	static public function installDb($config_file, $path_sql, $host, $user, $password, $database, $prefix)
 	{
 		$params = array ('host' => $host,
 			 'username' => $user,
@@ -58,9 +59,9 @@ class Install
 		Zend_Db_Table::setDefaultAdapter($db);
 		USVN_Db_Table::$prefix = $prefix;
 		try {
-			USVN_Db_Utils::loadFile($db, "SQL/SVNDB.sql");
-			USVN_Db_Utils::loadFile($db, "SQL/mysql.sql");
-			USVN_Db_Utils::loadFile($db, "SQL/data.sql");
+			USVN_Db_Utils::loadFile($db, $path_sql . "/SVNDB.sql");
+			USVN_Db_Utils::loadFile($db, $path_sql . "/mysql.sql");
+			USVN_Db_Utils::loadFile($db, $path_sql . "/data.sql");
 		}
 		catch (Exception $e) {
 			throw new USVN_Exception(T_("Can't load SQL file.\n") ." ". $e->getMessage());
@@ -119,7 +120,8 @@ class Install
 	*/
 	static public function installUrl($config_file, $htaccess_file)
 	{
-		$path = str_replace("/install", "", $_SERVER['REQUEST_URI']);
+		ereg("(.*)/install.*", $_SERVER['REQUEST_URI'], $regs);
+		$path =$regs[1];
 		$config = Install::_loadConfig($config_file);
 		$config->url = array(
 			"base" => $path,
@@ -135,6 +137,7 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} !/install*
 RewriteBase {$path}
 RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
+
 EOF;
 		if (@file_put_contents($htaccess_file, $content) === false) {
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
@@ -209,7 +212,7 @@ EOF;
 		}
 		$config = Install::_loadConfig($config_file);
 		$config->style = "USVN";
-		$config->title = $title;
+		$config->title = strip_tags($title);
 		$config->save();
 	}
 }

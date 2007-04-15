@@ -22,6 +22,7 @@ require_once('www/USVN/autoload.php');
 $config = new USVN_Config("www/config.ini", "general");
 
 $db = Zend_Db::factory($config->database->adapterName, $config->database->options->asArray());
+USVN_Db_Table::$prefix = $config->database->prefix;
 Zend_Db_Table::setDefaultAdapter($db);
 USVN_Db_Utils::deleteAllTables($db);
 USVN_Db_Utils::loadFile($db, "SQL/SVNDB.sql");

@@ -3,7 +3,7 @@ VALUES
 	(2, 'admin', ENCRYPT('admin'), 'Admin', NULL, NULL),
 	(3, 'attal_m', ENCRYPT('attal_m'), 'Attal', 'Mathieu', NULL),
 	(4, 'billar_m', ENCRYPT('billar_m'), 'Billard', 'Marie', NULL),
-	(5, 'crivis_s', ENCRYPT('crivis_s'), 'Crivisier', 'Stéphane', NULL),
+	(5, 'crivis_s', ENCRYPT('crivis_s'), 'Crivisier', 'StÃ©phane', NULL),
 	(6, 'dolean_j', ENCRYPT('dolean_j'), 'Doleans', 'Julien', NULL),
 	(7, 'duponc_j', ENCRYPT('duponc_j'), 'Duponchelle', 'Julien', NULL),
 	(8, 'guyoll_o', ENCRYPT('guyoll_o'), 'Guyollot', 'Olivier', NULL),
@@ -39,7 +39,7 @@ INSERT INTO `usvn_users_to_groups` (`users_id`, `groups_id`)
 
 INSERT INTO `usvn_projects` (`projects_id`, `projects_name`, `projects_start_date`, `projects_description`, `projects_auth`, `projects_url`)
 VALUES
-	('2', 'love', '2007-04-12 11:10:22', 'Site de musique similaire à last.fm', '007', NULL),
+	('2', 'love', '2007-04-12 11:10:22', 'Site de musique similaire Ã  last.fm', '007', NULL),
 	('3', 'usvn', '2006-09-01 11:10:22', 'User Friendly SVN', '008', 'http://www.usvn.info')
 ;
 

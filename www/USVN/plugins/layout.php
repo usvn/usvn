@@ -46,14 +46,15 @@ class layout extends Zend_Controller_Plugin_Abstract
 	{
 		$base_url = $this->getRequest()->getBaseUrl();
 		$header = <<<EOF
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 	    <title>USVN</title>
 	    <link type="text/css" rel="stylesheet" media="screen" href="{$base_url}/css/" />
 		<link type="text/css" rel="stylesheet" media="print" href="{$base_url}/medias/css/print.css"  />
 		<link rel="icon" href="{$base_url}/medias/images/USVN.ico" type="image/x-icon" />
-	    <meta http-equiv="Content-Type"	content="text/html; charset=UTF-8" />
+	    <meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
 	    <script language="JavaScript" type="text/javascript" src="{$base_url}/medias/js/usvn.js"></script>
 	</head>
 	<body>

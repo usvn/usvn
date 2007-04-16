@@ -40,4 +40,26 @@ class USVN_DirectoryUtils
         $dir = NULL; // Else on windows that doesn't work....
         @rmdir($path);
     }
+
+    /**
+     * List the first level of a directory
+     *
+     * @param string $path
+     * @todo add option to this method (level to scan, exclude file or not, juste directory, get more infomations...
+     * @return array
+     */
+    static public function listDirectory($path)
+	{
+		$res = array();
+		$dh = opendir($path);
+		if (!$dh) {
+			throw new USVN_Exception(T_("Can't read directory (%s).", $path));
+		}
+		while (($subDir = readdir($dh)) !== false) {
+            if ($subDir != '.' && $subDir != '..' && $subDir != '.svn') {
+				array_push($res, $subDir);
+			}
+        }
+		return $res;
+	}
 }

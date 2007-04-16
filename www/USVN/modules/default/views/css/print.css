@@ -1,5 +1,5 @@
 /**
- * USVN's CSS for screening
+ * USVN's CSS for printing
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -14,7 +14,7 @@
  *
  */
 
-/* default screen css available for all template here ... */
+/* default print css available for all template here ... */
 
 /* template's css call */
 <?php include($this->css_file); ?>

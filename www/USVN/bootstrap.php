@@ -33,9 +33,25 @@ try {
 	$routes_config = new USVN_Config(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
 
 	/**
-	* Configure language
-	*/
+	 * Configure language
+	 */
 	USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIRECTORY);
+
+	/**
+	 * Configure template
+	 */
+	USVN_Template::initTemplate($config->template->name, USVN_MEDIAS_DIRECTORY);
+
+	/**
+	 * register info
+	 */
+	Zend_Registry::set('url', array('title' 		=> $config->url->title,
+									'description' 	=> $config->url->description,
+									'keywords'		=> $config->url->keywords));
+	Zend_Registry::set('site', array('name' 		=> $config->site->name,
+									'ico'			=> $config->site->ico,
+									'description'	=> $config->site->description,
+									'logo'			=> $config->site->logo));
 
 	/**
 	 * Configure our default db adapter

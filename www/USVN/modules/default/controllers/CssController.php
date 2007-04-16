@@ -25,7 +25,15 @@ class CssController extends IndexController
 
 	public function screenAction()
 	{
-		$this->_view->image_directory = $this->_request->getBaseUrl()."/medias/images/";
+		$this->_view->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
+		$this->_view->image_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->_render('screen.css');
+	}
+
+	public function printAction()
+	{
+		$this->_view->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
+		$this->_view->image_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
+		$this->_render('print.css');
 	}
 }

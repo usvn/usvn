@@ -1,5 +1,30 @@
+<script type="text/javascript">
+function checkForm() {
+	var spanError = document.getElementById('error');
+	var checkRegExp = new RegExp("^[ \t]*$");
+	if (document.createAdmin.login.value.length == 0
+		|| checkRegExp.test(document.createAdmin.login.value)) {
+		spanError.innerHTML = 'Login empty.';
+		return false;
+	}
+	if (!document.createAdmin.password.value.length || !document.createAdmin.password2.value.length) {
+		spanError.innerHTML = 'Password empty.';
+		return false;
+	}
+	if (document.createAdmin.password.value != document.createAdmin.password2.value) {
+		spanError.innerHTML = 'Password incorrect (not the same).';
+		return false;
+	}
+	if (document.createAdmin.password.value.length < 8) {
+		spanError.innerHTML = 'Password incorrect (need more 8 characters).';
+		return false;
+	}
+	spanError.innerHTML = '';
+	return true;
+}
+</script>
 <h1><?php echo T_("Step");?> 6: <?php echo T_("Create administrator user");?></h1>
-<form action="index.php?step=7" method="POST">
+<form name="createAdmin" action="index.php?step=7" method="POST">
 	<table>
 		<tr>
 			<td><?php echo T_("Login");?>:</td>
@@ -12,8 +37,10 @@
 		<tr>
 			<td><?php echo T_("Password");?>:</td>
 			<td><input type="password" name="password" /></td>
+			<td><input type="password" name="password2" /></td>
 		</tr>
 	</table>
-	<input type="submit" value="<?php echo T_("Next step");?>">
+	<br /><br />
+	<div id="error" style="color: red; font-weight: bold;"></div>
+	<input type="submit" value="<?php echo T_("Next step");?>" onclick="return checkForm();">
 </form>
-

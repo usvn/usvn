@@ -20,6 +20,7 @@
 define('USVN_DIRECTORY', dirname(__FILE__) . '/USVN');
 define('USVN_LIBRARY_DIRECTORY', dirname(__FILE__) . '/library');
 define('USVN_LOCALE_DIRECTORY', dirname(__FILE__) . '/locale');
+define('USVN_MEDIAS_DIRECTORY', dirname(__FILE__) . '/medias');
 define('USVN_CONFIG_FILE', dirname(__FILE__) . '/config.ini');
 define('USVN_CONFIG_SECTION', 'general');
 define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');

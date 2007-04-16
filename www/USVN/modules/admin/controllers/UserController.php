@@ -52,25 +52,23 @@ class admin_UserController extends admin_IndexController
 			$this->save("USVN_Db_Table_Users", "user");
 		} else {
 			$userTable = new USVN_Db_Table_Users();
-			$this->_view->user = $userTable->fetchRow(array('users_id = ?' => $this->getRequest()->getParam('id')));
+			$this->_view->user = $userTable->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
 		}
 		$this->_render('form.html');
 	}
 
 	public function editProfileAction()
 	{
+		$userTable = new USVN_Db_Table_Users();
+		$identity = Zend_Auth::getInstance()->getIdentity();
 		if (!empty($_POST)) {
-			if (!empty($_POST['users_login'])) {
-				unset($_POST['users_login']);
-			}
+			$_POST['users_login'] = $identity["username"];
 			if (!empty($_POST['users_password']) && !empty($_POST['users_password'])
 				&& $_POST['users_password'] !== $_POST['users_password2']) {
 					throw new Exception(T_('Not the same password.'));
 			}
 			$this->save("USVN_Db_Table_Users", "user");
 		} else {
-			$userTable = new USVN_Db_Table_Users();
-			$identity = Zend_Auth::getInstance()->getIdentity();
 			$this->_view->user = $userTable->fetchRow(array('users_login = ?' => $identity["username"]));
 		}
 		$this->_render('profile.html');

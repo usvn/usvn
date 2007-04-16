@@ -1,0 +1,130 @@
+/**
+ * USVN's CSS for printing
+ *
+ * @author Team USVN <contact@usvn.info>
+ * @link http://www.usvn.info
+ * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
+ * @copyright Copyright 2007, Team USVN
+ * @since 0.5
+ *
+ * This software has been written at EPITECH <http://www.epitech.net>
+ * EPITECH, European Institute of Technology, Paris - FRANCE -
+ * This project has been realised as part of
+ * end of studies project.
+ *
+ */
+
+html, body {
+	font-family: 'Trebuchet MS', 'Verdana', 'Helvetica';
+	margin: auto;
+	height: 80%;
+    background: #FFFFFF;
+}
+
+body > div {
+ 	margin: auto;
+}
+
+img {border: 0;}
+
+#usvn_banner {
+	background: #334BCF;
+}
+
+#usvn_header {
+	background-image:url(<?php echo $this->image_directory ;?>/bg_banner.png);
+	border-bottom: 4px solid #0A1648;
+	background-repeat:repeat-x;
+	height: 158px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#usvn_logo img {
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+#usvn_content {
+	position: relative;
+    min-height: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#usvn_footer {
+	border-top: 4px solid #0A1648;
+	background: #4F6EFF;
+	color: #FFFFFF;
+}
+
+#usvn_toolbox {
+	float: right;
+	background-color: #3355FF;
+}
+
+.usvn_label {
+	display: block;
+	margin-bottom: 0.1em;
+}
+
+.usvn_error {
+	color: red;
+	font-weight: bold;
+}
+
+#usvn_debug div:hover div{
+	display: block;
+}
+
+#usvn_debug_view {
+	display:none;
+	background-color: gray;
+	padding-bottom: 500px;
+}
+
+
+table
+{
+	empty-cells: show;
+}
+
+table tr.odd th,
+table tr.odd {
+    background-color: #FFFFFF;
+}
+
+/* hovered table rows */
+table tr.odd:hover,
+table tr.odd:hover th {
+    background-color: #BFF4FF;
+}
+
+/* Titles - such as table headers. */
+.titlebg, tr.titlebg td, .titlebg a:link, .titlebg a:visited
+{
+	font-weight: bold;
+	font-style: normal;
+	color: #ffffff;
+	background-color: #598db2;
+}
+.titlebg a:hover
+{
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+a:link, a:visited
+{
+	color: #0810E5;
+	background-color: transparent;
+	text-decoration: none;
+}
+a:hover
+{
+	color: #8888E5;
+	background-color: transparent;
+	text-decoration: none;
+}

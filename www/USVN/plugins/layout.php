@@ -44,28 +44,33 @@ class layout extends Zend_Controller_Plugin_Abstract
 	 */
 	protected function addHeader($response)
 	{
+		$url = Zend_Registry::get('url');
+		$site = Zend_Registry::get('site');
 		$base_url = $this->getRequest()->getBaseUrl();
 		$header = <<<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-	    <title>USVN</title>
-	    <link type="text/css" rel="stylesheet" media="screen" href="{$base_url}/css/" />
-		<link type="text/css" rel="stylesheet" media="print" href="{$base_url}/medias/css/print.css"  />
-		<link rel="icon" href="{$base_url}/medias/images/USVN.ico" type="image/x-icon" />
-	    <meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
-	    <script language="JavaScript" type="text/javascript" src="{$base_url}/medias/js/usvn.js"></script>
+	    <title>{$url['title']}</title>
+		<meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
+		<meta name="description" content="{$url['description']}" />
+		<meta name="keywords" content="{$url['keywords']}" />
+		<link type="text/css" rel="stylesheet" media="screen" href="{$base_url}/css/" />
+		<link type="text/css" rel="stylesheet" media="print" href="{$base_url}/css/print"  />
+		<link rel="icon" href="{$base_url}/{$site['ico']}" type="image/x-icon" />
+		<script language="JavaScript" type="text/javascript" src="{$base_url}/medias/default/js/usvn.js"></script>
 	</head>
 	<body>
 		<div id="usvn_banner">
 			<div id="usvn_header">
-				<a id="usvn_logo" href="{$base_url}">
-					<img src="{$base_url}/medias/images/USVN-logo.png" alt="USVN, Userfriendly SVN" />
+				<a id="usvn_logo" href="{$base_url}/">
+					<img src="{$base_url}/{$site['logo']}" alt="{$site['description']}" title="" />
 				</a>
 			</div>
 		</div>
 		<div id="usvn_menu"></div>
+		<div id="usvn_pub"></div>
 		<div id="usvn_content">
 EOF;
 		$body = $response->getBody(true);

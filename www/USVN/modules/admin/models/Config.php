@@ -30,11 +30,52 @@ class USVN_modules_admin_models_Config
 	{
 		if (in_array($language, USVN_Translation::listTranslation())) {
 			$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-			$config->translation->locale  = $language;
+			$config->translation->locale = $language;
 			$config->save();
-		}
-		else {
+		} else {
 			throw new USVN_Exception(T_("Invalid language"));
 		}
+	}
+
+	static public function setTemplate($template)
+	{
+		if (in_array($template, USVN_Template::listTemplate())) {
+			$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+			$config->template->name = $template;
+			$config->save();
+		} else {
+			throw new USVN_Exception(T_("Invalid template"));
+		}
+	}
+
+	/**
+	 * Set information about the url of the website
+	 *
+	 * @param array $datas
+	 */
+	static public function setUrlDatas($datas)
+	{
+		$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$config->url->title = $datas['title'];
+		$config->url->description = $datas['description'];
+		$config->url->keywords = $datas['keywords'];
+		$config->save();
+	}
+
+	/**
+	 * Set information about the Website
+	 *
+	 * @todo Check if the file exists or launch an exception
+	 * @throw USVN_Exception
+	 * @param array $datas
+	 */
+	static public function setSiteDatas($datas)
+	{
+		$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$config->site->name = $datas['name'];
+		$config->site->ico = $datas['ico'];
+		$config->site->description = $datas['description'];
+		$config->site->logo = $datas['logo'];
+		$config->save();
 	}
 }

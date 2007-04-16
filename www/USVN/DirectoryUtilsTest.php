@@ -56,6 +56,15 @@ class USVN_DirectoryUtilsTest extends PHPUnit_Framework_TestCase {
 		USVN_DirectoryUtils::removeDirectory('tests/tmp/dir');
 		$this->assertFalse(file_exists('tests/tmp/dir'));
 	}
+
+	/**
+	 * Test listDirectory method
+	 * @todo finish the implement and write the test
+	 */
+	public function test_listDirectory()
+	{
+
+	}
 }
 
 // Call USVN_DirectoryUtilsTest::main() if this source file is executed directly.

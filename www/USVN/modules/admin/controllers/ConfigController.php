@@ -25,7 +25,18 @@ class admin_ConfigController extends admin_IndexController
 {
 	public function saveAction()
 	{
+		//fopen et close et serie.... c'est mal !
 		USVN_modules_admin_models_Config::setLanguage($_POST['language']);
+		USVN_modules_admin_models_Config::setTemplate($_POST['template']);
+		$urlDatas = array('title' 			=> $_POST['urlTitle'],
+							'description' 	=> $_POST['urlDescription'],
+							'keywords' 		=> $_POST['urlKeywords']);
+		USVN_modules_admin_models_Config::setUrlDatas($urlDatas);
+		$siteDatas = array('name'			=> $_POST['siteName'],
+							'ico'			=> $_POST['siteIco'],
+							'description'	=> $_POST['siteDescription'],
+							'logo'			=> $_POST['siteLogo']);
+		USVN_modules_admin_models_Config::setSiteDatas($siteDatas);
 		$this->_redirect('admin/config/');
 	}
 }

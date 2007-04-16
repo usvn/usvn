@@ -62,8 +62,10 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 		
 		$right = $module . "_" . $controller . "_" . $action;
 		$acl->addRole($roleGuest);
-		
     	$db = $this->getAdapter();
+    	/**
+	 	* Request for get all the right from the current user.
+	 	*/
     	$select = $db->select();
     	$select->from(USVN_Db_Table::$prefix . 'to_attribute', '*');
     	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
@@ -74,6 +76,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     	$select->where(USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
 		$result = $db->fetchAll($select);
+		
 		for ($i = 0; $i < count($result); $i++) {
 			$tab = split('_', $result[$i]['rights_label']);
 			$acl->add(new Zend_Acl_Resource($tab[0] . "_" . $tab[1]));
@@ -85,20 +88,19 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 				// Error in the right label
 			}
 		}
-		//$acl->deny('user', 'admin_user', 'edit');
+		
 		try {
 			if ($acl->isAllowed('user', $module . "_" . $controller, $action) == 1)
 			{
-				echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login dispose du droit $right</b><br>";
+				//echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login dispose du droit $right</b><br>";
     			return false;
     		} else {
-    			
-    			echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
+    			//echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
     			return true;
     		}
 
 		} catch (Exception  $e) {
-			echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
+			//echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
 			return false;
    		}
 

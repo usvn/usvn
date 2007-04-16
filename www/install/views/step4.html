@@ -3,7 +3,14 @@
 	<table>
 		<tr>
 			<td><?php echo T_("Page title");?>:</td>
-			<td><input type="text" name="title" value="USVN" /></td>
+			<td><input type="text" name="title" value="<?php
+																							if (isset($_POST['title'])) {
+																								echo $_POST['title'];
+																							}
+																							else {
+																								echo "USVN";
+																							}
+																						?>" /></td>
 		</tr>
 	</table>
 	<input type="submit" value="<?php echo T_("Next step");?>" />

@@ -3,7 +3,11 @@
 	<table>
 		<tr>
 			<td><?php echo T_("Login");?>:</td>
-			<td><input type="text" name="login"/></td>
+			<td><input type="text" name="login" value="<?php
+																							if (isset($_POST['login'])) {
+																								echo $_POST['login'];
+																							}
+																						?>"/></td>
 		</tr>
 		<tr>
 			<td><?php echo T_("Password");?>:</td>

@@ -24,11 +24,11 @@ set_include_path(get_include_path() .PATH_SEPARATOR ."..");
 require_once 'USVN/autoload.php';
 require_once 'Install.php';
 
-$language = 'en_US';
+$GLOBALS['language'] = 'en_US';
 if (file_exists(CONFIG_FILE)) {
 	$config = new USVN_Config(CONFIG_FILE, 'general');
 	if (isset($config->translation->locale)) {
-		$language = $config->translation->locale;
+		$GLOBALS['language'] = $config->translation->locale;
 	}
 	if (isset($config->database->adapterName)) {
 		Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->asArray()));
@@ -36,7 +36,7 @@ if (file_exists(CONFIG_FILE)) {
 		USVN_Db_Table::$prefix = $config->database->prefix;
 	}
 }
-USVN_Translation::initTranslation($language, '../locale');
+USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
 
 
 include "views/head.html";
@@ -71,6 +71,7 @@ function installationOperation($step)
 	switch ($step) {
 			case 3:
 				Install::installLanguage(CONFIG_FILE, $_POST['language']);
+				$GLOBALS['language'] = $_POST['language'];
 			break;
 
 			case 5:
@@ -91,6 +92,7 @@ function installationOperation($step)
 
 function installationStep($step)
 {
+	$language = $GLOBALS['language'];
 	if ($step >= 1 && $step <= 7) {
 		include "views/step$step.html";
 	}

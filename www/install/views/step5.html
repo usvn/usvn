@@ -3,11 +3,25 @@
 	<table>
 		<tr>
 			<td><?php echo T_("Host");?>:</td>
-			<td><input type="text" name="host" value="localhost" /></td>
+			<td><input type="text" name="host" value="<?php
+																							if (isset($_POST['host'])) {
+																								echo $_POST['host'];
+																							}
+																							else {
+																								echo "localhost";
+																							}
+																						?>" /></td>
 		</tr>
 		<tr>
 			<td><?php echo T_("Login");?>:</td>
-			<td><input type="text" name="user" value="root" /></td>
+			<td><input type="text" name="user" value="<?php
+																							if (isset($_POST['user'])) {
+																								echo $_POST['user'];
+																							}
+																							else {
+																								echo "root";
+																							}
+																						?>" /></td>
 		</tr>
 		<tr>
 			<td><?php echo T_("Password");?>:</td>
@@ -15,11 +29,25 @@
 		</tr>
 		<tr>
 			<td><?php echo T_("Database");?>:</td>
-			<td><input type="text" name="database" value="usvn" /></td>
+			<td><input type="text" name="database" value="<?php
+																									if (isset($_POST['database'])) {
+																										echo $_POST['database'];
+																									}
+																									else {
+																										echo "usvn";
+																									}
+																								?>" /></td>
 		</tr>
 		<tr>
 			<td><?php echo T_("Table prefix");?>:</td>
-			<td><input type="text" name="prefix" value="usvn_" /></td>
+			<td><input type="text" name="prefix" value="<?php
+																							if (isset($_POST['prefix'])) {
+																								echo $_POST['prefix'];
+																							}
+																							else {
+																								echo "usvn_";
+																							}
+																						?>" /></td>
 		</tr>
 	</table>
 	<input type="submit" value="<?php echo T_("Next step");?>">

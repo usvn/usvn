@@ -17,6 +17,10 @@
  *
  * $Id$
  */
+
+require_once 'Zend/Acl.php';
+require_once 'Zend/Acl/Role.php';
+
 class USVN_Db_Table_Access extends USVN_Db_Table  {
 	/**
 	 * The primary key column (underscore format).
@@ -41,9 +45,24 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 */
     protected $_name = "rights";
 
+    /**
+	 * Check if the user is allwed to go to an action
+	 *
+	 * @param string $login The login name of the user
+	 * @param string $project The project name, default if none
+	 * @param string $module The module name
+	 * @param string $controller The controller name
+	 * @param string $action The action name
+	 * @return bool true : the user is allwed, false : the user is not allwed
+	 */
     public function access($login, $project, $module, $controller, $action)
     {
-    	$right = $module . "_" . $controller . "_" . $action;
+    	$acl = new Zend_Acl();
+		$roleGuest = new Zend_Acl_Role('user');
+		
+		$right = $module . "_" . $controller . "_" . $action;
+		$acl->addRole($roleGuest);
+		
     	$db = $this->getAdapter();
     	$select = $db->select();
     	$select->from(USVN_Db_Table::$prefix . 'to_attribute', '*');
@@ -54,33 +73,34 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     	$select->join(USVN_Db_Table::$prefix . 'users', USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
-    	$select->where('lower(' . USVN_Db_Table::$prefix . 'rights.rights_label) = lower(?)', $right);
 		$result = $db->fetchAll($select);
+		for ($i = 0; $i < count($result); $i++) {
+			$tab = split('_', $result[$i]['rights_label']);
+			$acl->add(new Zend_Acl_Resource($tab[0] . "_" . $tab[1]));
+			if (count($tab) == 3) {
+				$acl->allow('user', $tab[0] . "_" . $tab[1], $tab[2]);
+			} elseif (count($tab) == 2) {
+				$acl->allow('user', $tab[0] . "_" . $tab[1]);
+			} else {
+				// Error in the right label
+			}
+		}
+		//$acl->deny('user', 'admin_user', 'edit');
+		try {
+			if ($acl->isAllowed('user', $module . "_" . $controller, $action) == 1)
+			{
+				echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login dispose du droit $right</b><br>";
+    			return false;
+    		} else {
+    			
+    			echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
+    			return true;
+    		}
 
-		/*
-    	$res = $db->query("
-			select count(*) as cn
-			from usvn_to_attribute, usvn_projects, usvn_rights, usvn_to_have, usvn_to_belong, usvn_users
-			where
-				//usvn_to_attribute.projects_id = usvn_projects.projects_id
-				//and usvn_to_attribute.rights_id = usvn_rights.rights_id
-				//and usvn_to_attribute.projects_id = usvn_to_have.projects_id
-				//and usvn_to_attribute.groups_id = usvn_to_belong.groups_id
-				//and usvn_to_have.users_id = usvn_to_belong.users_id
-				//and usvn_to_have.users_id = usvn_users.users_id
-				and usvn_users.users_login = \"$login\"
-				and lower(usvn_rights.rights_label) = lower(\"$right\");
-			");
-			*/
-    	//$tab = $res->fetchAll();
+		} catch (Exception  $e) {
+			echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
+			return false;
+   		}
 
-		/*
-    	if (empty($result)) {
-    		echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
-    		return false;
-    	} else {
-    		echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login dispose du droit $right</b><br>";
-    		return true;
-    	}*/
     }
 }

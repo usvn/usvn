@@ -55,6 +55,26 @@ class USVN_Template
 	}
 
 	/**
+	 * Return the validity of a directory
+	 *
+	 * @param string $directory
+	 * @return bool
+	 */
+	public static function isValidTemplateDirectory($directory)
+	{
+		if (!is_dir($directory)) {
+			return false;
+		}
+		if (!file_exists($directory . '/screen.css')) {
+			return false;
+		}
+		if (!file_exists($directory . '/print.css')) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	* Return available templates
 	*
 	* @todo check if it is a valid template directory
@@ -62,6 +82,13 @@ class USVN_Template
 	*/
 	public static function listTemplate()
 	{
-		return USVN_DirectoryUtils::listDirectory(USVN_Template::$locale_directory);
+		$res = array();
+		$list = USVN_DirectoryUtils::listDirectory(USVN_Template::$locale_directory);
+		foreach ($list as $filename) {
+			if (USVN_Template::isValidTemplateDirectory(USVN_MEDIAS_DIRECTORY . '/' . $filename)) {
+				$res[] = $filename;
+			}
+		}
+		return $res;
 	}
 }

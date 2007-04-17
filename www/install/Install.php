@@ -219,7 +219,7 @@ EOF;
 		$config->template = array("name" => "default");
 		$config->site = array(
 											"title" => strip_tags($title),
-											"ico" => "USVN.ico",
+											"ico" => "medias/default/images/USVN.ico",
 											"description" => strip_tags($description),
 											"logo" => "medias/default/images/USVN-logo.png"
 										);

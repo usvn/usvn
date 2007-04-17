@@ -90,6 +90,13 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse(in_array('..', $list));
 		$this->assertFalse(in_array('.svn', $list));
 	}
+
+	public function test_isValidLanguageDirectory()
+	{
+		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('fr_FR'));
+		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('en_US'));
+		$this->assertFalse(USVN_Translation::isValidLanguageDirectory('.svn'));
+	}
 }
 
 // Call USVN_TranslationTest::main() if this source file is executed directly.

@@ -57,13 +57,19 @@ class USVN_DirectoryUtilsTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse(file_exists('tests/tmp/dir'));
 	}
 
-	/**
-	 * Test listDirectory method
-	 * @todo finish the implement and write the test
-	 */
 	public function test_listDirectory()
 	{
-
+		@mkdir('tests/tmp/dir');
+		@mkdir('tests/tmp/dir/1');
+		@mkdir('tests/tmp/dir/2');
+		@mkdir('tests/tmp/dir/3');
+		$list = USVN_DirectoryUtils::listDirectory('tests/tmp/dir/');
+		$this->assertTrue(in_array('1', $list));
+		$this->assertTrue(in_array('2', $list));
+		$this->assertTrue(in_array('3', $list));
+		$this->assertFalse(in_array('..', $list));
+		$this->assertFalse(in_array('.svn', $list));
+		USVN_DirectoryUtils::removeDirectory('tests/tmp/dir');
 	}
 }
 

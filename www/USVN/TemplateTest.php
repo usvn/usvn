@@ -87,8 +87,8 @@ class USVN_TemplateTest extends PHPUnit_Framework_TestCase {
 
 	public function test_isValidTemplateDirectory()
 	{
-		$this->assertTrue(USVN_Template::isValidTemplateDirectory('default'));
-		$this->assertFalse(USVN_Template::isValidTemplateDirectory('.svn'));
+		$this->assertTrue(USVN_Template::isValidTemplateDirectory('www/medias/default'));
+		$this->assertFalse(USVN_Template::isValidTemplateDirectory('www/medias/.svn'));
 		$this->assertFalse(USVN_Template::isValidTemplateDirectory('.htaccess'));
 	}
 }

@@ -85,7 +85,7 @@ class USVN_Template
 		$res = array();
 		$list = USVN_DirectoryUtils::listDirectory(USVN_Template::$locale_directory);
 		foreach ($list as $filename) {
-			if (USVN_Template::isValidTemplateDirectory(USVN_MEDIAS_DIRECTORY . '/' . $filename)) {
+			if (USVN_Template::isValidTemplateDirectory(USVN_Template::$locale_directory . '/' . $filename)) {
 				$res[] = $filename;
 			}
 		}

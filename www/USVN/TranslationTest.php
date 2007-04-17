@@ -45,24 +45,6 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     *
-     * @access protected
-     */
-    protected function setUp() {
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @access protected
-     */
-    protected function tearDown() {
-    }
-
     public function test_getLanguage()
     {
 		USVN_Translation::initTranslation('fr_FR', 'www/locale');
@@ -93,9 +75,9 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 
 	public function test_isValidLanguageDirectory()
 	{
-		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('fr_FR'));
-		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('en_US'));
-		$this->assertFalse(USVN_Translation::isValidLanguageDirectory('.svn'));
+		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('www/locale/fr_FR'));
+		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('www/locale/en_US'));
+		$this->assertFalse(USVN_Translation::isValidLanguageDirectory('www/locale/.svn'));
 	}
 }
 

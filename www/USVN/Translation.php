@@ -64,11 +64,9 @@ class USVN_Translation
 		if (!file_exists($directory . '/messages.mo')) {
 			return false;
 		}
-		if (!file_exists($directory . '/messages.po')) {
-			return false;
-		}
 		return true;
 	}
+
 	/**
 	* Return available translations
 	* @todo check if it is a valid translation directory
@@ -80,7 +78,7 @@ class USVN_Translation
 		$res = array();
 		$list = USVN_DirectoryUtils::listDirectory(USVN_Translation::$locale_directory);
 		foreach ($list as $filename) {
-			if (USVN_Translation::isValidLanguageDirectory(USVN_LOCALE_DIRECTORY . '/' . $filename)) {
+			if (USVN_Translation::isValidLanguageDirectory(USVN_Translation::$locale_directory . '/' . $filename)) {
 				$res[] = $filename;
 			}
 		}

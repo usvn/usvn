@@ -255,7 +255,7 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals("Noplay", $config->site->title);
 		$this->assertEquals("default", $config->template->name);
 		$this->assertEquals("Test description", $config->site->description);
-		$this->assertEquals("USVN.ico", $config->site->ico);
+		$this->assertEquals("medias/default/images/USVN.ico", $config->site->ico);
 		$this->assertEquals("medias/default/images/USVN-logo.png", $config->site->logo);
 	}
 

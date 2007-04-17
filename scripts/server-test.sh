@@ -2,7 +2,7 @@
 
 cd ~/usvn
 svn update
-
+rm -Rf test
 phing test
 if [ $? != 0 ]
 then

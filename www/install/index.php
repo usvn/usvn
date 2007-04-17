@@ -75,7 +75,7 @@ function installationOperation($step)
 			break;
 
 			case 5:
-				Install::installConfiguration(CONFIG_FILE, $_POST['title']);
+				Install::installConfiguration(CONFIG_FILE, $_POST['title'], $_POST['description']);
 			break;
 
 			case 6:
@@ -83,7 +83,7 @@ function installationOperation($step)
 			break;
 
 			case 7:
-				Install::installAdmin(CONFIG_FILE, $_POST['login'], $_POST['password']);
+				Install::installAdmin(CONFIG_FILE, $_POST['login'], $_POST['password'], $_POST['firstname'], $_POST['lastname']);
 				Install::installUrl(CONFIG_FILE, HTACCESS_FILE);
 				Install::installEnd(CONFIG_FILE);
 			break;

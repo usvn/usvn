@@ -3,15 +3,27 @@
 	<table>
 		<tr>
 			<td><?php echo T_("Page title");?>:</td>
-			<td><input type="text" name="title" value="<?php
-																							if (isset($_POST['title'])) {
-																								echo $_POST['title'];
-																							}
-																							else {
-																								echo "USVN";
-																							}
-																						?>" /></td>
+			<td>
+				<input type="text" name="title" value="<?php
+					if (isset($_POST['title'])) {
+						echo $_POST['title'];
+					}
+					else {
+						echo "USVN";
+					}
+				?>" />
+			</td>
 		</tr>
-	</table>
+		<tr>
+			<td><?php echo T_("Description");?>:</td>
+			<td>
+				<textarea name="description" rows="5" cols="50"><?php
+					if (isset($_POST['description'])) {
+						echo $_POST['description'];
+					}
+				?></textarea>
+			</td>
+		</tr>
+		</table>
 	<input type="submit" value="<?php echo T_("Next step");?>" />
 </form>

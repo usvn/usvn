@@ -25,4 +25,9 @@ define('USVN_CONFIG_FILE', dirname(__FILE__) . '/config.ini');
 define('USVN_CONFIG_SECTION', 'general');
 define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
 
+if (!file_exists(USVN_CONFIG_FILE)) {
+	header("Location: install");
+	exit(0);
+}
+
 require_once USVN_DIRECTORY . '/bootstrap.php';

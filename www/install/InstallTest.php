@@ -215,11 +215,13 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallAdmin()
 	{
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
-		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword");
+		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword", "James", "Bond");
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));
 		$this->assertNotEquals(False, $user);
 		$this->assertEquals($user->password, crypt("secretpassword", $user->password));
+		$this->assertEquals("James", $user->firstname);
+		$this->assertEquals("Bond", $user->lastname);
 	}
 
 	public function testInstallEnd()
@@ -248,16 +250,19 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallConfiguration()
 	{
-		Install::installConfiguration("tests/tmp/config.ini", "Noplay");
+		Install::installConfiguration("tests/tmp/config.ini", "Noplay", "Test description");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("Noplay", $config->title);
-		$this->assertEquals("USVN", $config->style);
+		$this->assertEquals("Noplay", $config->site->title);
+		$this->assertEquals("default", $config->template->name);
+		$this->assertEquals("Test description", $config->site->description);
+		$this->assertEquals("USVN.ico", $config->site->ico);
+		$this->assertEquals("medias/default/images/USVN-logo.png", $config->site->logo);
 	}
 
 	public function testInstallConfigurationNotTitle()
 	{
 		try {
-			Install::installConfiguration("tests/tmp/config.ini", "");
+			Install::installConfiguration("tests/tmp/config.ini", "", "");
 		}
 		catch (USVN_Exception $e) {
 			return;

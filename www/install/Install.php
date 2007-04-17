@@ -150,17 +150,21 @@ EOF;
 	* Throw an exception in case of problems.
 	*
 	* @param string Path to the USVN config file
-	* @param string login
-	* @param string password
+	* @param string Admin login
+	* @param string Admin password
+	* @param string Admin first name
+	* @param string Admin last name
 	* @throw USVN_Exception
 	*/
-	static public function installAdmin($config_file, $login, $password)
+	static public function installAdmin($config_file, $login, $password, $firstname, $lastname)
 	{
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->insert(array(
 									'users_login' => $login,
-		   							'users_password' => crypt($password)
-										)
+		   							'users_password' => crypt($password),
+									'users_firstname' => $firstname,
+									'users_lastname' => $lastname
+									)
                                  );
 	}
 
@@ -201,18 +205,24 @@ EOF;
 	*
 	* @param string Path to the USVN config file
 	* @param string USVN page title
+	* @param string USVN description
 	* @return boolean
 	* @throw USVN_Exception
 	*/
-	static public function installConfiguration($config_file, $title)
+	static public function installConfiguration($config_file, $title, $description)
 	{
 		$title = rtrim($title);
 		if (strlen($title) == 0) {
 			throw new USVN_Exception(T_("Need a title."));
 		}
 		$config = Install::_loadConfig($config_file);
-		$config->style = "USVN";
-		$config->title = strip_tags($title);
+		$config->template = array("name" => "default");
+		$config->site = array(
+											"title" => strip_tags($title),
+											"ico" => "USVN.ico",
+											"description" => strip_tags($description),
+											"logo" => "medias/default/images/USVN-logo.png"
+										);
 		$config->save();
 	}
 }

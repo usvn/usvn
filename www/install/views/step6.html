@@ -1,22 +1,27 @@
 <script type="text/javascript">
 function checkForm() {
-	var spanError = document.getElementById('error');
+	var spanError = document.getElementById('usvn_error');
 	var checkRegExp = new RegExp("^[ \t]*$");
 	if (document.createAdmin.login.value.length == 0
 		|| checkRegExp.test(document.createAdmin.login.value)) {
-		spanError.innerHTML = 'Login empty.';
+		spanError.innerHTML = '<?php echo T_('Login empty.');?>';
+		return false;
+	}
+	if (document.createAdmin.lastname.value.length == 0
+		|| checkRegExp.test(document.createAdmin.lastname.value)) {
+		spanError.innerHTML = <?php echo T_('Lastname empty.');?>';
 		return false;
 	}
 	if (!document.createAdmin.password.value.length || !document.createAdmin.password2.value.length) {
-		spanError.innerHTML = 'Password empty.';
+		spanError.innerHTML = '<?php echo T_('Password empty.');?>';
 		return false;
 	}
 	if (document.createAdmin.password.value != document.createAdmin.password2.value) {
-		spanError.innerHTML = 'Password incorrect (not the same).';
+		spanError.innerHTML = '<?php echo T_('Password incorrect (not the same).');?>';
 		return false;
 	}
 	if (document.createAdmin.password.value.length < 8) {
-		spanError.innerHTML = 'Password incorrect (need more 8 characters).';
+		spanError.innerHTML = '<?php echo T_('Password incorrect (need more 8 characters).');?>';
 		return false;
 	}
 	spanError.innerHTML = '';
@@ -28,19 +33,47 @@ function checkForm() {
 	<table>
 		<tr>
 			<td><?php echo T_("Login");?>:</td>
-			<td><input type="text" name="login" value="<?php
-																							if (isset($_POST['login'])) {
-																								echo $_POST['login'];
-																							}
-																						?>"/></td>
+			<td>
+					<input type="text" name="login" value="<?php
+						if (isset($_POST['login'])) {
+							echo $_POST['login'];
+						}
+					?>"/>
+			</td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Firstname");?>:</td>
+			<td>
+					<input type="text" name="firstname" value="<?php
+						if (isset($_POST['firstname'])) {
+							echo $_POST['firstname'];
+						}
+					?>"/>
+			</td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Lastname");?>:</td>
+			<td>
+					<input type="text" name="lastname" value="<?php
+						if (isset($_POST['lastname'])) {
+							echo $_POST['lastname'];
+						}
+						else {
+							echo T_("Administrator");
+						}
+					?>"/>
+			</td>
 		</tr>
 		<tr>
 			<td><?php echo T_("Password");?>:</td>
 			<td><input type="password" name="password" /></td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Confirm password");?>:</td>
 			<td><input type="password" name="password2" /></td>
 		</tr>
 	</table>
 	<br /><br />
-	<div id="error" style="color: red; font-weight: bold;"></div>
+	<div id="usvn_error"></div>
 	<input type="submit" value="<?php echo T_("Next step");?>" onclick="return checkForm();">
 </form>

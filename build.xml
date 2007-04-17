@@ -78,10 +78,9 @@
 				</php>
 			</then>
 		</if>
-		<delete dir="tests" />
         <mkdir dir="tests" />
         <mkdir dir="tests/tmp" />
-        <delete file="${report_test_dir}/**" />
+        <delete dir="${report_test_dir}" />
         <mkdir dir="${report_test_dir}" />
 		<php function="define">
 			<param value="PHPUnit_MAIN_METHOD"/>

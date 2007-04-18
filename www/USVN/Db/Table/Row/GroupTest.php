@@ -18,6 +18,7 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 	private $groupTable;
 	private $group;
 	private $groupid;
+	private $users;
 
 	/**
      * Runs the test methods of this class.
@@ -38,6 +39,29 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 		$this->group = $this->groupTable->fetchNew();
 		$this->group->groups_name = 'test';
 		$this->groupid = $this->group->save();
+
+		$this->users = new USVN_Db_Table_Users();
+		$user = $this->users->insert(
+			array(
+				"users_id" => 2,
+				"users_login" => "test",
+				"users_password" => crypt("test")
+			)
+		);
+		$this->users->insert(
+			array(
+				"users_id" => 3,
+				"users_login" => "babar",
+				"users_password" => crypt("test")
+			)
+		);
+		$this->users->insert(
+			array(
+				"users_id" => 4,
+				"users_login" => "john",
+				"users_password" => crypt("test")
+			)
+		);
     }
 
 	public function testGroup()
@@ -46,40 +70,26 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 		$this->assertEquals('test', $this->group->name);
 	}
 
-	public function testAddUserToGroup()
+	public function testAddUser()
 	{
-		$users = new USVN_Db_Table_Users();
-		$user = $users->insert(
-			array(
-				"users_id" => 2,
-				"users_login" => "test",
-				"users_password" => crypt("test")
-			)
-		);
-		$users->insert(
-			array(
-				"users_id" => 3,
-				"users_login" => "babar",
-				"users_password" => crypt("test")
-			)
-		);
-		$users->insert(
-			array(
-				"users_id" => 4,
-				"users_login" => "john",
-				"users_password" => crypt("test")
-			)
-		);
-		$this->group->addUserToGroup($users->find(2)->current());
-		$this->group->addUserToGroup($users->find(3)->current());
-		$users = $this->group->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToGroups');
+		$this->group->addUser($this->users->find(2)->current());
+		$this->group->addUser($this->users->find(3)->current());
+		$this->users = $this->group->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToGroups');
 		$res = array();
-		foreach ($users as $user) {
+		foreach ($this->users as $user) {
 			array_push($res, $user->users_login);
 		}
 		$this->assertContains("test", $res);
 		$this->assertContains("babar", $res);
 		$this->assertNotContains("john", $res);
+	}
+
+	public function testUserIsMember()
+	{
+		$user = $this->users->find(2)->current();
+		$this->assertFalse($this->group->userIsMember($user));
+		$this->group->addUser($user);
+		$this->assertTrue($this->group->userIsMember($user));
 	}
 }
 

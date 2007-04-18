@@ -140,7 +140,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	public function isAGroup($name)
 	{
 		$group = $this->fetchRow(array('groups_name = ?' => $name));
-		if ($group === false) {
+		if ($group === NULL) {
 			return false;
 		}
 		return true;

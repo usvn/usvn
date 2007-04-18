@@ -17,13 +17,15 @@
  *
  * $Id $
  */
-class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row {
+class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
+{
 	/**
 	* Add an user to a group
 	*
 	* @param USVN_Db_Table_Row_User User
 	*/
-	public function addUserToGroup($user) {
+	public function addUser($user)
+	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$user_groups->insert(
 			array(
@@ -31,5 +33,26 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row {
 				"users_id" => $user->id
 			)
 		);
+	}
+
+	/**
+	* Check if an user is in the group
+	*
+	* @param USVN_Db_Table_Row_User User
+	* @return boolean
+	*/
+	public function userIsMember($user)
+	{
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$res = $user_groups->fetchRow(
+			array(
+				"groups_id = ?" => $this->id,
+				"users_id = ?" => $user->id
+			)
+		);
+		if ($res === NULL) {
+			return false;
+		}
+		return true;
 	}
 }

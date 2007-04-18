@@ -2,6 +2,8 @@
 /**
  * Model for groups table
  *
+ * Extends USVN_Db_Table for magic configuration and methods
+ *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info/
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
@@ -16,13 +18,6 @@
  * end of studies project.
  *
  * $Id $
- */
-
-/**
- * Model for groups table
- *
- * Extends USVN_Db_Table for magic configuration and methods
- *
  */
 class USVN_Db_Table_Groups extends USVN_Db_Table {
 	/**
@@ -48,6 +43,12 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 */
 	protected $_name = "groups";
 
+	/**
+	 * Name of the Row object to instantiate when needed.
+	 *
+	 * @var string
+	 */
+	protected $_rowClass = "USVN_Db_Table_Row_Group";
 
 	/**
 	 * Associative array map of declarative referential integrity rules.
@@ -139,9 +140,9 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	public function isAGroup($name)
 	{
 		$group = $this->fetchRow(array('groups_name = ?' => $name));
-		if ($group->name) {
-			return true;
+		if ($group === false) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 }

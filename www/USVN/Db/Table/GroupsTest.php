@@ -164,8 +164,7 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 			)
 		);
 		$group_table = new USVN_Db_Table_Groups();
-		$tablesRowset = $group_table->find(2);
-		$group = $tablesRowset->current();
+		$group = $group_table->find(2)->current();
 		$users = $group->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToGroups');
 		$res = array();
 		foreach ($users as $user) {

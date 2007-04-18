@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for files table
+ * A row into table
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info/
@@ -8,7 +8,7 @@
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
  * @package USVN_Db
- * @subpackage Table
+ * @subpackage Row
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
@@ -17,15 +17,7 @@
  *
  * $Id $
  */
-
-/**
- * @category   USVN
- * @package	USVN_Db
- * @subpackage Table
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license	http://framework.zend.com/license/new-bsd	 New BSD License
- */
-class USVN_Db_TableRow extends Zend_Db_Table_Row {
+class USVN_Db_Table_Row extends Zend_Db_Table_Row {
 	/**
 	 * Getter for camelCaps properties mapped to underscore_word columns.
 	 *

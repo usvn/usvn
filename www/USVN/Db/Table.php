@@ -54,7 +54,7 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 	 *
 	 * @var string
 	 */
-	protected $_rowClass = "USVN_Db_TableRow";
+	protected $_rowClass = "USVN_Db_Table_Row";
 
 	/**
 	 * The primary key column (underscore format).

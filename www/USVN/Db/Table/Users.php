@@ -168,7 +168,14 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	public function update(array $data, $where)
 	{
-		$this->check($data);
+		$this->checkLogin($data['users_login']);
+		//just for update's case
+		if (isset($data['users_password'])) {
+			$this->checkPassword($data['users_password']);
+		}
+		if (isset($data['users_email'])) {
+			$this->checkEmailAddress($data['users_email']);
+		}
 		//do the encryption if needed
 		/*if (isset($data['users_password'])) {
 			$data['users_password'] = crypt($data['users_password'], $data['users_password']);

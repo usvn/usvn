@@ -1,11 +1,6 @@
 <h1 id="usvnPageTitle"><?php echo T_("Projects list"); ?></h1>
 
 <?php
-/*<ul>
-$urlOptions = array();
-$urlOptions['module'] = 'admin';
-$urlOptions['controller'] = 'projects';
-$urlOptions['action'] = 'edit';*/
 
 print '<table class="tborder">' .
 		'<thead><tr class="titlebg">' .
@@ -17,8 +12,8 @@ print '<table class="tborder">' .
 
 if (count($this->projects)) {
 	foreach ($this->projects as $project) {
-		$edit = $this->url(array('action' => 'edit', 'id' => $project->id));
-		$delete = $this->url(array('action' => 'delete', 'id' => $project->id));
+		$edit = $this->url(array('action' => 'edit', 'name' => $project->name));
+		$delete = $this->url(array('action' => 'delete', 'name' => $project->name));
 		$edit_text = T_("Edit");
 		$delete_text = T_("Delete");
 		$line = <<<EOF

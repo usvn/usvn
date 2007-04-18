@@ -22,6 +22,20 @@ require_once 'USVN/modules/admin/controllers/IndexController.php';
 
 class admin_ProjectController extends admin_IndexController
 {
+	public static function getProjectDataFromPost()
+	{
+		$project = array('projects_name'			=> $_POST['projects_name'],
+							'projects_description'	=> $_POST['projects_description']
+						);
+		if (isset($_POST['projects_id']) && !empty($_POST['projects_id'])) {
+			$project['projects_id'] = $_POST['projects_id'];
+		}
+		if (isset($_POST['projects_start_date']) && !empty($_POST['projects_start_date'])) {
+			$project['projects_start_date'] = $_POST['projects_start_date'];
+		}
+		return $project;
+	}
+
 	public function indexAction()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -32,7 +46,8 @@ class admin_ProjectController extends admin_IndexController
 	public function newAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_Db_Table_Projects", "project");
+			$data = admin_ProjectController::getProjectDataFromPost();
+			$this->save("USVN_Db_Table_Projects", "project", $data);
 		}
 		$this->_render('form.html');
 	}
@@ -40,22 +55,26 @@ class admin_ProjectController extends admin_IndexController
 	public function editAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_Db_Table_Projects", "project");
+			$data = admin_ProjectController::getProjectDataFromPost();
+			$this->save("USVN_Db_Table_Projects", "project", $data);
 		} else {
 			$projectTable = new USVN_Db_Table_Projects();
-			$this->_view->project = $projectTable->fetchRow(array('projects_id = ?' => $this->getRequest()->getParam('id')));
+			$this->_view->project = $projectTable->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
 		}
 		$this->_render('form.html');
+		$this->_render('../group/attachment.html');
 	}
 
 	public function deleteAction()
 	{
 		if (!empty($_POST)) {
-			$this->delete("USVN_Db_Table_Projects", "project");
+			$data = admin_ProjectController::getProjectDataFromPost();
+			$this->delete("USVN_Db_Table_Projects", "project", $data);
 		} else {
 			$projectTable = new USVN_Db_Table_Projects();
-			$this->_view->project = $projectTable->fetchRow(array('projects_id = ?' => $this->getRequest()->getParam('id')));
+			$this->_view->project = $projectTable->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
 		}
 		$this->_render('form.html');
+		$this->_render('../group/attachment.html');
 	}
 }

@@ -12,9 +12,9 @@ if (count($this->groups)) {
 		$line = <<<EOF
 		<tr class='odd'>
 			<td>{$group->groups_name}</td>
-			<td><a href="{$this->url(array('action' => 'edit'))}">Edit</a>
+			<td><a href="{$this->url(array('action' => 'edit', 'name' => $group->groups_name))}">Edit</a>
 				&nbsp;
-				<!--<a href="{$this->url(array('action' => 'delete'))}">Delete</a>--></td>
+				<a href="{$this->url(array('action' => 'delete', 'name' => $group->groups_name))}">Delete</a></td>
 		</tr>\n
 EOF;
 		echo $line;

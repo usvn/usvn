@@ -1,0 +1,23 @@
+<h1><?php echo T_("User's attachements"); ?></h1>
+<?php
+print '<table class="tborder">' .
+		'<thead><tr class="titlebg">' .
+		'<th>' . T_('User\'s login') . '</th>' .
+		'<th>' . T_('Actions') . '</th>';
+		'</tr></thead><tbody>';
+
+if (count($this->users)) {
+	foreach ($this->users as $user) {
+		$line = <<<EOF
+		<tr class='odd'>
+			<td>{$user->users_login}</td>
+			<!--<td><a href="{$this->url(array('action' => 'edit', 'login' => $user->users_login))}">Edit</a>-->
+			&nbsp;
+			<!--<a href="{$this->url(array('action' => 'delete', 'login' => $user->users_login))}">Delete</a>--></td>
+		</tr>\n
+EOF;
+		echo $line;
+	}
+}
+print '</tbody></table><br />';
+?>

@@ -11,6 +11,7 @@ function checkName() {
 	return true;
 }
 </script>
+<h1><?php echo T_("Project's information"); ?></h1>
 <form name="project" method="post" action="<?php echo $this->url(); ?>">
 	<table>
 		<tr>
@@ -28,11 +29,10 @@ function checkName() {
 	<br /><br />
 	<div id="error" class="usvn_error"></div>
 	<?php
-	if (isset($this->project)) {
+	if (isset($this->project) && $this->project->id) {
 		echo $this->formHidden('projects_id', $this->project->id);
+	} else {
 		echo $this->formHidden('projects_start_date', date("Y/m/d h:m:s"));
 	}
 	?>
 </form>
-<br />
-<a href="<?php echo $this->url(array('action' => '')); ?>"><?php echo T_('Return'); ?></a>

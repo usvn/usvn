@@ -21,7 +21,7 @@ require_once 'USVN/modules/default/controllers/IndexController.php';
 
 class admin_IndexController extends IndexController
 {
-	protected function save($className, $name)
+	protected function save($className, $name, $data)
 	{
 		$table = new $className();
 		/* @var $table USVN_Db_Table */
@@ -32,9 +32,9 @@ class admin_IndexController extends IndexController
 		$primary = array();
 		$count = 0;
 		foreach ($info['primary'] as $key) {
-			if (isset($_POST[$key]) && $_POST[$key]) {
-				$primary[] = $_POST[$key];
-				unset($_POST[$key]);
+			if (isset($data[$key]) && $data[$key]) {
+				$primary[] = $data[$key];
+				unset($data[$key]);
 				$count++;
 			}
 		}
@@ -48,7 +48,7 @@ class admin_IndexController extends IndexController
 		}
 
 		try {
-			$obj->setFromArray($_POST);
+			$obj->setFromArray($data);
 			$obj->save();
 			if ($this->getRequest()->getActionName() == 'new') {
 				$this->saveAfterNew($obj, $name);
@@ -68,21 +68,20 @@ class admin_IndexController extends IndexController
 	 */
 	protected function saveAfterNew($obj, $name)
 	{
-		$this->_redirect("/admin/{$name}/edit/id/{$obj->id}/");
+		$this->_redirect("/admin/{$name}/");
 	}
 
 	/**
 	 *
 	 *
 	 */
-	protected function delete($className, $name)
+	protected function delete($className, $name, $data)
 	{
 		$table = new $className();
 		$db = $table->getAdapter();
 		$info = $table->info();
 
-		$id = $this->getRequest()->getParam('id');
-		$id = isset($_POST['id']) ? $_POST['id'] : $id;
+		$id = isset($data[$info['primary'][0]]) ? $data[$info['primary'][0]] : '';
 		$where = $db->quoteInto("{$info['primary'][0]} = ?", $id);
 		try {
 			$rows_affected = $table->delete($where);

@@ -11,6 +11,7 @@ function checkName() {
 	return true;
 }
 </script>
+<h1>Group's information</h1>
 <form name="group" method="post" action="<?php echo $this->url(); ?>">
 	<span class="usvn_label"><?php echo T_("Name"); ?>:</span>
 	<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null)); ?>
@@ -20,5 +21,3 @@ function checkName() {
 	<br /><br />
 	<div id="error" class="usvn_error"></div>
 </form>
-<br />
-<a href="<?php echo $this->url(array('action' => '')); ?>"><?php echo T_('Return'); ?></a>

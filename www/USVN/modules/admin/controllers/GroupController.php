@@ -22,6 +22,15 @@ require_once 'USVN/modules/admin/controllers/IndexController.php';
 
 class admin_GroupController extends admin_IndexController
 {
+	public static function getGroupDataFromPost()
+	{
+		$group = array('groups_name'	=> $_POST['groups_name']);
+		if (isset($_POST['groups_id']) && !empty($_POST['groups_id'])) {
+			$group['groups_id'] = $_POST['groups_id'];
+		}
+		return $group;
+	}
+
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Groups();
@@ -32,7 +41,8 @@ class admin_GroupController extends admin_IndexController
 	public function newAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_Db_Table_Groups", "group");
+			$data = admin_GroupController::getGroupDataFromPost();
+			$this->save("USVN_Db_Table_Groups", "group", $data);
 		}
 		$this->_render('form.html');
 	}
@@ -40,25 +50,30 @@ class admin_GroupController extends admin_IndexController
 	public function editAction()
 	{
 		if (!empty($_POST)) {
-			$this->save("USVN_Db_Table_Groups", "group");
+			$data = admin_GroupController::getGroupDataFromPost();
+			$this->save("USVN_Db_Table_Groups", "group", $data);
 		} else {
 			$groupTable = new USVN_Db_Table_Groups();
-			$this->_view->group = $groupTable->fetchRow(array('groups_id = ?' => $this->getRequest()->getParam('id')));
+			$this->_view->group = $groupTable->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
 		}
 		$this->_render('form.html');
+		$this->_render('../user/attachment.html');
+		$this->_render('../project/attachment.html');
 	}
 
-	/* Pas de suppression de group posant des problemes fonctionnels (perte de liaison non previsible) */
-	/*public function deleteAction()
+	public function deleteAction()
 	{
 		if (!empty($_POST)) {
-			$this->delete("USVN_Db_Table_Groups", "group");
+			$data = admin_GroupController::getGroupDataFromPost();
+			$this->delete("USVN_Db_Table_Groups", "group", $data);
 		} else {
 			$groupTable = new USVN_Db_Table_Groups();
-			$this->_view->group = $groupTable->fetchRow(array('groups_id = ?' => $this->getRequest()->getParam('id')));
+			$this->_view->group = $groupTable->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
 		}
 		$this->_render('form.html');
-	}*/
+		$this->_render('../user/attachment.html');
+		$this->_render('../project/attachment.html');
+	}
 
 	public function noRouteAction()
     {

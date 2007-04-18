@@ -1,0 +1,23 @@
+<h1><?php echo T_("Project's attachements"); ?></h1>
+<?php
+print '<table class="tborder">' .
+		'<thead><tr class="titlebg">' .
+		'<th>' . T_('Project\'s name') . '</th>' .
+		'<th>' . T_('Actions') . '</th>';
+		'</tr></thead><tbody>';
+
+if (count($this->projects)) {
+	foreach ($this->projects as $project) {
+		$line = <<<EOF
+		<tr class='odd'>
+			<td>{$project->projects_name}</td>
+			<!--<td><a href="{$this->url(array('action' => 'edit', 'name' => $project->projects_name))}">Edit</a>-->
+			&nbsp;
+			<!--<a href="{$this->url(array('action' => 'delete', 'name' => $project->projects_name))}">Delete</a>--></td>
+		</tr>\n
+EOF;
+		echo $line;
+	}
+}
+print '</tbody></table><br />';
+?>

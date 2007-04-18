@@ -125,6 +125,56 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$id = $obj->save();
 		$this->assertTrue($table->isAGroup('UpdateGroupOk2'));
     }
+
+	public function testFindUserInGroup()
+	{
+		$user = new USVN_Db_Table_Users();
+		$user->insert(
+			array(
+				"users_id" => 2,
+				"users_login" => "test",
+				"users_password" => crypt("test")
+			)
+		);
+		$user->insert(
+			array(
+				"users_id" => 3,
+				"users_login" => "babar",
+				"users_password" => crypt("test")
+			)
+		);
+		$user->insert(
+			array(
+				"users_id" => 4,
+				"users_login" => "john",
+				"users_password" => crypt("test")
+			)
+		);
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$user_groups->insert(
+			array(
+				"groups_id" => 2,
+				"users_id" => 2
+			)
+		);
+		$user_groups->insert(
+			array(
+				"groups_id" => 2,
+				"users_id" => 3
+			)
+		);
+		$group_table = new USVN_Db_Table_Groups();
+		$tablesRowset = $group_table->find(2);
+		$group = $tablesRowset->current();
+		$users = $group->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToGroups');
+		$res = array();
+		foreach ($users as $user) {
+			array_push($res, $user->users_login);
+		}
+		$this->assertContains("test", $res);
+		$this->assertContains("babar", $res);
+		$this->assertNotContains("john", $res);
+	}
 }
 
 // Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.

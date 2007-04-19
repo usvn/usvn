@@ -123,10 +123,11 @@ class Install
 		ereg("(.*)/install.*", $_SERVER['REQUEST_URI'], $regs);
 		$path =$regs[1];
 		$config = Install::_loadConfig($config_file);
-		$config->url = array(
-			"base" => $path,
-			"host" => $_SERVER['SERVER_NAME']
-		);
+		if (!isset($config->url)) {
+			$config->url = array();
+		}
+		$config->url->base = $path;
+		$config->url->host = $_SERVER['SERVER_NAME'];
 		$config->save();
 		$content = <<<EOF
 <Files *.ini>
@@ -222,12 +223,18 @@ EOF;
 		}
 		$config = Install::_loadConfig($config_file);
 		$config->template = array("name" => "default");
-		$config->site = array(
-											"title" => strip_tags($title),
-											"ico" => "medias/default/images/USVN.ico",
-											"description" => strip_tags($description),
-											"logo" => "medias/default/images/USVN-logo.png"
-										);
+		if (!isset($config->site)) {
+			$config->site = array();
+		}
+		$config->site->title = strip_tags($title);
+		$config->site->ico = "medias/default/images/USVN.ico";
+		$config->site->description = strip_tags($description);
+		$config->site->logo = "medias/default/images/USVN-logo.png";
+		if (!isset($config->url)) {
+			$config->url = array();
+		}
+		$config->url->title = strip_tags($title);
+		$config->url->description = strip_tags($description);
 		$config->save();
 	}
 }

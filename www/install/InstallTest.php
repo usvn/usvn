@@ -222,6 +222,9 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals($user->password, crypt("secretpassword", $user->password));
 		$this->assertEquals("James", $user->firstname);
 		$this->assertEquals("Bond", $user->lastname);
+		$groupTable = new USVN_Db_Table_Groups();
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admin'));
+		$this->assertTrue($group->userIsMember($user));
 	}
 
 	public function testInstallEnd()

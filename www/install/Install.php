@@ -159,13 +159,18 @@ EOF;
 	static public function installAdmin($config_file, $login, $password, $firstname, $lastname)
 	{
 		$userTable = new USVN_Db_Table_Users();
-		$user = $userTable->insert(array(
+		$user = $userTable->fetchNew();
+		$user->setFromArray(array(
 									'users_login' => $login,
 		   							'users_password' => crypt($password),
 									'users_firstname' => $firstname,
 									'users_lastname' => $lastname
 									)
                                  );
+		$user->save();
+		$groupTable = new USVN_Db_Table_Groups();
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admin'));
+		$group->addUser($user);
 	}
 
 	/**

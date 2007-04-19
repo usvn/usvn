@@ -11,12 +11,12 @@ VALUES (
 
 INSERT INTO `usvn_groups` ( `groups_id` , `groups_name` )
 VALUES (
-1 , 'anonymous'
+1 , 'All'
 );
 
 INSERT INTO `usvn_groups` ( `groups_id` , `groups_name` )
 VALUES (
-2 , 'admin'
+2 , 'Admin'
 );
 
 INSERT INTO `usvn_rights` ( `rights_id` , `rights_label` )

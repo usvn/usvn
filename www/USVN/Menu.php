@@ -43,7 +43,7 @@ class USVN_Menu
 
 	private function _loadModule($module, $module_dir)
 	{
-		Zend_Loader::loadFile("Menu.php", $module_dir);
+		Zend_Loader::loadFile("Menu.php", $module_dir, true);
 		$class = "USVN_modules_{$module}_Menu";
 		$menu = new $class();
 		$this->_topMenu += $menu->getTopMenu();

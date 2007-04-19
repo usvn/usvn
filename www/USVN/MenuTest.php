@@ -41,10 +41,10 @@ class USVN_MenuTest extends PHPUnit_Framework_TestCase
 	protected function setUp()
 	{
 		mkdir($this->moduledir);
-		mkdir($this->moduledir."/admin");
-		file_put_contents($this->moduledir."/admin/Menu.php", '
+		mkdir($this->moduledir."/fakeadmin");
+		file_put_contents($this->moduledir."/fakeadmin/Menu.php", '
 <?php
-class USVN_modules_admin_Menu
+class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
 {
 	public static function getTopMenu()
 	{
@@ -52,10 +52,10 @@ class USVN_modules_admin_Menu
 	}
 }
 ');
-		mkdir($this->moduledir."/tickets");
-		file_put_contents($this->moduledir."/tickets/Menu.php", '
+		mkdir($this->moduledir."/faketickets");
+		file_put_contents($this->moduledir."/faketickets/Menu.php", '
 <?php
-class USVN_modules_tickets_Menu
+class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 {
 	public static function getTopMenu()
 	{

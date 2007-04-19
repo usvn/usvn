@@ -18,6 +18,9 @@
  */
 
 class USVN_Exception extends Zend_Exception {
+	/**
+	* @param string
+	*/
 	public function __construct($message)
 	{
 		$params = func_get_args();

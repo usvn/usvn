@@ -25,7 +25,7 @@ require_once 'www/USVN/autoload.php';
 class USVN_Test_DB extends USVN_Test_Test {
 	protected $db;
 
-    public function setUp() {
+    protected function setUp() {
 		parent::setUp();
 		$params = array ('host'     => 'localhost',
                  'username' => 'usvn-test',
@@ -41,7 +41,7 @@ class USVN_Test_DB extends USVN_Test_Test {
 		USVN_Db_Utils::loadFile($this->db, "www/SQL/data.sql");
     }
 
-    public function tearDown() {
+    protected function tearDown() {
 		USVN_Db_Utils::deleteAllTables($this->db);
 		parent::tearDown();
     }

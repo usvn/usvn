@@ -22,12 +22,8 @@ require_once "PHPUnit/Framework/TestSuite.php";
 require_once 'www/USVN/autoload.php';
 
 abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
-
-    public function setUp() {
+    protected function setUp() {
 		USVN_Translation::initTranslation('en_US', 'www/locale');
-    }
-
-    public function tearDown() {
     }
 }
 

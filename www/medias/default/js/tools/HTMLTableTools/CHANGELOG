@@ -1,0 +1,31 @@
+
+http://htmltabletools.iassa.com/
+
+* Version 2.0 (16/01/2006) *
+	- changement de nom : sortHTMLTable -> HTMLTableTools
+	- fusion du script sortHTMLTable (v 1.5 évolution par vb1) et du script tableTools (v 0.6)
+	- la classe tableTools intégrait la première version du script sortHTMLTable et un système d'highlight des lignes au survol de la souris et de séléction simple ou multiple des lignes avec possibilité de récupérer les id des lignes séléctionnées
+	- utilisation de prototype.js Version 1.4
+	- utilisation de builder.js
+
+
+
+* Version 1.5 (14/01/2006) *
+	- Fonctionne sous IE (testé sous IE6) et FireFox
+	- Possibilité de tri sur plusieurs colonnes  : dans l'ordre naturel (+ importante en 1er) avec affichage de l'index de chaque colonne.
+	- Possibilité de modifier l'ordre d'affichage des colonnes en fonction de leur ordre de tri (option à l'instanciation)
+	- Il est possible de désactiver le tri d'une colonne en re-cliquant sur un bouton déjà actif.
+	- Recherche automatique du type de données dans les lignes suivantes si la 1ere est vide
+	- Remplacement des balises (&nbsp;...) par la fonction unescapeHTML de prototype.js pour ne pas géner l'ordre de tri
+	- Remplacement des accents pour ne pas géner l'ordre de tri (ils restent à l'affichage)
+
+
+
+* Version (08/01/2006) *
+Correction:
+	- La fonction de tri était appelée 2x à tort a cause d'un eventHandler "click" dupliqué ( sauf pour la 1ere colonne ).
+	- L'ordre de tri des colonnes précédement triées était invérsé lors du tri descendant d'une autre colonne.
+Ajout:
+	- La fleche de tri utilisée devient rouge pour indiquer le sens de tri.
+	- Un nombre est ajouté dans le titre des colonnes triées pour indiquer l'ordre dans lequels elles ont été triées. (Colonne 1, Colonne 2 ...) Il faut commencer le tri par la colonne que l'on souhaite comme dernier critére de tri.
+	- Pour déterminer le type de chaque colonne ( Nombre, date ou chaine ) : si la premiere cellule de la premiere ligne est vide, regarde dans les lignes suivantes.

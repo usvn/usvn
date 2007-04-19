@@ -1,13 +1,15 @@
+<script type="text/javascript">
+HTMLTableToolsOptions.skipCells = [4];
+</script>
 <h1 id="usvnPageTitle"><?php echo T_("Projects list"); ?></h1>
-
 <?php
 
-print '<table class="tborder">' .
-		'<thead><tr class="titlebg">' .
+print '<table class="sortable" id="project">' .
+		'<thead><tr>' .
 		'<th>' . T_('Name') . '</th>' .
 		'<th>' . T_('Start Date') . '</th>' .
 		'<th>' . T_('Description') . '</th>' .
-		'<th>' . T_('Action') . '</th>';
+		'<th>' . T_('Action') . '</th>' .
 		'</tr></thead><tbody>';
 
 if (count($this->projects)) {
@@ -17,7 +19,7 @@ if (count($this->projects)) {
 		$edit_text = T_("Edit");
 		$delete_text = T_("Delete");
 		$line = <<<EOF
-		<tr class='odd'>
+		<tr>
 			<td>{$project->projects_name}</td>
 			<td>{$project->projects_start_date}</td>
 			<td>{$project->projects_description}</td>

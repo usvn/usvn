@@ -18,3 +18,5 @@
 
 /* template's css call */
 <?php include($this->css_file); ?>
+
+/* End of screen css */

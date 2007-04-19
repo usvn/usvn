@@ -71,6 +71,9 @@ class USVN_Template
 		if (!file_exists($directory . '/print.css')) {
 			return false;
 		}
+		if (!file_exists($directory . '/script.js')) {
+			return false;
+		}
 		return true;
 	}
 

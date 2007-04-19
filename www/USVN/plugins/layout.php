@@ -56,10 +56,10 @@ class layout extends Zend_Controller_Plugin_Abstract
 		<meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
 		<meta name="description" content="{$url['description']}" />
 		<meta name="keywords" content="{$url['keywords']}" />
-		<link type="text/css" rel="stylesheet" media="screen" href="{$base_url}/css/" />
-		<link type="text/css" rel="stylesheet" media="print" href="{$base_url}/css/print"  />
 		<link rel="icon" href="{$base_url}/{$site['ico']}" type="image/x-icon" />
-		<script language="JavaScript" type="text/javascript" src="{$base_url}/medias/default/js/usvn.js"></script>
+		<link type="text/css" rel="stylesheet" media="screen" href="{$base_url}/css/screen" />
+		<link type="text/css" rel="stylesheet" media="print" href="{$base_url}/css/print" />
+		<script type="text/javascript" src="{$base_url}/js/"></script>
 	</head>
 	<body>
 		<div id="usvn_banner">
@@ -87,7 +87,13 @@ EOF;
 	 */
 	protected function addFooter($response)
 	{
+		$base_url = $this->getRequest()->getBaseUrl();
 		$footer = "";
+		//HTMLTableTools
+		$footer = "
+		<script type='text/javascript'>
+			lookForHTMLTableTools(HTMLTableToolsOptions);
+		</script>";
 		$profiler = Zend_Db_Table::getDefaultAdapter()->getProfiler();
 		if (is_array($profiler->getQueryProfiles())) {
 			$footer .= "	</div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Controller for login into default module
+ * Controller for css into default module
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -25,15 +25,17 @@ class CssController extends IndexController
 
 	public function screenAction()
 	{
+		$this->_view->medias_directory = $this->_request->getBaseUrl() .'/medias';
+		$this->_view->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->_view->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
-		$this->_view->image_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->_render('screen.css');
 	}
 
 	public function printAction()
 	{
+		$this->_view->medias_directory = $this->_request->getBaseUrl() .'/medias';
+		$this->_view->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->_view->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
-		$this->_view->image_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->_render('print.css');
 	}
 }

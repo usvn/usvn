@@ -49,6 +49,13 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	protected $_name = "projects";
 
 	/**
+	 * Name of the Row object to instantiate when needed.
+	 *
+	 * @var string
+	 */
+	protected $_rowClass = "USVN_Db_Table_Row_Project";
+
+	/**
 	 * Associative array map of declarative referential integrity rules.
 	 * This array has one entry per foreign key in the current table.
 	 * Each key is a mnemonic name for one reference rule.
@@ -66,7 +73,13 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_referenceMap = array();
+	protected $_referenceMap = array(
+	"ToAttribute" => array(
+	"columns"	=> array("projects_id"),
+	"refTable"   => "USVN_Db_Table_ToAttribute",
+	"refColumns" => array("rights_id", "groups_id", "projects_id", "files_id"),
+	)
+	);
 
 	/**
 	 * Simple array of class names of tables that are "children" of the current
@@ -76,7 +89,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_UsersToProjects");
+	protected $_dependentTables = array("USVN_Db_Table_ToAttribute");
 
 	/**
 	 * Return the project by his name

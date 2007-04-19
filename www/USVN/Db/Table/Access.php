@@ -45,6 +45,42 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 */
     protected $_name = "rights";
 
+	/**
+	 * Associative array map of declarative referential integrity rules.
+	 * This array has one entry per foreign key in the current table.
+	 * Each key is a mnemonic name for one reference rule.
+	 *
+	 * Each value is also an associative array, with the following keys:
+	 * - columns	= array of names of column(s) in the child table.
+	 * - refTable   = class name of the parent table.
+	 * - refColumns = array of names of column(s) in the parent table,
+	 *				in the same order as those in the 'columns' entry.
+	 * - onDelete   = "cascade" means that a delete in the parent table also
+	 *				causes a delete of referencing rows in the child table.
+	 * - onUpdate   = "cascade" means that an update of primary key values in
+	 *				the parent table also causes an update of referencing
+	 *				rows in the child table.
+	 *
+	 * @var array
+	 */
+	protected $_referenceMap = array(
+	"ToAttribute" => array(
+	"columns"	=> array("rights_id"),
+	"refTable"   => "USVN_Db_Table_ToAttribute",
+	"refColumns" => array("rights_id", "groups_id", "projects_id", "files_id"),
+	)
+	);
+
+	/**
+	 * Simple array of class names of tables that are "children" of the current
+	 * table, in other words tables that contain a foreign key to this one.
+	 * Array elements are not table names; they are class names of classes that
+	 * extend Zend_Db_Table_Abstract.
+	 *
+	 * @var array
+	 */
+	protected $_dependentTables = array("USVN_Db_Table_ToAttribute");
+
     /**
 	 * Check if the user is allwed to go to an action
 	 *
@@ -59,7 +95,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     {
     	$acl = new Zend_Acl();
 		$roleGuest = new Zend_Acl_Role('user');
-		
+
 		$right = $module . "_" . $controller . "_" . $action;
 		$acl->addRole($roleGuest);
     	$db = $this->getAdapter();
@@ -76,7 +112,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     	$select->where(USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
 		$result = $db->fetchAll($select);
-		
+
 		for ($i = 0; $i < count($result); $i++) {
 			$tab = split('_', $result[$i]['rights_label']);
 			$acl->add(new Zend_Acl_Resource($tab[0] . "_" . $tab[1]));
@@ -88,7 +124,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 				// Error in the right label
 			}
 		}
-		
+
 		try {
 			if ($acl->isAllowed('user', $module . "_" . $controller, $action) == 1)
 			{

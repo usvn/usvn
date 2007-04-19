@@ -192,9 +192,9 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	public function isAUser($login)
 	{
 		$user = $this->fetchRow(array('users_login = ?' => $login));
-		if ($user != false) {
-			return true;
+		if ($user === NULL) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 }

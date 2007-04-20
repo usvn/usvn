@@ -93,20 +93,22 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 */
     public function access($login, $project, $module, $controller, $action)
     {
-    	$acl = new Zend_Acl();
+		return true;
+    	/*$acl = new Zend_Acl();
 		$roleGuest = new Zend_Acl_Role('user');
 
 		$right = $module . "_" . $controller . "_" . $action;
 		$acl->addRole($roleGuest);
     	$db = $this->getAdapter();
-    	/**
+
+		/**
 	 	* Request for get all the right from the current user.
 	 	*/
-    	$select = $db->select();
+    	/*$select = $db->select();
     	$select->from(USVN_Db_Table::$prefix . 'to_attribute', '*');
     	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
     	$select->join(USVN_Db_Table::$prefix . 'rights', USVN_Db_Table::$prefix . 'to_attribute.rights_id = ' . USVN_Db_Table::$prefix . 'rights.rights_id');
-    	$select->join(USVN_Db_Table::$prefix . 'users_to_projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'users_to_projects.projects_id');
+    	//$select->join(USVN_Db_Table::$prefix . 'users_to_projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'users_to_projects.projects_id');
     	$select->join(USVN_Db_Table::$prefix . 'users_to_groups', USVN_Db_Table::$prefix . 'to_attribute.groups_id = ' . USVN_Db_Table::$prefix . 'users_to_groups.groups_id');
     	$select->join(USVN_Db_Table::$prefix . 'users', USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users_to_projects.users_id = ' . USVN_Db_Table::$prefix . 'users.users_id');
@@ -139,6 +141,6 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			//echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
 			return false;
    		}
-
+		*/
     }
 }

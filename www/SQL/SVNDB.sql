@@ -63,13 +63,13 @@ create table usvn_modules
 
 create table usvn_modules_to_projects
 (
-   projects_id          int not null,
    modules_id           numeric(8,0) not null,
-   primary key (projects_id, modules_id),
-   constraint fk_usvn_modules_to_projects foreign key (projects_id)
-      references usvn_projects (projects_id) on delete restrict on update restrict,
-   constraint fk_usvn_modules_to_projects2 foreign key (modules_id)
-      references usvn_modules (modules_id) on delete restrict on update restrict
+   projects_id          int not null,
+   primary key (modules_id, projects_id),
+   constraint fk_usvn_modules_to_projects foreign key (modules_id)
+      references usvn_modules (modules_id) on delete restrict on update restrict,
+   constraint fk_usvn_modules_to_projects2 foreign key (projects_id)
+      references usvn_projects (projects_id) on delete restrict on update restrict
 )type=INNODB;
 
 create table usvn_properties
@@ -87,11 +87,8 @@ create table usvn_properties
 create table usvn_rights
 (
    rights_id            int not null,
-   modules_id           numeric(8,0) not null,
    rights_label         varchar(255) not null,
-   primary key (rights_id),
-   constraint fk_usvn_rights_to_modules foreign key (modules_id)
-      references usvn_modules (modules_id) on delete restrict on update restrict
+   primary key (rights_id)
 )type=INNODB;
 
 create table usvn_to_attribute
@@ -99,7 +96,6 @@ create table usvn_to_attribute
    rights_id            int not null,
    groups_id            int not null,
    projects_id          int not null,
-   files_id             int not null,
    is_right             bool not null,
    primary key (rights_id, groups_id, projects_id),
    constraint fk_usvn_to_attribute foreign key (rights_id)

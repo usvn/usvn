@@ -1,6 +1,6 @@
 <?php
 /**
- * Menu for admin module
+ * Menu for default module
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -17,7 +17,7 @@
  *
  * $Id$
  */
-class USVN_modules_admin_Menu extends USVN_modules_default_AbstractMenu
+class USVN_modules_changeset_Menu extends USVN_modules_default_AbstractMenu
 {
 	/**
 	* Get menu entries in top menu.
@@ -27,11 +27,15 @@ class USVN_modules_admin_Menu extends USVN_modules_default_AbstractMenu
 	*/
 	public static function getTopMenu($request)
 	{
-		return array(
-			array(
-				"title" => T_("Administration"),
-				"link"=> "admin"
-			)
-		);
+		$project = $request->getParam("project");
+		if ($project !== '__NONE__') {
+			return array(
+				array(
+					"title" => T_("Changeset"),
+					"link"=> "project/" . $project . "/changeset/"
+				)
+			);
+		}
+		return array();
 	}
 }

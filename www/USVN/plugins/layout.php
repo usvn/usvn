@@ -47,7 +47,7 @@ class layout extends Zend_Controller_Plugin_Abstract
 		$url = Zend_Registry::get('url');
 		$site = Zend_Registry::get('site');
 		$base_url = $this->getRequest()->getBaseUrl();
-		$menu = new USVN_Menu("USVN/modules");
+		$menu = new USVN_Menu("USVN/modules", $this->getRequest());
 		$menuEntries = $menu->getTopMenu();
 		$menu_top = "";
 		$homepage = T_("Homepage");

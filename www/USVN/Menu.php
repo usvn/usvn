@@ -19,12 +19,15 @@
 class USVN_Menu
 {
 	private $_topMenu = array();
+	private $_request;
 
 	/**
 	* @param string Path of module directory
+	* @param Zend_Controller_Request_Abstract Request
 	*/
-	public function __construct($module_path)
+	public function __construct($module_path, $request)
 	{
+		$this->_request = $request;
 		if ($dh = opendir($module_path)) {
 			while (($module = readdir($dh)) !== false) {
 				if ($module{0} != '.') {
@@ -46,7 +49,7 @@ class USVN_Menu
 		Zend_Loader::loadFile("Menu.php", $module_dir, true);
 		$class = "USVN_modules_{$module}_Menu";
 		$menu = new $class();
-		$this->_topMenu = array_merge($this->_topMenu, $menu->getTopMenu());
+		$this->_topMenu = array_merge($this->_topMenu, $menu->getTopMenu($this->_request));
 	}
 
 	/**

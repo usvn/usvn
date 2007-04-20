@@ -88,7 +88,7 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 
 	public function test_getTopMenu()
 	{
-		$menu = new USVN_Menu($this->moduledir);
+		$menu = new USVN_Menu($this->moduledir, new Zend_Controller_Request_Http());
 		$menuEntries = $menu->getTopMenu();
 		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin/"), $menuEntries);
 		$this->assertContains(array("title" => T_("View tickets"), "link"=> "tickets/"), $menuEntries);

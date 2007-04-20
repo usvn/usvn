@@ -19,12 +19,18 @@
  */
 class USVN_modules_default_Menu extends USVN_modules_default_AbstractMenu
 {
-	public static function getTopMenu()
+	/**
+	* Get menu entries in top menu.
+	*
+	* @param Zend_Controller_Request_Abstract Request
+	* @return array
+	*/
+	public static function getTopMenu($request)
 	{
 		return array(
 			array(
 				"title" => T_("Homepage"),
-				"link"=> "/"
+				"link"=> ""
 			),
 			array(
 				"title" => T_("Sign in"),

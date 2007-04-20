@@ -21,9 +21,10 @@ abstract class USVN_modules_default_AbstractMenu
 	/**
 	* Get menu entries from in top menu.
 	*
-	* @return array with menu entry ex: ("Admin" => "admin/", "Login" => "Login/)
+	* @param Zend_Controller_Request_Abstract Request
+	* @return array
 	*/
-	public static function getTopMenu()
+	public static function getTopMenu($request)
 	{
 		return array();
 	}

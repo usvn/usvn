@@ -27,7 +27,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class USVN_modules_admin_MenuTest extends PHPUnit_Framework_TestCase {
+class USVN_modules_admin_MenuTest extends USVN_Test_Test {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
@@ -38,8 +38,8 @@ class USVN_modules_admin_MenuTest extends PHPUnit_Framework_TestCase {
 	public function test_getTopMenu()
 	{
 		$menu = new USVN_modules_admin_Menu();
-		$menuEntries = $menu->getTopMenu();
-		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin/"), $menuEntries);
+		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http());
+		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin"), $menuEntries);
 	}
 }
 

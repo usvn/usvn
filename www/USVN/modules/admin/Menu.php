@@ -23,4 +23,18 @@ class USVN_modules_admin_Menu extends USVN_modules_default_AbstractMenu
 	{
 		return array("Admin" => "admin/");
 	}
+
+	public static function generateMenuPath($request)
+	{
+		$base_url = $request->getBaseUrl();
+		$module = $request->getModuleName();
+		$controller = $request->getControllerName();
+		$action = $request->getActionName();
+
+		$menuPath = "|<a href='" . $base_url . "/'>Home</a>";
+		$menuPath .= $module != 'default' ? " /<a href='{$base_url}/{$module}/'>{$module}</a>" : '';
+		$menuPath .= $controller != 'index' ? " /<a href='{$base_url}/{$module}/{$controller}'>{$controller}</a>" : '';
+		$menuPath .= $action != 'index' ? " /<a href='{$base_url}/{$module}/{$controller}/{$action}'>{$action}</a>" : '';
+		return $menuPath;
+	}
 }

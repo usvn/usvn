@@ -47,6 +47,7 @@ class layout extends Zend_Controller_Plugin_Abstract
 		$url = Zend_Registry::get('url');
 		$site = Zend_Registry::get('site');
 		$base_url = $this->getRequest()->getBaseUrl();
+		$menu_path = USVN_modules_admin_Menu::generateMenuPath($this->getRequest());
 		$header = <<<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -69,7 +70,9 @@ class layout extends Zend_Controller_Plugin_Abstract
 				</a>
 			</div>
 		</div>
-		<div id="usvn_menu"></div>
+		<div id="usvn_menu">
+			{$menu_path}
+		</div>
 		<div id="usvn_pub"></div>
 		<div id="usvn_content">
 EOF;

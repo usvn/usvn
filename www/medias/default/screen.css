@@ -67,6 +67,18 @@ img {border: 0;}
 	font-weight: bold;
 }
 
+#usvn_menu, #usvn_menu a {
+	color: #AFAFAF;
+	font-size: small;
+	background-color: #000000;
+	border-bottom: 4px solid #0A1648;
+	padding-left: 5px;
+}
+
+#usvn_menu a:hover {
+	color: white;
+}
+
 #usvn_debug div:hover div{
 	display: block;
 }

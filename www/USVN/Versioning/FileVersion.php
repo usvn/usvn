@@ -34,13 +34,11 @@ class USVN_Versioning_FileVersion
 	public function __construct($project, $path, $version)
 	{
 		$this->path = $path;
+
 		$this->project = $project;
 
-		//$this->version = getversion();
 		//on recherche l'id du fichier en private
 		$files = new USVN_Db_Table_Files();
-
-		/* @var $table Zend_Db_Adapter_Abstract */
 
 		$file = $files->fetchRow('files_path =' . $this->path);
 

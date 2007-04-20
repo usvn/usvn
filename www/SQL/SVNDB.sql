@@ -1,4 +1,4 @@
-create table usvn_projects
+﻿create table usvn_projects
 (
    projects_id          int not null,
    projects_name        varchar(255) not null,
@@ -8,7 +8,6 @@ create table usvn_projects
    projects_url         varchar(300),
    primary key (projects_id)
 )type=INNODB;
-
 
 create table usvn_users
 (
@@ -20,7 +19,6 @@ create table usvn_users
    users_email          varchar(150),
    primary key (users_id)
 )type=INNODB;
-
 
 create table usvn_revisions
 (
@@ -36,7 +34,6 @@ create table usvn_revisions
       references usvn_users (users_id) on delete restrict on update restrict
 )type=INNODB;
 
-
 create table usvn_files
 (
    projects_id          int not null,
@@ -50,7 +47,6 @@ create table usvn_files
       references usvn_revisions (projects_id, revisions_num) on delete restrict on update restrict
 )type=INNODB;
 
-
 create table usvn_groups
 (
    groups_id            int not null,
@@ -58,6 +54,23 @@ create table usvn_groups
    primary key (groups_id)
 )type=INNODB;
 
+create table usvn_modules
+(
+   modules_id           numeric(8,0) not null,
+   modules_names        varchar(33) not null,
+   primary key (modules_id)
+)type=INNODB;
+
+create table usvn_modules_to_projects
+(
+   projects_id          int not null,
+   modules_id           numeric(8,0) not null,
+   primary key (projects_id, modules_id),
+   constraint fk_usvn_modules_to_projects foreign key (projects_id)
+      references usvn_projects (projects_id) on delete restrict on update restrict,
+   constraint fk_usvn_modules_to_projects2 foreign key (modules_id)
+      references usvn_modules (modules_id) on delete restrict on update restrict
+)type=INNODB;
 
 create table usvn_properties
 (
@@ -71,14 +84,15 @@ create table usvn_properties
       references usvn_files (projects_id, revisions_num, files_id) on delete restrict on update restrict
 )type=INNODB;
 
-
 create table usvn_rights
 (
    rights_id            int not null,
+   modules_id           numeric(8,0) not null,
    rights_label         varchar(255) not null,
-   primary key (rights_id)
+   primary key (rights_id),
+   constraint fk_usvn_rights_to_modules foreign key (modules_id)
+      references usvn_modules (modules_id) on delete restrict on update restrict
 )type=INNODB;
-
 
 create table usvn_to_attribute
 (
@@ -86,6 +100,7 @@ create table usvn_to_attribute
    groups_id            int not null,
    projects_id          int not null,
    files_id             int not null,
+   is_right             bool not null,
    primary key (rights_id, groups_id, projects_id),
    constraint fk_usvn_to_attribute foreign key (rights_id)
       references usvn_rights (rights_id) on delete restrict on update restrict,
@@ -94,7 +109,6 @@ create table usvn_to_attribute
    constraint fk_usvn_to_attribute3 foreign key (projects_id)
       references usvn_projects (projects_id) on delete restrict on update restrict
 )type=INNODB;
-
 
 create table usvn_users_to_groups
 (
@@ -106,17 +120,4 @@ create table usvn_users_to_groups
    constraint fk_usvn_users_to_groups2 foreign key (groups_id)
       references usvn_groups (groups_id) on delete restrict on update restrict
 )type=INNODB;
-
-
-create table usvn_users_to_projects
-(
-   users_id             int not null,
-   projects_id          int not null,
-   primary key (users_id, projects_id),
-   constraint fk_usvn_users_to_projects foreign key (users_id)
-      references usvn_users (users_id) on delete restrict on update restrict,
-   constraint fk_usvn_users_to_projects2 foreign key (projects_id)
-      references usvn_projects (projects_id) on delete restrict on update restrict
-)type=INNODB;
-
 

@@ -32,7 +32,7 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_primary = array("projects_id", "revisions_num","files_id");
+	protected $_primary = array("projects_id", "revisions_num", "files_id");
 
 	/**
 	 * The table name derived from the class name (underscore format).
@@ -40,6 +40,20 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_name = "files";
+
+	/**
+     * Default classname for row
+     *
+     * @var string
+     */
+	protected $_rowClass = 'USVN_Db_TableRow_Files';
+
+	/**
+     * Default classname for rowset
+     *
+     * @var string
+     */
+	protected $_rowsetClass = 'USVN_Db_TableRowSet_Files';
 
 	/**
 	 * Function which return the last files's version
@@ -75,41 +89,82 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
 	 * @param int $revisions
 	 * @return Zend_Db_Table_Rowset
 	 */
-	public function fetchGetFiles($project_id, $revisions)
+	public function fetchGetFiles($project_id, $revisions, $path = null)
 	{
 		$db = $this->getAdapter();
 		/* @var $db Zend_Db_Adapter_Abstract */
 
 		$where = $db->quoteInto('projects_id = ?', $project_id);
-		$where .= $db->quoteInto(' AND revisions_num = ?', $revisions);
-
-		return $this->fetchAll($where);
+		$where .= $db->quoteInto(' AND revisions_num <= ?', $revisions);
+		if ($path != null) {
+			$where .= $db->quoteInto(' AND files_path like ?', $path);}
+			$group = $db->quoteInto('GROUP BY', $path);
+			return $this->fetchAll($where, null, null, null, $group);
 	}
 
+
 	/**
+	 * Recupere les fichiers correspondants aux parametres
 	 *
-	 * @todo Faire le tag PHPdoc
-	 * @todo Renommer la methode; elle doit permettre de trouver un rowset de fichier facilement
 	 * @param unknown_type $project
 	 * @param unknown_type $path
 	 * @param unknown_type $version
 	 */
-	static public function getInstance($project, $path, $version)
+	static public function getfiles($project, $path , $version = null)
 	{
-		$this->path = $path;
-		$this->project = $project;
-		//On recherche le fichier dans la DB et on met $this->version � la version trouv�e (Voir getVersion pour plus d'explication)
-		//on recherche l'id du fichier en private
-		$files = new USVN_Db_Table_Files();
 
-		$files = $table->fetchRow('files_path =' . $this->path);
-		$this->files_id = $files->files_id;
+		if ($version != null) {
+			/**
+		 * Instancie la classe model
+		 */
+			$table = new USVN_Db_Table_Files();
 
-		//$this->version = getversion();
+			$files = $table->getfiles($project, $version, $path);
+		}
+		else {
+			$table = $this->getAdapter();
+			/* @var $db Zend_Db_Adapter_Abstract */
+
+			$where = $db->quoteInto('files_path like ?', $this->path);
+			$where = $db->quoteInto('projects_id = ?', $this->project);
+			$cols = $this->_cols;
+			$this->_cols = array('max(revisions_num) as revisions_num, files_id, files_path, files_typ_rev');
+			$ret = $this->fetchRow($where, null, 'files_path');
+			$this->_cols = $cols;
+			return $ret;
+		}
+
+
+	}
+
+	/**
+	 * Recupere le fichier correspondant aux parametres
+	 *
+	 * @param unknown_type $project
+	 * @param unknown_type $path
+	 * @param unknown_type $version
+	 * @return USVN_Db_TableRow_Files
+	 */
+	static public function getFile($project, $path, $version = null)
+	{
+		/**
+		 * Instancie la classe model
+		 */
 		$table = new USVN_Db_Table_Files();
 
-		$result = $table->fetchMaxVersionFiles($this->files_id);
+		/**
+		 * Trouve le file_id exacte pour le chemin passer en parametre
+		 */
+		$files_id = $table->fetchRow('files_path =' . $this->path)->files_id;
 
-		$this->version = $result->revisions_num;
+		/**
+		 * Trouve la derniere version du fichier inferieure ou egale a $version
+		 */
+		$version = $table->fetchMaxVersionFiles($this->files_id, $version)->revisions_num;
+
+		/**
+		 * Retourne un objet resultat
+		 */
+		return $table->find($project, $version, $files_id);
 	}
 }

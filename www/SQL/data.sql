@@ -30,22 +30,17 @@ VALUES (
 2 , 'svnhooks_index_index'
 );
 
-INSERT INTO `usvn_to_attribute` ( `rights_id` , `groups_id` , `projects_id` , `files_id` )
+INSERT INTO `usvn_to_attribute` ( `rights_id` , `groups_id` , `projects_id` )
 VALUES (
-1, 1, 1, 0
+1, 1, 1
 );
 
-INSERT INTO `usvn_to_attribute` ( `rights_id` , `groups_id` , `projects_id` , `files_id` )
+INSERT INTO `usvn_to_attribute` ( `rights_id` , `groups_id` , `projects_id` )
 VALUES (
-2, 1, 1, 0
+2, 1, 1
 );
 
 INSERT INTO `usvn_users_to_groups` ( `users_id` , `groups_id` )
-VALUES (
-1, 1
-);
-
-INSERT INTO `usvn_users_to_projects` ( `users_id` , `projects_id` )
 VALUES (
 1, 1
 );

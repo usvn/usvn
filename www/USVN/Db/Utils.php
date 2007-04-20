@@ -43,7 +43,7 @@ class USVN_Db_Utils
 					$db->query($ligne);
 				}
 				catch (Exception $e) {
-					throw new USVN_Exception("Can't load file at:\n$ligne");
+					throw new USVN_Exception(T_("Can't load file %s at:\n%s"), $path, $ligne);
 				}
 			}
 		}

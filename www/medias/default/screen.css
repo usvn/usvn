@@ -19,11 +19,8 @@ body > div {
 
 img {border: 0;}
 
-#usvn_banner {
-	background: #334BCF;
-}
-
 #usvn_header {
+	background-color: #334BCF;
 	background-image:url(<?php echo $this->images_directory ;?>/bg_banner.png);
 	border-bottom: 4px solid #0A1648;
 	background-repeat:repeat-x;
@@ -67,17 +64,34 @@ img {border: 0;}
 	font-weight: bold;
 }
 
-#usvn_menu, #usvn_menu a {
-	color: #AFAFAF;
-	font-size: small;
+ul#usvn_menu {
 	background-color: #000000;
 	border-bottom: 4px solid #0A1648;
-	padding-left: 5px;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	font-size: small;
 }
+
+
+#usvn_menu li {
+	display: inline;
+	margin-left: 4px;
+}
+
+#usvn_menu a {
+	color: #AFAFAF;
+	padding-left: 5px;
+	padding-right: 5px;
+	border: 1px solid #AFAFAF;
+}
+
 
 #usvn_menu a:hover {
 	color: white;
+	border: 1px solid white;
 }
+
 
 #usvn_debug div:hover div{
 	display: block;

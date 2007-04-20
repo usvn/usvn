@@ -1,6 +1,6 @@
 <?php
 /**
- * Menu for admin module
+ * Menu for default module
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -17,14 +17,22 @@
  *
  * $Id$
  */
-class USVN_modules_admin_Menu extends USVN_modules_default_AbstractMenu
+class USVN_modules_default_Menu extends USVN_modules_default_AbstractMenu
 {
 	public static function getTopMenu()
 	{
 		return array(
 			array(
-				"title" => T_("Administration"),
-				"link"=> "admin/"
+				"title" => T_("Homepage"),
+				"link"=> "/"
+			),
+			array(
+				"title" => T_("Sign in"),
+				"link"=> "login/"
+			),
+			array(
+				"title" => T_("Logout"),
+				"link"=> "logout/"
 			)
 		);
 	}

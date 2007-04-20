@@ -47,7 +47,13 @@ class layout extends Zend_Controller_Plugin_Abstract
 		$url = Zend_Registry::get('url');
 		$site = Zend_Registry::get('site');
 		$base_url = $this->getRequest()->getBaseUrl();
-		$menu_path = USVN_modules_admin_Menu::generateMenuPath($this->getRequest());
+		$menu = new USVN_Menu("USVN/modules");
+		$menuEntries = $menu->getTopMenu();
+		$menu_top = "";
+		$homepage = T_("Homepage");
+		foreach ($menuEntries as $elem) {
+			$menu_top .= '<li><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
+		}
 		$header = <<<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -63,17 +69,14 @@ class layout extends Zend_Controller_Plugin_Abstract
 		<script type="text/javascript" src="{$base_url}/js/"></script>
 	</head>
 	<body>
-		<div id="usvn_banner">
-			<div id="usvn_header">
-				<a id="usvn_logo" href="{$base_url}/">
-					<img src="{$base_url}/{$site['logo']}" alt="{$site['description']}" title="" />
-				</a>
-			</div>
+		<div id="usvn_header">
+			<a id="usvn_logo" href="{$base_url}/">
+				<img src="{$base_url}/{$site['logo']}" alt="{$homepage}" />
+			</a>
 		</div>
-		<div id="usvn_menu">
-			{$menu_path}
-		</div>
-		<div id="usvn_pub"></div>
+		<ul id="usvn_menu">
+			{$menu_top}
+		</ul>
 		<div id="usvn_content">
 EOF;
 		$body = $response->getBody(true);

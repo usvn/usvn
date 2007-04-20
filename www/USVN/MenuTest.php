@@ -26,7 +26,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class USVN_MenuTest extends PHPUnit_Framework_TestCase
+class USVN_MenuTest extends USVN_Test_Test
 {
 	private $moduledir = 'tests/modules/';
 
@@ -40,6 +40,7 @@ class USVN_MenuTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
+		parent::setUp();
 		mkdir($this->moduledir);
 		mkdir($this->moduledir."/fakeadmin");
 		file_put_contents($this->moduledir."/fakeadmin/Menu.php", '
@@ -48,7 +49,12 @@ class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
 {
 	public static function getTopMenu()
 	{
-		return array("Admin" => "admin/");
+		return array(
+			array(
+				"title" => T_("Administration"),
+				"link"=> "admin/"
+			)
+		);
 	}
 }
 ');
@@ -59,7 +65,16 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 {
 	public static function getTopMenu()
 	{
-		return array("View tickets" => "tickets/", "My tickets" => "tickets/my");
+		return array(
+			array(
+				"title" => T_("View tickets"),
+				"link"=> "tickets/"
+			),
+			array(
+				"title" => T_("My tickets"),
+				"link"=> "tickets/my"
+			)
+		);
 	}
 }
 ');
@@ -68,15 +83,16 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
     protected function tearDown()
 	{
 		USVN_DirectoryUtils::removeDirectory($this->moduledir);
+		parent::tearDown();
     }
 
 	public function test_getTopMenu()
 	{
 		$menu = new USVN_Menu($this->moduledir);
 		$menuEntries = $menu->getTopMenu();
-		$this->assertEquals("admin/", $menuEntries["Admin"]);
-		$this->assertEquals("tickets/", $menuEntries["View tickets"]);
-		$this->assertEquals("tickets/my", $menuEntries["My tickets"]);
+		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin/"), $menuEntries);
+		$this->assertContains(array("title" => T_("View tickets"), "link"=> "tickets/"), $menuEntries);
+		$this->assertContains(array("title" => T_("My tickets"), "link"=> "tickets/my"), $menuEntries);
 	}
 }
 

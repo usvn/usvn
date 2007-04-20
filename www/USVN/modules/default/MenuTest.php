@@ -1,6 +1,6 @@
 <?php
 /**
- * Menu for admin module
+ * Menu for default module
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -27,7 +27,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class USVN_modules_admin_MenuTest extends PHPUnit_Framework_TestCase {
+class USVN_modules_default_MenuTest extends PHPUnit_Framework_TestCase {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
@@ -37,9 +37,9 @@ class USVN_modules_admin_MenuTest extends PHPUnit_Framework_TestCase {
 
 	public function test_getTopMenu()
 	{
-		$menu = new USVN_modules_admin_Menu();
+		$menu = new USVN_modules_default_Menu();
 		$menuEntries = $menu->getTopMenu();
-		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin/"), $menuEntries);
+		$this->assertContains(array("title" => T_("Homepage"), "link"=> "/"), $menuEntries);
 	}
 }
 

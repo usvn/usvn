@@ -77,8 +77,15 @@ class IndexController extends Zend_Controller_Action {
 		$this->_view->assign('module', $this->getRequest()->getParam('module'));
 		$this->_view->assign('controller', $this->getRequest()->getParam('controller'));
 		$this->_view->assign('action', $this->getRequest()->getParam('action'));
-
-		$this->_checkAccess(Zend_Auth::getInstance()->getIdentity());
+		
+		if ($this->_checkAccess(Zend_Auth::getInstance()->getIdentity()))
+		{
+			// The current use is allowed
+		} else {
+			// The current use is not allowed
+			throw new Zend_Controller_Exception("You are not allowed to access to the controller $controller and module is $module.");
+		}
+		
 	}
 
 	/**
@@ -92,18 +99,20 @@ class IndexController extends Zend_Controller_Action {
 		$controller = $this->getRequest()->getControllerName();
 		$project = $this->getRequest()->getParam('project');
 		$action = $this->getRequest()->getParam('action');
-		//echo $module . " ". $controller . " " .$project . " " .$action."<br>";
-		//$right = $module . "_" . $controller . "_" . $action;
 		$user = $identity['username'];
+		if (!$project) {
+			$project = "__NONE__";
+		}
+		
 		if (!$identity['username']) {
 			$user = "anonymous";
 		}
 		$access = new USVN_Db_Table_Access();
-		$access->access($user, $project, $module, $controller, $action);
+		return $access->access($user, $project, $module, $controller, $action);
 	}
 
 	/**
-	 * Default action for evry controller.
+	 * Default action for every controller.
 	 *
 	 */
 	public function indexAction() {

@@ -223,7 +223,9 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals("James", $user->firstname);
 		$this->assertEquals("Bond", $user->lastname);
 		$groupTable = new USVN_Db_Table_Groups();
-		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admin'));
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admins'));
+		$this->assertTrue($group->userIsMember($user));
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Users'));
 		$this->assertTrue($group->userIsMember($user));
 	}
 

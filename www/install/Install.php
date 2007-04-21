@@ -170,7 +170,15 @@ EOF;
                                  );
 		$user->save();
 		$groupTable = new USVN_Db_Table_Groups();
-		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admin'));
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admins'));
+		if ($group === null) {
+			throw new USVN_Exception(T_('Group %s not found.'), 'Admins');
+		}
+		$group->addUser($user);
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Users'));
+		if ($group === null) {
+			throw new USVN_Exception(T_('Group %s not found.'), 'Users');
+		}
 		$group->addUser($user);
 	}
 

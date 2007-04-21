@@ -19,52 +19,19 @@
  */
 require_once 'USVN/modules/default/controllers/IndexController.php';
 
-class svnhooks_IndexController extends IndexController
+class svnhooks_IndexController extends Zend_Controller_Action
 {
 	protected $_mimetype = 'text/xml';
 
-	public function preDispatch()
-	{
-		parent::preDispatch();
-		$request = $this->_request;
-		$request->setPathInfo(rtrim($request->getPathInfo(), '/'));
-
-		$path = $request->getPathInfo();
-		$len = strlen($request->getModuleName());
-		$len += strpos($path, $request->getModuleName());
-		$path = substr($path, $len);
-		if (!$path) {
-			$path = '/';
-		}
-		$path = urldecode($path);
-
-		$this->_view->path = $path;
-		$request->setParam('path', $path);
-
-		$actions = array("delete", "edit");
-		foreach ($actions as $action) {
-			if (isset($_GET[$action])) {
-				$request->setActionName($action);
-				$request->setParam('action', $action);
-				$request->setDispatched(false);
-				unset($_GET[$action]);
-				break;
-			}
-		}
+	/**
+	 * Default action for every controller.
+	 *
+	 */
+	public function indexAction() {
+		$server = new Zend_XmlRpc_Server();
+		Zend_XmlRpc_Server_Fault::attachFaultException('USVN_Exception');
+		$server->setClass('USVN_modules_svnhooks_models_Hooks', 'usvn.client.hooks');
+		echo $server->handle();
 	}
 
-	public function viewAction()
-	{
-		$this->_render('view.html');
-	}
-
-	public function editAction()
-	{
-		$this->viewAction();
-	}
-
-	public function deleteAction()
-	{
-		$this->viewAction();
-	}
 }

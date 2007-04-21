@@ -38,6 +38,27 @@ class layout extends Zend_Controller_Plugin_Abstract
 	}
 
 	/**
+	* @param array
+	* @return string
+	*/
+	private function buildMenu($menu_items, $css_id)
+	{
+		$str = "";
+		$base_url = $this->getRequest()->getBaseUrl();
+		$path = $this->getRequest()->getPathInfo();
+		foreach ($menu_items as $elem) {
+			$selected = '';
+			if (strncmp("/" . $elem['link'], $path, strlen($elem['link']) + 1) === 0) {
+				if (strlen($elem['link']) != 0 || $path == '/' || strlen($path) == 0) {
+					$selected = ' id="' . $css_id . '"';
+				}
+			}
+			$str .= '<li'. $selected . '><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
+		}
+		return $str;
+	}
+
+	/**
 	 * Add header text
 	 *
 	 * @param Zend_Controller_Response_Abstract $response
@@ -71,17 +92,13 @@ class layout extends Zend_Controller_Plugin_Abstract
 		</div>
 		<ul id="usvn_menu">
 EOF;
-		foreach ($menu->getTopMenu() as $elem) {
-			$header .= '<li><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
-		}
+		$header .= $this->buildMenu($menu->getTopMenu(), 'usvn_menu_selected');
 		$header .= <<<EOF
 		</ul>
 EOF;
 		if (count($menu->getSubMenu())) {
 			$header .= '<ul id="usvn_submenu">';
-			foreach ($menu->getSubMenu() as $elem) {
-				$header .= '<li><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
-			}
+			$header .= $this->buildMenu($menu->getSubMenu(), 'usvn_submenu_selected');
 			$header .= "</ul>";
 		}
 		$header .= <<<EOF

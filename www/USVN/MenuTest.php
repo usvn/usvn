@@ -47,12 +47,34 @@ class USVN_MenuTest extends USVN_Test_Test
 <?php
 class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
 {
-	public static function getTopMenu()
+	public static function getTopMenu($request)
 	{
 		return array(
 			array(
 				"title" => T_("Administration"),
 				"link"=> "admin/"
+			)
+		);
+	}
+
+	public static function getSubMenu($request)
+	{
+		return array(
+			array(
+				"title" => T_("Users"),
+				"link"=> "admin/users/"
+			),
+			array(
+				"title" => T_("Groups"),
+				"link"=> "admin/users/"
+			),
+			array(
+				"title" => T_("Projects"),
+				"link"=> "admin/projects/"
+			),
+			array(
+				"title" => T_("Configuration"),
+				"link"=> "admin/config/"
 			)
 		);
 	}
@@ -63,7 +85,7 @@ class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
 <?php
 class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 {
-	public static function getTopMenu()
+	public static function getTopMenu($request)
 	{
 		return array(
 			array(
@@ -76,6 +98,17 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 			)
 		);
 	}
+
+	public static function getSubMenu($request)
+	{
+		return array(
+			array(
+				"title" => T_("New ticket"),
+				"link"=> "tickets/new/"
+			)
+		);
+	}
+
 }
 ');
 	}
@@ -93,6 +126,16 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin/"), $menuEntries);
 		$this->assertContains(array("title" => T_("View tickets"), "link"=> "tickets/"), $menuEntries);
 		$this->assertContains(array("title" => T_("My tickets"), "link"=> "tickets/my"), $menuEntries);
+	}
+
+	public function test_getSubMenu()
+	{
+		$request = new Zend_Controller_Request_Http();
+		$request->setParam('module', 'fakeadmin');
+		$menu = new USVN_Menu($this->moduledir, $request);
+		$menuEntries = $menu->getSubMenu();
+		$this->assertContains(array("title" => T_("Users"), "link"=> "admin/users/"), $menuEntries);
+		$this->assertNotContains(array("title" => T_("New ticket"), "link"=> "tickets/new/"), $menuEntries);
 	}
 }
 

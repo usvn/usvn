@@ -34,4 +34,32 @@ class USVN_modules_admin_Menu extends USVN_modules_default_AbstractMenu
 			)
 		);
 	}
+
+	/**
+	* Get menu entries in sub menu.
+	*
+	* @param Zend_Controller_Request_Abstract Request
+	* @return array
+	*/
+	public static function getSubMenu($request)
+	{
+		return array(
+			array(
+				"title" => T_("Users"),
+				"link"=> "admin/user/"
+			),
+			array(
+				"title" => T_("Groups"),
+				"link"=> "admin/group/"
+			),
+			array(
+				"title" => T_("Projects"),
+				"link"=> "admin/project/"
+			),
+			array(
+				"title" => T_("Configuration"),
+				"link"=> "admin/config/"
+			)
+		);
+	}
 }

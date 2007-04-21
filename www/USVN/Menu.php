@@ -19,6 +19,7 @@
 class USVN_Menu
 {
 	private $_topMenu = array();
+	private $_subMenu = array();
 	private $_request;
 
 	/**
@@ -50,6 +51,9 @@ class USVN_Menu
 		$class = "USVN_modules_{$module}_Menu";
 		$menu = new $class();
 		$this->_topMenu = array_merge($this->_topMenu, $menu->getTopMenu($this->_request));
+		if ($module == $this->_request->getParam("module")) {
+			$this->_subMenu = $menu->getSubMenu($this->_request);
+		}
 	}
 
 	/**
@@ -61,5 +65,16 @@ class USVN_Menu
 	public function getTopMenu()
 	{
 		return $this->_topMenu;
+	}
+
+	/**
+	* Get menu entries in top menu.
+	*
+	* @return array with menu entry see USVN_modules_admin_Menu for exemple
+	* @see USVN_modules_admin_Menu
+	*/
+	public function getSubMenu()
+	{
+		return $this->_subMenu;
 	}
 }

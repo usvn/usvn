@@ -41,6 +41,13 @@ class USVN_modules_admin_MenuTest extends USVN_Test_Test {
 		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http());
 		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin"), $menuEntries);
 	}
+
+	public function test_getSubMenu()
+	{
+		$menu = new USVN_modules_admin_Menu();
+		$menuEntries = $menu->getSubMenu(new Zend_Controller_Request_Http());
+		$this->assertContains(array("title" => T_("Configuration"), "link"=> "admin/config/"), $menuEntries);
+	}
 }
 
 // Call USVN_modules_admin_MenuTest::main() if this source file is executed directly.

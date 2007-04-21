@@ -64,7 +64,7 @@ img {border: 0;}
 	font-weight: bold;
 }
 
-ul#usvn_menu {
+ul#usvn_menu, ul#usvn_submenu{
 	background-color: #000000;
 	border-bottom: 4px solid #0A1648;
 	margin: 0;
@@ -73,21 +73,24 @@ ul#usvn_menu {
 	font-size: small;
 }
 
-
-#usvn_menu li {
-	display: inline;
-	margin-left: 4px;
+ul#usvn_submenu{
+	background-color: #000055;
 }
 
-#usvn_menu a {
+
+#usvn_menu li, #usvn_submenu li {
+	display: inline;
+}
+
+#usvn_menu a, #usvn_submenu a {
 	color: #AFAFAF;
 	padding-left: 5px;
 	padding-right: 5px;
-	border: 1px solid #AFAFAF;
+	border: 1px solid #0A1648;
 }
 
 
-#usvn_menu a:hover {
+#usvn_menu a:hover, #usvn_submenu a:hover {
 	color: white;
 	border: 1px solid white;
 }

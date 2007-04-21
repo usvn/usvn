@@ -19,12 +19,23 @@
 abstract class USVN_modules_default_AbstractMenu
 {
 	/**
-	* Get menu entries from in top menu.
+	* Get menu entries in top menu.
 	*
 	* @param Zend_Controller_Request_Abstract Request
 	* @return array
 	*/
 	public static function getTopMenu($request)
+	{
+		return array();
+	}
+
+	/**
+	* Get menu entries in sub menu.
+	*
+	* @param Zend_Controller_Request_Abstract Request
+	* @return array
+	*/
+	public static function getSubMenu($request)
 	{
 		return array();
 	}

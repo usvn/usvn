@@ -47,13 +47,8 @@ class layout extends Zend_Controller_Plugin_Abstract
 		$url = Zend_Registry::get('url');
 		$site = Zend_Registry::get('site');
 		$base_url = $this->getRequest()->getBaseUrl();
-		$menu = new USVN_Menu("USVN/modules", $this->getRequest());
-		$menuEntries = $menu->getTopMenu();
-		$menu_top = "";
 		$homepage = T_("Homepage");
-		foreach ($menuEntries as $elem) {
-			$menu_top .= '<li><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
-		}
+		$menu = new USVN_Menu("USVN/modules", $this->getRequest());
 		$header = <<<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -75,8 +70,21 @@ class layout extends Zend_Controller_Plugin_Abstract
 			</a>
 		</div>
 		<ul id="usvn_menu">
-			{$menu_top}
+EOF;
+		foreach ($menu->getTopMenu() as $elem) {
+			$header .= '<li><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
+		}
+		$header .= <<<EOF
 		</ul>
+EOF;
+		if (count($menu->getSubMenu())) {
+			$header .= '<ul id="usvn_submenu">';
+			foreach ($menu->getSubMenu() as $elem) {
+				$header .= '<li><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
+			}
+			$header .= "</ul>";
+		}
+		$header .= <<<EOF
 		<div id="usvn_content">
 EOF;
 		$body = $response->getBody(true);

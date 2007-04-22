@@ -38,9 +38,9 @@ var cellIndex;
 // propriete trim sur les string
 String.prototype.trim = function(str) {
 	str = this != window? this : str;
-	/** modif de la regexp : remplac�  \s par [\s\xA0]
-	 * car replace de \s ( espace ) ne fonctionne pas sous IE quand la chaine comporte des espaces cr��s
-	 * par conversion de &nbsp; par la m�thode unescapeHTML() car le code de ce caractere est 160( A0 ) au lieu de 32
+	/** modif de la regexp : remplacé  \s par [\s\xA0]
+	 * car replace de \s ( espace ) ne fonctionne pas sous IE quand la chaine comporte des espaces créés
+	 * par conversion de &nbsp; par la méthode unescapeHTML() car le code de ce caractere est 160( A0 ) au lieu de 32
 	 */
 	return str.replace(/^[\s\xA0]+/g, '').replace(/[\s\xA0]+$/g, '');
 };
@@ -48,9 +48,9 @@ String.prototype.trim = function(str) {
 // propriete removeaccent sur les string
 String.prototype.removeaccent = function(str) {
     str = this != window? this : str;
-    return str.replace(/[������]/g, 'a').replace(/[����]/g, 'e').replace(/[����]/g, 'i').
-        replace(/[�����]/g, 'o').replace(/�/g, 'n').replace(/[����]/g, 'u').replace(/[��]/g, 'y').
-            replace(/�/g, 'c').replace(/�/g, 'oe');
+    return str.replace(/[àáâãäå]/g, 'a').replace(/[èéêë]/g, 'e').replace(/[ìíîï]/g, 'i').
+        replace(/[òóôõö]/g, 'o').replace(/ñ/g, 'n').replace(/[ùúûü]/g, 'u').replace(/[ýÿ]/g, 'y').
+            replace(/ç/g, 'c').replace(//g, 'oe');
 };
 
 // propriete is member sur array
@@ -103,10 +103,10 @@ HTMLTableTools.prototype = {
 
 		if ( typeof tableId == 'undefined' ) {
 			this.error = true;
-			this.errorMsg = "Veuillez fournir l'ID du tableau � g�rer.";
+			this.errorMsg = "Veuillez fournir l'ID du tableau à gérer.";
 			return;
 		}
-
+;
 		// recup l'objet tableau correspondant a l'id fourni
 		this.table = $(tableId);
 
@@ -132,7 +132,7 @@ HTMLTableTools.prototype = {
 
 		// initialisation tri
 		// ******************
-		// tableau pour stoquer les cellules d'entete pour pouvoir les d�placer
+		// tableau pour stoquer les cellules d'entete pour pouvoir les déplacer
 		this.headerTable = new Array();
 		// ici on va stocker la fonction de tri correspondante au type de la cellule (sortNumber, sortString)
 		this.sortFunction = new Array();
@@ -146,7 +146,7 @@ HTMLTableTools.prototype = {
 		// on recup toutes les lignes dans jsTable sauf la ligne d'entete
 		for ( var cellCpt = 0; cellCpt < this.table.rows[0].cells.length; cellCpt++ ) {
 			// recup le contenu de la cellule
-			// si la cellule est vide essaye les suivantes pour d�terminer le type de donn�e
+			// si la cellule est vide essaye les suivantes pour déterminer le type de donnée
 			for ( var rowCpt = 1; rowCpt < this.table.rows.length; rowCpt++ ) {
 				// evite de planter si une cellule est completement vide
 				if ( !this.table.rows[rowCpt].cells[cellCpt].innerHTML ) {
@@ -164,7 +164,7 @@ HTMLTableTools.prototype = {
 				this.sortFunction[cellCpt]["DESC"] = this._sortStringDESC;
 				dataType = 'date';
 			// nombre ou monnaie
-			} else if ( cellContent.match(/^[0-9$�fF\.\s-]+$/) ) {
+			} else if ( cellContent.match(/^[0-9$£fF\.\s-]+$/) ) {
 				this.sortFunction[cellCpt]["ASC"] = this._sortNumberASC;
 				this.sortFunction[cellCpt]["DESC"] = this._sortNumberDESC;
 				dataType = 'number';
@@ -174,9 +174,9 @@ HTMLTableTools.prototype = {
 				this.sortFunction[cellCpt]["DESC"] = this._sortStringDESC;
 				dataType = 'string';
 			}
-			// dernier utilis�
+			// dernier utilisé
 			this.sortFunction[cellCpt]["LAST"] = false;
-			// Ordre des colonnes tri�es
+			// Ordre des colonnes triées
 			this.sortFunction[cellCpt]["INDEX"] = 0;
 
 			// pour chaque ligne
@@ -193,8 +193,8 @@ HTMLTableTools.prototype = {
 					case 'date':
 					{
 						// date ? -> on cree un objet date
-						// les mois vont de 0 � 11 donc il faut retirer 1
-						// (normalement cela n'avais pas d'influence sur le tri car toute les dates �taient d�cal�es)
+						// les mois vont de 0 à 11 donc il faut retirer 1
+						// (normalement cela n'avais pas d'influence sur le tri car toute les dates étaient décalées)
 						this.jsTable[rowCpt-1][cellCpt] = new Date(cellContent.substring(6),cellContent.substring(3,5)-1,cellContent.substring(0,2));
 						break;
 					}
@@ -215,7 +215,7 @@ HTMLTableTools.prototype = {
 				}
 				// on stocke la valeur d'origine de la cellule pour pouvoir la restituer au bon moment (this.sortTable)
 				this.jsTable[rowCpt-1][cellCpt+totalCells] = this.table.rows[rowCpt].cells[cellCpt].firstChild;
-				// on stocke l'id de la ligne s'il existe afin de le restituer au bon endroit apr�s tri de la table
+				// on stocke l'id de la ligne s'il existe afin de le restituer au bon endroit après tri de la table
 				if ( $(this.table.rows[rowCpt]).id ) {
 					this.jsTable[rowCpt-1][cellCpt+(totalCells*2)] = $(this.table.rows[rowCpt]).id;
 				}
@@ -223,7 +223,7 @@ HTMLTableTools.prototype = {
 		}
 
 		// ajoute les 'images boutons' (img up et down) et y accroche des event onclick
-		// on cr�e les objets images (up et down) et on les stocke dans un tableau pour pouvoir les cloner
+		// on crée les objets images (up et down) et on les stocke dans un tableau pour pouvoir les cloner
 		var imgUp = new Array();
 		var imgDown = new Array();
 		var input = new Array();
@@ -231,19 +231,16 @@ HTMLTableTools.prototype = {
 		imgUp[0] = Builder.node( 'img', {id: this.table.id + 'up0', src: this.options.pathToImgs + this.options.imgUp, style: 'cursor: pointer', className: 'imgStatus'} );
 		// creation img down
 		imgDown[0] = Builder.node( 'img', {id: this.table.id + 'down0', src: this.options.pathToImgs + this.options.imgDown, style: 'cursor: pointer', className: 'imgStatus'} );
-		// Ajout d'un index apr�s les boutons de tri afficher l'ordre des colonnes tri�es (colonne de tri N�1 puis N�2 ...)
+		// Ajout d'un index aprés les boutons de tri afficher l'ordre des colonnes triées (colonne de tri N°1 puis N°2 ...)
 		var spanIndex = new Array();
 		spanIndex[0] = Builder.node( 'span', {id: this.table.id + 'span0', style: 'position: absolute; display: none;', className: 'sortIndex'} );
 		spanIndex[0].innerHTML = '';
-
-		//Span pour le text
+		  //Span pour le text
 		var spanText = new Array();
 		spanText[0] = Builder.node( 'span', {id: this.table.id + 'spanText0', style: 'cursor: pointer'} );
 		spanText[0].innerHTML = '';
-
 		//Input pour les filtres
 		input[0] = Builder.node('input', {type:'text', size: 10});
-
 		// pour chaque cellule
 		for ( var cellCpt = 0; cellCpt < this.table.rows[0].cells.length; cellCpt++ ) {
 			var skipCell = false;
@@ -272,11 +269,9 @@ HTMLTableTools.prototype = {
 				input[cellCpt].id = this.table.id + 'search[' + cellCpt + ']';
 				input[cellCpt].style.visibility = 'collapse';
 				input[cellCpt].cellCpt = cellCpt;
-
 				//span pour le libelle des colonnes
 				spanText[cellCpt].innerHTML = this.table.rows[0].cells[cellCpt].innerHTML;
 				this.table.rows[0].cells[cellCpt].innerHTML = "";
-
 				// on ajoute les images dans les cellules d'entete
 				this.table.rows[0].cells[cellCpt].appendChild(spanText[cellCpt]);
 				this.table.rows[0].cells[cellCpt].appendChild(input[cellCpt]);
@@ -287,8 +282,8 @@ HTMLTableTools.prototype = {
 			}
 		}
 
-		// l'ajout des event se fait dans une 2eme passe car sur IE6 les events sont dupliqu�s avec cloneNode
-		// cela cr�ais 2 appel successif � la methode sortTable pour les colonnes > 1
+		// l'ajout des event se fait dans une 2eme passe car sur IE6 les events sont dupliqués avec cloneNode
+		// cela créais 2 appel successif à la methode sortTable pour les colonnes > 1
 		// (les event ne se dupliquent pas sur Firefox)
 		for ( var cellCpt = 0; cellCpt < this.table.rows[0].cells.length; cellCpt++ ) {
 			var skipCell = false;
@@ -335,10 +330,10 @@ HTMLTableTools.prototype = {
 	},
 
 	sortTable: function(e) {
-		// recup l'element qui a declenche l'evenement (imgUp ou imgDown)
+		// recup l'element qui a declanche l'evenement (imgUp ou imgDown)
 		var element = Event.element(e);
 		if ( !element ) return;
-		// si pas de tri multi-colonne (multi-crit�re) -> remise � z�ro
+		// si pas de tri multi-colonne (multi-critère) -> remise à zéro
 		if ( !this.options.multiColSort ) {
 			for ( var cellCpt = 0; cellCpt < this.table.rows[0].cells.length; cellCpt++ ) {
 				if ( this.sortFunction[cellCpt]["LAST"] ) {
@@ -368,11 +363,11 @@ HTMLTableTools.prototype = {
 			if (annul) element.src = this.options.pathToImgs + this.options.imgDown;
 		}
 
-		// Mise � jour de l'index affich� dans la colonne
-		// Determine le pr�c�dent index de la colonne � trier car il faut d�crementer l'index des colonnes ayant un indice sup�rieur
-		// Dernier index de la colonne � trier
+		// Mise à jour de l'index affiché dans la colonne
+		// Determine le précédent index de la colonne à trier car il faut décrementer l'index des colonnes ayant un indice supérieur
+		// Dernier index de la colonne à trier
 		var prevIndex = this.sortFunction[cellIndex]['INDEX'];
-		// on ne change l'index de la colonne que si elle �tait d�ja tri�e
+		// on ne change l'index de la colonne que si elle était déja triée
 		if ( (prevIndex == 0) || annul ) {
 			var nmax = 0;
 			for ( var cellCpt = 0; cellCpt < this.table.rows[0].cells.length; cellCpt++ ) {
@@ -385,10 +380,9 @@ HTMLTableTools.prototype = {
 			}
 
 			if ( prevIndex == 0 ) nmax++;
-			this.sortFunction[cellIndex]['INDEX'] = nmax; // La colonne actuellement tri�e prend la valeur max
+			this.sortFunction[cellIndex]['INDEX'] = nmax; // La colonne actuellement triï¿œe prend la valeur max
 		}
-
-		// si on re-click  sur le m�me ordre de tri, desactive le tri pour la colonne
+		// si on re-click  sur le même ordre de tri, desactive le tri pour la colonne
 		if ( this.sortFunction[cellIndex]['LAST'] == this.sortFunction[cellIndex][sortOrder] ){
 			this.sortFunction[cellIndex]['LAST'] = false;
 			this.sortFunction[cellIndex]['INDEX'] = 0;
@@ -397,8 +391,8 @@ HTMLTableTools.prototype = {
 				Element.hide( this.table.rows[0].cells[cellIndex].lastChild );
 			}
 		}
-		// m�morise l'ordre des colonnes dans un tableau pour le tri
-		// utile pour Firefox qui perd l'ordre des autres colonnes lors de l'appel � array.sort
+		// mémorise l'ordre des colonnes dans un tableau pour le tri
+		// utile pour Firefox qui perd l'ordre des autres colonnes lors de l'appel à array.sort
 		// permet de faire un tri recursif sur les colonnes
 		else this.sortFunction[cellIndex]['LAST'] = this.sortFunction[cellIndex][sortOrder];
 
@@ -438,11 +432,11 @@ HTMLTableTools.prototype = {
 
 		// Si au moins 1 colonne a trier
 		if ( sortedCol.length > 0 ) {
-			// Variable global car utilis� dans les fct de tri auxquels on ne peux ajouter de parametres
+			// Variable global car utilisé dans les fct de tri auxquels on ne peux ajouter de parametres
 			cellIndex1 = sortedCol[0][0];
 			// on tri le tableau js
 			this.jsTable.sort(this.sortFunction[cellIndex1]['LAST']);
-		// Rien � faire
+		// Rien à faire
 		} else if ( !this.options.reorderCol ) return true;
 
 		// on remplace le tableau actuel;
@@ -450,12 +444,12 @@ HTMLTableTools.prototype = {
 		var nbcell = this.table.rows[0].cells.length;
 		for ( var cellCpt = 0; cellCpt < nbcell; cellCpt++ ) {
 			if ( this.options.reorderCol ) { // changement de l'ordre des colonnes
-				// Ajoute les N� de colonne non tri�es � la suite
+				// Ajoute les N° de colonne non triées à la suite
 				if (sortedColreorder.length < nbcell) {
 					if ( sortedColreorder.ismember(cellCpt) == -1 ) sortedColreorder.push( cellCpt );
 				}
 				var destcellCpt = sortedColreorder[cellCpt];
-				// d�place les cellules de la ligne de titre
+				// déplace les cellules de la ligne de titre
 				if (this.table.rows[0].cells[cellCpt])
 				this.table.rows[0].cells[cellCpt].parentNode.replaceChild( this.headerTable[destcellCpt], this.table.rows[0].cells[cellCpt] );
 				else this.table.rows[0].cells[0].parentNode.appendChild( this.headerTable[destcellCpt] );
@@ -463,7 +457,7 @@ HTMLTableTools.prototype = {
 			// pas de changement de l'ordre des colonnes
 			else var destcellCpt = cellCpt;
 
-			// N� de la colonne dans l'ordre de tri:
+			// N° de la colonne dans l'ordre de tri:
 			if ( this.options.showSortIndex) {
 				var nbstr = this.sortFunction[destcellCpt]['INDEX'] || '';
 				if ( typeof this.table.rows[0].cells[cellCpt].lastChild.id != 'undefined' ) {
@@ -484,7 +478,7 @@ HTMLTableTools.prototype = {
 		}
 	},
 
-	_sortNumberASC: function( a, b, colIndex, n ) { // modif vb1: tri r�cursif
+	_sortNumberASC: function( a, b, colIndex, n ) { // modif vb1: tri récursif
 		colIndex = typeof(colIndex)=='number' ? colIndex : cellIndex1;
 		n = n || 0;
 		var test = ( a[colIndex] - b[colIndex] );
@@ -493,7 +487,7 @@ HTMLTableTools.prototype = {
 		else return test;
 	},
 
-	_sortStringASC: function( a, b, colIndex, n ) { // modif vb1: tri r�cursif
+	_sortStringASC: function( a, b, colIndex, n ) { // modif vb1: tri récursif
 		colIndex = typeof(colIndex) == 'number' ? colIndex : cellIndex1;
 		n = n || 0;
 		if ( a[colIndex] < b[colIndex] ) return -1;
@@ -502,8 +496,8 @@ HTMLTableTools.prototype = {
 		else return 0;
 	},
 
-	// fonction de tri invers� pour �viter d'utiliser this.jsTable.reverse(); qui inverse aussi l'ordre des autres colonnes
-	_sortNumberDESC: function( a, b, colIndex, n ) { // modif vb1: tri r�cursif
+	// fonction de tri inversé pour éviter d'utiliser this.jsTable.reverse(); qui inverse aussi l'ordre des autres colonnes
+	_sortNumberDESC: function( a, b, colIndex, n ) { // modif vb1: tri récursif
 		colIndex = typeof(colIndex) == 'number' ? colIndex : cellIndex1;
 		n = n || 0;
 		var test = ( b[colIndex] - a[colIndex] );
@@ -519,40 +513,38 @@ HTMLTableTools.prototype = {
 		else return 0;
 	},
 
-	getTextField: function ( e ) {
-		// recup l'element qui a declenche l'evenement (imgUp ou imgDown)
-		var element = Event.element(e);
-		if ( !element ) return;
-
-		cellIndex = parseInt( element.id.substr(this.table.id.length + 8) );
-		element.style.visibility = 'collapse';
-		element.innerHTML = '';
-		var field = document.getElementById(this.table.id + 'search[' + cellIndex + ']');
-		field.style.visibility = 'visible';
-		field.focus();
-	},
-
-	filterTable: function ( e ) {
+getTextField: function ( e ) {
+	// recup l'element qui a declenche l'evenement (imgUp ou imgDown)
+	var element = Event.element(e);
+	if ( !element ) return;
+	cellIndex = parseInt( element.id.substr(this.table.id.length + 8) );
+	element.style.visibility = 'collapse';
+	element.innerHTML = '';
+	var field = document.getElementById(this.table.id + 'search[' + cellIndex + ']');
+	field.style.visibility = 'visible';
+	field.focus();
+},
+filterTable: function ( e ) {
 		var element = Event.element(e);
 		if ( !element ) return;
 		cellIndex = element.cellCpt;
 		for ( var rowCpt = 1; rowCpt < this.table.rows.length; rowCpt++ ) {
-			var currentRow = $(this.table.rows[rowCpt]);
-			var string = new String(this.table.rows[rowCpt].cells[cellIndex].innerHTML).toLowerCase();
-			if (string.indexOf(element.value.toLowerCase(), 0) == -1) {
-				this.table.rows[rowCpt].style.visibility = "collapse";
-			} else {
-				this.table.rows[rowCpt].style.visibility = "visible";
-			}
+				var currentRow = $(this.table.rows[rowCpt]);
+				var string = new String(this.table.rows[rowCpt].cells[cellIndex].innerHTML).toLowerCase();
+				if (string.indexOf(element.value.toLowerCase(), 0) == -1) {
+						this.table.rows[rowCpt].style.visibility = "collapse";
+				} else {
+						this.table.rows[rowCpt].style.visibility = "visible";
+				}
 		}
-	},
+},
 
 	highlight: function( e ) {
-		// recup l'element qui a declenche l'evenement
+		// recup l'element qui a declanche l'evenement
 		var element = window.event ? window.event.srcElement : e ? e.target : null;
 		if ( !element ) return;
 
-		// recup la cellule qui a declenche l'evenement
+		// recup la cellule qui a declanche l'evenement
 		element = this._ascendDOM ( element, 'td' );
 		if ( !element ) return;
 		// recup la ligne correspondante
@@ -566,7 +558,7 @@ HTMLTableTools.prototype = {
 		// style la colonne
 		if ( this.options.highlightColumn ) {
 			var cellIndex = -1;
-			// determine l'index de la cellule qui a declenche l'evenement
+			// determine l'index de la cellule qui a declanche l'evenement
 			for ( var cellCpt = 0; cellCpt < parentRow.cells.length; cellCpt++ ) {
 				if ( element === parentRow.cells[cellCpt] ) cellIndex = cellCpt;
 			}
@@ -579,11 +571,11 @@ HTMLTableTools.prototype = {
 	},
 
 	downlight: function( e ) {
-		// recup l'element qui a declenche l'evenement
+		// recup l'element qui a declanche l'evenement
 		var element = window.event ? window.event.srcElement : e ? e.target : null;
 		if ( !element ) return;
 
-		// recup la cellule qui a declenche l'evenement
+		// recup la cellule qui a declanche l'evenement
 		element = this._ascendDOM ( element, 'td' );
 		if ( !element ) return;
 		// recup la ligne correspondante
@@ -603,11 +595,11 @@ HTMLTableTools.prototype = {
 	},
 
 	selectRow: function( e ) {
-		// recup l'element qui a declenche l'evenement
+		// recup l'element qui a declanche l'evenement
 		var element = window.event ? window.event.srcElement : e ? e.target : null;
 		if ( !element ) return;
 
-		// recup la cellule qui a declenche l'evenement
+		// recup la cellule qui a declanche l'evenement
 		element = this._ascendDOM ( element, 'td' );
 		if ( !element ) return;
 		// recup la ligne correspondante

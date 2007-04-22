@@ -1,23 +1,25 @@
-<h1><?php echo T_("Group's attachements"); ?></h1>
-<?php
-print '<table class="tborder">' .
-		'<thead><tr class="titlebg">' .
-		'<th>' . T_('Group\'s name') . '</th>' .
-		'<th>' . T_('Actions') . '</th>' .
-		'</tr></thead><tbody>';
+<fieldset>
+	<legend><?php echo T_("Group's attachements"); ?></legend>
+	<?php
+	print '<table class="tborder">' .
+			'<thead><tr class="titlebg">' .
+			'<th>' . T_('Group\'s name') . '</th>' .
+			'<th>' . T_('Actions') . '</th>' .
+			'</tr></thead><tbody>';
 
-if (count($this->groups)) {
-	foreach ($this->groups as $group) {
-		$line = <<<EOF
-		<tr class='odd'>
-			<td>{$group->groups_name}</td>
-			<!--<td><a href="{$this->url(array('action' => 'edit', 'name' => $group->groups_name))}">Edit</a>-->
-			&nbsp;
-			<!--<a href="{$this->url(array('action' => 'delete', 'name' => $group->groups_name))}">Delete</a>--></td>
-		</tr>\n
+	if (count($this->groups)) {
+		foreach ($this->groups as $group) {
+			$line = <<<EOF
+			<tr class='odd'>
+				<td>{$group->groups_name}</td>
+				<!--<td><a href="{$this->url(array('action' => 'edit', 'name' => $group->groups_name))}">Edit</a>-->
+				&nbsp;
+				<!--<a href="{$this->url(array('action' => 'delete', 'name' => $group->groups_name))}">Delete</a>--></td>
+			</tr>\n
 EOF;
-		echo $line;
+			echo $line;
+		}
 	}
-}
-print '</tbody></table><br />';
-?>
+	print '</tbody></table><br />';
+	?>
+</fieldset>

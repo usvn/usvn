@@ -69,6 +69,8 @@ class layout extends Zend_Controller_Plugin_Abstract
 		$site = Zend_Registry::get('site');
 		$base_url = $this->getRequest()->getBaseUrl();
 		$homepage = T_("Homepage");
+		$identity = Zend_Auth::getInstance()->getIdentity();
+		$loggedAs = !empty($identity['username']) ? T_("Logged as") . " " . $identity['username'] : "";
 		$menu = new USVN_Menu("USVN/modules", $this->getRequest());
 		$header = <<<EOF
 <?xml version="1.0" encoding="utf-8"?>
@@ -94,6 +96,7 @@ class layout extends Zend_Controller_Plugin_Abstract
 EOF;
 		$header .= $this->buildMenu($menu->getTopMenu(), 'usvn_menu_selected');
 		$header .= <<<EOF
+			<li id="usvn_logged">{$loggedAs}</li>
 		</ul>
 EOF;
 		if (count($menu->getSubMenu())) {

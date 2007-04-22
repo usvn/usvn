@@ -6,6 +6,8 @@
 /* Require for HTMLTableTools */
 @import "<?php echo $this->medias_directory; ?>/default/js/tools/HTMLTableTools/table.css";
 
+<?php include($this->css_directory . "/login.css"); ?>
+
 html, body {
 	font-family: 'Trebuchet MS', 'Verdana', 'Helvetica';
 	margin: auto;
@@ -59,12 +61,27 @@ img {border: 0;}
 	margin-bottom: 0.1em;
 }
 
+#usvn_title {
+	height:45px;
+	color: #003366;
+	margin-bottom: 10px;
+}
+
 .usvn_error {
 	color: red;
 	font-weight: bold;
+	background-color: #FF9F9F;
+	border : solid 1px #CF0000;
+	background-image: url(<?php echo $this->images_directory ;?>/CrystalClear/32x32/actions/stop.png);
+	background-position: 10px;
+	background-repeat: no-repeat;
+	padding-left: 60px;
+	vertical-align: middle;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
-ul#usvn_menu, ul#usvn_submenu{
+ul#usvn_menu, ul#usvn_submenu, #logged {
 	background-color: #000000;
 	border-bottom: 4px solid #0A1648;
 	margin: 0;
@@ -73,16 +90,19 @@ ul#usvn_menu, ul#usvn_submenu{
 	font-size: small;
 }
 
-ul#usvn_submenu{
-	background-color: #000055;
+#usvn_logged {
+	color: #5F5F5F;
 }
 
+ul#usvn_submenu {
+	background-color: #000055;
+}
 
 #usvn_menu li, #usvn_submenu li {
 	display: inline;
 }
 
-#usvn_menu a, #usvn_submenu a {
+#usvn_menu a, #usvn_submenu a, #logged {
 	color: #AFAFAF;
 	padding-left: 5px;
 	padding-right: 5px;
@@ -97,12 +117,10 @@ ul#usvn_submenu{
 	border: 1px solid #0A1648;
 }
 
-
 #usvn_menu a:hover, #usvn_submenu a:hover {
 	color: white;
 	border: 1px solid white;
 }
-
 
 #usvn_debug div:hover div{
 	display: block;

@@ -5,45 +5,54 @@ function checkForm() {
 	if (document.user.users_login.value.length == 0
 		|| checkRegExp.test(document.user.users_login.value)) {
 		spanError.innerHTML = 'Login empty.';
+		spanError.visibility = 'visible';
 		return false;
 	}
 	if ((!document.user.users_password.value.length || !document.user.users_password2.value.length)
 		&& !document.user.users_id) {
 		spanError.innerHTML = 'Password empty.';
+		spanError.visibility = 'visible';
 		return false;
 	}
 	if (document.user.users_password.value != document.user.users_password2.value) {
 		spanError.innerHTML = 'Password incorrect (not the same).';
+		spanError.visibility = 'visible';
 		return false;
 	}
 	if (document.user.users_password.value.length < 8 && !document.user.users_id) {
 		spanError.innerHTML = 'Password incorrect (need more 8 characters).';
+		spanError.visibility = 'visible';
 		return false;
 	}
 	spanError.innerHTML = '';
+	spanError.visibility = 'collapse';
 	return true;
 }
 </script>
-<h1><?php echo T_("User account"); ?></h1>
-<form name="user" method="post" action="<?php echo $this->url(); ?>">
-	<span class="usvn_label"><?php echo T_("Login"); ?>:</span>
-	<?php echo $this->formText('users_login', (isset($this->user) ? $this->user->login : null)); ?>
-	<br />
-	<span class="usvn_label"><?php echo T_("Password"); ?>:</span>
-	<?php echo $this->formPassword('users_password',  null); ?>
-	<?php echo $this->formPassword('users_password2',  null); ?>
-	<br />
-	<span class="usvn_label"><?php echo T_("Lastname"); ?>:</span>
-	<?php echo $this->formText('users_lastname', (isset($this->user) ? $this->user->lastname : null)); ?>
-	<br />
-	<span class="usvn_label"><?php echo T_("Firstname"); ?>:</span>
-	<?php echo $this->formText('users_firstname', (isset($this->user) ? $this->user->firstname : null)); ?>
-	<br />
-	<span class="usvn_label"><?php echo T_("Email"); ?>:</span>
-	<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null)); ?>
-	<br />
-	<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
-	<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkForm();')); ?>
-	<br /><br />
-	<div id="error" class="usvn_error"></div>
-</form>
+<h1></h1>
+<fieldset>
+	<legend><?php echo T_("User account"); ?><legend>
+	<form name="user" method="post" action="<?php echo $this->url(); ?>">
+		<label class="usvn_label"><?php echo T_("Login"); ?>:</label>
+		<?php echo $this->formText('users_login', (isset($this->user) ? $this->user->login : null)); ?>
+		<br />
+		<label class="usvn_label"><?php echo T_("Password"); ?>:</label>
+		<?php echo $this->formPassword('users_password',  null); ?>
+		<?php echo $this->formPassword('users_password2',  null); ?>
+		<br />
+		<label class="usvn_label"><?php echo T_("Lastname"); ?>:</label>
+		<?php echo $this->formText('users_lastname', (isset($this->user) ? $this->user->lastname : null)); ?>
+		<br />
+		<label class="usvn_label"><?php echo T_("Firstname"); ?>:</label>
+		<?php echo $this->formText('users_firstname', (isset($this->user) ? $this->user->firstname : null)); ?>
+		<br />
+		<label class="usvn_label"><?php echo T_("Email"); ?>:</label>
+		<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null)); ?>
+		<br />
+		<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkForm();')); ?>
+		<br /><br />
+		<div id="error" class="usvn_error; visibility: collapse"></div>
+	</form>
+</fieldset>
+<br />

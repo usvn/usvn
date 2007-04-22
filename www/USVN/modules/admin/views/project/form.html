@@ -11,28 +11,31 @@ function checkName() {
 	return true;
 }
 </script>
-<h1><?php echo T_("Project's information"); ?></h1>
-<form name="project" method="post" action="<?php echo $this->url(); ?>">
-	<table>
-		<tr>
-			<td><?php echo T_("Project name"); ?></td>
-			<td><?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null)); ?></td>
-		</tr>
-		<tr>
-			<td><?php echo T_("Project description"); ?></td>
-			<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?><br></td>
-		</tr>
-		<tr>
-			<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?></td>
-		</tr>
-	</table>
-	<br /><br />
-	<div id="error" class="usvn_error"></div>
-	<?php
-	if (isset($this->project) && $this->project->id) {
-		echo $this->formHidden('projects_id', $this->project->id);
-	} else {
-		echo $this->formHidden('projects_start_date', date("Y/m/d h:m:s"));
-	}
-	?>
-</form>
+<fieldset>
+	<legend><?php echo T_("Project's information"); ?></legend>
+	<form name="project" method="post" action="<?php echo $this->url(); ?>">
+		<table>
+			<tr>
+				<td><?php echo T_("Project name"); ?></td>
+				<td><?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null)); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo T_("Project description"); ?></td>
+				<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?><br></td>
+			</tr>
+			<tr>
+				<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?></td>
+			</tr>
+		</table>
+		<br /><br />
+		<div id="error" class="usvn_error"></div>
+		<?php
+		if (isset($this->project) && $this->project->id) {
+			echo $this->formHidden('projects_id', $this->project->id);
+		} else {
+			echo $this->formHidden('projects_start_date', date("Y/m/d h:m:s"));
+		}
+		?>
+	</form>
+</fieldset>
+<br />

@@ -1,52 +1,56 @@
-<h1><?php echo T_("Configuration");?></h1>
+<h1 id="usvn_title"><?php echo T_("Configuration");?></h1>
 <form method="POST" action="<?php echo $this->url(array('action' => 'save'));?>">
 <?php
 $url = Zend_Registry::get('url');
 $site = Zend_Registry::get('site');
 ?>
+<fieldset>
+	<legend><?php echo T_("General settings");?></legend>
+	<table>
+		<tr>
+			<td><?php echo T_("Default language");?>:</td>
+			<td>
+				<?php
+				//echo $this->formSelect('language', USVN_Translation::getLanguage(), null, USVN_Translation::listTranslation());
+				?>
+				<select name="language">
+					<?php
+						foreach (USVN_Translation::listTranslation() as $language) {
+							if ($language == USVN_Translation::getLanguage()) {
+								echo "<option selected>$language</option>";
+							} else {
+								echo "<option>$language</option>";
+							}
+						}
+					?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Default template");?>:</td>
+			<td>
+				<?php
+				//echo $this->formSelect('template', USVN_Template::getTemplate(), null, USVN_Template::listTemplate());
+				?>
+				<select name="template">
+					<?php
+						foreach (USVN_Template::listTemplate() as $template) {
+							if ($template == USVN_Template::getTemplate()) {
+								echo "<option selected>$template</option>";
+							} else {
+								echo "<option>$template</option>";
+							}
+						}
+					?>
+				</select>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+<br />
+<fieldset>
+	<legend><?php echo T_("Url's information");?>:</legend>
 <table>
-	<tr>
-		<td><?php echo T_("Default language");?>:</td>
-		<td>
-			<?php
-			//echo $this->formSelect('language', USVN_Translation::getLanguage(), null, USVN_Translation::listTranslation());
-			?>
-			<select name="language">
-				<?php
-					foreach (USVN_Translation::listTranslation() as $language) {
-						if ($language == USVN_Translation::getLanguage()) {
-							echo "<option selected>$language</option>";
-						} else {
-							echo "<option>$language</option>";
-						}
-					}
-				?>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Default template");?>:</td>
-		<td>
-			<?php
-			//echo $this->formSelect('template', USVN_Template::getTemplate(), null, USVN_Template::listTemplate());
-			?>
-			<select name="template">
-				<?php
-					foreach (USVN_Template::listTemplate() as $template) {
-						if ($template == USVN_Template::getTemplate()) {
-							echo "<option selected>$template</option>";
-						} else {
-							echo "<option>$template</option>";
-						}
-					}
-				?>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Url's information");?>:</td>
-		<td>&nbsp;</td>
-	</tr>
 	<tr>
 		<td><?php echo T_("Title"); ?>:</td>
 		<td>
@@ -65,34 +69,37 @@ $site = Zend_Registry::get('site');
 			<?php echo $this->formTextarea('urlKeywords', (isset($url['keywords']) ? $url['keywords'] : null), array('rows' => 2, 'cols' => 80)); ?>
 		</td>
 	</tr>
-	<tr>
-		<td><?php echo T_("Site's information");?>:</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Name"); ?>:</td>
-		<td>
-			<?php echo $this->formText('siteName', (isset($site['name']) ? $site['name'] : null), array('size' => 80)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Description"); ?>:</td>
-		<td>
-			<?php echo $this->formTextarea('siteDescription', (isset($site['description']) ? $site['description'] : null), array('rows' => 2, 'cols' => 80)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Icone"); ?>:</td>
-		<td>
-			<?php echo $this->formText('siteIco', (isset($site['ico']) ? $site['ico'] : null), array('size' => 80)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Logo"); ?>:</td>
-		<td>
-			<?php echo $this->formText('siteLogo', (isset($site['logo']) ? $site['logo'] : null), array('size' => 80)); ?>
-		</td>
-	</tr>
 </table>
+</fieldset>
+<br />
+<fieldset>
+	<legend><?php echo T_("Site's information");?></legend>
+	<table>
+		<tr>
+			<td><?php echo T_("Name"); ?>:</td>
+			<td>
+				<?php echo $this->formText('siteName', (isset($site['name']) ? $site['name'] : null), array('size' => 80)); ?>
+			</td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Description"); ?>:</td>
+			<td>
+				<?php echo $this->formTextarea('siteDescription', (isset($site['description']) ? $site['description'] : null), array('rows' => 2, 'cols' => 80)); ?>
+			</td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Icone"); ?>:</td>
+			<td>
+				<?php echo $this->formText('siteIco', (isset($site['ico']) ? $site['ico'] : null), array('size' => 80)); ?>
+			</td>
+		</tr>
+		<tr>
+			<td><?php echo T_("Logo"); ?>:</td>
+			<td>
+				<?php echo $this->formText('siteLogo', (isset($site['logo']) ? $site['logo'] : null), array('size' => 80)); ?>
+			</td>
+		</tr>
+	</table>
+</fieldset>
 <input type="submit" value="<?php echo T_("Save");?>">
 </form>

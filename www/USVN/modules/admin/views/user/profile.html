@@ -18,7 +18,7 @@ function checkForm() {
 	return true;
 }
 </script>
-<h1><?php echo T_("My account"); ?></h1>
+<h1 id="usvn_title"><?php echo T_("My account"); ?></h1>
 <form name="userProfile" method="post" action="<?php echo $this->url(); ?>">
 	<span class="usvn_label"><?php echo T_("Login"); ?>: <?php echo $this->user->login; ?></span>
 	<br />

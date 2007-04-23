@@ -19,7 +19,7 @@
  */
 require_once 'USVN/modules/default/controllers/IndexController.php';
 
-class wiki_IndexController extends IndexController
+class wiki_IndexController extends USVN_Controller
 {
 	public function preDispatch()
 	{

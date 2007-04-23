@@ -17,7 +17,6 @@
  *
  * $Id: JsController.php 323 2007-04-16 15:12:49Z dolean_j $
  */
-require_once 'USVN/modules/default/controllers/IndexController.php';
 
 class JsController extends Zend_Controller_Action
 {

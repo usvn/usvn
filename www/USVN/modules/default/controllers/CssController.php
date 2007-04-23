@@ -17,7 +17,6 @@
  *
  * $Id$
  */
-require_once 'USVN/modules/default/controllers/IndexController.php';
 
 class CssController extends Zend_Controller_Action
 {

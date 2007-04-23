@@ -1,1 +1,4 @@
-
+<?php
+foreach ($this->projects as $project) {
+	echo '<a href="' . $this->url(array('project' => $project->name), 'project') . '">' . $project->name . '</a><br />';
+}

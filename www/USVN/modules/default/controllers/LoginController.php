@@ -17,9 +17,8 @@
  *
  * $Id$
  */
-require_once 'USVN/modules/default/controllers/IndexController.php';
 
-class LoginController extends IndexController
+class LoginController extends USVN_Controller
 {
 	public function loginAction()
 	{

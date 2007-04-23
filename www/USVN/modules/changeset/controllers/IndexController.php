@@ -17,9 +17,8 @@
  *
  * $Id$
  */
-require_once 'USVN/modules/default/controllers/IndexController.php';
 
-class changeset_IndexController extends IndexController
+class changeset_IndexController extends USVN_Controller
 {
 	public function indexAction()
     {

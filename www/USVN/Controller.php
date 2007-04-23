@@ -7,7 +7,7 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package default
+ * @package usvn
  * @subpackage controller
  *
  * This software has been written at EPITECH <http://www.epitech.net>
@@ -17,7 +17,7 @@
  *
  * $Id$
  */
-class IndexController extends USVN_Controller {
+class USVN_Controller extends Zend_Controller_Action {
 	/**
 	 * Zend_Controller_Request_Abstract object wrapping the request environment
 	 * @var Zend_Controller_Request_Http
@@ -112,9 +112,6 @@ class IndexController extends USVN_Controller {
 	 *
 	 */
 	public function indexAction() {
-		$projects = new USVN_Db_Table_Projects;
-		$where  = $projects->getAdapter()->quoteInto('projects_name != ?', '__NONE__');
-		$this->_view->projects = $projects->fetchAll($where);
 		$this->_render();
 	}
 

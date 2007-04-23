@@ -1,13 +1,13 @@
 <?php
 /**
- * Main controller of the svnhooks modules
+ * Controller for display homepage of project page
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package svnhooks
+ * @package default
  * @subpackage controller
  *
  * This software has been written at EPITECH <http://www.epitech.net>
@@ -17,20 +17,11 @@
  *
  * $Id$
  */
-
-class svnhooks_IndexController extends Zend_Controller_Action
-{
-	protected $_mimetype = 'text/xml';
-
-	/**
-	 * Default action for every controller.
-	 *
-	 */
+class ProjectController extends USVN_Controller {
 	public function indexAction() {
-		$server = new Zend_XmlRpc_Server();
-		Zend_XmlRpc_Server_Fault::attachFaultException('USVN_Exception');
-		$server->setClass('USVN_modules_svnhooks_models_Hooks', 'usvn.client.hooks');
-		echo $server->handle();
+		$projects = new USVN_Db_Table_Projects;
+		$where  = $projects->getAdapter()->quoteInto('projects_name = ?', $this->_request->getParam('project'));
+		$this->_view->project = $projects->fetchRow($where);
+		$this->_render();
 	}
-
 }

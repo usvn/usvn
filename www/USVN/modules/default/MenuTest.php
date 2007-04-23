@@ -38,8 +38,64 @@ class USVN_modules_default_MenuTest extends USVN_Test_Test {
 	public function test_getTopMenu()
 	{
 		$menu = new USVN_modules_default_Menu();
-		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http());
-		$this->assertContains(array("title" => T_("Homepage"), "link"=> ""), $menuEntries);
+		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http(), null);
+		$this->assertContains(
+			array(
+				"title" => T_("Homepage"),
+				"link"=> "",
+				"module" => "default",
+				"controller" => "index",
+				"action" => ""
+			)
+			, $menuEntries);
+	}
+
+	public function test_getTopMenuNotLogged()
+	{
+		$menu = new USVN_modules_default_Menu();
+		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http(), null);
+		$this->assertContains(
+				array(
+					"title" => T_("Sign in"),
+					"link"=> "login/",
+					"module" => "default",
+					"controller" => "login",
+					"action" => ""
+				)
+			, $menuEntries);
+		$this->assertNotContains(
+				array(
+					"title" => T_("Logout"),
+					"link"=> "logout/",
+					"module" => "default",
+					"controller" => "login",
+					"action" => "logout"
+				)
+			, $menuEntries);
+	}
+
+	public function test_getTopMenuLogged()
+	{
+		$menu = new USVN_modules_default_Menu();
+		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http(), array("username" => "toto"));
+		$this->assertContains(
+				array(
+					"title" => T_("Logout"),
+					"link"=> "logout/",
+					"module" => "default",
+					"controller" => "login",
+					"action" => "logout"
+				)
+			, $menuEntries);
+		$this->assertNotContains(
+				array(
+					"title" => T_("Sign in"),
+					"link"=> "login/",
+					"module" => "default",
+					"controller" => "login",
+					"action" => ""
+				)
+			, $menuEntries);
 	}
 }
 

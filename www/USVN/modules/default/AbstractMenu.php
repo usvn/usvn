@@ -22,9 +22,10 @@ abstract class USVN_modules_default_AbstractMenu
 	* Get menu entries in top menu.
 	*
 	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
 	* @return array
 	*/
-	public static function getTopMenu($request)
+	public static function getTopMenu($request, $identity)
 	{
 		return array();
 	}
@@ -33,9 +34,10 @@ abstract class USVN_modules_default_AbstractMenu
 	* Get menu entries in sub menu.
 	*
 	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
 	* @return array
 	*/
-	public static function getSubMenu($request)
+	public static function getSubMenu($request, $identity)
 	{
 		return array();
 	}

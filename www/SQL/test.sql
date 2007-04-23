@@ -12,29 +12,53 @@ VALUES
 
 INSERT INTO `usvn_groups` (`groups_id`, `groups_name`)
 VALUES
-	('3', 'love-admin'),
-	('4', 'love-user'),
-	('5', 'usvn-admin'),
-	('6', 'usvn-user')
+	('4', 'love-admin'),
+	('5', 'love-user'),
+	('6', 'usvn-admin'),
+	('7', 'usvn-user')
 ;
 
 INSERT INTO `usvn_users_to_groups` (`users_id`, `groups_id`)
 	VALUES
+		#Admin
+		('2', '1'),
 		('2', '2'),
-		('3', '6'),
-		('3', '3'),
-		('4', '6'),
-		('4', '3'),
-		('5', '6'),
-		('5', '3'),
-		('6', '6'),
-		('6', '3'),
-		('7', '5'),
-		('7', '3'),
-		('8', '6'),
-		('8', '3'),
-		('9', '6'),
-		('9', '3')
+		('2', '3'),
+		#attal_m
+		('3', '1'),
+		('3', '2'),
+		('3', '7'),
+		('3', '4'),
+		#billar_m
+		('4', '1'),
+		('4', '2'),
+		('4', '7'),
+		('4', '4'),
+		#crivis_s
+		('5', '1'),
+		('5', '2'),
+		('5', '7'),
+		('5', '4'),
+		#dolean_j
+		('6', '1'),
+		('6', '2'),
+		('6', '7'),
+		('6', '4'),
+		#duponc_j
+		('7', '1'),
+		('7', '2'),
+		('7', '6'),
+		('7', '4'),
+		#guyoll_o
+		('8', '1'),
+		('8', '2'),
+		('8', '7'),
+		('8', '4'),
+		#joanic_g
+		('9', '1'),
+		('9', '2'),
+		('9', '7'),
+		('9', '4')
 ;
 
 INSERT INTO `usvn_projects` (`projects_id`, `projects_name`, `projects_start_date`, `projects_description`, `projects_auth`, `projects_url`)
@@ -42,7 +66,6 @@ VALUES
 	('2', 'love', '2007-04-12 11:10:22', 'Site de musique similaire à last.fm', '007', NULL),
 	('3', 'usvn', '2006-09-01 11:10:22', 'User Friendly SVN', '008', 'http://www.usvn.info')
 ;
-
 
 INSERT INTO `usvn_revisions` (`projects_id`, `revisions_num`, `users_id`, `revisions_message`, `revisions_date`)
 	VALUES

@@ -23,16 +23,20 @@ class USVN_modules_changeset_Menu extends USVN_modules_default_AbstractMenu
 	* Get menu entries in top menu.
 	*
 	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
 	* @return array
 	*/
-	public static function getTopMenu($request)
+	public static function getTopMenu($request, $identity)
 	{
 		$project = $request->getParam("project");
 		if ($project !== '__NONE__') {
 			return array(
 				array(
 					"title" => T_("Changeset"),
-					"link"=> "project/" . $project . "/changeset/"
+					"link"=> "project/" . $project . "/changeset/",
+					"module" => "changeset",
+					"controller" => "index",
+					"action" => ""
 				)
 			);
 		}

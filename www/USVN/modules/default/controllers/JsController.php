@@ -19,23 +19,22 @@
  */
 require_once 'USVN/modules/default/controllers/IndexController.php';
 
-class JsController extends IndexController
+class JsController extends Zend_Controller_Action
 {
 	protected $_mimetype = 'text/javascript';
 
 	public function indexAction()
 	{
 		//directories for medias and images
-		$this->_view->medias_directory = $this->_request->getBaseUrl() .'/medias';
-		$this->_view->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
+		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
+		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 
 		//directories for javascript
-		$this->_view->js_default_directory = $this->_request->getBaseUrl() . '/medias/default/js';
-		$this->_view->js_directory = $this->_request->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/js';
+		$this->js_default_directory = $this->_request->getBaseUrl() . '/medias/default/js';
+		$this->js_directory = $this->_request->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/js';
 
 		//javascript files to load: the firts required and the second for templates
-		$this->_view->js_default_file = USVN_MEDIAS_DIRECTORY . '/default/js/usvn.js';
-		$this->_view->js_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/script.js';
-		$this->_render('script.js');
+		include(USVN_MEDIAS_DIRECTORY . '/default/js/usvn.js');
+		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/script.js');
 	}
 }

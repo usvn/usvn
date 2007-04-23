@@ -26,7 +26,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class USVN_MenuTest extends USVN_Test_Test
+class USVN_MenuTest extends USVN_Test_DB
 {
 	private $moduledir = 'tests/modules/';
 
@@ -47,34 +47,49 @@ class USVN_MenuTest extends USVN_Test_Test
 <?php
 class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
 {
-	public static function getTopMenu($request)
+	public static function getTopMenu($request, $identity)
 	{
 		return array(
 			array(
 				"title" => T_("Administration"),
-				"link"=> "admin/"
+				"link"=> "admin",
+				"module" => "admin",
+				"controller" => "index",
+				"action" => ""
 			)
 		);
 	}
 
-	public static function getSubMenu($request)
+	public static function getSubMenu($request, $identity)
 	{
 		return array(
 			array(
 				"title" => T_("Users"),
-				"link"=> "admin/users/"
+				"link"=> "admin/user/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => ""
 			),
 			array(
 				"title" => T_("Groups"),
-				"link"=> "admin/users/"
+				"link"=> "admin/group/",
+				"module" => "group",
+				"controller" => "index",
+				"action" => ""
 			),
 			array(
 				"title" => T_("Projects"),
-				"link"=> "admin/projects/"
+				"link"=> "admin/project/",
+				"module" => "admin",
+				"controller" => "project",
+				"action" => ""
 			),
 			array(
 				"title" => T_("Configuration"),
-				"link"=> "admin/config/"
+				"link"=> "admin/config/",
+				"module" => "admin",
+				"controller" => "config",
+				"action" => ""
 			)
 		);
 	}
@@ -85,30 +100,38 @@ class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
 <?php
 class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 {
-	public static function getTopMenu($request)
+	public static function getTopMenu($request, $identity)
 	{
 		return array(
 			array(
 				"title" => T_("View tickets"),
-				"link"=> "tickets/"
+				"link"=> "tickets/",
+				"module" => "tickets",
+				"controller" => "index",
+				"action" => ""
 			),
 			array(
 				"title" => T_("My tickets"),
-				"link"=> "tickets/my"
+				"link"=> "tickets/my",
+				"module" => "tickets",
+				"controller" => "index",
+				"action" => ""
 			)
 		);
 	}
 
-	public static function getSubMenu($request)
+	public static function getSubMenu($request, $identity)
 	{
 		return array(
 			array(
 				"title" => T_("New ticket"),
-				"link"=> "tickets/new/"
+				"link"=> "tickets/new/",
+				"module" => "tickets",
+				"controller" => "index",
+				"action" => ""
 			)
 		);
 	}
-
 }
 ');
 	}
@@ -121,22 +144,38 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 
 	public function test_getTopMenu()
 	{
-		$menu = new USVN_Menu($this->moduledir, new Zend_Controller_Request_Http());
+	/*	$menu = new USVN_Menu($this->moduledir, new Zend_Controller_Request_Http(), null);
 		$menuEntries = $menu->getTopMenu();
-		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin/"), $menuEntries);
+		$this->assertContains(
+			array(
+				"title" => T_("Administration"),
+				"link"=> "admin",
+				"module" => "admin",
+				"controller" => "index",
+				"action" => ""
+			)
+			, $menuEntries);
 		$this->assertContains(array("title" => T_("View tickets"), "link"=> "tickets/"), $menuEntries);
-		$this->assertContains(array("title" => T_("My tickets"), "link"=> "tickets/my"), $menuEntries);
+		$this->assertContains(array("title" => T_("My tickets"), "link"=> "tickets/my"), $menuEntries);*/
 	}
-
+/*
 	public function test_getSubMenu()
 	{
 		$request = new Zend_Controller_Request_Http();
 		$request->setParam('module', 'fakeadmin');
-		$menu = new USVN_Menu($this->moduledir, $request);
+		$menu = new USVN_Menu($this->moduledir, $request, null);
 		$menuEntries = $menu->getSubMenu();
-		$this->assertContains(array("title" => T_("Users"), "link"=> "admin/users/"), $menuEntries);
+		$this->assertContains(
+			array(
+				"title" => T_("Users"),
+				"link"=> "admin/user/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => ""
+			)
+			, $menuEntries);
 		$this->assertNotContains(array("title" => T_("New ticket"), "link"=> "tickets/new/"), $menuEntries);
-	}
+	}*/
 }
 
 // Call USVN_MenuTest::main() if this source file is executed directly.

@@ -40,7 +40,7 @@ class USVN_modules_changeset_MenuTest extends USVN_Test_Test {
 		$menu = new USVN_modules_changeset_Menu();
 		$request = new Zend_Controller_Request_Http();
 		$request->setParam("project", '__NONE__');
-		$menuEntries = $menu->getTopMenu($request);
+		$menuEntries = $menu->getTopMenu($request, null);
 		$this->assertEquals(array(), $menuEntries);
 	}
 
@@ -49,8 +49,17 @@ class USVN_modules_changeset_MenuTest extends USVN_Test_Test {
 		$menu = new USVN_modules_changeset_Menu();
 		$request = new Zend_Controller_Request_Http();
 		$request->setParam("project", 'test');
-		$menuEntries = $menu->getTopMenu($request);
-		$this->assertContains(array("title" => T_("Changeset"), "link"=> "project/test/changeset/"), $menuEntries);
+		$menuEntries = $menu->getTopMenu($request, null);
+		$this->assertContains(
+			array(
+				"title" => T_("Changeset"),
+				"link"=> "project/test/changeset/",
+				"module" => "changeset",
+				"controller" => "index",
+				"action" => ""
+
+			),
+			$menuEntries);
 	}
 }
 

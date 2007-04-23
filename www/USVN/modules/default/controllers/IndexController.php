@@ -47,6 +47,7 @@ class IndexController extends Zend_Controller_Action {
 		parent::init();
 
 		$this->_view = $this->getInvokeArg('view');
+		$this->_request->setParam('project', $this->_request->getParam('project', '__NONE__'));
 	}
 
 	/**
@@ -61,7 +62,7 @@ class IndexController extends Zend_Controller_Action {
      */
 	public function preDispatch()
 	{
-		$this->_view->project = $this->_request->getParam('project', '__NONE__');
+		$this->_view->project = $this->_request->getParam('project');
 
 		$module = $this->getRequest()->getModuleName();
 		$controller = $this->getRequest()->getControllerName();
@@ -77,15 +78,11 @@ class IndexController extends Zend_Controller_Action {
 		$this->_view->assign('module', $this->getRequest()->getParam('module'));
 		$this->_view->assign('controller', $this->getRequest()->getParam('controller'));
 		$this->_view->assign('action', $this->getRequest()->getParam('action'));
-		
-		if ($this->_checkAccess(Zend_Auth::getInstance()->getIdentity()))
-		{
-			// The current use is allowed
-		} else {
-			// The current use is not allowed
-			throw new Zend_Controller_Exception("You are not allowed to access to the controller $controller and module is $module.");
+
+		if (!$this->_checkAccess(Zend_Auth::getInstance()->getIdentity())) {
+			throw new Zend_Controller_Exception("You are not allowed to access to the controller $controller, module is $module and action is $action.");
 		}
-		
+
 	}
 
 	/**
@@ -99,13 +96,11 @@ class IndexController extends Zend_Controller_Action {
 		$controller = $this->getRequest()->getControllerName();
 		$project = $this->getRequest()->getParam('project');
 		$action = $this->getRequest()->getParam('action');
-		$user = $identity['username'];
-		if (!$project) {
-			$project = "__NONE__";
-		}
-		
-		if (!$identity['username']) {
+		if ($identity === null) {
 			$user = "anonymous";
+		}
+		else {
+			$user = $identity['username'];
 		}
 		$access = new USVN_Db_Table_Access();
 		return $access->access($user, $project, $module, $controller, $action);

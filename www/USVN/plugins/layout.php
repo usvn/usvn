@@ -70,7 +70,7 @@ class layout extends Zend_Controller_Plugin_Abstract
 		$base_url = $this->getRequest()->getBaseUrl();
 		$homepage = T_("Homepage");
 		$identity = Zend_Auth::getInstance()->getIdentity();
-		$loggedAs = !empty($identity['username']) ? T_("Logged as") . " " . $identity['username'] : "";
+		$loggedAs = !($identity === null) ? T_("Logged as") . " " . $identity['username'] : "";
 		$menu = new USVN_Menu("USVN/modules", $this->getRequest());
 		$header = <<<EOF
 <?xml version="1.0" encoding="utf-8"?>

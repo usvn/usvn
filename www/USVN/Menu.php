@@ -21,14 +21,27 @@ class USVN_Menu
 	private $_topMenu = array();
 	private $_subMenu = array();
 	private $_request;
+	private $_user;
+	private $_project;
+	private $_access;
+	private $_identity;
 
 	/**
 	* @param string Path of module directory
 	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
 	*/
-	public function __construct($module_path, $request)
+	public function __construct($module_path, $request, $identity)
 	{
+		$this->_identity = $identity;
 		$this->_request = $request;
+		if ($identity === null) {
+			$this->_user = "anonymous";
+		}
+		else {
+			$this->_user = $identity['username'];
+		}
+		$this->_access = new USVN_Db_Table_Access();
 		if ($dh = opendir($module_path)) {
 			while (($module = readdir($dh)) !== false) {
 				if ($module{0} != '.') {
@@ -50,9 +63,16 @@ class USVN_Menu
 		Zend_Loader::loadFile("Menu.php", $module_dir, true);
 		$class = "USVN_modules_{$module}_Menu";
 		$menu = new $class();
-		$this->_topMenu = array_merge($this->_topMenu, $menu->getTopMenu($this->_request));
+		$menus = $menu->getTopMenu($this->_request, $this->_identity);
+		foreach ($menus as $m) {
+			if ($this->_access->access($this->_user, $this->_request->getParam('project'), $m['module'], $m['controller'], $m['action'])) {
+				array_push($this->_topMenu, $m);
+			}
+		}
 		if ($module == $this->_request->getParam("module")) {
-			$this->_subMenu = $menu->getSubMenu($this->_request);
+			if ($this->_access->access($this->_user, $this->_request->getParam('project'), $m['module'], $m['controller'], $m['action'])) {
+				$this->_subMenu = $menu->getSubMenu($this->_request, $this->_identity);
+			}
 		}
 	}
 

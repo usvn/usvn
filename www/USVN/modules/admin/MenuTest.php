@@ -38,15 +38,29 @@ class USVN_modules_admin_MenuTest extends USVN_Test_Test {
 	public function test_getTopMenu()
 	{
 		$menu = new USVN_modules_admin_Menu();
-		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http());
-		$this->assertContains(array("title" => T_("Administration"), "link"=> "admin"), $menuEntries);
+		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http(), null);
+		$this->assertContains(
+			array(
+				"title" => T_("Administration"),
+				"link"=> "admin",
+				"module" => "admin",
+				"controller" => "index",
+				"action" => ""
+			), $menuEntries);
 	}
 
 	public function test_getSubMenu()
 	{
 		$menu = new USVN_modules_admin_Menu();
-		$menuEntries = $menu->getSubMenu(new Zend_Controller_Request_Http());
-		$this->assertContains(array("title" => T_("Configuration"), "link"=> "admin/config/"), $menuEntries);
+		$menuEntries = $menu->getSubMenu(new Zend_Controller_Request_Http(), null);
+		$this->assertContains(
+			array(
+				"title" => T_("Configuration"),
+				"link"=> "admin/config/",
+				"module" => "admin",
+				"controller" => "config",
+				"action" => ""
+			), $menuEntries);
 	}
 }
 

@@ -23,23 +23,43 @@ class USVN_modules_default_Menu extends USVN_modules_default_AbstractMenu
 	* Get menu entries in top menu.
 	*
 	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
 	* @return array
 	*/
-	public static function getTopMenu($request)
+	public static function getTopMenu($request, $identity)
 	{
-		return array(
+		$menu = array();
+		array_push($menu,
 			array(
 				"title" => T_("Homepage"),
-				"link"=> ""
-			),
-			array(
-				"title" => T_("Sign in"),
-				"link"=> "login/"
-			),
-			array(
-				"title" => T_("Logout"),
-				"link"=> "logout/"
+				"link"=> "",
+				"module" => "default",
+				"controller" => "index",
+				"action" => ""
 			)
 		);
+		if ($identity === null) {
+			array_push($menu,
+				array(
+					"title" => T_("Sign in"),
+					"link"=> "login/",
+					"module" => "default",
+					"controller" => "login",
+					"action" => ""
+				)
+			);
+		}
+		else {
+			array_push($menu,
+				array(
+					"title" => T_("Logout"),
+					"link"=> "logout/",
+					"module" => "default",
+					"controller" => "login",
+					"action" => "logout"
+				)
+			);
+		}
+		return $menu;
 	}
 }

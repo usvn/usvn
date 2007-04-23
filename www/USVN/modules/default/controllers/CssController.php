@@ -19,25 +19,25 @@
  */
 require_once 'USVN/modules/default/controllers/IndexController.php';
 
-class CssController extends IndexController
+class CssController extends Zend_Controller_Action
 {
 	protected $_mimetype = 'text/css';
 
 	public function screenAction()
 	{
-		$this->_view->medias_directory = $this->_request->getBaseUrl() . '/medias';
-		$this->_view->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
-		$this->_view->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
-		$this->_view->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
-		$this->_render('screen.css');
+		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
+		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
+		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
+		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
+		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css');
 	}
 
 	public function printAction()
 	{
-		$this->_view->medias_directory = $this->_request->getBaseUrl() .'/medias';
-		$this->_view->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
-		$this->_view->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
-		$this->_view->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
-		$this->_render('print.css');
+		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
+		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
+		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
+		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
+		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css');
 	}
 }

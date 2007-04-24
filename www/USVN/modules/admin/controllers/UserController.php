@@ -32,8 +32,9 @@ class admin_UserController extends admin_IndexController
 		if (isset($_POST['users_id']) && !empty($_POST['users_id'])) {
 			$user['users_id'] = $_POST['users_id'];
 		}
+		//do the encryption if needed
 		if (isset($_POST['users_password'])) {
-			$user['users_password']	= $_POST['users_password'];
+			$user['users_password']	= crypt($_POST['users_password'], $_POST['users_password']);
 		}
 		return $user;
 	}

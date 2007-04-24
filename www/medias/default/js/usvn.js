@@ -14,8 +14,8 @@ function includeJsFile(file) {
 }
 
 //Call for HTMLTableTools
-includeJsFile("<?php echo $this->js_default_directory; ?>/tools/HTMLTableTools/prototype.js");
-includeJsFile("<?php echo $this->js_default_directory; ?>/tools/HTMLTableTools/builder.js");
+includeJsFile("<?php echo $this->js_default_directory; ?>/tools/prototype.js");
+includeJsFile("<?php echo $this->js_default_directory; ?>/tools/builder.js");
 includeJsFile("<?php echo $this->js_default_directory; ?>/tools/HTMLTableTools/HTMLTableTools.js");
 
 //HTMLTableTools default options's definition

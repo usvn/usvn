@@ -152,10 +152,6 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	public function insert(array $data)
 	{
 		$this->check($data);
-		//do the encryption if needed
-		/*if (isset($data['users_password'])) {
-			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
-		}*/
 		return parent::insert($data);
 	}
 
@@ -176,10 +172,6 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		if (isset($data['users_email'])) {
 			$this->checkEmailAddress($data['users_email']);
 		}
-		//do the encryption if needed
-		/*if (isset($data['users_password'])) {
-			$data['users_password'] = crypt($data['users_password'], $data['users_password']);
-		}*/
 		return parent::update($data, $where);
 	}
 

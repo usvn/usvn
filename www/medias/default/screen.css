@@ -132,34 +132,6 @@ ul#usvn_submenu {
 	padding-bottom: 500px;
 }
 
-
-table {
-	empty-cells: show;
-}
-
-table tr.odd th,
-table tr.odd {
-    background-color: #FFFFFF;
-}
-
-/* hovered table rows */
-table tr.odd:hover,
-table tr.odd:hover th {
-    background-color: #BFF4FF;
-}
-
-/* Titles - such as table headers. */
-.titlebg, tr.titlebg td, .titlebg a:link, .titlebg a:visited {
-	font-weight: bold;
-	font-style: normal;
-	color: #ffffff;
-	background-color: #598db2;
-}
-.titlebg a:hover {
-	color: #ffffff;
-	text-decoration: underline;
-}
-
 a:link, a:visited {
 	color: #0810E5;
 	background-color: transparent;

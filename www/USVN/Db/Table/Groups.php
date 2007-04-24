@@ -74,10 +74,10 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	"refTable"   => "USVN_Db_Table_Users",
 	"refColumns" => array("users_id"),
 	),
-	"ToAttribute" => array(
+	"Workgroups" => array(
 	"columns"	=> array("groups_id"),
-	"refTable"   => "USVN_Db_Table_ToAttribute",
-	"refColumns" => array("rights_id", "groups_id", "projects_id", "files_id"),
+	"refTable"   => "USVN_Db_Table_Workgroups",
+	"refColumns" => array("workgroups_id", "groups_id", "projects_id"),
 	)
 	);
 
@@ -90,7 +90,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups",
-										"USVN_Db_Table_ToAttribute"
+										"USVN_Db_Table_Workgroups"
 										);
 
 

@@ -1,20 +1,20 @@
 <script type="text/javascript">
 function checkForm() {
-	var spanError = document.getElementById('error');
+	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
-	if (!document.userProfile.users_password.value.length || !document.userProfile.users_password2.value.length) {
-		spanError.innerHTML = 'Password empty.';
-		return false;
-	}
 	if (document.userProfile.users_password.value != document.userProfile.users_password2.value) {
-		spanError.innerHTML = 'Password incorrect (not the same).';
+		spanError.innerHTML = "<?php echo T_('Password incorrect (not the same).'); ?>";
+		spanError.className = "usvn_error";
 		return false;
 	}
-	if (document.userProfile.users_password.value.length < 8) {
-		spanError.innerHTML = 'Password incorrect (need more 8 characters).';
+	if (document.userProfile.users_password.value.length < 8
+		&& document.userProfile.users_password.value.length >= 1 ) {
+		spanError.innerHTML = "<?php echo T_('Password incorrect (need more 8 characters).'); ?>";
+		spanError.className = "usvn_error";
 		return false;
 	}
 	spanError.innerHTML = '';
+	spanError.className = "";
 	return true;
 }
 </script>
@@ -38,7 +38,7 @@ function checkForm() {
 	<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
 	<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkForm();')); ?>
 	<br /><br />
-	<div id="error" class="usvn_error"></div>
+	<div id="error"></div>
 </form>
 <br />
 <a href="<?php echo $this->url(array('action' => '')); ?>"><?php echo T_('Return'); ?></a>

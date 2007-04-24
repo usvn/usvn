@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for to_attribute table
+ * Model for workgroups table
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info/
@@ -19,12 +19,12 @@
  */
 
 /**
- * Model for users_to_groups table
+ * Model for workgroups table
  *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
-class USVN_Db_Table_ToAttribute extends USVN_Db_Table {
+class USVN_Db_Table_Workgroups extends USVN_Db_Table {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -32,14 +32,14 @@ class USVN_Db_Table_ToAttribute extends USVN_Db_Table {
 	 *
 	 * @var string
 	 */
-	protected $_primary = array("rights_id", "groups_id", "projects_id", "files_id");
+	protected $_primary = array("workgroups_id");
 
 	/**
 	 * The table name derived from the class name (underscore format).
 	 *
 	 * @var array
 	 */
-	protected $_name = "to_attribute";
+	protected $_name = "workgroups";
 
 
 	/**
@@ -65,6 +65,11 @@ class USVN_Db_Table_ToAttribute extends USVN_Db_Table {
 	"columns"	   	=> array("groups_id"),
 	"refTableClass" => "USVN_Db_Table_Groups",
 	"refColumns"	=> array("groups_id"),
+	),
+	"Projects" => array(
+	"columns"	   	=> array("projects_id"),
+	"refTableClass" => "USVN_Db_Table_Projects",
+	"refColumns"	=> array("project_id"),
 	),
 	"Rights" => array(
 	"columns"		=> array("rights_id"),

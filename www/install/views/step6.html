@@ -1,30 +1,36 @@
 <script type="text/javascript">
 function checkForm() {
-	var spanError = document.getElementById('usvn_error');
+	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
 	if (document.createAdmin.login.value.length == 0
 		|| checkRegExp.test(document.createAdmin.login.value)) {
 		spanError.innerHTML = '<?php echo T_('Login empty.');?>';
+		spanError.className = "usvn_error";
 		return false;
 	}
 	if (document.createAdmin.lastname.value.length == 0
 		|| checkRegExp.test(document.createAdmin.lastname.value)) {
 		spanError.innerHTML = <?php echo T_('Lastname empty.');?>';
+		spanError.className = "usvn_error";
 		return false;
 	}
 	if (!document.createAdmin.password.value.length || !document.createAdmin.password2.value.length) {
 		spanError.innerHTML = '<?php echo T_('Password empty.');?>';
+		spanError.className = "usvn_error";
 		return false;
 	}
 	if (document.createAdmin.password.value != document.createAdmin.password2.value) {
 		spanError.innerHTML = '<?php echo T_('Password incorrect (not the same).');?>';
+		spanError.className = "usvn_error";
 		return false;
 	}
 	if (document.createAdmin.password.value.length < 8) {
 		spanError.innerHTML = '<?php echo T_('Password incorrect (need more 8 characters).');?>';
+		spanError.className = "usvn_error";
 		return false;
 	}
 	spanError.innerHTML = '';
+	spanError.className = "";
 	return true;
 }
 </script>
@@ -74,6 +80,6 @@ function checkForm() {
 		</tr>
 	</table>
 	<br /><br />
-	<div id="usvn_error"></div>
+	<div id="error"></div>
 	<input type="submit" value="<?php echo T_("Next step");?>" onclick="return checkForm();">
 </form>

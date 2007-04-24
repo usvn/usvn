@@ -22,20 +22,15 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	/**
 	* Add a group to a project
 	*
-	* @todo review the database schema
-	* @param USVN_Db_Table_Row_Right Right
 	* @param USVN_Db_Table_Row_Group Group
-	* @param USVN_Db_Table_Row_File File
 	*/
-	public function addGroup($right, $group, $file)
+	public function addGroup($group)
 	{
-		$toAttribute = new USVN_Db_Table_ToAttribute();
-		$toAttribute->insert(
+		$workgroups = new USVN_Db_Table_Workgroups();
+		$workgroups->insert(
 			array(
-				"rights_id"		=> $right->id,
 				"groups_id" 	=> $group->id,
 				"projects_id"	=> $this->id,
-				"files_id"		=> $file->id
 			)
 		);
 	}
@@ -43,21 +38,16 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	/**
 	* Check if an group is in the project
 	*
-	* @param USVN_Db_Table_Row_Right Right
 	* @param USVN_Db_Table_Row_Group Group
-	* @param USVN_Db_Table_Row_File File
-	* @todo review the database schema
 	* @return boolean
 	*/
-	public function groupIsMember($right, $group, $file)
+	public function groupIsMember($group)
 	{
-		$toAttribute = new USVN_Db_Table_ToAttribute();
-		$res = $toAttribute->fetchRow(
+		$workgroups = new USVN_Db_Table_Workgroups();
+		$res = $workgroups->fetchRow(
 			array(
-				"rights_id"		=> $right->id,
 				"groups_id" 	=> $group->id,
 				"projects_id"	=> $this->id,
-				"files_id"		=> $file->id
 			)
 		);
 		if ($res === NULL) {

@@ -513,31 +513,31 @@ HTMLTableTools.prototype = {
 		else return 0;
 	},
 
-getTextField: function ( e ) {
-	// recup l'element qui a declenche l'evenement (imgUp ou imgDown)
-	var element = Event.element(e);
-	if ( !element ) return;
-	cellIndex = parseInt( element.id.substr(this.table.id.length + 8) );
-	element.style.visibility = 'collapse';
-	element.innerHTML = '';
-	var field = document.getElementById(this.table.id + 'search[' + cellIndex + ']');
-	field.style.visibility = 'visible';
-	field.focus();
-},
-filterTable: function ( e ) {
+	getTextField: function ( e ) {
+		// recup l'element qui a declenche l'evenement (imgUp ou imgDown)
 		var element = Event.element(e);
 		if ( !element ) return;
-		cellIndex = element.cellCpt;
-		for ( var rowCpt = 1; rowCpt < this.table.rows.length; rowCpt++ ) {
-				var currentRow = $(this.table.rows[rowCpt]);
-				var string = new String(this.table.rows[rowCpt].cells[cellIndex].innerHTML).toLowerCase();
-				if (string.indexOf(element.value.toLowerCase(), 0) == -1) {
-						this.table.rows[rowCpt].style.visibility = "collapse";
-				} else {
-						this.table.rows[rowCpt].style.visibility = "visible";
-				}
-		}
-},
+		cellIndex = parseInt( element.id.substr(this.table.id.length + 8) );
+		element.style.visibility = 'collapse';
+		element.innerHTML = '';
+		var field = document.getElementById(this.table.id + 'search[' + cellIndex + ']');
+		field.style.visibility = 'visible';
+		field.focus();
+	},
+	filterTable: function ( e ) {
+			var element = Event.element(e);
+			if ( !element ) return;
+			cellIndex = element.cellCpt;
+			for ( var rowCpt = 1; rowCpt < this.table.rows.length; rowCpt++ ) {
+					var currentRow = $(this.table.rows[rowCpt]);
+					var string = new String(this.table.rows[rowCpt].cells[cellIndex].innerHTML).toLowerCase();
+					if (string.indexOf(element.value.toLowerCase(), 0) == -1) {
+							this.table.rows[rowCpt].style.visibility = "collapse";
+					} else {
+							this.table.rows[rowCpt].style.visibility = "visible";
+					}
+			}
+	},
 
 	highlight: function( e ) {
 		// recup l'element qui a declanche l'evenement

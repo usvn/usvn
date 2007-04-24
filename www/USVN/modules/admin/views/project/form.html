@@ -4,10 +4,12 @@ function checkName() {
 	var checkRegExp = new RegExp("^[ \t]*$");
 	if (document.project.projects_name.value.length == 0
 		|| checkRegExp.test(document.project.projects_name.value)) {
-		spanError.innerHTML = 'Project\'s name empty, please fill it.';
+		spanError.innerHTML = "<?php echo T_('Project\'s name empty, please fill it.'); ?>;"
+		spanError.className = "usvn_error";
 		return false;
 	}
 	spanError.innerHTML = '';
+	spanError.className = "";
 	return true;
 }
 </script>
@@ -28,7 +30,7 @@ function checkName() {
 			</tr>
 		</table>
 		<br /><br />
-		<div id="error" class="usvn_error"></div>
+		<div id="error"></div>
 		<?php
 		if (isset($this->project) && $this->project->id) {
 			echo $this->formHidden('projects_id', $this->project->id);

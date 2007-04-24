@@ -1,31 +1,32 @@
 <script type="text/javascript">
 function checkForm() {
-	var spanError = document.getElementById('error');
+	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
 	if (document.user.users_login.value.length == 0
 		|| checkRegExp.test(document.user.users_login.value)) {
-		spanError.innerHTML = 'Login empty.';
-		spanError.visibility = 'visible';
+		spanError.innerHTML = "<?php echo T_('Login empty.'); ?>";
+		spanError.className = "usvn_error";
 		return false;
 	}
 	if ((!document.user.users_password.value.length || !document.user.users_password2.value.length)
 		&& !document.user.users_id) {
-		spanError.innerHTML = 'Password empty.';
-		spanError.visibility = 'visible';
+		spanError.innerHTML = "<?php echo T_('Password empty.');?>";
+		spanError.className = "usvn_error";
 		return false;
 	}
 	if (document.user.users_password.value != document.user.users_password2.value) {
-		spanError.innerHTML = 'Password incorrect (not the same).';
-		spanError.visibility = 'visible';
+		spanError.innerHTML = "<?php echo T_('Password incorrect (not the same).');?>";
+		spanError.className = "usvn_error";
 		return false;
 	}
-	if (document.user.users_password.value.length < 8 && !document.user.users_id) {
-		spanError.innerHTML = 'Password incorrect (need more 8 characters).';
-		spanError.visibility = 'visible';
+	if (document.user.users_password.value.length < 8 && (!document.user.users_id ||
+		document.user.users_password.value.length >= 1)) {
+		spanError.innerHTML = "<?php echo T_('Password incorrect (need more 8 characters).');?>";
+		spanError.className = "usvn_error";
 		return false;
 	}
 	spanError.innerHTML = '';
-	spanError.visibility = 'collapse';
+	spanError.className = "";
 	return true;
 }
 </script>
@@ -52,7 +53,7 @@ function checkForm() {
 		<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkForm();')); ?>
 		<br /><br />
-		<div id="error" class="usvn_error; visibility: collapse"></div>
+		<span id="error"></div>
 	</form>
 </fieldset>
 <br />

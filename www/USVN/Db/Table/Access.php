@@ -64,10 +64,10 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 * @var array
 	 */
 	protected $_referenceMap = array(
-	"ToAttribute" => array(
-	"columns"	=> array("rights_id"),
-	"refTable"   => "USVN_Db_Table_ToAttribute",
-	"refColumns" => array("rights_id", "groups_id", "projects_id", "files_id"),
+	"Workgroups" => array(
+	"columns"	=> array("workgroups_id"),
+	"refTable"   => "USVN_Db_Table_Workgroups",
+	"refColumns" => array("workgroups_id", "groups_id", "projects_id"),
 	)
 	);
 
@@ -79,7 +79,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_ToAttribute");
+	protected $_dependentTables = array("USVN_Db_Table_Workgroups");
 
     /**
 	 * Check if the user is allwed to go to an action
@@ -103,12 +103,13 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 		/**
 	 	* Request for get all the right from the current user.
 	 	*/
-		
+
     	$select = $db->select();
-    	$select->from(USVN_Db_Table::$prefix . 'to_attribute', '*');
-    	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'to_attribute.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
-    	$select->join(USVN_Db_Table::$prefix . 'users_to_groups', USVN_Db_Table::$prefix . 'to_attribute.groups_id = ' . USVN_Db_Table::$prefix . 'users_to_groups.groups_id');
-    	$select->join(USVN_Db_Table::$prefix . 'rights', USVN_Db_Table::$prefix . 'to_attribute.rights_id = ' . USVN_Db_Table::$prefix . 'rights.rights_id');
+    	$select->from(USVN_Db_Table::$prefix . 'workgroups_to_rights', '*');
+    	$select->join(USVN_Db_Table::$prefix . 'workgroups', USVN_Db_Table::$prefix . 'workgroups.workgroups_id = ' . USVN_Db_Table::$prefix . 'workgroups_to_rights.workgroups_id');
+    	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'workgroups.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
+    	$select->join(USVN_Db_Table::$prefix . 'users_to_groups', USVN_Db_Table::$prefix . 'workgroups.groups_id = ' . USVN_Db_Table::$prefix . 'users_to_groups.groups_id');
+    	$select->join(USVN_Db_Table::$prefix . 'rights', USVN_Db_Table::$prefix . 'workgroups_to_rights.rights_id = ' . USVN_Db_Table::$prefix . 'rights.rights_id');
     	$select->join(USVN_Db_Table::$prefix . 'users', USVN_Db_Table::$prefix . 'users.users_id = ' . USVN_Db_Table::$prefix . 'users_to_groups.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
     	$select->where(USVN_Db_Table::$prefix . 'projects.projects_name = ?', $project);
@@ -119,9 +120,9 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			try {
 				$acl->add(new Zend_Acl_Resource($tab[0] . "_" . $tab[1]));
 			} catch (Exception  $e) {
-				
+
 			}
-			
+
 			if (count($tab) == 3) {
 				if ($result[$i]['is_right'] == true) {
 					$acl->allow('user', $tab[0] . "_" . $tab[1], $tab[2]);
@@ -153,6 +154,6 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			//echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
 			return false;
    		}
-		
+
     }
 }

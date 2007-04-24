@@ -74,10 +74,10 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_referenceMap = array(
-	"ToAttribute" => array(
+	"Workgroups" => array(
 	"columns"	=> array("projects_id"),
-	"refTable"   => "USVN_Db_Table_ToAttribute",
-	"refColumns" => array("rights_id", "groups_id", "projects_id", "files_id"),
+	"refTable"   => "USVN_Db_Table_Workgroups",
+	"refColumns" => array("workgroups_id", "groups_id", "projects_id"),
 	)
 	);
 
@@ -89,7 +89,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_ToAttribute");
+	protected $_dependentTables = array("USVN_Db_Table_Workgroups");
 
 	/**
 	 * Return the project by his name

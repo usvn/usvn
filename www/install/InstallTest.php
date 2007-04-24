@@ -190,6 +190,17 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertContains("RewriteBase /test", $htaccess);
 	}
 
+	public function testInstallUrlRoot()
+	{
+		$_SERVER['REQUEST_URI'] = "/install/index.php?step=7";
+		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess");
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("/", $config->url->base);
+		$this->assertEquals("localhost", $config->url->host);
+		$htaccess = file_get_contents("tests/tmp/.htaccess");
+		$this->assertContains("RewriteBase /", $htaccess);
+	}
+
 	public function testInstallUrlCantWriteHtaccess()
 	{
 		try {

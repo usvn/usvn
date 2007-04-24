@@ -122,6 +122,9 @@ class Install
 	{
 		ereg("(.*)/install.*", $_SERVER['REQUEST_URI'], $regs);
 		$path =$regs[1];
+		if (strlen($path) == 0) {
+			$path = "/";
+		}
 		$config = Install::_loadConfig($config_file);
 		if (!isset($config->url)) {
 			$config->url = array();

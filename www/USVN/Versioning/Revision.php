@@ -19,8 +19,9 @@
  */
 class USVN_Versioning_Revision
 {
-	private $project;
-	private $revision;
+	private $_project;
+	private $_revision_number;
+	private $_revision;
 
 	/**
 	 * @param integer Project number
@@ -28,8 +29,14 @@ class USVN_Versioning_Revision
 	 */
 	public function __construct($project, $revision)
 	{
-		$this->project = $project;
-		$this->revision = $revision;
+		$this->_project = $project;
+		$this->_revision_number = $revision;
+		$revisions = new USVN_Db_Table_Revisions();
+		$res = $revisions->find($this->_project, $this->_revision_number)->current();
+		if ($res === false) {
+			throw new USVN_Exception(T_("Invalid revision  project is %s and revision number %d."), $this->_project, $this->_revision_number);
+		}
+		$this->_revision = $res;
 	}
 
 	/**
@@ -39,7 +46,7 @@ class USVN_Versioning_Revision
 	 */
 	public function getProject()
 	{
-		return $this->project;
+		return $this->_project;
 	}
 
 	/**
@@ -49,7 +56,7 @@ class USVN_Versioning_Revision
 	 */
 	public function getRevisionNumber()
 	{
-		return $this->revision;
+		return $this->_revision_number;
 	}
 
 	/**
@@ -59,26 +66,28 @@ class USVN_Versioning_Revision
 	 */
 	public function getMessage()
 	{
-		$revision = new USVN_Db_Table_Revisions();
-		
-		$res = $revision->find($this->project, $this->revision);
-		
-		return ($res->revisions_message);
+		return ($this->_revision ->revisions_message);
 	}
 
 	/**
 	 * Get the author of the revison
 	 *
-	 * @return integer Author id
+	 * @return Author object (USVN_Db_Table_Row)
 	 */
 	public function getAuthor()
 	{
+		$users = new USVN_Db_Table_Users();
+		return ($users->find($this->_revision->users_id)->current());
+	}
 
-		$revision = new USVN_Db_Table_Revisions();
-		
-		$res = $revision->find($this->project, $this->revision);
-		
-		return ($res->users_id);
+	/**
+	 * Get date of the revison
+	 *
+	 * @return date
+	 */
+	public function getDate()
+	{
+		return ($this->_revision->revisions_date);
 	}
 
 	/**
@@ -88,6 +97,6 @@ class USVN_Versioning_Revision
 	 */
 	public function getFiles()
 	{
-		return new USVN_Versioning_FileVersionSet($this->project, $this->revision);
+		return new USVN_Versioning_FileVersionSet($this->_project, $this->_revision_number);
 	}
 }

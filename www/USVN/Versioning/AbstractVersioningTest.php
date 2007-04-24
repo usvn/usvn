@@ -49,6 +49,7 @@ require_once 'www/USVN/autoload.php';
 			"projects_id" => 2,
 			"revisions_num" => 1,
 			"revisions_message" => "First commit",
+			"revisions_date" => "1984-12-03 00:00:00",
 			"users_id" => 2
 		);
 		$this->db->insert("usvn_revisions", $data);
@@ -94,6 +95,7 @@ require_once 'www/USVN/autoload.php';
 			"projects_id" => 2,
 			"revisions_num" => 2,
 			"revisions_message" => "Second commit",
+			"revisions_date" => "2007-12-03 00:00:00",
 			"users_id" => 3
 		);
 		$this->db->insert("usvn_revisions", $data);
@@ -120,8 +122,8 @@ require_once 'www/USVN/autoload.php';
 			"projects_id" => 2,
 			"properties_name" => 'eof',
 			"properties_value" => "\r\n"
-		);*/
-		$this->db->insert("usvn_properties", $data);
+		);
+		$this->db->insert("usvn_properties", $data);*/
 
 
 		// bug de phing test sur l'insertrion precedente

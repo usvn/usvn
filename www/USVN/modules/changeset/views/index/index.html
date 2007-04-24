@@ -1,36 +1,31 @@
-<h1>Changeset <?php echo $this->revision; ?></h1>
+<h1>Changeset <?php echo $this->revision->getRevisionNumber(); ?></h1>
 <div id="usvn_toolbox">
 	<ul>
-		<li><a href="<?php echo $this->url(array('revision' => 'last'))?>"><?php echo T_("Last revision");?></a></li>
+		<li><a href="<?php echo $this->url(array('revision' => ''))?>"><?php echo T_("Last revision");?></a></li>
 		<?php
-		if ($this->revision > 1) {
-			echo '<li><a href="' . $this->url(array('revision' => $this->revision - 1)) . '">' . T_("Previous revision") . '</a></li>';
+		if ($this->revision->getRevisionNumber() > 1) {
+			echo '<li><a href="' . $this->url(array('revision' => $this->revision->getRevisionNumber() - 1)) . '">' . T_("Previous revision") . '</a></li>';
 		}
 		?>
-		<li><a href="<?php echo $this->url(array('revision' => $this->revision + 1))?>"><?php echo T_("Next revision");?></a></li>
+		<li><a href="<?php echo $this->url(array('revision' => $this->revision->getRevisionNumber() + 1))?>"><?php echo T_("Next revision");?></a></li>
 	</ul>
 	<form action="<?php echo $this->url(array('revision' => ''));?>" method="POST">
-		<input type="text" name="revision" size="4" value="<?php echo $this->revision;?>">
+		<input type="text" name="revision" size="4" value="<?php echo $this->revision->getRevisionNumber();?>">
 		<input type="submit" value="<?php echo T_("Go to revision");?>">
 	</form>
 </div>
 <table>
 	<tr>
 		<td>Timestamp:</td>
-		<td>04/13/07 00:35:03</td>
+		<td><?php echo $this->revision->getDate();?></td>
 	</tr>
 	<tr>
 		<td>Author:</td>
-		<td>duponc_j</td>
+		<td><?php echo $this->revision->getAuthor()->login;?></td>
 	</tr>
 	<tr>
 		<td>Message:</td>
-		<td>On ne peut pas mettre le logo epitech ce n'est pas une
- image libre. Cela risque de poser des problemes<br />
- (cf: firefox et debian).<br />
-<br />
- refs #177<br />
-		</td>
+		<td><?php echo $this->revision->getMessage();?></td>
 	</tr>
 	<tr>
 		<td>Files:</td>

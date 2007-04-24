@@ -20,7 +20,7 @@
 
 /**
  * Model for revisions table
- * 
+ *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
@@ -29,7 +29,7 @@ class USVN_Db_Table_Revisions extends USVN_Db_Table {
 	 * The primary key column (underscore format).
 	 *
 	 * Without our prefixe...
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $_primary = array("projects_id", "revisions_num");
@@ -40,8 +40,6 @@ class USVN_Db_Table_Revisions extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_name = "revisions";
-
-
 }
 
 ?>

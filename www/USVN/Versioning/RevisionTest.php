@@ -58,26 +58,32 @@ class USVN_Versioning_RevisionTest extends USVN_Versioning_AbstractVersioningTes
 		$this->assertEquals(1, $revision->getRevisionNumber());
 	}
 
-/*	public function testGetMessage()
+	public function testGetMessage()
 	{
-		$revision = new USVN_Versioning_Revision(1, 1);
-		$this->assertEquals("First commit", $revision->getMessage());
-		$revision = new USVN_Versioning_Revision(1, 2);
-		$this->assertEquals("Second commit", $revision->getMessage());
 		$revision = new USVN_Versioning_Revision(2, 1);
+		$this->assertEquals("First commit", $revision->getMessage());
+		$revision = new USVN_Versioning_Revision(2, 2);
+		$this->assertEquals("Second commit", $revision->getMessage());
+		$revision = new USVN_Versioning_Revision(3, 1);
 		$this->assertEquals("Commit to another project", $revision->getMessage());
+	}
+
+	public function testGetDate()
+	{
+		$revision = new USVN_Versioning_Revision(2, 1);
+		$this->assertEquals("1984-12-03 00:00:00", $revision->getDate());
+		$revision = new USVN_Versioning_Revision(2, 2);
+		$this->assertEquals("2007-12-03 00:00:00", $revision->getDate());
 	}
 
 	public function testGetAuthor()
 	{
-		$revision = new USVN_Versioning_Revision(1, 1);
-		$this->assertEquals(1, $revision->getAuthor());
-		$revision = new USVN_Versioning_Revision(1, 2);
-		$this->assertEquals(2, $revision->getAuthor());
+		$revision = new USVN_Versioning_Revision(2, 1);
+		$this->assertEquals('test', $revision->getAuthor()->login);
 		$revision = new USVN_Versioning_Revision(2, 2);
-		$this->assertEquals(1, $revision->getAuthor());
+		$this->assertEquals('root', $revision->getAuthor()->login);
 	}
-*/
+
 	public function testGetFiles()
 	{
 		$revision = new USVN_Versioning_Revision(2, 1);

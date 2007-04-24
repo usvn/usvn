@@ -33,6 +33,7 @@ class JsController extends Zend_Controller_Action
 		$this->js_directory = $this->_request->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/js';
 
 		//javascript files to load: the firts required and the second for templates
+		header("Content-type: $_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/default/js/usvn.js');
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/script.js');
 	}

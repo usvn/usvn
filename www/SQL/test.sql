@@ -67,7 +67,7 @@ VALUES
 	(3, 'usvn', '2006-09-01 11:10:22', 'User Friendly SVN', '008', 'http://www.usvn.info')
 ;
 
-INSERT INTO `usvn_workgroups` (`workgroups_id`, `groups_id`, `projects_id`) 
+INSERT INTO `usvn_workgroups` (`workgroups_id`, `groups_id`, `projects_id`)
 VALUES
 	/*usvn-admin*/
 	(4, 6, 3),
@@ -79,7 +79,7 @@ VALUES
 	(7, 5, 2)
 ;
 
-INSERT INTO `usvn_workgroups_to_rights` (`workgroups_id`, `rights_id`, `is_right`) 
+INSERT INTO `usvn_workgroups_to_rights` (`workgroups_id`, `rights_id`, `is_right`)
 VALUES
 	/*usvn-user*/
 	(5, 1, 1),

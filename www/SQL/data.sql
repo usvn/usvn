@@ -5,7 +5,6 @@ INSERT INTO `usvn_users` (`users_id`, `users_login`, `users_password`, `users_la
 INSERT INTO `usvn_groups` (`groups_id`, `groups_name`) VALUES
 (1, 'Anonymous'),
 (2, 'Users'),
-
 (3, 'Admins')
 ;
 
@@ -14,7 +13,7 @@ INSERT INTO `usvn_projects` (`projects_id`, `projects_name`, `projects_start_dat
 (1, '__NONE__', '2007-04-01 15:29:57', '', NULL, NULL);
 
 
-INSERT INTO `usvn_rights` (`rights_id`, `rights_label`) VALUES 
+INSERT INTO `usvn_rights` (`rights_id`, `rights_label`) VALUES
 (1, 'default_login'),
 (2, 'default_logout'),
 (3, 'default_index'),
@@ -36,7 +35,8 @@ INSERT INTO `usvn_rights` (`rights_id`, `rights_label`) VALUES
 (19, 'admin_project_delete'),
 (20, 'admin_config'),
 (21, 'admin_config_save'),
-(22, 'wiki_index');
+(22, 'wiki_index'),
+(23, 'changeset_index');
 
 
 INSERT INTO `usvn_users_to_groups` (`users_id`, `groups_id`) VALUES
@@ -62,6 +62,7 @@ INSERT INTO `usvn_workgroups_to_rights` (`workgroups_id`, `rights_id`, `is_right
 (1, 3, 1),
 (1, 4, 1),
 (1, 5, 1),
+(1, 23, 1),
 /*Users rights*/
 (2, 1, 1),
 (2, 2, 1),

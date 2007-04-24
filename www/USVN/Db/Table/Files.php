@@ -46,14 +46,14 @@ class USVN_Db_Table_Files extends USVN_Db_Table {
      *
      * @var string
      */
-	protected $_rowClass = 'USVN_Db_TableRow_Files';
+	protected $_rowClass = 'USVN_Db_Table_Row_Files';
 
 	/**
      * Default classname for rowset
      *
      * @var string
      */
-	protected $_rowsetClass = 'USVN_Db_TableRowSet_Files';
+	protected $_rowsetClass = 'USVN_Db_Table_Rowset_Files';
 
 	/**
 	 * Function which return the last files's version

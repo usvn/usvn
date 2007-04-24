@@ -1,6 +1,6 @@
 <?php
 
-class USVN_Db_TableRow_Files extends USVN_Db_TableRow {
+class USVN_Db_Table_Row_Files extends USVN_Db_Table_Row {
 	public function getPath()
 	{
 		return $this->path;

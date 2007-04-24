@@ -31,8 +31,15 @@
 		<td>Files:</td>
 		<td>
 			<table>
-				<td></td>
-				<td>trunk/www/medias/images/epitech_button.gif</td>
+				<?php
+					foreach ($this->revision->getFiles() as $file) {
+						echo "
+							<tr>
+								<td>" . $file->files_path . "</td>
+							</tr>
+						";
+					}
+				?>
 			</table>
 		</td>
 	</tr>

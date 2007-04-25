@@ -78,4 +78,16 @@ class USVN_Db_Table_Workgroups extends USVN_Db_Table {
 	),
 	);
 
+	public function GetProjectGroups($project_name)
+	{
+		$db = $this->getAdapter();
+    	$select = $db->select();
+    	$select->from(USVN_Db_Table::$prefix . 'workgroups', '*');
+    	$select->join(USVN_Db_Table::$prefix . 'groups', USVN_Db_Table::$prefix . 'workgroups.groups_id = ' . USVN_Db_Table::$prefix . 'groups.groups_id');
+    	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'workgroups.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
+    	$select->where(USVN_Db_Table::$prefix . 'projects.projects_name = ?', $project_name);
+		$select->group(USVN_Db_Table::$prefix . 'workgroups.groups_id');
+		$result = $db->fetchAll($select);
+    	return $result;
+	}
 }

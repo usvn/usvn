@@ -1,22 +1,23 @@
 <?php
 /**
- * Manipulate the table rights
+ * Model for users table
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package default
- * @subpackage models
+ * @package USVN_Db
+ * @subpackage Table
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
  * This project has been realised as part of
  * end of studies project.
  *
- * $Id$
+ * $Id: Users.php 338 2007-04-19 16:18:35Z attal_m $
  */
+
 
 require_once 'Zend/Acl.php';
 require_once 'Zend/Acl/Role.php';
@@ -81,29 +82,22 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_Workgroups");
 
-    /**
-	 * Check if the user is allwed to go to an action
+
+	/**
+	 * Add rights in the acl class
 	 *
-	 * @param string $login The login name of the user
-	 * @param string $project The project name, default if none
-	 * @param string $module The module name
-	 * @param string $controller The controller name
 	 * @param string $action The action name
-	 * @return bool true : the user is allwed, false : the user is not allwed
+	 * @param string $login The login name of the user
+	 * @param string $project The project name
 	 */
-    public function access($login, $project, $module, $controller, $action)
-    {
-    	$acl = new Zend_Acl();
-		$roleGuest = new Zend_Acl_Role('user');
 
-		$right = $module . "_" . $controller . "_" . $action;
-		$acl->addRole($roleGuest);
-    	$db = $this->getAdapter();
-
+	private function projectAccess(&$acl, $login, $project)
+	{
 		/**
 	 	* Request for get all the right from the current user.
 	 	*/
 
+		$db = $this->getAdapter();
     	$select = $db->select();
     	$select->from(USVN_Db_Table::$prefix . 'workgroups_to_rights', '*');
     	$select->join(USVN_Db_Table::$prefix . 'workgroups', USVN_Db_Table::$prefix . 'workgroups.workgroups_id = ' . USVN_Db_Table::$prefix . 'workgroups_to_rights.workgroups_id');
@@ -113,9 +107,12 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
     	$select->join(USVN_Db_Table::$prefix . 'users', USVN_Db_Table::$prefix . 'users.users_id = ' . USVN_Db_Table::$prefix . 'users_to_groups.users_id');
     	$select->where(USVN_Db_Table::$prefix . 'users.users_login = ?', $login);
     	$select->where(USVN_Db_Table::$prefix . 'projects.projects_name = ?', $project);
-
+		$select->orWhere(USVN_Db_Table::$prefix . 'workgroups.groups_id = 1');
+		if ($login != "anonymous") {
+			$select->orWhere(USVN_Db_Table::$prefix . 'workgroups.groups_id = 2');
+		}
     	$result = $db->fetchAll($select);
-		for ($i = 0; $i < count($result); $i++) {
+    	for ($i = 0; $i < count($result); $i++) {
 			$tab = split('_', $result[$i]['rights_label']);
 			try {
 				$acl->add(new Zend_Acl_Resource($tab[0] . "_" . $tab[1]));
@@ -138,8 +135,31 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			} else {
 				// Error in the right label
 			}
-		}
+		}		
+	}
 
+	/**
+	 * Check if the user is allwed to go to an action
+	 *
+	 * @param string $login The login name of the user
+	 * @param string $project The project name, default if none
+	 * @param string $module The module name
+	 * @param string $controller The controller name
+	 * @param string $action The action name
+	 * @return bool true : the user is allwed, false : the user is not allowed
+	 */
+    public function access($login, $project, $module, $controller, $action)
+    {
+    	$acl = new Zend_Acl();
+		$roleGuest = new Zend_Acl_Role('user');
+
+		$right = $module . "_" . $controller . "_" . $action;
+		$acl->addRole($roleGuest);
+		if ($project != "__NONE__") {
+			$this->projectAccess($acl, $login, "__NONE__");
+		}
+		$this->projectAccess($acl, $login, $project);
+		
 		try {
 			if ($acl->isAllowed('user', $module . "_" . $controller, $action) == 1)
 			{
@@ -154,6 +174,5 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			//echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login ne dispose pas du droit $right</b><br>";
 			return false;
    		}
-
     }
 }

@@ -69,7 +69,7 @@ class USVN_Db_Table_Workgroups extends USVN_Db_Table {
 	"Projects" => array(
 	"columns"	   	=> array("projects_id"),
 	"refTableClass" => "USVN_Db_Table_Projects",
-	"refColumns"	=> array("project_id"),
+	"refColumns"	=> array("projects_id"),
 	),
 	"Rights" => array(
 	"columns"		=> array("rights_id"),

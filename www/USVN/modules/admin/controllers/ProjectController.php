@@ -39,13 +39,14 @@ class admin_ProjectController extends admin_IndexController
 	public function indexAction()
 	{
 		$table = new USVN_Db_Table_Projects();
-		$this->_view->projects = $table->fetchAll(null, "projects_name");
+		$where  = $table->getAdapter()->quoteInto('projects_name NOT IN (?)', $table->exceptedEntries['projects_name']);
+		$this->_view->projects = $table->fetchAll($where, "projects_name");
 		$this->_render('index.html');
 	}
 
 	public function newAction()
 	{
-		if (!empty($_POST)) {
+		if (!empty($_POST) && $_POST['projects_name']) {
 			$data = admin_ProjectController::getProjectDataFromPost();
 			$this->save("USVN_Db_Table_Projects", "project", $data);
 		}
@@ -54,7 +55,7 @@ class admin_ProjectController extends admin_IndexController
 
 	public function editAction()
 	{
-		if (!empty($_POST)) {
+		if (!empty($_POST) && $_POST['projects_name']) {
 			$data = admin_ProjectController::getProjectDataFromPost();
 			$this->save("USVN_Db_Table_Projects", "project", $data);
 		} else {
@@ -62,7 +63,7 @@ class admin_ProjectController extends admin_IndexController
 			$this->_view->project = $projectTable->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
 		}
 		$this->_render('form.html');
-		$this->_render('../group/attachment.html');
+		$this->_forward('attachGroups');
 	}
 
 	public function deleteAction()
@@ -75,6 +76,28 @@ class admin_ProjectController extends admin_IndexController
 			$this->_view->project = $projectTable->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
 		}
 		$this->_render('form.html');
+	}
+
+	public function attachGroupsAction()
+	{
+		if (!empty($_POST) && $_POST['groups_id']) {
+			$projectTable = new USVN_Db_Table_Projects();
+			$project = $projectTable->fetchRow(array('projects_id = ?' => $_POST['project_id']));
+			//$group->deleteAllProjects();
+			foreach ($_POST['groups_id'] as $group_id) {
+				$project->addGroup($group_id);
+			}
+		}
+		$projectTable = new USVN_Db_Table_Projects();
+		$project = $projectTable->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
+		$this->_view->project_id = $project->id;
+
+		$groupRow = $project->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_Workgroups');
+		$this->_view->attachedGroups = $groupRow->toArray();
+
+		$groupsTable = new USVN_Db_Table_Groups();
+		$where = $groupsTable->getAdapter()->quoteInto('groups_name NOT IN (?)', $groupsTable->exceptedEntries['groups_name']);
+		$this->_view->allGroups = $groupsTable->fetchAll($where, "groups_name");
 		$this->_render('../group/attachment.html');
 	}
 }

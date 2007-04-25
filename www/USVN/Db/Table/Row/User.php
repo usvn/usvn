@@ -1,6 +1,6 @@
 <?php
 /**
- * A rown into project table
+ * A rown into user table
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info/
@@ -17,10 +17,10 @@
  *
  * $Id $
  */
-class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
+class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 {
 	/**
-	* Add a group to a project
+	* Add an group to a user
 	*
 	* @param mixed Group
 	*/
@@ -32,18 +32,18 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$group_id = intval($group);
 		}
 		if ($this->id && $group_id) {
-			$workgroups = new USVN_Db_Table_Workgroups();
-			$workgroups->insert(
+			$user_groups = new USVN_Db_Table_UsersToGroups();
+			$user_groups->insert(
 				array(
-					"groups_id" 	=> $group_id,
-					"projects_id"	=> $this->id,
+					"groups_id" => $group_id,
+					"users_id" 	=> $this->id
 				)
 			);
 		}
 	}
 
 	/**
-	* Delete a group to a project
+	* Delete an group to a group
 	*
 	* @param mixed User
 	*/
@@ -55,35 +55,35 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$group_id = intval($group);
 		}
 		if ($group_id) {
-			$workgroups = new USVN_Db_Table_Workgroups();
-			$where = $workgroups->getAdapter()->quoteInto('groups_id = ?', $group_id);
-			$workgroups->delete($where);
+			$user_groups = new USVN_Db_Table_UsersToGroups();
+			$where = $user_groups->getAdapter()->quoteInto('groups_id = ?', $group_id);
+			$user_groups->delete($where);
 		}
 	}
 
 	/**
-	 * Delete all groups from workgroups
+	 * Delete all groups from usersToGroups
 	 *
 	 */
 	public function deleteAllGroups()
 	{
-		$workgroups = new USVN_Db_Table_Workgroups();
-		$workgroups->delete("");
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$user_groups->delete("");
 	}
 
 	/**
-	* Check if an group is in the project
+	* Check if an user is in the group
 	*
-	* @param USVN_Db_Table_Row_Group Group
+	* @param USVN_Db_Table_Row_User User
 	* @return boolean
 	*/
-	public function groupIsMember($group)
+	public function isInGroup($group)
 	{
-		$workgroups = new USVN_Db_Table_Workgroups();
-		$res = $workgroups->fetchRow(
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$res = $user_groups->fetchRow(
 			array(
-				"groups_id" 	=> $group->id,
-				"projects_id"	=> $this->id,
+				"groups_id = ?" => $group->id,
+				"users_id = ?" 	=> $this->id
 			)
 		);
 		if ($res === NULL) {

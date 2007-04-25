@@ -42,14 +42,14 @@ class admin_UserController extends admin_IndexController
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Users();
-    	$table->isAUser('anonymous');
-		$this->_view->users = $table->fetchAll(null, "users_login");
+    	$where  = $table->getAdapter()->quoteInto('users_login NOT IN (?)', $table->exceptedEntries['users_login']);
+		$this->_view->users = $table->fetchAll($where, "users_login");
 		$this->_render('index.html');
     }
 
 	public function newAction()
 	{
-		if (!empty($_POST)) {
+		if (!empty($_POST) && $_POST['users_login']) {
 			if (!empty($_POST['users_password']) && !empty($_POST['users_password2'])
 				&& $_POST['users_password'] !== $_POST['users_password2']) {
 					throw new Exception(T_('Not the same password.'));
@@ -62,7 +62,7 @@ class admin_UserController extends admin_IndexController
 
 	public function editAction()
 	{
-		if (!empty($_POST)) {
+		if (!empty($_POST) && $_POST['users_login']) {
 			if (!empty($_POST['users_password']) && !empty($_POST['users_password2'])
 				&& $_POST['users_password'] !== $_POST['users_password2']) {
 					throw new Exception(T_('Not the same password.'));
@@ -76,7 +76,7 @@ class admin_UserController extends admin_IndexController
 			$this->_view->user = $userTable->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
 		}
 		$this->_render('form.html');
-		$this->_render('../group/attachment.html');
+		$this->_forward('attachGroups');
 	}
 
 	public function editProfileAction()
@@ -97,6 +97,29 @@ class admin_UserController extends admin_IndexController
 			$this->_view->user = $userTable->fetchRow(array('users_login = ?' => $identity["username"]));
 		}
 		$this->_render('profile.html');
+	}
+
+	public function attachGroupsAction()
+	{
+		if (!empty($_POST) && $_POST['groups_id']) {
+			$userTable = new USVN_Db_Table_Users();
+			$user = $userTable->fetchRow(array('users_id = ?' => $_POST['user_id']));
+			$user->deleteAllGroups();
+			foreach ($_POST['groups_id'] as $group_id) {
+				$user->addGroup($group_id);
+			}
+		}
+		$userTable = new USVN_Db_Table_Users();
+		$user = $userTable->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
+		$this->_view->user_id = $user->id;
+
+		$userRow = $user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
+		$this->_view->attachedGroups = $userRow->toArray();
+
+		$groupsTable = new USVN_Db_Table_Groups();
+		$where = $groupsTable->getAdapter()->quoteInto('groups_name NOT IN (?)', $groupsTable->exceptedEntries['groups_name']);
+		$this->_view->allGroups = $groupsTable->fetchAll($where, "groups_name");
+		$this->_render('../group/attachment.html');
 	}
 
 	public function importAction()

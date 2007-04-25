@@ -22,17 +22,105 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	/**
 	* Add an user to a group
 	*
-	* @param USVN_Db_Table_Row_User User
+	* @param mixed User
 	*/
 	public function addUser($user)
 	{
+		if (is_object($user)) {
+			$user_id = $user->id;
+		} elseif (is_numeric($user)) {
+			$user_id = intval($user);
+		}
+		if ($this->id && $user_id) {
+			$user_groups = new USVN_Db_Table_UsersToGroups();
+			$user_groups->insert(
+				array(
+					"groups_id" => $this->id,
+					"users_id" 	=> $user_id
+				)
+			);
+		}
+	}
+
+	/**
+	* Delete an user to a group
+	*
+	* @param mixed User
+	*/
+	public function deleteUser($user)
+	{
+		if (is_object($user)) {
+			$user_id = $user->id;
+		} elseif (is_numeric($user)) {
+			$user_id = intval($user);
+		}
+		if ($user_id) {
+			$user_groups = new USVN_Db_Table_UsersToGroups();
+			$where = $user_groups->getAdapter()->quoteInto('users_id = ?', $user_id);
+			$user_groups->delete($where);
+		}
+	}
+
+	/**
+	 * Delete all users from usersToGroups
+	 *
+	 */
+	public function deleteAllUsers()
+	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
-		$user_groups->insert(
-			array(
-				"groups_id" => $this->id,
-				"users_id" => $user->id
-			)
-		);
+		$user_groups->delete("");
+	}
+
+	/**
+	* Add a group to a project
+	*
+	* @param mixed Group
+	*/
+	public function addProject($project)
+	{
+		if (is_object($project)) {
+			$project_id = $project->id;
+		} elseif (is_numeric($project)) {
+			$project_id = intval($project);
+		}
+		if ($this->id && $project_id) {
+			$workgroups = new USVN_Db_Table_Workgroups();
+			$workgroups->insert(
+				array(
+					"groups_id" 	=> $this->id,
+					"projects_id"	=> $project_id
+				)
+			);
+		}
+	}
+
+	/**
+	* Add an group to a project
+	*
+	* @param mixed User
+	*/
+	public function deleteProject($project)
+	{
+		if (is_object($project)) {
+			$project_id = $project->id;
+		} elseif (is_numeric($project)) {
+			$project_id = intval($project);
+		}
+		if ($project_id) {
+			$workgroups = new USVN_Db_Table_Workgroups();
+			$where = $workgroups->getAdapter()->quoteInto('projects_id = ?', $project_id);
+			$workgroups->delete($where);
+		}
+	}
+
+	/**
+	 * Delete all projects from workgroups
+	 *
+	 */
+	public function deleteAllProjects()
+	{
+		$workgroups = new USVN_Db_Table_Workgroups();
+		$workgroups->delete("");
 	}
 
 	/**
@@ -47,7 +135,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 		$res = $user_groups->fetchRow(
 			array(
 				"groups_id = ?" => $this->id,
-				"users_id = ?" => $user->id
+				"users_id = ?" 	=> $user->id
 			)
 		);
 		if ($res === NULL) {

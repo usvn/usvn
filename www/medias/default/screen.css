@@ -143,4 +143,9 @@ a:hover {
 	text-decoration: none;
 }
 
+.usvn_action_js {
+	cursor: pointer;
+	font-weight: bold;
+}
+
 /* End of screen.css */

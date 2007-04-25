@@ -92,6 +92,13 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	protected $_dependentTables = array("USVN_Db_Table_Workgroups");
 
 	/**
+	 * Excepted entries like __NONE__
+	 *
+	 * @var array
+	 */
+	public $exceptedEntries = array('projects_name' => '__NONE__');
+
+	/**
 	 * Return the project by his name
 	 *
 	 * @param string $name

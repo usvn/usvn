@@ -13,6 +13,22 @@ function includeJsFile(file) {
   head.appendChild(headInc);
 }
 
+function selectObjectForm(obj) {
+	chk = document.getElementsByName(obj);
+//	chk.selectedIndex = "all";
+//	for (var i = 0; i < chk.length; i++) {
+//		chk[i].selected = 'selected';
+//	}
+}
+
+function deSelectObjectForm(obj) {
+	chk = document.getElementsByName(obj);
+//	chk.selectedIndex = "0";
+//	for (var i = 0; i < chk.length; i++) {
+//		chk[i].selected = '';
+//	}
+}
+
 //Call for HTMLTableTools
 includeJsFile("<?php echo $this->js_default_directory; ?>/tools/prototype.js");
 includeJsFile("<?php echo $this->js_default_directory; ?>/tools/builder.js");

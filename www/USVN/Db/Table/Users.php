@@ -49,6 +49,13 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	protected $_name = "users";
 
 	/**
+	 * Name of the Row object to instantiate when needed.
+	 *
+	 * @var string
+	 */
+	protected $_rowClass = "USVN_Db_Table_Row_User";
+
+	/**
 	 * Associative array map of declarative referential integrity rules.
 	 * This array has one entry per foreign key in the current table.
 	 * Each key is a mnemonic name for one reference rule.
@@ -78,6 +85,12 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups");
 
+	/**
+	 * Expected entries like anonymous user
+	 *
+	 * @var array
+	 */
+	public $exceptedEntries = array('users_login' => 'anonymous');
 
 	/**
 	 * Check if the login is valid or not

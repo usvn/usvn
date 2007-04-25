@@ -93,6 +93,12 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 										"USVN_Db_Table_Workgroups"
 										);
 
+	/**
+	 * Excepted entries
+	 *
+	 * @var array
+	 */
+	public $exceptedEntries = array('groups_name' => 'Anonymous');
 
 	/**
 	 * Check if the group's name is valid or not

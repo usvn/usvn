@@ -1,25 +1,36 @@
 <fieldset>
-	<legend><?php echo T_("Group's attachements"); ?></legend>
-	<?php
-	print '<table class="tborder">' .
-			'<thead><tr class="titlebg">' .
-			'<th>' . T_('Group\'s name') . '</th>' .
-			'<th>' . T_('Actions') . '</th>' .
-			'</tr></thead><tbody>';
-
-	if (count($this->groups)) {
-		foreach ($this->groups as $group) {
-			$line = <<<EOF
-			<tr class='odd'>
-				<td>{$group->groups_name}</td>
-				<!--<td><a href="{$this->url(array('action' => 'edit', 'name' => $group->groups_name))}">Edit</a>-->
-				&nbsp;
-				<!--<a href="{$this->url(array('action' => 'delete', 'name' => $group->groups_name))}">Delete</a>--></td>
-			</tr>\n
-EOF;
-			echo $line;
+	<legend>
+		<?php echo T_("Group's attachements"); ?>
+	</legend>
+	<form name="users_to_groups" method="post" action="<?php echo $this->url(); ?>">
+		<select name="groups_id[]" multiple size="7">
+		<?php
+		if (count($this->allGroups)) {
+			foreach ($this->allGroups as $group) {
+				$line = "<option value='$group->groups_id'>$group->groups_name</option>";
+				foreach ($this->attachedGroups as $selectedGroup) {
+					if ($group->groups_name == $selectedGroup['groups_name']) {
+						$line = "<option value='$group->groups_id' selected>$group->groups_name</option>";
+						break;
+					}
+				}
+				echo $line;
+			}
 		}
-	}
-	print '</tbody></table><br />';
-	?>
+		?>
+		</select>
+		<?php if ($this->user_id) echo $this->formHidden('user_id', $this->user_id); ?>
+		<?php if ($this->project_id) echo $this->formHidden('project_id', $this->project_id); ?>
+		<br />
+		<span onclick="selectObjectForm('groups_id')" class="usvn_action_js">
+			<?php echo T_('Select all'); ?>
+		</span>
+		 /
+		<span onclick="deSelectObjectForm('groups_id')" class="usvn_action_js">
+			<?php echo T_('Select none'); ?>
+		</span>
+		<br />
+		<?php echo $this->formSubmit('submit', T_("Submit")); ?>
+	</form>
 </fieldset>
+<br />

@@ -23,13 +23,12 @@ function checkName() {
 			</tr>
 			<tr>
 				<td><?php echo T_("Project description"); ?></td>
-				<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?><br></td>
+				<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?></td>
 			</tr>
 			<tr>
 				<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?></td>
 			</tr>
 		</table>
-		<br /><br />
 		<div id="error"></div>
 		<?php
 		if (isset($this->project) && $this->project->id) {

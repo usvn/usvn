@@ -30,9 +30,10 @@ function checkForm() {
 	return true;
 }
 </script>
-<h1></h1>
 <fieldset>
-	<legend><?php echo T_("User account"); ?><legend>
+	<legend>
+		<?php echo T_("User account"); ?>
+	</legend>
 	<form name="user" method="post" action="<?php echo $this->url(); ?>">
 		<label class="usvn_label"><?php echo T_("Login"); ?>:</label>
 		<?php echo $this->formText('users_login', (isset($this->user) ? $this->user->login : null)); ?>
@@ -52,8 +53,8 @@ function checkForm() {
 		<br />
 		<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkForm();')); ?>
-		<br /><br />
-		<span id="error"></div>
+		<br />
+		<div id="error"></div>
 	</form>
 </fieldset>
 <br />

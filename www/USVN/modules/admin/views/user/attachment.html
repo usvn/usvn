@@ -2,27 +2,34 @@
 	<legend>
 		<?php echo T_("User's attachements"); ?>
 	</legend>
-	<?php
-	print '<table class="tborder">' .
-			'<thead><tr class="titlebg">' .
-			'<th>' . T_('User\'s login') . '</th>' .
-			'<th>' . T_('Actions') . '</th>' .
-			'</tr></thead><tbody>';
-
-	if (count($this->users)) {
-		foreach ($this->users as $user) {
-			$line = <<<EOF
-			<tr class='odd'>
-				<td>{$user->users_login}</td>
-				<!--<td><a href="{$this->url(array('action' => 'edit', 'login' => $user->users_login))}">Edit</a>-->
-				&nbsp;
-				<!--<a href="{$this->url(array('action' => 'delete', 'login' => $user->users_login))}">Delete</a>--></td>
-			</tr>\n
-EOF;
-			echo $line;
+	<form name="users_to_groups" method="post" action="<?php echo $this->url(); ?>">
+		<select name="users_id[]" multiple size="7">
+		<?php
+		if (count($this->allUsers)) {
+			foreach ($this->allUsers as $user) {
+				$line = "<option value='$user->users_id'>$user->users_login</option>";
+				foreach ($this->attachedUsers as $selectedUser) {
+					if ($user->users_login == $selectedUser['users_login']) {
+						$line = "<option value='$user->users_id' selected>$user->users_login</option>";
+						break;
+					}
+				}
+				echo $line;
+			}
 		}
-	}
-	print '</tbody></table><br />';
-	?>
+		?>
+		</select>
+		<?php echo $this->formHidden('group_id', $this->group_id); ?>
+		<br />
+		<span onclick="selectObjectForm('users_id[]')" class="usvn_action_js">
+			<?php echo T_('Select all'); ?>
+		</span>
+		 /
+		<span onclick="deSelectObjectForm('users_id[]')" class="usvn_action_js">
+			<?php echo T_('Select none'); ?>
+		</span>
+		<br />
+		<?php echo $this->formSubmit('submit', T_("Submit")); ?>
+	</form>
 </fieldset>
 <br />

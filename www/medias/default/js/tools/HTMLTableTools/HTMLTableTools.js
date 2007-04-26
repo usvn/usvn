@@ -303,6 +303,7 @@ HTMLTableTools.prototype = {
 				Event.observe( filter, 'click', this.getTextField.bindAsEventListener(this), false );
 				Event.observe( inputFilter, 'click', this.filterTable.bindAsEventListener(this), false );
 				Event.observe( inputFilter, 'keyup', this.filterTable.bindAsEventListener(this), false );
+				Event.observe( inputFilter, 'blur', this.getBackTitle.bindAsEventListener(this), false );
 				Event.observe( elementUp, 'click', this.sortTable.bindAsEventListener(this), false );
 				Event.observe( elementDown, 'click', this.sortTable.bindAsEventListener(this), false );
 			}
@@ -514,16 +515,30 @@ HTMLTableTools.prototype = {
 	},
 
 	getTextField: function ( e ) {
-		// recup l'element qui a declenche l'evenement (imgUp ou imgDown)
 		var element = Event.element(e);
 		if ( !element ) return;
 		cellIndex = parseInt( element.id.substr(this.table.id.length + 8) );
 		element.style.visibility = 'collapse';
+		element.save = element.innerHTML;
 		element.innerHTML = '';
 		var field = document.getElementById(this.table.id + 'search[' + cellIndex + ']');
 		field.style.visibility = 'visible';
 		field.focus();
 	},
+
+	getBackTitle: function ( e ) {
+		var element = Event.element(e);
+		if ( !element ) return;
+		if (element.value.length) {
+			return;
+		}
+		cellIndex = parseInt( element.id.substr( element.id.indexOf('[') + 1 , element.id.indexOf(']') - element.id.indexOf('[')));
+		element.style.visibility = 'collapse';
+		var title = document.getElementById(this.table.id+"spanText"+cellIndex);
+		title.style.visibility = 'visible';
+		title.innerHTML = title.save;
+	},
+
 	filterTable: function ( e ) {
 			var element = Event.element(e);
 			if ( !element ) return;

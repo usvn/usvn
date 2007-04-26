@@ -3,7 +3,7 @@
 		<?php echo T_("Group's attachements"); ?>
 	</legend>
 	<form name="users_to_groups" method="post" action="<?php echo $this->url(); ?>">
-		<select name="groups_id[]" multiple size="7">
+		<select id="groups_id[]" name="groups_id[]" multiple size="7">
 		<?php
 		if (count($this->allGroups)) {
 			foreach ($this->allGroups as $group) {
@@ -22,11 +22,11 @@
 		<?php if ($this->user_id) echo $this->formHidden('user_id', $this->user_id); ?>
 		<?php if ($this->project_id) echo $this->formHidden('project_id', $this->project_id); ?>
 		<br />
-		<span onclick="selectObjectForm('groups_id')" class="usvn_action_js">
+		<span onclick="selectObjectForm('groups_id[]')" class="usvn_action_js">
 			<?php echo T_('Select all'); ?>
 		</span>
 		 /
-		<span onclick="deSelectObjectForm('groups_id')" class="usvn_action_js">
+		<span onclick="deSelectObjectForm('groups_id[]')" class="usvn_action_js">
 			<?php echo T_('Select none'); ?>
 		</span>
 		<br />

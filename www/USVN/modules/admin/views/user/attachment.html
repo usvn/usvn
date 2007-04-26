@@ -3,7 +3,7 @@
 		<?php echo T_("User's attachements"); ?>
 	</legend>
 	<form name="users_to_groups" method="post" action="<?php echo $this->url(); ?>">
-		<select name="users_id[]" multiple size="7">
+		<select id="users_id[]" name="users_id[]" multiple size="7">
 		<?php
 		if (count($this->allUsers)) {
 			foreach ($this->allUsers as $user) {

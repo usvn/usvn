@@ -14,19 +14,17 @@ function includeJsFile(file) {
 }
 
 function selectObjectForm(obj) {
-	chk = document.getElementsByName(obj);
-//	chk.selectedIndex = "all";
-//	for (var i = 0; i < chk.length; i++) {
-//		chk[i].selected = 'selected';
-//	}
+	var chk = document.getElementById(obj);
+	for (var i = 0; i < chk.length; i++) {
+		chk.options[i].selected = true;
+	}
 }
 
 function deSelectObjectForm(obj) {
-	chk = document.getElementsByName(obj);
-//	chk.selectedIndex = "0";
-//	for (var i = 0; i < chk.length; i++) {
-//		chk[i].selected = '';
-//	}
+	var chk = document.getElementById(obj);
+	for (var i = 0; i < chk.length; i++) {
+		chk.options[i].selected = false;
+	}
 }
 
 //Call for HTMLTableTools

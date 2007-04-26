@@ -3,7 +3,7 @@
 		<?php echo T_("Project's attachements"); ?>
 	</legend>
 	<form name="workgroups" method="post" action="<?php echo $this->url(); ?>">
-		<select name="projects_id[]" multiple size="7">
+		<select id="projects_id[]" name="projects_id[]" multiple size="7">
 		<?php
 		if (count($this->allProjects)) {
 			foreach ($this->allProjects as $project) {

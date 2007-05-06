@@ -17,7 +17,7 @@
  *
  * $Id$
  */
-class USVN_modules_changeset_Menu extends USVN_modules_default_AbstractMenu
+class USVN_modules_changeset_Menu extends USVN_AbstractMenu
 {
 	/**
 	* Get menu entries in top menu.

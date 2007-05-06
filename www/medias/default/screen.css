@@ -51,11 +51,6 @@ img {border: 0;}
 	color: #FFFFFF;
 }
 
-#usvn_toolbox {
-	float: right;
-	background-color: #3355FF;
-}
-
 .usvn_label {
 	display: block;
 	margin-bottom: 0.1em;
@@ -90,6 +85,13 @@ ul#usvn_menu, ul#usvn_submenu, #logged {
 	font-size: small;
 }
 
+ul#usvn_subsubmenu {
+	background-color: #000055;
+	list-style-type: none;
+	margin: 5px;
+	padding: 5px;
+}
+
 #usvn_logged {
 	color: #5F5F5F;
 }
@@ -102,14 +104,14 @@ ul#usvn_submenu {
 	display: inline;
 }
 
-#usvn_menu a, #usvn_submenu a, #logged {
+#usvn_menu a, #usvn_submenu a, #usvn_subsubmenu a, #logged {
 	color: #AFAFAF;
 	padding-left: 5px;
 	padding-right: 5px;
 	border: 1px solid #0A1648;
 }
 
-#usvn_menu_selected a, #usvn_submenu_selected a {
+#usvn_menu_selected a, #usvn_submenu_selected a, #usvn_subsubmenu_selected a {
 	color: black;
 	background-color: #AFAFAF;
 	padding-left: 5px;
@@ -133,7 +135,7 @@ ul#usvn_submenu {
 }
 
 a:link, a:visited {
-	color: #0810E5;
+	color: #0810E5;su
 	background-color: transparent;
 	text-decoration: none;
 }

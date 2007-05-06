@@ -79,10 +79,10 @@ class IndexController extends Zend_Controller_Action {
 		$this->_view->assign('controller', $this->getRequest()->getParam('controller'));
 		$this->_view->assign('action', $this->getRequest()->getParam('action'));
 
-		if (!$this->_checkAccess(Zend_Auth::getInstance()->getIdentity())) {
-			throw new Zend_Controller_Exception("You are not allowed to access to the controller $controller, module is $module and action is $action.");
+/*		if (!$this->_checkAccess(Zend_Auth::getInstance()->getIdentity())) {
+			throw new Zend_Controller_Exception("Access denied.");
 		}
-
+*/
 	}
 
 	/**

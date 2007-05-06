@@ -43,19 +43,22 @@ class layout extends Zend_Controller_Plugin_Abstract
 	*/
 	private function buildMenu($menu_items, $css_id)
 	{
-		$str = "";
+		if (count($menu_items) == 0) {
+			return "";
+		}
+		$str = "<ul id=\"$css_id\">\n";
 		$base_url = $this->getRequest()->getBaseUrl();
 		$path = $this->getRequest()->getPathInfo();
 		foreach ($menu_items as $elem) {
 			$selected = '';
 			if (strncmp("/" . $elem['link'], $path, strlen($elem['link']) + 1) === 0) {
 				if (strlen($elem['link']) != 0 || $path == '/' || strlen($path) == 0) {
-					$selected = ' id="' . $css_id . '"';
+					$selected = " id=\"{$css_id}_selected";
 				}
 			}
-			$str .= '<li'. $selected . '><a href="' . $base_url . "/" . $elem["link"] . '">'. $elem["title"] . '</a></li>';
+			$str .= "<li $selected><a href=\"$base_url/{$elem["link"]}\">{$elem["title"]}</a></li>\n";
 		}
-		return $str;
+		return $str . "</ul>\n";
 	}
 
 	/**
@@ -92,21 +95,11 @@ class layout extends Zend_Controller_Plugin_Abstract
 				<img src="{$base_url}/{$site['logo']}" alt="{$homepage}" />
 			</a>
 		</div>
-		<ul id="usvn_menu">
 EOF;
-		$header .= $this->buildMenu($menu->getTopMenu(), 'usvn_menu_selected');
-		$header .= <<<EOF
-			<li id="usvn_logged">{$loggedAs}</li>
-		</ul>
-EOF;
-		if (count($menu->getSubMenu())) {
-			$header .= '<ul id="usvn_submenu">';
-			$header .= $this->buildMenu($menu->getSubMenu(), 'usvn_submenu_selected');
-			$header .= "</ul>";
-		}
-		$header .= <<<EOF
-		<div id="usvn_content">
-EOF;
+		$header .= $this->buildMenu($menu->getTopMenu(), 'usvn_menu');
+		$header .= $this->buildMenu($menu->getSubMenu(), 'usvn_submenu');
+		$header .= $this->buildMenu($menu->getSubSubMenu(), 'usvn_subsubmenu');
+		$header .= "<div id=\"usvn_content\">";
 		$body = $response->getBody(true);
 		$response->setBody($header);
 		foreach ($body as $text) {

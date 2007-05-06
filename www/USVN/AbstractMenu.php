@@ -16,7 +16,7 @@
  *
  * $Id$
  */
-abstract class USVN_modules_default_AbstractMenu
+abstract class USVN_AbstractMenu
 {
 	/**
 	* Get menu entries in top menu.
@@ -38,6 +38,21 @@ abstract class USVN_modules_default_AbstractMenu
 	* @return array
 	*/
 	public static function getSubMenu($request, $identity)
+	{
+		return array();
+	}
+
+	/**
+	* Get menu entries in sub sub menu.
+	* By example Menu is Admin
+	* Sub menu is User
+	* Sub sub menu is New user
+	*
+	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
+	* @return array
+	*/
+	public static function getSubSubMenu($request, $identity)
 	{
 		return array();
 	}

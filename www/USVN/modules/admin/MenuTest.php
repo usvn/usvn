@@ -62,6 +62,22 @@ class USVN_modules_admin_MenuTest extends USVN_Test_Test {
 				"action" => ""
 			), $menuEntries);
 	}
+
+	public function test_getSubSubMenu()
+	{
+		$menu = new USVN_modules_admin_Menu();
+		$request = new Zend_Controller_Request_Http();
+		$request->setParam('controller', 'user');
+		$menuEntries = $menu->getSubSubMenu($request, null);
+		$this->assertContains(
+			array(
+				"title" => T_("Add new user"),
+				"link"=> "admin/user/new/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => "new"
+			), $menuEntries);
+	}
 }
 
 // Call USVN_modules_admin_MenuTest::main() if this source file is executed directly.

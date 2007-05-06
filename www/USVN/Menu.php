@@ -20,6 +20,7 @@ class USVN_Menu
 {
 	private $_topMenu = array();
 	private $_subMenu = array();
+	private $_subSubMenu = array();
 	private $_request;
 	private $_user;
 	private $_project;
@@ -65,19 +66,18 @@ class USVN_Menu
 		$menu = new $class();
 		$menus = $menu->getTopMenu($this->_request, $this->_identity);
 		foreach ($menus as $m) {
-			if ($this->_access->access($this->_user, $this->_request->getParam('project'), $m['module'], $m['controller'], $m['action'])) {
+			//if ($this->_access->access($this->_user, $this->_request->getParam('project'), $m['module'], $m['controller'], $m['action'])) {
 				array_push($this->_topMenu, $m);
-			}
+			//}
 		}
 		if ($module == $this->_request->getParam("module")) {
-			if ($this->_access->access($this->_user, $this->_request->getParam('project'), $m['module'], $m['controller'], $m['action'])) {
 				$this->_subMenu = $menu->getSubMenu($this->_request, $this->_identity);
-			}
+				$this->_subSubMenu = $menu->getSubSubMenu($this->_request, $this->_identity);
 		}
 	}
 
 	/**
-	* Get menu entries in top menu.
+	* Get menu entries in top menu. Example:  Admin
 	*
 	* @return array with menu entry see USVN_modules_admin_Menu for exemple
 	* @see USVN_modules_admin_Menu
@@ -88,7 +88,7 @@ class USVN_Menu
 	}
 
 	/**
-	* Get menu entries in top menu.
+	* Get menu entries in sub menu. Example: User
 	*
 	* @return array with menu entry see USVN_modules_admin_Menu for exemple
 	* @see USVN_modules_admin_Menu
@@ -96,5 +96,16 @@ class USVN_Menu
 	public function getSubMenu()
 	{
 		return $this->_subMenu;
+	}
+
+	/**
+	* Get menu entries in top menu. Example: Add user
+	*
+	* @return array with menu entry see USVN_modules_admin_Menu for exemple
+	* @see USVN_modules_admin_Menu
+	*/
+	public function getSubSubMenu()
+	{
+		return $this->_subSubMenu;
 	}
 }

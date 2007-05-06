@@ -17,7 +17,7 @@
  *
  * $Id$
  */
-class USVN_modules_admin_Menu extends USVN_modules_default_AbstractMenu
+class USVN_modules_admin_Menu extends USVN_AbstractMenu
 {
 	/**
 	* Get menu entries in top menu.
@@ -76,6 +76,83 @@ class USVN_modules_admin_Menu extends USVN_modules_default_AbstractMenu
 				"module" => "admin",
 				"controller" => "config",
 				"action" => ""
+			)
+		);
+	}
+
+	/**
+	* Get menu entries in sub sub menu.
+	* By example Menu is Admin
+	* Sub menu is User
+	* Sub sub menu is New user
+	*
+	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
+	* @return array
+	*/
+	public static function getSubSubMenu($request, $identity)
+	{
+		switch ($request->getParam('controller')) {
+			case 'user':
+				return USVN_modules_admin_Menu::_userMenu();
+			case 'group':
+				return USVN_modules_admin_Menu::_groupMenu();
+			case 'project':
+				return USVN_modules_admin_Menu::_projectMenu();
+		}
+		return array();
+	}
+
+	private static function _projectMenu()
+	{
+		return array(
+			array(
+				"title" => T_("Add new project"),
+				"link"=> "admin/project/new/",
+				"module" => "admin",
+				"controller" => "project",
+				"action" => "new"
+			)
+		);
+	}
+
+	private static function _groupMenu()
+	{
+		return array(
+			array(
+				"title" => T_("Add new group"),
+				"link"=> "admin/group/new/",
+				"module" => "admin",
+				"controller" => "group",
+				"action" => "new"
+			)
+		);
+	}
+
+	private static function _userMenu()
+	{
+		return array(
+			array(
+				"title" => T_("Add new user"),
+				"link"=> "admin/user/new/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => "new"
+			),
+			array(
+				"title" => T_("Import htpasswd"),
+				"link"=> "admin/user/import/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => "import"
+			)
+			,
+			array(
+				"title" => T_('Edit my profile'),
+				"link"=> "admin/user/editProfile/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => "editProfile"
 			)
 		);
 	}

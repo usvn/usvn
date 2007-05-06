@@ -45,7 +45,7 @@ class USVN_MenuTest extends USVN_Test_DB
 		mkdir($this->moduledir."/fakeadmin");
 		file_put_contents($this->moduledir."/fakeadmin/Menu.php", '
 <?php
-class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
+class USVN_modules_fakeadmin_Menu extends USVN_AbstractMenu
 {
 	public static function getTopMenu($request, $identity)
 	{
@@ -93,12 +93,42 @@ class USVN_modules_fakeadmin_Menu extends USVN_modules_default_AbstractMenu
 			)
 		);
 	}
+
+		/**
+	* Get menu entries in sub sub menu.
+	* By example Menu is Admin
+	* Sub menu is User
+	* Sub sub menu is New user
+	*
+	* @param Zend_Controller_Request_Abstract Request
+	* @param mixed|null Identity from Zend_Auth
+	* @return array
+	*/
+	public static function getSubSubMenu($request, $identity)
+	{
+		return array(
+			array(
+				"title" => T_("Add new user"),
+				"link"=> "admin/user/new/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => "new"
+			),
+			array(
+				"title" => T_("Import htpasswd"),
+				"link"=> "admin/user/import/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => "import"
+			)
+		);
+	}
 }
 ');
 		mkdir($this->moduledir."/faketickets");
 		file_put_contents($this->moduledir."/faketickets/Menu.php", '
 <?php
-class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
+class USVN_modules_faketickets_Menu extends USVN_AbstractMenu
 {
 	public static function getTopMenu($request, $identity)
 	{
@@ -144,7 +174,7 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 
 	public function test_getTopMenu()
 	{
-	/*	$menu = new USVN_Menu($this->moduledir, new Zend_Controller_Request_Http(), null);
+		$menu = new USVN_Menu($this->moduledir, new Zend_Controller_Request_Http(), null);
 		$menuEntries = $menu->getTopMenu();
 		$this->assertContains(
 			array(
@@ -155,10 +185,26 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 				"action" => ""
 			)
 			, $menuEntries);
-		$this->assertContains(array("title" => T_("View tickets"), "link"=> "tickets/"), $menuEntries);
-		$this->assertContains(array("title" => T_("My tickets"), "link"=> "tickets/my"), $menuEntries);*/
+		$this->assertContains(
+			array(
+				"title" => T_("View tickets"),
+				"link"=> "tickets/",
+				"module" => "tickets",
+				"controller" => "index",
+				"action" => ""
+			)
+			, $menuEntries);
+		$this->assertContains(
+			array(
+				"title" => T_("My tickets"),
+				"link"=> "tickets/my",
+				"module" => "tickets",
+				"controller" => "index",
+				"action" => ""
+			)
+			, $menuEntries);
 	}
-/*
+
 	public function test_getSubMenu()
 	{
 		$request = new Zend_Controller_Request_Http();
@@ -175,7 +221,24 @@ class USVN_modules_faketickets_Menu extends USVN_modules_default_AbstractMenu
 			)
 			, $menuEntries);
 		$this->assertNotContains(array("title" => T_("New ticket"), "link"=> "tickets/new/"), $menuEntries);
-	}*/
+	}
+
+	public function test_getSubSubMenu()
+	{
+		$request = new Zend_Controller_Request_Http();
+		$request->setParam('module', 'fakeadmin');
+		$menu = new USVN_Menu($this->moduledir, $request, null);
+		$menuEntries = $menu->getSubSubMenu();
+		$this->assertContains(
+			array(
+				"title" => T_("Add new user"),
+				"link"=> "admin/user/new/",
+				"module" => "admin",
+				"controller" => "user",
+				"action" => "new"
+			)
+			, $menuEntries);
+	}
 }
 
 // Call USVN_MenuTest::main() if this source file is executed directly.

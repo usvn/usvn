@@ -177,8 +177,9 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	public function update(array $data, $where)
 	{
-		$this->checkLogin($data['users_login']);
-		//just for update's case
+		if (isset($data['users_login'])) {
+			$this->checkLogin($data['users_login']);
+		}
 		if (isset($data['users_password'])) {
 			$this->checkPassword($data['users_password']);
 		}

@@ -24,6 +24,13 @@
 				?></textarea>
 			</td>
 		</tr>
+		<tr>
+			<td><?php echo T_("Subversion path");?>:</td>
+			<td>
+				<input type="text" size="67" name="pathSubversion" value="<?php 
+				echo dirname(dirname(dirname(__FILE__)))."\files\\";
+				?>" />
+			</td>
 		</table>
 	<input type="submit" value="<?php echo T_("Next step");?>" />
 </form>

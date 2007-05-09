@@ -108,7 +108,26 @@ class Install
 			throw new USVN_Exception(T_("Invalid language"));
 		}
 	}
-
+	
+	/**
+	* This method will add subversion path
+	*
+	* @param string Path to the USVN config file
+	* @param string Path to subversion directory
+	*/
+	static public function installSubversion($config_file, $path)
+	{
+		$config = Install::_loadConfig($config_file);
+		if (file_exists($path) && is_writable($path))
+		{
+			$config->subversion = array("path"  => $path);
+			$config->save();
+		}
+		else {
+			throw new USVN_Exception(T_("Invalid subversion path"));
+		}
+	}
+	
 	/**
 	* This method will write htaccess and config file with urls informations
 	*

@@ -166,6 +166,25 @@ class InstallTest extends USVN_Test_Test {
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("fr_FR", $config->translation->locale);
 	}
+	
+	public function testInstallSubversion()
+	{
+		Install::installSubversion("tests/tmp/config.ini", "tests");
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("tests", $config->subversion->path);
+	}
+	
+	public function testInstallSubversionPathDoesntExist()
+	{
+		try	{
+		Install::installSubversion("tests/tmp/config.ini", "test2");
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
 
 	public function testInstallBadLanguage()
 	{

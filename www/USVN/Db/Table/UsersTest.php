@@ -45,9 +45,16 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 		parent::setUp();
 
     }
+	
+	public function giveConfig() {
+		$configArray = array('subversion' => array('path' => dirname(dirname(dirname(dirname(__FILE__)))).'\\files\\'));
+		$config = new Zend_Config($configArray);
+		Zend_Registry::set('config', $config);
+	}
 
     public function testUserInsertNoLogin()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> '',
@@ -67,6 +74,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserInsertInvalidEmailAddress()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'InsertInvalidEmailAddress',
@@ -87,6 +95,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserInsertNoPassword()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'InsertNoPassword',
@@ -107,6 +116,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserInsertNoPassword2()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'InsertNoPassword2',
@@ -127,6 +137,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserInsertInvalidPassword()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'InsertNoPassword',
@@ -147,6 +158,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserInsertOk()
     {
+		$this->giveConfig();
     	$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'InsertOk',
@@ -160,6 +172,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserUpdateNoLogin()
 	{
+		$this->giveConfig();
     	$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'InsertOkUpdateNoLogin',
@@ -186,6 +199,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserUpdateInvalidEmailAddress()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidEmailAddress',
@@ -213,6 +227,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserUpdateNoPassword()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'UpdateNoPassword',
@@ -240,6 +255,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserUpdateInvalidPassword()
 	{
+		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'UpdateInvalidPassword',
@@ -267,6 +283,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
     public function testUserUpdateOk()
     {
+		$this->giveConfig();
     	$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'UpdateOk',
@@ -285,6 +302,38 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 		$this->assertFalse($table->isAUser('UpdateOk'));
 		$this->assertTrue($table->isAUser('newUpdateOk'));
     }
+	
+	public function testUserUpdateHtpasswd()
+	{
+		$this->giveConfig();
+		$table = new USVN_Db_Table_Users();
+			
+		$table->insert(array('users_login' 			=> 'Toto',
+								 'users_password' 	=> 'titititi',
+								 'users_firstname' 	=> 'firstname',
+								 'users_lastname' 	=> 'lastname',
+								 'users_email' 		=> 'email@email.fr'));
+		
+		$table->updateHtpasswd();
+		$text = "anonymous:usvn\nToto:titititi\n";
+		$contenu = file_get_contents(Zend_Registry::get('config')->subversion->path."htpasswd");
+		$this->assertEquals($text, $contenu);
+	}
+	
+	public function testUserUpdateHtpasswdBadPath()
+	{
+		$configArray = array('subversion' => array('path' => 'titi/'));
+		$config = new Zend_Config($configArray);
+		Zend_Registry::set('config', $config);
+		try	{
+			$table = new USVN_Db_Table_Users();
+			$table->updateHtpasswd();
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
 }
 
 if (PHPUnit_MAIN_METHOD == "USVN_Db_Table_UsersTest::main") {

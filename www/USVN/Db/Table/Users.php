@@ -165,7 +165,22 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	public function insert(array $data)
 	{
 		$this->check($data);
-		return parent::insert($data);
+		$res = parent::insert($data);
+		$this->updateHtpasswd();
+		return $res;
+	}
+	
+	/**
+	 * Delete existing rows.
+	 *
+	 * @param string An SQL WHERE clause.
+	 * @return the number of rows deleted.
+	 */
+	public function delete($where)
+	{
+		$res = parent::delete($where);
+		$this->updateHtpasswd();
+		return $res;
 	}
 
 	/**
@@ -186,7 +201,26 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		if (isset($data['users_email'])) {
 			$this->checkEmailAddress($data['users_email']);
 		}
-		return parent::update($data, $where);
+		$res = parent::update($data, $where);
+		$this->updateHtpasswd();
+		return $res;
+	}
+
+	/**
+	 * Update Htpasswd file after an insert, an delete or an update
+	 */
+	public function updateHtpasswd()
+	{
+		$config = Zend_Registry::get('config');
+		$text = null;
+		$db = $this->getAdapter();
+		$select = $db->select()->from('usvn_users', array('users_login', 'users_password'));
+		$res = $db->query($select)->fetchAll();
+		foreach ($res as $column => $value){
+			$text .= $value['users_login'].":".$value['users_password']."\n";	
+		}	
+		if (@file_put_contents($config->subversion->path."htpasswd", $text) == FALSE)
+			throw new USVN_Exception(T_('Can\'t create or write on htpasswd file.'));
 	}
 
 	/**

@@ -52,6 +52,7 @@ try {
 									'ico'			=> $config->site->ico,
 									'description'	=> $config->site->description,
 									'logo'			=> $config->site->logo));
+	Zend_Registry::set('config', $config);
 
 	/**
 	 * Configure our default db adapter

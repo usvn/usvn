@@ -108,7 +108,7 @@ class Install
 			throw new USVN_Exception(T_("Invalid language"));
 		}
 	}
-	
+
 	/**
 	* This method will add subversion path
 	*
@@ -124,10 +124,10 @@ class Install
 			$config->save();
 		}
 		else {
-			throw new USVN_Exception(T_("Invalid subversion path"));
+			throw new USVN_Exception(T_("Invalid subversion path %s check if directory exist and is writable."), $path);
 		}
 	}
-	
+
 	/**
 	* This method will write htaccess and config file with urls informations
 	*

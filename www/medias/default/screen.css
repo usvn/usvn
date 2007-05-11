@@ -112,11 +112,7 @@ ul#usvn_submenu {
 }
 
 #usvn_menu_selected a, #usvn_submenu_selected a, #usvn_subsubmenu_selected a {
-	color: black;
-	background-color: #AFAFAF;
-	padding-left: 5px;
-	padding-right: 5px;
-	border: 1px solid #0A1648;
+	color: white;
 }
 
 #usvn_menu a:hover, #usvn_submenu a:hover {
@@ -129,10 +125,11 @@ ul#usvn_submenu {
 }
 
 a:link, a:visited {
-	color: #0810E5;su
+	color: #0810E5;
 	background-color: transparent;
 	text-decoration: none;
 }
+
 a:hover {
 	color: #8888E5;
 	background-color: transparent;

@@ -53,7 +53,7 @@ class layout extends Zend_Controller_Plugin_Abstract
 			$selected = '';
 			if (strncmp("/" . $elem['link'], $path, strlen($elem['link']) + 1) === 0) {
 				if (strlen($elem['link']) != 0 || $path == '/' || strlen($path) == 0) {
-					$selected = " id=\"{$css_id}_selected";
+					$selected = " id=\"{$css_id}_selected\"";
 				}
 			}
 			$str .= "<li $selected><a href=\"$base_url/{$elem["link"]}\">{$elem["title"]}</a></li>\n";

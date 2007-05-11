@@ -219,8 +219,9 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		foreach ($res as $column => $value){
 			$text .= $value['users_login'].":".$value['users_password']."\n";
 		}
-		if (@file_put_contents($config->subversion->path."htpasswd", $text) == FALSE)
-		throw new USVN_Exception(T_('Can\'t create or write on htpasswd file.'));
+		if (@file_put_contents($config->subversion->path."htpasswd", $text) == false) {
+			throw new USVN_Exception(T_('Can\'t create or write on htpasswd file.'));
+		}
 	}
 
 	/**

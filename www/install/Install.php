@@ -117,9 +117,8 @@ class Install
 	*/
 	static public function installSubversion($config_file, $path)
 	{
-		if (substr($path, strlen($path) - 1, strlen($path)) != "/" && substr($path, strlen($path) - 1, strlen($path)) != "\\")
-			$path .= "\\";
-		echo "PATH{".$path."}";
+		if (substr($path, strlen($path) - 1, strlen($path)) != "/" && substr($path, strlen($path) - 1, strlen($path)) != DIRECTORY_SEPARATOR)
+			$path .= DIRECTORY_SEPARATOR;
 		$config = Install::_loadConfig($config_file);
 		if (file_exists($path) && is_writable($path))
 		{
@@ -184,7 +183,7 @@ EOF;
 	*/
 	static public function installAdmin($config_file, $login, $password, $firstname, $lastname)
 	{
-		$config = new USVN_Config("../config.ini", "general");
+		$config = new USVN_Config($config_file, "general");
 		Zend_Registry::set('config', $config);
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchNew();

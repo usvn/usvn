@@ -45,9 +45,9 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 		parent::setUp();
 
     }
-	
+
 	public function giveConfig() {
-		$configArray = array('subversion' => array('path' => dirname(dirname(dirname(dirname(__FILE__)))).'\\files\\'));
+		$configArray = array('subversion' => array('path' => 'tests/tmp/'));
 		$config = new Zend_Config($configArray);
 		Zend_Registry::set('config', $config);
 	}
@@ -302,24 +302,24 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 		$this->assertFalse($table->isAUser('UpdateOk'));
 		$this->assertTrue($table->isAUser('newUpdateOk'));
     }
-	
+
 	public function testUserUpdateHtpasswd()
 	{
 		$this->giveConfig();
 		$table = new USVN_Db_Table_Users();
-			
+
 		$table->insert(array('users_login' 			=> 'Toto',
 								 'users_password' 	=> 'titititi',
 								 'users_firstname' 	=> 'firstname',
 								 'users_lastname' 	=> 'lastname',
 								 'users_email' 		=> 'email@email.fr'));
-		
+
 		$table->updateHtpasswd();
 		$text = "anonymous:usvn\nToto:titititi\n";
 		$contenu = file_get_contents(Zend_Registry::get('config')->subversion->path."htpasswd");
 		$this->assertEquals($text, $contenu);
 	}
-	
+
 	public function testUserUpdateHtpasswdBadPath()
 	{
 		$configArray = array('subversion' => array('path' => 'titi/'));

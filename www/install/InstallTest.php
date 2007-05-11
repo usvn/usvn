@@ -51,12 +51,6 @@ class InstallTest extends USVN_Test_Test {
 	private function clean()
 	{
 		USVN_Db_Utils::deleteAllTables($this->db);
-		if (file_exists('tests/tmp/config.ini')) {
-			unlink('tests/tmp/config.ini');
-		}
-		if (file_exists('tests/tmp/.htaccess')) {
-			unlink('tests/tmp/.htaccess');
-		}
 	}
 
     public function setUp() {
@@ -71,7 +65,6 @@ class InstallTest extends USVN_Test_Test {
 		USVN_Db_Utils::deleteAllTables($this->db);
 		$_SERVER['SERVER_NAME'] = "localhost";
 		$_SERVER['REQUEST_URI'] = "/test/install/index.php?step=7";
-		$this->clean();
     }
 
     public function tearDown() {
@@ -166,15 +159,15 @@ class InstallTest extends USVN_Test_Test {
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("fr_FR", $config->translation->locale);
 	}
-	
+
 	public function testInstallSubversion()
 	{
 		Install::installSubversion("tests/tmp/config.ini", "tests");
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("tests", $config->subversion->path);
+		$this->assertEquals("tests" . DIRECTORY_SEPARATOR, $config->subversion->path);
 	}
-	
+
 	public function testInstallSubversionPathDoesntExist()
 	{
 		try	{
@@ -244,6 +237,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallAdmin()
 	{
+		file_put_contents("tests/tmp/config.ini", "[general]\nsubversion.path=tests/tmp/");
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
 		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword", "James", "Bond");
 		$userTable = new USVN_Db_Table_Users();

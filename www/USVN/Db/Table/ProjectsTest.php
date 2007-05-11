@@ -41,11 +41,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-    public function setUp() {
-		parent::setUp();
-
-    }
-
     public function testInsertProjectNoName()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -98,7 +93,27 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$obj->save();
 		$this->assertTrue($table->isAProject('InsertProjectOk'));
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/InsertProjectOk'));
     }
+
+    public function testInsertProjectBadSubversionPath()
+	{
+		$configArray = array('subversion' => array('path' => "tests/bad"));
+		$config = new Zend_Config($configArray);
+		Zend_Registry::set('config', $config);
+		$table = new USVN_Db_Table_Projects();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		try {
+			$obj->save();
+		}
+		catch (USVN_Exception $e) {
+			$this->assertFalse($table->isAProject('InsertProjectOk'));
+			return;
+		}
+		$this->fail();
+    }
+
 
     public function testUpdateProjectNoName()
 	{

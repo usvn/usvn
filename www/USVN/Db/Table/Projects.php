@@ -141,7 +141,18 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	public function insert(array $data)
 	{
 		$this->checkProjectName($data['projects_name']);
-		return parent::insert($data);
+		$this->getAdapter()->beginTransaction();
+		$id = parent::insert($data);
+		$config = Zend_Registry::get('config');
+		try {
+			USVN_SVNUtils::createSVN($config->subversion->path . DIRECTORY_SEPARATOR . $data['projects_name']);
+		}
+		catch (Exception $e) {
+			$this->getAdapter()->rollback();
+			throw $e;
+		}
+		$this->getAdapter()->commit();
+		return $id;
 	}
 
 	/**
@@ -149,7 +160,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 *
 	 * @todo check on project start date ?
 	 * @todo check on project's description ? (length)
-	 * @param array $data
+	 * @param array $datagetAdapter->
 	 * @param string where SQL where
 	 * @return integer The number of rows updated.
 	 */
@@ -168,7 +179,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	public function isAProject($name)
 	{
 		$project = $this->fetchRow(array('projects_name = ?' => $name));
-		if ($project->name) {
+		if ($project) {
 			return true;
 		}
 		return false;

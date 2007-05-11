@@ -24,6 +24,12 @@ require_once 'www/USVN/autoload.php';
 abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
     protected function setUp() {
 		USVN_Translation::initTranslation('en_US', 'www/locale');
+		USVN_DirectoryUtils::removeDirectory('tests/');
+		mkdir("tests");
+		mkdir("tests/tmp");
+		$configArray = array('subversion' => array('path' => "tests/tmp"));
+		$config = new Zend_Config($configArray);
+		Zend_Registry::set('config', $config);
     }
 }
 

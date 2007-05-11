@@ -73,4 +73,45 @@ class USVN_Db_Table_UsersToGroups extends USVN_Db_Table {
 	),
 	);
 
+	/**
+	 * Overload insert's method to check some data before insert
+	 *
+	 * @param array $data
+	 * @return integer the last insert ID.
+	 */
+	public function insert(array $data)
+	{
+		$res = parent::insert($data);
+		USVN_Authz::generate();
+		return $res;
+	}
+
+	/**
+	 * Overload update's method to check some data before update
+	 *
+	 * @param array $data
+	 * @param string $where An SQL WHERE clause.
+	 * @return integer The number of rows updated.
+	 */
+	public function update(array $data, $where)
+	{
+		$res = parent::update($data, $where);
+		USVN_Authz::generate();
+		return $res;
+	}
+
+	/**
+	 * Called by parent table's class during delete() method.
+	 *
+	 * @param  string $parentTableClassname
+	 * @param  array  $primaryKey
+	 * @return int    Number of affected rows
+	 */
+	public function delete($where)
+	{
+		$res = parent::delete($where);
+		USVN_Authz::generate();
+		return $res;
+	}
+
 }

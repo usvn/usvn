@@ -128,12 +128,6 @@ ul#usvn_submenu {
 	display: block;
 }
 
-#usvn_debug_view {
-	display:none;
-	background-color: gray;
-	padding-bottom: 500px;
-}
-
 a:link, a:visited {
 	color: #0810E5;su
 	background-color: transparent;

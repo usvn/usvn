@@ -30,16 +30,6 @@ class USVN_SVNUtils
                                         'start-commit');
 
 	/**
-	* Return svn command corresponding to the OS
-	*
-	* @param string Command name (ex: svnadmin)
-	*/
-	private static function getSvnCommand($command)
-	{
-		return $command;
-	}
-
-	/**
 	* @param string Path of subversion repository
 	* @return bool
 	*/
@@ -95,8 +85,7 @@ class USVN_SVNUtils
 	*/
 	public static function svnLookRevision($command, $repository, $revision)
 	{
-		$svnlook = USVN_SVNUtils::getSvnCommand('svnlook');
-		return `$svnlook $command -r $revision $repository`;
+		return `svnlook $command -r $revision $repository`;
 	}
 
 	/**
@@ -117,8 +106,7 @@ class USVN_SVNUtils
 	*/
 	public static function getSvnVersion()
 	{
-		$svn = USVN_SVNUtils::getSvnCommand('svn');
-		return USVN_SVNUtils::parseSvnVersion(`$svn --version`);
+		return USVN_SVNUtils::parseSvnVersion(`svn --version`);
 	}
 
 	/**
@@ -156,8 +144,7 @@ class USVN_SVNUtils
 	*/
 	public static function createSvn($path)
 	{
-		$svnadmin = USVN_SVNUtils::getSvnCommand('svnadmin');
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("$svnadmin create $path", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svnadmin create $path", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
 		}

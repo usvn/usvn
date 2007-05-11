@@ -30,6 +30,7 @@ class USVN_DirectoryUtils
             return;
         }
         foreach(@new RecursiveIteratorIterator($dir) as $file) {
+        	@chmod($file, 0777);
             unlink($file);
         }
         foreach($dir as $subDir) {
@@ -38,6 +39,7 @@ class USVN_DirectoryUtils
             }
         }
         $dir = NULL; // Else on windows that doesn't work....
+        @chmod($path, 0777);
         @rmdir($path);
     }
 

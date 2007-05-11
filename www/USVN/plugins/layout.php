@@ -115,28 +115,10 @@ EOF;
 	protected function addFooter($response)
 	{
 		$base_url = $this->getRequest()->getBaseUrl();
-		$footer = "";
-		//HTMLTableTools
-		$footer = "
+		$footer = <<<EOF
 		<script type='text/javascript'>
 			lookForHTMLTableTools(HTMLTableToolsOptions);
-		</script>";
-		$profiler = Zend_Db_Table::getDefaultAdapter()->getProfiler();
-		if (is_array($profiler->getQueryProfiles())) {
-			$footer .= "	</div>
-								<div id=\"usvn_debug\">
-									<div>View debug
-									<div id=\"usvn_debug_view\">
-							";
-			foreach ($profiler->getQueryProfiles() as $query) {
-				/* @var $query Zend_Db_Profiler_Query */
-				$footer .= "<dl>";
-				$footer .= "<dt>" . $query->getElapsedSecs() . "</dt>";
-				$footer .= "<dd>" . $query->getQuery() . "</dd>";
-				$footer .= "</dl>";
-			}
-		}
-		$footer .= <<<EOF
+		</script>
 				</div>
 			</div>
 		</div>

@@ -143,10 +143,10 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	}
 
 	/**
-	* Do all checks
-	*
-	* @param array $data informations about the user to save
-	*/
+	 * Do all checks
+	 *
+	 * @param array $data informations about the user to save
+	 */
 	private function check($data)
 	{
 		$this->checkLogin($data['users_login']);
@@ -169,7 +169,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		$this->updateHtpasswd();
 		return $res;
 	}
-	
+
 	/**
 	 * Delete existing rows.
 	 *
@@ -217,10 +217,10 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		$select = $db->select()->from('usvn_users', array('users_login', 'users_password'));
 		$res = $db->query($select)->fetchAll();
 		foreach ($res as $column => $value){
-			$text .= $value['users_login'].":".$value['users_password']."\n";	
-		}	
+			$text .= $value['users_login'].":".$value['users_password']."\n";
+		}
 		if (@file_put_contents($config->subversion->path."htpasswd", $text) == FALSE)
-			throw new USVN_Exception(T_('Can\'t create or write on htpasswd file.'));
+		throw new USVN_Exception(T_('Can\'t create or write on htpasswd file.'));
 	}
 
 	/**

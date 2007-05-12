@@ -68,9 +68,7 @@ class layout extends Zend_Controller_Plugin_Abstract
 	 */
 	protected function addHeader($response)
 	{
-		$url = Zend_Registry::get('url');
-		$site = Zend_Registry::get('site');
-		$base_url = $this->getRequest()->getBaseUrl();
+		$config = Zend_Registry::get('config');
 		$homepage = T_("Homepage");
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		$loggedAs = !($identity === null) ? T_("Logged as") . " " . $identity['username'] : "";
@@ -80,19 +78,19 @@ class layout extends Zend_Controller_Plugin_Abstract
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-	    <title>{$url['title']}</title>
+	    <title>{$config->url->title}</title>
 		<meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
-		<meta name="description" content="{$url['description']}" />
-		<meta name="keywords" content="{$url['keywords']}" />
-		<link rel="icon" href="{$base_url}/{$site['ico']}" type="image/x-icon" />
-		<link type="text/css" rel="stylesheet" media="screen" href="{$base_url}/css/screen" />
-		<link type="text/css" rel="stylesheet" media="print" href="{$base_url}/css/print" />
-		<script type="text/javascript" src="{$base_url}/js/"></script>
+		<meta name="description" content="{$config->url->description}" />
+		<meta name="keywords" content="{$config->url->keywords}" />
+		<link rel="icon" href="{$base_url}/{$config->site->ico}" type="image/x-icon" />
+		<link type="text/css" rel="stylesheet" media="screen" href="{$config->url->base}/css/screen" />
+		<link type="text/css" rel="stylesheet" media="print" href="{$config->url->base}/css/print" />
+		<script type="text/javascript" src="{$config->url->base}/js/"></script>
 	</head>
 	<body>
 		<div id="usvn_header">
-			<a id="usvn_logo" href="{$base_url}/">
-				<img src="{$base_url}/{$site['logo']}" alt="{$homepage}" />
+			<a id="usvn_logo" href="{$config->url->base}/">
+				<img src="{$config->url->base}/{$config->site->logo}" alt="{$homepage}" />
 			</a>
 		</div>
 EOF;

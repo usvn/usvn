@@ -23,9 +23,15 @@ require_once 'USVN/modules/admin/controllers/IndexController.php';
 
 class admin_ConfigController extends admin_IndexController
 {
+	
+	public function indexAction()
+	{
+		$this->_view->config = Zend_Registry::get("config");
+		$this->_render("index.html");
+	}
+	
 	public function saveAction()
 	{
-		//fopen et close et serie.... c'est mal !
 		USVN_modules_admin_models_Config::setLanguage($_POST['language']);
 		USVN_modules_admin_models_Config::setTemplate($_POST['template']);
 		$urlDatas = array('title' 			=> $_POST['urlTitle'],

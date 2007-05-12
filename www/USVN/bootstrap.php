@@ -45,13 +45,6 @@ try {
 	/**
 	 * register info
 	 */
-	Zend_Registry::set('url', array('title' 		=> $config->url->title,
-									'description' 	=> $config->url->description,
-									'keywords'		=> $config->url->keywords));
-	Zend_Registry::set('site', array('name' 		=> $config->site->name,
-									'ico'			=> $config->site->ico,
-									'description'	=> $config->site->description,
-									'logo'			=> $config->site->logo));
 	Zend_Registry::set('config', $config);
 
 	/**

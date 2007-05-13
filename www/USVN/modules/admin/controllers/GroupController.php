@@ -35,7 +35,8 @@ class admin_GroupController extends admin_IndexController
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Groups();
-		$this->_view->groups = $table->fetchAll(null, "groups_name");
+    	$where  = $table->getAdapter()->quoteInto('groups_name NOT IN (?)', $table->exceptedEntries['groups_name']);
+		$this->_view->groups = $table->fetchAll($where, "groups_name");
 		$this->_render('index.html');
     }
 
@@ -105,7 +106,6 @@ class admin_GroupController extends admin_IndexController
 		if (!empty($_POST) && $_POST['projects_id']) {
 			$groupTable = new USVN_Db_Table_Groups();
 			$group = $groupTable->fetchRow(array('groups_id = ?' => $_POST['group_id']));
-			//$group->deleteAllProjects();
 			foreach ($_POST['projects_id'] as $project_id) {
 				$group->addProject($project_id);
 			}

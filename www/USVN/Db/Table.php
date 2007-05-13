@@ -85,15 +85,6 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 		}
 
 		$this->_name = self::$prefix . $this->_name;
-		//		if ($this->_fieldPrefix) {
-		//			if (!is_array($this->_primary)) {
-		//				$this->_primary = $this->_fieldPrefix . $this->_primary;
-		//			} else {
-		//				foreach ($this->_primary as &$field) {
-		//					$field = $this->_fieldPrefix . $field;
-		//				}
-		//			}
-		//		}
 
 		parent::_setup($config);
 	}

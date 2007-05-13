@@ -25,7 +25,7 @@ class USVN_Authz
 
 		$groups = new USVN_Db_Table_Groups();
 		foreach ($groups->fetchAll(null, "groups_name") as $group) {
-			/* @var $group Zend_Db_Table_Row */
+			/* @var $group USVN_Db_Table_Row_Group */
 
 			$tmp = array();
 			$users = $group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups");
@@ -35,6 +35,14 @@ class USVN_Authz
 			$users = implode(", ", $tmp);
 			$file .= "{$group->name} = {$users}\n";
 		}
+
+		$projects = new USVN_Db_Table_Projects();
+		foreach ($projects->fetchAll(null, 'projects_name') as $project) {
+			/* @var $project USVN_Db_Table_Row_Project */
+
+			$file .= "\n\n# Project {$project->name}\n";
+		}
+
 		file_put_contents($config->subversion->path . "authz", $file);
 	}
 }

@@ -30,7 +30,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 *
 	 * @var string
 	 */
-	protected $_primary = "id";
+	protected $_primary = "rights_id";
 
 	/**
 	 * The field's prefix for this table.
@@ -135,7 +135,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			} else {
 				// Error in the right label
 			}
-		}		
+		}
 	}
 
 	/**
@@ -159,7 +159,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 			$this->projectAccess($acl, $login, "__NONE__");
 		}
 		$this->projectAccess($acl, $login, $project);
-		
+
 		try {
 			if ($acl->isAllowed('user', $module . "_" . $controller, $action) == 1)
 			{

@@ -27,7 +27,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 *
 	 * @var string
 	 */
-	protected $_primary = "id";
+	protected $_primary = "groups_id";
 
 	/**
 	 * The field's prefix for this table.

@@ -32,7 +32,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 *
 	 * @var string
 	 */
-	protected $_primary = "id";
+	protected $_primary = "users_id";
 
 	/**
 	 * The field's prefix for this table.

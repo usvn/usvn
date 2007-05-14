@@ -146,7 +146,7 @@ class USVN_SVNUtils
     private function _svnImport($server, $local)
     {
         $server = realpath($server);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn import --non-interactive --username USVN -m '" . T_("Commit by USVN") ."' $local file://$server", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn import --non-interactive --username USVN -m \"" . T_("Commit by USVN") ."\" \"$local\" \"file://$server\"", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't import into subversion repository: %s"), $message);
 		}
@@ -162,7 +162,7 @@ class USVN_SVNUtils
 	*/
 	public static function createSvn($path)
 	{
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svnadmin create $path", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svnadmin create \"$path\"", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
 		}
@@ -193,7 +193,7 @@ class USVN_SVNUtils
 	public static function checkoutSvn($src, $dst)
 	{
         $src = realpath($src);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn co file://$src $dst", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn co \"file://$src\" \"$dst\"", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
 		}

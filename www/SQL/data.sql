@@ -71,15 +71,3 @@ INSERT INTO `usvn_workgroups_to_rights` (`workgroups_id`, `rights_id`, `is_right
 (3, 12, 1),
 (3, 16, 1),
 (3, 20, 1);
-
-
-INSERT INTO `usvn_modules` (`modules_id`, `modules_name`, `modules_description`) VALUES
-(1, 'default', 'default  module'),
-(2, 'admin', 'admin module'),
-(3, 'wiki', 'wiki module');
-
-
-INSERT INTO `usvn_modules_to_projects` (`modules_id`, `projects_id`) VALUES
-(1, 1),
-(2, 1),
-(3, 1);

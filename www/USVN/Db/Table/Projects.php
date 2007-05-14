@@ -146,6 +146,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 		$config = Zend_Registry::get('config');
 		try {
 			USVN_SVNUtils::createSVN($config->subversion->path . DIRECTORY_SEPARATOR . $data['projects_name']);
+			USVN_Authz::generate();
 		}
 		catch (Exception $e) {
 			$this->getAdapter()->rollback();
@@ -167,7 +168,26 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	public function update(array $data, $where)
 	{
 		$this->checkProjectName($data['projects_name']);
-		return parent::update($data, $where);
+		$res = parent::update($data, $where);
+		USVN_Authz::generate();
+		return $res;
+	}
+
+	/**
+	 * Called by parent table's class during delete() method.
+	 *
+	 * @param  string $parentTableClassname
+	 * @param  array  $primaryKey
+	 * @return int    Number of affected rows
+	 */
+	public function delete($where)
+	{
+		foreach ($this->fetchAll($where) as $project) {
+			USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path . $project->name);
+		}
+		$res = parent::delete($where);
+		USVN_Authz::generate();
+		return $res;
 	}
 
 	/**

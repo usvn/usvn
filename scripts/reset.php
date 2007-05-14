@@ -28,7 +28,7 @@ USVN_Db_Table::$prefix = $config->database->prefix;
 Zend_Db_Table::setDefaultAdapter($db);
 USVN_Db_Utils::deleteAllTables($db);
 USVN_DirectoryUtils::removeDirectory("www/files");
-mkdir("www/files");
+`svn up www/files`;
 USVN_Db_Utils::loadFile($db, "www/SQL/SVNDB.sql");
 USVN_Db_Utils::loadFile($db, "www/SQL/mysql.sql");
 USVN_Db_Utils::loadFile($db, "www/SQL/data.sql");
@@ -99,12 +99,31 @@ $obj->setFromArray(array('users_login' 		=> 'joanic_g',
 $obj->save();
 
 
+mkdir('tmp');
 $table = new USVN_Db_Table_Projects();
 $obj = $table->fetchNew();
 $obj->setFromArray(array('projects_name' => 'usvn',  'projects_start_date' => '2007-11-01 00:00:00'));
 $id = $obj->save();
 
+$oldpath= getcwd();
+`svn co file://{$config->subversion->path}/usvn tmp/usvn`;
+`svn export --force --ignore-externals -q . tmp/usvn/trunk`;
+chdir('tmp/usvn');
+`svn add --force trunk/`;
+`svn commit -m 'Test'`;
+chdir($oldpath);
+
 $table = new USVN_Db_Table_Projects();
 $obj = $table->fetchNew();
 $obj->setFromArray(array('projects_name' => 'love',  'projects_start_date' => '1984-12-03 00:00:00'));
 $id = $obj->save();
+
+$oldpath= getcwd();
+`svn co file://{$config->subversion->path}/usvn tmp/love`;
+chdir('tmp/love');
+file_put_contents('trunk/test', 'TEST');
+`svn add trunk/test`;
+`svn commit -m 'Test'`;
+chdir($oldpath);
+
+USVN_DirectoryUtils::removeDirectory('tmp');

@@ -24,7 +24,9 @@ class USVN_DirectoryUtils
     static public function removeDirectory($path)
     {
         if (file_exists($path)) {
-            chmod($path, 0777);
+            if (!chmod($path, 0777)) {
+                throw new USVN_Exception(T_("Can't delete directory %s.", $path));
+            }
             try {
                 @$dir = new RecursiveDirectoryIterator($path);
             }
@@ -57,7 +59,7 @@ class USVN_DirectoryUtils
 		$res = array();
 		$dh = opendir($path);
 		if (!$dh) {
-			throw new USVN_Exception(T_("Can't read directory (%s).", $path));
+			throw new USVN_Exception(T_("Can't read directory %s.", $path));
 		}
 		while (($subDir = readdir($dh)) !== false) {
             if ($subDir != '.' && $subDir != '..' && $subDir != '.svn') {

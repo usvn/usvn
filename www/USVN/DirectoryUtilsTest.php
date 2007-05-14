@@ -60,17 +60,17 @@ class USVN_DirectoryUtilsTest extends PHPUnit_Framework_TestCase {
 	public function test_removeDirectoryReadOnly()
 	{
 		@mkdir('tests/tmp/dir');
-		@chmod('tests/tmp/dir', 0444);
 		@mkdir('tests/tmp/dir/1');
 		@mkdir('tests/tmp/dir/2');
 		@mkdir('tests/tmp/dir/2/3');
 		file_put_contents('tests/tmp/dir/2/3/test', 'tutu');
 		file_put_contents('tests/tmp/dir/test', 'tutu');
+		@chmod('tests/tmp/dir', 0444);
 		USVN_DirectoryUtils::removeDirectory('tests/tmp/dir');
 		$this->assertFalse(file_exists('tests/tmp/dir'));
 	}
 
-	
+
 	public function test_listDirectory()
 	{
 		@mkdir('tests/tmp/dir');

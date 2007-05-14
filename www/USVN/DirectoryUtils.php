@@ -23,24 +23,26 @@ class USVN_DirectoryUtils
     */
     static public function removeDirectory($path)
     {
-        try {
-            @$dir = new RecursiveDirectoryIterator($path);
-        }
-        catch(Exception $e) {
-            return;
-        }
-        foreach(@new RecursiveIteratorIterator($dir) as $file) {
-        	@chmod($file, 0777);
-            unlink($file);
-        }
-        foreach($dir as $subDir) {
-            if(!@rmdir($subDir)) {
-                USVN_DirectoryUtils::removeDirectory($subDir);
+        if (file_exists($path)) {
+            chmod($path, 0777);
+            try {
+                @$dir = new RecursiveDirectoryIterator($path);
             }
+            catch(Exception $e) {
+                return;
+            }
+            foreach(@new RecursiveIteratorIterator($dir) as $file) {
+                chmod($file, 0777);
+                unlink($file);
+            }
+            foreach($dir as $subDir) {
+                if(!@rmdir($subDir)) {
+                    USVN_DirectoryUtils::removeDirectory($subDir);
+                }
+            }
+            $dir = NULL; // Else on windows that doesn't work....
+            @rmdir($path);
         }
-        $dir = NULL; // Else on windows that doesn't work....
-        @chmod($path, 0777);
-        @rmdir($path);
     }
 
     /**

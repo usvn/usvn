@@ -35,8 +35,7 @@ class USVN_SVNUtils
 	*/
     public static function isSVNRepository($path)
     {
-        if (file_exists($path . "/hooks") && file_exists($path . "/dav"))
-        {
+        if (file_exists($path . "/hooks") && file_exists($path . "/dav")){
             return true;
         }
         return false;
@@ -138,8 +137,27 @@ class USVN_SVNUtils
 		@mkdir($path . "/db");
 	}
 
+    /**
+    * Import file into subversion repository
+    *
+    * @param string path to server repository
+    * @param string path to directory to import
+    */
+    private function _svnImport($server, $local)
+    {
+        $server = realpath($server);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn import --non-interactive --username USVN -m '" . T_("Commit by USVN") ."' $local file://$server", $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't import into subversion repository: %s"), $message);
+		}
+    }
+
 	/**
-	* Create SVN repository
+	* Create SVN repository with standard organisation
+    * /trunk
+    * /tags
+    * /branches
+    *
 	* @param string Path to create subversion
 	*/
 	public static function createSvn($path)
@@ -147,6 +165,37 @@ class USVN_SVNUtils
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svnadmin create $path", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
+		}
+        $tmpdir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . "USVN" . md5(uniqid());
+        if (!mkdir($tmpdir)) {
+            USVN_DirectoryUtils::removeDirectory($path);
+            throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
+        }
+        try {
+            mkdir($tmpdir . DIRECTORY_SEPARATOR . "trunk");
+            mkdir($tmpdir . DIRECTORY_SEPARATOR . "branches");
+            mkdir($tmpdir . DIRECTORY_SEPARATOR . "tags");
+            USVN_SVNUtils::_svnImport($path, $tmpdir);
+        }
+        catch (Exception $e) {
+            USVN_DirectoryUtils::removeDirectory($path);
+            USVN_DirectoryUtils::removeDirectory($tmpdir);
+            throw $e;
+        }
+        USVN_DirectoryUtils::removeDirectory($tmpdir);
+	}
+
+	/**
+	* Checkout SVN repository into filesystem
+	* @param string Path to subversion repository
+    * @param string Path to destination
+	*/
+	public static function checkoutSvn($src, $dst)
+	{
+        $src = realpath($src);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn co file://$src $dst", $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
 		}
 	}
 }

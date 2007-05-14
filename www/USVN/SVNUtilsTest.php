@@ -49,23 +49,8 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
     public function setUp()
     {
 		parent::setUp();
-        $this->clean();
         USVN_SVNUtils::createSvnDirectoryStruct("tests/tmp/testrepository");
-        @mkdir('tests/tmp/fakerepository');
-    }
-
-    public function tearDown()
-    {
-        $this->clean();
-		parent::tearDown();
-    }
-
-    private function clean()
-    {
-		USVN_DirectoryUtils::removeDirectory('tests/tmp/testrepository');
-		USVN_DirectoryUtils::removeDirectory('tests/tmp/fakerepository');
-		USVN_DirectoryUtils::removeDirectory('tests/tmp/svndirectorystruct');
-		USVN_DirectoryUtils::removeDirectory('tests/tmp/svndirectory');
+        mkdir('tests/tmp/fakerepository');
     }
 
     public function test_isSVNRepository()
@@ -94,12 +79,36 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		USVN_SVNUtils::createSvn('tests/tmp/svndirectory');
 		 $this->assertTrue(file_exists('tests/tmp/svndirectory'));
 		 $this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svndirectory'));
+		USVN_SVNUtils::checkoutSvn('tests/tmp/svndirectory', 'tests/tmp/out');
+		 $this->assertTrue(file_exists('tests/tmp/out'));
+		 $this->assertTrue(file_exists('tests/tmp/out/trunk'));
+		 $this->assertTrue(file_exists('tests/tmp/out/branches'));
+		 $this->assertTrue(file_exists('tests/tmp/out/tags'));
 	}
 
 	public function test_createSvnBadDir()
 	{
 		try {
 			USVN_SVNUtils::createSvn('tests/tmp/svndirectory/test/tutu');
+		}
+		catch (USVN_Exception $e) {
+			return ;
+		}
+		$this->fail();
+	}
+
+	public function test_checkoutSvn()
+	{
+		USVN_SVNUtils::createSvn('tests/tmp/svndirectory');
+		USVN_SVNUtils::checkoutSvn('tests/tmp/svndirectory', 'tests/tmp/out');
+		 $this->assertTrue(file_exists('tests/tmp/out'));
+		 $this->assertTrue(file_exists('tests/tmp/out/.svn'));
+	}
+
+	public function test_checkoutSvnBadDir()
+	{
+		try {
+            USVN_SVNUtils::checkoutSvn('tests/tmp/svndirectory2', 'tests/tmp/out');
 		}
 		catch (USVN_Exception $e) {
 			return ;

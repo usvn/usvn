@@ -1,12 +1,3 @@
-/*==============================================================*/
-/* DBMS name:      MySQL 4.0                                    */
-/* Created on:     14/05/2007 14:21:13                          */
-/*==============================================================*/
-
-
-/*==============================================================*/
-/* Table: usvn_files_rights                                     */
-/*==============================================================*/
 create table usvn_files_rights
 (
    files_rights_id                int                            not null,
@@ -18,17 +9,11 @@ create table usvn_files_rights
 )
 type = innodb;
 
-/*==============================================================*/
-/* Index: to_belong_fk                                          */
-/*==============================================================*/
 create index to_belong_fk on usvn_files_rights
 (
    projects_id
 );
 
-/*==============================================================*/
-/* Table: usvn_groups                                           */
-/*==============================================================*/
 create table usvn_groups
 (
    groups_id                      int                            not null,
@@ -38,9 +23,6 @@ create table usvn_groups
 )
 type = innodb;
 
-/*==============================================================*/
-/* Table: usvn_groups_to_files_rights                           */
-/*==============================================================*/
 create table usvn_groups_to_files_rights
 (
    files_rights_id                int                            not null,
@@ -49,25 +31,16 @@ create table usvn_groups_to_files_rights
 )
 type = innodb;
 
-/*==============================================================*/
-/* Index: usvn_groups_to_files_rights_fk                        */
-/*==============================================================*/
 create index usvn_groups_to_files_rights_fk on usvn_groups_to_files_rights
 (
    files_rights_id
 );
 
-/*==============================================================*/
-/* Index: usvn_groups_to_files_rights2_fk                       */
-/*==============================================================*/
 create index usvn_groups_to_files_rights2_fk on usvn_groups_to_files_rights
 (
    groups_id
 );
 
-/*==============================================================*/
-/* Table: usvn_projects                                         */
-/*==============================================================*/
 create table usvn_projects
 (
    projects_id                    int                            not null,
@@ -80,9 +53,6 @@ create table usvn_projects
 )
 type = innodb;
 
-/*==============================================================*/
-/* Table: usvn_rights                                           */
-/*==============================================================*/
 create table usvn_rights
 (
    rights_id                      int                            not null,
@@ -92,9 +62,6 @@ create table usvn_rights
 )
 type = innodb;
 
-/*==============================================================*/
-/* Table: usvn_users                                            */
-/*==============================================================*/
 create table usvn_users
 (
    users_id                       int                            not null,
@@ -107,9 +74,6 @@ create table usvn_users
 )
 type = innodb;
 
-/*==============================================================*/
-/* Table: usvn_users_to_groups                                  */
-/*==============================================================*/
 create table usvn_users_to_groups
 (
    users_id                       int                            not null,
@@ -118,25 +82,16 @@ create table usvn_users_to_groups
 )
 type = innodb;
 
-/*==============================================================*/
-/* Index: usvn_users_to_groups_fk                               */
-/*==============================================================*/
 create index usvn_users_to_groups_fk on usvn_users_to_groups
 (
    users_id
 );
 
-/*==============================================================*/
-/* Index: usvn_users_to_groups2_fk                              */
-/*==============================================================*/
 create index usvn_users_to_groups2_fk on usvn_users_to_groups
 (
    groups_id
 );
 
-/*==============================================================*/
-/* Table: usvn_workgroups                                       */
-/*==============================================================*/
 create table usvn_workgroups
 (
    workgroups_id                  int                            not null,
@@ -146,25 +101,16 @@ create table usvn_workgroups
 )
 type = innodb;
 
-/*==============================================================*/
-/* Index: usvn_projects_to_workgroups_fk                        */
-/*==============================================================*/
 create index usvn_projects_to_workgroups_fk on usvn_workgroups
 (
    projects_id
 );
 
-/*==============================================================*/
-/* Index: usvn_groups_to_workgroups_fk                          */
-/*==============================================================*/
 create index usvn_groups_to_workgroups_fk on usvn_workgroups
 (
    groups_id
 );
 
-/*==============================================================*/
-/* Table: usvn_workgroups_to_rights                             */
-/*==============================================================*/
 create table usvn_workgroups_to_rights
 (
    workgroups_id                  int                            not null,
@@ -174,17 +120,11 @@ create table usvn_workgroups_to_rights
 )
 type = innodb;
 
-/*==============================================================*/
-/* Index: usvn_workgroups_to_rights_fk                          */
-/*==============================================================*/
 create index usvn_workgroups_to_rights_fk on usvn_workgroups_to_rights
 (
    workgroups_id
 );
 
-/*==============================================================*/
-/* Index: usvn_workgroups_to_rights2_fk                         */
-/*==============================================================*/
 create index usvn_workgroups_to_rights2_fk on usvn_workgroups_to_rights
 (
    rights_id

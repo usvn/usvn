@@ -1,154 +1,237 @@
-create table usvn_projects
-(
-   projects_id          int not null,
-   projects_name        varchar(255) not null,
-   projects_start_date  datetime not null,
-   projects_description varchar(1000),
-   projects_auth        varchar(255),
-   projects_url         varchar(300),
-   primary key (projects_id)
-)type=INNODB;
+/*==============================================================*/
+/* DBMS name:      MySQL 4.0                                    */
+/* Created on:     14/05/2007 12:50:56                          */
+/*==============================================================*/
 
-create table usvn_users
-(
-   users_id             int not null,
-   users_login          varchar(255) not null,
-   users_password       varchar(64) not null,
-   users_lastname       varchar(100),
-   users_firstname      varchar(100),
-   users_email          varchar(150),
-   primary key (users_id)
-)type=INNODB;
 
-create table usvn_revisions
-(
-   projects_id          int not null,
-   revisions_num        int not null,
-   users_id             int not null,
-   revisions_message    text not null,
-   revisions_date       datetime not null,
-   primary key (projects_id, revisions_num),
-   constraint fk_usvn_projects_to_revisions foreign key (projects_id)
-      references usvn_projects (projects_id) on delete restrict on update restrict,
-   constraint fk_usvn_to_add foreign key (users_id)
-      references usvn_users (users_id) on delete restrict on update restrict
-)type=INNODB;
+drop table if exists USVN_FILES_RIGHTS;
 
-create table usvn_files
-(
-   projects_id          int not null,
-   revisions_num        int not null,
-   files_id             int not null,
-   files_path           text not null,
-   files_isdir          bool,
-   files_typ_rev        char(1) not null,
-   primary key (projects_id, revisions_num, files_id),
-   constraint fk_usvn_to_link foreign key (projects_id, revisions_num)
-      references usvn_revisions (projects_id, revisions_num) on delete restrict on update restrict
-)type=INNODB;
+drop table if exists USVN_GROUPS;
 
-create table usvn_groups
-(
-   groups_id            int not null,
-   groups_name          varchar(150) not null,
-   groups_description   varchar(1000),
-   primary key (groups_id)
-)type=INNODB;
+drop table if exists USVN_GROUPS_TO_FILES_RIGHTS;
 
-create table usvn_modules
-(
-   modules_id           int not null,
-   modules_name         varchar(33) not null,
-   modules_description  varchar(1000),
-   primary key (modules_id)
-)type=INNODB;
+drop table if exists USVN_PROJECTS;
 
-create table usvn_modules_to_projects
-(
-   modules_id           int not null,
-   projects_id          int not null,
-   primary key (modules_id, projects_id),
-   constraint fk_usvn_modules_to_projects foreign key (modules_id)
-      references usvn_modules (modules_id) on delete restrict on update restrict,
-   constraint fk_usvn_modules_to_projects2 foreign key (projects_id)
-      references usvn_projects (projects_id) on delete restrict on update restrict
-)type=INNODB;
+drop table if exists USVN_RIGHTS;
 
-create table usvn_properties
-(
-   projects_id          int not null,
-   revisions_num        int not null,
-   files_id             int not null,
-   properties_name      varchar(64) not null,
-   properties_value     text not null,
-   primary key (projects_id, revisions_num, files_id, properties_name),
-   constraint fk_usvn_to_assign foreign key (projects_id, revisions_num, files_id)
-      references usvn_files (projects_id, revisions_num, files_id) on delete restrict on update restrict
-)type=INNODB;
+drop table if exists USVN_USERS;
 
-create table usvn_rights
-(
-   rights_id            int not null,
-   rights_label         varchar(255) not null,
-   rights_description   varchar(1000),
-   primary key (rights_id)
-)type=INNODB;
+drop table if exists USVN_USERS_TO_GROUPS;
 
-create table usvn_files_rights
-(
-   files_rights_id      int not null,
-   projects_id          int not null,
-   revisions_num        int not null,
-   files_id             int not null,
-   files_rights_is_readable bool,
-   files_rights_is_writable bool,
-   primary key (files_rights_id),
-   constraint fk_usvn_files_permissions foreign key (projects_id, revisions_num, files_id)
-      references usvn_files (projects_id, revisions_num, files_id) on delete restrict on update restrict
-)type=INNODB;
+drop table if exists USVN_WORKGROUPS;
 
-create table usvn_groups_to_files_rights
-(
-   files_rights_id      int not null,
-   groups_id            int not null,
-   primary key (files_rights_id, groups_id),
-   constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id)
-      references usvn_files_rights (files_rights_id) on delete restrict on update restrict,
-   constraint fk_usvn_groups_to_files_rights2 foreign key (groups_id)
-      references usvn_groups (groups_id) on delete restrict on update restrict
-)type=INNODB;
+drop table if exists USVN_WORKGROUPS_TO_RIGHTS;
 
-create table usvn_users_to_groups
+/*==============================================================*/
+/* Table: USVN_FILES_RIGHTS                                     */
+/*==============================================================*/
+create table USVN_FILES_RIGHTS
 (
-   users_id             int not null,
-   groups_id            int not null,
-   primary key (users_id, groups_id),
-   constraint fk_usvn_users_to_groups foreign key (users_id)
-      references usvn_users (users_id) on delete restrict on update restrict,
-   constraint fk_usvn_users_to_groups2 foreign key (groups_id)
-      references usvn_groups (groups_id) on delete restrict on update restrict
-)type=INNODB;
+   FILES_RIGHTS_ID                int                            not null,
+   PROJECTS_ID                    int                            not null,
+   FILES_RIGHTS_IS_READABLE       bool,
+   FILES_RIGHTS_IS_WRITABLE       bool,
+   FILES_RIGHTS_PATH              varchar(150),
+   primary key (FILES_RIGHTS_ID)
+)
+type = InnoDB;
 
-create table usvn_workgroups
+/*==============================================================*/
+/* Index: TO_BELONG_FK                                          */
+/*==============================================================*/
+create index TO_BELONG_FK on USVN_FILES_RIGHTS
 (
-   workgroups_id             int not null,
-   groups_id            int not null,
-   projects_id          int not null,
-   primary key (workgroups_id),
-   constraint fk_usvn_projects_to_acces foreign key (projects_id)
-      references usvn_projects (projects_id) on delete restrict on update restrict,
-   constraint fk_usvn_groups_to_acces foreign key (groups_id)
-      references usvn_groups (groups_id) on delete restrict on update restrict
-)type=INNODB;
+   PROJECTS_ID
+);
 
-create table usvn_workgroups_to_rights
+/*==============================================================*/
+/* Table: USVN_GROUPS                                           */
+/*==============================================================*/
+create table USVN_GROUPS
 (
-   workgroups_id             int not null,
-   rights_id            int not null,
-   is_right             bool,
-   primary key (workgroups_id, rights_id),
-   constraint fk_usvn_workgroups_to_rights foreign key (workgroups_id)
-      references usvn_workgroups (workgroups_id) on delete restrict on update restrict,
-   constraint fk_usvn_workgroups_to_rights2 foreign key (rights_id)
-      references usvn_rights (rights_id) on delete restrict on update restrict
-)type=INNODB;
+   GROUPS_ID                      int                            not null,
+   GROUPS_NAME                    varchar(150)                   not null,
+   GROUPS_DESCRIPTION             varchar(1000),
+   primary key (GROUPS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: USVN_GROUPS_TO_FILES_RIGHTS                           */
+/*==============================================================*/
+create table USVN_GROUPS_TO_FILES_RIGHTS
+(
+   FILES_RIGHTS_ID                int                            not null,
+   GROUPS_ID                      int                            not null,
+   primary key (FILES_RIGHTS_ID, GROUPS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: USVN_GROUPS_TO_FILES_RIGHTS_FK                        */
+/*==============================================================*/
+create index USVN_GROUPS_TO_FILES_RIGHTS_FK on USVN_GROUPS_TO_FILES_RIGHTS
+(
+   FILES_RIGHTS_ID
+);
+
+/*==============================================================*/
+/* Index: USVN_GROUPS_TO_FILES_RIGHTS2_FK                       */
+/*==============================================================*/
+create index USVN_GROUPS_TO_FILES_RIGHTS2_FK on USVN_GROUPS_TO_FILES_RIGHTS
+(
+   GROUPS_ID
+);
+
+/*==============================================================*/
+/* Table: USVN_PROJECTS                                         */
+/*==============================================================*/
+create table USVN_PROJECTS
+(
+   PROJECTS_ID                    int                            not null,
+   PROJECTS_NAME                  varchar(255)                   not null,
+   PROJECTS_START_DATE            datetime                       not null,
+   PROJECTS_DESCRIPTION           varchar(1000),
+   PROJECTS_AUTH                  varchar(255),
+   PROJECTS_URL                   varchar(300),
+   primary key (PROJECTS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: USVN_RIGHTS                                           */
+/*==============================================================*/
+create table USVN_RIGHTS
+(
+   RIGHTS_ID                      int                            not null,
+   RIGHTS_LABEL                   varchar(255)                   not null,
+   RIGHTS_DESCRIPTION             varchar(1000),
+   primary key (RIGHTS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: USVN_USERS                                            */
+/*==============================================================*/
+create table USVN_USERS
+(
+   USERS_ID                       int                            not null,
+   USERS_LOGIN                    varchar(255)                   not null,
+   USERS_PASSWORD                 varchar(64)                    not null,
+   USERS_LASTNAME                 varchar(100),
+   USERS_FIRSTNAME                varchar(100),
+   USERS_EMAIL                    varchar(150),
+   primary key (USERS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Table: USVN_USERS_TO_GROUPS                                  */
+/*==============================================================*/
+create table USVN_USERS_TO_GROUPS
+(
+   USERS_ID                       int                            not null,
+   GROUPS_ID                      int                            not null,
+   primary key (USERS_ID, GROUPS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: USVN_USERS_TO_GROUPS_FK                               */
+/*==============================================================*/
+create index USVN_USERS_TO_GROUPS_FK on USVN_USERS_TO_GROUPS
+(
+   USERS_ID
+);
+
+/*==============================================================*/
+/* Index: USVN_USERS_TO_GROUPS2_FK                              */
+/*==============================================================*/
+create index USVN_USERS_TO_GROUPS2_FK on USVN_USERS_TO_GROUPS
+(
+   GROUPS_ID
+);
+
+/*==============================================================*/
+/* Table: USVN_WORKGROUPS                                       */
+/*==============================================================*/
+create table USVN_WORKGROUPS
+(
+   WORKGROUPS_ID                  int                            not null,
+   PROJECTS_ID                    int                            not null,
+   GROUPS_ID                      int                            not null,
+   primary key (WORKGROUPS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: USVN_PROJECTS_TO_WORKGROUPS_FK                        */
+/*==============================================================*/
+create index USVN_PROJECTS_TO_WORKGROUPS_FK on USVN_WORKGROUPS
+(
+   PROJECTS_ID
+);
+
+/*==============================================================*/
+/* Index: USVN_GROUPS_TO_WORKGROUPS_FK                          */
+/*==============================================================*/
+create index USVN_GROUPS_TO_WORKGROUPS_FK on USVN_WORKGROUPS
+(
+   GROUPS_ID
+);
+
+/*==============================================================*/
+/* Table: USVN_WORKGROUPS_TO_RIGHTS                             */
+/*==============================================================*/
+create table USVN_WORKGROUPS_TO_RIGHTS
+(
+   WORKGROUPS_ID                  int                            not null,
+   RIGHTS_ID                      int                            not null,
+   IS_RIGHT                       bool,
+   primary key (WORKGROUPS_ID, RIGHTS_ID)
+)
+type = InnoDB;
+
+/*==============================================================*/
+/* Index: USVN_WORKGROUPS_TO_RIGHTS_FK                          */
+/*==============================================================*/
+create index USVN_WORKGROUPS_TO_RIGHTS_FK on USVN_WORKGROUPS_TO_RIGHTS
+(
+   WORKGROUPS_ID
+);
+
+/*==============================================================*/
+/* Index: USVN_WORKGROUPS_TO_RIGHTS2_FK                         */
+/*==============================================================*/
+create index USVN_WORKGROUPS_TO_RIGHTS2_FK on USVN_WORKGROUPS_TO_RIGHTS
+(
+   RIGHTS_ID
+);
+
+alter table USVN_FILES_RIGHTS add constraint FK_TO_BELONG foreign key (PROJECTS_ID)
+      references USVN_PROJECTS (PROJECTS_ID) on delete restrict on update restrict;
+
+alter table USVN_GROUPS_TO_FILES_RIGHTS add constraint FK_USVN_GROUPS_TO_FILES_RIGHTS foreign key (FILES_RIGHTS_ID)
+      references USVN_FILES_RIGHTS (FILES_RIGHTS_ID) on delete restrict on update restrict;
+
+alter table USVN_GROUPS_TO_FILES_RIGHTS add constraint FK_USVN_GROUPS_TO_FILES_RIGHTS2 foreign key (GROUPS_ID)
+      references USVN_GROUPS (GROUPS_ID) on delete restrict on update restrict;
+
+alter table USVN_USERS_TO_GROUPS add constraint FK_USVN_USERS_TO_GROUPS foreign key (USERS_ID)
+      references USVN_USERS (USERS_ID) on delete restrict on update restrict;
+
+alter table USVN_USERS_TO_GROUPS add constraint FK_USVN_USERS_TO_GROUPS2 foreign key (GROUPS_ID)
+      references USVN_GROUPS (GROUPS_ID) on delete restrict on update restrict;
+
+alter table USVN_WORKGROUPS add constraint FK_USVN_GROUPS_TO_WORKGROUPS foreign key (GROUPS_ID)
+      references USVN_GROUPS (GROUPS_ID) on delete restrict on update restrict;
+
+alter table USVN_WORKGROUPS add constraint FK_USVN_PROJECTS_TO_WORKGROUPS foreign key (PROJECTS_ID)
+      references USVN_PROJECTS (PROJECTS_ID) on delete restrict on update restrict;
+
+alter table USVN_WORKGROUPS_TO_RIGHTS add constraint FK_USVN_WORKGROUPS_TO_RIGHTS foreign key (WORKGROUPS_ID)
+      references USVN_WORKGROUPS (WORKGROUPS_ID) on delete restrict on update restrict;
+
+alter table USVN_WORKGROUPS_TO_RIGHTS add constraint FK_USVN_WORKGROUPS_TO_RIGHTS2 foreign key (RIGHTS_ID)
+      references USVN_RIGHTS (RIGHTS_ID) on delete restrict on update restrict;
+

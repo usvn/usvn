@@ -1,26 +1,4 @@
-/*==============================================================*/
-/* DBMS name:      MySQL 4.0                                    */
-/* Created on:     14/05/2007 12:50:56                          */
-/*==============================================================*/
 
-
-drop table if exists USVN_FILES_RIGHTS;
-
-drop table if exists USVN_GROUPS;
-
-drop table if exists USVN_GROUPS_TO_FILES_RIGHTS;
-
-drop table if exists USVN_PROJECTS;
-
-drop table if exists USVN_RIGHTS;
-
-drop table if exists USVN_USERS;
-
-drop table if exists USVN_USERS_TO_GROUPS;
-
-drop table if exists USVN_WORKGROUPS;
-
-drop table if exists USVN_WORKGROUPS_TO_RIGHTS;
 
 /*==============================================================*/
 /* Table: USVN_FILES_RIGHTS                                     */

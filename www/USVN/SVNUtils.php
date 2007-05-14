@@ -204,7 +204,7 @@ class USVN_SVNUtils
     *
 	* @param string Path to subversion repository
     * @param string Path into subversion repository
-    * @return associative array like: array(array(name => "tutu", is_dir => true))
+    * @return associative array like: array(array(name => "tutu", isDirectory => true))
 	*/
 	public static function listSvn($repository, $path)
 	{
@@ -217,10 +217,10 @@ class USVN_SVNUtils
         foreach (explode("\n", $message) as $file) {
             if (strlen($file)) {
                 if (substr($file, -1, 1) == '/') {
-                    array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "is_dir" => true));
+                    array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "isDirectory" => true));
                 }
                 else {
-                    array_push($res, array("name" => $file, "is_dir" => false));
+                    array_push($res, array("name" => $file, "isDirectory" => false));
                 }
             }
         }

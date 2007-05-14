@@ -130,13 +130,13 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
         chdir($path);
         $res = USVN_SVNUtils::listSvn('tests/tmp/svn directory', '/');
 		$this->assertEquals(3, count($res));
-		$this->assertContains(array("name" => "trunk", "is_dir" => true), $res);
-		$this->assertContains(array("name" => "branches", "is_dir" => true), $res);
-		$this->assertContains(array("name" => "tags", "is_dir" => true), $res);
+		$this->assertContains(array("name" => "trunk", "isDirectory" => true), $res);
+		$this->assertContains(array("name" => "branches", "isDirectory" => true), $res);
+		$this->assertContains(array("name" => "tags", "isDirectory" => true), $res);
         $res = USVN_SVNUtils::listSvn('tests/tmp/svn directory', '/trunk');
 		$this->assertEquals(2, count($res));
-		$this->assertContains(array("name" => "testdir", "is_dir" => true), $res);
-		$this->assertContains(array("name" => "testfile", "is_dir" => false), $res);
+		$this->assertContains(array("name" => "testdir", "isDirectory" => true), $res);
+		$this->assertContains(array("name" => "testfile", "isDirectory" => false), $res);
 	}
 
 	public function test_listSvnBadDir()

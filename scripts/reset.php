@@ -106,7 +106,7 @@ $obj->setFromArray(array('projects_name' => 'usvn',  'projects_start_date' => '2
 $id = $obj->save();
 
 $oldpath= getcwd();
-`svn co file://{$config->subversion->path}/usvn tmp/usvn`;
+`svn co file://{$config->subversion->path}/svn/usvn tmp/usvn`;
 `svn export --force --ignore-externals -q . tmp/usvn/trunk`;
 chdir('tmp/usvn');
 `svn add --force trunk/`;
@@ -119,7 +119,7 @@ $obj->setFromArray(array('projects_name' => 'love',  'projects_start_date' => '1
 $id = $obj->save();
 
 $oldpath= getcwd();
-`svn co file://{$config->subversion->path}/usvn tmp/love`;
+`svn co file://{$config->subversion->path}/svn/usvn tmp/love`;
 chdir('tmp/love');
 file_put_contents('trunk/test', 'TEST');
 `svn add trunk/test`;

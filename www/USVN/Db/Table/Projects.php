@@ -145,7 +145,11 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 		$id = parent::insert($data);
 		$config = Zend_Registry::get('config');
 		try {
-			USVN_SVNUtils::createSVN($config->subversion->path . DIRECTORY_SEPARATOR . $data['projects_name']);
+			USVN_SVNUtils::createSVN($config->subversion->path
+				. DIRECTORY_SEPARATOR
+				. 'svn'
+				. DIRECTORY_SEPARATOR
+				. $data['projects_name']);
 			USVN_Authz::generate();
 		}
 		catch (Exception $e) {

@@ -316,7 +316,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
 		$table->updateHtpasswd();
 		$text = "anonymous:usvn\nToto:titititi\n";
-		$contenu = file_get_contents(Zend_Registry::get('config')->subversion->path."htpasswd");
+		$contenu = file_get_contents(Zend_Registry::get('config')->subversion->path . "htpasswd");
 		$this->assertEquals($text, $contenu);
 	}
 

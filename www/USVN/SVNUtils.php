@@ -145,7 +145,7 @@ class USVN_SVNUtils
     */
     private function _svnImport($server, $local)
     {
-        $server = realpath($server);
+        $server = USVN_SVNUtils::_getRepositoryPath($server);
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn import --non-interactive --username USVN -m \"" . T_("Commit by USVN") ."\" \"$local\" \"file://$server\"", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't import into subversion repository: %s"), $message);
@@ -192,7 +192,7 @@ class USVN_SVNUtils
 	*/
 	public static function checkoutSvn($src, $dst)
 	{
-        $src = realpath($src);
+        $src = USVN_SVNUtils::_getRepositoryPath($src);
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn co \"file://$src\" \"$dst\"", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
@@ -208,13 +208,13 @@ class USVN_SVNUtils
 	*/
 	public static function listSvn($repository, $path)
 	{
-        $repository = realpath($repository);
+        $repository = USVN_SVNUtils::_getRepositoryPath($repository);
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn ls \"file://$repository/$path\"", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $message);
 		}
         $res = array();
-        foreach (explode("\n", $message) as $file) {
+        foreach (preg_split("/[\r]?\n/", $message) as $file) {
             if (strlen($file)) {
                 if (substr($file, -1, 1) == '/') {
                     array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "isDirectory" => true));
@@ -225,5 +225,17 @@ class USVN_SVNUtils
             }
         }
         return $res;
+	}
+	
+	/**
+	 * @param string Path to repository
+	 * @return string absolute path to repository
+	 */
+	private function _getRepositoryPath($path)
+	{
+		if(strtoupper (substr(PHP_OS, 0,3)) == 'WIN' ) {
+			return ('/'. str_replace('\\', '/', realpath($path)));
+		}
+		return realpath($path);
 	}
 }

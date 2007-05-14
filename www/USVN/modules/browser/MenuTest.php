@@ -19,7 +19,7 @@
  */
 // Call USVN_modules_admin_MenuTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "USVN_modules_admin_MenuTest::main");
+    define("PHPUnit_MAIN_METHOD", "USVN_modules_browser_MenuTest::main");
 }
 
 require_once "PHPUnit/Framework/TestCase.php";
@@ -27,7 +27,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class USVN_modules_admin_MenuTest extends USVN_Test_Test {
+class USVN_modules_browser_MenuTest extends USVN_Test_Test {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
@@ -37,51 +37,14 @@ class USVN_modules_admin_MenuTest extends USVN_Test_Test {
 
 	public function test_getTopMenu()
 	{
-		$menu = new USVN_modules_admin_Menu();
+		$menu = new USVN_modules_browser_Menu();
 		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http(), null);
-		$this->assertContains(
-			array(
-				"title" => T_("Administration"),
-				"link"=> "admin",
-				"module" => "admin",
-				"controller" => "index",
-				"action" => ""
-			), $menuEntries);
-	}
-
-	public function test_getSubMenu()
-	{
-		$menu = new USVN_modules_admin_Menu();
-		$menuEntries = $menu->getSubMenu(new Zend_Controller_Request_Http(), null);
-		$this->assertContains(
-			array(
-				"title" => T_("Configuration"),
-				"link"=> "admin/config/",
-				"module" => "admin",
-				"controller" => "config",
-				"action" => ""
-			), $menuEntries);
-	}
-
-	public function test_getSubSubMenu()
-	{
-		$menu = new USVN_modules_admin_Menu();
-		$request = new Zend_Controller_Request_Http();
-		$request->setParam('controller', 'user');
-		$menuEntries = $menu->getSubSubMenu($request, null);
-		$this->assertContains(
-			array(
-				"title" => T_("Add new user"),
-				"link"=> "admin/user/new/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => "new"
-			), $menuEntries);
+		$this->assertEquals(0, count($menuEntries));
 	}
 }
 
 // Call USVN_modules_admin_MenuTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "USVN_modules_admin_MenuTest::main") {
-    USVN_modules_admin_MenuTest::main();
+if (PHPUnit_MAIN_METHOD == "USVN_modules_browser_MenuTest::main") {
+    USVN_modules_browser_MenuTest::main();
 }
 ?>

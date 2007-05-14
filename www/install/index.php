@@ -37,6 +37,7 @@ if (file_exists(CONFIG_FILE)) {
 		Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
 		USVN_Db_Table::$prefix = $config->database->prefix;
 	}
+	Zend_Registry::set('config', $config);
 }
 USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
 

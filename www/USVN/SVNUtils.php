@@ -198,4 +198,32 @@ class USVN_SVNUtils
 			throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
 		}
 	}
+
+	/**
+	* List files into Subversion
+    *
+	* @param string Path to subversion repository
+    * @param string Path into subversion repository
+    * @return associative array like: array(array(name => "tutu", is_dir => true))
+	*/
+	public static function listSvn($repository, $path)
+	{
+        $repository = realpath($repository);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn ls \"file://$repository/$path\"", $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $message);
+		}
+        $res = array();
+        foreach (explode("\n", $message) as $file) {
+            if (strlen($file)) {
+                if (substr($file, -1, 1) == '/') {
+                    array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "is_dir" => true));
+                }
+                else {
+                    array_push($res, array("name" => $file, "is_dir" => false));
+                }
+            }
+        }
+        return $res;
+	}
 }

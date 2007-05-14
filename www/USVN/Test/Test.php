@@ -22,7 +22,10 @@ require_once "PHPUnit/Framework/TestSuite.php";
 require_once 'www/USVN/autoload.php';
 
 abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
+    private $_path;
+
     protected function setUp() {
+        $this->_path = getcwd();
 		USVN_Translation::initTranslation('en_US', 'www/locale');
 		USVN_DirectoryUtils::removeDirectory('tests/');
 		@mkdir("tests");
@@ -30,6 +33,10 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
 		$configArray = array('subversion' => array('path' => "tests/tmp"));
 		$config = new Zend_Config($configArray);
 		Zend_Registry::set('config', $config);
+    }
+
+    protected function tearDown() {
+        chdir($this->_path);
     }
 }
 

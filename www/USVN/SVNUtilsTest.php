@@ -116,6 +116,40 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		$this->fail();
 	}
 
+	public function test_listSvn()
+	{
+		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+        USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
+        $path = getcwd();
+        chdir('tests/tmp/out');
+        mkdir('trunk/testdir');
+        `svn add trunk/testdir`;
+        touch('trunk/testfile');
+        `svn add trunk/testfile`;
+        `svn commit --non-interactive -m Test`;
+        chdir($path);
+        $res = USVN_SVNUtils::listSvn('tests/tmp/svn directory', '/');
+		$this->assertEquals(3, count($res));
+		$this->assertContains(array("name" => "trunk", "is_dir" => true), $res);
+		$this->assertContains(array("name" => "branches", "is_dir" => true), $res);
+		$this->assertContains(array("name" => "tags", "is_dir" => true), $res);
+        $res = USVN_SVNUtils::listSvn('tests/tmp/svn directory', '/trunk');
+		$this->assertEquals(2, count($res));
+		$this->assertContains(array("name" => "testdir", "is_dir" => true), $res);
+		$this->assertContains(array("name" => "testfile", "is_dir" => false), $res);
+	}
+
+	public function test_listSvnBadDir()
+	{
+		try {
+            USVN_SVNUtils::listSvn('tests/tmp/svn directory2', 'tests/tmp/out');
+		}
+		catch (USVN_Exception $e) {
+			return ;
+		}
+		$this->fail();
+    }
+
 	public function test_parseSvnVersion()
 	{
 		$this->assertEquals(array(1, 1, 4), USVN_SVNUtils::parseSvnVersion("svn, version 1.1.4 (r13838)

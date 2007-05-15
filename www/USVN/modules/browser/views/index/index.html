@@ -114,6 +114,7 @@ function alert_ajax(xhr, index, id)
 		'<thead><tr>' .
 		'<th></th>' .
 		'<th>' . T_('Name') . '</th>' .
+		'<th>' . T_('Action') . '</th>' .
 		'</tr></thead><tbody>';
 
 if (count($this->browser)) {
@@ -122,6 +123,7 @@ if (count($this->browser)) {
 		<tr>
 			<td>{$tab['isDirectory']}</td>
 			<td onmouseover="ajax(1, '{$tab['name']}');" onMouseOut="hiddenBulle();"><a href="javascript:ajax(3, '{$tab['name']}');">{$tab['name']}</a></td>
+			<td onmouseover="ajax(1, '{$tab['name']}');" onMouseOut="hiddenBulle();"><a href="javascript:ajax(3, '{$tab['name']}');">T_("Rights"}</a></td>
 		</tr>\n
 EOF;
 		echo $line;

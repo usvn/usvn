@@ -33,7 +33,7 @@ class browser_IndexController extends IndexController
 	{
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
-		$txthtml = "<table class='sortable' id='users'><thead><tr><th></th><th>".T_('Name')."</th></tr></thead><tbody>";
+		$txthtml = "<table class='sortable' id='users'><thead><tr><th></th><th>".T_('Name')."</th><th>".T_('Action')."</th></tr></thead><tbody>";
 		if ($path != "/" && $path != "//")
 		{
 			if (dirname($path) == "\\")
@@ -41,8 +41,8 @@ class browser_IndexController extends IndexController
 			else
 				$pathbefore = dirname($path)."/";
 			$txthtml .= "<tr><td><img src='../../../../../../dossier.gif'></td>";
-			$txthtml .= "<td onmouseover='ajax(1, "."\"".$pathbefore."\"".");' onMouseOut='hiddenBulle();'>";
-			$txthtml .= "<a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td></tr>";
+			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td>";
+			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$pathbefore."\"".");'>".T_('Rights')."</a></td></tr>";
 			//echo "<pathbefore><![CDATA[<a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>".$pathbefore."</a>"."]]></pathbefore>";
 		}
 		/*else
@@ -55,8 +55,8 @@ class browser_IndexController extends IndexController
 			else
 				$tabl['isDirectory'] = "<img src='../../../../../../file.gif'>";
 			$txthtml .= "<td>".$tabl['isDirectory']."</td>";
-			$txthtml .= "<td onmouseover='ajax(1, "."\"".$tabl['path']."\"".");' onMouseOut='hiddenBulle();'>";
-			$txthtml .= "<a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td></tr>";
+			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
+			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>".T_('Rights')."</a></td></tr>";
 		}
 		$txthtml .= "</tbody></table><br />";
 		echo "<txthtml><![CDATA[".$txthtml."]]></txthtml>\n";

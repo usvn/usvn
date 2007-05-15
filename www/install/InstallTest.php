@@ -138,7 +138,7 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertFalse(in_array('usvn_groups', $list_tables), "usvn_groups exists");
 		$this->assertTrue(in_array('fake_users', $list_tables), "usvn_users does not exist");
 		$this->assertTrue(in_array('fake_groups', $list_tables), "fake_groups does not exist");
-	}
+    }
 
 	public function testInstallDbTestConfigFile() {
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
@@ -181,15 +181,13 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallSubversionMagicQuoteWindows()
 	{
-        set_magic_quotes_runtime(1);
-        mkdir('tests/tmp/svn');
-		Install::installSubversion("tests/tmp/config.ini", 'tests\\tmp');
-        set_magic_quotes_runtime(0);
-		$this->assertTrue(file_exists("tests/tmp/config.ini"));
-		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("tests\\tmp", $config->subversion->path);
+    	mkdir('tests/tmp2');
+		Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2');
+		$this->assertTrue(file_exists("tests/tmp2/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp2/config.ini", "general");
+		$this->assertEquals("tests\\tmp2\\", $config->subversion->path);
 	}
-
+	
 	public function testInstallBadLanguage()
 	{
 		try {

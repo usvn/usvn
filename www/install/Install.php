@@ -166,11 +166,12 @@ class Install
 	*/
 	static public function installSubversion($config_file, $path)
 	{
-		if (substr($path, strlen($path) - 1, strlen($path)) != "/" && substr($path, strlen($path) - 1, strlen($path)) != DIRECTORY_SEPARATOR)
-		$path .= DIRECTORY_SEPARATOR;
+		if (substr($path, strlen($path) - 1, strlen($path)) != DIRECTORY_SEPARATOR) {
+			$path .= DIRECTORY_SEPARATOR;
+		}
+		$path = str_replace(DIRECTORY_SEPARATOR. DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
 		$config = Install::_loadConfig($config_file);
-		if (file_exists($path) && is_writable($path))
-		{
+		if (file_exists($path) && is_writable($path) && mkdir($path . DIRECTORY_SEPARATOR . 'svn')) {
 			$config->subversion = array("path" => $path);
 			$config->save();
 		}

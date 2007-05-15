@@ -67,13 +67,13 @@ class USVN_SVNTest extends USVN_Test_DB {
         $svn = new USVN_SVN('test');
         $res = $svn->listFile('/');
 		$this->assertEquals(3, count($res));
-		$this->assertContains(array("name" => "trunk", "isDirectory" => true), $res);
-		$this->assertContains(array("name" => "branches", "isDirectory" => true), $res);
-		$this->assertContains(array("name" => "tags", "isDirectory" => true), $res);
+		$this->assertContains(array("name" => "trunk", "isDirectory" => true, "path" => "/trunk/"), $res);
+		$this->assertContains(array("name" => "branches", "isDirectory" => true, "path" => "/branches/"), $res);
+		$this->assertContains(array("name" => "tags", "isDirectory" => true, "path" => "/tags/"), $res);
         $res = $svn->listFile('/trunk');
 		$this->assertEquals(2, count($res));
-		$this->assertContains(array("name" => "testdir", "isDirectory" => true), $res);
-		$this->assertContains(array("name" => "testfile", "isDirectory" => false), $res);
+		$this->assertContains(array("name" => "testdir", "isDirectory" => true, "path" => "/trunk/testdir/"), $res);
+		$this->assertContains(array("name" => "testfile", "isDirectory" => false, "path" => "/trunk/testfile"), $res);
 	}
 
 	public function test_listFileBadProject()

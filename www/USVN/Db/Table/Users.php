@@ -191,14 +191,11 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	public function updateHtpasswd()
 	{
-		$config = Zend_Registry::get('config');
 		$text = null;
-		$db = $this->getAdapter();
-		$select = $db->select()->from('usvn_users', array('users_login', 'users_password'));
-		$res = $db->query($select)->fetchAll();
-		foreach ($res as $column => $value){
-			$text .= $value['users_login'].":".$value['users_password']."\n";
+		foreach ($this->fetchAll(null, "users_login") as $user) {
+			$text .= "{$user->login}:{$user->password}\n";
 		}
+		$config = Zend_Registry::get('config');
 		if (@file_put_contents($config->subversion->path . "htpasswd", $text) === false) {
 			throw new USVN_Exception(T_('Can\'t create or write on htpasswd file.'));
 		}

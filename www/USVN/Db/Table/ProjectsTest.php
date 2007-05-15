@@ -41,6 +41,17 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
+    public function testInsertProjectOk()
+	{
+		$table = new USVN_Db_Table_Projects();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$obj->save();
+
+		$this->assertTrue($table->isAProject('InsertProjectOk'));
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'));
+    }
+
     public function testInsertProjectNoName()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -56,7 +67,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->fail();
     }
 
-        public function testInsertProjectNoName2()
+	public function testInsertProjectNoName2()
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
@@ -85,16 +96,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		}
 		$this->fail();
 	}
-
-    public function testInsertProjectOk()
-	{
-		$table = new USVN_Db_Table_Projects();
-		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
-		$obj->save();
-		$this->assertTrue($table->isAProject('InsertProjectOk'));
-		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/InsertProjectOk'));
-    }
 
     public function testInsertProjectBadSubversionPath()
 	{
@@ -132,7 +133,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		}
 		$this->fail();
     }
-
+    
     public function testUpdateProjectOk()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -144,7 +145,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk2'));
 		$id = $obj->save();
 		$this->assertTrue($table->isAProject('UpdateProjectOk2'));
-    }
+	}
 }
 
 // Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.

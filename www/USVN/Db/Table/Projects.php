@@ -177,9 +177,9 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	public function isAProject($name)
 	{
 		$project = $this->fetchRow(array('projects_name = ?' => $name));
-		if ($project) {
-			return true;
+		if ($project === null) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 }

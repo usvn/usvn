@@ -1724,8 +1724,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:AssociationLinkSymbol Id="o59">
 <a:CreationDate>1177386432</a:CreationDate>
 <a:ModificationDate>1178725500</a:ModificationDate>
-<a:Rect>((-902,-18185), (22458,2365))</a:Rect>
-<a:ListOfPoints>((22458,2365),(-902,-18185))</a:ListOfPoints>
+<a:Rect>((-902,-18185), (22336,2365))</a:Rect>
+<a:ListOfPoints>((22336,2365),(-902,-18185))</a:ListOfPoints>
 <a:ArrowStyle>0</a:ArrowStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -1904,8 +1904,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:AssociationLinkSymbol Id="o86">
 <a:CreationDate>1178725169</a:CreationDate>
 <a:ModificationDate>1178725502</a:ModificationDate>
-<a:Rect>((16388,5497), (23588,14572))</a:Rect>
-<a:ListOfPoints>((23588,5497),(16388,14572))</a:ListOfPoints>
+<a:Rect>((16388,5497), (23503,14572))</a:Rect>
+<a:ListOfPoints>((23503,5497),(16388,14572))</a:ListOfPoints>
 <a:ArrowStyle>0</a:ArrowStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -2009,7 +2009,7 @@ EntityComment 0 Arial,8,N</a:FontList>
 <o:EntitySymbol Id="o60">
 <a:CreationDate>1177228578</a:CreationDate>
 <a:ModificationDate>1178725107</a:ModificationDate>
-<a:Rect>((17908,171), (34464,7261))</a:Rect>
+<a:Rect>((17638,171), (34734,7261))</a:Rect>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>12648384</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -3114,9 +3114,9 @@ AssociationComment 0 Arial,8,N</a:FontList>
 <a:Code>FILES_RIGHTS_PATH</a:Code>
 <a:CreationDate>1178725158</a:CreationDate>
 <a:Creator>Dark</a:Creator>
-<a:ModificationDate>1179220542</a:ModificationDate>
+<a:ModificationDate>1179223690</a:ModificationDate>
 <a:Modifier>Dark</a:Modifier>
-<a:DataType>VA250</a:DataType>
+<a:DataType>TXT250</a:DataType>
 <a:Length>250</a:Length>
 </o:DataItem>
 </c:DataItems>

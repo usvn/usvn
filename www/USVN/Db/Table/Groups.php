@@ -59,8 +59,8 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups",
-										"USVN_Db_Table_Workgroups"
-										);
+	"USVN_Db_Table_Workgroups"
+	);
 
 	/**
 	 * Excepted entries
@@ -144,5 +144,43 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+     * Fetches all groups and joins with users
+     *
+     * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode.
+     */
+	public function fetchAllAndUsers()
+	{
+		// selection tool
+		$select = $this->_db->select();
+
+		// the FROM clause
+		$select->from($this->_name, $this->_cols);
+
+		// the JOIN clause
+		$users = self::$prefix . "users";
+		$users_to_groups = self::$prefix . "users_to_groups";
+		$select->joinLeft($users_to_groups, "$users_to_groups.groups_id = {$this->_name}.groups_id",  array());
+		$select->joinLeft($users, "$users.users_id = $users_to_groups.users_id");
+
+		// the ORDER clause
+		$select->order("groups_name");
+		$select->order("users_login");
+
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
 	}
 }

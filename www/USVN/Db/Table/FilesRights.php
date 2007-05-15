@@ -49,6 +49,33 @@ class USVN_Db_Table_FilesRights extends USVN_Db_Table {
 	protected $_name = "files_rights";
 
 	/**
+	 * Associative array map of declarative referential integrity rules.
+	 * This array has one entry per foreign key in the current table.
+	 * Each key is a mnemonic name for one reference rule.
+	 *
+	 * Each value is also an associative array, with the following keys:
+	 * - columns	= array of names of column(s) in the child table.
+	 * - refTable   = class name of the parent table.
+	 * - refColumns = array of names of column(s) in the parent table,
+	 *				in the same order as those in the 'columns' entry.
+	 * - onDelete   = "cascade" means that a delete in the parent table also
+	 *				causes a delete of referencing rows in the child table.
+	 * - onUpdate   = "cascade" means that an update of primary key values in
+	 *				the parent table also causes an update of referencing
+	 *				rows in the child table.
+	 *
+	 * @var array
+	 */
+	protected $_referenceMap = array(
+		"Projects" => array(
+			"columns"		=> "projects_id",
+			"refColumns"	=> "projects_id",
+			"refTable"		=> "USVN_Db_Table_Projects",
+			"onDelete"		=> self::CASCADE,
+		)
+	);
+
+	/**
 	 * Simple array of class names of tables that are "children" of the current
 	 * table, in other words tables that contain a foreign key to this one.
 	 * Array elements are not table names; they are class names of classes that
@@ -57,6 +84,46 @@ class USVN_Db_Table_FilesRights extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_GroupsToFilesRights");
+
+	/**
+	 * Inserts a new row
+	 *
+	 * @param array Column-value pairs.
+	 * @return integer The last insert ID.
+	 */
+	public function insert(array $data)
+	{
+		$res = parent::insert($data);
+		USVN_Authz::generate();
+		return $res;
+	}
+
+	/**
+	 * Delete existing rows.
+	 *
+	 * @param string An SQL WHERE clause.
+	 * @return the number of rows deleted.
+	 */
+	public function delete($where)
+	{
+		$res = parent::delete($where);
+		USVN_Authz::generate();
+		return $res;
+	}
+
+	/**
+	 * Updates existing rows.
+	 *
+	 * @param array Column-value pairs.
+	 * @param string An SQL WHERE clause.
+	 * @return int The number of rows updated.
+	 */
+	public function update(array $data, $where)
+	{
+		$res = parent::update($data, $where);
+		USVN_Authz::generate();
+		return $res;
+	}
 	
 	/**
 	 * Return the rights by his path
@@ -72,4 +139,3 @@ class USVN_Db_Table_FilesRights extends USVN_Db_Table {
 		return $this->fetchRow($where, "files_rights_path");
 	}
 }
-

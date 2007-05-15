@@ -106,7 +106,7 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 	 *
 	 * @param  string $parentTableClassname
 	 * @param  array  $primaryKey
-	 * @return int    Number of affected rows
+	 * @return int	Number of affected rows
 	 */
 	public function _cascadeDelete($parentTableClassname, array $primaryKey)
 	{
@@ -117,9 +117,9 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 					case self::CASCADE:
 						for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
 							$where[] = $this->_db->quoteInto(
-													$this->_db->quoteIdentifier($map[self::COLUMNS][$i]) . ' = ?',
-													$primaryKey[$map[self::REF_COLUMNS][$i]]
-												);
+							$this->_db->quoteIdentifier($map[self::COLUMNS][$i]) . ' = ?',
+							$primaryKey[$map[self::REF_COLUMNS][$i]]
+							);
 						}
 						$rowset = $this->fetchAll($where);
 						foreach ($rowset as $row) {
@@ -135,6 +135,5 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 		}
 		return $rowsAffected;
 	}
-
 
 }

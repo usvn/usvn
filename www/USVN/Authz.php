@@ -23,24 +23,48 @@ class USVN_Authz
 		$config = Zend_Registry::get('config');
 		$file = "[/]\n* = \n\n[groups]\n";
 
+		$array = array();
 		$groups = new USVN_Db_Table_Groups();
-		foreach ($groups->fetchAll(null, "groups_name") as $group) {
-			/* @var $group USVN_Db_Table_Row_Group */
-
-			$tmp = array();
-			$users = $group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups");
-			foreach ($users as $user) {
-				$tmp[] = $user->login;
-			}
-			$users = implode(", ", $tmp);
-			$file .= "{$group->name} = {$users}\n";
+		foreach ($groups->fetchAllAndUsers() as $group) {
+			$array[$group->name][] = $group->users_login;
+		}
+		foreach ($array as $group => $users) {
+			$users = implode(", ", $users);
+			$file .= "{$group} = {$users}\n";
 		}
 
+		$array = array();
 		$projects = new USVN_Db_Table_Projects();
-		foreach ($projects->fetchAll(null, 'projects_name') as $project) {
+		foreach ($projects->fetchAllAndFilesRightsAndGroups() as $project) {
 			/* @var $project USVN_Db_Table_Row_Project */
-
-			$file .= "\n\n# Project {$project->name}\n";
+			if (!isset($array[$project->name])) {
+				$array[$project->name] = array();
+			}
+			if ($project->files_rights_path) {
+				if ($project->name == "project3") {
+					if ($project->files_rights_path == "/directory5/") {
+						Zend_Debug::dump($project);
+					}
+				}
+				if (!isset($array[$project->name][$project->files_rights_path])) {
+					$array[$project->name][$project->files_rights_path] = array();
+				}
+				if ($project->groups_name) {
+					$rights  = (($project->files_rights_is_readable) ? "r" : "");
+					$rights .= (($project->files_rights_is_writable) ? "w" : "");
+					$array[$project->name][$project->files_rights_path][$project->groups_name] = $rights;
+				}
+			}
+		}
+		foreach ($array as $project => $files_paths) {
+			$file .= "\n\n# Project {$project}\n";
+			foreach ($files_paths as $files_path => $files_rights) {
+				$file .= "[{$project}:{$files_path}]\n";
+				foreach ($files_rights as $group => $rights) {
+					$file .= "@{$group} = {$rights}\n";
+				}
+				$file .= "\n";
+			}
 		}
 
 		@file_put_contents($config->subversion->path . "authz", $file);

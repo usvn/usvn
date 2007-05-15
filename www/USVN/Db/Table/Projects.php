@@ -182,4 +182,46 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 		}
 		return true;
 	}
+
+	/**
+     * Fetches all groups and joins with users
+     *
+     * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode.
+     */
+	public function fetchAllAndFilesRightsAndGroups()
+	{
+		// selection tool
+		$select = $this->_db->select();
+
+		// the FROM clause
+		$select->from($this->_name, array("projects_name"));
+
+		// the JOIN clause
+		$files_rights           = self::$prefix . "files_rights";
+		$groups_to_files_rights = self::$prefix . "groups_to_files_rights";
+		$groups                 = self::$prefix . "groups";
+
+		$select->joinLeft($files_rights, "$files_rights.projects_id = {$this->_name}.projects_id", array("files_rights_path"));
+		$select->joinLeft($groups_to_files_rights, "$files_rights.files_rights_id = $groups_to_files_rights.files_rights_id", array("files_rights_is_readable", "files_rights_is_writable"));
+		$select->joinLeft($groups, "$groups.groups_id = $groups_to_files_rights.groups_id", array("groups_name"));
+
+		// the ORDER clause
+		$select->order("projects_name");
+		$select->order("files_rights_path");
+		$select->order("groups_name");
+
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+	}
 }

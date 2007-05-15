@@ -1,6 +1,6 @@
 <script type="text/javascript" event="onmousedown()">
-HTMLTableToolsOptions.skipCells = [3];
-HTMLTableToolsOptions.skipCells = [1];
+//HTMLTableToolsOptions.skipCells = [3];
+//HTMLTableToolsOptions.skipCells = [1];
 
 function register_position()
 {
@@ -25,8 +25,8 @@ function hiddenBulle()
 {
 	var m_x = mouse_x - 15 + "px";
 	var m_y = mouse_y - 205 + "px";
+	
 	//var w_x = document.getElementById('bulle').
-
 	//if (document.getElementById('bulle').style.left 
 	//document.getElementById('bulle').style.visibility = 'hidden';
 }
@@ -48,6 +48,8 @@ function ajax(index, id)
 		var group = document.getElementById('group').value;	
 		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=2&name="+ id +"&checkRead=" + checkRead + "&checkWrite=" + checkWrite + "&group="+ group + "')); ?>", true);
     }
+	if (index == 3)
+		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=3&name="+ id + "')); ?>", true);
 	xhr.send(null);
 }
 
@@ -95,6 +97,8 @@ function alert_ajax(xhr, index, id)
 			else
 				document.getElementById('labelError').innerHTML = items_msg;
 		}
+		if (index == 3)
+			alert(docXML.getElementsByTagName("msg").item(0).firstChild.data);
 	}
 }
 
@@ -106,7 +110,6 @@ print '<table class="sortable" id="users">' .
 		'<thead><tr>' .
 		'<th></th>' .
 		'<th>' . T_('Name') . '</th>' .
-		'<th>' . T_('Fake') . '</th>' .
 		'</tr></thead><tbody>';
 
 if (count($this->browser)) {
@@ -114,9 +117,7 @@ if (count($this->browser)) {
 		$line = <<<EOF
 		<tr>
 			<td>{$tab['isDirectory']}</td>
-			<td onmouseover="ajax(1, '{$tab['name']}');" onMouseOut="hiddenBulle();">{$tab['name']}</td>
-			<td>fake</td>
-			<!--<td><a href="{$this->url(array('action' => 'edit', 'login' => $user->users_login))}">Edit</a>--></td>
+			<td onmouseover="ajax(1, '{$tab['name']}');" onMouseOut="hiddenBulle();"><a href="javascript:ajax(3, '{$tab['name']}');">{$tab['name']}</a></td>
 		</tr>\n
 EOF;
 		echo $line;

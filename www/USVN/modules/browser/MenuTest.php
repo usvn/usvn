@@ -31,14 +31,16 @@ class USVN_modules_browser_MenuTest extends USVN_Test_Test {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
-        $suite  = new PHPUnit_Framework_TestSuite("USVN_modules_admin_MenuTest");
+        $suite  = new PHPUnit_Framework_TestSuite("USVN_modules_browser_MenuTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
 	public function test_getTopMenu()
 	{
 		$menu = new USVN_modules_browser_Menu();
-		$menuEntries = $menu->getTopMenu(new Zend_Controller_Request_Http(), null);
+		$http = new Zend_Controller_Request_Http();
+		$http->setParam('project', '__NONE__');
+		$menuEntries = $menu->getTopMenu($http, null);
 		$this->assertEquals(0, count($menuEntries));
 	}
 }

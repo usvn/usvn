@@ -44,6 +44,9 @@ class browser_IndexController extends IndexController
 		$this->_view->browser = $tab;
 	}
 	
+	/**
+	* Return a fake xml to dump rights or to update or insert rights
+	*/
 	public function RightManagementAction()
 	{
 		header('Content-Type: text/xml');
@@ -56,6 +59,9 @@ class browser_IndexController extends IndexController
 		echo "</exemple>";
 	}
 	
+	/**
+	* If files exist dump rights 
+	*/
 	function dumpRights()
 	{
 		$prefix = Zend_Registry::get('config')->database->prefix;
@@ -76,6 +82,9 @@ class browser_IndexController extends IndexController
 			echo "<isreadable>nop</isreadable>\n<iswritable>nop</iswritable>\n<group>nop</group>\n";
 	}
 
+	/**
+	* If files exist update rights if not insert rights 
+	*/
 	function updateOrInsertRights()
 	{
 		try

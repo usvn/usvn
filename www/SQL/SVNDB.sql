@@ -1,4 +1,4 @@
-create table usvn_projects
+﻿create table usvn_projects
 (
    projects_id          int not null,
    projects_name        varchar(255) not null,
@@ -12,8 +12,6 @@ create table usvn_files_rights
 (
    files_rights_id      int not null,
    projects_id          int not null,
-   files_rights_is_readable bool,
-   files_rights_is_writable bool,
    files_rights_path    text,
    primary key (files_rights_id),
    constraint fk_to_belong foreign key (projects_id)
@@ -32,6 +30,8 @@ create table usvn_groups_to_files_rights
 (
    files_rights_id      int not null,
    groups_id            int not null,
+   files_rights_is_readable bool,
+   files_rights_is_writable bool,
    primary key (files_rights_id, groups_id),
    constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id)
       references usvn_files_rights (files_rights_id) on delete restrict on update restrict,
@@ -92,4 +92,3 @@ create table usvn_workgroups_to_rights
    constraint fk_usvn_workgroups_to_rights2 foreign key (rights_id)
       references usvn_rights (rights_id) on delete restrict on update restrict
 );
-

@@ -32,7 +32,7 @@ class browser_IndexController extends IndexController
 	*/
 	public function getListFile()
 	{
-		$SVN = new USVN_SVN();
+		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile("");
 		foreach ($tab as &$tabl)
 		{

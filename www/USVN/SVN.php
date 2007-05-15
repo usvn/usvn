@@ -21,7 +21,7 @@ class USVN_SVN
 {
 	private $m_project;
 
-	function __construct($project)
+	public function __construct($project)
 	{
 		$m_project = $project;
 	}

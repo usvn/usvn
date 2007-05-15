@@ -74,41 +74,16 @@ class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_Table {
 	);
 
 	/**
-	 * Overload insert's method to check some data before insert
+	 * Return the groupstofilesrights by his id rights
 	 *
-	 * @param array $data
-	 * @return integer the last insert ID.
+	 * @param string $name
+	 * @return USVN_Db_Table_Row
 	 */
-	public function insert(array $data)
+	public function findByIdRights($id)
 	{
-		$res = parent::insert($data);
-		return $res;
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		$where = $db->quoteInto("files_rights_id = ?", $id);
+		return $this->fetchRow($where, "files_rights_id");
 	}
-
-	/**
-	 * Overload update's method to check some data before update
-	 *
-	 * @param array $data
-	 * @param string $where An SQL WHERE clause.
-	 * @return integer The number of rows updated.
-	 */
-	public function update(array $data, $where)
-	{
-		$res = parent::update($data, $where);
-		return $res;
-	}
-
-	/**
-	 * Called by parent table's class during delete() method.
-	 *
-	 * @param  string $parentTableClassname
-	 * @param  array  $primaryKey
-	 * @return int    Number of affected rows
-	 */
-	public function delete($where)
-	{
-		$res = parent::delete($where);
-		return $res;
-	}
-
 }

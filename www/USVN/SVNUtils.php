@@ -217,10 +217,10 @@ class USVN_SVNUtils
         foreach (preg_split("/[\r]?\n/", $message) as $file) {
             if (strlen($file)) {
                 if (substr($file, -1, 1) == '/') {
-                    array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "isDirectory" => true));
+                    array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "isDirectory" => true, "path" => $path.$file));
                 }
                 else {
-                    array_push($res, array("name" => $file, "isDirectory" => false));
+                    array_push($res, array("name" => $file, "isDirectory" => false, "path" => $path.$file));
                 }
             }
         }

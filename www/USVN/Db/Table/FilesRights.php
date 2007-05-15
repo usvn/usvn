@@ -49,33 +49,6 @@ class USVN_Db_Table_FilesRights extends USVN_Db_Table {
 	protected $_name = "files_rights";
 
 	/**
-	 * Name of the Row object to instantiate when needed.
-	 *
-	 * @var string
-	 */
-	//protected $_rowClass = "USVN_Db_Table_Row_Files_rights";
-
-	/**
-	 * Associative array map of declarative referential integrity rules.
-	 * This array has one entry per foreign key in the current table.
-	 * Each key is a mnemonic name for one reference rule.
-	 *
-	 * Each value is also an associative array, with the following keys:
-	 * - columns	= array of names of column(s) in the child table.
-	 * - refTable   = class name of the parent table.
-	 * - refColumns = array of names of column(s) in the parent table,
-	 *				in the same order as those in the 'columns' entry.
-	 * - onDelete   = "cascade" means that a delete in the parent table also
-	 *				causes a delete of referencing rows in the child table.
-	 * - onUpdate   = "cascade" means that an update of primary key values in
-	 *				the parent table also causes an update of referencing
-	 *				rows in the child table.
-	 *
-	 * @var array
-	 */
-	protected $_referenceMap = array();
-
-	/**
 	 * Simple array of class names of tables that are "children" of the current
 	 * table, in other words tables that contain a foreign key to this one.
 	 * Array elements are not table names; they are class names of classes that
@@ -84,42 +57,19 @@ class USVN_Db_Table_FilesRights extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_GroupsToFilesRights");
-
+	
 	/**
-	 * Inserts a new row
+	 * Return the rights by his path
 	 *
-	 * @param array Column-value pairs.
-	 * @return integer The last insert ID.
+	 * @param string $name
+	 * @return USVN_Db_Table_Row
 	 */
-	public function insert(array $data)
+	public function findByPath($path)
 	{
-		$res = parent::insert($data);
-		return $res;
-	}
-
-	/**
-	 * Delete existing rows.
-	 *
-	 * @param string An SQL WHERE clause.
-	 * @return the number of rows deleted.
-	 */
-	public function delete($where)
-	{
-		$res = parent::delete($where);
-		return $res;
-	}
-
-	/**
-	 * Updates existing rows.
-	 *
-	 * @param array Column-value pairs.
-	 * @param string An SQL WHERE clause.
-	 * @return int The number of rows updated.
-	 */
-	public function update(array $data, $where)
-	{
-		$res = parent::update($data, $where);
-		return $res;
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		$where = $db->quoteInto("files_rights_path = ?", $path);
+		return $this->fetchRow($where, "files_rights_path");
 	}
 }
 

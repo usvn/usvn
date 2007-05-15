@@ -98,15 +98,19 @@ function alert_ajax(xhr, index, id)
 				document.getElementById('labelError').innerHTML = items_msg;
 		}
 		if (index == 3)
-			alert(docXML.getElementsByTagName("msg").item(0).firstChild.data);
+		{
+			document.getElementById('txthtml2').innerHTML = docXML.getElementsByTagName("txthtml").item(0).firstChild.data;
+			//document.getElementById('pathbefore').innerHTML += docXML.getElementsByTagName("pathbefore").item(0).firstChild.data;
+			//alert(docXML.getElementsByTagName("msg").item(0).firstChild.data);
+		}
 	}
 }
 
 </script>
-<body onLoad="javascript:register_position()">
+<body onLoad="javascript:register_position(); ajax(3, 'nop');">
 <h1 id="usvn_title"><?php echo T_("Files list"); ?></h1>
 <?php
-print '<table class="sortable" id="users">' .
+/*print '<table class="sortable" id="users">' .
 		'<thead><tr>' .
 		'<th></th>' .
 		'<th>' . T_('Name') . '</th>' .
@@ -123,8 +127,12 @@ EOF;
 		echo $line;
 	}
 }
-print '</tbody></table><br />';
+print '</tbody></table><br />';*/
+
+//print '<div id="pathbefore"></div>';
+print '<div id="txthtml2"></div>';
+
 ?>
 
-<div id="bulle" style="visibility:hidden; position:absolute; background-color:#F2F2F2;">toto</div>
+<div id="bulle" style="visibility:hidden; position:absolute; background-color:#F2F2F2;"></div>
 </body>

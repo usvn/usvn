@@ -23,24 +23,43 @@ class browser_IndexController extends IndexController
 {
 	public function indexAction()
     {
-		$this->getListFile();
 		$this->_render('index.html');
     }
 	
 	/**
 	* Get list files of subversion directory.
 	*/
-	public function getListFile()
+	public function getListFile($path)
 	{
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
-		$tab = $SVN->listFile("");
+		$tab = $SVN->listFile($path);
+		$txthtml = "<table class='sortable' id='users'><thead><tr><th></th><th>".T_('Name')."</th></tr></thead><tbody>";
+		if ($path != "/" && $path != "//")
+		{
+			if (dirname($path) == "\\")
+				$pathbefore = "/";
+			else
+				$pathbefore = dirname($path)."/";
+			$txthtml .= "<tr><td><img src='../../../../../../dossier.gif'></td>";
+			$txthtml .= "<td onmouseover='ajax(1, "."\"".$pathbefore."\"".");' onMouseOut='hiddenBulle();'>";
+			$txthtml .= "<a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td></tr>";
+			//echo "<pathbefore><![CDATA[<a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>".$pathbefore."</a>"."]]></pathbefore>";
+		}
+		/*else
+			echo "<pathbefore>a</pathbefore>";*/
 		foreach ($tab as &$tabl)
 		{
+			$txthtml .= "<tr>";
 			if ($tabl['isDirectory'] == 1) 
 				$tabl['isDirectory'] = "<img src='../../../../../../dossier.gif'>"; 
 			else
 				$tabl['isDirectory'] = "<img src='../../../../../../file.gif'>";
+			$txthtml .= "<td>".$tabl['isDirectory']."</td>";
+			$txthtml .= "<td onmouseover='ajax(1, "."\"".$tabl['path']."\"".");' onMouseOut='hiddenBulle();'>";
+			$txthtml .= "<a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td></tr>";
 		}
+		$txthtml .= "</tbody></table><br />";
+		echo "<txthtml><![CDATA[".$txthtml."]]></txthtml>\n";
 		$this->_view->browser = $tab;
 	}
 	
@@ -54,8 +73,15 @@ class browser_IndexController extends IndexController
 		echo "<exemple>";
 		if (isset($_GET['pg']) && $_GET['pg'] == 1)
 			$this->dumpRights();
-		else
+		else if (isset($_GET['pg']) && $_GET['pg'] == 2)
 			$this->updateOrInsertRights();
+		else
+		{
+			if ($_GET['name'] == 'nop')
+				$this->getListFile("/");
+			else
+				$this->getListFile($_GET['name']);
+		}
 		echo "</exemple>";
 	}
 	
@@ -64,19 +90,15 @@ class browser_IndexController extends IndexController
 	*/
 	function dumpRights()
 	{
-		$prefix = Zend_Registry::get('config')->database->prefix;
 		$table_files = new USVN_Db_Table_FilesRights();
-		$db = $table_files->getAdapter();
-		$select_files = $db->select()->from($prefix.'files_rights', 
-			array('files_rights_is_readable', 'files_rights_is_writable', 'files_rights_id'))->where('files_rights_path = ?', $_GET['name']);
-		$res_files = $db->query($select_files)->fetchAll();
-		if (isset($res_files[0]['files_rights_is_readable']))
+		$res_files = $table_files->findByPath($_GET['name']);
+		if ($res_files != null)
 		{
-			echo "<isreadable>".$res_files[0]['files_rights_is_readable']."</isreadable>\n";
-			echo "<iswritable>".$res_files[0]['files_rights_is_writable']."</iswritable>\n";
-			$select_groupstofiles =$db->select()->from($prefix.'groups_to_files_rights', 'groups_id')->where('files_rights_id = ?', $res_files[0]['files_rights_id']);
-			$res_groupstofiles = $db->query($select_groupstofiles)->fetchAll();
-			echo "<group>".$res_groupstofiles[0]['groups_id']."</group>\n";
+			$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
+			$res_groupstofiles = $table_groupsfiles->findByIdRights($res_files->files_rights_id);
+			echo "<isreadable>".$res_groupstofiles->files_rights_is_readable."</isreadable>\n";
+			echo "<iswritable>".$res_groupstofiles->files_rights_is_writable."</iswritable>\n";
+			echo "<group>".$res_groupstofiles->groups_id."</group>\n";
 		}
 		else
 			echo "<isreadable>nop</isreadable>\n<iswritable>nop</iswritable>\n<group>nop</group>\n";
@@ -88,36 +110,34 @@ class browser_IndexController extends IndexController
 	function updateOrInsertRights()
 	{
 		try
-		{
-			$prefix = Zend_Registry::get('config')->database->prefix;
+		{					
+			$table_project = new USVN_Db_Table_Projects();
+			$res_project = $table_project->findByName($this->_request->getParam('project'));
 			$table_files = new USVN_Db_Table_FilesRights();
-			$db = $table_files->getAdapter();
-			$select_project = $db->select()->from($prefix.'projects', 'projects_id')->where('projects_name = ?', $this->_request->getParam('project'));
-			$res_project = $db->query($select_project)->fetchAll();
-			$select_files = $db->select()->from($prefix.'files_rights', array('files_rights_path', 'files_rights_id'))->where('files_rights_path = ?', $_GET['name']);
-			$res_files = $db->query($select_files)->fetchAll();
+			$res_files = $table_files->findByPath($_GET['name']);
 			$msg = "Ok";
 			$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
-			if (isset($res_files[0]['files_rights_path']))
+			if ($res_files != null)
 			{
-				$data_files = array('projects_id' 	   		   => $res_project[0]['projects_id'],
-						     		'files_rights_is_readable' => ($_GET['checkRead'] == 'true' ? 1 : 0),
-							 		'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0),
+				$data_files = array('projects_id' 	   		   => $res_project->projects_id,
 							 		'files_rights_path' 	   => $_GET['name']);
-				$where = $db->quoteInto('files_rights_path = ?', $res_files[0]['files_rights_path']);
+				$db = $table_project->getAdapter();
+				$where = $db->quoteInto('files_rights_path = ?', $res_files->files_rights_path);
 				$id = $table_files->update($data_files, $where);		
-				$data_groupsfiles = array('groups_id'	 	   => $_GET['group']);
-				$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files[0]['files_rights_id']);					
-				$table_groupstofiles->update($data_groupsfiles, $where);							   
+				$data_groupsfiles = array('groups_id'	 	   => $_GET['group'],
+										  'files_rights_is_readable' => ($_GET['checkRead'] == 'true' ? 1 : 0),
+							 			  'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0));
+				$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files->files_rights_id);					
+				$table_groupstofiles->update($data_groupsfiles, $where);						   
 			}
 			else
 			{
-				$id = $table_files->insert(array('projects_id' 	   			=> $res_project[0]['projects_id'],
-						     					 'files_rights_is_readable' => ($_GET['checkRead'] == 'true' ? 1 : 0),
-							 					 'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0),
+				$id = $table_files->insert(array('projects_id' 	   			=> $res_project->id,
 							 					 'files_rights_path' 	   	=> $_GET['name']));
 				$table_groupstofiles->insert(array('files_rights_id' 		=> $id,
-						       	 				   'groups_id'	 			=> $_GET['group']));
+												   'files_rights_is_readable' => ($_GET['checkRead'] == 'true' ? 1 : 0),
+							 					   'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0),
+						       	 				   'groups_id'	 			  => $_GET['group']));
 			}
 		}
 		catch (Exception $e) {

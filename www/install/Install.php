@@ -163,16 +163,23 @@ class Install
 	*
 	* @param string Path to the USVN config file
 	* @param string Path to subversion directory
+	* @param string Url of subversion repository
 	*/
-	static public function installSubversion($config_file, $path)
+	static public function installSubversion($config_file, $path, $url)
 	{
 		if (substr($path, strlen($path) - 1, strlen($path)) != DIRECTORY_SEPARATOR) {
 			$path .= DIRECTORY_SEPARATOR;
 		}
+		if (substr($path, strlen($path) - 1, strlen($url)) != '/') {
+			$url .= '/';
+		}
 		$path = str_replace(DIRECTORY_SEPARATOR. DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
 		$config = Install::_loadConfig($config_file);
 		if (file_exists($path) && is_writable($path) && mkdir($path . DIRECTORY_SEPARATOR . 'svn')) {
-			$config->subversion = array("path" => $path);
+			$config->subversion = array(
+									"path" => $path,
+									"url" => $url
+									);
 			$config->save();
 		}
 		else {
@@ -217,9 +224,9 @@ EOF;
 		if (@file_put_contents($htaccess_file, $content) === false) {
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
 		}
-}
+	}
 
-/**
+	/**
 	* This method will write create an admin
 	*
 	* Throw an exception in case of problems.
@@ -231,92 +238,89 @@ EOF;
 	* @param string Admin last name
 	* @throw USVN_Exception
 	*/
-static public function installAdmin($config_file, $login, $password, $firstname, $lastname)
-{
-	$userTable = new USVN_Db_Table_Users();
-	$user = $userTable->fetchNew();
-	$user->setFromArray(array(
-	'users_login' => $login,
-	'users_password' => crypt($password),
-	'users_firstname' => $firstname,
-	'users_lastname' => $lastname
-	)
-	);
-	$user->save();
-	$groupTable = new USVN_Db_Table_Groups();
-	$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admins'));
-	if ($group === null) {
-		throw new USVN_Exception(T_('Group %s not found.'), 'Admins');
+	static public function installAdmin($config_file, $login, $password, $firstname, $lastname)
+	{
+		$userTable = new USVN_Db_Table_Users();
+		$user = $userTable->fetchNew();
+		$user->setFromArray(array(
+		'users_login' => $login,
+		'users_password' => crypt($password),
+		'users_firstname' => $firstname,
+		'users_lastname' => $lastname
+		)
+		);
+		$user->save();
+		$groupTable = new USVN_Db_Table_Groups();
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admins'));
+		if ($group === null) {
+			throw new USVN_Exception(T_('Group %s not found.'), 'Admins');
+		}
+		$group->addUser($user);
+		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Users'));
+		if ($group === null) {
+			throw new USVN_Exception(T_('Group %s not found.'), 'Users');
+		}
+		$group->addUser($user);
 	}
-	$group->addUser($user);
-	$group = $groupTable->fetchRow(array('groups_name = ?' => 'Users'));
-	if ($group === null) {
-		throw new USVN_Exception(T_('Group %s not found.'), 'Users');
-	}
-	$group->addUser($user);
-}
 
-/**
+	/**
 	* Mark USVN install
 	*
 	* @param string Path to the USVN config file
 	* @throw USVN_Exception
 	*/
-static public function installEnd($config_file)
-{
-	$config = Install::_loadConfig($config_file);
-	$config->version = "0.5";
-	$config->save();
-}
+	static public function installEnd($config_file)
+	{
+		$config = Install::_loadConfig($config_file);
+		$config->version = "0.5";
+		$config->save();
+	}
 
-/**
+	/**
 	* Return true if USVN is not already install.
 	*
 	* @param string Path to the USVN config file
 	* @return boolean
 	* @throw USVN_Exception
 	*/
-static public function installPossible($config_file)
-{
-	if (!file_exists($config_file)) {
-		return true;
+	static public function installPossible($config_file)
+	{
+		if (!file_exists($config_file)) {
+			return true;
+		}
+		$config = Install::_loadConfig($config_file);
+		if (!isset($config->version)) {
+			return true;
+		}
+		return false;
 	}
-	$config = Install::_loadConfig($config_file);
-	if (!isset($config->version)) {
-		return true;
-	}
-	return false;
-}
 
-/**
+	/**
 	* Some configurations informations
 	*
 	* @param string Path to the USVN config file
 	* @param string USVN page title
-	* @param string USVN description
 	* @return boolean
 	* @throw USVN_Exception
 	*/
-static public function installConfiguration($config_file, $title, $description)
-{
-	$title = rtrim($title);
-	if (strlen($title) == 0) {
-		throw new USVN_Exception(T_("Need a title."));
+	static public function installConfiguration($config_file, $title)
+	{
+		$title = rtrim($title);
+		if (strlen($title) == 0) {
+			throw new USVN_Exception(T_("Need a title."));
+		}
+		$config = Install::_loadConfig($config_file);
+		$config->template = array("name" => "default");
+		if (!isset($config->site)) {
+			$config->site = array();
+		}
+		$config->site->title = strip_tags($title);
+		$config->site->ico = "medias/default/images/USVN.ico";
+		$config->site->logo = "medias/default/images/USVN-logo.png";
+		if (!isset($config->url)) {
+			$config->url = array();
+		}
+		$config->url->title = strip_tags($title);
+		$config->save();
 	}
-	$config = Install::_loadConfig($config_file);
-	$config->template = array("name" => "default");
-	if (!isset($config->site)) {
-		$config->site = array();
-	}
-	$config->site->title = strip_tags($title);
-	$config->site->ico = "medias/default/images/USVN.ico";
-	$config->site->description = strip_tags($description);
-	$config->site->logo = "medias/default/images/USVN-logo.png";
-	if (!isset($config->url)) {
-		$config->url = array();
-	}
-	$config->url->title = strip_tags($title);
-	$config->url->description = strip_tags($description);
-	$config->save();
-}
 }

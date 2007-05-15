@@ -15,22 +15,21 @@
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Description");?>:</td>
-			<td>
-				<textarea name="description" rows="5" cols="50"><?php
-					if (isset($_POST['description'])) {
-						echo $_POST['description'];
-					}
-				?></textarea>
-			</td>
-		</tr>
-		<tr>
 			<td><?php echo T_("Subversion path");?>:</td>
 			<td>
 				<input type="text" size="67" name="pathSubversion" value="<?php
 				echo dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR;
 				?>" />
 			</td>
-		</table>
+		</tr>
+		<tr>
+			<td><?php echo T_("Subversion url");?>:</td>
+			<td>
+				<input type="text" size="67" name="urlSubversion" value="http://<?php
+				echo $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . preg_replace("/\/install.*/", "/svn", $_SERVER['REQUEST_URI']);
+				?>" />
+			</td>
+		</tr>
+	</table>
 	<input type="submit" value="<?php echo T_("Next step");?>" />
 </form>

@@ -162,16 +162,17 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallSubversion()
 	{
-		Install::installSubversion("tests/tmp/config.ini", "tests");
+		Install::installSubversion("tests/tmp/config.ini", "tests", "http://test.com");
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("tests" . DIRECTORY_SEPARATOR, $config->subversion->path);
+		$this->assertEquals("http://test.com/", $config->subversion->url);
 	}
 
 	public function testInstallSubversionPathDoesntExist()
 	{
 		try	{
-		Install::installSubversion("tests/tmp/config.ini", "test2");
+		Install::installSubversion("tests/tmp/config.ini", "test2", 'http://test.com');
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -182,7 +183,7 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallSubversionMagicQuoteWindows()
 	{
     	mkdir('tests/tmp2');
-		Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2');
+		Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2', 'http://test.com');
 		$this->assertTrue(file_exists("tests/tmp2/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp2/config.ini", "general");
 		$this->assertEquals("tests\\tmp2\\", $config->subversion->path);
@@ -288,12 +289,10 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallConfiguration()
 	{
-		Install::installConfiguration("tests/tmp/config.ini", "Noplay", "Test description");
+		Install::installConfiguration("tests/tmp/config.ini", "Noplay");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("Noplay", $config->site->title);
 		$this->assertEquals("default", $config->template->name);
-		$this->assertEquals("Test description", $config->site->description);
-		$this->assertEquals("Test description", $config->url->description);
 		$this->assertEquals("medias/default/images/USVN.ico", $config->site->ico);
 		$this->assertEquals("medias/default/images/USVN-logo.png", $config->site->logo);
 	}
@@ -301,7 +300,7 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallConfigurationNotTitle()
 	{
 		try {
-			Install::installConfiguration("tests/tmp/config.ini", "", "");
+			Install::installConfiguration("tests/tmp/config.ini", "");
 		}
 		catch (USVN_Exception $e) {
 			return;

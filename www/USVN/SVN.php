@@ -19,6 +19,13 @@
  */
 class USVN_SVN
 {
+	private $m_project;
+
+	function __construct($project)
+	{
+		$m_project = $project;
+	}
+
 	/**
 	* @param string Path of subversion directory.
 	* @return associative array Array of files or directory included in the path.

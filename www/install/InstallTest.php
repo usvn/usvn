@@ -125,8 +125,8 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallDbTestLoadDb() {
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
 		$list_tables =  $this->db->listTables();
-		$this->assertTrue(in_array('usvn_users', $list_tables));
-		$this->assertTrue(in_array('usvn_files', $list_tables));
+		$this->assertTrue(in_array('usvn_users', $list_tables), "usvn_users does not exist");
+		$this->assertTrue(in_array('usvn_groups', $list_tables), "usvn_groups does not exist");
 		$userTable = new USVN_Db_Table_Users();
 		$this->assertNotEquals(False, $userTable->fetchRow(array('users_login = ?' => 'anonymous')));
     }
@@ -134,11 +134,11 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallDbTestLoadDbOtherPrefixe() {
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "fake_");
 		$list_tables =  $this->db->listTables();
-		$this->assertFalse(in_array('usvn_users', $list_tables));
-		$this->assertFalse(in_array('usvn_files', $list_tables));
-		$this->assertTrue(in_array('fake_users', $list_tables));
-		$this->assertTrue(in_array('fake_files', $list_tables));
-    }
+		$this->assertFalse(in_array('usvn_users', $list_tables), "usvn_users exists");
+		$this->assertFalse(in_array('usvn_groups', $list_tables), "usvn_groups exists");
+		$this->assertTrue(in_array('fake_users', $list_tables), "usvn_users does not exist");
+		$this->assertTrue(in_array('fake_groups', $list_tables), "fake_groups does not exist");
+	}
 
 	public function testInstallDbTestConfigFile() {
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");

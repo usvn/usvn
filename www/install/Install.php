@@ -323,4 +323,28 @@ EOF;
 		$config->url->title = strip_tags($title);
 		$config->save();
 	}
+	
+	/**
+	* Get apache configuration
+	*
+	* @param string Path to the USVN config file
+	* @return string apache config
+	*/
+	static public function getApacheConfig($config_file)
+	{
+		$config = Install::_loadConfig($config_file);
+		$path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $config->subversion->path . DIRECTORY_SEPARATOR);
+		$location = preg_replace("#http[s]?://[^/]*#", "", $config->subversion->url);
+		$location = str_replace("//", "/", $location);
+		$res = "<Location $location>\n";
+        $res .= "\tDAV svn\n";
+        $res .= "\tSVNParentPath " . $path . "svn\n";
+        $res .= "\tSVNListParentPath off\n";
+        $res .= "\tAuthType Basic\n";
+        $res .= "\tAuthName \"" . $config->site->title . "\"\n";
+        $res .= "\tAuthUserFile " . $path . "htpasswd\n";
+        $res .= "\tAuthzSVNAccessFile " . $path . "authz\n";
+		$res .= "</Location>";
+		return $res;
+	}
 }

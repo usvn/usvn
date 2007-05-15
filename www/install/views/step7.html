@@ -1,2 +1,11 @@
 <h1><?php echo T_("Step");?> 7: <?php echo T_("Installation is over");?></h1>
+
+<h2><?php echo T_('Apache configuration');?></h2>
+<?php echo T_('Last step is to configure subversion into apache. Copy past following lines at the end of your <i>httpd.conf</i>.');?>
+<pre>
+<?php echo htmlspecialchars($GLOBALS['apacheConfig']);?>
+</pre>
+<?php echo T_('And restart your server with <i>apache2ctl restart</i>.')?> <i>
+<br />
+<br />
 <a href="../"><?php echo T_("Connect to USVN");?></a>

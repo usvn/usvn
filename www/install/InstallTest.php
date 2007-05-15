@@ -307,6 +307,26 @@ class InstallTest extends USVN_Test_Test {
 		}
 		$this->fail();
 	}
+
+	public function testGetApacheConfig()
+	{
+		file_put_contents("tests/tmp/config.ini", "[general]
+subversion.path=tests" .DIRECTORY_SEPARATOR . "tmp
+subversion.url=http://exemple/dev/usvn/
+site.title=USVN
+		");
+		$this->assertEquals(
+"<Location /dev/usvn/>
+	DAV svn
+	SVNParentPath tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "svn
+	SVNListParentPath off
+	AuthType Basic
+	AuthName \"USVN\"
+	AuthUserFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
+	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
+</Location>",
+		Install::getApacheConfig("tests/tmp/config.ini"));
+	}
 }
 
 // Call InstallTest::main() if this source file is executed directly.

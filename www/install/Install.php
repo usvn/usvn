@@ -62,7 +62,11 @@ class Install
 			USVN_Db_Utils::loadFile($db, $path_sql . "/mysql.sql");
 		}
 		catch (Exception $e) {
-			USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
+			try {
+				USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
+			}
+			catch (Exception $e) {
+			}
 			throw new USVN_Exception(T_("Can't load SQL file.\n") ." ". $e->getMessage());
 		}
 

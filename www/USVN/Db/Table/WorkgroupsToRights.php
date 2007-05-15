@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for workgroups table
+ * Model for workgroups_to_rights table
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info/
@@ -19,12 +19,12 @@
  */
 
 /**
- * Model for workgroups table
+ * Model for users_to_groups table
  *
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
-class USVN_Db_Table_Workgroups extends USVN_Db_Table {
+class USVN_Db_Table_WorkgroupsToRights extends USVN_Db_Table {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -32,14 +32,14 @@ class USVN_Db_Table_Workgroups extends USVN_Db_Table {
 	 *
 	 * @var string
 	 */
-	protected $_primary = array("workgroups_id");
+	protected $_primary = array("workgroups_id", "rights_id");
 
 	/**
 	 * The table name derived from the class name (underscore format).
 	 *
 	 * @var array
 	 */
-	protected $_name = "workgroups";
+	protected $_name = "workgroups_to_rights";
 
 
 	/**
@@ -61,32 +61,17 @@ class USVN_Db_Table_Workgroups extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_referenceMap = array(
-		"Groups" => array(
-			"columns"	   	=> array("groups_id"),
-			"refTableClass" => "USVN_Db_Table_Groups",
-			"refColumns"	=> array("groups_id"),
+		"Workgroups" => array(
+			"columns"	   => array("workgroups_id"),
+			"refTableClass" => "USVN_Db_Table_Workgroups",
+			"refColumns"	=> array("workgroups_id"),
 			"onDelete"		=> self::CASCADE,
 		),
-		"Projects" => array(
-			"columns"	   	=> array("projects_id"),
-			"refTableClass" => "USVN_Db_Table_Projects",
-			"refColumns"	=> array("projects_id"),
-			"onDelete"		=> self::CASCADE,
+		"Rights" => array(
+			"columns"		 => array("rights_id"),
+			"refTableClass"   => "USVN_Db_Table_Access",
+			"refColumns"	  => array("rights_id"),
 		),
 	);
 
-	protected $_dependentTables = array("USVN_Db_Table_WorkgroupsToRights");
-
-	public function GetProjectGroups($project_name)
-	{
-		$db = $this->getAdapter();
-    	$select = $db->select();
-    	$select->from(USVN_Db_Table::$prefix . 'workgroups', '*');
-    	$select->join(USVN_Db_Table::$prefix . 'groups', USVN_Db_Table::$prefix . 'workgroups.groups_id = ' . USVN_Db_Table::$prefix . 'groups.groups_id');
-    	$select->join(USVN_Db_Table::$prefix . 'projects', USVN_Db_Table::$prefix . 'workgroups.projects_id = ' . USVN_Db_Table::$prefix . 'projects.projects_id');
-    	$select->where(USVN_Db_Table::$prefix . 'projects.projects_name = ?', $project_name);
-		$select->group(USVN_Db_Table::$prefix . 'workgroups.groups_id');
-		$result = $db->fetchAll($select);
-    	return $result;
-	}
 }

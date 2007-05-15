@@ -101,4 +101,40 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 		return $info;
 	}
 
+	/**
+	 * Called by parent table's class during delete() method.
+	 *
+	 * @param  string $parentTableClassname
+	 * @param  array  $primaryKey
+	 * @return int    Number of affected rows
+	 */
+	public function _cascadeDelete($parentTableClassname, array $primaryKey)
+	{
+		$rowsAffected = 0;
+		foreach ($this->_getReferenceMapNormalized() as $rule => $map) {
+			if ($map[self::REF_TABLE_CLASS] == $parentTableClassname && isset($map[self::ON_DELETE])) {
+				switch ($map[self::ON_DELETE]) {
+					case self::CASCADE:
+						for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
+							$where[] = $this->_db->quoteInto(
+													$this->_db->quoteIdentifier($map[self::COLUMNS][$i]) . ' = ?',
+													$primaryKey[$map[self::REF_COLUMNS][$i]]
+												);
+						}
+						$rowset = $this->fetchAll($where);
+						foreach ($rowset as $row) {
+							$row->delete();
+							$rowsAffected++;
+						}
+						break;
+					default:
+						// no action
+						break;
+				}
+			}
+		}
+		return $rowsAffected;
+	}
+
+
 }

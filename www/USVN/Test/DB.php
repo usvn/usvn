@@ -21,6 +21,7 @@ require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
+require_once 'www/install/Install.php';
 
 class USVN_Test_DB extends USVN_Test_Test {
 	protected $db;
@@ -36,9 +37,7 @@ class USVN_Test_DB extends USVN_Test_Test {
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
 		USVN_Db_Utils::deleteAllTables($this->db);
-		USVN_Db_Utils::loadFile($this->db, "www/SQL/SVNDB.sql");
-		USVN_Db_Utils::loadFile($this->db, "www/SQL/mysql.sql");
-		USVN_Db_Utils::loadFile($this->db, "www/SQL/data.sql");
+		Install::installDb(CONFIG_FILE, dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_');
     }
 
     protected function tearDown() {

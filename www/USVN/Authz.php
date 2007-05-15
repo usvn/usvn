@@ -41,11 +41,6 @@ class USVN_Authz
 				$array[$project->name] = array();
 			}
 			if ($project->files_rights_path) {
-				if ($project->name == "project3") {
-					if ($project->files_rights_path == "/directory5/") {
-						Zend_Debug::dump($project);
-					}
-				}
 				if (!isset($array[$project->name][$project->files_rights_path])) {
 					$array[$project->name][$project->files_rights_path] = array();
 				}

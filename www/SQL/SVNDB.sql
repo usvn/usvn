@@ -1,4 +1,4 @@
-﻿create table usvn_projects
+create table usvn_projects
 (
    projects_id          int not null,
    projects_name        varchar(255) not null,

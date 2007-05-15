@@ -41,8 +41,7 @@ class browser_IndexController extends IndexController
 			else
 				$pathbefore = dirname($path)."/";
 			$txthtml .= "<tr><td><img src='../../../../../../dossier.gif'></td>";
-			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td>";
-			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$pathbefore."\"".");'>".T_('Rights')."</a></td></tr>";
+			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td><td></td></tr>";
 			//echo "<pathbefore><![CDATA[<a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>".$pathbefore."</a>"."]]></pathbefore>";
 		}
 		/*else
@@ -55,7 +54,10 @@ class browser_IndexController extends IndexController
 			else
 				$tabl['isDirectory'] = "<img src='../../../../../../file.gif'>";
 			$txthtml .= "<td>".$tabl['isDirectory']."</td>";
-			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
+			if ($tabl['isDirectory'] == "<img src='../../../../../../dossier.gif'>")
+				$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
+			else
+				$txthtml .= "<td><a>".$tabl['name']."</a></td>";
 			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>".T_('Rights')."</a></td></tr>";
 		}
 		$txthtml .= "</tbody></table><br />";

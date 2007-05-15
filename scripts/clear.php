@@ -27,3 +27,5 @@ Zend_Db_Table::setDefaultAdapter($db);
 USVN_Db_Utils::deleteAllTables($db);
 unlink("www/config.ini");
 unlink("www/.htaccess");
+USVN_DirectoryUtils::removeDirectory("www/files");
+`svn up www/files`;

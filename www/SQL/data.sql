@@ -22,33 +22,3 @@ INSERT INTO `usvn_rights` (`rights_id`, `rights_label`) VALUES
 (21, 'admin_config_save'),
 (22, 'wiki_index'),
 (23, 'changeset_index');
-
-
-INSERT INTO `usvn_workgroups` (`workgroups_id`, `groups_id`, `projects_id`) VALUES
-/*Anonymous rights*/
-
-(1, 1, 1),
-
-/*Users rights*/
-(2, 2, 1),
-
-/*Admins rights*/
-
-(3, 3, 1);
-
-
-INSERT INTO `usvn_workgroups_to_rights` (`workgroups_id`, `rights_id`, `is_right`) VALUES
-/*Anonymous rights*/
-(1, 1, 1),
-(1, 3, 1),
-(1, 4, 1),
-(1, 5, 1),
-(1, 23, 1),
-/*Users rights*/
-(2, 11, 1),
-/*Admins rights*/
-(3, 6, 1),
-(3, 7, 1),
-(3, 12, 1),
-(3, 16, 1),
-(3, 20, 1);

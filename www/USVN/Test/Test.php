@@ -30,6 +30,7 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
 		USVN_DirectoryUtils::removeDirectory('tests/');
 		@mkdir("tests");
 		@mkdir("tests/tmp");
+		@mkdir("tests/tmp/svn");
 		$configArray = array('subversion' => array('path' => "tests/tmp"));
 		$config = new Zend_Config($configArray);
 		Zend_Registry::set('config', $config);

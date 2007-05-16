@@ -188,7 +188,7 @@ class InstallTest extends USVN_Test_Test {
 		$config = new Zend_Config_Ini("tests/tmp2/config.ini", "general");
 		$this->assertEquals("tests\\tmp2\\", $config->subversion->path);
 	}
-	
+
 	public function testInstallBadLanguage()
 	{
 		try {
@@ -217,7 +217,7 @@ class InstallTest extends USVN_Test_Test {
 		$_SERVER['REQUEST_URI'] = "/install/index.php?step=7";
 		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("/", $config->url->base);
+		$this->assertEquals("", $config->url->base);
 		$this->assertEquals("localhost", $config->url->host);
 		$htaccess = file_get_contents("tests/tmp/.htaccess");
 		$this->assertContains("RewriteBase /", $htaccess);
@@ -289,7 +289,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallConfiguration()
 	{
-		Install::installConfiguration("tests/tmp/config.ini", "Noplay");
+		Install::installConfiguration("tests/tmp/config.ini", "Noplay", "Noplay");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("Noplay", $config->site->title);
 		$this->assertEquals("default", $config->template->name);

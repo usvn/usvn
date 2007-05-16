@@ -10,7 +10,7 @@ function checkForm() {
 	}
 	if (document.createAdmin.lastname.value.length == 0
 		|| checkRegExp.test(document.createAdmin.lastname.value)) {
-		spanError.innerHTML = <?php echo T_('Lastname empty.');?>';
+		spanError.innerHTML = '<?php echo T_('Lastname empty.');?>';
 		spanError.className = "usvn_error";
 		return false;
 	}

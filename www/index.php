@@ -26,7 +26,7 @@ define('USVN_CONFIG_SECTION', 'general');
 define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
 
 if (!file_exists(USVN_CONFIG_FILE)) {
-	header("Location: install");
+	header("Location: $USVN_DIRECTORY/install");
 	exit(0);
 }
 

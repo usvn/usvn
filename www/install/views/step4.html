@@ -15,6 +15,19 @@
 			</td>
 		</tr>
 		<tr>
+			<td><?php echo T_("Page description");?>:</td>
+			<td>
+				<textarea name="description" cols="80" rows="2"><?php
+					if (isset($_POST['description'])) {
+						echo $_POST['description'];
+					}
+					else {
+						echo "Userfriendly SVN";
+					}
+				?></textarea>
+			</td>
+		</tr>
+		<tr>
 			<td><?php echo T_("Subversion path");?>:</td>
 			<td>
 				<input type="text" size="67" name="pathSubversion" value="<?php

@@ -78,10 +78,9 @@ class layout extends Zend_Controller_Plugin_Abstract
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-	    <title>{$config->url->title}</title>
+	    <title>{$config->site->title}</title>
 		<meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
-		<meta name="description" content="{$config->url->description}" />
-		<meta name="keywords" content="{$config->url->keywords}" />
+		<meta name="description" content="{$config->site->description}" />
 		<link rel="icon" href="{$base_url}/{$config->site->ico}" type="image/x-icon" />
 		<link type="text/css" rel="stylesheet" media="screen" href="{$config->url->base}/css/screen" />
 		<link type="text/css" rel="stylesheet" media="print" href="{$config->url->base}/css/print" />

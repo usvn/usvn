@@ -173,9 +173,10 @@ class Install
 		if (substr($path, strlen($path) - 1, strlen($url)) != '/') {
 			$url .= '/';
 		}
-		$path = str_replace(DIRECTORY_SEPARATOR. DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
+		$path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
 		$config = Install::_loadConfig($config_file);
-		if (file_exists($path) && is_writable($path) && mkdir($path . DIRECTORY_SEPARATOR . 'svn')) {
+		if (file_exists($path) && is_writable($path)
+			&& (file_exists($path . DIRECTORY_SEPARATOR . 'svn') || mkdir($path . DIRECTORY_SEPARATOR . 'svn'))) {
 			$config->subversion = array(
 									"path" => $path,
 									"url" => $url
@@ -183,7 +184,7 @@ class Install
 			$config->save();
 		}
 		else {
-			throw new USVN_Exception(T_("Invalid subversion path %s check if directory exist and is writable."), $path);
+			throw new USVN_Exception(T_("Invalid subversion path \"%s\", please check if directory exist and is writable."), $path);
 		}
 	}
 
@@ -199,9 +200,10 @@ class Install
 	static public function installUrl($config_file, $htaccess_file)
 	{
 		ereg("(.*)/install.*", $_SERVER['REQUEST_URI'], $regs);
-		$path =$regs[1];
-		if (strlen($path) == 0) {
-			$path = "/";
+		$path = $regs[1];
+//here
+		if (substr($path, strlen($path) - 1, strlen($path)) == "/") {
+			$path = rtrim($path, "/");
 		}
 		$config = Install::_loadConfig($config_file);
 		if (!isset($config->url)) {
@@ -217,7 +219,7 @@ Deny from all
 </Files>
 RewriteEngine on
 RewriteCond %{REQUEST_URI} !/install*
-RewriteBase {$path}
+RewriteBase {$path}/
 RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
 
 EOF;
@@ -303,27 +305,28 @@ EOF;
 	* @return boolean
 	* @throw USVN_Exception
 	*/
-	static public function installConfiguration($config_file, $title)
+	static public function installConfiguration($config_file, $title, $description = '')
 	{
 		$title = rtrim($title);
 		if (strlen($title) == 0) {
 			throw new USVN_Exception(T_("Need a title."));
 		}
+		$description = rtrim($description);
 		$config = Install::_loadConfig($config_file);
 		$config->template = array("name" => "default");
 		if (!isset($config->site)) {
 			$config->site = array();
 		}
 		$config->site->title = strip_tags($title);
+		$config->site->description = strip_tags($description);
 		$config->site->ico = "medias/default/images/USVN.ico";
 		$config->site->logo = "medias/default/images/USVN-logo.png";
 		if (!isset($config->url)) {
 			$config->url = array();
 		}
-		$config->url->title = strip_tags($title);
 		$config->save();
 	}
-	
+
 	/**
 	* Get apache configuration
 	*

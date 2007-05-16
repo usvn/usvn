@@ -39,36 +39,12 @@
 </fieldset>
 <br />
 <fieldset>
-	<legend><?php echo T_("Url's information");?>:</legend>
-<table>
-	<tr>
-		<td><?php echo T_("Title"); ?>:</td>
-		<td>
-			<?php echo $this->formText('urlTitle', $this->config->url->title, array('size' => 80)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Description"); ?>:</td>
-		<td>
-			<?php echo $this->formTextarea('urlDescription', $this->config->url->description, array('rows' => 2, 'cols' => 80)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo T_("Keywords"); ?>:</td>
-		<td>
-			<?php echo $this->formTextarea('urlKeywords', $this->config->url->keywords, array('rows' => 2, 'cols' => 80)); ?>
-		</td>
-	</tr>
-</table>
-</fieldset>
-<br />
-<fieldset>
 	<legend><?php echo T_("Site's information");?></legend>
 	<table>
 		<tr>
-			<td><?php echo T_("Name"); ?>:</td>
+			<td><?php echo T_("Title"); ?>:</td>
 			<td>
-				<?php echo $this->formText('siteName', $this->config->site->name, array('size' => 80)); ?>
+				<?php echo $this->formText('siteTitle', $this->config->site->title, array('size' => 80)); ?>
 			</td>
 		</tr>
 		<tr>

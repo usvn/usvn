@@ -23,22 +23,18 @@ require_once 'USVN/modules/admin/controllers/IndexController.php';
 
 class admin_ConfigController extends admin_IndexController
 {
-	
+
 	public function indexAction()
 	{
 		$this->_view->config = Zend_Registry::get("config");
 		$this->_render("index.html");
 	}
-	
+
 	public function saveAction()
 	{
 		USVN_modules_admin_models_Config::setLanguage($_POST['language']);
 		USVN_modules_admin_models_Config::setTemplate($_POST['template']);
-		$urlDatas = array('title' 			=> $_POST['urlTitle'],
-							'description' 	=> $_POST['urlDescription'],
-							'keywords' 		=> $_POST['urlKeywords']);
-		USVN_modules_admin_models_Config::setUrlDatas($urlDatas);
-		$siteDatas = array('name'			=> $_POST['siteName'],
+		$siteDatas = array('title'			=> $_POST['siteTitle'],
 							'ico'			=> $_POST['siteIco'],
 							'description'	=> $_POST['siteDescription'],
 							'logo'			=> $_POST['siteLogo']);

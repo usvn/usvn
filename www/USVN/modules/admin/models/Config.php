@@ -49,20 +49,6 @@ class USVN_modules_admin_models_Config
 	}
 
 	/**
-	 * Set information about the url of the website
-	 *
-	 * @param array $datas
-	 */
-	static public function setUrlDatas($datas)
-	{
-		$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-		$config->url->title = $datas['title'];
-		$config->url->description = $datas['description'];
-		$config->url->keywords = $datas['keywords'];
-		$config->save();
-	}
-
-	/**
 	 * Set information about the Website
 	 *
 	 * @todo Check if the file exists or launch an exception
@@ -72,7 +58,7 @@ class USVN_modules_admin_models_Config
 	static public function setSiteDatas($datas)
 	{
 		$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-		$config->site->name = $datas['name'];
+		$config->site->title = $datas['title'];
 		$config->site->ico = $datas['ico'];
 		$config->site->description = $datas['description'];
 		$config->site->logo = $datas['logo'];

@@ -73,6 +73,7 @@ class Install
 		$users = new USVN_Db_Table_Users();
 		$groups = new USVN_Db_Table_Groups();
 		$projects = new USVN_Db_Table_Projects();
+		$access = new USVN_Db_Table_Access();
 
 		$user_anonymous = $users->fetchNew();
 		/* @var $user_anonymous USVN_Db_Table_Row_User */
@@ -106,7 +107,19 @@ class Install
 			$group_admin->save();
 			$project_none->save();
 			$user_anonymous->addGroup($group_anonymous);
-			USVN_Db_Utils::loadFile($db, $path_sql . "/data.sql");
+
+			$tmp = array('default_login', 'default_logout', 'default_index', 'default_css',
+						 'default_js', 'admin_index', 'admin_user', 'admin_user_new',
+						 'admin_user_edit', 'admin_user_delete', 'admin_user_editProfile',
+						 'admin_group', 'admin_group_new', 'admin_group_edit', 'admin_group_delete',
+						 'admin_project', 'admin_project_new', 'admin_project_edit',
+						 'admin_project_delete', 'admin_config', 'admin_config_save', 'wiki_index',
+						 'changeset_index');
+			foreach ($tmp as $right) {
+				$tmp = $access->fetchNew();
+				$tmp->label = $right;
+				$tmp->save();
+			}
 		}
 		catch (Exception $e) {
 			$project_none->delete();
@@ -226,6 +239,7 @@ EOF;
 		if (@file_put_contents($htaccess_file, $content) === false) {
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
 		}
+		chmod($htaccess_file, 0644);
 	}
 
 	/**

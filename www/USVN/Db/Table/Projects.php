@@ -128,6 +128,8 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 		}
 		catch (Exception $e) {
 			$this->getAdapter()->rollback();
+			$project = $this->find($id);
+			$project->current()->delete();
 			throw $e;
 		}
 		$this->getAdapter()->commit();

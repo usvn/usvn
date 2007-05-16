@@ -79,9 +79,13 @@ class USVN_Controller extends Zend_Controller_Action {
 		$this->_view->assign('controller', $this->getRequest()->getParam('controller'));
 		$this->_view->assign('action', $this->getRequest()->getParam('action'));
 
-		if (!$this->_checkAccess(Zend_Auth::getInstance()->getIdentity())) {
-			throw new Zend_Controller_Exception("You are not allowed to access to the controller $controller, module is $module and action is $action.");
+		if (Zend_Auth::getInstance()->getIdentity() === null && get_class($this) != "LoginController") {
+			$this->_redirect("/login/");
 		}
+
+//		if (!$this->_checkAccess(Zend_Auth::getInstance()->getIdentity())) {
+//			throw new Zend_Controller_Exception("You are not allowed to access to the controller $controller, module is $module and action is $action.");
+//		}
 
 	}
 
@@ -126,13 +130,16 @@ class USVN_Controller extends Zend_Controller_Action {
 	 *
 	 * @param string $template
 	 */
-	protected function _render($template = null)
+	protected function _render($template = null, $content_type = null)
 	{
 		if ($template === null) {
 			$template = $this->getRequest()->getActionName() . ".html";
 		}
+		if ($content_type === null) {
+			$content_type = $this->_mimetype;
+		}
 		$this->getResponse()
-			->setHeader('Content-Type', $this->_mimetype)
+			->setHeader('Content-Type', $content_type)
 			->appendBody($this->_view->render($template));
 	}
 }

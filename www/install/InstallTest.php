@@ -166,7 +166,7 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("tests" . DIRECTORY_SEPARATOR, $config->subversion->path);
-		$this->assertEquals("http://test.com/", $config->subversion->url);
+		$this->assertEquals("http://test.com", $config->subversion->url);
 	}
 
 	public function testInstallSubversionPathDoesntExist()

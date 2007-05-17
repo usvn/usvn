@@ -15,20 +15,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Page description");?>:</td>
-			<td>
-				<textarea name="description" cols="80" rows="2"><?php
-					if (isset($_POST['description'])) {
-						echo $_POST['description'];
-					}
-					else {
-						echo "Userfriendly SVN";
-					}
-				?></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td><?php echo T_("Subversion path");?>:</td>
+			<td><?php echo T_("Repository path");?>:</td>
 			<td>
 				<input type="text" size="67" name="pathSubversion" value="<?php
 				echo dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR;
@@ -36,7 +23,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Subversion url");?>:</td>
+			<td><?php echo T_("Repository url");?>:</td>
 			<td>
 				<input type="text" size="67" name="urlSubversion" value="http://<?php
 				echo $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . preg_replace("/\/install.*/", "/svn", $_SERVER['REQUEST_URI']);

@@ -80,7 +80,6 @@ class layout extends Zend_Controller_Plugin_Abstract
 	<head>
 	    <title>{$config->site->title}</title>
 		<meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
-		<meta name="description" content="{$config->site->description}" />
 		<link rel="icon" href="{$base_url}/{$config->site->ico}" type="image/x-icon" />
 		<link type="text/css" rel="stylesheet" media="screen" href="{$config->url->base}/css/screen" />
 		<link type="text/css" rel="stylesheet" media="print" href="{$config->url->base}/css/print" />

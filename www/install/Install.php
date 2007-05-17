@@ -319,20 +319,18 @@ EOF;
 	* @return boolean
 	* @throw USVN_Exception
 	*/
-	static public function installConfiguration($config_file, $title, $description = '')
+	static public function installConfiguration($config_file, $title)
 	{
 		$title = rtrim($title);
 		if (strlen($title) == 0) {
 			throw new USVN_Exception(T_("Need a title."));
 		}
-		$description = rtrim($description);
 		$config = Install::_loadConfig($config_file);
 		$config->template = array("name" => "default");
 		if (!isset($config->site)) {
 			$config->site = array();
 		}
 		$config->site->title = strip_tags($title);
-		$config->site->description = strip_tags($description);
 		$config->site->ico = "medias/default/images/USVN.ico";
 		$config->site->logo = "medias/default/images/USVN-logo.png";
 		if (!isset($config->url)) {

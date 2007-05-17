@@ -78,7 +78,7 @@ function installationOperation($step)
 			break;
 
 			case 5:
-				Install::installConfiguration(CONFIG_FILE, $_POST['title'], $_POST['description']);
+				Install::installConfiguration(CONFIG_FILE, $_POST['title']);
 				Install::installSubversion(CONFIG_FILE, $_POST['pathSubversion'], $_POST['urlSubversion']);
 			break;
 

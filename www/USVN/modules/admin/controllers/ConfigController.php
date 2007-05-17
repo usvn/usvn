@@ -36,7 +36,6 @@ class admin_ConfigController extends admin_IndexController
 		USVN_modules_admin_models_Config::setTemplate($_POST['template']);
 		$siteDatas = array('title'			=> $_POST['siteTitle'],
 							'ico'			=> $_POST['siteIco'],
-							'description'	=> $_POST['siteDescription'],
 							'logo'			=> $_POST['siteLogo']);
 		USVN_modules_admin_models_Config::setSiteDatas($siteDatas);
 		$this->_redirect('admin/config/');

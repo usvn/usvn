@@ -289,7 +289,7 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallConfiguration()
 	{
-		Install::installConfiguration("tests/tmp/config.ini", "Noplay", "Noplay");
+		Install::installConfiguration("tests/tmp/config.ini", "Noplay");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("Noplay", $config->site->title);
 		$this->assertEquals("default", $config->template->name);

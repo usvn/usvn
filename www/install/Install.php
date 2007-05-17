@@ -180,10 +180,10 @@ class Install
 	*/
 	static public function installSubversion($config_file, $path, $url)
 	{
-		if (substr($path, strlen($path) - 1, strlen($path)) != DIRECTORY_SEPARATOR) {
+		if (substr($path, -1) != DIRECTORY_SEPARATOR) {
 			$path .= DIRECTORY_SEPARATOR;
 		}
-		if (substr($path, strlen($path) - 1, strlen($url)) != '/') {
+		if (substr($url, -1) != '/') {
 			$url .= '/';
 		}
 		$path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);

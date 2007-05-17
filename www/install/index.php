@@ -76,6 +76,7 @@ function installationOperation($step)
 			case 3:
 				Install::installLanguage(CONFIG_FILE, $language);
 				$GLOBALS['language'] = $_POST['language'];
+				USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
 			break;
 
 			case 4:

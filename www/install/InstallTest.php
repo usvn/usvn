@@ -166,7 +166,7 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("tests" . DIRECTORY_SEPARATOR, $config->subversion->path);
-		$this->assertEquals("http://test.com", $config->subversion->url);
+		$this->assertEquals("http://test.com/", $config->subversion->url);
 	}
 
 	public function testInstallSubversionPathDoesntExist()
@@ -328,6 +328,26 @@ site.title=USVN
 	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
 </Location>",
 		Install::getApacheConfig("tests/tmp/config.ini"));
+	}
+
+	public function testcheckSystem()
+	{
+		Install::checkSystem();
+	}
+	
+	public function testcheckSystemSubversionNotInstall()
+	{
+		$PATH = getenv('PATH');
+		try {
+			putenv('PATH=');
+			Install::checkSystem();
+		}
+		catch (USVN_Exception $e) {
+			putenv("PATH=$PATH");
+			return;
+		}
+		putenv("PATH=$PATH");
+		$this->fail();
 	}
 }
 

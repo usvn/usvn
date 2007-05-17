@@ -362,4 +362,16 @@ EOF;
 		$res .= "</Location>";
 		return $res;
 	}
+	
+	/**
+	 * Check if subversion is install on the computer. Else throw exception
+	 *
+	 * @trhow USVN_Exception
+	 */
+	static public function checkSystem()
+	{
+		if (USVN_ConsoleUtils::runCmd('svn --version')) {
+			throw new USVN_Exception(T_("Subversion is not install on your system."));
+		}
+	}
 }

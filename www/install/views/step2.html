@@ -2,7 +2,9 @@
 	<h1><?php echo T_("Step");?> 2: Language selection</h1>
 	<p>Select your language for USVN's interface.</p>
 </div>
-
+<div id="usvn_logo_install_step">
+	<img src="../medias/default/images/CrystalClear/128x128/apps/locale.png">
+</div>
 <form action="index.php?step=3" method="POST">
 <label class="usvn_desc" for="lang">
 	<?php echo T_("Default language");?>:
@@ -18,6 +20,6 @@
 	?>
 	</select>
 </label>
-<br />
+<hr />
 <input type="submit" value="<?php echo T_("Next step");?>" />
 </form>

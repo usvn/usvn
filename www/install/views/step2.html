@@ -1,22 +1,23 @@
-<h1><?php echo T_("Step");?> 2: Language selection</h1>
+<div class="usvn_info">
+	<h1><?php echo T_("Step");?> 2: Language selection</h1>
+	<p>Select your language for USVN's interface.</p>
+</div>
+
 <form action="index.php?step=3" method="POST">
-<table>
-	<tr>
-		<td><?php echo T_("Default language");?>:</td>
-		<td>
-			<select name="language">
-				<?php
-					foreach (USVN_Translation::listTranslation() as $language) {
-						$selected = "";
-						if ($language == "en_US") {
-							$selected = "selected";
-						}
-						echo "<option $selected>$language</option>";
-					}
-				?>
-			</select>
-		</td>
-	</tr>
-</table>
+<label class="usvn_desc" for="lang">
+	<?php echo T_("Default language");?>:
+	<select name="language" id="lang">
+	<?php
+		foreach (USVN_Translation::listTranslation() as $language) {
+			$selected = "";
+			if ($language == "en_US") {
+				$selected = "selected";
+			}
+			echo "<option $selected>$language</option>";
+		}
+	?>
+	</select>
+</label>
+<br />
 <input type="submit" value="<?php echo T_("Next step");?>" />
 </form>

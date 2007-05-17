@@ -55,15 +55,13 @@ if (Install::installPossible(CONFIG_FILE)) {
 		installationOperation($step);
 	}
 	catch (USVN_Exception $e) {
-		echo "<h1>" . T_("Error") . "</h1>";
-		echo $e->getMessage();
+		echo "<div class='usvn_error'>" . T_("Error"). ": " . $e->getMessage() . "</div>";
 		$step--;
 	}
 	installationStep($step);
 }
 else {
-	echo "<h1>" . T_("Error") . "</h1>";
-	echo T_("USVN is already install.");
+	echo "<div class='usvn_error'>" . T_("Error") . ": " . T_("USVN is already install.") . "</div>";
 }
 
 include "views/footer.html";
@@ -71,10 +69,17 @@ include "views/footer.html";
 //------------------------------------------------------------------------------------------------
 function installationOperation($step)
 {
+	$agreement = isset($_POST['agreement']) ? $_POST['agreement'] : $GLOBALS['agreement'];
+	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
+	$step = $step == 4 && $agreement != "ok" ? 3 : $step;
 	switch ($step) {
 			case 3:
-				Install::installLanguage(CONFIG_FILE, $_POST['language']);
+				Install::installLanguage(CONFIG_FILE, $language);
 				$GLOBALS['language'] = $_POST['language'];
+			break;
+
+			case 4:
+				$GLOBALS['agreement'] = $_POST['agreement'];
 			break;
 
 			case 5:
@@ -99,6 +104,7 @@ function installationStep($step)
 {
 	$language = $GLOBALS['language'];
 	if ($step >= 1 && $step <= 7) {
+		$step = $step == 4 && $GLOBALS['agreement'] != "ok" ? 3 : $step;
 		include "views/step$step.html";
 	}
 }

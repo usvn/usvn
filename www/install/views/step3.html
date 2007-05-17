@@ -1,5 +1,7 @@
-﻿<h1><?php echo T_("Step");?> 3: <?php echo T_("Licence");?></h1>
-
+<div class="usvn_info">
+	<h1><?php echo T_("Step");?> 3: <?php echo T_("Agreement of the licence");?></h1>
+	<p><?php echo T_("Read and please accept the CeCILL FREE SOFTWARE LICENSE ."); ?></p>
+</div>
 
 <?php if ($language == "fr_FR") { ?>
 <h1 class="title">CONTRAT DE LICENCE DE LOGICIEL LIBRE CeCILL</h1>
@@ -1959,5 +1961,10 @@ thereof to its provisions.</p>
 <?php } ?>
 <hr />
 <form action="index.php?step=4" method="POST">
+<label class="usvn_desc" for="agreement">
+	<input type="checkbox" name="agreement" id="agreement" value="ok" />
+	<?php echo T_("I'm well aware of this licence and I agree with the contract"); ?>
+</label>
+<br />
 <input type="submit" value="<?php echo T_("Next step");?>" />
 </form>

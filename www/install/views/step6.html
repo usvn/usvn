@@ -34,58 +34,87 @@ function checkForm() {
 	return true;
 }
 </script>
-<h1><?php echo T_("Step");?> 6: <?php echo T_("Create administrator user");?></h1>
+
+<div class="usvn_info">
+	<h1><?php echo T_("Step");?> 6: <?php echo T_("Create administrator user"); ?></h1>
+	<p><?php echo T_("Creation of the first administrator of USVN."); ?></p>
+</div>
+
 <form name="createAdmin" action="index.php?step=7" method="POST">
 	<table>
 		<tr>
-			<td><?php echo T_("Login");?>:</td>
 			<td>
-					<input type="text" name="login" value="<?php
-						if (isset($_POST['login'])) {
-							echo $_POST['login'];
-						}
-						else {
-							echo T_("admin");
-						}
-					?>"/>
+				<label class="usvn_desc" for="login">
+				<?php echo T_("Login");?>:
+			</td>
+			<td>
+				<input type="text" name="login" id="login" maxlength="255" value="<?php
+					if (isset($_POST['login'])) {
+						echo $_POST['login'];
+					}
+					else {
+						echo T_("admin");
+					}
+				?>"/>
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Firstname");?>:</td>
 			<td>
-					<input type="text" name="firstname" value="<?php
-						if (isset($_POST['firstname'])) {
-							echo $_POST['firstname'];
-						}
-						else {
-							echo T_("System");
-						}
-					?>"/>
+				<label class="usvn_desc" for="firstname">
+				<?php echo T_("Firstname");?>:
+			</td>
+			<td>
+				<input type="text" name="firstname" id="firstname" maxlength="100" value="<?php
+					if (isset($_POST['firstname'])) {
+						echo $_POST['firstname'];
+					}
+					else {
+						echo T_("System");
+					}
+				?>"/>
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Lastname");?>:</td>
 			<td>
-					<input type="text" name="lastname" value="<?php
-						if (isset($_POST['lastname'])) {
-							echo $_POST['lastname'];
-						}
-						else {
-							echo T_("Administrator");
-						}
-					?>"/>
+				<label class="usvn_desc" for="lastname">
+				<?php echo T_("Lastname");?>:
+			</td>
+			<td>
+				<input type="text" name="lastname" id="lastname" maxlength="100" value="<?php
+					if (isset($_POST['lastname'])) {
+						echo $_POST['lastname'];
+					}
+					else {
+						echo T_("Administrator");
+					}
+				?>"/>
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Password");?>:</td>
-			<td><input type="password" name="password" /></td>
+			<td>
+				<label class="usvn_desc" for="password">
+				<?php echo T_("Password");?>:
+			</td>
+			<td>
+				<input type="password" name="password" id="password" />
+				</label>
+			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Confirm password");?>:</td>
-			<td><input type="password" name="password2" /></td>
+			<td>
+				<label class="usvn_desc" for="password2">
+				<?php echo T_("Confirm password");?>:
+			</td>
+			<td>
+				<input type="password" name="password2" id="password2" />
+				</label>
+			</td>
 		</tr>
 	</table>
 	<br /><br />
-	<div id="error"></div>
+	<div class="error"></div>
 	<input type="submit" value="<?php echo T_("Next step");?>" onclick="return checkForm();">
 </form>

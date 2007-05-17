@@ -1,8 +1,15 @@
-<h1><?php echo T_("Step");?> 4: <?php echo T_("Configure USVN");?></h1>
+<div class="usvn_info">
+	<h1><?php echo T_("Step");?> 4: <?php echo T_("Configure USVN"); ?></h1>
+	<p><?php echo T_("Settings of general configuration of USVN."); ?></p>
+</div>
+
 <form action="index.php?step=5" method="POST">
 	<table>
 		<tr>
-			<td><?php echo T_("Page title");?>:</td>
+			<td>
+				<label class="usvn_desc" for="pathSubversion">
+				<?php echo T_("Page title");?>:
+			</td>
 			<td>
 				<input type="text" name="title" value="<?php
 					if (isset($_POST['title'])) {
@@ -12,22 +19,32 @@
 						echo "USVN";
 					}
 				?>" />
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Repository path");?>:</td>
+			<td>
+				<label class="usvn_desc" for="pathSubversion">
+				<?php echo T_("Repository path");?>:
+			</td>
 			<td>
 				<input type="text" size="67" name="pathSubversion" value="<?php
 				echo dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR;
 				?>" />
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Repository url");?>:</td>
 			<td>
+				<label class="usvn_desc" for="urlSubversion">
+				<?php echo T_("Repository url");?>:
+			</td>
+			<td>
+
 				<input type="text" size="67" name="urlSubversion" value="http://<?php
 				echo $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . preg_replace("/\/install.*/", "/svn", $_SERVER['REQUEST_URI']);
 				?>" />
+				</label>
 			</td>
 		</tr>
 	</table>

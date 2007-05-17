@@ -1,10 +1,17 @@
-<h1><?php echo T_("Step");?> 5: <?php echo T_("Database installation");?></h1>
+<div class="usvn_info">
+	<h1><?php echo T_("Step");?> 5: <?php echo T_("Database installation"); ?></h1>
+	<p><?php echo T_("Settings of ODBC installation."); ?></p>
+</div>
+
 <form action="index.php?step=6" method="POST">
 	<table>
 		<tr>
-			<td><?php echo T_("Host");?>:</td>
 			<td>
-				<input type="text" name="host" value="<?php
+				<label class="usvn_desc" for="host">
+				<?php echo T_("Host");?>:
+			</td>
+			<td>
+				<input type="text" name="host" id="host" value="<?php
 					if (isset($_POST['host'])) {
 						echo $_POST['host'];
 					}
@@ -12,12 +19,15 @@
 						echo "localhost";
 					}
 				?>" />
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Login");?>:</td>
 			<td>
-				<input type="text" name="user" value="<?php
+				<label class="usvn_desc" for="user">
+				<?php echo T_("Login");?>:</td>
+			<td>
+				<input type="text" name="user" id="user" value="<?php
 					if (isset($_POST['user'])) {
 						echo $_POST['user'];
 					}
@@ -25,16 +35,26 @@
 						echo "root";
 					}
 				?>" />
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Password");?>:</td>
-			<td><input type="password" name="password" onclick="this.select();" /></td>
+			<td>
+				<label class="usvn_desc" for="password">
+				<?php echo T_("Password");?>:
+			</td>
+			<td>
+				<input type="password" name="password" id="password" onclick="this.select();" />
+				</label>
+			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Database");?>:</td>
 			<td>
-				<input type="text" name="database" value="<?php
+				<label class="usvn_desc" for="database">
+				<?php echo T_("Database");?>:
+			</td>
+			<td>
+				<input type="text" name="database" id="database" value="<?php
 					if (isset($_POST['database'])) {
 						echo $_POST['database'];
 					}
@@ -42,12 +62,16 @@
 						echo "usvn";
 					}
 				?>" />
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Table prefix");?>:</td>
 			<td>
-				<input type="text" name="prefix" value="<?php
+				<label class="usvn_desc" for="prefix">
+				<?php echo T_("Table prefix");?>:
+			</td>
+			<td>
+				<input type="text" name="prefix" id="prefix" value="<?php
 					if (isset($_POST['prefix'])) {
 						echo $_POST['prefix'];
 					}
@@ -55,6 +79,7 @@
 						echo "usvn_";
 					}
 				?>" />
+				</label>
 			</td>
 		</tr>
 	</table>

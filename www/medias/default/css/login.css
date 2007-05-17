@@ -3,7 +3,7 @@
  */
 
 #loginBox {
-	background-image:url(<?php echo $this->images_directory; ?>/cadena.gif);
+	background-image:url(<?php echo $this->images_directory; ?>/CrystalClear/128x128/actions/encrypted.png);
 	background-repeat:no-repeat;
 	background-position: right bottom;
 	width: 25em;

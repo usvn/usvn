@@ -182,11 +182,13 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallSubversionMagicQuoteWindows()
 	{
-    	mkdir('tests/tmp2');
-		Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2', 'http://test.com');
-		$this->assertTrue(file_exists("tests/tmp2/config.ini"));
-		$config = new Zend_Config_Ini("tests/tmp2/config.ini", "general");
-		$this->assertEquals("tests\\tmp2\\", $config->subversion->path);
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            mkdir('tests/tmp2');
+            Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2', 'http://test.com');
+            $this->assertTrue(file_exists("tests/tmp2/config.ini"));
+            $config = new Zend_Config_Ini("tests/tmp2/config.ini", "general");
+            $this->assertEquals("tests\\tmp2\\", $config->subversion->path);
+        }
 	}
 
 	public function testInstallBadLanguage()

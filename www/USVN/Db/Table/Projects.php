@@ -87,26 +87,6 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	}
 
 	/**
-	 * Check if the project's name is valid or not
-	 *
-	 * @throws exception
-	 * @todo regexp on project's name ?
-	 * @todo check on the default's name ?
-	 * @todo other rules to define ?
-	 * @param string $name project's name
-	 * @param throw USVN_Exception
-	 */
-	public function checkProjectName($name)
-	{
-		if (empty($name) || preg_match('/^\s+$/', $name)) {
-			throw new USVN_Exception(T_('The project\'s name is empty.'));
-		}
-		if (!preg_match('/\w+/', $name)) {
-			throw new USVN_Exception(T_('The project\'s name is invalid.'));
-		}
-	}
-
-	/**
 	 * Overload insert's method to check some data before insert
 	 *
 	 * @param array $data
@@ -114,16 +94,13 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 */
 	public function insert(array $data)
 	{
-		$this->checkProjectName($data['projects_name']);
+		if (!$data['projects_start_date']) {
+			$data['projects_start_date'] = date("Y-m-d H:i:s");
+		}
+
 		$this->getAdapter()->beginTransaction();
 		$id = parent::insert($data);
-		$config = Zend_Registry::get('config');
 		try {
-			USVN_SVNUtils::createSVN($config->subversion->path
-				. DIRECTORY_SEPARATOR
-				. 'svn'
-				. DIRECTORY_SEPARATOR
-				. $data['projects_name']);
 			USVN_Authz::generate();
 		}
 		catch (Exception $e) {
@@ -162,9 +139,6 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 */
 	public function delete($where)
 	{
-		foreach ($this->fetchAll($where) as $project) {
-			USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path . $project->name);
-		}
 		$res = parent::delete($where);
 		USVN_Authz::generate();
 		return $res;
@@ -212,15 +186,15 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 		$select->order("files_rights_path");
 		$select->order("groups_name");
 
-        // return the results
-        $stmt = $this->_db->query($select);
-        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+		// return the results
+		$stmt = $this->_db->query($select);
+		$data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 
 		$data  = array(
-			'table'    => $this,
-			'data'     => $data,
-			'rowClass' => $this->_rowClass,
-			'stored'   => true
+		'table'    => $this,
+		'data'     => $data,
+		'rowClass' => $this->_rowClass,
+		'stored'   => true
 		);
 
 		Zend_Loader::loadClass($this->_rowsetClass);

@@ -245,7 +245,7 @@ class USVN_AuthzTest extends USVN_Test_Test {
 		$project1->save();
 
 		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
-		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\n\n\n# Project project1\n", $file);
+		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\nproject1 = \n\n\n# Project project1\n[project1:/]\n@project1 = rw\n\n", $file);
 	}
 
 	public function testThreeUsersInTwoGroupsAndOneProjectWithPermission()
@@ -280,7 +280,7 @@ class USVN_AuthzTest extends USVN_Test_Test {
 		}
 
 		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
-		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\n\n\n# Project project1\n[project1:/directory1/]\n\n[project1:/directory2/]\n\n[project1:/directory3/]\n\n", $file);
+		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\nproject1 = \n\n\n# Project project1\n[project1:/directory1/]\n\n[project1:/directory2/]\n\n[project1:/directory3/]\n\n", $file);
 	}
 
 	public function testThreeUsersInTwoGroupsAndOneProjectWithPermissionAndGroupPermissions()
@@ -353,8 +353,7 @@ class USVN_AuthzTest extends USVN_Test_Test {
 		}
 
 		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
-		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\ngroup3 = user1, user3\n\n\n# Project project1\n[project1:/directory1/]\n@group1 = rw\n@group2 = \n@group3 = r\n\n[project1:/directory2/]\n@group1 = rw\n@group2 = \n@group3 = \n\n[project1:/directory3/]\n@group1 = rw\n@group2 = \n@group3 = r\n\n[project1:/directory4/]\n@group1 = rw\n@group2 = \n@group3 = \n\n[project1:/directory5/]\n@group1 = rw\n@group2 = \n@group3 = r\n\n\n\n# Project project2\n[project2:/directory1/]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n[project2:/directory2/]\n@group1 = \n@group2 = rw\n@group3 = \n\n[project2:/directory3/]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n[project2:/directory4/]\n@group1 = \n@group2 = rw\n@group3 = \n\n[project2:/directory5/]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n\n\n# Project project3\n[project3:/directory1/]\n@group1 = r\n@group2 = \n@group3 = rw\n\n[project3:/directory2/]\n@group1 = \n@group2 = \n@group3 = rw\n\n[project3:/directory3/]\n@group1 = r\n@group2 = \n@group3 = rw\n\n[project3:/directory4/]\n@group1 = \n@group2 = \n@group3 = rw\n
-[project3:/directory5/]\n@group1 = r\n@group2 = \n@group3 = rw\n\n", $file);
+		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\ngroup3 = user1, user3\nproject1 = \nproject2 = \nproject3 = \n\n\n# Project project1\n[project1:/directory1/]\n@group1 = rw\n@group2 = \n@group3 = r\n\n[project1:/directory2/]\n@group1 = rw\n@group2 = \n@group3 = \n\n[project1:/directory3/]\n@group1 = rw\n@group2 = \n@group3 = r\n\n[project1:/directory4/]\n@group1 = rw\n@group2 = \n@group3 = \n\n[project1:/directory5/]\n@group1 = rw\n@group2 = \n@group3 = r\n\n\n\n# Project project2\n[project2:/directory1/]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n[project2:/directory2/]\n@group1 = \n@group2 = rw\n@group3 = \n\n[project2:/directory3/]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n[project2:/directory4/]\n@group1 = \n@group2 = rw\n@group3 = \n\n[project2:/directory5/]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n\n\n# Project project3\n[project3:/directory1/]\n@group1 = r\n@group2 = \n@group3 = rw\n\n[project3:/directory2/]\n@group1 = \n@group2 = \n@group3 = rw\n\n[project3:/directory3/]\n@group1 = r\n@group2 = \n@group3 = rw\n\n[project3:/directory4/]\n@group1 = \n@group2 = \n@group3 = rw\n\n[project3:/directory5/]\n@group1 = r\n@group2 = \n@group3 = rw\n\n", $file);
 	}
 
 	/**

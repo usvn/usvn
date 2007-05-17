@@ -37,28 +37,28 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		parent::setUp();
 		$this->projectTable = new USVN_Db_Table_Projects();
 		$this->project = $this->projectTable->fetchNew();
-		$this->project->projects_name = 'test';
+		$this->project->projects_name = 'testStem';
 		$this->project->projects_start_date = '2007-04-01 15:29:57';
 		$this->projectid = $this->project->save();
 
 		$this->groups = new USVN_Db_Table_Groups();
 		$group = $this->groups->insert(
 			array(
-				"groups_id" => 4,
+				"groups_id" => 42,
 				"groups_name" => "test",
 				"groups_description" => "test"
 			)
 		);
 		$this->groups->insert(
 			array(
-				"groups_id" => 5,
+				"groups_id" => 43,
 				"groups_name" => "test2",
 				"groups_description" => "test2"
 			)
 		);
 		$this->groups->insert(
 			array(
-				"groups_id" => 6,
+				"groups_id" => 44,
 				"groups_name" => "test3",
 				"groups_description" => "test3"
 			)
@@ -67,14 +67,14 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 
     public function testProject()
 	{
-		$this->assertEquals('test', $this->project->projects_name);
-		$this->assertEquals('test', $this->project->name);
+		$this->assertEquals('testStem', $this->project->projects_name);
+		$this->assertEquals('testStem', $this->project->name);
 	}
 
 	public function testAddGroup()
 	{
-		$this->project->addGroup($this->groups->find(4)->current());
-		$this->project->addGroup($this->groups->find(5)->current());
+		$this->project->addGroup($this->groups->find(42)->current());
+		$this->project->addGroup($this->groups->find(43)->current());
 		$this->groups = $this->project->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_Workgroups');
 		$res = array();
 		foreach ($this->groups as $group) {
@@ -87,7 +87,7 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 
 	public function testGroupIsMember()
 	{
-		$group = $this->groups->find(4)->current();
+		$group = $this->groups->find(42)->current();
 		//$this->assertFalse($this->project->groupIsMember($group));
 		$this->project->addGroup($group);
 		$this->assertTrue($this->project->groupIsMember($group));

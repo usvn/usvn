@@ -20,7 +20,7 @@
 
 // Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "USVN_Db_Table_ProjectsTest::main");
+	define("PHPUnit_MAIN_METHOD", "USVN_Db_Table_ProjectsTest::main");
 }
 
 require_once "PHPUnit/Framework/TestCase.php";
@@ -34,25 +34,39 @@ require_once 'www/USVN/autoload.php';
  */
 class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 
-    public static function main() {
-        require_once "PHPUnit/TextUI/TestRunner.php";
+	public static function main() {
+		require_once "PHPUnit/TextUI/TestRunner.php";
 
-        $suite  = new PHPUnit_Framework_TestSuite("USVN_Db_Table_ProjectsTest");
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
+		$suite  = new PHPUnit_Framework_TestSuite("USVN_Db_Table_ProjectsTest");
+		$result = PHPUnit_TextUI_TestRunner::run($suite);
+	}
 
-    public function testInsertProjectOk()
+	public function testInsertProjectOk()
 	{
 		$table = new USVN_Db_Table_Projects();
-		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
-		$obj->save();
+		$project = $table->fetchNew();
+		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project->save();
 
-		$this->assertTrue($table->isAProject('InsertProjectOk'));
-		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'));
-    }
+		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
 
-    public function testInsertProjectNoName()
+		$table = new USVN_Db_Table_Groups();
+		$this->assertTrue($table->isAGroup('InsertProjectOk'), "Le groupe n'est pas cree");
+		$group = $table->fetchRow(array("groups_name = ?" => 'InsertProjectOk'));
+
+		$table = new USVN_Db_Table_FilesRights();
+		$right = $table->fetchRow(array("files_rights_path = ?" => "/", "projects_id = ?" => $project->id));
+		$this->assertNotNull($right, "La ligne pour les droits sur / n'a pas ete trouvee");
+
+		$table = new USVN_Db_Table_GroupsToFilesRights();
+		$rights = $table->fetchRow(array("files_rights_id = ?" => $right->id, "groups_id = ?" => $group->id));
+		$this->assertNotNull($rights, "La ligne pour les droits du groupe n'a pas ete trouvee");
+		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas la lecture");
+		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
+	}
+
+	public function testInsertProjectNoName()
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
@@ -64,8 +78,8 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$this->assertContains("project's name is empty", $e->getMessage());
 			return;
 		}
-		$this->fail();
-    }
+		$this->fail("Il n'y a pas eu d'exception pour un mauvais nom...");
+	}
 
 	public function testInsertProjectNoName2()
 	{
@@ -79,10 +93,10 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$this->assertContains("project's name is empty", $e->getMessage());
 			return;
 		}
-		$this->fail();
-    }
+		$this->fail("Il n'y a pas eu d'exception pour un mauvais nom...");
+	}
 
-    public function testInsertProjectInvalidName()
+	public function testInsertProjectInvalidName()
 	{
 		$table = new USVN_Db_Table_Projects();
 		$obj = $table->fetchNew();
@@ -94,10 +108,10 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$this->assertContains("project's name is invalid", $e->getMessage());
 			return;
 		}
-		$this->fail();
+		$this->fail("Il n'y a pas eu d'exception pour un mauvais nom...");
 	}
 
-    public function testInsertProjectBadSubversionPath()
+	public function testInsertProjectBadSubversionPath()
 	{
 		$configArray = array('subversion' => array('path' => "tests/bad"));
 		$config = new Zend_Config($configArray);
@@ -109,47 +123,56 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$obj->save();
 		}
 		catch (USVN_Exception $e) {
-			$this->assertFalse($table->isAProject('InsertProjectOk'));
+			$this->assertFalse($table->isAProject('InsertProjectOk'), "Le project existe toujours alors que la creation du repository a echouee");
 			return;
 		}
 		$this->fail();
-    }
-
-
-    public function testUpdateProjectNoName()
-	{
-		$table = new USVN_Db_Table_Projects();
-		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'UpdateProjectNoName',  'projects_start_date' => '1984-12-03 00:00:00'));
-		$id = $obj->save();
-		$obj = $table->find($id)->current();
-		$obj->setFromArray(array('projects_name' => ''));
-		try {
-			$_id = $obj->save();
-		}
-		catch (USVN_Exception $e) {
-			$this->assertContains("project's name is empty", $e->getMessage());
-			return;
-		}
-		$this->fail();
-    }
-    
-    public function testUpdateProjectOk()
-	{
-		$table = new USVN_Db_Table_Projects();
-		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
-		$id = $obj->save();
-		$this->assertTrue($table->isAProject('UpdateProjectOk'));
-		$obj = $table->find($id)->current();
-		$obj->setFromArray(array('projects_name' => 'UpdateProjectOk2'));
-		$id = $obj->save();
-		$this->assertTrue($table->isAProject('UpdateProjectOk2'));
 	}
+
+
+	public function testUpdateProject()
+	{
+		$table = new USVN_Db_Table_Projects();
+		$obj = $table->fetchNew();
+		$obj->name = 'UpdateProjectOk';
+		$obj->save();
+		$obj->name = 'UpdateProjectOk2';
+		try {
+			$obj->save();
+		}
+		catch (Exception $e) {
+			$table_groups = new USVN_Db_Table_Groups();
+			$this->assertTrue($table->isAProject('UpdateProjectOk'), "Le projet UpdateProjectOk n'existe plus");
+			$this->assertTrue($table_groups->isAGroup('UpdateProjectOk'),"Le groupe UpdateProjectOk n'existe plus");
+			return ;
+		}
+		$this->fail("Le projet a ete renomme");
+	}
+
+	public function testDeleteProject()
+	{
+		$table = new USVN_Db_Table_Projects();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$obj->save();
+
+		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas correctement cree");
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas correctement cree");
+		$table_groups = new USVN_Db_Table_Groups();
+		$this->assertTrue($table_groups->isAGroup('InsertProjectOk'), "Le groupe n'est pas correctement cree");
+
+		$obj->delete();
+		$this->assertFalse($table->isAProject('InsertProjectOk'), "Le projet n'est pas supprime");
+		$this->assertFalse(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas supprime");
+		$table_groups = new USVN_Db_Table_Groups();
+		$this->assertFalse($table_groups->isAGroup('InsertProjectOk'),"Le groupe n'est pas supprime");
+	}
+
+
 }
 
 // Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.
 if (PHPUnit_MAIN_METHOD == "USVN_Db_Table_ProjectsTest::main") {
-    USVN_Db_Table_ProjectsTest::main();
+	USVN_Db_Table_ProjectsTest::main();
 }
 ?>

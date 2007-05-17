@@ -34,10 +34,10 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		if ($this->id && $group_id) {
 			$workgroups = new USVN_Db_Table_Workgroups();
 			$workgroups->insert(
-				array(
-					"groups_id" 	=> $group_id,
-					"projects_id"	=> $this->id,
-				)
+			array(
+			"groups_id" 	=> $group_id,
+			"projects_id"	=> $this->id,
+			)
 			);
 		}
 	}
@@ -81,14 +81,110 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	{
 		$workgroups = new USVN_Db_Table_Workgroups();
 		$res = $workgroups->fetchRow(
-			array(
-				"groups_id" 	=> $group->id,
-				"projects_id"	=> $this->id,
-			)
+		array(
+		"groups_id" 	=> $group->id,
+		"projects_id"	=> $this->id,
+		)
 		);
 		if ($res === NULL) {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Check if the project's name is valid or not.
+	 *
+	 * A valid name is only composed by alphanumeric characters.
+	 *
+	 * @param string $name project's name
+	 *
+	 * @throws USVN_Exception
+	 */
+	public function checkProjectName($name)
+	{
+		if (empty($name) || preg_match('/^\s+$/', $name)) {
+			throw new USVN_Exception(T_("The project's name is empty."));
+		}
+		if (!preg_match('/^[0-9a-zA-Z_]+$/', $name)) {
+			throw new USVN_Exception(T_("The project's name is invalid."));
+		}
+	}
+
+	/**
+	 * Create the SVN repository
+	 *
+	 * @return void
+	 * @throws USVN_Exception, Zend_Exception
+	 */
+	protected function _insert()
+	{
+		$this->checkProjectName($this->_data['projects_name']);
+		$config = Zend_Registry::get('config');
+		USVN_SVNUtils::createSVN($config->subversion->path
+			. DIRECTORY_SEPARATOR
+			. 'svn'
+			. DIRECTORY_SEPARATOR
+			. $this->_data['projects_name']);
+	}
+
+	/**
+     * Allows pre-insert logic to be applied to row.
+     * Subclasses may override this method.
+     *
+     * @return void
+     */
+	protected function _postInsert()
+	{
+		$groups = new USVN_Db_Table_Groups();
+		$group = $groups->createRow();
+		$group->name = $this->_data['projects_name'];
+		$group->save();
+
+		$files_rights = new USVN_Db_Table_FilesRights();
+		$file_rights = $files_rights->createRow();
+		$file_rights->projects_id = $this->_data['projects_id'];
+		$file_rights->path = "/";
+		$file_rights->save();
+
+		$groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
+		$group_to_file_rights = $groups_to_files_rights->createRow(array("groups_id" => $group->id, "files_rights_id" => $file_rights->id));
+		$group_to_file_rights->files_rights_is_readable = true;
+		$group_to_file_rights->files_rights_is_writable = true;
+		$group_to_file_rights->save();
+	}
+
+	/**
+     * Allows pre-update logic to be applied to row.
+     * Subclasses may override this method.
+     *
+     * @return void
+     */
+	protected function _update()
+	{
+		if ($this->_cleanData['projects_name'] != $this->_data['projects_name']) {
+			throw new USVN_Exception(T_("You can't rename a project."));
+		}
+	}
+
+	/**
+     * Allows pre-delete logic to be applied to row.
+     * Subclasses may override this method.
+     *
+     * @return void
+     */
+	protected function _postDelete()
+	{
+		$groups = new USVN_Db_Table_Groups();
+		$where = $groups->getAdapter()->quoteInto("groups_name = ?", $this->_cleanData['projects_name']);
+		$group = $groups->fetchRow($where);
+		if ($group !== null) {
+			$group->delete();
+		}
+		USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path
+			. DIRECTORY_SEPARATOR
+			. 'svn'
+			. DIRECTORY_SEPARATOR
+			. $this->_data['projects_name']);
 	}
 }

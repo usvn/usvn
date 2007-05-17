@@ -44,21 +44,21 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->groups = new USVN_Db_Table_Groups();
 		$group = $this->groups->insert(
 			array(
-				"groups_id" => 4,
+				"groups_id" => 42,
 				"groups_name" => "test",
 				"groups_description" => "test"
 			)
 		);
 		$this->groups->insert(
 			array(
-				"groups_id" => 5,
+				"groups_id" => 43,
 				"groups_name" => "test2",
 				"groups_description" => "test2"
 			)
 		);
 		$this->groups->insert(
 			array(
-				"groups_id" => 6,
+				"groups_id" => 44,
 				"groups_name" => "test3",
 				"groups_description" => "test3"
 			)
@@ -73,8 +73,8 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 
 	public function testAddGroup()
 	{
-		$this->user->addGroup($this->groups->find(4)->current());
-		$this->user->addGroup($this->groups->find(5)->current());
+		$this->user->addGroup($this->groups->find(42)->current());
+		$this->user->addGroup($this->groups->find(43)->current());
 		$this->groups = $this->user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
 		$res = array();
 		foreach ($this->groups as $group) {
@@ -87,7 +87,7 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 
 	public function testIsInGroup()
 	{
-		$group = $this->groups->find(4)->current();
+		$group = $this->groups->find(42)->current();
 		$this->assertFalse($this->user->isInGroup($group));
 		$this->user->addGroup($group);
 		$this->assertTrue($this->user->isInGroup($group));

@@ -226,7 +226,7 @@ class USVN_SVNUtils
         }
         return $res;
 	}
-	
+
 	/**
 	 * @param string Path to repository
 	 * @return string absolute path to repository

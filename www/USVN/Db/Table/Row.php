@@ -17,7 +17,7 @@
  *
  * $Id $
  */
-class USVN_Db_Table_Row extends Zend_Db_Table_Row {
+class USVN_Db_Table_Row extends Zend_Db_Table_Row_Abstract {
 	/**
 	 * Getter for camelCaps properties mapped to underscore_word columns.
 	 *

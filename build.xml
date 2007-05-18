@@ -9,8 +9,6 @@
   <property name="cover_report_dir" value="cover-report" override="true" />
   <property name="archive_dir" value="archive" override="true" />
 
-  <property name="release_note" value="First public version" override="true" />
-
 
  <!-- File set -->
   <fileset id="testfile" dir=".">
@@ -28,13 +26,14 @@
 </fileset>
 
     <fileset id="projectfile" dir=".">
-        <include name="**/*.php" />
-        <include name="**/*.xml" />
-        <exclude name="${docdir}/**" />
-        <exclude name="${report_test_dir}/**" />
-        <exclude name="${testdir}/**" />
-        <exclude name="www/USVN/Test/**" />
-    </fileset>
+        <include name="www/**" />
+        <include name="LICENSE/**" />
+        <exclude name="**/*Test.php" />
+		<exclude name="www/Zend/**"/>
+		<exclude name="www/files/**"/>
+		<exclude name="www/config.ini"/>
+		<exclude name="www/.htaccess"/>
+</fileset>
 
 <!-- Target -->
   <target name="all">
@@ -158,61 +157,6 @@
         </fileset>
     </phplint>
 </target>
-
-    <target name="pear">
-        <echo msg="############################################" />
-        <echo msg="Don't forget to change release note" />
-        <echo msg="############################################" />
-        <pearpkg name="USVN" dir="." destFile="package.xml">
-            <fileset refid="projectfile" />
-            <option name="notes">${release_note}</option>
-            <option name="description">USVN is a simple configuration tools for SVN</option>
-            <option name="summary">Userfriendly SVN</option>
-            <option name="version" value="${version}"/>
-            <option name="state" value="${status}"/>
-            <option name="license" value="${license}" />
-            <mapping name="maintainers">
-                <element>
-                    <element key="handle" value="duponc_j"/>
-                    <element key="name" value="Julien Duponchelle"/>
-                    <element key="email" value="julien.duponchelle@noplay.net"/>
-                    <element key="role" value="lead"/>
-                </element>
-                <element>
-                    <element key="handle" value="crivis_s"/>
-                    <element key="name" value="Stephane Crivisier"/>
-                    <element key="email" value="stephane.crivisier@gmail.com"/>
-                    <element key="role" value="developer"/>
-                </element>
-                <element>
-                    <element key="handle" value="guyoll_o"/>
-                    <element key="name" value="Olivier Guyollot"/>
-                    <element key="email" value="olivier.guyollot@gmail.com"/>
-                    <element key="role" value="developer"/>
-                </element>
-                <element>
-                    <element key="handle" value="dolean_j"/>
-                    <element key="name" value="Julien Doleans"/>
-                    <element key="email" value="dolean_j@epitech.net"/>
-                    <element key="role" value="developer"/>
-                </element>
-                <element>
-                    <element key="handle" value="attal_m"/>
-                    <element key="name" value="Mathieu Attal"/>
-                    <element key="email" value="attal_m@epitech.net"/>
-                    <element key="role" value="developer"/>
-                </element>
-                <element>
-                    <element key="handle" value="joanic_g"/>
-                    <element key="name" value="Gabriel Joanicot"/>
-                    <element key="email" value="joanic_g@epitech.net"/>
-                    <element key="role" value="communication"/>
-                </element>
-            </mapping>
-        </pearpkg>
-        <exec command="pear package-validate package.xml" checkreturn="true" passthru="true"/>
-        <exec command="pear package package.xml" checkreturn="true" passthru="true"/>
-    </target>
 
 
 <!-- Translation -->

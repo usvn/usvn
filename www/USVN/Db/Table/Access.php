@@ -117,17 +117,16 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 	 *
 	 * @param string $login The login name of the user
 	 * @param string $project The project name, default if none
-	 * @param string $module The module name
 	 * @param string $controller The controller name
 	 * @param string $action The action name
 	 * @return bool true : the user is allwed, false : the user is not allowed
 	 */
-    public function access($login, $project, $module, $controller, $action)
+    public function access($login, $project, $controller, $action)
     {
     	$acl = new Zend_Acl();
 		$roleGuest = new Zend_Acl_Role('user');
 
-		$right = $module . "_" . $controller . "_" . $action;
+		$right = $controller . "_" . $action;
 		$acl->addRole($roleGuest);
 		if ($project != "__NONE__") {
 			$this->projectAccess($acl, $login, "__NONE__");
@@ -135,7 +134,7 @@ class USVN_Db_Table_Access extends USVN_Db_Table  {
 		$this->projectAccess($acl, $login, $project);
 
 		try {
-			if ($acl->isAllowed('user', $module . "_" . $controller, $action) == 1)
+			if ($acl->isAllowed('user', $controller, $action) == 1)
 			{
 				//echo "<br>" . __FILE__ . ":" . "<b>L'utilisateur $login dispose du droit $right</b><br>";
     			return true;

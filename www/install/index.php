@@ -28,7 +28,7 @@ require_once 'Install.php';
 
 $GLOBALS['language'] = 'en_US';
 if (file_exists(CONFIG_FILE)) {
-	$config = new USVN_Config(CONFIG_FILE, 'general');
+	$config = new USVN_Config_Ini(CONFIG_FILE, 'general');
 	if (isset($config->translation->locale)) {
 		$GLOBALS['language'] = $config->translation->locale;
 	}

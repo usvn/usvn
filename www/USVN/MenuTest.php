@@ -24,11 +24,13 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
+define('CONFIG_FILE', 'tests/config.ini');
+
 require_once 'www/USVN/autoload.php';
 
 class USVN_MenuTest extends USVN_Test_DB
 {
-	private $moduledir = 'tests/modules/';
+	private $_menudir = 'tests/menus/';
 
     public static function main()
 	{
@@ -41,200 +43,176 @@ class USVN_MenuTest extends USVN_Test_DB
 	protected function setUp()
 	{
 		parent::setUp();
-		mkdir($this->moduledir);
-		mkdir($this->moduledir."/fakeadmin");
-		file_put_contents($this->moduledir."/fakeadmin/Menu.php", '
+		mkdir($this->_menudir);
+        file_put_contents($this->_menudir . "/beta.php", '
 <?php
-class USVN_modules_fakeadmin_Menu extends USVN_AbstractMenu
+class menus_beta extends USVN_AbstractMenu
 {
-	public static function getTopMenu($request, $identity)
+	public function getProjectSubMenu()
 	{
-		return array(
-			array(
-				"title" => T_("Administration"),
-				"link"=> "admin",
-				"module" => "admin",
-				"controller" => "index",
-				"action" => ""
-			)
-		);
-	}
+		 $project = $this->_request->getParam("project");
+            return array(
+                  array(
+                    "title" => T_("beta"),
+                    "link"=> "project/" . $project . "/beta/",
+                    "controller" => "index",
+                    "action" => ""
+                )
+            );
+    }
 
-	public static function getSubMenu($request, $identity)
+    public function getAdminSubMenu()
 	{
-		return array(
-			array(
-				"title" => T_("Users"),
-				"link"=> "admin/user/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => ""
-			),
-			array(
-				"title" => T_("Groups"),
-				"link"=> "admin/group/",
-				"module" => "group",
-				"controller" => "index",
-				"action" => ""
-			),
-			array(
-				"title" => T_("Projects"),
-				"link"=> "admin/project/",
-				"module" => "admin",
-				"controller" => "project",
-				"action" => ""
-			),
-			array(
-				"title" => T_("Configuration"),
-				"link"=> "admin/config/",
-				"module" => "admin",
-				"controller" => "config",
-				"action" => ""
-			)
-		);
-	}
+		 $project = $this->_request->getParam("project");
+            return array(
+                  array(
+                    "title" => T_("beta admin"),
+                    "link"=> "project/" . $project . "/beta/",
+                    "controller" => "index",
+                    "action" => ""
+                )
+            );
+    }
 
-		/**
-	* Get menu entries in sub sub menu.
-	* By example Menu is Admin
-	* Sub menu is User
-	* Sub sub menu is New user
-	*
-	* @param Zend_Controller_Request_Abstract Request
-	* @param mixed|null Identity from Zend_Auth
-	* @return array
-	*/
-	public static function getSubSubMenu($request, $identity)
-	{
-		return array(
-			array(
-				"title" => T_("Add new user"),
+    public function getSubSubMenu()
+    {
+        return (
+            array(
+            array(
+				"title" => T_("Beta new user"),
 				"link"=> "admin/user/new/",
-				"module" => "admin",
-				"controller" => "user",
+				"controller" => "beta",
 				"action" => "new"
-			),
-			array(
-				"title" => T_("Import htpasswd"),
-				"link"=> "admin/user/import/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => "import"
 			)
-		);
-	}
+            ));
+    }
 }
 ');
-		mkdir($this->moduledir."/faketickets");
-		file_put_contents($this->moduledir."/faketickets/Menu.php", '
+        require_once($this->_menudir . "/beta.php");
+        file_put_contents($this->_menudir . "/alpha.php", '
 <?php
-class USVN_modules_faketickets_Menu extends USVN_AbstractMenu
+class menus_alpha extends USVN_AbstractMenu
 {
-	public static function getTopMenu($request, $identity)
+	public function getProjectSubMenu()
 	{
-		return array(
-			array(
-				"title" => T_("View tickets"),
-				"link"=> "tickets/",
-				"module" => "tickets",
-				"controller" => "index",
-				"action" => ""
-			),
-			array(
-				"title" => T_("My tickets"),
-				"link"=> "tickets/my",
-				"module" => "tickets",
-				"controller" => "index",
-				"action" => ""
-			)
-		);
-	}
+		 $project = $this->_request->getParam("project");
+            return array(
+                  array(
+                    "title" => T_("alpha"),
+                    "link"=> "project/" . $project . "/alpha/",
+                    "controller" => "index",
+                    "action" => ""
+                )
+            );
+    }
 
-	public static function getSubMenu($request, $identity)
+	public function getAdminSubMenu()
 	{
-		return array(
-			array(
-				"title" => T_("New ticket"),
-				"link"=> "tickets/new/",
-				"module" => "tickets",
-				"controller" => "index",
-				"action" => ""
+		 $project = $this->_request->getParam("project");
+            return array(
+                  array(
+                    "title" => T_("alpha admin"),
+                    "link"=> "project/" . $project . "/alpha/",
+                    "controller" => "index",
+                    "action" => ""
+                )
+            );
+    }
+
+    public function getSubSubMenu()
+    {
+        return (
+            array(
+            array(
+				"title" => T_("Alpha new user"),
+				"link"=> "admin/user/new/",
+				"controller" => "alpha",
+				"action" => "new"
 			)
-		);
-	}
+            )
+            );
+    }
 }
 ');
-	}
+        require_once($this->_menudir . "/alpha.php");
+    }
 
     protected function tearDown()
 	{
-		USVN_DirectoryUtils::removeDirectory($this->moduledir);
+		USVN_DirectoryUtils::removeDirectory($this->_menudir);
 		parent::tearDown();
     }
 
-	public function test_getTopMenu()
+	public function test_getProjectSubMenu()
 	{
-		$menu = new USVN_Menu($this->moduledir, new Zend_Controller_Request_Http(), null);
-		$menuEntries = $menu->getTopMenu();
+		$request = new Zend_Controller_Request_Http();
+		$request->setParam('area', 'project');
+		$request->setParam('project', 'bidon');
+		$menu = new USVN_Menu($this->_menudir, $request, null);
+		$menuEntries = $menu->getSubMenu();
 		$this->assertContains(
 			array(
-				"title" => T_("Administration"),
-				"link"=> "admin",
-				"module" => "admin",
-				"controller" => "index",
-				"action" => ""
+                    "title" => T_("alpha"),
+                    "link"=> "project/bidon/alpha/",
+                    "controller" => "index",
+                    "action" => ""
 			)
 			, $menuEntries);
 		$this->assertContains(
 			array(
-				"title" => T_("View tickets"),
-				"link"=> "tickets/",
-				"module" => "tickets",
-				"controller" => "index",
-				"action" => ""
-			)
-			, $menuEntries);
-		$this->assertContains(
-			array(
-				"title" => T_("My tickets"),
-				"link"=> "tickets/my",
-				"module" => "tickets",
-				"controller" => "index",
-				"action" => ""
+                    "title" => T_("beta"),
+                    "link"=> "project/bidon/beta/",
+                    "controller" => "index",
+                    "action" => ""
 			)
 			, $menuEntries);
 	}
 
-	public function test_getSubMenu()
+	public function test_getAdminSubMenu()
 	{
 		$request = new Zend_Controller_Request_Http();
-		$request->setParam('module', 'fakeadmin');
-		$menu = new USVN_Menu($this->moduledir, $request, null);
+		$request->setParam('area', 'admin');
+		$request->setParam('project', 'bidon');
+		$menu = new USVN_Menu($this->_menudir, $request, null);
 		$menuEntries = $menu->getSubMenu();
 		$this->assertContains(
 			array(
-				"title" => T_("Users"),
-				"link"=> "admin/user/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => ""
+                    "title" => T_("alpha admin"),
+                    "link"=> "project/bidon/alpha/",
+                    "controller" => "index",
+                    "action" => ""
 			)
 			, $menuEntries);
-		$this->assertNotContains(array("title" => T_("New ticket"), "link"=> "tickets/new/"), $menuEntries);
+		$this->assertContains(
+			array(
+                    "title" => T_("beta admin"),
+                    "link"=> "project/bidon/beta/",
+                    "controller" => "index",
+                    "action" => ""
+			)
+			, $menuEntries);
 	}
 
 	public function test_getSubSubMenu()
 	{
 		$request = new Zend_Controller_Request_Http();
-		$request->setParam('module', 'fakeadmin');
-		$menu = new USVN_Menu($this->moduledir, $request, null);
+		$request->setParam('project', 'bidon');
+		$request->setParam('controller', 'alpha');
+		$menu = new USVN_Menu($this->_menudir, $request, null);
 		$menuEntries = $menu->getSubSubMenu();
 		$this->assertContains(
-			array(
-				"title" => T_("Add new user"),
+            array(
+				"title" => T_("Alpha new user"),
 				"link"=> "admin/user/new/",
-				"module" => "admin",
-				"controller" => "user",
+				"controller" => "alpha",
+				"action" => "new"
+			)
+			, $menuEntries);
+		$this->assertNotContains(
+			array(
+				"title" => T_("Beta new user"),
+				"link"=> "admin/user/new/",
+				"controller" => "beta",
 				"action" => "new"
 			)
 			, $menuEntries);

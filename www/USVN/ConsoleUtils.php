@@ -54,7 +54,7 @@ class USVN_ConsoleUtils
 	static public function runCmd($command)
 	{
 		ob_start();
-		system($command, $return);
+		system($command . " 2>&1", $return);
 		ob_end_clean();
 		return($return);
 	}

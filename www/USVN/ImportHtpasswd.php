@@ -18,7 +18,7 @@
  * $Id$
  */
 
-class USVN_modules_admin_models_ImportHtpasswd
+class USVN_ImportHtpasswd
 {
 	private $_file;
 	private $_users_password = array();

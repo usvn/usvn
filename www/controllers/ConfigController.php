@@ -18,10 +18,9 @@
  * $Id$
  */
 
-require_once 'USVN/modules/admin/controllers/IndexController.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminController.php';
 
-
-class admin_ConfigController extends admin_IndexController
+class ConfigController extends USVN_Controller
 {
 
 	public function indexAction()

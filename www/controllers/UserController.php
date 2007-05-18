@@ -18,11 +18,11 @@
  * $Id$
  */
 
-require_once 'USVN/modules/admin/controllers/IndexController.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminController.php';
 
-class admin_UserController extends admin_IndexController
+class UserController extends AdminController
 {
-	public static function getUserDataFromPost()
+	public function getUserDataFromPost()
 	{
 		$user = array('users_login'			=> $_POST['users_login'],
 						'users_lastname'	=> $_POST['users_lastname'],
@@ -54,7 +54,7 @@ class admin_UserController extends admin_IndexController
 				&& $_POST['users_password'] !== $_POST['users_password2']) {
 					throw new Exception(T_('Not the same password.'));
 			}
-			$data = admin_UserController::getUserDataFromPost();
+			$data = $this->getUserDataFromPost();
 			$this->save("USVN_Db_Table_Users", "user", $data);
 		}
 		$this->_render('form.html');
@@ -69,7 +69,7 @@ class admin_UserController extends admin_IndexController
 			} elseif(empty($_POST['users_password']) && empty($_POST['users_password2'])) {
 				unset($_POST['users_password']);
 			}
-			$data = admin_UserController::getUserDataFromPost();
+			$data = $this->getUserDataFromPost();
 			$this->save("USVN_Db_Table_Users", "user", $data);
 		} else {
 			$userTable = new USVN_Db_Table_Users();
@@ -91,7 +91,7 @@ class admin_UserController extends admin_IndexController
 			} elseif (empty($_POST['users_password']) && empty($_POST['users_password2'])) {
 				unset($_POST['users_password']);
 			}
-			$data = admin_UserController::getUserDataFromPost();
+			$data = $this->getUserDataFromPost();
 			$this->save("USVN_Db_Table_Users", "user", $data);
 		} else {
 			$this->_view->user = $userTable->fetchRow(array('users_login = ?' => $identity["username"]));

@@ -26,13 +26,14 @@ class USVN_Menu
 	private $_project;
 	private $_access;
 	private $_identity;
+	private $_subMenuMethod;
 
 	/**
-	* @param string Path of module directory
-	* @param Zend_Controller_Request_Abstract Request
-	* @param mixed|null Identity from Zend_Auth
-	*/
-	public function __construct($module_path, $request, $identity)
+	 * @param string Path of menu directory
+	 * @param Zend_Controller_Request_Abstract Request
+	 * @param mixed|null Identity from Zend_Auth
+	 */
+	public function __construct($menu_path, $request, $identity)
 	{
 		$this->_identity = $identity;
 		$this->_request = $request;
@@ -43,36 +44,39 @@ class USVN_Menu
 			$this->_user = $identity['username'];
 		}
 		$this->_access = new USVN_Db_Table_Access();
-		if ($dh = opendir($module_path)) {
-			while (($module = readdir($dh)) !== false) {
-				if ($module{0} != '.') {
-					$module_dir = $module_path . "/". $module . "/";
-					if (is_dir($module_dir) && file_exists($module_dir . "/Menu.php")) {
-						$this->_loadModule($module, $module_dir);
+		if (is_dir($menu_path)) {
+			$dir = new DirectoryIterator($menu_path);
+			foreach ($dir as $file) {
+				$file = $file->getFilename();
+				if (is_file($menu_path . DIRECTORY_SEPARATOR . $file)) {
+					if (!preg_match('/Test.php$/', $file)) {
+						$this->_loadController(substr($file, 0, -4), $menu_path);
 					}
 				}
 			}
-			closedir($dh);
 		}
 		else {
-			throw new USVN_Exception(T_("Can't open %s."), $module_path);
+			throw new USVN_Exception(T_("Can't open %s."), $menu_path);
 		}
 	}
 
-	private function _loadModule($module, $module_dir)
+	private function _loadController($controller, $module_dir)
 	{
-		Zend_Loader::loadFile("Menu.php", $module_dir, true);
-		$class = "USVN_modules_{$module}_Menu";
-		$menu = new $class();
-		$menus = $menu->getTopMenu($this->_request, $this->_identity);
-		foreach ($menus as $m) {
-			//if ($this->_access->access($this->_user, $this->_request->getParam('project'), $m['module'], $m['controller'], $m['action'])) {
-				array_push($this->_topMenu, $m);
-			//}
+		$class = "menus_{$controller}";
+		$menu = new $class($this->_request, $this->_identity);
+		$menus = array();
+		if ($this->_request->getParam('area') == 'admin') {
+			$menus = $menu->getAdminSubMenu($this->_request, $this->_identity);
 		}
-		if ($module == $this->_request->getParam("module")) {
-				$this->_subMenu = $menu->getSubMenu($this->_request, $this->_identity);
-				$this->_subSubMenu = $menu->getSubSubMenu($this->_request, $this->_identity);
+		else if ($this->_request->getParam('area') == 'project') {
+			$menus = $menu->getProjectSubMenu($this->_request, $this->_identity);
+		}
+		foreach ($menus as $m) {
+			array_push($this->_subMenu, $m);
+		}
+
+		if ($controller == $this->_request->getControllerName()) {
+			$this->_subSubMenu = $menu->getSubSubMenu($this->_request, $this->_identity);
 		}
 	}
 
@@ -84,7 +88,43 @@ class USVN_Menu
 	*/
 	public function getTopMenu()
 	{
-		return $this->_topMenu;
+		$menu = array();
+		if ($this->_identity === null) {
+			array_push($menu,
+			array(
+			"title" => T_("Sign in"),
+			"link"=> "login/",
+			"controller" => "login",
+			"action" => ""
+			)
+			);
+		} else {
+			array_push($menu,
+			array(
+			"title" => T_("Homepage"),
+			"link"=> "",
+			"controller" => "index",
+			"action" => ""
+			)
+			);
+			array_push($menu,
+			array(
+			"title" => T_("Admin"),
+			"link"=> "admin/",
+			"controller" => "admin",
+			"action" => ""
+			)
+			);
+			array_push($menu,
+			array(
+			"title" => T_("Logout"),
+			"link"=> "logout/",
+			"controller" => "login",
+			"action" => "logout"
+			)
+			);
+		}
+		return $menu;
 	}
 
 	/**

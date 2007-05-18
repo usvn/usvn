@@ -1,13 +1,13 @@
 <?php
 /**
- * Class to manipulate config file
+ * Model for configuration pages
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package usvn
+ * @package admin
  * @subpackage config
  *
  * This software has been written at EPITECH <http://www.epitech.net>
@@ -18,56 +18,50 @@
  * $Id$
  */
 
- class USVN_Config extends Zend_Config_Ini
- {
-	private $_filename;
-
+class USVN_Config
+{
 	/**
-	* If $config['create'] = true the config will be create if he doesn't exist.
-	*
-	* @param string Path to config file
-	* @param string Section of config file
-	* @param array Configuration array
-	* @throw USVN_Exception
-	*/
-	public function __construct($filename, $section, $config = array())
+	 * Set default language in the config file
+	 *
+	 * @param string The default language
+	 * @throw USVN_Exception
+	 */
+	static public function setLanguage($language)
 	{
-		$this->_filename = $filename;
-		if (!file_exists($filename)) {
-			if (isset($config['create']) && $config['create'] === true) {
-				if (@file_put_contents($filename, "[$section]\n") === false) {
-					throw new USVN_Exception(T_("Can't write config file."));
-				}
-			}
-			else {
-				throw new USVN_Exception(T_("Can't open config file."));
-			}
+		if (in_array($language, USVN_Translation::listTranslation())) {
+			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+			$config->translation->locale = $language;
+			$config->save();
+		} else {
+			throw new USVN_Exception(T_("Invalid language"));
 		}
-		parent::__construct($filename, $section, true);
 	}
 
-	private function dumpLevel($handle, $prefix, $data)
+	static public function setTemplate($template)
 	{
-        foreach ($data->_data as $key => $value) {
-            if (is_object($value)) {
-               $this->dumpLevel($handle, "$prefix$key.", $value);
-            } else {
-				fwrite($handle, "$prefix$key = \"$value\"\n");
-            }
-        }
+		if (in_array($template, USVN_Template::listTemplate())) {
+			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+			$config->template->name = $template;
+			$config->save();
+		} else {
+			throw new USVN_Exception(T_("Invalid template"));
+		}
 	}
 
 	/**
-	* Save change on the config file
-	*/
-	public function save()
+	 * Set information about the Website
+	 *
+	 * @todo Check if the file exists or launch an exception
+	 * @throw USVN_Exception
+	 * @param array $datas
+	 */
+	static public function setSiteDatas($datas)
 	{
-		$f = @fopen($this->_filename, 'w');
-		if (!$f) {
-			throw new USVN_Exception(T_("Can't write into config file."));
-		}
-		fwrite($f, "[".$this->getSectionName()."]\n");
-		$this->dumpLevel($f, "", $this);
-        fclose($f);
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$config->site->title = $datas['title'];
+		$config->site->ico = $datas['ico'];
+		$config->site->description = $datas['description'];
+		$config->site->logo = $datas['logo'];
+		$config->save();
 	}
- }
+}

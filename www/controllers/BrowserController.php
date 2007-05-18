@@ -1,14 +1,13 @@
 <?php
 /**
- * Main controller of the admin module
+ * Controller of browser module
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package admin
- * @subpackage controller
+ * @package browser
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
@@ -17,15 +16,13 @@
  *
  * $Id$
  */
-require_once 'USVN/modules/default/controllers/IndexController.php';
-
-class browser_IndexController extends IndexController
+class BrowserController extends USVN_Controller
 {
 	public function indexAction()
     {
 		$this->_render('index.html');
     }
-	
+
 	/**
 	* Get list files of subversion directory.
 	*/
@@ -49,8 +46,8 @@ class browser_IndexController extends IndexController
 		foreach ($tab as &$tabl)
 		{
 			$txthtml .= "<tr>";
-			if ($tabl['isDirectory'] == 1) 
-				$tabl['isDirectory'] = "<img src='../../../../../../dossier.gif'>"; 
+			if ($tabl['isDirectory'] == 1)
+				$tabl['isDirectory'] = "<img src='../../../../../../dossier.gif'>";
 			else
 				$tabl['isDirectory'] = "<img src='../../../../../../file.gif'>";
 			$txthtml .= "<td>".$tabl['isDirectory']."</td>";
@@ -64,7 +61,7 @@ class browser_IndexController extends IndexController
 		echo "<txthtml><![CDATA[".$txthtml."]]></txthtml>\n";
 		$this->_view->browser = $tab;
 	}
-	
+
 	/**
 	* Return a fake xml to dump rights or to update or insert rights
 	*/
@@ -86,9 +83,9 @@ class browser_IndexController extends IndexController
 		}
 		echo "</exemple>";
 	}
-	
+
 	/**
-	* If files exist dump rights 
+	* If files exist dump rights
 	*/
 	function dumpRights()
 	{
@@ -107,12 +104,12 @@ class browser_IndexController extends IndexController
 	}
 
 	/**
-	* If files exist update rights if not insert rights 
+	* If files exist update rights if not insert rights
 	*/
 	function updateOrInsertRights()
 	{
 		try
-		{					
+		{
 			$table_project = new USVN_Db_Table_Projects();
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
 			$table_files = new USVN_Db_Table_FilesRights();
@@ -125,12 +122,12 @@ class browser_IndexController extends IndexController
 							 		'files_rights_path' 	   => $_GET['name']);
 				$db = $table_project->getAdapter();
 				$where = $db->quoteInto('files_rights_path = ?', $res_files->files_rights_path);
-				$id = $table_files->update($data_files, $where);		
+				$id = $table_files->update($data_files, $where);
 				$data_groupsfiles = array('groups_id'	 	   => $_GET['group'],
 										  'files_rights_is_readable' => ($_GET['checkRead'] == 'true' ? 1 : 0),
 							 			  'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0));
-				$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files->files_rights_id);					
-				$table_groupstofiles->update($data_groupsfiles, $where);						   
+				$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files->files_rights_id);
+				$table_groupstofiles->update($data_groupsfiles, $where);
 			}
 			else
 			{

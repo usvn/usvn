@@ -64,18 +64,13 @@ class USVN_Controller extends Zend_Controller_Action {
 	{
 		$this->_view->project = $this->_request->getParam('project');
 
-		$module = $this->getRequest()->getModuleName();
 		$controller = $this->getRequest()->getControllerName();
-		if ($module === null) {
-			$module = "default";
-		}
-		$dir = realpath(USVN_DIRECTORY . "/modules/$module/views/$controller");
+		$dir = realpath(USVN_VIEWS_DIR . "/$controller");
 		if ($dir === false || !is_dir($dir)) {
-			throw new Zend_Controller_Exception("Controller's views directory not found. Controller is $controller and module is $module.");
+			throw new Zend_Controller_Exception("Controller's views directory not found. Controller is $controller.");
 		}
 		$this->_view->setScriptPath($dir);
 		$this->_view->assign('project', $this->getRequest()->getParam('project'));
-		$this->_view->assign('module', $this->getRequest()->getParam('module'));
 		$this->_view->assign('controller', $this->getRequest()->getParam('controller'));
 		$this->_view->assign('action', $this->getRequest()->getParam('action'));
 
@@ -83,20 +78,15 @@ class USVN_Controller extends Zend_Controller_Action {
 			$this->_redirect("/login/");
 		}
 
-//		if (!$this->_checkAccess(Zend_Auth::getInstance()->getIdentity())) {
-//			throw new Zend_Controller_Exception("You are not allowed to access to the controller $controller, module is $module and action is $action.");
-//		}
-
 	}
 
 	/**
-	 * Check if the current identity can access this module/controller/action
+	 * Check if the current identity can access this controller/action
 	 *
 	 * @param Array $identity
 	 */
 	protected function _checkAccess($identity)
 	{
-		$module = $this->getRequest()->getModuleName();
 		$controller = $this->getRequest()->getControllerName();
 		$project = $this->getRequest()->getParam('project');
 		$action = $this->getRequest()->getParam('action');
@@ -107,7 +97,7 @@ class USVN_Controller extends Zend_Controller_Action {
 			$user = $identity['username'];
 		}
 		$access = new USVN_Db_Table_Access();
-		//return $access->access($user, $project, $module, $controller, $action);
+		//return $access->access($user, $project, $controller, $action);
 		return true;
 	}
 

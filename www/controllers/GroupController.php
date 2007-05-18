@@ -18,9 +18,9 @@
  * $Id$
  */
 
-require_once 'USVN/modules/admin/controllers/IndexController.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminController.php';
 
-class admin_GroupController extends admin_IndexController
+class GroupController extends AdminController
 {
 	public static function getGroupDataFromPost()
 	{
@@ -44,7 +44,7 @@ class admin_GroupController extends admin_IndexController
 	{
 		if (!empty($_POST) && isset($_POST['groups_name'])
 			&& isset($_POST['groups_description'])) {
-			$data = admin_GroupController::getGroupDataFromPost();
+			$data = $this->getGroupDataFromPost();
 			$this->save("USVN_Db_Table_Groups", "group", $data);
 		}
 		$this->_render('form.html');
@@ -54,8 +54,9 @@ class admin_GroupController extends admin_IndexController
 	{
 		if (!empty($_POST) && isset($_POST['groups_name'])
 			&& isset($_POST['groups_description'])) {
-			$data = admin_GroupController::getGroupDataFromPost();
+			$data = $this->getGroupDataFromPost();
 			$this->save("USVN_Db_Table_Groups", "group", $data);
+			$this->_redirect("/admin/group/edit/name/{$data['groups_name']}");
 		} else {
 			$groupTable = new USVN_Db_Table_Groups();
 			$this->_view->group = $groupTable->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
@@ -68,7 +69,7 @@ class admin_GroupController extends admin_IndexController
 	{
 		if (!empty($_POST) && isset($_POST['groups_name'])
 			&& isset($_POST['groups_description'])) {
-			$data = admin_GroupController::getGroupDataFromPost();
+			$data = $this->getGroupDataFromPost();
 			$this->delete("USVN_Db_Table_Groups", "group", $data);
 		} else {
 			$groupTable = new USVN_Db_Table_Groups();

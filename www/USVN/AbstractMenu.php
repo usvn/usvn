@@ -19,40 +19,62 @@
 abstract class USVN_AbstractMenu
 {
 	/**
-	* Get menu entries in top menu.
-	*
-	* @param Zend_Controller_Request_Abstract Request
-	* @param mixed|null Identity from Zend_Auth
-	* @return array
-	*/
-	public static function getTopMenu($request, $identity)
+	 * HTTP Request
+	 *
+	 * @var Zend_Controller_Request_Http
+	 */
+	protected $_request;
+
+	/**
+	 * User identity
+	 *
+	 * @var mixed|null Identity from Zend_Auth
+	 */
+	protected $_identity;
+
+	/**
+	 * Public constructor
+	 *
+	 * Set internal properties.
+	 *
+	 * @param Zend_Controller_Request_Http $request
+	 * @param mixed|null $identity
+	 */
+	public function __construct($request, $identity)
+	{
+		$this->_request = $request;
+		$this->_identity = $identity;
+	}
+
+	/**
+	 * Get menu entries in admin sub menu.
+	 *
+	 * @return array
+	 */
+	public function getAdminSubMenu()
 	{
 		return array();
 	}
 
 	/**
-	* Get menu entries in sub menu.
-	*
-	* @param Zend_Controller_Request_Abstract Request
-	* @param mixed|null Identity from Zend_Auth
-	* @return array
-	*/
-	public static function getSubMenu($request, $identity)
+	 * Get menu entries in project sub menu.
+	 *
+	 * @return array
+	 */
+	public function getProjectSubMenu()
 	{
 		return array();
 	}
 
 	/**
-	* Get menu entries in sub sub menu.
-	* By example Menu is Admin
-	* Sub menu is User
-	* Sub sub menu is New user
-	*
-	* @param Zend_Controller_Request_Abstract Request
-	* @param mixed|null Identity from Zend_Auth
-	* @return array
-	*/
-	public static function getSubSubMenu($request, $identity)
+	 * Get menu entries in sub sub menu.
+	 * By example Menu is Admin
+	  * Sub menu is User
+	 * Sub sub menu is New user
+	 *
+	 * @return array
+	 */
+	public function getSubSubMenu()
 	{
 		return array();
 	}

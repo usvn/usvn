@@ -29,8 +29,8 @@ try {
 	/**
 	 * Load our ini conf file
 	 */
-	$config = new USVN_Config(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-	$routes_config = new USVN_Config(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
+	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+	$routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
 
 	/**
 	 * Configure language
@@ -73,27 +73,7 @@ try {
 
 	$front->setRouter($router);
 
-	/**
-	 * Configure current modules
-	 */
-	$tmp = $modules = array();
-	//  ca posait trop de confusion d'avoir deux repertoire de modules alors on supprime le global
-	//	$glob_path = '{' . USVN_DIRECTORY . ',' . dirname(__FILE__) . '}/modules/[a-zA-Z0-9]*';
-	$glob_path = USVN_DIRECTORY . '/modules/[a-zA-Z0-9]*';
-	foreach (glob($glob_path, GLOB_BRACE | GLOB_ONLYDIR) as $path) {
-		$module = basename($path);
-		if (isset($tmp[$module])) {
-			continue;
-		}
-		$tmp[$module] = true;
-		$modules[$module] = $path .'/controllers';
-		if (isset($config->$module) && isset($config->$module->routes)) {
-			$router->addConfig($config->$module, 'routes');
-
-		}
-	}
-	//	$modules['default'] = dirname(__FILE__) . '/modules/_default/controllers';
-	$front->setControllerDirectory($modules);
+	$front->setControllerDirectory(USVN_CONTROLLERS_DIR);
 
 	$tmp = array();
 	//  ca posait trop de confusion d'avoir deux repertoire de plugins alors on supprime le global

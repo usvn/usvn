@@ -19,7 +19,7 @@
 
 require_once('www/USVN/autoload.php');
 
-$config = new USVN_Config("www/config.ini", "general");
+$config = new USVN_Config_Ini("www/config.ini", "general");
 Zend_Registry::set('config', $config);
 USVN_Translation::initTranslation('en_US', 'www/locale');
 

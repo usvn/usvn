@@ -17,9 +17,8 @@
  *
  * $Id$
  */
-require_once 'USVN/modules/default/controllers/IndexController.php';
 
-class admin_IndexController extends IndexController
+class AdminController extends USVN_Controller
 {
 	protected function save($className, $name, $data)
 	{

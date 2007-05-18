@@ -18,11 +18,11 @@
  * $Id$
  */
 
-require_once 'USVN/modules/admin/controllers/IndexController.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminController.php';
 
-class admin_ProjectController extends admin_IndexController
+class ProjectController extends AdminController
 {
-	public static function getProjectDataFromPost()
+	public function getProjectDataFromPost()
 	{
 		$project = array('projects_name'			=> $_POST['projects_name'],
 							'projects_description'	=> $_POST['projects_description']
@@ -47,7 +47,7 @@ class admin_ProjectController extends admin_IndexController
 	public function newAction()
 	{
 		if (!empty($_POST) && $_POST['projects_name']) {
-			$data = admin_ProjectController::getProjectDataFromPost();
+			$data = $this->getProjectDataFromPost();
 			$this->save("USVN_Db_Table_Projects", "project", $data);
 		}
 		$this->_render('form.html');
@@ -56,7 +56,7 @@ class admin_ProjectController extends admin_IndexController
 	public function editAction()
 	{
 		if (!empty($_POST) && $_POST['projects_name']) {
-			$data = admin_ProjectController::getProjectDataFromPost();
+			$data = $this->getProjectDataFromPost();
 			$this->save("USVN_Db_Table_Projects", "project", $data);
 		} else {
 			$projectTable = new USVN_Db_Table_Projects();
@@ -69,7 +69,7 @@ class admin_ProjectController extends admin_IndexController
 	public function deleteAction()
 	{
 		if (!empty($_POST)) {
-			$data = admin_ProjectController::getProjectDataFromPost();
+			$data = $this->getProjectDataFromPost();
 			$this->delete("USVN_Db_Table_Projects", "project", $data);
 		} else {
 			$projectTable = new USVN_Db_Table_Projects();

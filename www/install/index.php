@@ -55,7 +55,7 @@ if (Install::installPossible(CONFIG_FILE)) {
 		installationOperation($step);
 	}
 	catch (USVN_Exception $e) {
-		echo "<div class='usvn_error'>" . T_("Error"). ": " . $e->getMessage() . "</div>";
+		echo "<div class='usvn_error'>" . T_("Error"). ": " . nl2br($e->getMessage()) . "</div>";
 		$step--;
 	}
 	installationStep($step);

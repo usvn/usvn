@@ -65,9 +65,9 @@ class Install
 			try {
 				USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
 			}
-			catch (Exception $e) {
+			catch (Exception $e2) {
 			}
-			throw new USVN_Exception(T_("Can't load SQL file.\n") ." ". $e->getMessage());
+			throw new USVN_Exception(T_("Can't load SQL file.\n") . $e->getMessage());
 		}
 
 		$users = new USVN_Db_Table_Users();
@@ -362,7 +362,7 @@ EOF;
 		$res .= "</Location>";
 		return $res;
 	}
-	
+
 	/**
 	 * Check if subversion is install on the computer. Else throw exception
 	 *
@@ -371,7 +371,7 @@ EOF;
 	static public function checkSystem()
 	{
 		if (USVN_ConsoleUtils::runCmd('svn --version')) {
-			throw new USVN_Exception(T_("Subversion is not install on your system."));
+			throw new USVN_Exception(T_("Subversion is not install on your system. If you are under Windows install ") . "http://subversion.tigris.org/files/documents/15/36797/svn-1.4.3-setup.exe" . T_(". \nOtherwise under UNIX you probably need to install a package named subversion."));
 		}
 	}
 }

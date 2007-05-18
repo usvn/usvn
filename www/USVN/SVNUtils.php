@@ -143,7 +143,7 @@ class USVN_SVNUtils
     * @param string path to server repository
     * @param string path to directory to import
     */
-    private function _svnImport($server, $local)
+    private static function _svnImport($server, $local)
     {
         $server = USVN_SVNUtils::_getRepositoryPath($server);
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn import --non-interactive --username USVN -m \"" . T_("Commit by USVN") ."\" \"$local\" \"file://$server\"", $return);
@@ -231,7 +231,7 @@ class USVN_SVNUtils
 	 * @param string Path to repository
 	 * @return string absolute path to repository
 	 */
-	private function _getRepositoryPath($path)
+	private static function _getRepositoryPath($path)
 	{
 		if(strtoupper (substr(PHP_OS, 0,3)) == 'WIN' ) {
 			return ('/'. str_replace('\\', '/', realpath($path)));

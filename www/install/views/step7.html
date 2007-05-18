@@ -6,10 +6,11 @@
 	<img src="../medias/default/images/CrystalClear/128x128/actions/edit.png">
 </div>
 <h2><?php echo T_('Apache configuration');?></h2>
-<?php echo T_('Last step is to configure subversion into apache. Copy past following lines at the end of your <i>httpd.conf</i>.');?>
-<pre>
+<?php echo T_('Last step is to configure subversion into apache. Copy past following lines at the end of your <i>httpd.conf</i>:');?>
+<textarea rows="15", cols="80">
 <?php echo htmlspecialchars($GLOBALS['apacheConfig']);?>
-</pre>
+</textarea>
+<br />
 <?php echo T_('And restart your server with <i>apache2ctl restart</i>.')?> <i>
 <hr />
 <a href="../"><?php echo T_("Connect to USVN");?></a>

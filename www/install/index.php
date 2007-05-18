@@ -69,7 +69,9 @@ include "views/footer.html";
 //------------------------------------------------------------------------------------------------
 function installationOperation($step)
 {
+	$agreement = isset($_POST['agreement']) ? $_POST['agreement'] : $GLOBALS['agreement'];
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
+	$step = $step == 4 && $agreement != "ok" ? 3 : $step;
 	switch ($step) {
 			case 3:
 				Install::installLanguage(CONFIG_FILE, $language);
@@ -78,9 +80,7 @@ function installationOperation($step)
 			break;
 
 			case 4:
-				if ($_POST['agreement'] != "ok") {
-					throw new USVN_Exception(T_("You need to accept the licence to continue installation."));
-				}
+				$GLOBALS['agreement'] = $_POST['agreement'];
 			break;
 
 			case 5:
@@ -105,6 +105,7 @@ function installationStep($step)
 {
 	$language = $GLOBALS['language'];
 	if ($step >= 1 && $step <= 7) {
+		$step = $step == 4 && $GLOBALS['agreement'] != "ok" ? 3 : $step;
 		include "views/step$step.html";
 	}
 }

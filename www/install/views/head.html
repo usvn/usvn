@@ -29,7 +29,7 @@ hr {
 	padding: 5px;
 	display: inline-block;
 	clear: both;
-	margin: 0 0 1em 0;
+	margin: 0 0 2em 0;
 	border: 1px solid #ccc;
 	border-bottom: 1px dotted #ccc;
 	min-height: 80px;
@@ -37,6 +37,38 @@ hr {
 
 .info[class] {
 	display:block;
+}
+
+a.usvn_tooltips{
+    position: relative;
+    z-index: 24;
+    color: #000;
+    text-decoration: none;
+    background-image: url(../medias/default/images/CrystalClear/16x16/actions/documentinfo.png);
+    padding-right: 13px;
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+a.usvn_tooltips:hover{
+	z-index: 25;
+	background-color: #ff0;
+}
+
+a.usvn_tooltips span{
+	display: none
+}
+
+a.usvn_tooltips:hover span{
+    display: block;
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    width: 15em;
+    border:1px solid #0cf;
+    background-color:#cff;
+    color:#000;
+    text-align: center
 }
 
 .usvn_info h1{
@@ -69,12 +101,9 @@ hr {
 	font-weight:bold;
 }
 
-label.focused {
-	background: #334BCF;
-}
-
 #usvn_logo_install_step {
 	float: left;
+	margin-right: 10px;
 }
 
 #usvn_banner {

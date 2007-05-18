@@ -8,6 +8,7 @@ require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
+define('CONFIG_FILE', './tests/tmp/config.ini');
 
 
 /**

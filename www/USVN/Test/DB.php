@@ -37,7 +37,7 @@ class USVN_Test_DB extends USVN_Test_Test {
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
 		USVN_Db_Utils::deleteAllTables($this->db);
-		Install::installDb(CONFIG_FILE, dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_');
+		Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_');
     }
 
     protected function tearDown() {

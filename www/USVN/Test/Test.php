@@ -25,6 +25,7 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
     private $_path;
 
     protected function setUp() {
+        error_reporting(E_ALL | E_STRICT);
         $this->_path = getcwd();
 		USVN_Translation::initTranslation('en_US', 'www/locale');
 		USVN_DirectoryUtils::removeDirectory('tests/');

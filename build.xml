@@ -72,8 +72,8 @@
 			</not>
 			<then>
 				<php function="copy">
-					<param value="www/config.ini"/>
-					<param value="config.ini.save"/>
+					<param value="www/config.ini" />
+					<param value="config.ini.save" />
 				</php>
 			</then>
 		</if>

@@ -26,6 +26,7 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         error_reporting(E_ALL | E_STRICT);
+        date_default_timezone_set('UTC');
         $this->_path = getcwd();
 		USVN_Translation::initTranslation('en_US', 'www/locale');
 		USVN_DirectoryUtils::removeDirectory('tests/');

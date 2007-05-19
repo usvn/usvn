@@ -73,6 +73,10 @@ function installationOperation($step)
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
 	$step = $step == 4 && $agreement != "ok" ? 3 : $step;
 	switch ($step) {
+            case 1:
+                install::checkSystem();
+            break;
+
 			case 3:
 				Install::installLanguage(CONFIG_FILE, $language);
 				$GLOBALS['language'] = $_POST['language'];

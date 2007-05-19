@@ -1,7 +1,7 @@
 <?php
 require_once('www/USVN/ConsoleUtils.php');
 
-testFile('www/USVN');
+testFile('www/');
 
 function testFile($path)
 {
@@ -17,7 +17,7 @@ function testFile($path)
                 if (preg_match("/.*Test.php\$/", $file)) {
                     echo "Test $file : ";
                     $message = USVN_ConsoleUtils::runCmdCaptureMessage("php $file", $return);
-                    if (strlen($message) && !preg_match('/OK \([\d]+ tests\)/', $message)) {
+                    if (strlen($message) && !preg_match('/OK \([\d]+ test[s]?\)/', $message)) {
                         echo "BAD\n";
                         echo $message;
                     }

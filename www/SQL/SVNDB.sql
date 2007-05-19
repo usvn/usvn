@@ -1,4 +1,4 @@
-﻿create table usvn_projects
+create table usvn_projects
 (
    projects_id          int not null,
    projects_name        varchar(255) not null,
@@ -39,15 +39,12 @@ create table usvn_groups_to_files_rights
       references usvn_groups (groups_id) on delete restrict on update restrict
 );
 
-create table usvn_groups_to_projects
+create table usvn_rights
 (
-   projects_id          int not null,
-   groups_id            int not null,
-   primary key (projects_id, groups_id),
-   constraint fk_usvn_groups_to_projects foreign key (projects_id)
-      references usvn_projects (projects_id) on delete restrict on update restrict,
-   constraint fk_usvn_groups_to_projects2 foreign key (groups_id)
-      references usvn_groups (groups_id) on delete restrict on update restrict
+   rights_id            int not null,
+   rights_label         varchar(255) not null,
+   rights_description   varchar(1000),
+   primary key (rights_id)
 );
 
 create table usvn_users
@@ -72,3 +69,26 @@ create table usvn_users_to_groups
       references usvn_groups (groups_id) on delete restrict on update restrict
 );
 
+create table usvn_workgroups
+(
+   workgroups_id        int not null,
+   projects_id          int not null,
+   groups_id            int not null,
+   primary key (workgroups_id),
+   constraint fk_usvn_projects_to_workgroups foreign key (projects_id)
+      references usvn_projects (projects_id) on delete restrict on update restrict,
+   constraint fk_usvn_groups_to_workgroups foreign key (groups_id)
+      references usvn_groups (groups_id) on delete restrict on update restrict
+);
+
+create table usvn_workgroups_to_rights
+(
+   workgroups_id        int not null,
+   rights_id            int not null,
+   is_right             bool,
+   primary key (workgroups_id, rights_id),
+   constraint fk_usvn_workgroups_to_rights foreign key (workgroups_id)
+      references usvn_workgroups (workgroups_id) on delete restrict on update restrict,
+   constraint fk_usvn_workgroups_to_rights2 foreign key (rights_id)
+      references usvn_rights (rights_id) on delete restrict on update restrict
+);

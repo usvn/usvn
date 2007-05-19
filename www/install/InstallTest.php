@@ -48,108 +48,10 @@ class InstallTest extends USVN_Test_Test {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-	private function clean()
-	{
-		USVN_Db_Utils::deleteAllTables($this->db);
-	}
-
     public function setUp() {
 		parent::setUp();
-		$params = array ('host' => 'localhost',
-                 'username' => 'usvn-test',
-                 'password' => 'usvn-test',
-                 'dbname'   => 'usvn-test');
-
-		$this->db = Zend_Db::factory('PDO_MYSQL', $params);
-		Zend_Db_Table::setDefaultAdapter($this->db);
-		USVN_Db_Utils::deleteAllTables($this->db);
 		$_SERVER['SERVER_NAME'] = "localhost";
 		$_SERVER['REQUEST_URI'] = "/test/install/index.php?step=7";
-    }
-
-    public function tearDown() {
-		$this->clean();
-		parent::tearDown();
-    }
-
-    public function testInstallDbHostIncorrect() {
-		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "fake.usvn.info", "usvn-test", "usvn-test", "usvn-test", "usvn_");
-		}
-		catch (USVN_Exception $e) {
-			return;
-		}
-		$this->fail();
-    }
-
-    public function testInstallDbUserIncorrect() {
-		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-fake", "usvn-test", "usvn-test", "usvn_");
-		}
-		catch (USVN_Exception $e) {
-			return;
-		}
-		$this->fail();
-    }
-
-	public function testInstallDbPasswordIncorrect() {
-		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-fake", "usvn-test", "usvn_");
-		}
-		catch (USVN_Exception $e) {
-			return;
-		}
-		$this->fail();
-    }
-
-	public function testInstallDbDatabaseIncorrect() {
-		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-fake", "usvn_");
-		}
-		catch (USVN_Exception $e) {
-			return;
-		}
-		$this->fail();
-    }
-
-	public function testInstallDbConfigFileNotWritable() {
-		try {
-			Install::installDb("tests/fake/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
-		}
-		catch (USVN_Exception $e) {
-			return;
-		}
-		$this->fail();
-    }
-
-	public function testInstallDbTestLoadDb() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
-		$list_tables =  $this->db->listTables();
-		$this->assertTrue(in_array('usvn_users', $list_tables), "usvn_users does not exist");
-		$this->assertTrue(in_array('usvn_groups', $list_tables), "usvn_groups does not exist");
-		$userTable = new USVN_Db_Table_Users();
-		$this->assertNotEquals(False, $userTable->fetchRow(array('users_login = ?' => 'anonymous')));
-    }
-
-	public function testInstallDbTestLoadDbOtherPrefixe() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "fake_");
-		$list_tables =  $this->db->listTables();
-		$this->assertFalse(in_array('usvn_users', $list_tables), "usvn_users exists");
-		$this->assertFalse(in_array('usvn_groups', $list_tables), "usvn_groups exists");
-		$this->assertTrue(in_array('fake_users', $list_tables), "usvn_users does not exist");
-		$this->assertTrue(in_array('fake_groups', $list_tables), "fake_groups does not exist");
-    }
-
-	public function testInstallDbTestConfigFile() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
-		$this->assertTrue(file_exists("tests/tmp/config.ini"));
-		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("localhost", $config->database->options->host);
-		$this->assertEquals("usvn-test", $config->database->options->dbname);
-		$this->assertEquals("usvn-test", $config->database->options->username);
-		$this->assertEquals("usvn-test", $config->database->options->password);
-		$this->assertEquals("pdo_mysql", $config->database->adapterName);
-		$this->assertEquals("usvn_", $config->database->prefix);
     }
 
 	public function testInstallLanguage()
@@ -247,25 +149,7 @@ class InstallTest extends USVN_Test_Test {
 		$this->fail();
 	}
 
-	public function testInstallAdmin()
-	{
-		file_put_contents("tests/tmp/config.ini", "[general]\nsubversion.path=tests/tmp/");
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
-		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword", "James", "Bond");
-		$userTable = new USVN_Db_Table_Users();
-		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));
-		$this->assertNotEquals(False, $user);
-		$this->assertEquals($user->password, crypt("secretpassword", $user->password));
-		$this->assertEquals("James", $user->firstname);
-		$this->assertEquals("Bond", $user->lastname);
-		$groupTable = new USVN_Db_Table_Groups();
-		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admins'));
-		$this->assertTrue($group->userIsMember($user));
-		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Users'));
-		$this->assertTrue($group->userIsMember($user));
-	}
-
-	public function testInstallEnd()
+    public function testInstallEnd()
 	{
 		Install::installEnd("tests/tmp/config.ini");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
@@ -334,7 +218,7 @@ site.title=USVN
 	{
 		Install::checkSystem();
 	}
-	
+
 	public function testcheckSystemSubversionNotInstall()
 	{
 		$PATH = getenv('PATH');

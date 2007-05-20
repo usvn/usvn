@@ -34,6 +34,7 @@ class JsController extends Zend_Controller_Action
 
 		//javascript files to load: the firts required and the second for templates
 		header("Content-type: $_mimetype");
+        header('Cache-Control: max-age=3600, must-revalidate');
 		include(USVN_MEDIAS_DIRECTORY . '/default/js/usvn.js');
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/script.js');
 	}

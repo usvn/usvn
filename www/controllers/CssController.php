@@ -28,6 +28,7 @@ class CssController extends Zend_Controller_Action
 		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
 		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
+        header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css');
 	}
@@ -38,6 +39,7 @@ class CssController extends Zend_Controller_Action
 		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
 		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
+        header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css');
 	}

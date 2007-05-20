@@ -1,3 +1,9 @@
+<div class="usvn_info">
+	<h1><?php echo T_("Homepage"); ?></h1>
+	<p>
+		<?php echo T_("USVN Homepage."); ?>
+	</p>
+</div>
 <?php
 foreach ($this->projects as $project) {
 	echo '<a href="' . $this->url(array('project' => $project->name), 'project') . '">' . $project->name . '</a><br />';

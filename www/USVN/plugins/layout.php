@@ -50,13 +50,17 @@ class layout extends Zend_Controller_Plugin_Abstract
 		$base_url = $this->getRequest()->getBaseUrl();
 		$path = $this->getRequest()->getPathInfo();
 		foreach ($menu_items as $elem) {
+			$img = '';
 			$selected = '';
 			if (strncmp("/" . $elem['link'], $path, strlen($elem['link']) + 1) === 0) {
 				if (strlen($elem['link']) != 0 || $path == '/' || strlen($path) == 0) {
 					$selected = " id=\"{$css_id}_selected\"";
 				}
 			}
-			$str .= "<li $selected><a href=\"$base_url/{$elem["link"]}\">{$elem["title"]}</a></li>\n";
+			if (isset($elem["image"]) && !empty($elem["image"])) {
+				$img = "<img src=\"{$elem["image"]}\">";
+			}
+			$str .= "<li$selected><a href=\"$base_url/{$elem["link"]}\">$img{$elem["title"]}</a></li>\n";
 		}
 		return $str . "</ul>\n";
 	}

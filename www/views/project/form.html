@@ -16,19 +16,17 @@ function checkName() {
 <fieldset>
 	<legend><?php echo T_("Project's information"); ?></legend>
 	<form name="project" method="post" action="<?php echo $this->url(); ?>">
-		<table>
-			<tr>
-				<td><?php echo T_("Project name"); ?></td>
-				<td><?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null)); ?></td>
-			</tr>
-			<tr>
-				<td><?php echo T_("Project description"); ?></td>
-				<td><?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?></td>
-			</tr>
-			<tr>
-				<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?></td>
-			</tr>
-		</table>
+		<label class="usvn_label"><?php echo T_("Project name"); ?><span class="usvn_require">*</span>:<br />
+			<?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null)); ?>
+		</label>
+		<br />
+		<label class="usvn_label"><?php echo T_("Project description"); ?>:<br />
+			<?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?>
+		</label>
+		<br />
+		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?>
+		<br /><br />
 		<div id="error"></div>
 		<?php
 		if (isset($this->project) && $this->project->id) {

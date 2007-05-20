@@ -16,11 +16,13 @@ function checkName() {
 <fieldset>
 	<legend>Group's information</legend>
 	<form name="group" method="post" action="<?php echo $this->url(); ?>">
-		<label class="usvn_label"><?php echo T_("Group name"); ?>:</label>
-		<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null)); ?>
+		<label class="usvn_label"><?php echo T_("Group name"); ?><span class="usvn_require">*</span>:<br />
+			<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null)); ?>
+		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Group description"); ?>:</label>
-		<?php echo $this->formTextarea('groups_description', (isset($this->group) ? $this->group->description : null), array('rows' => 8, 'cols' => 80)); ?>
+		<label class="usvn_label"><?php echo T_("Group description"); ?>:<br />
+			<?php echo $this->formTextarea('groups_description', (isset($this->group) ? $this->group->description : null), array('rows' => 8, 'cols' => 80)); ?>
+		</label>
 		<br />
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?>

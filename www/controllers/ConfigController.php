@@ -22,7 +22,6 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminController.php';
 
 class ConfigController extends USVN_Controller
 {
-
 	public function indexAction()
 	{
 		$this->_view->config = Zend_Registry::get("config");
@@ -31,12 +30,12 @@ class ConfigController extends USVN_Controller
 
 	public function saveAction()
 	{
-		USVN_modules_admin_models_Config::setLanguage($_POST['language']);
-		USVN_modules_admin_models_Config::setTemplate($_POST['template']);
+		USVN_Config::setLanguage($_POST['language']);
+		USVN_Config::setTemplate($_POST['template']);
 		$siteDatas = array('title'			=> $_POST['siteTitle'],
 							'ico'			=> $_POST['siteIco'],
 							'logo'			=> $_POST['siteLogo']);
-		USVN_modules_admin_models_Config::setSiteDatas($siteDatas);
+		USVN_Config::setSiteDatas($siteDatas);
 		$this->_redirect('admin/config/');
 	}
 }

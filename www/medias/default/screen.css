@@ -165,7 +165,7 @@ ul#usvn_subsubmenu {
 }
 
 #usvn_subsubmenu_selected a {
-	color: #0D0F6F;
+	color: white;
 }
 
 #usvn_menu a:hover, #usvn_submenu a:hover, #usvn_subsubmenu a:hover {

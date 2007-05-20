@@ -33,15 +33,15 @@ function checkForm() {
 		</label>
 		<br />
 		<label class="usvn_label"><?php echo T_("Lastname"); ?>:<br />
-			<?php echo $this->formText('users_lastname', (isset($this->user) ? $this->user->lastname : null)); ?>
+			<?php echo $this->formText('users_lastname', (isset($this->user) ? $this->user->lastname : null), array('maxlength' => 100)); ?>
 		</label>
 		<br />
 		<label class="usvn_label"><?php echo T_("Firstname"); ?>:<br />
-			<?php echo $this->formText('users_firstname', (isset($this->user) ? $this->user->firstname : null)); ?>
+			<?php echo $this->formText('users_firstname', (isset($this->user) ? $this->user->firstname : null), array('maxlength' => 100)); ?>
 		</label>
 		<br />
 		<label class="usvn_label"><?php echo T_("Email"); ?>:<br />
-			<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null)); ?>
+			<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null), array('maxlength' => 150)); ?>
 		</label>
 		<br />
 		<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>

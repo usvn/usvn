@@ -1,10 +1,15 @@
-<h1 id="usvn_title"><?php echo T_("Configuration");?></h1>
+<div class="usvn_info_config">
+	<h1><?php echo T_("Configuration"); ?></h1>
+	<p>
+		<?php echo T_("General settings of USVN."); ?>
+	</p>
+</div>
 <form method="POST" action="<?php echo $this->url(array('action' => 'save'));?>">
 <fieldset>
-	<legend><?php echo T_("General settings");?></legend>
+	<legend class="usvn_legend"><?php echo T_("General settings");?></legend>
 	<table>
 		<tr>
-			<td><?php echo T_("Default language");?>:</td>
+			<td><label class="usvn_label"><?php echo T_("Default language");?>:</td>
 			<td>
 				<select name="language">
 					<?php
@@ -17,10 +22,11 @@
 						}
 					?>
 				</select>
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Default template");?>:</td>
+			<td><label class="usvn_label"><?php echo T_("Default template");?>:</td>
 			<td>
 				<select name="template">
 					<?php
@@ -33,30 +39,34 @@
 						}
 					?>
 				</select>
+				</label>
 			</td>
 		</tr>
 	</table>
 </fieldset>
 <br />
 <fieldset>
-	<legend><?php echo T_("Site's information");?></legend>
+	<legend class="usvn_legend"><?php echo T_("Site's information");?></legend>
 	<table>
 		<tr>
-			<td><?php echo T_("Title"); ?>:</td>
+			<td><label class="usvn_label"><?php echo T_("Title"); ?>:</td>
 			<td>
 				<?php echo $this->formText('siteTitle', $this->config->site->title, array('size' => 80)); ?>
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Icone"); ?>:</td>
+			<td><label class="usvn_label"><?php echo T_("Icone"); ?>:</td>
 			<td>
 				<?php echo $this->formText('siteIco', $this->config->site->ico, array('size' => 80)); ?>
+				</label>
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo T_("Logo"); ?>:</td>
+			<td><label class="usvn_label"><?php echo T_("Logo"); ?>:</td>
 			<td>
 				<?php echo $this->formText('siteLogo', $this->config->site->logo, array('size' => 80)); ?>
+				</label>
 			</td>
 		</tr>
 	</table>

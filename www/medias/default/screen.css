@@ -6,8 +6,6 @@
 /* Require for HTMLTableTools */
 @import "<?php echo $this->medias_directory; ?>/default/js/tools/HTMLTableTools/table.css";
 
-<?php include($this->css_directory . "/login.css"); ?>
-
 html, body {
 	font-family: 'Trebuchet MS', 'Verdana', 'Helvetica';
 	margin: auto;
@@ -175,7 +173,6 @@ ul#usvn_subsubmenu {
 	padding-bottom: 4px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-
 }
 
 #usvn_subsubmenu a:hover {
@@ -205,8 +202,7 @@ a:hover {
 	font-weight: bold;
 }
 
-.usvn_info {
-	background-image:url(../medias/default/images/CrystalClear/64x64/apps/kpackage.png);
+.usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
 	background-repeat: no-repeat;
 	background-position: right 17px;
 	background-color: #EFF2FF;
@@ -219,18 +215,19 @@ a:hover {
 	min-height: 80px;
 }
 
-.usvn_info[class] {
+.usvn_info[class], .usvn_info_config[class], .usvn_info_user[class], .usvn_info_group[class], .usvn_info_project[class] {
 	display:block;
 }
 
-.usvn_info h1 {
+.usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
 	font-weight: bold;
 	font-size: 180%;
 	margin: 0 0 3px 0;
 	clear: left;
+	color: #003366;
 }
 
-.usvn_info p {
+.usvn_info p, .usvn_info_config p, .usvn_info_user p, .usvn_info_group p, .usvn_info_project p {
 	font-size: 95%;
 	line-height: 130%;
 	margin: 10px 0 12px 10px;
@@ -241,7 +238,7 @@ a.usvn_tooltips {
     z-index: 24;
     color: #000;
     text-decoration: none;
-    background-image: url(../medias/default/images/CrystalClear/16x16/actions/documentinfo.png);
+    background-image: url(<?php echo $this->images_directory ;?>/CrystalClear/16x16/actions/documentinfo.png);
     padding-right: 13px;
 	background-repeat: no-repeat;
 	background-position: right;
@@ -275,8 +272,8 @@ a.usvn_tooltips:hover span {
 	font-weight: bold;
 }
 
-.usvn_button {
-	background-image:url(../medias/default/images/button.png);
+.usvn_button, #usvn_subsubmenu li {
+	background-image:url(<?php echo $this->images_directory ;?>/button.png);
 	border: 1px solid #1E568F;
 	background-repeat: repeat-x;
 	font-style: normal;
@@ -292,8 +289,13 @@ a.usvn_tooltips:hover span {
 	margin: 5px;
 }
 
+#usvn_subsubmenu li {
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
 a.usvn_button:hover {
-	background-image:url(../medias/default/images/button_hover.png);
+	background-image:url(<?php echo $this->images_directory ;?>/button_hover.png);
 	border: 1px solid #5977EF;
 	background-repeat: repeat-x;
 	border: 1px solid #0A1648;
@@ -311,5 +313,15 @@ a.usvn_button:hover {
     font-size:small;
 	font-weight:bold;
 }
+
+.usvn_legend {
+	font-weight:bold;
+}
+
+<?php include($this->css_directory . "/login.css"); ?>
+<?php include($this->css_directory . "/config.css"); ?>
+<?php include($this->css_directory . "/user.css"); ?>
+<?php include($this->css_directory . "/group.css"); ?>
+<?php include($this->css_directory . "/project.css"); ?>
 
 /* End of screen.css */

@@ -14,7 +14,7 @@ function checkName() {
 }
 </script>
 <fieldset>
-	<legend><?php echo T_("Project's information"); ?></legend>
+	<legend class="usvn_legend"><?php echo T_("Project's information"); ?></legend>
 	<form name="project" method="post" action="<?php echo $this->url(); ?>">
 		<label class="usvn_label"><?php echo T_("Project name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null)); ?>

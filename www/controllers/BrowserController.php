@@ -31,30 +31,28 @@ class BrowserController extends USVN_Controller
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
 		$txthtml = "<table class='sortable' id='users'><thead><tr><th></th><th>".T_('Name')."</th><th>".T_('Action')."</th></tr></thead><tbody>";
-		if ($path != "/" && $path != "//")
-		{
-			if (dirname($path) == "\\")
+		if ($path != "/" && $path != "//") {
+			if (dirname($path) == "\\") {
 				$pathbefore = "/";
-			else
+			} else {
 				$pathbefore = dirname($path)."/";
+			}
 			$txthtml .= "<tr><td><img src='../../../../../../dossier.gif'></td>";
 			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td><td></td></tr>";
-			//echo "<pathbefore><![CDATA[<a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>".$pathbefore."</a>"."]]></pathbefore>";
 		}
-		/*else
-			echo "<pathbefore>a</pathbefore>";*/
-		foreach ($tab as &$tabl)
-		{
+		foreach ($tab as &$tabl) {
 			$txthtml .= "<tr>";
-			if ($tabl['isDirectory'] == 1)
+			if ($tabl['isDirectory'] == 1) {
 				$tabl['isDirectory'] = "<img src='../../../../../../dossier.gif'>";
-			else
+			} else {
 				$tabl['isDirectory'] = "<img src='../../../../../../file.gif'>";
+			}
 			$txthtml .= "<td>".$tabl['isDirectory']."</td>";
-			if ($tabl['isDirectory'] == "<img src='../../../../../../dossier.gif'>")
+			if ($tabl['isDirectory'] == "<img src='../../../../../../dossier.gif'>") {
 				$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
-			else
+			} else {
 				$txthtml .= "<td><a>".$tabl['name']."</a></td>";
+			}
 			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>".T_('Rights')."</a></td></tr>";
 		}
 		$txthtml .= "</tbody></table><br />";
@@ -70,16 +68,16 @@ class BrowserController extends USVN_Controller
 		header('Content-Type: text/xml');
 		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>";
 		echo "<exemple>";
-		if (isset($_GET['pg']) && $_GET['pg'] == 1)
+		if (isset($_GET['pg']) && $_GET['pg'] == 1) {
 			$this->dumpRights();
-		else if (isset($_GET['pg']) && $_GET['pg'] == 2)
+		} else if (isset($_GET['pg']) && $_GET['pg'] == 2) {
 			$this->updateOrInsertRights();
-		else
-		{
-			if ($_GET['name'] == 'nop')
+		} else {
+			if ($_GET['name'] == 'nop') {
 				$this->getListFile("/");
-			else
+			} else {
 				$this->getListFile($_GET['name']);
+			}
 		}
 		echo "</exemple>";
 	}
@@ -91,16 +89,15 @@ class BrowserController extends USVN_Controller
 	{
 		$table_files = new USVN_Db_Table_FilesRights();
 		$res_files = $table_files->findByPath($_GET['name']);
-		if ($res_files != null)
-		{
+		if ($res_files != null) {
 			$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
 			$res_groupstofiles = $table_groupsfiles->findByIdRights($res_files->files_rights_id);
 			echo "<isreadable>".$res_groupstofiles->files_rights_is_readable."</isreadable>\n";
 			echo "<iswritable>".$res_groupstofiles->files_rights_is_writable."</iswritable>\n";
 			echo "<group>".$res_groupstofiles->groups_id."</group>\n";
-		}
-		else
+		} else {
 			echo "<isreadable>nop</isreadable>\n<iswritable>nop</iswritable>\n<group>nop</group>\n";
+		}
 	}
 
 	/**
@@ -108,16 +105,14 @@ class BrowserController extends USVN_Controller
 	*/
 	function updateOrInsertRights()
 	{
-		try
-		{
+		try {
 			$table_project = new USVN_Db_Table_Projects();
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
 			$table_files = new USVN_Db_Table_FilesRights();
 			$res_files = $table_files->findByPath($_GET['name']);
 			$msg = "Ok";
 			$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
-			if ($res_files != null)
-			{
+			if ($res_files != null) {
 				$data_files = array('projects_id' 	   		   => $res_project->projects_id,
 							 		'files_rights_path' 	   => $_GET['name']);
 				$db = $table_project->getAdapter();
@@ -128,9 +123,7 @@ class BrowserController extends USVN_Controller
 							 			  'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0));
 				$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files->files_rights_id);
 				$table_groupstofiles->update($data_groupsfiles, $where);
-			}
-			else
-			{
+			} else {
 				$id = $table_files->insert(array('projects_id' 	   			=> $res_project->id,
 							 					 'files_rights_path' 	   	=> $_GET['name']));
 				$table_groupstofiles->insert(array('files_rights_id' 		=> $id,

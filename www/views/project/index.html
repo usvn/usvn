@@ -27,10 +27,8 @@ if (count($this->projects)) {
 			<td>{$project->projects_start_date}</td>
 			<td>{$project->projects_description}</td>
 			<td>
-                <a href="{$edit}">{$edit_text}</a>&nbsp;
-EOF;
-        echo $this->urlConfirm(array('action' => 'delete', 'name' => $project->name),  T_("Delete"), sprintf(T_("Do you really want to delete project %s?"), $project->name));
-		echo <<<EOF
+                {$this->editLink('project', $project->name)}
+                {$this->deleteLink('project', $project->name)}
             </td>
 		</tr>
 EOF;

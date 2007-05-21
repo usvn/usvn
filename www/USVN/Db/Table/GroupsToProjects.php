@@ -62,14 +62,16 @@ class USVN_Db_Table_GroupsToProjects extends USVN_Db_Table {
 	 */
 	protected $_referenceMap = array(
 		"Groups" => array(
-			"columns"	   => array("groups_id"),
+			"columns"       => array("groups_id"),
 			"refTableClass" => "USVN_Db_Table_Groups",
-			"refColumns"	=> array("groups_id"),
+			"refColumns"    => array("groups_id"),
+			"onDelete"      => self::CASCADE,
 		),
 		"Projects" => array(
 			"columns"		 => array("projects_id"),
 			"refTableClass"   => "USVN_Db_Table_Projects",
 			"refColumns"	  => array("projects_id"),
+			"onDelete"      => self::CASCADE,
 		),
 	);
 }

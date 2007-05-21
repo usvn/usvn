@@ -20,18 +20,20 @@ print '<table class="sortable" id="project">' .
 if (count($this->projects)) {
 	foreach ($this->projects as $project) {
 		$edit = $this->url(array('action' => 'edit', 'name' => $project->name));
-		$delete = $this->url(array('action' => 'delete', 'name' => $project->name));
 		$edit_text = T_("Edit");
-		$delete_text = T_("Delete");
-		$line = <<<EOF
+		echo <<<EOF
 		<tr>
 			<td>{$project->projects_name}</td>
 			<td>{$project->projects_start_date}</td>
 			<td>{$project->projects_description}</td>
-			<td><a href="{$edit}">{$edit_text}</a>&nbsp;<a href="{$delete}">{$delete_text}</a></td>
-		</tr>\n
+			<td>
+                <a href="{$edit}">{$edit_text}</a>&nbsp;
 EOF;
-		echo $line;
+        echo $this->urlConfirm(array('action' => 'delete', 'name' => $project->name),  T_("Delete"), sprintf(T_("Do you really want to delete project %s?"), $project->name));
+		echo <<<EOF
+            </td>
+		</tr>
+EOF;
 	}
 }
 print '</tbody></table><br />';

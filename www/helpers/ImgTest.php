@@ -52,7 +52,7 @@ class USVN_View_Helper_ImgTest extends USVN_Test_Test {
         $helper = new USVN_View_Helper_Img();
          $ctrl = Zend_Controller_Front::getInstance();
          $ctrl->setBaseUrl('~/noplay/usvn');
-        $this->assertEquals($helper->img('test.png', 'Test'), '<img src="~/noplay/usvn/medias/default/images/test.png" alt="Test">');
+        $this->assertEquals($helper->img('test.png', 'Test'), '<img src="~/noplay/usvn/medias/default/images/test.png" alt="Test" />');
     }
 }
 

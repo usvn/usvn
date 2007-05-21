@@ -1,6 +1,8 @@
 <div class="usvn_info">
 	<h1><?php echo $this->project->name;?></h1>
-	<p><?php echo $this->project->description;?></p>
+	<p><?php echo $this->project->description;?><br><br>
+<?php echo sprintf(T_("Checkout URL : %s"), Zend_Registry::get('config')->subversion->url . $this->project->name . "/trunk/"); ?>
+</p>
 </div>
 <div class="usvn_info">
 	<?php if ($this->isAdmin) : ?>

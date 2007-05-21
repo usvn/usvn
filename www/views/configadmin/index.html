@@ -14,10 +14,12 @@
 				<select name="language">
 					<?php
 						foreach (USVN_Translation::listTranslation() as $language) {
+                            $locale = new Zend_Locale($language);
+                            $lang_name = $this->locale->getLanguageTranslation($locale->getLanguage());
 							if ($language == USVN_Translation::getLanguage()) {
-								echo "<option selected>$language</option>";
+								echo "<option value=\"$language\" selected>$lang_name</option>";
 							} else {
-								echo "<option>$language</option>";
+								echo "<option value=\"$language\">$lang_name</option>";
 							}
 						}
 					?>

@@ -10,12 +10,15 @@
 	<?php echo T_("Default language");?>:
 	<select name="language" id="lang">
 	<?php
+        $locale = new Zend_Locale('en_US');
 		foreach (USVN_Translation::listTranslation() as $language) {
 			$selected = "";
 			if ($language == "en_US") {
 				$selected = "selected";
 			}
-			echo "<option $selected>$language</option>";
+            $locale2 = new Zend_Locale($language);
+            $lang_name = $locale->getLanguageTranslation($locale2->getLanguage());
+			echo "<option $selected value=\"$language\">$lang_name</option>";
 		}
 	?>
 	</select>

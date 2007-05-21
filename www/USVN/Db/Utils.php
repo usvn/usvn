@@ -76,7 +76,7 @@ class USVN_Db_Utils
 		while (count($todelete)) {
 			$table = array_shift($todelete);
 			try {
-				$db->query("DROP TABLE $table CASCADE");
+				$db->query("DROP TABLE $table");
 			}
 			catch (Exception $e) {
 				array_push($todelete, $table);

@@ -25,6 +25,7 @@ class ConfigadminController extends AdminadminController
 	public function indexAction()
 	{
 		$this->_view->config = Zend_Registry::get("config");
+        $this->_view->locale = new Zend_Locale(USVN_Translation::getLanguage());
 		$this->_render("index.html");
 	}
 

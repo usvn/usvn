@@ -37,23 +37,26 @@ class BrowserController extends USVN_Controller
 			} else {
 				$pathbefore = dirname($path)."/";
 			}
-			$txthtml .= "<tr><td><img src='../../../../../../dossier.gif'></td>";
+			$txthtml .= "<tr><td> " .$this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder')). "</td>";
 			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td><td></td></tr>";
 		}
 		foreach ($tab as &$tabl) {
 			$txthtml .= "<tr>";
+            $dir = false;
 			if ($tabl['isDirectory'] == 1) {
-				$tabl['isDirectory'] = "<img src='../../../../../../dossier.gif'>";
-			} else {
-				$tabl['isDirectory'] = "<img src='../../../../../../file.gif'>";
-			}
+                $dir = true;
+				$tabl['isDirectory'] = $this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
+            }
+			else{
+				$tabl['isDirectory'] = $this->_view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
+            }
 			$txthtml .= "<td>".$tabl['isDirectory']."</td>";
-			if ($tabl['isDirectory'] == "<img src='../../../../../../dossier.gif'>") {
+			if ($dir) {
 				$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
 			} else {
 				$txthtml .= "<td><a>".$tabl['name']."</a></td>";
 			}
-			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>".T_('Rights')."</a></td></tr>";
+			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>" .$this->_view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 		}
 		$txthtml .= "</tbody></table><br />";
 		echo "<txthtml><![CDATA[".$txthtml."]]></txthtml>\n";
@@ -138,3 +141,4 @@ class BrowserController extends USVN_Controller
 		echo "<msg>".$msg."</msg>\n";
 	}
 }
+

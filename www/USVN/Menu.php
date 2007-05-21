@@ -106,6 +106,14 @@ class USVN_Menu
 					"action" => ""
 				)
 			);
+			if ($this->_request->getParam('area') === "project") {
+				array_push($menu,
+					array(
+						"title" => $this->_request->getParam('project'),
+						"link"=> "project/{$this->_request->getParam('project')}",
+					)
+				);
+			}
 			array_push($menu,
 				array(
 					"title" => T_('Edit my profile'),

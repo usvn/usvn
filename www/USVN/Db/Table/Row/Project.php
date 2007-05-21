@@ -20,10 +20,10 @@
 class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 {
 	/**
-	* Add a group to a project
-	*
-	* @param mixed Group
-	*/
+	 * Add a group to a project
+	 *
+	 * @param mixed Group
+	 */
 	public function addGroup($group)
 	{
 		$group_id = 0;
@@ -55,7 +55,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		if ($group_id) {
 			$table = new USVN_Db_Table_GroupsToProjects();
 			$where  = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
-			$where .= $table->getAdapter()->quoteInto("groups_id = ?", $group_id);
+			$where .= " AND " . $table->getAdapter()->quoteInto("groups_id = ?", $group_id);
 			$table->delete($where);
 		}
 	}
@@ -71,20 +71,90 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	}
 
 	/**
-	* Check if an group is in the project
-	*
-	* @param USVN_Db_Table_Row_Group Group
-	* @return boolean
-	*/
-	public function groupIsMember($group)
+	 * Check if an group is in the project
+	 *
+	 * @param USVN_Db_Table_Row_Group Group
+	 * @return boolean
+	 */
+	public function groupIsMember(USVN_Db_Table_Row_Group $group)
 	{
 		$table = new USVN_Db_Table_GroupsToProjects();
-		$res = $table->fetchRow(array("groups_id" => $group->id, "projects_id" => $this->id));
-		if ($res === NULL) {
+		$res = $table->fetchRow(array("groups_id = ?" => $group->id, "projects_id = ?" => $this->id));
+		if ($res === null) {
 			return false;
 		}
 		return true;
 	}
+
+
+	/**
+	 * Add a user to a project
+	 *
+	 * @param mixed user
+	 */
+	public function addUser($user)
+	{
+		$user_id = 0;
+		if (is_object($user)) {
+			$user_id = $user->id;
+		} elseif (is_numeric($user)) {
+			$user_id = intval($user);
+		}
+		if ($this->id && $user_id) {
+			$table = new USVN_Db_Table_UsersToProjects();
+			$row = $table->createRow(array("users_id" => $user->id, "projects_id" => $this->id));
+			$row->save();
+		}
+	}
+
+	/**
+	 * Delete a user to a project
+	 *
+	 * @param mixed User
+	 */
+	public function deleteUser($user)
+	{
+		$user_id = 0;
+		if (is_object($user)) {
+			$user_id = $user->id;
+		} elseif (is_numeric($user)) {
+			$user_id = intval($user);
+		}
+		if ($user_id) {
+			$table = new USVN_Db_Table_UsersToProjects();
+			$where  = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
+			$where .= " AND " . $table->getAdapter()->quoteInto("users_id = ?", $user_id);
+			$table->delete($where);
+		}
+	}
+
+	/**
+	 * Delete all users from workusers
+	 *
+	 */
+	public function deleteAllUsers()
+	{
+		$table = new USVN_Db_Table_UsersToProjects();
+		$table->delete($table->getAdapter()->quoteInto("projects_id = ?", $this->id));
+	}
+
+	/**
+	 * Check if an user is in the project
+	 *
+	 * @param USVN_Db_Table_Row_User User
+	 * @return boolean
+	 */
+	public function userIsAdmin(USVN_Db_Table_Row_User $user)
+	{
+		$table = new USVN_Db_Table_UsersToProjects();
+		$res = $table->fetchRow(array("users_id = ?" => $user->id, "projects_id = ?" => $this->id));
+		if ($res === null) {
+			return false;
+		}
+		return true;
+	}
+
+
 
 	/**
 	 * Check if the project's name is valid or not.
@@ -135,6 +205,8 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		$group->description = sprintf(T_("Autocreated group for project %s"), $this->_data['projects_name']);
 		$group->name = $this->_data['projects_name'];
 		$group->save();
+
+		$this->addGroup($group);
 
 		$files_rights = new USVN_Db_Table_FilesRights();
 		$file_rights = $files_rights->createRow();

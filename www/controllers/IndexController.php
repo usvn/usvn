@@ -29,7 +29,7 @@ class IndexController extends USVN_Controller {
 			$this->_render("project.html");
 		}
 		else {
-			$this->_view->projects = $projects->fetchAll(array('projects_name != ?' => '__NONE__'));
+			$this->_view->projects = $projects->fetchAll();
 			$this->_render("index.html");
 		}
 	}

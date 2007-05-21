@@ -1,0 +1,36 @@
+<div class="usvn_info">
+	<h1><?php echo $this->project->name;?></h1>
+	<p><?php echo $this->project->description;?></p>
+</div>
+<div class="usvn_info">
+	<?php if ($this->isAdmin) : ?>
+	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "adduser")); ?>" method="post" />
+		<?php echo $this->formText("users_login"); ?>
+		<?php echo $this->formSubmit(null, T_("Add")); ?>
+	</form>
+	<?php endif; ?>
+	<h1><?php echo T_("Admins Users");?></h1>
+	<p>
+	<ul>
+	<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToProjects") as $user) :?>
+		<li><a href="<?php echo $this->url(array("action" => "deleteuser", "users_id" => $user->id)); ?>"><?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?></a>&nbsp;<?php echo $user->login; ?></li>
+	<?php endforeach; ?>
+	</ul>
+	</p>
+</div>
+<div class="usvn_info">
+	<?php if ($this->isAdmin) : ?>
+	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "addgroup")); ?>" method="post" />
+		<?php echo $this->formText("groups_name"); ?>
+		<?php echo $this->formSubmit(null, T_("Add")); ?>
+	</form>
+	<?php endif; ?>
+	<h1><?php echo T_("Affected Groups");?></h1>
+	<p>
+	<ul>
+	<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_GroupsToProjects") as $group) :?>
+		<li><a href="<?php echo $this->url(array("action" => "deletegroup", "groups_id" => $group->id)); ?>"><?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?></a>&nbsp;<?php echo $group->name; ?></li>
+	<?php endforeach; ?>
+	</ul>
+	</p>
+</div>

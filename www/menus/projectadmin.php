@@ -17,7 +17,7 @@
  *
  * $Id: Menu.php 378 2007-05-06 19:27:52Z duponc_j $
  */
-class menus_project extends USVN_AbstractMenu
+class menus_projectadmin extends USVN_AbstractMenu
 {
 	/**
 	 * Get menu entries in sub menu.
@@ -32,9 +32,6 @@ class menus_project extends USVN_AbstractMenu
 			array(
 				"title" => T_("Projects"),
 				"link"=> "admin/project/",
-				"module" => "admin",
-				"controller" => "project",
-				"action" => ""
 			)
 		);
 	}
@@ -55,9 +52,6 @@ class menus_project extends USVN_AbstractMenu
 			array(
 				"title" => T_("Add new project"),
 				"link"=> "admin/project/new/",
-				"module" => "admin",
-				"controller" => "project",
-				"action" => "new"
 			)
 		);
 	}

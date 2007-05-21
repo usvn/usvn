@@ -24,9 +24,9 @@ class USVN_ImportHtpasswd
 	private $_users_password = array();
 
 	/**
-	* @param Path of the file to import
-	* @throw USVN_Exception
-	*/
+	 * @param Path of the file to import
+	 * @throw USVN_Exception
+	 */
 	public function __construct($file)
 	{
 		$this->_file = $file;
@@ -62,11 +62,10 @@ class USVN_ImportHtpasswd
 		$users = new USVN_Db_Table_Users();
 		$users->getAdapter()->beginTransaction();
 		foreach (array_keys($this->_users_password) as $user) {
-			$userdb = $users->fetchNew();
-			$userdb->login = $user;
-			$userdb->password = $this->_users_password[$user];
+			$data['users_login'] = $user;
+			$data['users_password'] = $this->_users_password[$user];
 			try  {
-				$userdb->save();
+				$users->insert($data);
 			}
 			catch (Exception $e) {
 					$users->getAdapter()->rollBack();
@@ -78,10 +77,10 @@ class USVN_ImportHtpasswd
 	}
 
 	/**
-	* Get list of imported users and password
-	*
-	* @return array()
-	*/
+	 * Get list of imported users and password
+	 *
+	 * @return array()
+	 */
 	public function getUserPasswordList()
 	{
 		return $this->_users_password;

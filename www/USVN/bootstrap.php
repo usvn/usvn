@@ -61,9 +61,11 @@ try {
 	 * Get back the front controller and initialize some values
 	 */
 	$front = Zend_Controller_Front::getInstance();
+	$front->setRequest(new USVN_Controller_Request_Http());
     $view = new Zend_View();
     $view->addHelperPath(USVN_HELPERS_DIR, 'USVN_View_Helper');
 	$front->setParam('view', $view);
+
 	$front->throwExceptions(true);
 
 	$front->setBaseUrl($config->url->base);

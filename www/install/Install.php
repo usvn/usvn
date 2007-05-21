@@ -70,64 +70,6 @@ class Install
 			throw new USVN_Exception(T_("Can't load SQL file.\n") . $e->getMessage());
 		}
 
-		$users = new USVN_Db_Table_Users();
-		$groups = new USVN_Db_Table_Groups();
-		$projects = new USVN_Db_Table_Projects();
-		$access = new USVN_Db_Table_Access();
-
-		$user_anonymous = $users->fetchNew();
-		/* @var $user_anonymous USVN_Db_Table_Row_User */
-		$user_anonymous->login = 'anonymous';
-		$user_anonymous->password = 'usvnusvn';
-		$user_anonymous->lastname = 'anonymous';
-		$user_anonymous->firstname = 'anonymous';
-		$user_anonymous->email = 'anonymous@anonymous.com';
-
-		$group_anonymous = $groups->fetchNew();
-		/* @var $group_anonymous USVN_Db_Table_Row_Group */
-		$group_anonymous->name = 'Anonymous';
-
-		$group_user = $groups->fetchNew();
-		/* @var $group_user USVN_Db_Table_Row_Group */
-		$group_user->name = 'Users';
-
-		$group_admin = $groups->fetchNew();
-		/* @var $group_admin USVN_Db_Table_Row_Group */
-		$group_admin->name = 'Admins';
-
-		$project_none = $projects->fetchNew();
-		/* @var $project_none USVN_Db_Table_Row_Project */
-		$project_none->name = '__NONE__';
-		$project_none->start_date = 'NOW()';
-
-		try {
-			$user_anonymous->save();
-			$group_anonymous->save();
-			$group_user->save();
-			$group_admin->save();
-			$project_none->save();
-			$user_anonymous->addGroup($group_anonymous);
-
-			$tmp = array('default_login', 'default_logout', 'default_index', 'default_css',
-						 'default_js', 'admin_index', 'admin_user', 'admin_user_new',
-						 'admin_user_edit', 'admin_user_delete', 'admin_user_editProfile',
-						 'admin_group', 'admin_group_new', 'admin_group_edit', 'admin_group_delete',
-						 'admin_project', 'admin_project_new', 'admin_project_edit',
-						 'admin_project_delete', 'admin_config', 'admin_config_save', 'wiki_index',
-						 'changeset_index');
-			foreach ($tmp as $right) {
-				$tmp = $access->fetchNew();
-				$tmp->label = $right;
-				$tmp->save();
-			}
-		}
-		catch (Exception $e) {
-			$project_none->delete();
-			USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
-			throw new USVN_Exception(T_("Can't load SQL file.\n") ." ". $e->getMessage());
-		}
-
-
 		try {
 			$config = Install::_loadConfig($config_file);
 			/* @var $config USVN_Config */
@@ -144,7 +86,6 @@ class Install
 			$config->save();
 		}
 		catch (Exception $e) {
-			$project_none->delete();
 			USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
 			throw new USVN_Exception(T_("Can't write config file %s.\n") ." ". $e->getMessage(),  $config_file);
 		}
@@ -261,27 +202,14 @@ EOF;
 			throw new USVN_Exception(T_("Password empty"));
 		}
 		$userTable = new USVN_Db_Table_Users();
-		$user = $userTable->fetchNew();
-		$user->setFromArray(array(
-		'users_login' => $login,
-		'users_password' => crypt($password),
-		'users_firstname' => $firstname,
-		'users_lastname' => $lastname,
-		'users_email' => $email
-		)
-		);
+		$user = $userTable->createRow();
+		$user->login = $login;
+		$user->password = $password;
+		$user->firstname = $firstname;
+		$user->lastname = $lastname;
+		$user->email = $email;
+		$user->is_admin = true;
 		$user->save();
-		$groupTable = new USVN_Db_Table_Groups();
-		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Admins'));
-		if ($group === null) {
-			throw new USVN_Exception(T_('Group %s not found.'), 'Admins');
-		}
-		$group->addUser($user);
-		$group = $groupTable->fetchRow(array('groups_name = ?' => 'Users'));
-		if ($group === null) {
-			throw new USVN_Exception(T_('Group %s not found.'), 'Users');
-		}
-		$group->addUser($user);
 	}
 
 	/**

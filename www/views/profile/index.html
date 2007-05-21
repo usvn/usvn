@@ -2,12 +2,6 @@
 function checkForm() {
 	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
-	if (document.user.users_login.value.length == 0
-		|| checkRegExp.test(document.user.users_login.value)) {
-		spanError.innerHTML = "<?php echo T_('Login empty.'); ?>";
-		spanError.className = "usvn_error";
-		return false;
-	}
 	if ((!document.user.users_password.value.length || !document.user.users_password2.value.length)
 		&& !document.user.users_id) {
 		spanError.innerHTML = "<?php echo T_('Password empty.');?>";
@@ -34,14 +28,14 @@ function checkForm() {
 	<legend class="usvn_legend">
 		<?php echo T_("User account"); ?>
 	</legend>
-	<form name="user" method="post" action="<?php echo $this->url(); ?>">
-		<label class="usvn_label"><?php echo T_("Login"); ?><span class="usvn_require">*</span>:<br />
-			<?php echo $this->formText('users_login', (isset($this->user) ? $this->user->login : null), array('maxlength' => 255)); ?>
+	<form name="user" method="post" action="<?php echo $this->url(array("action" => "save")) ?>">
+		<label class="usvn_label"><?php echo T_("Actual password"); ?><span class="usvn_require">*</span>:<br />
+			<?php echo $this->formPassword('users_password',  null); ?>
 		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Password"); ?><span class="usvn_require">*</span>:<br />
-			<?php echo $this->formPassword('users_password',  null); ?>
-			<?php echo $this->formPassword('users_password2',  null); ?>
+		<label class="usvn_label"><?php echo T_("New password"); ?></span>:<br />
+			<?php echo $this->formPassword('users_new_password',  null); ?>
+			<?php echo $this->formPassword('users_new_password2',  null); ?>
 		</label>
 		<br />
 		<label class="usvn_label"><?php echo T_("Lastname"); ?>:<br />
@@ -55,10 +49,11 @@ function checkForm() {
 			<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null), array('maxlength' => 150)); ?>
 		</label>
 		<br />
-		<?php if (isset($this->user)) echo $this->formHidden('users_id', $this->user->id); ?>
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkForm();')); ?>
 		<br />
-		<div id="error"></div>
+		<?php
+		echo $this->error($this);
+		?>
 	</form>
 </fieldset>
 <br />

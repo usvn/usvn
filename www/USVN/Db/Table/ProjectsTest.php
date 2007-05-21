@@ -27,6 +27,7 @@ require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
+define('CONFIG_FILE', 'tests/config.ini');
 
 /**
  * Test class for USVN_Auth_Adapter_Db.
@@ -162,6 +163,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertTrue($table_groups->isAGroup('InsertProjectOk'), "Le groupe n'est pas correctement cree");
 
 		$obj->delete();
+
 		$this->assertFalse($table->isAProject('InsertProjectOk'), "Le projet n'est pas supprime");
 		$this->assertFalse(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas supprime");
 		$table_groups = new USVN_Db_Table_Groups();

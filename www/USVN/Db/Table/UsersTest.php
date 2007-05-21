@@ -222,7 +222,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			return;
 		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidEmailAddress'));
-		$this->assertEquals($user->email, 'email@email.fr');
+		$this->assertEquals($user->password, crypt('password', $user->password));
     }
 
     public function testUserUpdateNoPassword()
@@ -250,7 +250,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			return;
 		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateNoPassword'));
-		$this->assertEquals($user->password, 'password');
+		$this->assertEquals($user->password, crypt('password', $user->password));
     }
 
     public function testUserUpdateInvalidPassword()
@@ -278,7 +278,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			return;
 		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidPassword'));
-		$this->assertEquals($user->password, 'password');
+		$this->assertEquals($user->password, crypt('password', $user->password));
     }
 
     public function testUserUpdateOk()
@@ -315,7 +315,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 								 'users_email' 		=> 'email@email.fr'));
 
 		$table->updateHtpasswd();
-		$text = "anonymous:usvnusvn\nToto:titititi\n";
+		$text = "Toto:titititi\n";
 		$contenu = file_get_contents(Zend_Registry::get('config')->subversion->path."htpasswd");
 		$this->assertEquals($text, $contenu);
 	}

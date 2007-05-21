@@ -1,5 +1,5 @@
 <script type="text/javascript">
-HTMLTableToolsOptions.skipCells = [4];
+HTMLTableToolsOptions.skipCells = [3];
 </script>
 <div class="usvn_info_project">
 	<h1><?php echo T_("Projects"); ?></h1>
@@ -12,7 +12,6 @@ HTMLTableToolsOptions.skipCells = [4];
 print '<table class="sortable" id="project">' .
 		'<thead><tr>' .
 		'<th>' . T_('Name') . '</th>' .
-		'<th>' . T_('Start Date') . '</th>' .
 		'<th>' . T_('Description') . '</th>' .
 		'<th>' . T_('Action') . '</th>' .
 		'</tr></thead><tbody>';
@@ -24,7 +23,6 @@ if (count($this->projects)) {
 		echo <<<EOF
 		<tr>
 			<td>{$project->projects_name}</td>
-			<td>{$project->projects_start_date}</td>
 			<td>{$project->projects_description}</td>
 			<td>
                 {$this->editLink('project', $project->name)}

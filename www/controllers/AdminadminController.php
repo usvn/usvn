@@ -18,8 +18,27 @@
  * $Id$
  */
 
-class AdminController extends USVN_Controller
+class AdminadminController extends USVN_Controller
 {
+	/**
+     * Pre-dispatch routines
+     *
+     * Called before action method. If using class with
+     * {@link Zend_Controller_Front}, it may modify the
+     * {@link $_request Request object} and reset its dispatched flag in order
+     * to skip processing the current action.
+     *
+     * @return void
+     */
+	public function preDispatch()
+	{
+		parent::preDispatch();
+		$user = $this->getRequest()->getParam('user');
+		if (!$user || !$user->is_admin) {
+			$this->_redirect("/");
+		}
+	}
+
 	protected function save($className, $name, $data)
 	{
 		$table = new $className();

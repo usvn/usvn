@@ -24,7 +24,7 @@
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
-class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_Table {
+class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_TableAuthz {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -61,58 +61,20 @@ class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_Table {
 	 * @var array
 	 */
 	protected $_referenceMap = array(
-	"Groups" => array(
-	"columns"	   => array("groups_id"),
-	"refTableClass" => "USVN_Db_Table_Groups",
-	"refColumns"	=> array("groups_id"),
-	),
-	"FilesRights" => array(
-	"columns"		 => array("files_rights_id"),
-	"refTableClass"   => "USVN_Db_Table_FilesRight",
-	"refColumns"	  => array("files_rights_id"),
-	),
+		"Groups" => array(
+			"columns"	   => array("groups_id"),
+			"refTableClass" => "USVN_Db_Table_Groups",
+			"refColumns"	=> array("groups_id"),
+			"onDelete"		=> self::CASCADE,
+		),
+		"FilesRights" => array(
+			"columns"		=> array("files_rights_id"),
+			"refTableClass"	=> "USVN_Db_Table_FilesRights",
+			"refColumns"	=> array("files_rights_id"),
+			"onDelete"		=> self::CASCADE,
+		),
 	);
-	
-	/**
-	 * Inserts a new row
-	 *
-	 * @param array Column-value pairs.
-	 * @return integer The last insert ID.
-	 */
-	public function insert(array $data)
-	{
-		$res = parent::insert($data);
-		USVN_Authz::generate();
-		return $res;
-	}
 
-	/**
-	 * Delete existing rows.
-	 *
-	 * @param string An SQL WHERE clause.
-	 * @return the number of rows deleted.
-	 */
-	public function delete($where)
-	{
-		$res = parent::delete($where);
-		USVN_Authz::generate();
-		return $res;
-	}
-
-	/**
-	 * Updates existing rows.
-	 *
-	 * @param array Column-value pairs.
-	 * @param string An SQL WHERE clause.
-	 * @return int The number of rows updated.
-	 */
-	public function update(array $data, $where)
-	{
-		$res = parent::update($data, $where);
-		USVN_Authz::generate();
-		return $res;
-	}
-	
 	/**
 	 * Return the groupstofilesrights by his id rights
 	 *

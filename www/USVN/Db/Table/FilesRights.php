@@ -24,7 +24,7 @@
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
-class USVN_Db_Table_FilesRights extends USVN_Db_Table {
+class USVN_Db_Table_FilesRights extends USVN_Db_TableAuthz {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -53,24 +53,13 @@ class USVN_Db_Table_FilesRights extends USVN_Db_Table {
 	 * This array has one entry per foreign key in the current table.
 	 * Each key is a mnemonic name for one reference rule.
 	 *
-	 * Each value is also an associative array, with the following keys:
-	 * - columns	= array of names of column(s) in the child table.
-	 * - refTable   = class name of the parent table.
-	 * - refColumns = array of names of column(s) in the parent table,
-	 *				in the same order as those in the 'columns' entry.
-	 * - onDelete   = "cascade" means that a delete in the parent table also
-	 *				causes a delete of referencing rows in the child table.
-	 * - onUpdate   = "cascade" means that an update of primary key values in
-	 *				the parent table also causes an update of referencing
-	 *				rows in the child table.
-	 *
 	 * @var array
 	 */
 	protected $_referenceMap = array(
 		"Projects" => array(
 			"columns"		=> "projects_id",
 			"refColumns"	=> "projects_id",
-			"refTable"		=> "USVN_Db_Table_Projects",
+			"refTableClass" => "USVN_Db_Table_Projects",
 			"onDelete"		=> self::CASCADE,
 		)
 	);
@@ -85,46 +74,6 @@ class USVN_Db_Table_FilesRights extends USVN_Db_Table {
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_GroupsToFilesRights");
 
-	/**
-	 * Inserts a new row
-	 *
-	 * @param array Column-value pairs.
-	 * @return integer The last insert ID.
-	 */
-	public function insert(array $data)
-	{
-		$res = parent::insert($data);
-		USVN_Authz::generate();
-		return $res;
-	}
-
-	/**
-	 * Delete existing rows.
-	 *
-	 * @param string An SQL WHERE clause.
-	 * @return the number of rows deleted.
-	 */
-	public function delete($where)
-	{
-		$res = parent::delete($where);
-		USVN_Authz::generate();
-		return $res;
-	}
-
-	/**
-	 * Updates existing rows.
-	 *
-	 * @param array Column-value pairs.
-	 * @param string An SQL WHERE clause.
-	 * @return int The number of rows updated.
-	 */
-	public function update(array $data, $where)
-	{
-		$res = parent::update($data, $where);
-		USVN_Authz::generate();
-		return $res;
-	}
-	
 	/**
 	 * Return the rights by his path
 	 *

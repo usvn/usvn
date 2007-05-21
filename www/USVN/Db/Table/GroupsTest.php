@@ -27,6 +27,7 @@ require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
+define('CONFIG_FILE', 'tests/config.ini');
 
 /**
  * Test class for USVN_Auth_Adapter_Db.
@@ -150,6 +151,10 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 				"users_password" => crypt("test")
 			)
 		);
+
+		$group_table = new USVN_Db_Table_Groups();
+		$group_table->insert(array("groups_id" => 2, "groups_name" => "toto"));
+
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$user_groups->insert(
 			array(
@@ -163,7 +168,6 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 				"users_id" => 3
 			)
 		);
-		$group_table = new USVN_Db_Table_Groups();
 		$group = $group_table->find(2)->current();
 		$users = $group->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToGroups');
 		$res = array();

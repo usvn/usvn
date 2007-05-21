@@ -73,70 +73,6 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	public $exceptedEntries = array('users_login' => 'anonymous');
 
 	/**
-	 * Check if the login is valid or not
-	 *
-	 * @throws USVN_Exception
-	 * @param string
-	 * @todo check on the default's login ?
-	 * @todo regexp on the login ?
-	 */
-	public function checkLogin($login)
-	{
-		if (empty($login) || preg_match('/^\s+$/', $login)) {
-			throw new USVN_Exception(T_('Login empty.'));
-		}
-		if (!preg_match('/\w+/', $login)) {
-			throw new USVN_Exception(T_('Login invalid.'));
-		}
-	}
-
-	/**
-	 * Check if the password is valid or not
-	 *
-	 * @throws USVN_Exception
-	 * @param string
-	 */
-	public function checkPassword($password)
-	{
-		if (empty($password) || preg_match('/^\s+$/', $password)) {
-			throw new USVN_Exception(T_('Password empty.'));
-		}
-		if (strlen($password) < 8) {
-			throw new USVN_Exception(T_('Invalid password (at least 8 Characters).'));
-		}
-	}
-
-	/**
-	 * Check if the Email address is valid or not
-	 *
-	 * @throws USVN_Exception
-	 * @param string
-	 */
-	public function checkEmailAddress($email)
-	{
-		if (strlen($email)) {
-			$validator = new Zend_Validate_EmailAddress();
-			if (!$validator->isValid($email)) {
-				throw new USVN_Exception(T_('Invalid email address.'));
-			}
-		}
-	}
-
-	/**
-	 * Do all checks
-	 *
-	 * @param array $data informations about the user to save
-	 */
-	private function check($data)
-	{
-		$this->checkLogin($data['users_login']);
-		$this->checkPassword($data['users_password']);
-		if (isset($data['users_email'])) {
-			$this->checkEmailAddress($data['users_email']);
-		}
-	}
-
-	/**
 	 * Inserts a new row
 	 *
 	 * @param array Column-value pairs.
@@ -144,7 +80,10 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	public function insert(array $data)
 	{
-		$this->check($data);
+		$user = $this->fetchRow(array("users_login = ?" => $data['users_login']));
+		if ($user !== null) {
+			throw new USVN_Exception(sprintf(T_("Login %d is already in use."), $user->login));
+		}
 		$res = parent::insert($data);
 		$this->updateHtpasswd();
 		return $res;
@@ -172,15 +111,6 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	 */
 	public function update(array $data, $where)
 	{
-		if (isset($data['users_login'])) {
-			$this->checkLogin($data['users_login']);
-		}
-		if (isset($data['users_password'])) {
-			$this->checkPassword($data['users_password']);
-		}
-		if (isset($data['users_email'])) {
-			$this->checkEmailAddress($data['users_email']);
-		}
 		$res = parent::update($data, $where);
 		$this->updateHtpasswd();
 		return $res;

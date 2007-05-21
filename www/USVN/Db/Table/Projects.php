@@ -24,7 +24,7 @@
  * Extends USVN_Db_Table for magic configuration and methods
  *
  */
-class USVN_Db_Table_Projects extends USVN_Db_Table {
+class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -63,14 +63,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_Workgroups", "USVN_Db_Table_FilesRights");
-
-	/**
-	 * Excepted entries like __NONE__
-	 *
-	 * @var array
-	 */
-	public $exceptedEntries = array('projects_name' => '__NONE__');
+	protected $_dependentTables = array("USVN_Db_Table_FilesRights");
 
 	/**
 	 * Return the project by his name
@@ -98,50 +91,7 @@ class USVN_Db_Table_Projects extends USVN_Db_Table {
 			$data['projects_start_date'] = date("Y-m-d H:i:s");
 		}
 
-		$this->getAdapter()->beginTransaction();
-		$id = parent::insert($data);
-		try {
-			USVN_Authz::generate();
-		}
-		catch (Exception $e) {
-			$this->getAdapter()->rollback();
-			$project = $this->find($id);
-			$project->current()->delete();
-			throw $e;
-		}
-		$this->getAdapter()->commit();
-		return $id;
-	}
-
-	/**
-	 * Overload update's method to check some data before update
-	 *
-	 * @todo check on project start date ?
-	 * @todo check on project's description ? (length)
-	 * @param array $datagetAdapter->
-	 * @param string where SQL where
-	 * @return integer The number of rows updated.
-	 */
-	public function update(array $data, $where)
-	{
-		$this->checkProjectName($data['projects_name']);
-		$res = parent::update($data, $where);
-		USVN_Authz::generate();
-		return $res;
-	}
-
-	/**
-	 * Called by parent table's class during delete() method.
-	 *
-	 * @param  string $parentTableClassname
-	 * @param  array  $primaryKey
-	 * @return int    Number of affected rows
-	 */
-	public function delete($where)
-	{
-		$res = parent::delete($where);
-		USVN_Authz::generate();
-		return $res;
+		return parent::insert($data);
 	}
 
 	/**

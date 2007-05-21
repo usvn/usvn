@@ -43,7 +43,6 @@ class USVN_Menu
 		else {
 			$this->_user = $identity['username'];
 		}
-		$this->_access = new USVN_Db_Table_Access();
 		if (is_dir($menu_path)) {
 			$dir = new DirectoryIterator($menu_path);
 			foreach ($dir as $file) {
@@ -100,28 +99,36 @@ class USVN_Menu
 			);
 		} else {
 			array_push($menu,
-			array(
-			"title" => T_("Homepage"),
-			"link"=> "",
-			"controller" => "index",
-			"action" => ""
-			)
+				array(
+					"title" => T_("Homepage"),
+					"link"=> "",
+					"controller" => "index",
+					"action" => ""
+				)
 			);
 			array_push($menu,
-			array(
-			"title" => T_("Admin"),
-			"link"=> "admin/",
-			"controller" => "admin",
-			"action" => ""
-			)
+				array(
+					"title" => T_('Edit my profile'),
+					"link"=> "profile/",
+				)
 			);
+			if ($this->_request->getParam('user')->is_admin) {
+				array_push($menu,
+					array(
+						"title" => T_("Admin"),
+						"link"=> "admin/",
+						"controller" => "admin",
+						"action" => ""
+					)
+				);
+			}
 			array_push($menu,
-			array(
-			"title" => T_("Logout"),
-			"link"=> "logout/",
-			"controller" => "login",
-			"action" => "logout"
-			)
+				array(
+					"title" => T_("Logout"),
+					"link"=> "logout/",
+					"controller" => "login",
+					"action" => "logout"
+				)
 			);
 		}
 		return $menu;

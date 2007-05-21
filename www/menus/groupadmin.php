@@ -17,7 +17,7 @@
  *
  * $Id: Menu.php 378 2007-05-06 19:27:52Z duponc_j $
  */
-class menus_group extends USVN_AbstractMenu
+class menus_groupadmin extends USVN_AbstractMenu
 {
 	/**
 	 * Get menu entries in sub menu.
@@ -32,9 +32,6 @@ class menus_group extends USVN_AbstractMenu
 			array(
 				"title" => T_("Groups"),
 				"link"=> "admin/group/",
-				"module" => "group",
-				"controller" => "index",
-				"action" => ""
 			),
 		);
 	}
@@ -53,9 +50,6 @@ class menus_group extends USVN_AbstractMenu
 			array(
 				"title" => T_("Add new group"),
 				"link"=> "admin/group/new/",
-				"module" => "admin",
-				"controller" => "group",
-				"action" => "new"
 			),
 		);
 	}

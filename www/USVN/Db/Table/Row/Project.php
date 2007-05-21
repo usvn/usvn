@@ -26,38 +26,37 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	*/
 	public function addGroup($group)
 	{
+		$group_id = 0;
 		if (is_object($group)) {
 			$group_id = $group->id;
 		} elseif (is_numeric($group)) {
 			$group_id = intval($group);
 		}
 		if ($this->id && $group_id) {
-			$workgroups = new USVN_Db_Table_Workgroups();
-			$workgroups->insert(
-			array(
-			"groups_id" 	=> $group_id,
-			"projects_id"	=> $this->id,
-			)
-			);
+			$table = new USVN_Db_Table_GroupsToProjects();
+			$row = $table->createRow(array("groups_id" => $group->id, "projects_id" => $this->id));
+			$row->save();
 		}
 	}
 
 	/**
-	* Delete a group to a project
-	*
-	* @param mixed User
-	*/
+	 * Delete a group to a project
+	 *
+	 * @param mixed User
+	 */
 	public function deleteGroup($group)
 	{
+		$group_id = 0;
 		if (is_object($group)) {
 			$group_id = $group->id;
 		} elseif (is_numeric($group)) {
 			$group_id = intval($group);
 		}
 		if ($group_id) {
-			$workgroups = new USVN_Db_Table_Workgroups();
-			$where = $workgroups->getAdapter()->quoteInto('groups_id = ?', $group_id);
-			$workgroups->delete($where);
+			$table = new USVN_Db_Table_GroupsToProjects();
+			$where  = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
+			$where .= $table->getAdapter()->quoteInto("groups_id = ?", $group_id);
+			$table->delete($where);
 		}
 	}
 
@@ -67,8 +66,8 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	 */
 	public function deleteAllGroups()
 	{
-		$workgroups = new USVN_Db_Table_Workgroups();
-		$workgroups->delete("");
+		$table = new USVN_Db_Table_GroupsToProjects();
+		$table->delete($table->getAdapter()->quoteInto("projects_id = ?", $this->id));
 	}
 
 	/**
@@ -79,13 +78,8 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	*/
 	public function groupIsMember($group)
 	{
-		$workgroups = new USVN_Db_Table_Workgroups();
-		$res = $workgroups->fetchRow(
-		array(
-		"groups_id" 	=> $group->id,
-		"projects_id"	=> $this->id,
-		)
-		);
+		$table = new USVN_Db_Table_GroupsToProjects();
+		$res = $table->fetchRow(array("groups_id" => $group->id, "projects_id" => $this->id));
 		if ($res === NULL) {
 			return false;
 		}
@@ -122,14 +116,14 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		$this->checkProjectName($this->_data['projects_name']);
 		$config = Zend_Registry::get('config');
 		USVN_SVNUtils::createSVN($config->subversion->path
-			. DIRECTORY_SEPARATOR
-			. 'svn'
-			. DIRECTORY_SEPARATOR
-			. $this->_data['projects_name']);
+		. DIRECTORY_SEPARATOR
+		. 'svn'
+		. DIRECTORY_SEPARATOR
+		. $this->_data['projects_name']);
 	}
 
 	/**
-     * Allows pre-insert logic to be applied to row.
+     * Allows post-insert logic to be applied to row.
      * Subclasses may override this method.
      *
      * @return void
@@ -138,6 +132,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	{
 		$groups = new USVN_Db_Table_Groups();
 		$group = $groups->createRow();
+		$group->description = sprintf(T_("Autocreated group for project %s"), $this->_data['projects_name']);
 		$group->name = $this->_data['projects_name'];
 		$group->save();
 
@@ -182,9 +177,9 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$group->delete();
 		}
 		USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path
-			. DIRECTORY_SEPARATOR
-			. 'svn'
-			. DIRECTORY_SEPARATOR
-			. $this->_data['projects_name']);
+		. DIRECTORY_SEPARATOR
+		. 'svn'
+		. DIRECTORY_SEPARATOR
+		. $this->_data['projects_name']);
 	}
 }

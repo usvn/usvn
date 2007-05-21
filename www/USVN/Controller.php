@@ -48,6 +48,7 @@ class USVN_Controller extends Zend_Controller_Action {
 
 		$this->_view = $this->getInvokeArg('view');
 		$this->_request->setParam('project', $this->_request->getParam('project', '__NONE__'));
+		$this->_request->setParam('area',    $this->_request->getParam('area',    '__NONE__'));
 	}
 
 	/**
@@ -62,43 +63,29 @@ class USVN_Controller extends Zend_Controller_Action {
      */
 	public function preDispatch()
 	{
-		$this->_view->project = $this->_request->getParam('project');
+		$request = $this->getRequest();
+		$controller = $request->getControllerName();
 
-		$controller = $this->getRequest()->getControllerName();
 		$dir = realpath(USVN_VIEWS_DIR . "/$controller");
 		if ($dir === false || !is_dir($dir)) {
 			throw new Zend_Controller_Exception("Controller's views directory not found. Controller is $controller.");
 		}
 		$this->_view->setScriptPath($dir);
-		$this->_view->assign('project', $this->getRequest()->getParam('project'));
-		$this->_view->assign('controller', $this->getRequest()->getParam('controller'));
-		$this->_view->assign('action', $this->getRequest()->getParam('action'));
+		$this->_view->assign('project', $request->getParam('project'));
+		$this->_view->assign('controller', $request->getParam('controller'));
+		$this->_view->assign('action', $request->getParam('action'));
 
-		if (Zend_Auth::getInstance()->getIdentity() === null && get_class($this) != "LoginController") {
+		$identity = Zend_Auth::getInstance()->getIdentity();
+		if ($identity === null && $controller != "login") {
 			$this->_redirect("/login/");
 		}
 
-	}
-
-	/**
-	 * Check if the current identity can access this controller/action
-	 *
-	 * @param Array $identity
-	 */
-	protected function _checkAccess($identity)
-	{
-		$controller = $this->getRequest()->getControllerName();
-		$project = $this->getRequest()->getParam('project');
-		$action = $this->getRequest()->getParam('action');
-		if ($identity === null) {
-			$user = "anonymous";
+		$table = new USVN_Db_Table_Users();
+		$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
+		if ($user === null && $controller != "login") {
+			$this->_redirect("/logout/");
 		}
-		else {
-			$user = $identity['username'];
-		}
-		$access = new USVN_Db_Table_Access();
-		//return $access->access($user, $project, $controller, $action);
-		return true;
+		$request->setParam('user', $user);
 	}
 
 	/**
@@ -119,6 +106,7 @@ class USVN_Controller extends Zend_Controller_Action {
 	 * render the $action template.
 	 *
 	 * @param string $template
+	 * @param string $content_type
 	 */
 	protected function _render($template = null, $content_type = null)
 	{
@@ -132,4 +120,13 @@ class USVN_Controller extends Zend_Controller_Action {
 			->setHeader('Content-Type', $content_type)
 			->appendBody($this->_view->render($template));
 	}
+
+	/**
+	 * Redirect to / unless an action handle the request
+	 *
+	 */
+	public function noRouteAction()
+    {
+        $this->_redirect('/');
+    }
 }

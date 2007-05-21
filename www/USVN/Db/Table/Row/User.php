@@ -34,10 +34,10 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 		if ($this->id && $group_id) {
 			$user_groups = new USVN_Db_Table_UsersToGroups();
 			$user_groups->insert(
-				array(
-					"groups_id" => $group_id,
-					"users_id" 	=> $this->id
-				)
+			array(
+			"groups_id" => $group_id,
+			"users_id" 	=> $this->id
+			)
 			);
 		}
 	}
@@ -81,14 +81,101 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$res = $user_groups->fetchRow(
-			array(
-				"groups_id = ?" => $group->id,
-				"users_id = ?" 	=> $this->id
-			)
+		array(
+		"groups_id = ?" => $group->id,
+		"users_id = ?" 	=> $this->id
+		)
 		);
 		if ($res === NULL) {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Check if the login is valid or not
+	 *
+	 * @throws USVN_Exception
+	 * @param string
+	 * @todo check on the default's login ?
+	 * @todo regexp on the login ?
+	 */
+	protected function checkLogin($login)
+	{
+		if (empty($login) || preg_match('/^\s+$/', $login)) {
+			throw new USVN_Exception(T_('Login empty.'));
+		}
+		if (!preg_match('/\w+/', $login)) {
+			throw new USVN_Exception(T_('Login invalid.'));
+		}
+	}
+
+	/**
+	 * Check if the Email address is valid or not
+	 *
+	 * @throws USVN_Exception
+	 * @param string
+	 */
+	protected function checkEmailAddress($email)
+	{
+		if (strlen($email)) {
+			$validator = new Zend_Validate_EmailAddress();
+			if (!$validator->isValid($email)) {
+				throw new USVN_Exception(T_('Invalid email address.'));
+			}
+		}
+	}
+
+	/**
+	 * Check if the password is valid or not
+	 *
+	 * @throws USVN_Exception
+	 * @param string
+	 */
+	protected function checkPassword($password)
+	{
+		if (empty($password) || preg_match('/^\s+$/', $password)) {
+			throw new USVN_Exception(T_('Password empty.'));
+		}
+		if (strlen($password) < 8) {
+			throw new USVN_Exception(T_('Invalid password (at least 8 Characters).'));
+		}
+	}
+
+	/**
+	 * Crypt user password
+	 *
+	 * @return void
+	 * @throws USVN_Exception, Zend_Exception
+	 */
+	protected function _insert()
+	{
+		$this->checkLogin($this->_data['users_login']);
+		$this->checkEmailAddress($this->_data['users_email']);
+		$this->checkPassword($this->_data['users_password']);
+		$this->_data['users_password'] = crypt($this->_data['users_password']);
+	}
+
+	/**
+	 * Crypt user password if changed
+	 * Check login if changed
+	 *
+	 * @return void
+	 * @throws USVN_Exception, Zend_Exception
+	 */
+	protected function _update()
+	{
+		$this->checkEmailAddress($this->_data['users_email']);
+		if ($this->_data['users_login'] != $this->_cleanData['users_login']) {
+			$user = $this->getTable()->fetchRow(array("users_login = ?" => $this->_data['users_login']));
+			if ($user !== null) {
+				throw new USVN_Exception(sprintf(T_("Login %d is already in use."), $user->login));
+			}
+			$this->checkLogin($this->_data['users_login']);
+		}
+		if ($this->_data['users_password'] != $this->_cleanData['users_password']) {
+			$this->checkPassword($this->_data['users_password']);
+			$this->_data['users_password'] = crypt($this->_data['users_password']);
+		}
 	}
 }

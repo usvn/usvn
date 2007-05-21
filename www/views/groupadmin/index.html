@@ -1,7 +1,7 @@
 <script type="text/javascript">
 HTMLTableToolsOptions.multiColSort = false;
 HTMLTableToolsOptions.showSortIndex = false;
-HTMLTableToolsOptions.skipCells = [2];
+HTMLTableToolsOptions.skipCells = [3];
 </script>
 <div class="usvn_info_group">
 	<h1><?php echo T_("Groups"); ?></h1>
@@ -13,6 +13,7 @@ HTMLTableToolsOptions.skipCells = [2];
 print '<table class="sortable" id="groups">' .
 		'<thead><tr>' .
 		'<th>' . T_('Name') . '</th>' .
+		'<th>' . T_('Description') . '</th>' .
 		'<th>' . T_('Action') . '</th>' .
 		'</tr></thead><tbody>';
 
@@ -20,12 +21,13 @@ if (count($this->groups)) {
 	foreach ($this->groups as $group) {
 		$line = <<<EOF
 		<tr>
-			<td>{$group->groups_name}</td>
+			<td>{$group->name}</td>
+			<td>{$group->description}</td>
 			<td>
                 {$this->editLink('group', $group->name)}
                 {$this->deleteLink('group', $group->name)}
             </td>
-		</tr>
+		</tr>\n
 EOF;
 		echo $line;
 	}

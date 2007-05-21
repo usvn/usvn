@@ -18,9 +18,9 @@
  * $Id$
  */
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminController.php';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminadminController.php';
 
-class ConfigController extends USVN_Controller
+class ConfigadminController extends AdminadminController
 {
 	public function indexAction()
 	{

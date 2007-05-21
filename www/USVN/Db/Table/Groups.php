@@ -19,7 +19,7 @@
  *
  * $Id $
  */
-class USVN_Db_Table_Groups extends USVN_Db_Table {
+class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -58,9 +58,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups",
-	"USVN_Db_Table_Workgroups"
-	);
+	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups");
 
 	/**
 	 * Excepted entries
@@ -97,9 +95,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	public function insert(array $data)
 	{
 		$this->checkGroupName($data['groups_name']);
-		$res = parent::insert($data);
-		USVN_Authz::generate();
-		return $res;
+		return parent::insert($data);
 	}
 
 	/**
@@ -112,23 +108,7 @@ class USVN_Db_Table_Groups extends USVN_Db_Table {
 	public function update(array $data, $where)
 	{
 		$this->checkGroupName($data['groups_name']);
-		$res = parent::update($data, $where);
-		USVN_Authz::generate();
-		return $res;
-	}
-
-	/**
-	 * Called by parent table's class during delete() method.
-	 *
-	 * @param  string $parentTableClassname
-	 * @param  array  $primaryKey
-	 * @return int    Number of affected rows
-	 */
-	public function delete($where)
-	{
-		$res = parent::delete($where);
-		USVN_Authz::generate();
-		return $res;
+		return parent::update($data, $where);
 	}
 
 	/**

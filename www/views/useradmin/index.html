@@ -1,5 +1,7 @@
 <script type="text/javascript">
-HTMLTableToolsOptions.skipCells = [5];
+HTMLTableToolsOptions.multiColSort = false;
+HTMLTableToolsOptions.showSortIndex = false;
+HTMLTableToolsOptions.skipCells = [6];
 </script>
 <div class="usvn_info_user">
 	<h1><?php echo T_("Users"); ?></h1>
@@ -15,22 +17,36 @@ print '<table class="sortable" id="users">' .
 		'<th>' . T_('Firstname') . '</th>' .
 		'<th>' . T_('Lastname') . '</th>' .
 		'<th>' . T_('Email') . '</th>' .
+		'<th>' . T_('Administrator') . '</th>' .
 		'<th>' . T_('Action') . '</th>' .
 		'</tr></thead><tbody>';
 
 if (count($this->users)) {
+	$me = Zend_Auth::getInstance()->getIdentity();
+	$me = $me['username'];
 	foreach ($this->users as $user) {
+		$edit = "<a href=\"{$this->url(array('action' => 'edit', 'login' => $user->users_login))}\">Edit</a>";
+		$delete = "";
+		if ($user->login != $me) {
+			$delete .= "<a href=\"{$this->url(array('action' => 'delete', 'login' => $user->users_login))}\">Delete</a>";
+		}
+		if ($user->is_admin) {
+			$admin = T_("yes");
+		} else {
+			$admin = T_("no");
+		}
 		$line = <<<EOF
 		<tr>
-			<td>{$user->users_login}</td>
-			<td>{$user->users_firstname}</td>
-			<td>{$user->users_lastname}</td>
-			<td>{$user->users_email}</td>
+			<td>{$user->login}</td>
+			<td>{$user->firstname}</td>
+			<td>{$user->lastname}</td>
+			<td>{$user->email}</td>
+			<td>{$admin}</td>
             <td>
                 {$this->editLink('user', $user->login)}
                 {$this->deleteLink('user', $user->login)}
             </td>
-		</tr>
+		</tr>\n
 EOF;
 		echo $line;
 	}

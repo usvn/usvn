@@ -17,7 +17,7 @@
  *
  * $Id: Menu.php 378 2007-05-06 19:27:52Z duponc_j $
  */
-class menus_user extends USVN_AbstractMenu
+class menus_useradmin extends USVN_AbstractMenu
 {
 	/**
 	 * Get menu entries in sub menu.
@@ -32,9 +32,6 @@ class menus_user extends USVN_AbstractMenu
 			array(
 				"title" => T_("Users"),
 				"link"=> "admin/user/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => ""
 			)
 		);
 	}
@@ -55,24 +52,10 @@ class menus_user extends USVN_AbstractMenu
 			array(
 				"title" => T_("Add new user"),
 				"link"=> "admin/user/new/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => "new"
 			),
 			array(
 				"title" => T_("Import htpasswd"),
 				"link"=> "admin/user/import/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => "import"
-			)
-			,
-			array(
-				"title" => T_('Edit my profile'),
-				"link"=> "admin/user/editProfile/",
-				"module" => "admin",
-				"controller" => "user",
-				"action" => "editProfile"
 			)
 		);
 	}

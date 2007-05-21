@@ -31,6 +31,7 @@ class USVN_View_Helper_DeleteLink {
     {
         $front = Zend_Controller_Front::getInstance();
         $view = $front->getParam('view');
-        return $view->urlConfirm(array('action' => 'delete', 'name' => $name),  T_("Delete"), sprintf(T_("Do you really want to delete %s %s?"), $type , $name));
+        $img = $view->img("CrystalClear/16x16/actions/editdelete.png", T_("Delete"));
+        return $view->urlConfirm(array('action' => 'delete', 'name' => $name),  $img, sprintf(T_("Do you really want to delete %s %s?"), $type , $name));
     }
 }

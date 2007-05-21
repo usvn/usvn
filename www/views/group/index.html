@@ -21,10 +21,11 @@ if (count($this->groups)) {
 		$line = <<<EOF
 		<tr>
 			<td>{$group->groups_name}</td>
-			<td><a href="{$this->url(array('action' => 'edit', 'name' => $group->groups_name))}">Edit</a>
-				&nbsp;
-				<a href="{$this->url(array('action' => 'delete', 'name' => $group->groups_name))}">Delete</a></td>
-		</tr>\n
+			<td>
+                {$this->editLink('group', $group->name)}
+                {$this->deleteLink('group', $group->name)}
+            </td>
+		</tr>
 EOF;
 		echo $line;
 	}

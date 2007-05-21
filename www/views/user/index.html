@@ -26,10 +26,11 @@ if (count($this->users)) {
 			<td>{$user->users_firstname}</td>
 			<td>{$user->users_lastname}</td>
 			<td>{$user->users_email}</td>
-			<td><a href="{$this->url(array('action' => 'edit', 'login' => $user->users_login))}">Edit</a>
-			&nbsp;
-			<!--<a href="{$this->url(array('action' => 'delete', 'login' => $user->users_login))}">Delete</a>--></td>
-		</tr>\n
+            <td>
+                {$this->editLink('user', $user->login)}
+                {$this->deleteLink('user', $user->login)}
+            </td>
+		</tr>
 EOF;
 		echo $line;
 	}

@@ -156,7 +156,7 @@ class InstallDbTest extends USVN_Test_Test {
 	{
 		file_put_contents("tests/tmp/config.ini", "[general]\nsubversion.path=tests/tmp/");
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
-		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword", "James", "Bond");
+		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword", "James", "Bond", "");
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));
 		$this->assertNotEquals(False, $user);

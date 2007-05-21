@@ -1,12 +1,17 @@
 <html>
 <head>
-<style>
+<style type="text/css">
 html, body {
 	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	margin: auto;
-	height: 80%;
+	height: 100%;
     background: #FFFFFF;
     font-size:small;
+}
+
+#usvn_page {
+	position: relative;
+	min-height: 100%;
 }
 
 p {width: 50em;}
@@ -162,9 +167,12 @@ a.usvn_button:hover {
 }
 
 #usvn_footer {
+	position: absolute;
 	border-top: 4px solid #0A1648;
 	background: #4F6EFF;
 	color: #FFFFFF;
+	bottom: 0;
+	width: 100%;
 }
 
 .usvn_error {
@@ -193,9 +201,10 @@ a.usvn_button:hover {
 
 </head>
 <body>
-<div id="usvn_banner">
-	<div id="usvn_header">
-		<img id="usvn_logo" src="../medias/default/images/USVN-logo.png" alt="USVN, Userfriendly SVN" />
-	</div>
-</div>
-<div id="usvn_content">
+	<div id="usvn_page">
+		<div id="usvn_banner">
+			<div id="usvn_header">
+				<img id="usvn_logo" src="../medias/default/images/USVN-logo.png" alt="USVN, Userfriendly SVN" />
+			</div>
+		</div>
+		<div id="usvn_content">

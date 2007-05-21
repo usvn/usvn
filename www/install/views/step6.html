@@ -115,6 +115,20 @@ function checkForm() {
 				</label>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<label class="usvn_label" for="email">
+				<?php echo T_("Email");?>:
+			</td>
+			<td>
+				<input type="text" name="email" id="email" maxlength="150" value="<?php
+					if (isset($_POST['email'])) {
+						echo $_POST['email'];
+					}
+				?>"/>
+				</label>
+			</td>
+		</tr>
 	</table>
 	<hr />
 	<input type="submit" value="<?php echo T_("Next step");?>" onclick="return checkForm();">

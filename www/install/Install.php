@@ -252,17 +252,22 @@ EOF;
 	* @param string Admin password
 	* @param string Admin first name
 	* @param string Admin last name
+	* @param string Admin email
 	* @throw USVN_Exception
 	*/
-	static public function installAdmin($config_file, $login, $password, $firstname, $lastname)
+	static public function installAdmin($config_file, $login, $password, $firstname, $lastname, $email)
 	{
+		if (empty($password)) {
+			throw new USVN_Exception(T_("Password empty"));
+		}
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchNew();
 		$user->setFromArray(array(
 		'users_login' => $login,
 		'users_password' => crypt($password),
 		'users_firstname' => $firstname,
-		'users_lastname' => $lastname
+		'users_lastname' => $lastname,
+		'users_email' => $email
 		)
 		);
 		$user->save();

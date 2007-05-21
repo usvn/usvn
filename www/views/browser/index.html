@@ -10,11 +10,11 @@ function register_position()
 }
 
 function position(evt){
-	if(!evt) 
+	if(!evt)
 		evt = window.event;
 	mouse_x = evt.clientX;
 	mouse_y = evt.clientY;
-} 
+}
 
 function cancel()
 {
@@ -24,9 +24,9 @@ function cancel()
 function ajax(index, id)
 {
     var xhr=null;
-    if (window.XMLHttpRequest) 
+    if (window.XMLHttpRequest)
         xhr = new XMLHttpRequest();
-    else if (window.ActiveXObject) 
+    else if (window.ActiveXObject)
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
     xhr.onreadystatechange = function() { alert_ajax(xhr, index, id); };
 	if (index == 1)
@@ -35,7 +35,7 @@ function ajax(index, id)
 	{
 		var checkRead = document.getElementById('checkRead').checked;
 		var checkWrite = document.getElementById('checkWrite').checked;
-		var group = document.getElementById('group').value;	
+		var group = document.getElementById('group').value;
 		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=2&name="+ id +"&checkRead=" + checkRead + "&checkWrite=" + checkWrite + "&group="+ group + "')); ?>", true);
     }
 	if (index == 3)
@@ -112,28 +112,7 @@ function alert_ajax(xhr, index, id)
 <body onLoad="javascript:register_position(); ajax(3, 'nop');">
 <h1 id="usvn_title"><?php echo T_("Files list"); ?></h1>
 <?php
-/*print '<table class="sortable" id="users">' .
-		'<thead><tr>' .
-		'<th></th>' .
-		'<th>' . T_('Name') . '</th>' .
-		'<th>' . T_('Action') . '</th>' .
-		'</tr></thead><tbody>';
 
-if (count($this->browser)) {
-	foreach ($this->browser as $tab) {
-		$line = <<<EOF
-		<tr>
-			<td>{$tab['isDirectory']}</td>
-			<td onmouseover="ajax(1, '{$tab['name']}');" onMouseOut="hiddenBulle();"><a href="javascript:ajax(3, '{$tab['name']}');">{$tab['name']}</a></td>
-			<td onmouseover="ajax(1, '{$tab['name']}');" onMouseOut="hiddenBulle();"><a href="javascript:ajax(3, '{$tab['name']}');">T_("Rights"}</a></td>
-		</tr>\n
-EOF;
-		echo $line;
-	}
-}
-print '</tbody></table><br />';*/
-
-//print '<div id="pathbefore"></div>';
 print '<div id="txthtml2"></div>';
 
 ?>

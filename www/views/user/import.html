@@ -1,6 +1,9 @@
-<h1 id="usvn_title"><?php echo T_('Import htpasswd');?></h1>
-<?php echo T_('This form allow you to add to USVN all users contents into an apache password file.');?>
-<br />
+<div class="usvn_info_config">
+	<h1><?php echo T_("Import htpasswd"); ?></h1>
+	<p>
+		<?php echo T_("This form allow you to add to USVN all users contents into an apache password file."); ?>
+	</p>
+</div>
 <form method="post" enctype="multipart/form-data" action="<?php echo $this->url(array("action" => "importFile")); ?>">
 <table>
 	<tr>

@@ -9,8 +9,13 @@
 html, body {
 	font-family: 'Trebuchet MS', 'Verdana', 'Helvetica';
 	margin: auto;
-	height: 80%;
     background: #FFFFFF;
+    height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
 }
 
 body > div {
@@ -19,33 +24,46 @@ body > div {
 
 img {border: 0;}
 
+#usvn_page {
+	position: relative;
+	min-height: 100%;
+}
+
 #usvn_header {
 	background-color: #334BCF;
 	background-image:url(<?php echo $this->images_directory ;?>/bg_banner.png);
 	background-repeat:repeat-x;
-	height: 158px;
+	height: 135px;
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
 
 #usvn_logo img {
-	margin-top: 30px;
+	margin-top: 20px;
 	margin-left: 30px;
 }
 
 #usvn_content {
 	position: relative;
-    min-height: 100%;
     margin-top: 1em;
     margin-bottom: 1em;
     margin-left: 1em;
     margin-right: 1em;
+    min-height: 100%;
 }
 
 #usvn_footer {
+	position: absolute;
 	border-top: 4px solid #0A1648;
 	background: #4F6EFF;
 	color: #FFFFFF;
+	bottom: 0;
+	width: 100%;
+}
+
+#usvn_footer h5 {
+	padding: 0;
+	margin: 0;
 }
 
 #usvn_title {
@@ -126,7 +144,7 @@ ul#usvn_subsubmenu {
 }
 
 #usvn_subsubmenu li {
-	background-color: #BFDEFF;
+	background-color: #7F98FF;
 	padding: 3px;
 	border: 1px solid black;
 	color: #37516F;

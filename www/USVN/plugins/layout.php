@@ -90,11 +90,12 @@ class layout extends Zend_Controller_Plugin_Abstract
 		<script type="text/javascript" src="{$config->url->base}/js/"></script>
 	</head>
 	<body>
-		<div id="usvn_header">
-			<a id="usvn_logo" href="{$config->url->base}/">
-				<img src="{$config->url->base}/{$config->site->logo}" alt="{$homepage}" />
-			</a>
-		</div>
+		<div id="usvn_page">
+			<div id="usvn_header">
+				<a id="usvn_logo" href="{$config->url->base}/">
+					<img src="{$config->url->base}/{$config->site->logo}" alt="{$homepage}" />
+				</a>
+			</div>
 EOF;
 		$header .= $this->buildMenu($menu->getTopMenu(), 'usvn_menu');
 		$header .= $this->buildMenu($menu->getSubMenu(), 'usvn_submenu');
@@ -116,13 +117,12 @@ EOF;
 	{
 		$base_url = $this->getRequest()->getBaseUrl();
 		$footer = <<<EOF
-		<script type='text/javascript'>
-			lookForHTMLTableTools(HTMLTableToolsOptions);
-		</script>
-				</div>
-			</div>
+			<script type='text/javascript'>
+				lookForHTMLTableTools(HTMLTableToolsOptions);
+			</script>
+			</div><br />
+			<div id="usvn_footer"><h5>Powered by USVN<h5></div>
 		</div>
-		<div id="usvn_footer">Powered by USVN</div>
 	</body>
 </html>
 EOF;

@@ -342,5 +342,6 @@ a.usvn_button:hover {
 <?php include($this->css_directory . "/group.css"); ?>
 <?php include($this->css_directory . "/project.css"); ?>
 <?php include($this->css_directory . "/admin.css"); ?>
+<?php include($this->css_directory . "/index.css"); ?>
 
 /* End of screen.css */

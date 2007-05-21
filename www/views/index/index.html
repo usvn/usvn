@@ -1,10 +1,21 @@
 <div class="usvn_info">
 	<h1><?php echo T_("Homepage"); ?></h1>
 	<p>
-		<?php echo T_("USVN Homepage."); ?>
+		<?php echo T_("USVN Homepage. Here, you can find the list of your projects."); ?>
 	</p>
 </div>
+<div id="usvn_list_project">
+	<h3><?php echo T_("Your projects") . ":"; ?></h3>
 <?php
-foreach ($this->projects as $project) {
-	echo '<a href="' . $this->url(array('project' => $project->name), 'project') . '">' . $project->name . '</a><br />';
+if (isset($this->projects) && count($this->projects)) {
+	echo '<ul>';
+	foreach ($this->projects as $project) {
+		echo '<li><a href="' . $this->url(array('project' => $project->name), 'project') . '">' . $project->name . '</a></li>';
+	}
+	echo '</ul>';
 }
+else {
+	echo "<p>" . T_("You don't have any project.") . "</p>";
+}
+?>
+</div>

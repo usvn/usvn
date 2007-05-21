@@ -27,6 +27,7 @@ define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
 define('USVN_CONTROLLERS_DIR', dirname(__FILE__) . '/controllers/');
 define('USVN_VIEWS_DIR', dirname(__FILE__) . '/views/');
 define('USVN_MENUS_DIR', dirname(__FILE__) . '/menus/');
+define('USVN_HELPERS_DIR', dirname(__FILE__) . '/helpers/');
 
 if (!file_exists(USVN_CONFIG_FILE)) {
 	header("Location: install");

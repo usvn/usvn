@@ -320,6 +320,7 @@ a.usvn_button:hover {
 	color: #0A1648;
 }
 
+form.usvn_form label,
 .usvn_label {
 	line-height:150%;
 	margin-left: 2px;

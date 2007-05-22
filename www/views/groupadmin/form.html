@@ -29,7 +29,7 @@ function checkName() {
 		<br />
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
 		<br />
-		<div id="error"></div>
+		<?php echo $this->error($this); ?>
 	</fieldset>
 </form>
 <br />

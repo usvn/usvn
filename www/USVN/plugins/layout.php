@@ -121,7 +121,7 @@ EOF;
 				lookForHTMLTableTools(HTMLTableToolsOptions);
 			</script>
 			</div><br />
-			<div id="usvn_footer"><h5>Powered by USVN<h5></div>
+			<div id="usvn_footer"><h5>Powered by USVN</h5></div>
 		</div>
 	</body>
 </html>

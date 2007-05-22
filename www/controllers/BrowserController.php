@@ -30,15 +30,25 @@ class BrowserController extends USVN_Controller
 	{
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
-		$txthtml = "<table class='sortable' id='users'><thead><tr><th></th><th>".T_('Name')."</th><th>".T_('Action')."</th></tr></thead><tbody>";
+		$txthtml = "
+<table id=\"users\">
+    <thead>
+        <tr>
+            <th></th>
+            <th>" . T_('Name') . "</th>
+            <th>" . T_('Action') . "</th>
+        </tr>
+    </thead>
+    <tbody>
+";
 		if ($path != "/" && $path != "//") {
 			if (dirname($path) == "\\") {
 				$pathbefore = "/";
 			} else {
-				$pathbefore = dirname($path)."/";
+				$pathbefore = dirname($path) . "/";
 			}
-			$txthtml .= "<tr><td> " .$this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder')). "</td>";
-			$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$pathbefore."\"".");'>..</a></td><td></td></tr>";
+			$txthtml .= "<tr><td> " .$this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder')) . "</td>";
+			$txthtml .= "<td><a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 		}
 		foreach ($tab as &$tabl) {
 			$txthtml .= "<tr>";
@@ -58,7 +68,10 @@ class BrowserController extends USVN_Controller
 			}
 			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>" .$this->_view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 		}
-		$txthtml .= "</tbody></table><br />";
+        $txthtml .= "
+            </tbody>
+</table>
+";
 		echo "<txthtml><![CDATA[".$txthtml."]]></txthtml>\n";
 		$this->_view->browser = $tab;
 	}
@@ -69,8 +82,8 @@ class BrowserController extends USVN_Controller
 	public function RightManagementAction()
 	{
 		header('Content-Type: text/xml');
-		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>";
-		echo "<exemple>";
+		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
+		echo "<files>\n";
 		if (isset($_GET['pg']) && $_GET['pg'] == 1) {
 			$this->dumpRights();
 		} else if (isset($_GET['pg']) && $_GET['pg'] == 2) {
@@ -82,7 +95,7 @@ class BrowserController extends USVN_Controller
 				$this->getListFile($_GET['name']);
 			}
 		}
-		echo "</exemple>";
+		echo "</files>";
 	}
 
 	/**
@@ -138,7 +151,7 @@ class BrowserController extends USVN_Controller
 		catch (Exception $e) {
 			$msg = $e->getMessage();
 		}
-		echo "<msg>".$msg."</msg>\n";
+		echo "<msg>" . $msg . "</msg>\n";
 	}
 }
 

@@ -66,6 +66,14 @@ img {border: 0;}
 	margin: 0;
 }
 
+#usvn_footer a {
+	color: white;
+}
+
+#usvn_footer a:hover {
+	text-decoration: underline;
+}
+
 #usvn_title {
 	height:45px;
 	color: #003366;
@@ -225,17 +233,14 @@ a:hover {
 	background-position: right 17px;
 	background-color: #EFF2FF;
 	padding: 5px;
-	display: inline-block;
 	clear: both;
 	margin: 0 0 2em 0;
 	border: 1px solid #ccc;
 	border-bottom: 1px dotted #ccc;
 	min-height: 80px;
+	width: 100%;
 }
 
-.usvn_info[class], .usvn_info_config[class], .usvn_info_user[class], .usvn_info_group[class], .usvn_info_project[class] {
-	display:block;
-}
 
 .usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
 	font-weight: bold;

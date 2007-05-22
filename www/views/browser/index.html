@@ -1,7 +1,5 @@
-<script type="text/javascript" event="onmousedown()">
-//HTMLTableToolsOptions.skipCells = [3];
-//HTMLTableToolsOptions.skipCells = [1];
-
+<script type="text/javascript">
+<!--
 function register_position()
 {
 	mouse_x = 0;
@@ -101,21 +99,21 @@ function alert_ajax(xhr, index, id)
 		}
 		if (index == 3)
 		{
-			document.getElementById('txthtml2').innerHTML = docXML.getElementsByTagName("txthtml").item(0).firstChild.data;
-			//document.getElementById('pathbefore').innerHTML += docXML.getElementsByTagName("pathbefore").item(0).firstChild.data;
-			//alert(docXML.getElementsByTagName("msg").item(0).firstChild.data);
+            var txthtml2 = document.getElementById('txthtml2');
+            var txthtml = docXML.getElementsByTagName("txthtml").item(0);
+            txthtml2.innerHTML = txthtml.firstChild.data;
 		}
 	}
 }
-
+-->
 </script>
-<body onLoad="javascript:register_position(); ajax(3, 'nop');">
 <h1 id="usvn_title"><?php echo T_("Files list"); ?></h1>
-<?php
-
-print '<div id="txthtml2"></div>';
-
-?>
-
+<div id="txthtml2">
+</div>
 <div id="bulle" style="visibility:hidden; position:absolute; background-color:#F2F2F2;"></div>
-</body>
+<script type="text/javascript">
+<!--
+register_position();
+ajax(3, 'nop');
+-->
+</script>

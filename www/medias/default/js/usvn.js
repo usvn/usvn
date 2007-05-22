@@ -1,17 +1,7 @@
-
 /**
  * USVN's default file
  * Required for all javascript components
  */
-
-//Include function for javascript (in the header)
-function includeJsFile(file) {
-  var head = document.getElementsByTagName('head')[[0]];
-  var headInc = document.createElement('script');
-  headInc.setAttribute('type', 'text/javascript');
-  headInc.setAttribute('src', file);
-  head.appendChild(headInc);
-}
 
 function selectObjectForm(obj) {
 	var chk = document.getElementById(obj);
@@ -26,11 +16,6 @@ function deSelectObjectForm(obj) {
 		chk.options[i].selected = false;
 	}
 }
-
-//Call for HTMLTableTools
-includeJsFile("<?php echo $this->js_default_directory; ?>/tools/prototype.js");
-includeJsFile("<?php echo $this->js_default_directory; ?>/tools/builder.js");
-includeJsFile("<?php echo $this->js_default_directory; ?>/tools/HTMLTableTools/HTMLTableTools.js");
 
 //HTMLTableTools default options's definition
 var HTMLTableToolsOptions = {
@@ -59,5 +44,4 @@ function lookForHTMLTableTools(options)
 		}
 	}
 }
-
 /* End of usvn.js */

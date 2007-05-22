@@ -88,6 +88,9 @@ class layout extends Zend_Controller_Plugin_Abstract
 		<link type="text/css" rel="stylesheet" media="screen" href="{$config->url->base}/css/screen" />
 		<link type="text/css" rel="stylesheet" media="print" href="{$config->url->base}/css/print" />
 		<script type="text/javascript" src="{$config->url->base}/js/"></script>
+        <script type="text/javascript" src="{$config->url->base}/medias/default/js/tools/prototype.js"></script>
+        <script type="text/javascript" src="{$config->url->base}/medias/default/js/tools/scriptaculous/builder.js"></script>
+        <script type="text/javascript" src="{$config->url->base}/medias/default/js/tools/HTMLTableTools/HTMLTableTools.js"></script>
 	</head>
 	<body>
 		<div id="usvn_page">
@@ -117,11 +120,11 @@ EOF;
 	{
 		$base_url = $this->getRequest()->getBaseUrl();
 		$footer = <<<EOF
-			<script type='text/javascript'>
+			<script type="text/javascript">
 				lookForHTMLTableTools(HTMLTableToolsOptions);
 			</script>
 			</div><br />
-			<div id="usvn_footer"><h5>Powered by USVN</h5></div>
+			<div id="usvn_footer"><h5>Powered by <a href="http://www.usvn.info">USVN</a></h5></div>
 		</div>
 	</body>
 </html>

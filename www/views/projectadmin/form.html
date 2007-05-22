@@ -1,9 +1,11 @@
 <script type="text/javascript">
+<!--
 function checkName() {
 	var spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
-	if (document.project.projects_name.value.length == 0
-		|| checkRegExp.test(document.project.projects_name.value)) {
+	var project = document.getElementById('project');
+	if (project.projects_name.value.length == 0
+		|| checkRegExp.test(project.projects_name.value)) {
 		spanError.innerHTML = "<?php echo T_('Project\'s name empty, please fill it.'); ?>;"
 		spanError.className = "usvn_error";
 		return false;
@@ -12,22 +14,23 @@ function checkName() {
 	spanError.className = "";
 	return true;
 }
+-->
 </script>
-<fieldset>
-	<legend class="usvn_legend"><?php echo T_("Project's information"); ?></legend>
-	<form name="project" method="post" action="<?php echo $this->url; ?>">
-		<label class="usvn_label"><?php echo T_("Project name"); ?><span class="usvn_require">*</span>:<br />
+<form id="project" class="usvn_form" method="post" action="<?php echo $this->url; ?>">
+	<fieldset>
+		<legend><?php echo T_("Project's information"); ?></legend>
+		<label><?php echo T_("Project name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null), array('maxlength' => 255)); ?>
 		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Project description"); ?>:<br />
+		<label><?php echo T_("Project description"); ?>:<br />
 			<?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?>
 		</label>
 		<br />
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
-		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?>
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
 		<br />
 		<div id="error"></div>
-	</form>
-</fieldset>
+	</fieldset>
+</form>
 <br />

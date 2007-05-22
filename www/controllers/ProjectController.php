@@ -72,6 +72,8 @@ class ProjectController extends USVN_Controller
 	public function indexAction()
 	{
 		$this->_view->project = $this->_project;
+		$SVN = new USVN_SVN($this->_project->name);
+		$this->_view->log = $SVN->log(5);
 		$this->_render();
 	}
 

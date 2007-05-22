@@ -19,6 +19,7 @@
 class USVN_SVN
 {
 	private $_project;
+	private $_repository;
 
     /**
     * @param string Project name
@@ -31,6 +32,7 @@ class USVN_SVN
             throw new USVN_Exception(T_("Invalid project name %s."), $project);
         }
 		$this->_project = $project;
+		$this->_repository = Zend_Registry::get('config')->subversion->path . '/svn/' . $this->_project;
 	}
 
 	/**
@@ -39,7 +41,11 @@ class USVN_SVN
 	*/
 	public function listFile($path)
 	{
-        $repository = Zend_Registry::get('config')->subversion->path . '/svn/' . $this->_project;
-		return USVN_SVNUtils::listSvn($repository, $path);
+		return USVN_SVNUtils::listSvn($this->_repository, $path);
+	}
+
+	public function log($limit = 0)
+	{
+		return USVN_SVNUtils::log($this->_repository, $limit);
 	}
 }

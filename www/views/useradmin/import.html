@@ -5,10 +5,8 @@
 	</p>
 </div>
 <form method="post" enctype="multipart/form-data" action="<?php echo $this->url(array("action" => "importFile")); ?>">
-<table>
-	<tr>
-		<td><input type="file" name="file" size="30" /></td>
-		<td><input type="submit" name="upload" value="<?php echo T_('Upload');?>" /></td>
-	</tr>
-</table>
+	<div>
+		<input type="file" name="file" size="30" />
+		<input type="submit" name="upload" value="<?php echo T_('Upload');?>" />
+	</div>
 </form>

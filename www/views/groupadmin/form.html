@@ -2,8 +2,9 @@
 function checkName() {
 	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
-	if (document.group.groups_name.value.length == 0
-		|| checkRegExp.test(document.group.groups_name.value)) {
+	var group = document.getElementById('group');
+	if (group.groups_name.value.length == 0
+		|| checkRegExp.test(group.groups_name.value)) {
 		spanError.innerHTML = "<?php echo T_('Group\'s name empty, please fill it.'); ?>";
 		spanError.className = "usvn_error";
 		return false;
@@ -13,9 +14,9 @@ function checkName() {
 	return true;
 }
 </script>
-<fieldset>
-	<legend class="usvn_legend">Group's information</legend>
-	<form name="group" method="post" action="<?php echo $this->url ?>">
+<form id="group" method="post" action="<?php echo $this->url ?>">
+	<fieldset>
+		<legend class="usvn_legend">Group's information</legend>
 		<label class="usvn_label"><?php echo T_("Group name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null), array('maxlength' => 150)); ?>
 		</label>
@@ -24,9 +25,9 @@ function checkName() {
 			<?php echo $this->formTextarea('groups_description', (isset($this->group) ? $this->group->description : null), array('rows' => 8, 'cols' => 80)); ?>
 		</label>
 		<br />
-		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkName();')); ?>
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
 		<br />
 		<div id="error"></div>
-	</form>
-</fieldset>
+	</fieldset>
+</form>
 <br />

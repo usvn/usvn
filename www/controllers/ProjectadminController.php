@@ -63,7 +63,7 @@ class ProjectadminController extends AdminadminController
 		catch (Exception $e) {
 			$this->_view->project = $project;
 			$this->_view->message = $e->getMessage();
-			$this->_render('new');
+			$this->_render('new.html');
 		}
 	}
 
@@ -96,7 +96,7 @@ class ProjectadminController extends AdminadminController
 		catch (Exception $e) {
 			$this->_view->project = $project;
 			$this->_view->message = $e->getMessage();
-			$this->_render('edit');
+			$this->_render('edit.html');
 		}
 	}
 

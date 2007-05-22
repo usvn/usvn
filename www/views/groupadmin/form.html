@@ -1,4 +1,5 @@
 <script type="text/javascript">
+<!--
 function checkName() {
 	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
@@ -13,15 +14,16 @@ function checkName() {
 	spanError.className = "";
 	return true;
 }
+-->
 </script>
-<form id="group" method="post" action="<?php echo $this->url ?>">
+<form id="group" class="usvn_form" method="post" action="<?php echo $this->url ?>">
 	<fieldset>
-		<legend class="usvn_legend">Group's information</legend>
-		<label class="usvn_label"><?php echo T_("Group name"); ?><span class="usvn_require">*</span>:<br />
+		<legend>Group's information</legend>
+		<label><?php echo T_("Group name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null), array('maxlength' => 150)); ?>
 		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Group description"); ?>:<br />
+		<label><?php echo T_("Group description"); ?>:<br />
 			<?php echo $this->formTextarea('groups_description', (isset($this->group) ? $this->group->description : null), array('rows' => 8, 'cols' => 80)); ?>
 		</label>
 		<br />

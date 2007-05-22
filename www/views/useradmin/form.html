@@ -1,4 +1,5 @@
 <script type="text/javascript">
+<!--
 function checkForm() {
 	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
@@ -30,39 +31,40 @@ function checkForm() {
 	spanError.className = "";
 	return true;
 }
+-->
 </script>
-<fieldset>
-	<legend class="usvn_legend">
-		<?php echo T_("User account"); ?>
-	</legend>
-	<form name="user" method="post" action="<?php echo $this->url ?>">
-		<label class="usvn_label"><?php echo T_("Login"); ?><span class="usvn_require">*</span>:<br />
+<form id="user" class="usvn_form" method="post" action="<?php echo $this->url ?>">
+	<fieldset>
+		<legend>
+			<?php echo T_("User account"); ?>
+		</legend>
+		<label><?php echo T_("Login"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('users_login', (isset($this->user) ? $this->user->login : null), array('maxlength' => 255)); ?>
 		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Password"); ?><span class="usvn_require">*</span>:<br />
+		<label><?php echo T_("Password"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formPassword('users_password',  null); ?>
 			<?php echo $this->formPassword('users_password2',  null); ?>
 		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Lastname"); ?>:<br />
+		<label><?php echo T_("Lastname"); ?>:<br />
 			<?php echo $this->formText('users_lastname', (isset($this->user) ? $this->user->lastname : null), array('maxlength' => 100)); ?></label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Firstname"); ?>:<br />
+		<label><?php echo T_("Firstname"); ?>:<br />
 			<?php echo $this->formText('users_firstname', (isset($this->user) ? $this->user->firstname : null), array('maxlength' => 100)); ?>
 		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Email"); ?>:<br />
+		<label><?php echo T_("Email"); ?>:<br />
 			<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null), array('maxlength' => 150)); ?>
 		</label>
 		<br />
-		<label class="usvn_label"><?php echo T_("Administrator"); ?>:<br />
+		<label><?php echo T_("Administrator"); ?>:<br />
 			<?php echo $this->formCheckbox('users_is_admin', (isset($this->user) ? $this->user->is_admin : 0)); ?>
 		</label>
 		<br />
-		<?php echo $this->formSubmit('submit', T_("Submit"), array("onClick" => 'return checkForm();')); ?>
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')); ?>
 		<br />
 		<?php echo $this->error($this); ?>
-	</form>
-</fieldset>
+	</fieldset>
+</form>
 <br />

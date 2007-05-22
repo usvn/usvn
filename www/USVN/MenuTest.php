@@ -53,7 +53,7 @@ class menus_beta extends USVN_AbstractMenu
 		 $project = $this->_request->getParam("project");
             return array(
                   array(
-                    "title" => T_("beta"),
+                    "title" => "beta",
                     "link"=> "project/" . $project . "/beta/",
                     "controller" => "index",
                     "action" => ""
@@ -66,7 +66,7 @@ class menus_beta extends USVN_AbstractMenu
 		 $project = $this->_request->getParam("project");
             return array(
                   array(
-                    "title" => T_("beta admin"),
+                    "title" => "beta admin",
                     "link"=> "project/" . $project . "/beta/",
                     "controller" => "index",
                     "action" => ""
@@ -79,7 +79,7 @@ class menus_beta extends USVN_AbstractMenu
         return (
             array(
             array(
-				"title" => T_("Beta new user"),
+				"title" => "Beta new user",
 				"link"=> "admin/user/new/",
 				"controller" => "beta",
 				"action" => "new"
@@ -98,7 +98,7 @@ class menus_alpha extends USVN_AbstractMenu
 		 $project = $this->_request->getParam("project");
             return array(
                   array(
-                    "title" => T_("alpha"),
+                    "title" => "alpha",
                     "link"=> "project/" . $project . "/alpha/",
                     "controller" => "index",
                     "action" => ""
@@ -111,7 +111,7 @@ class menus_alpha extends USVN_AbstractMenu
 		 $project = $this->_request->getParam("project");
             return array(
                   array(
-                    "title" => T_("alpha admin"),
+                    "title" => "alpha admin",
                     "link"=> "project/" . $project . "/alpha/",
                     "controller" => "index",
                     "action" => ""
@@ -124,7 +124,7 @@ class menus_alpha extends USVN_AbstractMenu
         return (
             array(
             array(
-				"title" => T_("Alpha new user"),
+				"title" => "Alpha new user",
 				"link"=> "admin/user/new/",
 				"controller" => "alpha",
 				"action" => "new"
@@ -152,7 +152,7 @@ class menus_alpha extends USVN_AbstractMenu
 		$menuEntries = $menu->getSubMenu();
 		$this->assertContains(
 			array(
-                    "title" => T_("alpha"),
+                    "title" => "alpha",
                     "link"=> "project/bidon/alpha/",
                     "controller" => "index",
                     "action" => ""
@@ -160,7 +160,7 @@ class menus_alpha extends USVN_AbstractMenu
 			, $menuEntries);
 		$this->assertContains(
 			array(
-                    "title" => T_("beta"),
+                    "title" => "beta",
                     "link"=> "project/bidon/beta/",
                     "controller" => "index",
                     "action" => ""
@@ -177,7 +177,7 @@ class menus_alpha extends USVN_AbstractMenu
 		$menuEntries = $menu->getSubMenu();
 		$this->assertContains(
 			array(
-                    "title" => T_("alpha admin"),
+                    "title" => "alpha admin",
                     "link"=> "project/bidon/alpha/",
                     "controller" => "index",
                     "action" => ""
@@ -185,7 +185,7 @@ class menus_alpha extends USVN_AbstractMenu
 			, $menuEntries);
 		$this->assertContains(
 			array(
-                    "title" => T_("beta admin"),
+                    "title" => "beta admin",
                     "link"=> "project/bidon/beta/",
                     "controller" => "index",
                     "action" => ""
@@ -202,7 +202,7 @@ class menus_alpha extends USVN_AbstractMenu
 		$menuEntries = $menu->getSubSubMenu();
 		$this->assertContains(
             array(
-				"title" => T_("Alpha new user"),
+				"title" => "Alpha new user",
 				"link"=> "admin/user/new/",
 				"controller" => "alpha",
 				"action" => "new"
@@ -210,7 +210,7 @@ class menus_alpha extends USVN_AbstractMenu
 			, $menuEntries);
 		$this->assertNotContains(
 			array(
-				"title" => T_("Beta new user"),
+				"title" => "Beta new user",
 				"link"=> "admin/user/new/",
 				"controller" => "beta",
 				"action" => "new"

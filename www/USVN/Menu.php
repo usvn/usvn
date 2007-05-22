@@ -55,7 +55,7 @@ class USVN_Menu
 			}
 		}
 		else {
-			throw new USVN_Exception(T_("Can't open %s."), $menu_path);
+			throw new USVN_Exception(T_("Can't open file %s."), $menu_path);
 		}
 	}
 

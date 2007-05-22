@@ -82,7 +82,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	{
 		$user = $this->fetchRow(array("users_login = ?" => $data['users_login']));
 		if ($user !== null) {
-			throw new USVN_Exception(sprintf(T_("Login %d is already in use."), $user->login));
+			throw new USVN_Exception(sprintf(T_("Login %s already exist."), $user->login));
 		}
 		$res = parent::insert($data);
 		$this->updateHtpasswd();

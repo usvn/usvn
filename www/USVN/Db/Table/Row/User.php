@@ -138,7 +138,7 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 			throw new USVN_Exception(T_('Password empty.'));
 		}
 		if (strlen($password) < 8) {
-			throw new USVN_Exception(T_('Invalid password (at least 8 Characters).'));
+			throw new USVN_Exception(T_('Password incorrect (need more 8 characters).'));
 		}
 	}
 
@@ -169,7 +169,7 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 		if ($this->_data['users_login'] != $this->_cleanData['users_login']) {
 			$user = $this->getTable()->fetchRow(array("users_login = ?" => $this->_data['users_login']));
 			if ($user !== null) {
-				throw new USVN_Exception(sprintf(T_("Login %d is already in use."), $user->login));
+				throw new USVN_Exception(sprintf(T_("Login %s already exist."), $user->login));
 			}
 			$this->checkLogin($this->_data['users_login']);
 		}

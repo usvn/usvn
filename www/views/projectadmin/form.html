@@ -19,11 +19,11 @@ function checkName() {
 <form id="project" class="usvn_form" method="post" action="<?php echo $this->url; ?>">
 	<fieldset>
 		<legend><?php echo T_("Project's information"); ?></legend>
-		<label><?php echo T_("Project name"); ?><span class="usvn_require">*</span>:<br />
+		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('projects_name', (isset($this->project) ? $this->project->name : null), array('maxlength' => 255)); ?>
 		</label>
 		<br />
-		<label><?php echo T_("Project description"); ?>:<br />
+		<label><?php echo T_("Description"); ?>:<br />
 			<?php echo $this->formTextarea('projects_description', (isset($this->project) ? $this->project->description : null), array('rows' => 8, 'cols' => 80)); ?>
 		</label>
 		<br />

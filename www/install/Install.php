@@ -153,7 +153,7 @@ class Install
 	*/
 	static public function installUrl($config_file, $htaccess_file)
 	{
-		ereg("(.*)/install.*", $_SERVER['REQUEST_URI'], $regs);
+		preg_match("#(.*)/install.*#", $_SERVER['REQUEST_URI'], $regs);
 		$path = $regs[1];
 //here
 		if (substr($path, strlen($path) - 1, strlen($path)) == "/") {

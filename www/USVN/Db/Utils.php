@@ -32,7 +32,7 @@ class USVN_Db_Utils
 		if ($query === false) {
 			throw new USVN_Exception(T_("Can't open file %s."), $path);
 		}
-		$query = ereg_replace("--[^\n]*\n", "", $query);
+		$query = preg_replace("/--[^\n]*\n/", "", $query);
 		$tab = explode(";", $query);
 		foreach($tab as $ligne) {
 			$ligne = trim($ligne, " \n\t\r");

@@ -1,8 +1,8 @@
-<fieldset>
-	<legend class="usvn_legend">
-		<?php echo T_("Group's attachements"); ?>
-	</legend>
-	<form name="users_to_groups" method="post" action="<?php echo $this->url(); ?>">
+<form id="users_to_groups" class="usvn_form" method="post" action="<?php echo $this->url(); ?>">
+	<fieldset>
+		<legend>
+			<?php echo T_("Group's attachements"); ?>
+		</legend>
 		<select id="groups_id[]" name="groups_id[]" multiple size="7">
 		<?php
 		if (count($this->allGroups)) {

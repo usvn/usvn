@@ -333,8 +333,13 @@ form.usvn_form label,
 	font-weight:bold;
 }
 
+form.usvn_form > fieldset > legend,
 .usvn_legend {
 	font-weight:bold;
+}
+
+form.usvn_form > fieldset {
+	margin-bottom: 1em;
 }
 
 <?php include($this->css_directory . "/login.css"); ?>

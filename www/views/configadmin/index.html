@@ -6,7 +6,7 @@
 </div>
 <form class="usvn_form" method="post" action="<?php echo $this->url(array('action' => 'save'));?>">
 <fieldset>
-	<legend class="usvn_legend"><?php echo T_("General settings");?></legend>
+	<legend><?php echo T_("General settings");?></legend>
 	<table>
 		<tr>
 			<td><label><?php echo T_("Default language");?>:</label></td>
@@ -44,9 +44,8 @@
 		</tr>
 	</table>
 </fieldset>
-<br />
 <fieldset>
-	<legend class="usvn_legend"><?php echo T_("Site's information");?></legend>
+	<legend><?php echo T_("Site's information");?></legend>
 	<table>
 		<tr>
 			<td><label><?php echo T_("Title"); ?>:</label></td>
@@ -68,5 +67,7 @@
 		</tr>
 	</table>
 </fieldset>
-<input type="submit" value="<?php echo T_("Save");?>" />
+<p>
+	<input type="submit" value="<?php echo T_("Save");?>" />
+</p>
 </form>

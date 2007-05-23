@@ -163,4 +163,32 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		Zend_Loader::loadClass($this->_rowsetClass);
 		return new $this->_rowsetClass($data);
 	}
+	
+	/**
+	 * Return the groups by groups_id
+	 *
+	 * @param string $id
+	 * @return USVN_Db_Table_Row
+	 */
+	public function findByGroupsId($id)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		$where = $db->quoteInto("groups_id = ?", $id);
+		return $this->fetchRow($where, "groups_id");
+	}
+	
+	/**
+	 * Return the groups by groups_name
+	 *
+	 * @param string $name
+	 * @return USVN_Db_Table_Row
+	 */
+	public function findByGroupsName($name)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		$where = $db->quoteInto("groups_name = ?", $name);
+		return $this->fetchRow($where, "groups_name");
+	}
 }

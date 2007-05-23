@@ -76,16 +76,18 @@ class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_TableAuthz {
 	);
 
 	/**
-	 * Return the groupstofilesrights by his id rights
+	 * Return the groupstofilesrights by his id rights and id groups
 	 *
-	 * @param string $name
+	 * @param string $idfile
+	 * @param string $idgroup
 	 * @return USVN_Db_Table_Row
 	 */
-	public function findByIdRights($id)
+	public function findByIdRightsAndIdGroup($idfile, $idgroup)
 	{
 		$db = $this->getAdapter();
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
-		$where = $db->quoteInto("files_rights_id = ?", $id);
+		$where = $db->quoteInto("files_rights_id = ?", $idfile);
+		$where .= $db->quoteInto(" and groups_id = ?", $idgroup);
 		return $this->fetchRow($where, "files_rights_id");
 	}
 }

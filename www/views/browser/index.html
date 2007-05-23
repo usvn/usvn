@@ -1,5 +1,8 @@
 <script type="text/javascript">
 <!--
+
+var items_nbgroup;
+
 function register_position()
 {
 	mouse_x = 0;
@@ -28,29 +31,35 @@ function ajax(index, id)
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
     xhr.onreadystatechange = function() { alert_ajax(xhr, index, id); };
 	if (index == 1)
-		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=1&name="+ id + "')); ?>", true);
+		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=1&name="+ id + "&group=-1')); ?>", true);
 	if (index == 2)
 	{
-		var checkRead = document.getElementById('checkRead').checked;
-		var checkWrite = document.getElementById('checkWrite').checked;
-		var group = document.getElementById('group').value;
-		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=2&name="+ id +"&checkRead=" + checkRead + "&checkWrite=" + checkWrite + "&group="+ group + "')); ?>", true);
+		var text = "";
+		var groupe = "";
+		for (i = 0; i < items_nbgroup; i++)
+		{
+			var grp = document.getElementById('Lb'+i).innerHTML;
+			text += document.getElementById('checkRead'+grp).checked + "-" + document.getElementById('checkWrite'+grp).checked + "-";
+			groupe += grp + "-";
+		}
+		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=2&name="+ id +"&rights="+ text.substring(0, text.length - 1) + 
+		"&group="+ groupe.substring(0, groupe.length - 1) +"')); ?>", true);
     }
 	if (index == 3)
 		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=3&name="+ id + "')); ?>", true);
 	xhr.send(null);
 }
 
-function fctWrite()
+function fctWrite(group)
 {
-	if (document.getElementById('checkWrite').checked == true)
-		document.getElementById('checkRead').checked = true;
+	if (document.getElementById('checkWrite'+group).checked == true)
+		document.getElementById('checkRead'+group).checked = true;
 }
 
-function fctRead()
+function fctRead(group)
 {
-	if (document.getElementById('checkWrite').checked == true)
-		document.getElementById('checkRead').checked = true;
+	if (document.getElementById('checkWrite'+group).checked == true)
+		document.getElementById('checkRead'+group).checked = true;
 }
 
 function alert_ajax(xhr, index, id)
@@ -60,30 +69,12 @@ function alert_ajax(xhr, index, id)
 	{
 		if (index == 1)
 		{
-			var items_isreadable = docXML.getElementsByTagName("isreadable").item(0).firstChild.data;
-			var items_iswritable = docXML.getElementsByTagName("iswritable").item(0).firstChild.data;
-			var items_group = docXML.getElementsByTagName("group").item(0).firstChild.data;
-			var bulle = "<h3><?php echo T_('Acces rights for ') ?>" + id +"</h3><table><tr><td><?php echo T_('Group') ?></td><td><select id='group'>";
-			if (items_group == 3)
-				bulle += "<option value=3 selected>Admin</option>";
-			else
-				bulle += "<option value=3>Admin</option>";
-			if (items_group == 2)
-				bulle += "<option value=2 selected>User</option>";
-			else
-				bulle += "<option value=2>User</option>";
-			bulle += "</select></td></tr><tr><td><?php echo T_('Read') ?></td><td>"
-			if (items_isreadable == 1)
-				bulle += "<input id='checkRead' type='checkbox' checked onclick='javascript:fctRead();'/>";
-			else
-				bulle += "<input id='checkRead' type='checkbox' onclick='javascript:fctRead();'/>";
-			bulle += "</td></tr><tr><td><?php echo T_('Write') ?></td><td>";
-			if (items_iswritable == 1)
-				bulle += "<input id='checkWrite' type='checkbox' checked onclick='javascript:fctWrite();'/>";
-			else
-				bulle += "<input id='checkWrite' type='checkbox' onclick='javascript:fctWrite();'/>";
-			bulle += "</td></tr><tr><td><input type='button' value='Ok' onclick=\"javascript:ajax(2, '" + id + "');\" /></td><td>";
-			bulle += "<input type='button' value='Cancel' onclick='javascript:cancel();'/></td>	</tr></table><label id='labelError'></label>";
+			var items_groups = docXML.getElementsByTagName("groups").item(0).firstChild.data;
+			items_nbgroup = docXML.getElementsByTagName("nbgroup").item(0).firstChild.data;
+			var bulle = "<h3><?php echo T_('Acces rights for') ?>" + " " + id +"</h3>";
+			bulle += items_groups;
+			bulle += "<br><table><tr><td><input type='button' value='Ok' onclick=\"javascript:ajax(2, '" + id + "');\" /></td><td>";
+			bulle += "<input type='button' value='Cancel' onclick='javascript:cancel();'/></td></tr></table><label id='labelError'></label>";
 			document.getElementById('bulle').style.visibility = 'visible';
 			document.getElementById('bulle').innerHTML = bulle;
 			document.getElementById('bulle').style.left = mouse_x - 15 + "px";

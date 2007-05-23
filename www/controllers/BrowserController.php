@@ -103,17 +103,48 @@ class BrowserController extends USVN_Controller
 	*/
 	function dumpRights()
 	{
+		$text = "";
+		$table_project = new USVN_Db_Table_Projects();
 		$table_files = new USVN_Db_Table_FilesRights();
-		$res_files = $table_files->findByPath($_GET['name']);
-		if ($res_files != null) {
-			$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
-			$res_groupstofiles = $table_groupsfiles->findByIdRights($res_files->files_rights_id);
-			echo "<isreadable>".$res_groupstofiles->files_rights_is_readable."</isreadable>\n";
-			echo "<iswritable>".$res_groupstofiles->files_rights_is_writable."</iswritable>\n";
-			echo "<group>".$res_groupstofiles->groups_id."</group>\n";
-		} else {
-			echo "<isreadable>nop</isreadable>\n<iswritable>nop</iswritable>\n<group>nop</group>\n";
+		$res_project = $table_project->findByName($this->_request->getParam('project'));
+		$table_groupstoproject = new USVN_Db_Table_GroupsToProjects();
+		$res_groupstoproject = $table_groupstoproject->findByProjectId($res_project->projects_id);
+		$table_groups = new USVN_Db_Table_Groups();
+		$text = "<table><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td></tr>";
+		$i = 0;
+		foreach ($res_groupstoproject as $groups)
+		{
+			$res_groups = $table_groups->findByGroupsId($groups->groups_id);
+			$grp_name = $res_groups->groups_name;
+			$text .= "<tr><td><label id=Lb".$i.">".$grp_name."</label></td>";
+			$res_files = $table_files->findByPath($_GET['name']);
+			if ($res_files != null) 
+			{
+				$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
+				$res_groupstofiles = $table_groupsfiles->findByIdRightsAndIdGroup($res_files->files_rights_id, $res_groups->groups_id);
+				$check = "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+				$check .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
+				if ($res_groupstofiles != null)
+				{
+					if ($res_groupstofiles->files_rights_is_readable == 1)
+						$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+					else
+						$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+					if ($res_groupstofiles->files_rights_is_writable == 1)
+						$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
+					else
+						$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
+				}
+				else
+					$text .= $check;
+			}
+			else 
+				$text .= $check;
+			$i++;
 		}
+		$text .= "</table>";
+		echo "<nbgroup>".$i."</nbgroup>\n";
+		echo "<groups><![CDATA[".$text."]]></groups>\n";
 	}
 
 	/**
@@ -121,35 +152,61 @@ class BrowserController extends USVN_Controller
 	*/
 	function updateOrInsertRights()
 	{
-		try {
+		try 
+		{
 			$table_project = new USVN_Db_Table_Projects();
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
 			$table_files = new USVN_Db_Table_FilesRights();
 			$res_files = $table_files->findByPath($_GET['name']);
 			$msg = "Ok";
 			$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
-			if ($res_files != null) {
-				$data_files = array('projects_id' 	   		   => $res_project->projects_id,
-							 		'files_rights_path' 	   => $_GET['name']);
-				$db = $table_project->getAdapter();
-				$where = $db->quoteInto('files_rights_path = ?', $res_files->files_rights_path);
-				$id = $table_files->update($data_files, $where);
-				$data_groupsfiles = array('groups_id'	 	   => $_GET['group'],
-										  'files_rights_is_readable' => ($_GET['checkRead'] == 'true' ? 1 : 0),
-							 			  'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0));
-				$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files->files_rights_id);
-				$table_groupstofiles->update($data_groupsfiles, $where);
-			} else {
+			$tabgroup = split("-", $_GET['group']);
+			$tabrights = split("-", $_GET['rights']);
+			$j = 0;
+			if ($res_files != null) 
+			{	
+				foreach ($tabgroup as $group)
+				{
+					$table_group = new USVN_Db_Table_Groups(); 
+					$res_groups = $table_group->findByGroupsName($group);
+					$res_groupstofile = $table_groupstofiles->findByIdRightsAndIdGroup($res_files->files_rights_id, $res_groups->groups_id);
+					if ($res_groupstofile != null)
+					{
+						$data_groupsfiles = array('files_rights_is_readable' => ($tabrights[$j] == 'true' ? 1 : 0),
+									 			  'files_rights_is_writable' => ($tabrights[$j + 1] == 'true' ? 1 : 0));
+						$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files->files_rights_id);
+						$where .= $table_groupstofiles->getAdapter()->quoteInto(' and groups_id = ?', $res_groups->groups_id);
+						$table_groupstofiles->update($data_groupsfiles, $where);
+					}
+					else
+					{
+						$table_groupstofiles->insert(array('files_rights_id'		 => $res_files->files_rights_id,
+														   'groups_id'	 	   		 => $res_groups->groups_id,
+												  		   'files_rights_is_readable' => ($tabrights[$j] == 'true' ? 1 : 0),
+									 			    	   'files_rights_is_writable' => ($tabrights[$j + 1] == 'true' ? 1 : 0)));
+					}
+					$j += 2;
+				}
+			} 
+			else 
+			{
 				$id = $table_files->insert(array('projects_id' 	   			=> $res_project->id,
 							 					 'files_rights_path' 	   	=> $_GET['name']));
-				$table_groupstofiles->insert(array('files_rights_id' 		=> $id,
-												   'files_rights_is_readable' => ($_GET['checkRead'] == 'true' ? 1 : 0),
-							 					   'files_rights_is_writable' => ($_GET['checkWrite'] == 'true' ? 1 : 0),
-						       	 				   'groups_id'	 			  => $_GET['group']));
+				foreach ($tabgroup as $group)
+				{		
+					$table_group = new USVN_Db_Table_Groups(); 
+					$res_groups = $table_group->findByGroupsName($group);							 
+					$table_groupstofiles->insert(array('files_rights_id' 		  => $id,
+													   'files_rights_is_readable' => ($tabrights[$j] == 'true' ? 1 : 0),
+							 						   'files_rights_is_writable' => ($tabrights[$j + 1] == 'true' ? 1 : 0),
+						       	 					   'groups_id'	 			  => $res_groups->groups_id));
+					$j += 2;
+				}
 			}
 		}
-		catch (Exception $e) {
-			$msg = $e->getMessage();
+		catch (Exception $e) 
+		{
+			$msg .= $e->getMessage();
 		}
 		echo "<msg>" . $msg . "</msg>\n";
 	}

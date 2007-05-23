@@ -74,4 +74,18 @@ class USVN_Db_Table_GroupsToProjects extends USVN_Db_Table {
 			"onDelete"      => self::CASCADE,
 		),
 	);
+	
+	/**
+	 * Return the groupstoprojects by projects_id
+	 *
+	 * @param string $id
+	 * @return USVN_Db_Table_Row
+	 */
+	public function findByProjectId($id)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		$where = $db->quoteInto("projects_id = ?", $id);
+		return $this->fetchAll();
+	}
 }

@@ -120,4 +120,45 @@ class ProjectController extends USVN_Controller
 		$this->_project->deleteGroup($this->getRequest()->getParam('groups_id'));
 		$this->_redirect("/project/{$this->_project->name}/");
 	}
+
+	public function managegroupAction()
+	{
+		$this->requireAdmin();
+
+		$request = $this->getRequest();
+		/* @var $request USVN_Controller_Request_Http */
+
+		$table = new USVN_Db_Table_Groups();
+		$group = $table->fetchRow(array("groups_name = ?" => $request->getParam('name')));
+		/* @var $group USVN_Db_Table_Row_Group */
+
+		try {
+			$table = new USVN_Db_Table_Users();
+			if ($request->getParam('addlogin', "") != "") {
+				$user = $table->fetchRow(array("users_login = ?" => $request->getParam('addlogin')));
+				if ($user === null) {
+					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('addlogin')));
+				}
+				$group->addUser($user);
+			}
+			if ($request->getParam('deleteid', 0) != 0) {
+				$user = $table->fetchRow(array("users_id = ?" => $request->getParam('deleteid')));
+				if ($user === null) {
+					throw new USVN_Exception(sprintf(T_("Unknown user's %d"), $request->getParam('deleteid')));
+				}
+				$group->deleteUser($user);
+			}
+			if (isset($user)) {
+				$this->_redirect("/project/{$this->_project->name}/project/managegroup/name/{$group->name}/");
+			}
+		}
+		catch (Exception $e) {
+			$this->_view->message = $e->getMessage();
+		}
+
+		$this->_view->project = $this->_project;
+
+		$this->_view->group = $group;
+		$this->_render();
+	}
 }

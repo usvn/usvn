@@ -1,0 +1,22 @@
+<div class="usvn_info">
+	<h1><?php echo sprintf(T_("Managing group %s for project %s"), $this->group->name, $this->project->name);?></h1>
+	<p><?php echo $this->group->description; ?></p>
+</div>
+<div class="usvn_info">
+	<form style="float: right; text-align: right;" action="<?php echo $this->url(); ?>" method="post">
+		<div>
+			<?php echo $this->formText("addlogin"); ?>
+			<?php echo $this->formSubmit("managegroup", T_("Add")); ?>
+		</div>
+	</form>
+	<h1><?php echo T_("Affected Users");?></h1>
+	<ul>
+	<?php foreach ($this->group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups") as $user) :?>
+		<li>
+			<a href="<?php echo $this->url(array("deleteid" => $user->id)); ?>">
+				<?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?>
+			</a>&nbsp;<?php echo $user->login; ?></li>
+	<?php endforeach; ?>
+	</ul>
+</div>
+<?php echo $this->error($this); ?>

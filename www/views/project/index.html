@@ -32,7 +32,12 @@
 	<h1><?php echo T_("Affected Groups");?></h1>
 	<ul>
 	<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_GroupsToProjects") as $group) :?>
-		<li><a href="<?php echo $this->url(array("action" => "deletegroup", "groups_id" => $group->id)); ?>"><?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?></a>&nbsp;<?php echo $group->name; ?></li>
+		<li>
+			<a href="<?php echo $this->url(array("action" => "deletegroup", "groups_id" => $group->id)); ?>">
+				<?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?>
+			</a>&nbsp;<a href="<?php echo $this->url(array("action" => "managegroup", "name" => $group->name)); ?>">
+				<?php echo $this->img("/CrystalClear/16x16/actions/edit.png", T_("Manage")); ?>
+			</a>&nbsp;<?php echo $group->name; ?></li>
 	<?php endforeach; ?>
 	</ul>
 </div>

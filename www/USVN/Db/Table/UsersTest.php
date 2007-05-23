@@ -149,7 +149,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			$obj->save();
 		}
 		catch (USVN_Exception $e) {
-			$this->assertContains('Invalid password', $e->getMessage());
+			$this->assertContains('Password incorrect', $e->getMessage());
 			$this->assertFalse($table->isAUser('InsertNoPassword'));
 			return;
 		}
@@ -274,7 +274,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			$obj->save();
 		}
 		catch (USVN_Exception $e) {
-			$this->assertContains('Invalid password', $e->getMessage());
+			$this->assertContains('Password incorrect', $e->getMessage());
 			return;
 		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidPassword'));

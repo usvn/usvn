@@ -42,7 +42,7 @@ class USVN_ConsoleUtils
 		passthru($command . " 2>&1", $return);
 		$msg = ob_get_contents();
 		ob_end_clean();
-		return($msg);
+		return(htmlspecialchars($msg));
 	}
 
 	/**

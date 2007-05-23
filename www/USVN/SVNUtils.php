@@ -239,14 +239,14 @@ class USVN_SVNUtils
         return $res;
 	}
 
-	public function log($repository, $limit = 0)
+	public static function log($repository, $limit = 0)
 	{
         $repository = escapeshellcmd(USVN_SVNUtils::_getRepositoryPath($repository));
         $limit = escapeshellcmd($limit);
         if ($limit) {
         	$limit = "--limit $limit";
         }
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn log $limit \"file://$repository/$path\"", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn log $limit \"file://$repository\"", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't get subversion repository logs: %s"), $message);
 		}

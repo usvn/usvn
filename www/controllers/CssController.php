@@ -29,7 +29,7 @@ class CssController extends Zend_Controller_Action
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
 		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
         header('Cache-Control: max-age=3600, must-revalidate');
-		header("Content-type: $_mimetype");
+		header("Content-type: $this->_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css');
 	}
 
@@ -40,7 +40,7 @@ class CssController extends Zend_Controller_Action
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
 		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
         header('Cache-Control: max-age=3600, must-revalidate');
-		header("Content-type: $_mimetype");
+		header("Content-type: $this->_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css');
 	}
 }

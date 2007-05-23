@@ -25,6 +25,7 @@ if (is_dir(dirname(__FILE__) . '/library')) {
 
 require_once dirname(__FILE__) . '/autoload.php';
 date_default_timezone_set('UTC');
+error_reporting(E_ALL | E_STRICT);
 
 try {
 	/**

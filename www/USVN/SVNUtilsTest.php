@@ -77,15 +77,29 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 	public function test_createSvn()
 	{
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
-		 $this->assertTrue(file_exists('tests/tmp/svn directory'));
-		 $this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));
+		$this->assertTrue(file_exists('tests/tmp/svn directory'));
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));
 		USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
-		 $this->assertTrue(file_exists('tests/tmp/out'));
-		 $this->assertTrue(file_exists('tests/tmp/out/trunk'));
-		 $this->assertTrue(file_exists('tests/tmp/out/branches'));
-		 $this->assertTrue(file_exists('tests/tmp/out/tags'));
+		$this->assertTrue(file_exists('tests/tmp/out'));
+		$this->assertTrue(file_exists('tests/tmp/out/trunk'));
+		$this->assertTrue(file_exists('tests/tmp/out/branches'));
+		$this->assertTrue(file_exists('tests/tmp/out/tags'));
 	}
 
+	public function test_createSvnFR()
+	{
+		putenv("LANG=C");
+		USVN_Translation::initTranslation('fr_FR', 'www/locale');
+		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+		$this->assertTrue(file_exists('tests/tmp/svn directory'));
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));
+		USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
+		$this->assertTrue(file_exists('tests/tmp/out'));
+		$this->assertTrue(file_exists('tests/tmp/out/trunk'));
+		$this->assertTrue(file_exists('tests/tmp/out/branches'));
+		$this->assertTrue(file_exists('tests/tmp/out/tags'));
+	}
+	
 	public function test_createSvnBadDir()
 	{
 		try {

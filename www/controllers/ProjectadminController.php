@@ -62,7 +62,7 @@ class ProjectadminController extends AdminadminController
 		}
 		catch (Exception $e) {
 			$this->_view->project = $project;
-			$this->_view->message = $e->getMessage();
+			$this->_view->message = nl2br($e->getMessage());
 			$this->_render('new.html');
 		}
 	}
@@ -95,7 +95,7 @@ class ProjectadminController extends AdminadminController
 		}
 		catch (Exception $e) {
 			$this->_view->project = $project;
-			$this->_view->message = $e->getMessage();
+			$this->_view->message = nl2br($e->getMessage());
 			$this->_render('edit.html');
 		}
 	}

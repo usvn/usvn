@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 12:07+0200\n"
-"PO-Revision-Date: 2007-05-23 12:09+0200\n"
+"POT-Creation-Date: 2007-05-23 16:37+0200\n"
+"PO-Revision-Date: 2007-05-23 16:39+0200\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -500,31 +500,43 @@ msgstr "Impossible de supprimer le dossier %s."
 msgid "Can't read directory %s."
 msgstr "Impossible de lire le dossier %s."
 
-#: ../../../www//USVN/SVNUtils.php:156
+#: ../../../www//USVN/SVNUtils.php:156 ../../../www//USVN/SVNUtils.php:157
 msgid "Commit by USVN"
 msgstr "Modification effectué par USVN"
 
-#: ../../../www//USVN/SVNUtils.php:158
+#: ../../../www//USVN/SVNUtils.php:160
 #, php-format
-msgid "Can't import into subversion repository: %s"
-msgstr "Impossible d'importer dans le dépot subversion:%s"
+msgid ""
+"Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Impossible d'importer dans le dépot subversion.\n"
+"Commande:\n"
+"%s\n"
+"\n"
+"Erreur:\n"
+"%s"
 
-#: ../../../www//USVN/SVNUtils.php:175
+#: ../../../www//USVN/SVNUtils.php:177
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr "Impossible de créer le dépot subversion:%s"
 
-#: ../../../www//USVN/SVNUtils.php:180 ../../../www//USVN/SVNUtils.php:207
+#: ../../../www//USVN/SVNUtils.php:182 ../../../www//USVN/SVNUtils.php:209
 #, php-format
 msgid "Can't checkout subversion repository: %s"
 msgstr "Impossible de checkout le dépot subversion:%s"
 
-#: ../../../www//USVN/SVNUtils.php:224
+#: ../../../www//USVN/SVNUtils.php:226
 #, php-format
 msgid "Can't list subversion repository: %s"
 msgstr "Impossible de lister les fichiers du dépot subversion: %s"
 
-#: ../../../www//USVN/SVNUtils.php:249
+#: ../../../www//USVN/SVNUtils.php:251
 #, php-format
 msgid "Can't get subversion repository logs: %s"
 msgstr "Impossible de récupérer les logs du dépot subversion:%s"
@@ -609,13 +621,13 @@ msgstr ""
 #: ../../../www//views/groupadmin/attachment.html:26
 #: ../../../www//views/useradmin/attachment.html:25
 msgid "Select all"
-msgstr ""
+msgstr "Sélectionnez tous"
 
 #: ../../../www//views/projectadmin/attachment.html:29
 #: ../../../www//views/groupadmin/attachment.html:30
 #: ../../../www//views/useradmin/attachment.html:29
 msgid "Select none"
-msgstr ""
+msgstr "Sélectionnez aucun"
 
 #: ../../../www//views/profile/index.html:33
 #: ../../../www//views/useradmin/profile.html:23

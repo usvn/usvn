@@ -29,6 +29,19 @@ class USVN_ConsoleUtils
 		fclose($stderr);
 	}
 
+	private static $lang;
+	
+	static private function prepareLang()
+	{
+		USVN_ConsoleUtils::$lang = getenv('LANG');
+		putenv('LANG=en_US.utf8');
+	}
+
+	static private function restoreLang()
+	{
+		putenv('LANG=' . USVN_ConsoleUtils::$lang);
+	}
+	
 	/**
 	* Run a cmd and return result from stdout and stderror
 	*
@@ -38,10 +51,12 @@ class USVN_ConsoleUtils
 	*/
 	static public function runCmdCaptureMessage($command, &$return)
 	{
+		USVN_ConsoleUtils::prepareLang();
 		ob_start();
 		passthru($command . " 2>&1", $return);
 		$msg = ob_get_contents();
 		ob_end_clean();
+		USVN_ConsoleUtils::restoreLang();
 		return(htmlspecialchars($msg));
 	}
 
@@ -53,9 +68,11 @@ class USVN_ConsoleUtils
 	*/
 	static public function runCmd($command)
 	{
+		USVN_ConsoleUtils::prepareLang();
 		ob_start();
 		system($command . " 2>&1", $return);
 		ob_end_clean();
+		USVN_ConsoleUtils::restoreLang();
 		return($return);
 	}
 }

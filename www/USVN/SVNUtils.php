@@ -72,7 +72,7 @@ class USVN_SVNUtils
 		$command = escapeshellcmd($command);
 		$transaction = escapeshellcmd($transaction);
 		$repository = escapeshellcmd($repository);
-		return htmlspecialchars(`svnlook $command -t $transaction $repository`);
+		return USVN_ConsoleUtils::runCmdCaptureMessage("svnlook $command -t $transaction $repository", $return);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class USVN_SVNUtils
 		$command = escapeshellcmd($command);
 		$revision = escapeshellcmd($revision);
 		$repository = escapeshellcmd($repository);
-		return htmlspecialchars(`svnlook $command -r $revision $repository`);
+		return USVN_ConsoleUtils::runCmdCaptureMessage("svnlook $command -r $revision $repository", $return);
 	}
 
 	/**
@@ -110,7 +110,7 @@ class USVN_SVNUtils
 	*/
 	public static function getSvnVersion()
 	{
-		return USVN_SVNUtils::parseSvnVersion(htmlspecialchars(`svn --version`));
+		return USVN_SVNUtils::parseSvnVersion(USVN_ConsoleUtils::runCmdCaptureMessage("svn --version"));
 	}
 
 	/**
@@ -153,9 +153,11 @@ class USVN_SVNUtils
         $server = USVN_SVNUtils::_getRepositoryPath($server);
         $server = escapeshellcmd($server);
         $local = escapeshellcmd($local);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn import --non-interactive --username USVN -m \"" . T_("Commit by USVN") ."\" \"$local\" \"file://$server\"", $return);
+        $commitmsg = T_("Commit by USVN");
+        $cmd = "svn import --non-interactive --username USVN -m \"" . T_("Commit by USVN") ."\" \"$local\" \"file://$server\"";
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage($cmd, $return);
 		if ($return) {
-			throw new USVN_Exception(T_("Can't import into subversion repository: %s"), $message);
+			throw new USVN_Exception(T_("Can't import into subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 		}
     }
 

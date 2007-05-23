@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 12:07+0200\n"
+"POT-Creation-Date: 2007-05-23 16:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -485,31 +485,37 @@ msgstr ""
 msgid "Can't read directory %s."
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:156
+#: ../../../www//USVN/SVNUtils.php:156 ../../../www//USVN/SVNUtils.php:157
 msgid "Commit by USVN"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:158
+#: ../../../www//USVN/SVNUtils.php:160
 #, php-format
-msgid "Can't import into subversion repository: %s"
+msgid ""
+"Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:175
+#: ../../../www//USVN/SVNUtils.php:177
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:180 ../../../www//USVN/SVNUtils.php:207
+#: ../../../www//USVN/SVNUtils.php:182 ../../../www//USVN/SVNUtils.php:209
 #, php-format
 msgid "Can't checkout subversion repository: %s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:224
+#: ../../../www//USVN/SVNUtils.php:226
 #, php-format
 msgid "Can't list subversion repository: %s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:249
+#: ../../../www//USVN/SVNUtils.php:251
 #, php-format
 msgid "Can't get subversion repository logs: %s"
 msgstr ""

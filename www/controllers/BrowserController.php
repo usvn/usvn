@@ -31,7 +31,7 @@ class BrowserController extends USVN_Controller
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
 		$txthtml = "
-<table id=\"users\">
+<table class=\"usvn_table\">
     <thead>
         <tr>
             <th></th>
@@ -118,7 +118,7 @@ class BrowserController extends USVN_Controller
 			$grp_name = $res_groups->groups_name;
 			$text .= "<tr><td><label id=Lb".$i.">".$grp_name."</label></td>";
 			$res_files = $table_files->findByPath($_GET['name']);
-			if ($res_files != null) 
+			if ($res_files != null)
 			{
 				$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
 				$res_groupstofiles = $table_groupsfiles->findByIdRightsAndIdGroup($res_files->files_rights_id, $res_groups->groups_id);
@@ -138,7 +138,7 @@ class BrowserController extends USVN_Controller
 				else
 					$text .= $check;
 			}
-			else 
+			else
 				$text .= $check;
 			$i++;
 		}
@@ -152,7 +152,7 @@ class BrowserController extends USVN_Controller
 	*/
 	function updateOrInsertRights()
 	{
-		try 
+		try
 		{
 			$table_project = new USVN_Db_Table_Projects();
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
@@ -163,11 +163,11 @@ class BrowserController extends USVN_Controller
 			$tabgroup = split("-", $_GET['group']);
 			$tabrights = split("-", $_GET['rights']);
 			$j = 0;
-			if ($res_files != null) 
-			{	
+			if ($res_files != null)
+			{
 				foreach ($tabgroup as $group)
 				{
-					$table_group = new USVN_Db_Table_Groups(); 
+					$table_group = new USVN_Db_Table_Groups();
 					$res_groups = $table_group->findByGroupsName($group);
 					$res_groupstofile = $table_groupstofiles->findByIdRightsAndIdGroup($res_files->files_rights_id, $res_groups->groups_id);
 					if ($res_groupstofile != null)
@@ -187,15 +187,15 @@ class BrowserController extends USVN_Controller
 					}
 					$j += 2;
 				}
-			} 
-			else 
+			}
+			else
 			{
 				$id = $table_files->insert(array('projects_id' 	   			=> $res_project->id,
 							 					 'files_rights_path' 	   	=> $_GET['name']));
 				foreach ($tabgroup as $group)
-				{		
-					$table_group = new USVN_Db_Table_Groups(); 
-					$res_groups = $table_group->findByGroupsName($group);							 
+				{
+					$table_group = new USVN_Db_Table_Groups();
+					$res_groups = $table_group->findByGroupsName($group);
 					$table_groupstofiles->insert(array('files_rights_id' 		  => $id,
 													   'files_rights_is_readable' => ($tabrights[$j] == 'true' ? 1 : 0),
 							 						   'files_rights_is_writable' => ($tabrights[$j + 1] == 'true' ? 1 : 0),
@@ -204,7 +204,7 @@ class BrowserController extends USVN_Controller
 				}
 			}
 		}
-		catch (Exception $e) 
+		catch (Exception $e)
 		{
 			$msg .= $e->getMessage();
 		}

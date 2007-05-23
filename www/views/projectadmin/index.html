@@ -15,15 +15,19 @@ print '<table class="sortable" id="project">' .
 
 if (count($this->projects)) {
 	foreach ($this->projects as $project) {
-		$edit = $this->url(array('action' => 'edit', 'name' => $project->name));
-		$edit_text = T_("Edit");
+		$editurl = $this->url(array('action' => 'edit', 'name' => $project->name));
+		$deletetext = T_("Do you really want to delete project %s?");
 		echo <<<EOF
 		<tr>
-			<td>{$project->projects_name}</td>
-			<td>{$project->projects_description}</td>
 			<td>
-                {$this->editLink('project', $project->name)}
-                {$this->deleteLink('project', $project->name)}
+				<a href="{$editurl}">{$project->projects_name}</a>
+			</td>
+			<td>
+				<a href="{$editurl}">{$project->projects_description}</a>
+			</td>
+			<td>
+                {$this->editLink('name', $project->name)}
+                {$this->deleteLink('name', $project->name, $deletetext)}
             </td>
 		</tr>
 EOF;

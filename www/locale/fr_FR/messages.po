@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-22 19:10+0200\n"
-"PO-Revision-Date: 2007-05-22 19:12+0200\n"
+"POT-Creation-Date: 2007-05-23 12:07+0200\n"
+"PO-Revision-Date: 2007-05-23 12:09+0200\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,19 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../../../www//helpers/DeleteLink.php:34
+#: ../../../www//helpers/DeleteLink.php:35
 #: ../../../www//views/project/index.html:19
 #: ../../../www//views/project/index.html:35
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../../../www//helpers/DeleteLink.php:35
-#, php-format
-msgid "Do you really want to delete %s %s?"
-msgstr "Voulez vous vraiment supprimer %s %s?"
-
 #: ../../../www//helpers/EditLink.php:35
-#: ../../../www//views/projectadmin/index.html:19
 msgid "Edit"
 msgstr "Editer"
 
@@ -506,31 +500,31 @@ msgstr "Impossible de supprimer le dossier %s."
 msgid "Can't read directory %s."
 msgstr "Impossible de lire le dossier %s."
 
-#: ../../../www//USVN/SVNUtils.php:149
+#: ../../../www//USVN/SVNUtils.php:156
 msgid "Commit by USVN"
 msgstr "Modification effectué par USVN"
 
-#: ../../../www//USVN/SVNUtils.php:151
+#: ../../../www//USVN/SVNUtils.php:158
 #, php-format
 msgid "Can't import into subversion repository: %s"
 msgstr "Impossible d'importer dans le dépot subversion:%s"
 
-#: ../../../www//USVN/SVNUtils.php:167
+#: ../../../www//USVN/SVNUtils.php:175
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr "Impossible de créer le dépot subversion:%s"
 
-#: ../../../www//USVN/SVNUtils.php:172 ../../../www//USVN/SVNUtils.php:198
+#: ../../../www//USVN/SVNUtils.php:180 ../../../www//USVN/SVNUtils.php:207
 #, php-format
 msgid "Can't checkout subversion repository: %s"
 msgstr "Impossible de checkout le dépot subversion:%s"
 
-#: ../../../www//USVN/SVNUtils.php:214
+#: ../../../www//USVN/SVNUtils.php:224
 #, php-format
 msgid "Can't list subversion repository: %s"
 msgstr "Impossible de lister les fichiers du dépot subversion: %s"
 
-#: ../../../www//USVN/SVNUtils.php:238
+#: ../../../www//USVN/SVNUtils.php:249
 #, php-format
 msgid "Can't get subversion repository logs: %s"
 msgstr "Impossible de récupérer les logs du dépot subversion:%s"
@@ -602,6 +596,11 @@ msgstr "Description"
 msgid "Submit"
 msgstr "Soumettre"
 
+#: ../../../www//views/projectadmin/index.html:19
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr "Voulez vous vraiment supprimer le projet %s?"
+
 #: ../../../www//views/projectadmin/attachment.html:3
 msgid "Project's attachements"
 msgstr ""
@@ -625,14 +624,12 @@ msgid "User account"
 msgstr "Compte utilisateur"
 
 #: ../../../www//views/profile/index.html:35
-#, fuzzy
 msgid "Actual password"
-msgstr "Mot de passe incorrect"
+msgstr "Mot de passe actuel"
 
 #: ../../../www//views/profile/index.html:39
-#, fuzzy
 msgid "New password"
-msgstr "Mot de passe"
+msgstr "Nouveau mot de passe"
 
 #: ../../../www//views/adminadmin/index.html:2
 msgid "Administration"
@@ -666,6 +663,11 @@ msgstr "Le nom du groupe est vide."
 msgid "Group's information"
 msgstr "Information sur le groupe"
 
+#: ../../../www//views/groupadmin/index.html:20
+#, php-format
+msgid "Do you really want to delete group %s?"
+msgstr "Voulez vous vraiment supprimer le groupe %s?"
+
 #: ../../../www//views/groupadmin/attachment.html:4
 msgid "Group's attachements"
 msgstr ""
@@ -685,6 +687,11 @@ msgstr "oui"
 #: ../../../www//views/useradmin/index.html:33
 msgid "no"
 msgstr "non"
+
+#: ../../../www//views/useradmin/index.html:36
+#, php-format
+msgid "Do you really want to delete user %s?"
+msgstr "Voulez vous vraiment supprimer l'utilisateur %s?"
 
 #: ../../../www//views/useradmin/attachment.html:3
 msgid "User's attachements"

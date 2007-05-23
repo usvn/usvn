@@ -22,16 +22,17 @@ class USVN_View_Helper_DeleteLink {
      *
      * @access public
      *
-     * @param string Type of ressource to delete (ex: project)
+     * @param string Param name of ressource to delete (ex: login or name)
      * @param string Name of ressource
+     * @param string Text of confirmation (with %s inside to put name of ressource)
      *
      * @return string HTML link: <a href="test">Test</a>.
      */
-    public function deleteLink($type, $name)
+    public function deleteLink($param, $name, $confirmText)
     {
         $front = Zend_Controller_Front::getInstance();
         $view = $front->getParam('view');
         $img = $view->img("CrystalClear/16x16/actions/editdelete.png", T_("Delete"));
-        return $view->urlConfirm(array('action' => 'delete', 'name' => $name),  $img, sprintf(T_("Do you really want to delete %s %s?"), $type , $name));
+        return $view->urlConfirm(array('action' => 'delete', $param => $name),  $img, sprintf($confirmText, $name));
     }
 }

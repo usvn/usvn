@@ -32,16 +32,18 @@ if (count($this->users)) {
 		} else {
 			$admin = T_("no");
 		}
+		$editurl = $this->url(array('action' => 'edit', 'login' => $user->login));
+		$deletetext = T_("Do you really want to delete user %s?");
 		$line = <<<EOF
 		<tr>
-			<td>{$user->login}</td>
-			<td>{$user->firstname}</td>
-			<td>{$user->lastname}</td>
-			<td>{$user->email}</td>
-			<td>{$admin}</td>
+			<td><a href="{$editurl}">{$user->login}</a></td>
+			<td><a href="{$editurl}">{$user->firstname}</a></td>
+			<td><a href="{$editurl}">{$user->lastname}</a></td>
+			<td><a href="mailto:{$user->email}">{$user->email}</td>
+			<td><a href="{$editurl}">{$admin}</a></td>
             <td>
-                {$this->editLink('user', $user->login)}
-                {$this->deleteLink('user', $user->login)}
+                {$this->editLink('login', $user->login)}
+                {$this->deleteLink('login', $user->login, $deletetext)}
             </td>
 		</tr>\n
 EOF;

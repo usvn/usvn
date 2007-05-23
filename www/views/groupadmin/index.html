@@ -16,13 +16,19 @@ print '<table class="sortable" id="groups">' .
 
 if (count($this->groups)) {
 	foreach ($this->groups as $group) {
+		$editurl = $this->url(array('action' => 'edit', 'name' => $group->name));
+		$deletetext = T_("Do you really want to delete group %s?");
 		$line = <<<EOF
 		<tr>
-			<td>{$group->name}</td>
-			<td>{$group->description}</td>
 			<td>
-                {$this->editLink('group', $group->name)}
-                {$this->deleteLink('group', $group->name)}
+				<a href="{$editurl}">{$group->name}</a>
+			</td>
+			<td>
+				<a href="{$editurl}">{$group->description}</a>
+			</td>
+			<td>
+                {$this->editLink('name', $group->name)}
+                {$this->deleteLink('name', $group->name, $deletetext)}
             </td>
 		</tr>\n
 EOF;

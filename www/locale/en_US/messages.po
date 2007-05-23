@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-22 19:10+0200\n"
+"POT-Creation-Date: 2007-05-23 12:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,19 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../../www//helpers/DeleteLink.php:34
+#: ../../../www//helpers/DeleteLink.php:35
 #: ../../../www//views/project/index.html:19
 #: ../../../www//views/project/index.html:35
 msgid "Delete"
 msgstr ""
 
-#: ../../../www//helpers/DeleteLink.php:35
-#, php-format
-msgid "Do you really want to delete %s %s?"
-msgstr ""
-
 #: ../../../www//helpers/EditLink.php:35
-#: ../../../www//views/projectadmin/index.html:19
 msgid "Edit"
 msgstr ""
 
@@ -491,31 +485,31 @@ msgstr ""
 msgid "Can't read directory %s."
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:149
+#: ../../../www//USVN/SVNUtils.php:156
 msgid "Commit by USVN"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:151
+#: ../../../www//USVN/SVNUtils.php:158
 #, php-format
 msgid "Can't import into subversion repository: %s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:167
+#: ../../../www//USVN/SVNUtils.php:175
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:172 ../../../www//USVN/SVNUtils.php:198
+#: ../../../www//USVN/SVNUtils.php:180 ../../../www//USVN/SVNUtils.php:207
 #, php-format
 msgid "Can't checkout subversion repository: %s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:214
+#: ../../../www//USVN/SVNUtils.php:224
 #, php-format
 msgid "Can't list subversion repository: %s"
 msgstr ""
 
-#: ../../../www//USVN/SVNUtils.php:238
+#: ../../../www//USVN/SVNUtils.php:249
 #, php-format
 msgid "Can't get subversion repository logs: %s"
 msgstr ""
@@ -587,6 +581,11 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+#: ../../../www//views/projectadmin/index.html:19
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr ""
+
 #: ../../../www//views/projectadmin/attachment.html:3
 msgid "Project's attachements"
 msgstr ""
@@ -649,6 +648,11 @@ msgstr ""
 msgid "Group's information"
 msgstr ""
 
+#: ../../../www//views/groupadmin/index.html:20
+#, php-format
+msgid "Do you really want to delete group %s?"
+msgstr ""
+
 #: ../../../www//views/groupadmin/attachment.html:4
 msgid "Group's attachements"
 msgstr ""
@@ -667,6 +671,11 @@ msgstr ""
 
 #: ../../../www//views/useradmin/index.html:33
 msgid "no"
+msgstr ""
+
+#: ../../../www//views/useradmin/index.html:36
+#, php-format
+msgid "Do you really want to delete user %s?"
 msgstr ""
 
 #: ../../../www//views/useradmin/attachment.html:3

@@ -22,16 +22,16 @@ class USVN_View_Helper_EditLink {
      *
      * @access public
      *
-     * @param string Type of ressource to edit (ex: project)
+     * @param string Param name of ressource to delete (ex: login or name)
      * @param string Name of ressource
      *
      * @return string HTML link: <a href="test">Test</a>.
      */
-    public function editLink($type, $name)
+    public function editLink($param, $name)
     {
         $front = Zend_Controller_Front::getInstance();
         $view = $front->getParam('view');
-        $url = $view->url(array('action' => 'edit', 'name' => $name));
+        $url = $view->url(array('action' => 'edit', $param => $name));
         $img = $view->img("CrystalClear/16x16/actions/edit.png", T_("Edit"));
         return <<< EOF
         <a href="{$url}">

@@ -157,7 +157,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		$db = $this->getAdapter();
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
 		$where = $db->quoteInto("users_login like ?", $match_login."%");
-		$where .= $db->quoteInto(" and users_login != ?", $match_login);
+		//$where .= $db->quoteInto(" and users_login != ?", $match_login);
 		return $this->fetchAll($where, "users_login");
 	}
 }

@@ -144,7 +144,7 @@ class ProjectController extends USVN_Controller
 			if ($request->getParam('deleteid', 0) != 0) {
 				$user = $table->fetchRow(array("users_id = ?" => $request->getParam('deleteid')));
 				if ($user === null) {
-					throw new USVN_Exception(sprintf(T_("Unknown user's %d"), $request->getParam('deleteid')));
+					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('deleteid')));
 				}
 				$group->deleteUser($user);
 			}

@@ -118,12 +118,12 @@ class BrowserController extends USVN_Controller
 			$grp_name = $res_groups->groups_name;
 			$text .= "<tr><td><label id=Lb".$i.">".$grp_name."</label></td>";
 			$res_files = $table_files->findByPath($_GET['name']);
+			$check = "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+			$check .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
 			if ($res_files != null)
 			{
 				$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
 				$res_groupstofiles = $table_groupsfiles->findByIdRightsAndIdGroup($res_files->files_rights_id, $res_groups->groups_id);
-				$check = "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
-				$check .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
 				if ($res_groupstofiles != null)
 				{
 					if ($res_groupstofiles->files_rights_is_readable == 1)
@@ -135,11 +135,13 @@ class BrowserController extends USVN_Controller
 					else
 						$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
 				}
-				else
+				else {
 					$text .= $check;
+				}
 			}
-			else
+			else {
 				$text .= $check;
+			}
 			$i++;
 		}
 		$text .= "</table>";

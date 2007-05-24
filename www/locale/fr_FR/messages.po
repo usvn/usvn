@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-23 21:50+0200\n"
-"PO-Revision-Date: 2007-05-23 21:50+0200\n"
+"PO-Revision-Date: 2007-05-24 14:13+0200\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team: Français <contact@usvn.fr>\n"
 "MIME-Version: 1.0\n"
@@ -322,7 +322,7 @@ msgstr "Acceptation de la licence"
 
 #: ../../../www//install/views/step3.html:3
 msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
-msgstr "Merci de lire et d'accpeter la licence CeCILL."
+msgstr "Merci de lire et d'accepter la licence CeCILL."
 
 #: ../../../www//install/views/step3.html:1966
 msgid "I understand and accept this license."

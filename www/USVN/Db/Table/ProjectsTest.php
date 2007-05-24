@@ -67,6 +67,37 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
 	}
 
+	public function testInsertProjectOkSVNAlreadyExist()
+	{
+		USVN_SVNUtils::createSVN('tests/tmp/'
+		. DIRECTORY_SEPARATOR
+		. 'svn'
+		. DIRECTORY_SEPARATOR
+		. 'InsertProjectOk');
+
+		$table = new USVN_Db_Table_Projects();
+		$project = $table->fetchNew();
+		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project->save();
+
+		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
+
+		$table = new USVN_Db_Table_Groups();
+		$this->assertTrue($table->isAGroup('InsertProjectOk'), "Le groupe n'est pas cree");
+		$group = $table->fetchRow(array("groups_name = ?" => 'InsertProjectOk'));
+
+		$table = new USVN_Db_Table_FilesRights();
+		$right = $table->fetchRow(array("files_rights_path = ?" => "/", "projects_id = ?" => $project->id));
+		$this->assertNotNull($right, "La ligne pour les droits sur / n'a pas ete trouvee");
+
+		$table = new USVN_Db_Table_GroupsToFilesRights();
+		$rights = $table->fetchRow(array("files_rights_id = ?" => $right->id, "groups_id = ?" => $group->id));
+		$this->assertNotNull($rights, "La ligne pour les droits du groupe n'a pas ete trouvee");
+		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas la lecture");
+		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
+	}
+	
 	public function testInsertProjectNoName()
 	{
 		$table = new USVN_Db_Table_Projects();

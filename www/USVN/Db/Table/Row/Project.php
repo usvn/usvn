@@ -185,11 +185,14 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	{
 		$this->checkProjectName($this->_data['projects_name']);
 		$config = Zend_Registry::get('config');
-		USVN_SVNUtils::createSVN($config->subversion->path
-		. DIRECTORY_SEPARATOR
-		. 'svn'
-		. DIRECTORY_SEPARATOR
-		. $this->_data['projects_name']);
+		$path = $config->subversion->path
+			. DIRECTORY_SEPARATOR
+			. 'svn'
+			. DIRECTORY_SEPARATOR
+			. $this->_data['projects_name'];
+		if (!USVN_SVNUtils::isSVNRepository($path)) {
+			USVN_SVNUtils::createSVN($path);
+		}
 	}
 
 	/**

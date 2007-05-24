@@ -74,16 +74,16 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 
 	public function testAddGroup()
 	{
-//		$this->project->addGroup($this->groups->find(42)->current());
-//		$this->project->addGroup($this->groups->find(43)->current());
-//		$this->groups = $this->project->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_Workgroups');
-//		$res = array();
-//		foreach ($this->groups as $group) {
-//			array_push($res, $group->groups_name);
-//		}
-//		$this->assertContains("test", $res);
-//		$this->assertContains("test2", $res);
-//		$this->assertNotContains("notest", $res);
+		$this->project->addGroup($this->groups->find(42)->current());
+		$this->project->addGroup($this->groups->find(43)->current());
+		$this->groups = $this->project->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_GroupsToProjects');
+		$res = array();
+		foreach ($this->groups as $group) {
+			array_push($res, $group->groups_name);
+		}
+		$this->assertContains("test", $res);
+		$this->assertContains("test2", $res);
+		$this->assertNotContains("notest", $res);
 	}
 
 	public function testGroupIsMember()

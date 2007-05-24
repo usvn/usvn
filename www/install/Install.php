@@ -51,6 +51,7 @@ class Install
 			'dbname'   => $database);
 		try {
 			$db = Zend_Db::factory('PDO_MYSQL', $params);
+                        $db->getConnection();
 		}
 		catch (Exception $e) {
 			throw new USVN_Exception(T_("Can't connect to database.\n") ." ". $e->getMessage());

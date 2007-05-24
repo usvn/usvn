@@ -110,7 +110,7 @@ class BrowserController extends USVN_Controller
 		$table_groupstoproject = new USVN_Db_Table_GroupsToProjects();
 		$res_groupstoproject = $table_groupstoproject->findByProjectId($res_project->projects_id);
 		$table_groups = new USVN_Db_Table_Groups();
-		$text = "<table><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td></tr>";
+		$text = "<table class='usvn_table'><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td></tr>";
 		$i = 0;
 		foreach ($res_groupstoproject as $groups)
 		{

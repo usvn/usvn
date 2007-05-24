@@ -71,7 +71,7 @@ function alert_ajax(xhr, index, id)
 		{
 			var items_groups = docXML.getElementsByTagName("groups").item(0).firstChild.data;
 			items_nbgroup = docXML.getElementsByTagName("nbgroup").item(0).firstChild.data;
-			var bulle = "<h3><?php echo T_('Acces rights for'); ?>" + " " + id +"</h3>";
+			var bulle = "<h3>&nbsp;<?php echo T_('Acces rights for'); ?>" + " " + id +"&nbsp;</h3>";
 			bulle += items_groups;
 			bulle += "<br><table><tr><td><input type='button' value='Ok' onclick=\"javascript:ajax(2, '" + id + "');\" /></td><td>";
 			bulle += "<input type='button' value='Cancel' onclick='javascript:cancel();'/></td></tr></table><label id='labelError'></label>";
@@ -101,8 +101,8 @@ function alert_ajax(xhr, index, id)
 <h1 id="usvn_title"><?php echo T_("Files list"); ?></h1>
 <div id="txthtml2">
 </div>
-<div id="bulle" style="visibility:hidden; position:absolute; background-color:#F2F2F2;"></div>
-<script type="text/javascript">
+<div id="bulle" style="visibility:hidden; position:absolute; background-color:#FFFFFF; border:1px solid #5F7FFF;" align="center"></div>
+<script type="text/javascript"><!-- #F2F2F2 -->
 <!--
 register_position();
 ajax(3, 'nop');

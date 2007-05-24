@@ -364,7 +364,7 @@ msgstr "Installation de la base de donnée"
 
 #: ../../../www//install/views/step5.html:3
 msgid "Configuration of database's access."
-msgstr "Configuration de l'accés à la base de donnée"
+msgstr "Configuration de l'accès à la base de donnée"
 
 #: ../../../www//install/views/step5.html:13
 msgid "Host"
@@ -592,7 +592,7 @@ msgstr "Importer un fichier htpasswd"
 
 #: ../../../www//views/browser/index.html:74
 msgid "Acces rights for"
-msgstr "Droits d'accés pour"
+msgstr "Droits d'accès pour"
 
 #: ../../../www//views/browser/index.html:101
 msgid "Files list"

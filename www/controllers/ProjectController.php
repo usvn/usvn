@@ -161,4 +161,22 @@ class ProjectController extends USVN_Controller
 		$this->_view->group = $group;
 		$this->_render();
 	}
+	
+	public function completionAction()
+	{
+		header('Content-Type: text/xml');
+		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
+		$table = "<table>";
+		
+		$table_users = new USVN_Db_Table_Users();
+		$res_users = $table_users->allUsersLike($_GET['txt']);
+		foreach ($res_users as $user)
+		{
+			$table .= "<tr><td>";
+			$table .= "<label onclick='javascript:dumpUser("."\"".$user->users_login."\"".")'>".$user->users_login."</label>";
+			$table .= "</td></tr>";
+		}		
+		$table .= "</table>";
+		echo "<table><![CDATA[".$table."]]></table>\n";
+	}
 }

@@ -1,3 +1,82 @@
+<script>
+
+function ajax_completion()
+{
+	document.getElementById('completion').style.visibility = 'visible';
+	var login = document.getElementById('users_login').value;
+	var xhr=null;
+    if (window.XMLHttpRequest)
+        xhr = new XMLHttpRequest();
+    else if (window.ActiveXObject)
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    xhr.onreadystatechange = function() { alert_ajax_completion(xhr); };
+	xhr.open("GET", "<?php echo $this->url(array('action' => 'completion?txt="+ login + "')); ?>", true);
+	xhr.send(null);
+}
+
+function alert_ajax_completion(xhr)
+{
+	var docXML = xhr.responseXML;
+	if (docXML)
+	{
+		var tabUsers = docXML.getElementsByTagName("table").item(0).firstChild.data;
+		document.getElementById('completion').innerHTML = tabUsers;
+	}
+}
+
+function dumpUser(name)
+{
+	document.getElementById('users_login').value = name;
+	document.getElementById('completion').style.visibility = 'hidden';
+}
+
+</script>
+
+<div class="usvn_info">
+	<h1><?php echo $this->project->name;?></h1>
+	<p><?php echo $this->project->description;?><br /><br />
+<?php echo sprintf(T_("Checkout URL : %s"), Zend_Registry::get('config')->subversion->url . $this->project->name . "/trunk/"); ?>
+</p>
+</div>
+<div class="usvn_info">
+	<?php if ($this->isAdmin) : ?>
+	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "adduser")); ?>" method="post">
+		<div>
+			<table><tr><td>
+			<?php echo $this->formText("users_login", null, array("onkeyup" => "javascript:ajax_completion()")); ?>
+			</td><td>
+			<?php echo $this->formSubmit("adduser", T_("Add")); ?>
+			</td></tr><tr><td><div id="completion"></div></td><td></td></tr></table>
+		</div>
+	</form>
+	<?php endif; ?>
+	<h1><?php echo T_("Admins Users");?></h1>
+	<ul>
+	<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToProjects") as $user) :?>
+		<li><a href="<?php echo $this->url(array("action" => "deleteuser", "users_id" => $user->id)); ?>"><?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?></a>&nbsp;<?php echo $user->login; ?></li>
+	<?php endforeach; ?>
+	</ul>
+</div>
+<div class="usvn_info">
+	<?php if ($this->isAdmin) : ?>
+	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "addgroup")); ?>" method="post">
+		<div>
+			<?php echo $this->formText("groups_name"); ?>
+			<?php echo $this->formSubmit("addgroup", T_("Add")); ?>
+		</div>
+	</form>
+	<?php endif; ?>
+	<h1><?php echo T_("Affected Groups");?></h1>
+	<ul>
+	<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_GroupsToProjects") as $group) :?>
+		<li><a href="<?php echo $this->url(array("action" => "deletegroup", "groups_id" => $group->id)); ?>"><?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?></a>&nbsp;<?php echo $group->name; ?></li>
+	<?php endforeach; ?>
+	</ul>
+</div>
+<div class="usvn_info">
+	<h1><?php echo T_("Last five commit") ?></h1>
+	<pre><?php echo $this->log ?></pre>
+</div>
 <div class="usvn_info">
 	<h1><?php echo $this->project->name;?></h1>
 	<p><?php echo $this->project->description;?><br /><br />

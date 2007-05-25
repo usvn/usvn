@@ -1,0 +1,21 @@
+/* CSS Document */
+
+div._list_autocomplete_ajax {
+	position:absolute;
+	width:143px;
+	background-color:white;
+	border:1px solid #888;
+	margin:0px;
+	padding:0px;
+}
+
+div._list_autocomplete_ajax label {
+	font-family:Verdana;
+	font-size:12px;
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+	margin:0px;
+	padding:0px;	
+}
+

@@ -51,6 +51,20 @@ class ProjectController extends USVN_Controller
 		$this->_project = $project;
 
 		$this->_view->isAdmin = $this->isAdmin();
+
+		$user = $this->getRequest()->getParam('user');
+		/* @var $user USVN_Db_Table_Row_User */
+		$groups = $user->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_UsersToGroups");
+		$find = false;
+		foreach ($groups as $group) {
+			if ($project->groupIsMember($group)) {
+				$find = true;
+				break;
+			}
+		}
+		if (!$find && !$this->isAdmin()) {
+			$this->_redirect("/");
+		}
 	}
 
 	protected function isAdmin()
@@ -161,13 +175,13 @@ class ProjectController extends USVN_Controller
 		$this->_view->group = $group;
 		$this->_render();
 	}
-	
+
 	public function completionAction()
 	{
 		header('Content-Type: text/xml');
 		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
 		$table = "<table>";
-		
+
 		$table_users = new USVN_Db_Table_Users();
 		$res_users = $table_users->allUsersLike($_GET['txt']);
 		foreach ($res_users as $user)
@@ -175,7 +189,7 @@ class ProjectController extends USVN_Controller
 			$table .= "<tr><td>";
 			$table .= "<label onclick='javascript:dumpUser("."\"".$user->users_login."\"".")'>".$user->users_login."</label>";
 			$table .= "</td></tr>";
-		}		
+		}
 		$table .= "</table>";
 		echo "<table><![CDATA[".$table."]]></table>\n";
 	}

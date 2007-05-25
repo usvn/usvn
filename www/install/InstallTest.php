@@ -204,6 +204,7 @@ site.title=USVN
 		$this->assertEquals(
 "<Location /dev/usvn/>
 	DAV svn
+	Require valid-user
 	SVNParentPath tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "svn
 	SVNListParentPath off
 	AuthType Basic

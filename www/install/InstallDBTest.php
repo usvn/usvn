@@ -69,6 +69,7 @@ class InstallDbTest extends USVN_Test_Test {
 
 	public function tearDown() {
 		$this->clean();
+        $this->db->closeConnection();
 		parent::tearDown();
 	}
 

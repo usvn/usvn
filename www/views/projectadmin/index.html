@@ -15,12 +15,13 @@ print '<table class="sortable" id="project">' .
 
 if (count($this->projects)) {
 	foreach ($this->projects as $project) {
+		$adminurl = $this->url(array('controller' => 'project', 'action' => null, 'project' => $project->name), 'project', true);
 		$editurl = $this->url(array('action' => 'edit', 'name' => $project->name));
 		$deletetext = T_("Do you really want to delete project %s?");
 		echo <<<EOF
 		<tr>
 			<td>
-				<a href="{$editurl}">{$project->projects_name}</a>
+				<a href="{$adminurl}">{$project->projects_name}</a>
 			</td>
 			<td>
 				<a href="{$editurl}">{$project->projects_description}</a>

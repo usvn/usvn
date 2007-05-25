@@ -169,8 +169,8 @@ class USVN_SVNUtils
     */
     public static function createSvn($path)
     {
-      $path = escapeshellarg($path);
-      $message = USVN_ConsoleUtils::runCmdCaptureMessage("svnadmin create $path", $return);
+      $escape_path = escapeshellarg($path);
+      $message = USVN_ConsoleUtils::runCmdCaptureMessage("svnadmin create $escape_path", $return);
       if ($return) {
 		throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
       }
@@ -217,8 +217,8 @@ class USVN_SVNUtils
 	*/
 	public static function listSvn($repository, $path)
 	{
-        $path = USVN_SVNUtils::_getRepositoryPath($repository."/$path");
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn ls $path", $return);
+        $escape_path = USVN_SVNUtils::_getRepositoryPath($repository . '/' . $path);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("svn ls $escape_path", $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $message);
 		}
@@ -265,6 +265,6 @@ class USVN_SVNUtils
 			$path = preg_replace('/"[\s]*([^\s]*)[\s]*"/', '"file:///$1"', $path);
 			return $path;
 		}
-		return 'file://' . realpath($path);
+		return escapeshellarg('file://' . realpath($path));
 	}
 }

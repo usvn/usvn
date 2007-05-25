@@ -24,13 +24,7 @@ class IndexController extends USVN_Controller {
 	 */
 	public function indexAction() {
 		$projects = new USVN_Db_Table_Projects();
-		if ($this->_view->project != '__NONE__') {
-			$this->_view->project = $projects->fetchRow(array('projects_name = ?' => $this->_request->getParam('project')));
-			$this->_render("project.html");
-		}
-		else {
-			$this->_view->projects = $projects->fetchAll();
-			$this->_render("index.html");
-		}
+		$this->_view->projects = $projects->fetchAllAssignedTo($this->getRequest()->getParam('user'));
+		$this->_render("index.html");
 	}
 }

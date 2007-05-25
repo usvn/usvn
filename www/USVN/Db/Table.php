@@ -136,4 +136,33 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 		return $rowsAffected;
 	}
 
+
+    /**
+     * Inserts a new row.
+     *
+     * @param  array  $data  Column-value pairs.
+     * @return mixed         The primary key of the row inserted.
+     */
+	public function insert(array $data)
+	{
+		foreach ($data as &$value) {
+			$value = htmlentities($value, ENT_QUOTES, 'UTF-8');
+		}
+		return parent::insert($data);
+	}
+
+    /**
+     * Updates existing rows.
+     *
+     * @param  array        $data  Column-value pairs.
+     * @param  array|string $where An SQL WHERE clause, or an array of SQL WHERE clauses.
+     * @return int          The number of rows updated.
+     */
+    public function update(array $data, $where)
+	{
+		foreach ($data as &$value) {
+			$value = htmlentities($value, ENT_QUOTES, 'UTF-8');
+		}
+		return parent::update($data, $where);
+	}
 }

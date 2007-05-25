@@ -265,6 +265,6 @@ class USVN_SVNUtils
 			$path = preg_replace('/"[\s]*([^\s]*)[\s]*"/', '"file:///$1"', $path);
 			return $path;
 		}
-		return realpath($path);
+		return 'file://' . realpath($path);
 	}
 }

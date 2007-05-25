@@ -1,4 +1,4 @@
-<?php echo $this->completion('addlogin'); ?>
+<?php echo $this->completion(); ?>
 <div class="usvn_info">
 	<h1><?php echo sprintf(T_("Managing group %s"), $this->group->name);?></h1>
 	<p><?php echo $this->group->description; ?></p>
@@ -8,7 +8,7 @@
 		<div>
 			<table>
 		<tr><td>
-			<?php echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion()", "autocomplete" => "off")); ?>
+			<?php echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'addlogin')", "autocomplete" => "off")); ?>
 		</td><td>
 			<?php echo $this->formSubmit("managegroup", T_("Add")); ?>
 		</td></tr>

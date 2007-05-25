@@ -181,15 +181,33 @@ class ProjectController extends USVN_Controller
 		header('Content-Type: text/xml');
 		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
 		$table = "<table>";
-
-		$table_users = new USVN_Db_Table_Users();
-		$res_users = $table_users->allUsersLike($_GET['txt']);
-		foreach ($res_users as $user)
+		if ($_GET['idx'] == 1)
 		{
-			$table .= "<tr><td>";
-			$table .= "<label onclick='javascript:dumpUser("."\"".$user->users_login."\"".")'>".$user->users_login."</label>";
-			$table .= "</td></tr>";
-		}
+			$table_users = new USVN_Db_Table_Users();
+			$res_users = $table_users->allUsersLike($_GET['txt']);
+			foreach ($res_users as $user)
+			{
+				$table_users = new USVN_Db_Table_Users();
+				$res_users = $table_users->allUsersLike($_GET['txt']);
+				foreach ($res_users as $user)
+				{
+					$table .= "<tr><td>";
+					$table .= "<label onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['name']."\"".", \"completion\")'>".$user->users_login."</label>";
+					$table .= "</td></tr>";
+				}
+			}
+		}	
+		if ($_GET['idx'] == 2)
+		{
+			$table_groups = new USVN_Db_Table_Groups();
+			$res_groups = $table_groups->allGroupsLike($_GET['txt']);
+			foreach ($res_groups as $group)
+			{
+				$table .= "<tr><td>";
+				$table .= "<label onclick='javascript:dumpInput("."\"".$group->groups_name."\"".","."\"".$_GET['name']."\"".", \"completion1\")'>".$group->groups_name."</label>";
+				$table .= "</td></tr>";
+			}
+		}	
 		$table .= "</table>";
 		echo "<table><![CDATA[".$table."]]></table>\n";
 	}

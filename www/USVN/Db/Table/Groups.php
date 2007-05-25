@@ -191,4 +191,18 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_name = ?", $name);
 		return $this->fetchRow($where, "groups_name");
 	}
+	
+	/**
+	 * Return all groups like group name
+	 *
+	 * @param string
+	 * @return USVN_Db_Table_Row
+	 */
+	public function allGroupsLike($match_group)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		$where = $db->quoteInto("groups_name like ?", $match_group."%");
+		return $this->fetchAll($where, "groups_name");
+	}
 }

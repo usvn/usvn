@@ -91,6 +91,7 @@ class layout extends Zend_Controller_Plugin_Abstract
         <script type="text/javascript" src="{$config->url->base}/medias/default/js/tools/prototype.js"></script>
         <script type="text/javascript" src="{$config->url->base}/medias/default/js/tools/scriptaculous/builder.js"></script>
         <script type="text/javascript" src="{$config->url->base}/medias/default/js/tools/HTMLTableTools/HTMLTableTools.js"></script>
+		<!--<script type="text/javascript" src="{$config->url->base}/medias/default/js/completion.js"></script>-->
 	</head>
 	<body>
 		<div id="usvn_page">

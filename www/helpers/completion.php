@@ -1,6 +1,6 @@
 <?php
 /**
- * Generate image tag with correct path
+ * Generate completion
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -20,40 +20,40 @@ class USVN_View_Helper_Completion {
     /**
     * @param Id input for dump user
     */
-    public function Completion($idInput)
+    public function Completion()
     {
 	    $front = Zend_Controller_Front::getInstance();
         $view = $front->getParam('view');
 		return <<<EOF
 		<script>
-function ajax_completion()
+function ajax_completion(idx, divcompletion, nameInput)
 {
-	document.getElementById('completion').style.visibility = 'visible';
-	var login = document.getElementById('{$idInput}').value;
+	document.getElementById(divcompletion).style.visibility = 'visible';
+	var login = document.getElementById(nameInput).value;
 	var xhr=null;
     if (window.XMLHttpRequest)
         xhr = new XMLHttpRequest();
     else if (window.ActiveXObject)
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    xhr.onreadystatechange = function() { alert_ajax_completion(xhr); };
-	xhr.open("GET", "{$view->url(array('action' => 'completion?txt="+ login + "', 'name' => null))}", true);
+    xhr.onreadystatechange = function() { alert_ajax_completion(xhr, divcompletion); };
+	xhr.open("GET", "{$view->url(array('action' => 'completion?txt="+ login + "&idx=" + idx + "&name=" + nameInput + "', 'name' => null))}", true);
 	xhr.send(null);
 }
 
-function alert_ajax_completion(xhr)
+function alert_ajax_completion(xhr, divcompletion)
 {
 	var docXML = xhr.responseXML;
 	if (docXML)
 	{
 		var tabUsers = docXML.getElementsByTagName("table").item(0).firstChild.data;
-		document.getElementById('completion').innerHTML = tabUsers;
+		document.getElementById(divcompletion).innerHTML = tabUsers;
 	}
 }
 
-function dumpUser(name)
+function dumpInput(name, nameinput, divcompletion)
 {
-	document.getElementById('{$idInput}').value = name;
-	document.getElementById('completion').style.visibility = 'hidden';
+	document.getElementById(nameinput).value = name;
+	document.getElementById(divcompletion).style.visibility = 'hidden';
 }
 	</script>
 EOF;

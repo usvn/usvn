@@ -390,5 +390,7 @@ table.usvn_table tr.odd:hover th {
 <?php include($this->css_directory . "/project.css"); ?>
 <?php include($this->css_directory . "/admin.css"); ?>
 <?php include($this->css_directory . "/index.css"); ?>
+<?php include($this->css_directory . "/completion.css"); ?>
+<?php include($this->css_directory . "/bubblerights.css"); ?>
 
 /* End of screen.css */

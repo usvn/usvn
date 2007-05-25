@@ -1,4 +1,5 @@
 <?php echo $this->completion('users_login'); ?>
+
 <div class="usvn_info">
 	<h1><?php echo $this->project->name;?></h1>
 	<p><?php echo $this->project->description;?><br /><br />
@@ -15,7 +16,7 @@
 		</td><td>
 			<?php echo $this->formSubmit("adduser", T_("Add")); ?>
 		</td></tr>
-		<tr><td><div id="completion"></div></td><td></td></tr>
+		<tr><td><div id="completion" class="_list_autocomplete_ajax" style="visibility:hidden"></div></td><td></td></tr>
 		</table>
 		</div>
 	</form>

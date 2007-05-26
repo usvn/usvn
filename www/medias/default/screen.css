@@ -348,8 +348,11 @@ form.usvn_form > fieldset {
 }
 
 table.usvn_table {
+	width: 80%;
+	min-width: 300px;
+	margin: auto;
     text-decoration: none;
-    border-collapse:collapse;
+    border-collapse: collapse;
 }
 
 table.usvn_table tr th {

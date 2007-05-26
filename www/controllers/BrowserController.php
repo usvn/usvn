@@ -34,7 +34,6 @@ class BrowserController extends USVN_Controller
 <table class=\"usvn_table\">
     <thead>
         <tr>
-            <th></th>
             <th>" . T_('Name') . "</th>
             <th>" . T_('Action') . "</th>
         </tr>
@@ -47,8 +46,8 @@ class BrowserController extends USVN_Controller
 			} else {
 				$pathbefore = dirname($path) . "/";
 			}
-			$txthtml .= "<tr><td> " .$this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder')) . "</td>";
-			$txthtml .= "<td><a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
+			$txthtml .= "<tr><td>" .$this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
+			$txthtml .= "<a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 		}
 		foreach ($tab as &$tabl) {
 			$txthtml .= "<tr>";
@@ -60,11 +59,11 @@ class BrowserController extends USVN_Controller
 			else{
 				$tabl['isDirectory'] = $this->_view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
             }
-			$txthtml .= "<td>".$tabl['isDirectory']."</td>";
+			$txthtml .= "<td>".$tabl['isDirectory'];
 			if ($dir) {
-				$txthtml .= "<td><a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
+				$txthtml .= "<a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
 			} else {
-				$txthtml .= "<td><a>".$tabl['name']."</a></td>";
+				$txthtml .= "<a>".$tabl['name']."</a></td>";
 			}
 			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>" .$this->_view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 		}

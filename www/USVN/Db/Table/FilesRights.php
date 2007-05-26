@@ -1,6 +1,7 @@
 <?php
 /**
- * Model for users table
+ * Model for files_rights table
+ * Extends USVN_Db_Table for magic configuration and methods
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -16,13 +17,6 @@
  * end of studies project.
  *
  * $Id: Users.php 400 2007-05-13 15:15:38Z billar_m $
- */
-
-/**
- * Model for files_rights table
- *
- * Extends USVN_Db_Table for magic configuration and methods
- *
  */
 class USVN_Db_Table_FilesRights extends USVN_Db_TableAuthz {
 	/**
@@ -77,14 +71,17 @@ class USVN_Db_Table_FilesRights extends USVN_Db_TableAuthz {
 	/**
 	 * Return the rights by his path
 	 *
+	 * @param integer Project id
 	 * @param string $name
 	 * @return USVN_Db_Table_Row
 	 */
-	public function findByPath($path)
+	public function findByPath($project, $path)
 	{
 		$db = $this->getAdapter();
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
-		$where = $db->quoteInto("files_rights_path = ?", $path);
-		return $this->fetchRow($where, "files_rights_path");
+		return $this->fetchRow(array(
+				"files_rights_path = ?" => $path,
+				"projects_id = ?" => $project,				
+			), "files_rights_path");
 	}
 }

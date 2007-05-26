@@ -174,6 +174,8 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		$select->join($users_to_groups, "{$users_to_groups}.groups_id = {$groups_to_projects}.groups_id", array());
 		$select->join($users, "{$users}.users_id = {$users_to_groups}.users_id", array());
 
+		$select->where($this->_db->quoteInto("{$users}.users_id = ?", $user->id));
+
 		// the ORDER clause
 		$select->order("projects_name");
 
@@ -193,6 +195,8 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 
 		$select->join($users_to_projects, "{$users_to_projects}.projects_id = {$this->_name}.projects_id", array());
 		$select->join($users, "{$users}.users_id = {$users_to_projects}.users_id", array());
+
+		$select->where($this->_db->quoteInto("{$users}.users_id = ?", $user->id));
 
 		// the ORDER clause
 		$select->order("projects_name");

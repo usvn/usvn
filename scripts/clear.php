@@ -19,7 +19,9 @@
 
 require_once('www/USVN/autoload.php');
 
+USVN_Translation::initTranslation('en_US', 'www/locale');
 $config = new USVN_Config_Ini("www/config.ini", "general");
+Zend_Registry::set('config', $config);
 
 $db = Zend_Db::factory($config->database->adapterName, $config->database->options->asArray());
 USVN_Db_Table::$prefix = $config->database->prefix;

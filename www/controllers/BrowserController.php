@@ -104,8 +104,11 @@ class BrowserController extends USVN_Controller
 	{
 		$text = "";
 		$table_project = new USVN_Db_Table_Projects();
-		$table_files = new USVN_Db_Table_FilesRights();
 		$res_project = $table_project->findByName($this->_request->getParam('project'));
+
+		$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
+
+		$table_files = new USVN_Db_Table_FilesRights();
 		$table_groupstoproject = new USVN_Db_Table_GroupsToProjects();
 		$res_groupstoproject = $table_groupstoproject->findByProjectId($res_project->projects_id);
 		$table_groups = new USVN_Db_Table_Groups();
@@ -113,35 +116,20 @@ class BrowserController extends USVN_Controller
 		$i = 0;
 		foreach ($res_groupstoproject as $groups)
 		{
+			$access = $acces_rights->findByPath($groups->groups_id);
 			$res_groups = $table_groups->findByGroupsId($groups->groups_id);
 			$grp_name = $res_groups->groups_name;
 			$text .= "<tr><td><label id=Lb".$i.">".$grp_name."</label></td>";
-			$res_files = $table_files->findByPath($res_project->projects_id,$_GET['name']);
-			$check = "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
-			$check .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
-			if ($res_files != null)
-			{
-				$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
-				$res_groupstofiles = $table_groupsfiles->findByIdRightsAndIdGroup($res_files->files_rights_id, $res_groups->groups_id);
-				if ($res_groupstofiles != null)
-				{
-					if ($res_groupstofiles->files_rights_is_readable == 1)
-						$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
-					else
-						$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
-					if ($res_groupstofiles->files_rights_is_writable == 1)
-						$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
-					else
-						$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
-				}
-				else {
-					$text .= $check;
-				}
-			}
-			else {
-				$text .= $check;
-			}
+			if ($access['read'] == 1)
+				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+			else
+				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+			if ($access['write'] == 1)
+				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
+			else
+				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
 			$i++;
+
 		}
 		$text .= "</table>";
 		echo "<nbgroup>".$i."</nbgroup>\n";
@@ -158,7 +146,7 @@ class BrowserController extends USVN_Controller
 			$table_project = new USVN_Db_Table_Projects();
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
 			$table_files = new USVN_Db_Table_FilesRights();
-			$res_files = $table_files->findByPath($res_project->project_id, $_GET['name']);
+			$res_files = $table_files->findByPath($res_project->projects_id, $_GET['name']);
 			$msg = "Ok";
 			$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
 			$tabgroup = split("-", $_GET['group']);

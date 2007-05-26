@@ -1,6 +1,8 @@
 <?php
 /**
  * Model for users_to_groups table
+ * 
+ * Extends USVN_Db_Table for magic configuration and methods
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info/
@@ -17,14 +19,8 @@
  *
  * $Id $
  */
-
-/**
- * Model for users_to_groups table
- *
- * Extends USVN_Db_Table for magic configuration and methods
- *
- */
-class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_TableAuthz {
+class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_TableAuthz
+{
 	/**
 	 * The primary key column (underscore format).
 	 *
@@ -78,16 +74,17 @@ class USVN_Db_Table_GroupsToFilesRights extends USVN_Db_TableAuthz {
 	/**
 	 * Return the groupstofilesrights by his id rights and id groups
 	 *
-	 * @param string $idfile
-	 * @param string $idgroup
+	 * @param int $idfile
+	 * @param int $idgroup
 	 * @return USVN_Db_Table_Row
 	 */
 	public function findByIdRightsAndIdGroup($idfile, $idgroup)
 	{
 		$db = $this->getAdapter();
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
-		$where = $db->quoteInto("files_rights_id = ?", $idfile);
-		$where .= $db->quoteInto(" and groups_id = ?", $idgroup);
-		return $this->fetchRow($where, "files_rights_id");
+		return $this->fetchRow(array(
+			"files_rights_id = ?" => $idfile,
+			"groups_id = ?" => $idgroup
+			), "files_rights_id");
 	}
 }

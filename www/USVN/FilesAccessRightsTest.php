@@ -85,16 +85,17 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     	$table_files = new USVN_Db_Table_FilesRights();
     	$fileid = $table_files->findByPath($this->_projectid1, '/')->id;
 		$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
-		$table_groupstofiles->insert(array('files_rights_id' 		  => $fileid,
-										   'files_rights_is_readable' => true,
-				 						   'files_rights_is_writable' => true,
-			       	 					   'groups_id'	 			  => $this->_groupid1));
+		$table_groupstofiles->insert(array(
+			'files_rights_id' 		  => $fileid,
+		   'files_rights_is_readable' => true,
+		   'files_rights_is_writable' => true,
+		   'groups_id'	 			  => $this->_groupid1
+		));
 
     	$rights = $file_rights1->findByPath($this->_groupid1, '/');
     	$this->assertTrue($rights['read']);
     	$this->assertTrue($rights['write']);
 
-		$table_files = new USVN_Db_Table_FilesRights();
     	$fileid = $table_files->insert(array(
     		'projects_id'		=> $this->_projectid1,
 			'files_rights_path' => '/trunk'
@@ -104,15 +105,74 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     	$this->assertFalse($rights['read']);
     	$this->assertFalse($rights['write']);
 
-		$table_groupstofiles->insert(array('files_rights_id' 		  => $fileid,
-									   'files_rights_is_readable' => true,
-			 						   'files_rights_is_writable' => true,
-		       	 					   'groups_id'	 			  => $this->_groupid1));
+		$table_groupstofiles->insert(array(
+			'files_rights_id' 		  => $fileid,
+		   'files_rights_is_readable' => true,
+		   'files_rights_is_writable' => true,
+		   'groups_id'	 			  => $this->_groupid1
+		));
 
 		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
     	$this->assertTrue($rights['read']);
     	$this->assertTrue($rights['write']);
     }
+
+    public function test_findByPathInherits()
+    {
+    	$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
+    	$table_files = new USVN_Db_Table_FilesRights();
+    	$fileid = $table_files->findByPath($this->_projectid1, '/')->id;
+		$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
+		$table_groupstofiles->insert(array(
+			'files_rights_id' 		  => $fileid,
+		   'files_rights_is_readable' => true,
+		   'files_rights_is_writable' => true,
+		   'groups_id'	 			  => $this->_groupid1
+		));
+
+		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk/test/tutu/titi');
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+
+    	$fileid = $table_files->insert(array(
+    		'projects_id'		=> $this->_projectid1,
+			'files_rights_path' => '/trunk'
+		));
+		$table_groupstofiles->insert(array(
+			'files_rights_id' 		  => $fileid,
+		   'files_rights_is_readable' => true,
+		   'files_rights_is_writable' => false,
+		   'groups_id'	 			  => $this->_groupid1
+		));
+		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk/test/tutu/titi');
+    	$this->assertTrue($rights['read']);
+    	$this->assertFalse($rights['write']);
+
+		$fileid = $table_files->insert(array(
+    		'projects_id'		=> $this->_projectid1,
+			'files_rights_path' => '/trunk/test/tutu'
+		));
+		$table_groupstofiles->insert(array(
+			'files_rights_id' 		  => $fileid,
+		   'files_rights_is_readable' => true,
+		   'files_rights_is_writable' => true,
+		   'groups_id'	 			  => $this->_groupid1
+		));
+		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk/test/tutu/titi');
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+	}
+    public function test_findByPathError()
+    {
+    	$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
+		try {
+			$rights = $file_rights1->findByPath($this->_groupid1, '');
+		}
+		catch (USVN_Exception $e){
+			return;
+		}
+		$this->fail();
+	}
 
 	public function test_setRightByPath()
 	{

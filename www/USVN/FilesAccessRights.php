@@ -37,19 +37,31 @@ class USVN_FilesAccessRights
 	 */
 	public function findByPath($group_id, $path)
 	{
+		if (strlen($path) == 0 || $path{0} !== '/') {
+			throw new USVN_Exception(T_("Invalid path %s."), $path);
+		}
 		$response = array('read' => false, 'write' => false);
 		$table_files = new USVN_Db_Table_FilesRights();
 		$res_file_rights = $table_files->findByPath($this->_project, $path);
-		if ($res_file_rights === null)
-			return $response;
-		$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
-		$res_groupstofiles = $table_groupsfiles->findByIdRightsAndIdGroup($res_file_rights->files_rights_id, $group_id);
-		if ($res_groupstofiles != null) {
-			if ($res_groupstofiles->files_rights_is_readable) {
-				$response['read'] = true;
+		if ($res_file_rights !== null) {
+			$table_groupsfiles = new USVN_Db_Table_GroupsToFilesRights();
+			$res_groupstofiles = $table_groupsfiles->findByIdRightsAndIdGroup($res_file_rights->files_rights_id, $group_id);
+			if ($res_groupstofiles != null) {
+				if ($res_groupstofiles->files_rights_is_readable) {
+					$response['read'] = true;
+				}
+				if ($res_groupstofiles->files_rights_is_writable) {
+					$response['write'] = true;
+				}
 			}
-			if ($res_groupstofiles->files_rights_is_writable) {
-				$response['write'] = true;
+		}
+		else {
+			if ($path !== '/') {
+				$path = preg_replace('#[/]?[^/]*$#', '', $path);
+				if (strlen($path) == 0) {
+					$path = '/';
+				}
+				return $this->findByPath($group_id, $path);
 			}
 		}
 		return $response;
@@ -65,6 +77,9 @@ class USVN_FilesAccessRights
 	*/
 	public function setRightByPath($group_id, $path, $read, $write)
 	{
+		if (strlen($path) == 0 || $path{0} !== '/') {
+			throw new USVN_Exception(T_("Invalid path %s"), $path);
+		}
 		$table_files = new USVN_Db_Table_FilesRights();
 		$res_files = $table_files->findByPath($this->_project, $path);
 		$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();

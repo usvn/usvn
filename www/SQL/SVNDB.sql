@@ -2,7 +2,7 @@ create table usvn_files_rights
 (
    files_rights_id                int                            not null,
    projects_id                    int                            not null,
-   files_rights_path            text not null,
+   files_rights_path            text,
    primary key (files_rights_id)
 )
 type = innodb;

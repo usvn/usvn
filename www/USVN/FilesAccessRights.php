@@ -32,7 +32,7 @@ class USVN_FilesAccessRights
 	 * Return the rights of a groups for the given path
 	 *
 	 * @param integer Group id
-	 * @param string $name
+	 * @param string Path
 	 * @return array ex: ("read" => true, "write" => false)
 	 */
 	public function findByPath($group_id, $path)
@@ -53,5 +53,51 @@ class USVN_FilesAccessRights
 			}
 		}
 		return $response;
+	}
+
+	/**
+	* Set right for a group
+	*
+	* @param integer Group id
+	* @param string Path
+	* @param bool read
+	* @param bool write
+	*/
+	public function setRightByPath($group_id, $path, $read, $write)
+	{
+		$table_files = new USVN_Db_Table_FilesRights();
+		$res_files = $table_files->findByPath($this->_project, $path);
+		$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
+		if ($res_files === null) {
+			$file_id = $table_files->insert(array(
+				'projects_id' 	   			=> $this->_project,
+				'files_rights_path' 	   	=> $path
+			));
+			$table_groupstofiles->insert(array(
+				'files_rights_id' => $file_id,
+				'files_rights_is_readable' => $read,
+				'files_rights_is_writable' => $write,
+				'groups_id' => $group_id
+			));
+		}
+		else {
+			$file_id = $res_files->files_rights_id;
+			$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $file_id);
+			$where .= $table_groupstofiles->getAdapter()->quoteInto(' and groups_id = ?', $group_id);
+			$groupstofiles = $table_groupstofiles->fetchRow($where);
+			if ($groupstofiles === null) {
+				$table_groupstofiles->insert(array(
+					'files_rights_id' => $file_id,
+					'files_rights_is_readable' => $read,
+					'files_rights_is_writable' => $write,
+					'groups_id' => $group_id
+				));
+			}
+			else {
+				$groupstofiles->files_rights_is_readable = $read;
+				$groupstofiles->files_rights_is_writable = $write;
+				$groupstofiles->save();
+			}
+		}
 	}
 }

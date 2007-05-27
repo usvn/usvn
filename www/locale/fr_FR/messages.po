@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-23 21:50+0200\n"
-"PO-Revision-Date: 2007-05-24 14:13+0200\n"
+"PO-Revision-Date: 2007-05-24 14:28+0200\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team: Français <contact@usvn.fr>\n"
 "MIME-Version: 1.0\n"
@@ -330,7 +330,7 @@ msgstr "Je comprend et j'accepte les termes de la licence."
 
 #: ../../../www//install/views/step4.html:2
 msgid "Configure USVN"
-msgstr "Configurer USV"
+msgstr "Configurer USVN"
 
 #: ../../../www//install/views/step4.html:3
 msgid "Settings of general configuration of USVN. You can keep default settings."

@@ -116,7 +116,7 @@ class BrowserController extends USVN_Controller
 		$i = 0;
 		foreach ($res_groupstoproject as $groups)
 		{
-			$access = $acces_rights->findByPath($groups->groups_id);
+			$access = $acces_rights->findByPath($groups->groups_id, $_GET['name']);
 			$res_groups = $table_groups->findByGroupsId($groups->groups_id);
 			$grp_name = $res_groups->groups_name;
 			$text .= "<tr><td><label id=Lb".$i.">".$grp_name."</label></td>";
@@ -145,57 +145,34 @@ class BrowserController extends USVN_Controller
 		{
 			$table_project = new USVN_Db_Table_Projects();
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
-			$table_files = new USVN_Db_Table_FilesRights();
-			$res_files = $table_files->findByPath($res_project->projects_id, $_GET['name']);
+			$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
+
 			$msg = "Ok";
-			$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
+
 			$tabgroup = split("-", $_GET['group']);
 			$tabrights = split("-", $_GET['rights']);
 			$j = 0;
-			if ($res_files != null)
+			foreach ($tabgroup as $group)
 			{
-				foreach ($tabgroup as $group)
-				{
-					$table_group = new USVN_Db_Table_Groups();
-					$res_groups = $table_group->findByGroupsName($group);
-					$res_groupstofile = $table_groupstofiles->findByIdRightsAndIdGroup($res_files->files_rights_id, $res_groups->groups_id);
-					if ($res_groupstofile != null)
-					{
-						$data_groupsfiles = array('files_rights_is_readable' => ($tabrights[$j] == 'true' ? 1 : 0),
-									 			  'files_rights_is_writable' => ($tabrights[$j + 1] == 'true' ? 1 : 0));
-						$where = $table_groupstofiles->getAdapter()->quoteInto('files_rights_id = ?', $res_files->files_rights_id);
-						$where .= $table_groupstofiles->getAdapter()->quoteInto(' and groups_id = ?', $res_groups->groups_id);
-						$table_groupstofiles->update($data_groupsfiles, $where);
-					}
-					else
-					{
-						$table_groupstofiles->insert(array('files_rights_id'		 => $res_files->files_rights_id,
-														   'groups_id'	 	   		 => $res_groups->groups_id,
-												  		   'files_rights_is_readable' => ($tabrights[$j] == 'true' ? 1 : 0),
-									 			    	   'files_rights_is_writable' => ($tabrights[$j + 1] == 'true' ? 1 : 0)));
-					}
-					$j += 2;
-				}
-			}
-			else
-			{
-				$id = $table_files->insert(array('projects_id' 	   			=> $res_project->id,
-							 					 'files_rights_path' 	   	=> $_GET['name']));
-				foreach ($tabgroup as $group)
-				{
-					$table_group = new USVN_Db_Table_Groups();
-					$res_groups = $table_group->findByGroupsName($group);
-					$table_groupstofiles->insert(array('files_rights_id' 		  => $id,
-													   'files_rights_is_readable' => ($tabrights[$j] == 'true' ? 1 : 0),
-							 						   'files_rights_is_writable' => ($tabrights[$j + 1] == 'true' ? 1 : 0),
-						       	 					   'groups_id'	 			  => $res_groups->groups_id));
-					$j += 2;
-				}
+				$table_group = new USVN_Db_Table_Groups();
+				$res_groups = $table_group->findByGroupsName($group);
+				echo $res_groups->groups_id . "\n";
+				echo $_GET['name'] . "\n";
+				echo $tabrights[$j] . "\n";
+				echo $tabrights[$j + 1] . "\n";
+				echo "###################\n";
+				$acces_rights->setRightByPath(
+					$res_groups->groups_id,
+					$_GET['name'],
+					($tabrights[$j] == 'true' ? true : false),
+					($tabrights[$j + 1] == 'true' ? true : false)
+				);
+				$j += 2;
 			}
 		}
 		catch (Exception $e)
 		{
-			$msg .= $e->getMessage();
+			$msg = nl2br($e->getMessage());
 		}
 		echo "<msg>" . $msg . "</msg>\n";
 	}

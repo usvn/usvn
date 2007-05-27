@@ -218,7 +218,11 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		$file_rights->save();
 
 		$groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
-		$group_to_file_rights = $groups_to_files_rights->createRow(array("groups_id" => $group->id, "files_rights_id" => $file_rights->id));
+		$group_to_file_rights = $groups_to_files_rights->createRow(array(
+			"groups_id" => $group->id,
+			"files_rights_id" => $file_rights->id,
+			"files_rights_path" => "/"
+			));
 		$group_to_file_rights->files_rights_is_readable = true;
 		$group_to_file_rights->files_rights_is_writable = true;
 		$group_to_file_rights->save();

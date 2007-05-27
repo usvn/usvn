@@ -113,6 +113,25 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     	$this->assertTrue($rights['read']);
     	$this->assertTrue($rights['write']);
     }
+
+	public function test_setRightByPath()
+	{
+		$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
+		$file_rights1->setRightByPath($this->_groupid1, '/trunk', true, false);
+    	$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
+    	$this->assertTrue($rights['read']);
+    	$this->assertFalse($rights['write']);
+
+		$file_rights1->setRightByPath($this->_groupid2, '/trunk', true, true);
+    	$rights = $file_rights1->findByPath($this->_groupid2, '/trunk');
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+
+		$file_rights1->setRightByPath($this->_groupid1, '/trunk', true, true);
+    	$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+	}
 }
 
 // Call USVN_FilesAccesRightsTest::main() if this source file is executed directly.

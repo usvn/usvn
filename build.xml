@@ -25,14 +25,14 @@
 		<exclude name="LICENSE/**" />
 </fileset>
 
-    <fileset id="projectfile" dir=".">
-        <include name="www/**" />
+    <fileset id="projectfile" dir="www">
+        <include name="**" />
         <include name="LICENSE/**" />
         <exclude name="**/*Test.php" />
-		<exclude name="www/Zend/**"/>
-		<exclude name="www/files/**"/>
-		<exclude name="www/config.ini"/>
-		<exclude name="www/.htaccess"/>
+		<exclude name="Zend/**"/>
+		<exclude name="files/**"/>
+		<exclude name="config.ini"/>
+		<exclude name=".htaccess"/>
 </fileset>
 
 <!-- Target -->

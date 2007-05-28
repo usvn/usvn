@@ -223,7 +223,7 @@ class USVN_SVNUtils
 			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $message);
 		}
         $res = array();
-        foreach (preg_split("/[\r]?\n/", $message) as $file) {
+        foreach (preg_split("/[\r]?\n/", $messasge) as $file) {
             if (strlen($file)) {
                 if (substr($file, -1, 1) == '/') {
                     array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "isDirectory" => true, "path" => str_replace('//', '/', $path . "/" . $file)));
@@ -261,9 +261,8 @@ class USVN_SVNUtils
 			if ($newpath !== FALSE) {
 				$path = $newpath;
 			}
-			$path = escapeshellarg(str_replace('//', '/', str_replace('\\', '/', $path)));
-			$path = preg_replace('/"[\s]*([^\s]*)[\s]*"/', '"file:///$1"', $path);
-			return $path;
+			$path = str_replace('//', '/', str_replace('\\', '/', $path));
+			return "\"file:///".$path."\"";
 		}
 		return escapeshellarg('file://' . realpath($path));
 	}

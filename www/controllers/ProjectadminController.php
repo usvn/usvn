@@ -58,6 +58,15 @@ class ProjectadminController extends AdminadminController
 		$project = $table->createRow($data);
 		try {
 			$project->save();
+            if ($_POST['addme']) {
+                $group_table = new USVN_Db_Table_Groups();
+                $group = $group_table->fetchRow(array("groups_name = ?" => $_POST['projects_name']));
+                $user_table = new USVN_Db_Table_Users();
+                $identity = Zend_Auth::getInstance()->getIdentity();
+                $user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
+                $group->addUser($user);
+                $project->addUser($user);
+            }
 			$this->_redirect("/admin/project/");
 		}
 		catch (Exception $e) {

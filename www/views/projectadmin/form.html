@@ -28,6 +28,11 @@ function checkName() {
 			<?php echo $this->formTextarea('projects_description',$this->project->description, array('rows' => 8, 'cols' => 80)); ?>
 		</label>
 		<br />
+        <?php
+            if ($this->action == 'new') {
+                echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('addme', 1) . '</label><br />';
+            }
+        ?>
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
 		<br />

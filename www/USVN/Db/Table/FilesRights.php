@@ -68,6 +68,40 @@ class USVN_Db_Table_FilesRights extends USVN_Db_TableAuthz {
 	 */
 	protected $_dependentTables = array("USVN_Db_Table_GroupsToFilesRights");
 
+    private function _cleanData(array $data)
+    {
+		if (isset($data['files_rights_path'])) {
+            $data['files_rights_path'] = rtrim($data['files_rights_path'], '/');
+            if (strlen($data['files_rights_path']) == 0) {
+                $data['files_rights_path'] = '/';
+            }
+        }
+        return $data;
+    }
+
+	/**
+	 * Overload insert's method to check some data before insert
+	 *
+	 * @param array $data
+	 * @return integer the last insert ID.
+	 */
+	public function insert(array $data)
+	{
+		return parent::insert($this->_cleanData($data));
+	}
+
+	/**
+	 * Overload update's method to check some data before update
+	 *
+	 * @param array $data
+	 * @param string $where An SQL WHERE clause.
+	 * @return integer The number of rows updated.
+	 */
+	public function update(array $data, $where)
+	{
+		return parent::update($this->_cleanData($data), $where);
+	}
+
 	/**
 	 * Return the rights by his path
 	 *
@@ -77,11 +111,15 @@ class USVN_Db_Table_FilesRights extends USVN_Db_TableAuthz {
 	 */
 	public function findByPath($project, $path)
 	{
+        $path = rtrim($path, '/');
+        if (strlen($path) == 0) {
+            $path = '/';
+        }
 		$db = $this->getAdapter();
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
 		return $this->fetchRow(array(
 				"files_rights_path = ?" => $path,
-				"projects_id = ?" => $project,				
+				"projects_id = ?" => $project,
 			), "files_rights_path");
 	}
 }

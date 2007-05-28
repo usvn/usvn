@@ -56,12 +56,8 @@ class USVN_FilesAccessRights
 			}
 		}
 		else {
-			if ($path !== '/') {
-				$path = preg_replace('#[/]?[^/]*$#', '', $path);
-				if (strlen($path) == 0) {
-					$path = '/';
-				}
-				return $this->findByPath($group_id, $path);
+			if ($path != '/') {
+				return $this->findByPath($group_id, dirname($path));
 			}
 		}
 		return $response;

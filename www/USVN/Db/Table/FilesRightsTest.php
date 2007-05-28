@@ -37,7 +37,7 @@ class USVN_Db_Table_FileRightsTest extends USVN_Test_DB {
 	private $_projectid1;
 	private $_projectid2;
 	private $_groupid1;
-	
+
     /**
      * Runs the test methods of this class.
      *
@@ -50,11 +50,11 @@ class USVN_Db_Table_FileRightsTest extends USVN_Test_DB {
         $suite  = new PHPUnit_Framework_TestSuite("USVN_Db_Table_FileRightsTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
-    
+
     public function setUp()
     {
     	parent::setUp();
-    	
+
 		$table = new USVN_Db_Table_Projects();
 		$project = $table->fetchNew();
 		$project->setFromArray(array('projects_name' => 'project1',  'projects_start_date' => '1984-12-03 00:00:00'));
@@ -64,13 +64,13 @@ class USVN_Db_Table_FileRightsTest extends USVN_Test_DB {
 		$project = $table->fetchNew();
 		$project->setFromArray(array('projects_name' => 'project2',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$this->_projectid2 = $project->save();
-		
+
 		$group_table = new USVN_Db_Table_Groups();
 		$group = $group_table->fetchNew();
 		$group->setFromArray(array("groups_name" => "toto"));
 		$this->_groupid1 = $group->save();;
     }
-    
+
     public function test_findByPath()
     {
     	$file_rights = new USVN_Db_Table_FilesRights();
@@ -83,6 +83,7 @@ class USVN_Db_Table_FileRightsTest extends USVN_Test_DB {
 			'files_rights_path' => '/trunk'
 		));
     	$this->assertType('USVN_Db_Table_Row', $file_rights->findByPath($this->_projectid1, "/trunk"));
+    	$this->assertType('USVN_Db_Table_Row', $file_rights->findByPath($this->_projectid1, "/trunk/"));
     	$this->assertNull($file_rights->findByPath($this->_projectid2, "/trunk"));
     }
 }

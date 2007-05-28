@@ -150,7 +150,7 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 
 		$fileid = $table_files->insert(array(
     		'projects_id'		=> $this->_projectid1,
-			'files_rights_path' => '/trunk/test/tutu'
+			'files_rights_path' => '/trunk/test/tutu/'
 		));
 		$table_groupstofiles->insert(array(
 			'files_rights_id' 		  => $fileid,
@@ -161,7 +161,8 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk/test/tutu/titi');
     	$this->assertTrue($rights['read']);
     	$this->assertTrue($rights['write']);
-	}
+    }
+
     public function test_findByPathError()
     {
     	$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);

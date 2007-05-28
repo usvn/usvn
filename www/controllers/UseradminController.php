@@ -125,31 +125,6 @@ class UseradminController extends AdminadminController
 		$this->_redirect("/admin/user/");
 	}
 
-
-
-	public function attachGroupsAction()
-	{
-		if (!empty($_POST) && $_POST['groups_id']) {
-			$userTable = new USVN_Db_Table_Users();
-			$user = $userTable->fetchRow(array('users_id = ?' => $_POST['user_id']));
-			$user->deleteAllGroups();
-			foreach ($_POST['groups_id'] as $group_id) {
-				$user->addGroup($group_id);
-			}
-		}
-		$userTable = new USVN_Db_Table_Users();
-		$user = $userTable->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
-		$this->_view->user_id = $user->id;
-
-		$userRow = $user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
-		$this->_view->attachedGroups = $userRow->toArray();
-
-		$groupsTable = new USVN_Db_Table_Groups();
-		$where = $groupsTable->getAdapter()->quoteInto('groups_name NOT IN (?)', $groupsTable->exceptedEntries['groups_name']);
-		$this->_view->allGroups = $groupsTable->fetchAll($where, "groups_name");
-		$this->_render('../group/attachment.html');
-	}
-
 	public function importAction()
 	{
 		$this->_render('import.html');

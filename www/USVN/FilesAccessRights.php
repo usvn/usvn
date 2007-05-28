@@ -74,7 +74,7 @@ class USVN_FilesAccessRights
 	public function setRightByPath($group_id, $path, $read, $write)
 	{
 		if (strlen($path) == 0 || $path{0} !== '/') {
-			throw new USVN_Exception(T_("Invalid path %s"), $path);
+			throw new USVN_Exception(T_("Invalid path %s."), $path);
 		}
 		$table_files = new USVN_Db_Table_FilesRights();
 		$res_files = $table_files->findByPath($this->_project, $path);

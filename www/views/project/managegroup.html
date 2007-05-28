@@ -1,4 +1,5 @@
 <?php echo $this->completion(); ?>
+<?php echo $this->error($this); ?>
 <div class="usvn_info">
 	<h1><?php echo sprintf(T_("Managing group %s"), $this->group->name);?></h1>
 	<p><?php echo $this->group->description; ?></p>
@@ -26,4 +27,3 @@
 	<?php endforeach; ?>
 	</ul>
 </div>
-<?php echo $this->error($this); ?>

@@ -1,3 +1,4 @@
+<?php echo $this->error($this);?>
 <script type="text/javascript">
 <!--
 function checkForm() {
@@ -42,21 +43,17 @@ function checkForm() {
 		</label>
 		<br />
 		<label><?php echo T_("Lastname"); ?>:<br />
-			<?php echo $this->formText('users_lastname', (isset($this->user) ? $this->user->lastname : null), array('maxlength' => 100)); ?></label>
+			<?php echo $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)); ?></label>
 		<br />
 		<label><?php echo T_("Firstname"); ?>:<br />
-			<?php echo $this->formText('users_firstname', (isset($this->user) ? $this->user->firstname : null), array('maxlength' => 100)); ?>
+			<?php echo $this->formText('users_firstname', $this->user->firstname, array('maxlength' => 100)); ?>
 		</label>
 		<br />
 		<label><?php echo T_("Email"); ?>:<br />
-			<?php echo $this->formText('users_email', (isset($this->user) ? $this->user->email : null), array('maxlength' => 150)); ?>
+			<?php echo $this->formText('users_email', $this->user->email, array('maxlength' => 150)); ?>
 		</label>
 		<br />
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')); ?>
-		<br />
-		<?php
-		echo $this->error($this);
-		?>
 	</fieldset>
 </form>
 <br />

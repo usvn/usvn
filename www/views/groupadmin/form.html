@@ -1,3 +1,4 @@
+<?php echo $this->error($this); ?>
 <script type="text/javascript">
 <!--
 function checkName() {
@@ -20,16 +21,14 @@ function checkName() {
 	<fieldset>
 		<legend><?php echo T_("Group's information");?></legend>
 		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
-			<?php echo $this->formText('groups_name', (isset($this->group) ? $this->group->name : null), array('maxlength' => 150)); ?>
+			<?php echo $this->formText('groups_name', $this->group->name, array('maxlength' => 150)); ?>
 		</label>
 		<br />
 		<label><?php echo T_("Description"); ?>:<br />
-			<?php echo $this->formTextarea('groups_description', (isset($this->group) ? $this->group->description : null), array('rows' => 8, 'cols' => 80)); ?>
+			<?php echo $this->formTextarea('groups_description', $this->group->description, array('rows' => 8, 'cols' => 80)); ?>
 		</label>
 		<br />
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
-		<br />
-		<?php echo $this->error($this); ?>
 	</fieldset>
 </form>
 <br />

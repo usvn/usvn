@@ -180,16 +180,20 @@ class ProjectController extends USVN_Controller
 	{
 		header('Content-Type: text/xml');
 		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
-		$table = "<table>";
+		$table = "<table width=100%>";
+		$nb = 0;
+		echo "<files>\n";
 		if ($_GET['idx'] == 1)
 		{
 			$table_users = new USVN_Db_Table_Users();
 			$res_users = $table_users->allUsersLike($_GET['txt']);
 			foreach ($res_users as $user)
 			{
-				$table .= "<tr><td>";
-				$table .= "<label onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['name']."\"".", \"completion\")'>".$user->users_login."</label>";
+				$table .= "<tr id='user".$nb."' class='comp'>";
+				$table .= "<td align=left onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['name']."\"".", \"completion\")'>";
+				$table .= "<label id='luser".$nb."'>".$user->users_login."</label>";
 				$table .= "</td></tr>";
+				$nb++;
 			}
 		}	
 		if ($_GET['idx'] == 2)
@@ -198,12 +202,16 @@ class ProjectController extends USVN_Controller
 			$res_groups = $table_groups->allGroupsLike($_GET['txt']);
 			foreach ($res_groups as $group)
 			{
-				$table .= "<tr><td>";
-				$table .= "<label onclick='javascript:dumpInput("."\"".$group->groups_name."\"".","."\"".$_GET['name']."\"".", \"completion1\")'>".$group->groups_name."</label>";
+				$table .= "<tr id='grp".$nb."' class='comp'>";
+				$table .= "<td align=left onclick='javascript:dumpInput("."\"".$group->groups_name."\"".","."\"".$_GET['name']."\"".", \"completion1\")'>";
+				$table .= "<label id='lgrp".$nb."'>".$group->groups_name."</label>";
 				$table .= "</td></tr>";
+				$nb++;
 			}
 		}	
 		$table .= "</table>";
-		echo "<table><![CDATA[".$table."]]></table>\n";
+		echo "<nbcomp>".$nb."</nbcomp>\n";
+		echo "<tableau><![CDATA[".$table."]]></tableau>\n";
+		echo "</files>\n";
 	}
 }

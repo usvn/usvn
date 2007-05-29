@@ -9,7 +9,7 @@
 		<div>
 			<table>
 		<tr><td>
-			<?php echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'addlogin')", "autocomplete" => "off")); ?>
+			<?php echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'addlogin', event)", "autocomplete" => "off", 		"onkeyDown" => "javascript:geretouche(event, 'completion', 'addlogin')")); ?>
 		</td><td>
 			<?php echo $this->formSubmit("managegroup", T_("Add")); ?>
 		</td></tr>
@@ -19,11 +19,12 @@
 	</form>
 	<h1><?php echo T_("Affected Users");?></h1>
 	<ul>
-	<?php foreach ($this->group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups") as $user) :?>
+	<?php foreach ($this->group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups") as $user) :?>		
 		<li>
-			<a href="<?php echo $this->url(array("deleteid" => $user->id)); ?>">
-				<?php echo $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")); ?>
-			</a>&nbsp;<?php echo $user->login; ?></li>
+		<?php echo $this->urlConfirm(array("deleteid" => $user->id), $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")),
+		T_("Would you like delete ".$user->login." ?")); ?>
+		
+		&nbsp;<?php echo $user->login; ?></li>	
 	<?php endforeach; ?>
 	</ul>
 </div>

@@ -19,3 +19,7 @@ div._list_autocomplete_ajax label {
 	padding:0px;	
 }
 
+tr.comp:hover {
+	background-color:#CCFFFF;
+	width:143px;
+}

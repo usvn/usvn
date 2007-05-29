@@ -29,10 +29,10 @@
         <include name="**" />
         <include name="LICENSE/**" />
         <exclude name="**/*Test.php" />
-		<exclude name="Zend/**"/>
 		<exclude name="files/**"/>
 		<exclude name="config.ini"/>
 		<exclude name=".htaccess"/>
+		<exclude name="**/Test"/>
 </fileset>
 
 <!-- Target -->
@@ -150,10 +150,11 @@
   <target name="lint">
     <phplint>
         <fileset dir=".">
+            <include name="**/*.php"/>
+            <include name="**/*.html"/>
             <exclude name="${docdir}/**" />
             <exclude name="${report_test_dir}/**" />
-            <exclude name="www/Zend/**" />
-            <include name="**/*.php"/>
+            <exclude name="**/Zend/**" />
         </fileset>
     </phplint>
 </target>

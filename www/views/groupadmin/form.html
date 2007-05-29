@@ -21,7 +21,7 @@ function checkName() {
 	<fieldset>
 		<legend><?php echo T_("Group's information");?></legend>
 		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
-			<?php echo $this->formText('groups_name', $this->group->name : null), array('maxlength' => 150)); ?>
+			<?php echo $this->formText('groups_name', $this->group->name), array('maxlength' => 150)); ?>
 		</label>
 		<br />
 		<label><?php echo T_("Description"); ?>:<br />

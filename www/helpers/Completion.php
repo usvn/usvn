@@ -35,7 +35,6 @@ function ajax_completion(idx, divcompletion, nameInput, evenement)
 	var touche = window.event ? evenement.keyCode : evenement.which;
 	if (document.getElementById(nameInput).value != login && touche != 13)
 	{
-		document.getElementById(divcompletion).style.visibility = 'visible';
 		nbcomp = 0;
 		nbcur = -1;
 		login = document.getElementById(nameInput).value;
@@ -58,6 +57,10 @@ function alert_ajax_completion(xhr, divcompletion)
 	{
 		var tabUsers = docXML.getElementsByTagName("tableau").item(0).firstChild.data;
 		nbcomp = docXML.getElementsByTagName("nbcomp").item(0).firstChild.data;
+		if (nbcomp != 0)
+			document.getElementById(divcompletion).style.visibility = 'visible';
+		else
+			document.getElementById(divcompletion).style.visibility = 'hidden';
 		document.getElementById(divcompletion).innerHTML = tabUsers;
 	}
 }

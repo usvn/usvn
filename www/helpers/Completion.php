@@ -24,6 +24,7 @@ class USVN_View_Helper_Completion {
     {
 	    $front = Zend_Controller_Front::getInstance();
         $view = $front->getParam('view');
+		$grp = isset($view->group) ? $view->group->name : "";
 		return <<<EOF
 		<script>
 		login = 0;
@@ -44,7 +45,8 @@ function ajax_completion(idx, divcompletion, nameInput, evenement)
     	else if (window.ActiveXObject)
         	xhr = new ActiveXObject("Microsoft.XMLHTTP");
     	xhr.onreadystatechange = function() { alert_ajax_completion(xhr, divcompletion); };
-		xhr.open("GET", "{$view->url(array('action' => 'completion?txt="+ login + "&idx=" + idx + "&name=" + nameInput + "', 'name' => null))}", true);
+		var t = "{$grp}";
+		xhr.open("GET", "{$view->url(array('action' => 'completion?txt="+ login + "&idx=" + idx + "&input=" + nameInput + "&grp=" + t + "', 'name' => null))}", true);
 		xhr.send(null);
 	}
 }

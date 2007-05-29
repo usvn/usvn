@@ -74,4 +74,18 @@ class USVN_Db_Table_UsersToGroups extends USVN_Db_TableAuthz {
 			"onDelete"      => self::CASCADE,
 		),
 	);
+	
+	/**
+	 * Return the usersstogroups by groups_id
+	 *
+	 * @param string $id
+	 * @return USVN_Db_Table_Row
+	 */
+	public function findByGroupId($id)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		$where = $db->quoteInto("groups_id = ?", $id);
+		return $this->fetchAll($where);
+	}
 }

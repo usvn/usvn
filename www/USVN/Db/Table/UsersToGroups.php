@@ -62,14 +62,16 @@ class USVN_Db_Table_UsersToGroups extends USVN_Db_TableAuthz {
 	 */
 	protected $_referenceMap = array(
 		"Groups" => array(
-			"columns"	   => array("groups_id"),
+			"columns"       => array("groups_id"),
 			"refTableClass" => "USVN_Db_Table_Groups",
-			"refColumns"	=> array("groups_id"),
+			"refColumns"    => array("groups_id"),
+			"onDelete"      => self::CASCADE,
 		),
 		"Users" => array(
-			"columns"		 => array("users_id"),
-			"refTableClass"   => "USVN_Db_Table_Users",
-			"refColumns"	  => array("users_id"),
+			"columns"       => array("users_id"),
+			"refTableClass" => "USVN_Db_Table_Users",
+			"refColumns"    => array("users_id"),
+			"onDelete"      => self::CASCADE,
 		),
 	);
 }

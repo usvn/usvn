@@ -65,11 +65,13 @@ class USVN_Db_Table_UsersToProjects extends USVN_Db_Table {
 	"columns"	   => array("projects_id"),
 	"refTableClass" => "USVN_Db_Table_Projects",
 	"refColumns"	=> array("projects_id"),
+	"onDelete"      => self::CASCADE,
 	),
 	"Users" => array(
 	"columns"		 => array("users_id"),
 	"refTableClass"   => "USVN_Db_Table_Users",
 	"refColumns"	  => array("users_id"),
+	"onDelete"      => self::CASCADE,
 	),
 	);
 }

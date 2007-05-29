@@ -187,14 +187,9 @@ class ProjectController extends USVN_Controller
 			$res_users = $table_users->allUsersLike($_GET['txt']);
 			foreach ($res_users as $user)
 			{
-				$table_users = new USVN_Db_Table_Users();
-				$res_users = $table_users->allUsersLike($_GET['txt']);
-				foreach ($res_users as $user)
-				{
-					$table .= "<tr><td>";
-					$table .= "<label onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['name']."\"".", \"completion\")'>".$user->users_login."</label>";
-					$table .= "</td></tr>";
-				}
+				$table .= "<tr><td>";
+				$table .= "<label onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['name']."\"".", \"completion\")'>".$user->users_login."</label>";
+				$table .= "</td></tr>";
 			}
 		}	
 		if ($_GET['idx'] == 2)

@@ -86,6 +86,6 @@ class USVN_Db_Table_GroupsToProjects extends USVN_Db_Table {
 		$db = $this->getAdapter();
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
 		$where = $db->quoteInto("projects_id = ?", $id);
-		return $this->fetchAll();
+		return $this->fetchAll($where);
 	}
 }

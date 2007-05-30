@@ -176,6 +176,9 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 
 		$select->where($this->_db->quoteInto("{$users}.users_id = ?", $user->id));
 
+		// the GROUP clause
+		$select->group("{$this->_name}.projects_id");
+
 		// the ORDER clause
 		$select->order("projects_name");
 

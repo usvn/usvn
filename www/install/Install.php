@@ -41,14 +41,29 @@ class Install
 	* @param string Database password
 	* @param string Database name
 	* @param string Database table prefix (ex: usvn_)
+	* @param boolean Create the database before installing
 	* @throw USVN_Exception
 	*/
-	static public function installDb($config_file, $path_sql, $host, $user, $password, $database, $prefix)
+	static public function installDb($config_file, $path_sql, $host, $user, $password, $database, $prefix, $createdb)
 	{
 		$params = array ('host' => $host,
 		'username' => $user,
 		'password' => $password,
 		'dbname'   => $database);
+
+		if ($createdb) {
+			try {
+				$tmp_params = $params;
+				$tmp_params['dbname'] = "mysql";
+				$db = Zend_Db::factory('PDO_MYSQL', $tmp_params);
+				$db->getConnection();
+				$db->query("CREATE DATABASE {$database};");
+				$db->closeConnection();
+			} catch (Exception $e) {
+				throw new USVN_Exception(T_("Can't create database\n") . $e->getMessage());
+			}
+		}
+
 		try {
 			$db = Zend_Db::factory('PDO_MYSQL', $params);
 			$db->getConnection();
@@ -58,6 +73,7 @@ class Install
 		}
 		Zend_Db_Table::setDefaultAdapter($db);
 		USVN_Db_Table::$prefix = $prefix;
+
 		try {
 			USVN_Db_Utils::loadFile($db, $path_sql . "/SVNDB.sql");
 			USVN_Db_Utils::loadFile($db, $path_sql . "/mysql.sql");
@@ -95,14 +111,14 @@ class Install
 	}
 
 	/**
-	* This method will  write the choosen language into config file.
-	*
-	* Throw an exception in case of problems.
-	*
-	* @param string Path to the USVN config file
-	* @param string Language
-	* @throw USVN_Exception
-	*/
+	 * This method will  write the choosen language into config file.
+	 *
+	 * Throw an exception in case of problems.
+	 *
+	 * @param string Path to the USVN config file
+	 * @param string Language
+	 * @throw USVN_Exception
+	 */
 	static public function installLanguage($config_file, $language)
 	{
 		if (in_array($language, USVN_Translation::listTranslation())) {

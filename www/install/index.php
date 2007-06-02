@@ -93,7 +93,7 @@ function installationOperation($step)
 			break;
 
 			case 6:
-				Install::installDb(CONFIG_FILE, "../SQL/", $_POST['host'], $_POST['user'], $_POST['password'], $_POST['database'], $_POST['prefix']);
+				Install::installDb(CONFIG_FILE, "../SQL/", $_POST['host'], $_POST['user'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['createdb']);
 			break;
 
 			case 7:

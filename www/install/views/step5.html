@@ -69,6 +69,16 @@
 		</tr>
 		<tr>
 			<td>
+				<label for="createdb" class="usvn_label">
+				<?php echo T_("Create database ?") ?>
+			</td>
+			<td>
+				<input type="checkbox" name="createdb" id="createdb" <?php echo ((isset($_POST['createdb'])) ? ' checked="checked" ' : ""); ?> />
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<label class="usvn_label" for="prefix">
 				<?php echo T_("Table prefix");?>:
 			</td>

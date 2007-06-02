@@ -46,12 +46,12 @@ class Install
 	static public function installDb($config_file, $path_sql, $host, $user, $password, $database, $prefix)
 	{
 		$params = array ('host' => $host,
-			'username' => $user,
-			'password' => $password,
-			'dbname'   => $database);
+		'username' => $user,
+		'password' => $password,
+		'dbname'   => $database);
 		try {
 			$db = Zend_Db::factory('PDO_MYSQL', $params);
-            $db->getConnection();
+			$db->getConnection();
 		}
 		catch (Exception $e) {
 			throw new USVN_Exception(T_("Can't connect to database.\n") ." ". $e->getMessage());
@@ -68,7 +68,7 @@ class Install
 			}
 			catch (Exception $e2) {
 			}
-            $db->closeConnection();
+			$db->closeConnection();
 			throw new USVN_Exception(T_("Can't load SQL file.\n") . $e->getMessage());
 		}
 
@@ -76,20 +76,20 @@ class Install
 			$config = Install::_loadConfig($config_file);
 			/* @var $config USVN_Config */
 			$config->database = array (
-										"adapterName" => "pdo_mysql",
-										"prefix" => $prefix,
-										"options" => array (
-										"host" => $host,
-										"username" => $user,
-										"password" => $password,
-										"dbname" => $database
-										)
-									);
+			"adapterName" => "pdo_mysql",
+			"prefix" => $prefix,
+			"options" => array (
+			"host" => $host,
+			"username" => $user,
+			"password" => $password,
+			"dbname" => $database
+			)
+			);
 			$config->save();
 		}
 		catch (Exception $e) {
 			USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
-            $db->closeConnection();
+			$db->closeConnection();
 			throw new USVN_Exception(T_("Can't write config file %s.\n") ." ". $e->getMessage(),  $config_file);
 		}
 	}
@@ -133,11 +133,11 @@ class Install
 		$path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
 		$config = Install::_loadConfig($config_file);
 		if (file_exists($path) && is_writable($path)
-			&& (file_exists($path . DIRECTORY_SEPARATOR . 'svn') || mkdir($path . DIRECTORY_SEPARATOR . 'svn'))) {
+		&& (file_exists($path . DIRECTORY_SEPARATOR . 'svn') || mkdir($path . DIRECTORY_SEPARATOR . 'svn'))) {
 			$config->subversion = array(
-									"path" => $path,
-									"url" => $url
-									);
+			"path" => $path,
+			"url" => $url
+			);
 			$config->save();
 		}
 		else {
@@ -158,7 +158,7 @@ class Install
 	{
 		preg_match("#(.*)/install.*#", $_SERVER['REQUEST_URI'], $regs);
 		$path = $regs[1];
-//here
+		//here
 		if (substr($path, strlen($path) - 1, strlen($path)) == "/") {
 			$path = rtrim($path, "/");
 		}
@@ -288,14 +288,14 @@ EOF;
 		$location = preg_replace("#http[s]?://[^/]*#", "", $config->subversion->url);
 		$location = str_replace("//", "/", $location);
 		$res = "<Location $location>\n";
-        $res .= "\tDAV svn\n";
-        $res .= "\tRequire valid-user\n";
-        $res .= "\tSVNParentPath " . $path . "svn\n";
-        $res .= "\tSVNListParentPath off\n";
-        $res .= "\tAuthType Basic\n";
-        $res .= "\tAuthName \"" . $config->site->title . "\"\n";
-        $res .= "\tAuthUserFile " . $path . "htpasswd\n";
-        $res .= "\tAuthzSVNAccessFile " . $path . "authz\n";
+		$res .= "\tDAV svn\n";
+		$res .= "\tRequire valid-user\n";
+		$res .= "\tSVNParentPath " . $path . "svn\n";
+		$res .= "\tSVNListParentPath off\n";
+		$res .= "\tAuthType Basic\n";
+		$res .= "\tAuthName \"" . $config->site->title . "\"\n";
+		$res .= "\tAuthUserFile " . $path . "htpasswd\n";
+		$res .= "\tAuthzSVNAccessFile " . $path . "authz\n";
 		$res .= "</Location>";
 		return $res;
 	}
@@ -309,6 +309,14 @@ EOF;
 	{
 		if (USVN_ConsoleUtils::runCmd('svn --version')) {
 			throw new USVN_Exception(T_("Subversion is not install on your system. If you are under Windows install ") . "http://subversion.tigris.org/files/documents/15/36797/svn-1.4.3-setup.exe" . T_(" and after restart your system (WARNING it's mandatory). \n\nOtherwise under UNIX you probably need to install a package named subversion."));
+		}
+
+		$image = dirname($_SERVER['PHP_SELF']) . "/../media/default/images/logo.png";
+		if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
+			throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
+		}
+		elseif ((bool) ini_get("allow_url_fopen") && @file_get_contents($image) === false) {
+			throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
 		}
 	}
 }

@@ -75,7 +75,7 @@ class InstallDbTest extends USVN_Test_Test {
 
 	public function testInstallDbHostIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "fake.usvn.info", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "fake.usvn.info", "usvn-test", "usvn-test", "usvn-test", "usvn_", false);
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -85,7 +85,7 @@ class InstallDbTest extends USVN_Test_Test {
 
 	public function testInstallDbUserIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-fake", "usvn-test", "usvn-test", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-fake", "usvn-test", "usvn-test", "usvn_", false);
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -95,7 +95,7 @@ class InstallDbTest extends USVN_Test_Test {
 
 	public function testInstallDbPasswordIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-fake", "usvn-test", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-fake", "usvn-test", "usvn_", false);
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -105,7 +105,7 @@ class InstallDbTest extends USVN_Test_Test {
 
 	public function testInstallDbDatabaseIncorrect() {
 		try {
-			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-fake", "usvn_");
+			Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-fake", "usvn_", false);
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -115,7 +115,7 @@ class InstallDbTest extends USVN_Test_Test {
 
 	public function testInstallDbConfigFileNotWritable() {
 		try {
-			Install::installDb("tests/fake/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+			Install::installDb("tests/fake/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_", false);
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -124,7 +124,7 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestLoadDb() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_", false);
 		$list_tables =  $this->db->listTables();
 		$this->assertTrue(in_array('usvn_users', $list_tables), "usvn_users does not exist");
 		$this->assertTrue(in_array('usvn_groups', $list_tables), "usvn_groups does not exist");
@@ -134,7 +134,7 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestLoadDbOtherPrefixe() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "fake_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "fake_", false);
 		$list_tables =  $this->db->listTables();
 		$this->assertFalse(in_array('usvn_users', $list_tables), "usvn_users exists");
 		$this->assertFalse(in_array('usvn_groups', $list_tables), "usvn_groups exists");
@@ -143,7 +143,7 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestConfigFile() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_", false);
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("localhost", $config->database->options->host);
@@ -157,7 +157,7 @@ class InstallDbTest extends USVN_Test_Test {
 	public function testInstallAdmin()
 	{
 		file_put_contents("tests/tmp/config.ini", "[general]\nsubversion.path=tests/tmp/");
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_");
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_", false);
 		Install::installAdmin("tests/tmp/config.ini", "root", "secretpassword", "James", "Bond", "");
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));

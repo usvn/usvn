@@ -72,15 +72,18 @@ class USVN_Db_Utils
 	static public function deleteAllTablesPrefixed($db, $prefix)
 	{
 		$fnc = create_function('$var', "return !strcmp(substr(\$var, 0, strlen('$prefix')), '$prefix');");
-		$todelete = array_filter($db->listTables(), $fnc);
-		while (count($todelete)) {
-			$table = array_shift($todelete);
-			try {
-				$db->query("DROP TABLE $table");
-			}
-			catch (Exception $e) {
-				array_push($todelete, $table);
-			}
-		}
+        $list = $db->listTables();
+        if (count($list)) {
+            $todelete = array_filter($list, $fnc);
+            while (count($todelete)) {
+                $table = array_shift($todelete);
+                try {
+                    $db->query("DROP TABLE $table");
+                }
+                catch (Exception $e) {
+                    array_push($todelete, $table);
+                }
+            }
+        }
 	}
 }

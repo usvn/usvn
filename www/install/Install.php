@@ -328,11 +328,13 @@ EOF;
 		}
 
 		$image = dirname($_SERVER['PHP_SELF']) . "/../media/default/images/logo.png";
-		if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
-			throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
-		}
-		elseif ((bool) ini_get("allow_url_fopen") && @file_get_contents($image) === false) {
-			throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
-		}
+        if (php_sapi_name() != "cli") {
+            if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
+                throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
+            }
+            elseif ((bool) ini_get("allow_url_fopen") && @file_get_contents($image) === false) {
+                throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
+            }
+        }
 	}
 }

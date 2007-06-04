@@ -33,15 +33,16 @@ class USVN_Test_DB extends USVN_Test_Test {
                  'password' => 'usvn-test',
                  'dbname'   => 'usvn-test');
 
-		$this->db = Zend_Db::factory('PDO_MYSQL', $params);
+		$this->db = Zend_Db::factory('MYSQLI', $params);
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
 		USVN_Db_Utils::deleteAllTables($this->db);
-		Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_');
+		Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', false);
     }
 
     protected function tearDown() {
 		USVN_Db_Utils::deleteAllTables($this->db);
+        $this->db->closeConnection();
 		parent::tearDown();
     }
 }

@@ -68,4 +68,17 @@ class USVN_DirectoryUtils
         }
 		return $res;
 	}
+
+	/**
+	* Create and return a tmp directory
+	*
+	* @return string Path to tmp directory
+	*/
+	static public function getTmpDirectory()
+	{
+		$path = tempnam("", "USVN_");
+		unlink($path);
+		mkdir($path);
+		return $path;
+	}
 }

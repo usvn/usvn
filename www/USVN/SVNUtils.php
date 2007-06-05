@@ -184,11 +184,7 @@ class USVN_SVNUtils
       if ($return) {
 		throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
       }
-      $tmpdir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . "USVN" . md5(uniqid());
-      if (!mkdir($tmpdir)) {
-		USVN_DirectoryUtils::removeDirectory($path);
-		throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
-      }
+      $tmpdir = USVN_DirectoryUtils::getTmpDirectory();
       try {
 		mkdir($tmpdir . DIRECTORY_SEPARATOR . "trunk");
 		mkdir($tmpdir . DIRECTORY_SEPARATOR . "branches");

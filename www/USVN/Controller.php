@@ -25,12 +25,6 @@ class USVN_Controller extends Zend_Controller_Action {
 	protected $_request;
 
 	/**
-	 * A simple view object
-	 * @var Zend_View
-	 */
-	protected $_view = null;
-
-	/**
 	* Mime type render by the controller
 	*
 	* @var string
@@ -45,10 +39,15 @@ class USVN_Controller extends Zend_Controller_Action {
 	 */
 	public function init() {
 		parent::init();
-
-		$this->_view = $this->getInvokeArg('view');
+         $this->getResponse()->setHeader('Content-Type', $this->_mimetype);
+        $this->_request->setParam('view', $this->_helper->viewRenderer);
+        $this->_helper->viewRenderer->setViewScriptPathSpec(":action.phtml");
+        $this->view->addHelperPath(USVN_HELPERS_DIR, 'USVN_View_Helper');
 		$this->_request->setParam('project', $this->_request->getParam('project', '__NONE__'));
 		$this->_request->setParam('area',    $this->_request->getParam('area',    '__NONE__'));
+        if ($this->_mimetype != 'text/html') {
+            $this->_helper->viewRenderer->setNoRender();
+        }
 	}
 
 	/**
@@ -70,10 +69,10 @@ class USVN_Controller extends Zend_Controller_Action {
 		if ($dir === false || !is_dir($dir)) {
 			throw new Zend_Controller_Exception("Controller's views directory not found. Controller is $controller.");
 		}
-		$this->_view->setScriptPath($dir);
-		$this->_view->assign('project', $request->getParam('project'));
-		$this->_view->assign('controller', $request->getParam('controller'));
-		$this->_view->assign('action', $request->getParam('action'));
+		$this->view->setScriptPath($dir);
+		$this->view->assign('project', $request->getParam('project'));
+		$this->view->assign('controller', $request->getParam('controller'));
+		$this->view->assign('action', $request->getParam('action'));
 
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		if ($identity === null && $controller != "login") {
@@ -93,32 +92,7 @@ class USVN_Controller extends Zend_Controller_Action {
 	 *
 	 */
 	public function indexAction() {
-		$this->_render();
-	}
-
-	/**
-	 * A simple wrapper to render a template.
-	 *
-	 * It actually get the Response object, set the Content-Type and
-	 * render our $template.
-	 *
-	 * If $template is null, it will automaticaly detect our current action and try to
-	 * render the $action template.
-	 *
-	 * @param string $template
-	 * @param string $content_type
-	 */
-	protected function _render($template = null, $content_type = null)
-	{
-		if ($template === null) {
-			$template = $this->getRequest()->getActionName() . ".html";
-		}
-		if ($content_type === null) {
-			$content_type = $this->_mimetype;
-		}
-		$this->getResponse()
-			->setHeader('Content-Type', $content_type)
-			->appendBody($this->_view->render($template));
+		$this->render();
 	}
 
 	/**

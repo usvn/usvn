@@ -18,11 +18,6 @@
  */
 class BrowserController extends USVN_Controller
 {
-	public function indexAction()
-    {
-		$this->_render('index.html');
-    }
-
 	/**
 	* Get list files of subversion directory.
 	*/
@@ -46,7 +41,7 @@ class BrowserController extends USVN_Controller
 			} else {
 				$pathbefore = dirname($path) . "/";
 			}
-			$txthtml .= "<tr><td>" .$this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
+			$txthtml .= "<tr><td>" .$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
 			$txthtml .= "<a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 		}
 		foreach ($tab as &$tabl) {
@@ -54,10 +49,10 @@ class BrowserController extends USVN_Controller
             $dir = false;
 			if ($tabl['isDirectory'] == 1) {
                 $dir = true;
-				$tabl['isDirectory'] = $this->_view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
+				$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
             }
 			else{
-				$tabl['isDirectory'] = $this->_view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
+				$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
             }
 			$txthtml .= "<td>".$tabl['isDirectory'];
 			if ($dir) {
@@ -65,14 +60,14 @@ class BrowserController extends USVN_Controller
 			} else {
 				$txthtml .= "<a>".$tabl['name']."</a></td>";
 			}
-			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>" .$this->_view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
+			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 		}
         $txthtml .= "
             </tbody>
 </table>
 ";
 		echo "<txthtml><![CDATA[".$txthtml."]]></txthtml>\n";
-		$this->_view->browser = $tab;
+		$this->view->browser = $tab;
 	}
 
 	/**

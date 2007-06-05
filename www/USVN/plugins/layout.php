@@ -16,10 +16,10 @@
  *
  * $Id$
  */
-class layout extends Zend_Controller_Plugin_Abstract
+class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 {
 	/**
-	 * Doit gerer le layout de la page HTML
+	 * Add header and footer to html pages
 	 *
 	 */
 	public function dispatchLoopShutdown()
@@ -36,6 +36,7 @@ class layout extends Zend_Controller_Plugin_Abstract
 			}
 		}
 	}
+
 
 	/**
 	* @param array

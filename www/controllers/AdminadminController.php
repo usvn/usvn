@@ -72,11 +72,11 @@ class AdminadminController extends USVN_Controller
 				$this->saveAfterNew($obj, $name);
 			}
 		} catch (Exception $e) {
-			$this->_view->exception = $e;
-			$this->_render("exception.html");
-			$this->_view->clearVars();
+			$this->view->exception = $e;
+			$this->render("exception");
+			$this->view->clearVars();
 		}
-		$this->_view->$name = $obj;
+		$this->view->$name = $obj;
 	}
 
 	/**
@@ -105,9 +105,9 @@ class AdminadminController extends USVN_Controller
 			$rows_affected = $table->delete($where);
 			$this->_redirect("/admin/{$name}/");
 		} catch (Exception $e) {
-			$this->_view->exception = $e;
-			$this->_render("exception.html");
-			$this->_view->clearVars();
+			$this->view->exception = $e;
+			$this->render("exception");
+			$this->view->clearVars();
 		}
 	}
 }

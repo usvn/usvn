@@ -37,15 +37,13 @@ class ProjectadminController extends AdminadminController
 	public function indexAction()
 	{
 		$table = new USVN_Db_Table_Projects();
-		$this->_view->projects = $table->fetchAll(null, "projects_name");
-		$this->_render();
+		$this->view->projects = $table->fetchAll(null, "projects_name");
 	}
 
 	public function newAction()
 	{
 		$table = new USVN_Db_Table_Projects();
-		$this->_view->project = $table->createRow();
-		$this->_render();
+		$this->view->project = $table->createRow();
 	}
 
 	public function createAction()
@@ -70,20 +68,19 @@ class ProjectadminController extends AdminadminController
 			$this->_redirect("/admin/project/");
 		}
 		catch (Exception $e) {
-			$this->_view->project = $project;
-			$this->_view->message = nl2br($e->getMessage());
-			$this->_render('new.html');
+			$this->view->project = $project;
+			$this->view->message = nl2br($e->getMessage());
+			$this->render('new');
 		}
 	}
 
 	public function editAction()
 	{
 		$table = new USVN_Db_Table_Projects();
-		$this->_view->project = $table->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
-		if ($this->_view->project === null) {
+		$this->view->project = $table->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
+		if ($this->view->project === null) {
 			$this->_redirect("/admin/project/");
 		}
-		$this->_render();
 	}
 
 	public function updateAction()
@@ -103,9 +100,9 @@ class ProjectadminController extends AdminadminController
 			$this->_redirect("/admin/project/");
 		}
 		catch (Exception $e) {
-			$this->_view->project = $project;
-			$this->_view->message = nl2br($e->getMessage());
-			$this->_render('edit.html');
+			$this->view->project = $project;
+			$this->view->message = nl2br($e->getMessage());
+			$this->render('edit');
 		}
 	}
 

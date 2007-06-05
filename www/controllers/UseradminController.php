@@ -51,15 +51,13 @@ class UseradminController extends AdminadminController
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Users();
-		$this->_view->users = $table->fetchAll(null, "users_login");
-		$this->_render();
+		$this->view->users = $table->fetchAll(null, "users_login");
     }
 
 	public function newAction()
 	{
 		$table = new USVN_Db_Table_Users();
-		$this->_view->user = $table->createRow();
-		$this->_render();
+		$this->view->user = $table->createRow();
 	}
 
 	public function createAction()
@@ -75,20 +73,19 @@ class UseradminController extends AdminadminController
 			$this->_redirect("/admin/user/");
 		}
 		catch (Exception $e) {
-			$this->_view->user = $user;
-			$this->_view->message = $e->getMessage();
-			$this->_render('new.html');
+			$this->view->user = $user;
+			$this->view->message = $e->getMessage();
+			$this->render('new');
 		}
 	}
 
 	public function editAction()
 	{
 		$table = new USVN_Db_Table_Users();
-		$this->_view->user = $table->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
-		if ($this->_view->user === null) {
+		$this->view->user = $table->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
+		if ($this->view->user === null) {
 			$this->_redirect("/admin/user/");
 		}
-		$this->_render();
 	}
 
 	public function updateAction()
@@ -108,9 +105,9 @@ class UseradminController extends AdminadminController
 			$this->_redirect("/admin/user/");
 		}
 		catch (Exception $e) {
-			$this->_view->user = $user;
-			$this->_view->message = $e->getMessage();
-			$this->_render('edit.html');
+			$this->view->user = $user;
+			$this->view->message = $e->getMessage();
+			$this->render('edit');
 		}
 	}
 
@@ -127,7 +124,7 @@ class UseradminController extends AdminadminController
 
 	public function importAction()
 	{
-		$this->_render('import.html');
+		$this->render('import');
 	}
 
 	public function importFileAction()

@@ -50,7 +50,7 @@ class ProjectController extends USVN_Controller
 		}
 		$this->_project = $project;
 
-		$this->_view->isAdmin = $this->isAdmin();
+		$this->view->isAdmin = $this->isAdmin();
 
 		$user = $this->getRequest()->getParam('user');
 		/* @var $user USVN_Db_Table_Row_User */
@@ -69,11 +69,11 @@ class ProjectController extends USVN_Controller
 
 	protected function isAdmin()
 	{
-		if (!isset($this->_view->isAdmin)) {
+		if (!isset($this->view->isAdmin)) {
 			$user = $this->getRequest()->getParam('user');
-			$this->_view->isAdmin = $this->_project->userIsAdmin($user) || $user->is_admin;
+			$this->view->isAdmin = $this->_project->userIsAdmin($user) || $user->is_admin;
 		}
-		return $this->_view->isAdmin;
+		return $this->view->isAdmin;
 	}
 
 	protected function requireAdmin()
@@ -85,10 +85,9 @@ class ProjectController extends USVN_Controller
 
 	public function indexAction()
 	{
-		$this->_view->project = $this->_project;
+		$this->view->project = $this->_project;
 		$SVN = new USVN_SVN($this->_project->name);
-		$this->_view->log = $SVN->log(5);
-		$this->_render();
+		$this->view->log = $SVN->log(5);
 	}
 
 	public function adduserAction()
@@ -167,84 +166,11 @@ class ProjectController extends USVN_Controller
 			}
 		}
 		catch (Exception $e) {
-			$this->_view->message = $e->getMessage();
+			$this->view->message = $e->getMessage();
 		}
 
-		$this->_view->project = $this->_project;
+		$this->view->project = $this->_project;
 
-		$this->_view->group = $group;
-		$this->_render();
-	}
-
-	public function completionAction()
-	{
-		header('Content-Type: text/xml');
-		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
-		$table = "<table width=100%>";
-		$nb = 0;
-		echo "<files>\n";
-		if ($_GET['idx'] == 1)
-		{			
-			if (isset($_GET['grp']) && $_GET['grp'] != "")
-			{
-				$table_groups = new USVN_Db_Table_Groups();
-				$res_groups = $table_groups->findByGroupsName($_GET['grp']);
-				$table_userstogroups = new USVN_Db_Table_UsersToGroups();
-				$res_usersspe = $table_userstogroups->findByGroupId($res_groups->groups_id);
-			}
-			else
-			{
-				$table_project = new USVN_Db_Table_Projects();
-				$res_project = $table_project->findByName($this->_request->getParam('project'));
-				$table_userstoprojects = new USVN_Db_Table_UsersToProjects();
-				$res_usersspe = $table_userstoprojects->findByProjectId($res_project->projects_id);	
-			}		
-			$table_users = new USVN_Db_Table_Users();
-			$res_users = $table_users->allUsersLike($_GET['txt']);
-			foreach ($res_users as $user)
-			{
-				$find = false;
-				foreach($res_usersspe as $tmpuser)
-					if ($tmpuser->users_id == $user->users_id)
-						$find = true;
-				if ($find == false)
-				{
-					$table .= "<tr id='user".$nb."' class='comp'>";
-					$table .= "<td align=left onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['input']."\"".", \"completion\")'>";
-					$table .= "<label id='luser".$nb."'>".$user->users_login."</label>";
-					$table .= "</td></tr>";
-					$nb++;
-				}
-			}
-		}	
-		if ($_GET['idx'] == 2)
-		{
-			$table_project = new USVN_Db_Table_Projects();
-			$res_project = $table_project->findByName($this->_request->getParam('project'));
-			$table_groupstoprojects = new USVN_Db_Table_GroupsToProjects();
-			$res_groupstoprojects = $table_groupstoprojects->findByProjectId($res_project->projects_id);		
-		
-			$table_groups = new USVN_Db_Table_Groups();
-			$res_groups = $table_groups->allGroupsLike($_GET['txt']);
-			foreach ($res_groups as $group)
-			{
-				$find = false;
-				foreach($res_groupstoprojects as $tmpgrp)
-					if ($tmpgrp->groups_id == $group->groups_id)
-						$find = true;
-				if ($find == false)
-				{
-					$table .= "<tr id='grp".$nb."' class='comp'>";
-					$table .= "<td align=left onclick='javascript:dumpInput("."\"".$group->groups_name."\"".","."\"".$_GET['input']."\"".", \"completion1\")'>";
-					$table .= "<label id='lgrp".$nb."'>".$group->groups_name."</label>";
-					$table .= "</td></tr>";
-					$nb++;
-				}
-			}
-		}	
-		$table .= "</table>";
-		echo "<nbcomp>".$nb."</nbcomp>\n";
-		echo "<tableau><![CDATA[".$table."]]></tableau>\n";
-		echo "</files>\n";
+		$this->view->group = $group;
 	}
 }

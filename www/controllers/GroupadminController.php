@@ -37,15 +37,13 @@ class GroupadminController extends AdminadminController
 	public function indexAction()
     {
     	$table = new USVN_Db_Table_Groups();
-		$this->_view->groups = $table->fetchAll(null, "groups_name");
-		$this->_render();
+		$this->view->groups = $table->fetchAll(null, "groups_name");
     }
 
 	public function newAction()
 	{
 		$table = new USVN_Db_Table_Groups();
-		$this->_view->group = $table->createRow();
-		$this->_render();
+		$this->view->group = $table->createRow();
 	}
 
 	public function createAction()
@@ -61,20 +59,19 @@ class GroupadminController extends AdminadminController
 			$this->_redirect("/admin/group/");
 		}
 		catch (Exception $e) {
-			$this->_view->group = $group;
-			$this->_view->message = $e->getMessage();
-			$this->_render('new.html');
+			$this->view>group = $group;
+			$this->view>message = $e->getMessage();
+			$this->render('new');
 		}
 	}
 
 	public function editAction()
 	{
 		$table = new USVN_Db_Table_Groups();
-		$this->_view->group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
-		if ($this->_view->group === null) {
+		$this->view>group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
+		if ($this->view>group === null) {
 			$this->_redirect("/admin/group/");
 		}
-		$this->_render();
 	}
 
 	public function updateAction()
@@ -94,9 +91,9 @@ class GroupadminController extends AdminadminController
 			$this->_redirect("/admin/group/");
 		}
 		catch (Exception $e) {
-			$this->_view->group = $group;
-			$this->_view->message = $e->getMessage();
-			$this->_render('edit.html');
+			$this->view>group = $group;
+			$this->view>message = $e->getMessage();
+			$this->render('edit');
 		}
 	}
 

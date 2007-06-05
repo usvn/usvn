@@ -24,6 +24,7 @@ class JsController extends Zend_Controller_Action
 
 	public function indexAction()
 	{
+        $this->_helper->viewRenderer->setNoRender();
 		//directories for medias and images
 		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
 		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';

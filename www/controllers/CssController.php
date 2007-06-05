@@ -24,6 +24,7 @@ class CssController extends Zend_Controller_Action
 
 	public function screenAction()
 	{
+        $this->_helper->viewRenderer->setNoRender();
 		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
 		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
@@ -35,6 +36,7 @@ class CssController extends Zend_Controller_Action
 
 	public function printAction()
 	{
+        $this->_helper->viewRenderer->setNoRender();
 		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
 		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';

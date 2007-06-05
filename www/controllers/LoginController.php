@@ -36,11 +36,6 @@ class LoginController extends USVN_Controller
 		if (!empty($_POST)) {
 			$this->_doLogin();
 		}
-
-		/**
-		 * Render the template form
-		 */
-		$this->_render();
 	}
 
 	public function logoutAction()
@@ -63,9 +58,9 @@ class LoginController extends USVN_Controller
 		$result = $auth->authenticate($authAdapter);
 
 		if (!$result->isValid()) {
-			$this->_view->login = $_POST['login'];
-			$this->_view->messages = $result->getMessages();
-			$this->_render('errors.html');
+			$this->view->login = $_POST['login'];
+			$this->view->messages = $result->getMessages();
+			$this->render('errors');
 		} else {
 			$this->_redirect("/");
 		}

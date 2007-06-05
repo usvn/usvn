@@ -63,9 +63,6 @@ try {
 	 */
 	$front = Zend_Controller_Front::getInstance();
 	$front->setRequest(new USVN_Controller_Request_Http());
-    $view = new Zend_View();
-    $view->addHelperPath(USVN_HELPERS_DIR, 'USVN_View_Helper');
-	$front->setParam('view', $view);
 
 	$front->throwExceptions(true);
 
@@ -81,21 +78,7 @@ try {
 
 	$front->setControllerDirectory(USVN_CONTROLLERS_DIR);
 
-	$tmp = array();
-	//  ca posait trop de confusion d'avoir deux repertoire de plugins alors on supprime le global
-	//	$glob_path = '{' . USVN_DIRECTORY . ',' . dirname(__FILE__) . '}/plugins/[a-zA-Z0-9]*.php';
-	$glob_path = USVN_DIRECTORY . '/plugins/[a-zA-Z0-9]*.php';
-	foreach (glob($glob_path, GLOB_BRACE) as $path) {
-		$plugin = basename($path);
-		if (isset($tmp[$plugin])) {
-			continue;
-		}
-		$tmp[$plugin] = true;
-		$class = substr($plugin, 0, -4);
-
-		require_once $path;
-		$front->registerPlugin(new $class());
-	}
+	$front->registerPlugin(new USVN_plugins_layout());
 
 	$front->dispatch();
 

@@ -63,11 +63,10 @@ class ProfileController extends USVN_Controller
 
 	public function indexAction()
 	{
-		$this->_view->user = $this->getUser();
-		if ($this->_view->user === null) {
+		$this->view->user = $this->getUser();
+		if ($this->view->user === null) {
 			$this->_redirect("/admin/user/");
 		}
-		$this->_render();
 	}
 
 	public function saveAction()
@@ -83,9 +82,9 @@ class ProfileController extends USVN_Controller
 			$this->_redirect("/");
 		}
 		catch (Exception $e) {
-			$this->_view->user = $user;
-			$this->_view->message = $e->getMessage();
-			$this->_render('index.html');
+			$this->view->user = $user;
+			$this->view->message = $e->getMessage();
+			$this->render('index');
 		}
 	}
 }

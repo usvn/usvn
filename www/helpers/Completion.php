@@ -23,15 +23,15 @@ class USVN_View_Helper_Completion {
     public function Completion()
     {
 	    $front = Zend_Controller_Front::getInstance();
-        $view = $front->getParam('view');
-		$grp = isset($view->group) ? $view->group->name : "";
+        $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
+        $grp = isset($view->group) ? $view->group->name : "";
 		return <<<EOF
 		<script>
 		login = 0;
 		isselect = 0;
-		
+
 function ajax_completion(idx, divcompletion, nameInput, evenement)
-{   
+{
 	var touche = window.event ? evenement.keyCode : evenement.which;
 	if (document.getElementById(nameInput).value != login && touche != 13)
 	{
@@ -45,7 +45,7 @@ function ajax_completion(idx, divcompletion, nameInput, evenement)
         	xhr = new ActiveXObject("Microsoft.XMLHTTP");
     	xhr.onreadystatechange = function() { alert_ajax_completion(xhr, divcompletion); };
 		var t = "{$grp}";
-		xhr.open("GET", "{$view->url(array('action' => 'completion?txt="+ login + "&idx=" + idx + "&input=" + nameInput + "&grp=" + t + "', 'name' => null))}", true);
+		xhr.open("GET", "{$view->url(array('controller' => 'completion', 'action' => 'completion?txt="+ login + "&idx=" + idx + "&input=" + nameInput + "&grp=" + t + "', 'name' => null))}", true);
 		xhr.send(null);
 	}
 }

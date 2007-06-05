@@ -327,12 +327,19 @@ EOF;
 			throw new USVN_Exception(T_("Subversion is not install on your system. If you are under Windows install ") . "http://subversion.tigris.org/files/documents/15/36797/svn-1.4.3-setup.exe" . T_(" and after restart your system (WARNING it's mandatory). \n\nOtherwise under UNIX you probably need to install a package named subversion."));
 		}
 
-		$image = dirname($_SERVER['PHP_SELF']) . "/../media/default/images/logo.png";
+		if (isset($_SERVER['HTTPS'])) {
+			$method = "https";
+		}
+		else {
+			$method = "http";
+		}
+		$image = dirname($method . "://" . $_SERVER["SERVER_ADDR"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER['PHP_SELF']) . "/../medias/default/images/logo.png";
         if (php_sapi_name() != "cli") {
             if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
                 throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
             }
             elseif ((bool) ini_get("allow_url_fopen") && @file_get_contents($image) === false) {
+				var_dump(in_array("mod_rewrite", apache_get_modules()));
                 throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
             }
         }

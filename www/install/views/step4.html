@@ -48,8 +48,13 @@
 				</a>:
 			</td>
 			<td>
-
-				<input type="text" size="67" name="urlSubversion" value="http://<?php
+				<input type="text" size="67" name="urlSubversion" value="<?php
+				if (isset($_SERVER['HTTPS'])) {
+					echo "https://";
+				}
+				else {
+					$method = "http://";
+				}
 				echo $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . preg_replace("/\/install.*/", "/svn", $_SERVER['REQUEST_URI']);
 				?>" />
 				</label>

@@ -29,6 +29,7 @@ if (count($this->projects)) {
 			<td>
                 {$this->editLink('name', $project->name)}
                 {$this->deleteLink('name', $project->name, $deletetext)}
+                {$this->ACLLink($project->name)}
             </td>
 		</tr>
 EOF;

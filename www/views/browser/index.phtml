@@ -39,14 +39,14 @@ function ajax(index, id)
 		groupe += grp + "-";
 	}
 	if (index == 1)
-		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=1&name="+ id + "&group="+ groupe.substring(0, groupe.length - 1) +"')); ?>", true);
+		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'RightManagement?pg=1&name="+ id + "&group="+ groupe.substring(0, groupe.length - 1) +"')); ?>", true);
 	if (index == 2)
 	{
-		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=2&name="+ id +"&rights="+ text.substring(0, text.length - 1) +
+		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'RightManagement?pg=2&name="+ id +"&rights="+ text.substring(0, text.length - 1) +
 		"&group="+ groupe.substring(0, groupe.length - 1) +"')); ?>", true);
     }
 	if (index == 3)
-		xhr.open("GET", "<?php echo $this->url(array('action' => 'RightManagement?pg=3&name="+ id + "')); ?>", true);
+		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'RightManagement?pg=3&name="+ id + "')); ?>", true);
 	xhr.send(null);
 }
 

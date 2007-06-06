@@ -27,8 +27,8 @@ class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 		$response = $this->getResponse();
 		$headers = $response->getHeaders();
 		foreach ($headers as $header) {
-			if (strcasecmp($header['name'], "Content-Type") == 0) {
-				if (strcasecmp($header['value'], "text/html") == 0) {
+			if (strcasecmp($header['name'], "Content-Type") === 0) {
+				if (strcasecmp($header['value'], "text/html") === 0) {
 					$this->addHeader($response);
 					$this->addFooter($response);
 				}

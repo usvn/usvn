@@ -54,13 +54,18 @@ class GroupadminController extends AdminadminController
 		}
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->createRow($data);
+        $this->view->group = $group;
+        if ($table->isAGroup($data['groups_name'])) {
+			$this->view->message = sprintf(T_("Group %s already exist"), $data['groups_name']);
+			$this->render('new');
+            return;
+        }
 		try {
 			$group->save();
 			$this->_redirect("/admin/group/");
 		}
 		catch (Exception $e) {
-			$this->view>group = $group;
-			$this->view>message = $e->getMessage();
+			$this->view->message = $e->getMessage();
 			$this->render('new');
 		}
 	}
@@ -68,8 +73,8 @@ class GroupadminController extends AdminadminController
 	public function editAction()
 	{
 		$table = new USVN_Db_Table_Groups();
-		$this->view>group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
-		if ($this->view>group === null) {
+		$this->view->group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
+		if ($this->view->group === null) {
 			$this->_redirect("/admin/group/");
 		}
 	}
@@ -91,8 +96,8 @@ class GroupadminController extends AdminadminController
 			$this->_redirect("/admin/group/");
 		}
 		catch (Exception $e) {
-			$this->view>group = $group;
-			$this->view>message = $e->getMessage();
+			$this->view->group = $group;
+			$this->view->message = $e->getMessage();
 			$this->render('edit');
 		}
 	}

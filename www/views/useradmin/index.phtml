@@ -39,7 +39,7 @@ if (count($this->users)) {
 			<td><a href="{$editurl}">{$user->login}</a></td>
 			<td><a href="{$editurl}">{$user->firstname}</a></td>
 			<td><a href="{$editurl}">{$user->lastname}</a></td>
-			<td><a href="mailto:{$user->email}">{$user->email}</td>
+			<td><a href="mailto:{$user->email}">{$user->email}</a></td>
 			<td><a href="{$editurl}">{$admin}</a></td>
             <td>
                 {$this->editLink('login', $user->login)}

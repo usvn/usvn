@@ -7,6 +7,7 @@
 @import "<?php echo $this->medias_directory; ?>/default/js/tools/HTMLTableTools/table.css";
 
 html, body {
+	font-size: 13px;
 	font-family: 'Trebuchet MS', 'Verdana', 'Helvetica';
 	margin: auto;
     background: #FFFFFF;

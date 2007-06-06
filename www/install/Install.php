@@ -339,7 +339,6 @@ EOF;
                 throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
             }
             elseif ((bool) ini_get("allow_url_fopen") && @file_get_contents($image) === false) {
-				var_dump(in_array("mod_rewrite", apache_get_modules()));
                 throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
             }
         }

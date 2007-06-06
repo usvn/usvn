@@ -50,12 +50,14 @@
 			<td>
 				<input type="text" size="67" name="urlSubversion" value="<?php
 				if (isset($_SERVER['HTTPS'])) {
-					echo "https://";
+					$method = "https://";
+					$port = ($_SERVER['SERVER_PORT'] != 443) ? (":" . $_SERVER['SERVER_PORT']) : "";
 				}
 				else {
 					$method = "http://";
+					$port = ($_SERVER['SERVER_PORT'] != 80) ? (":" . $_SERVER['SERVER_PORT']) : "";
 				}
-				echo $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . preg_replace("/\/install.*/", "/svn", $_SERVER['REQUEST_URI']);
+				echo $method . $_SERVER['SERVER_NAME'] . $port . preg_replace("/\/install.*/", "/svn", $_SERVER['REQUEST_URI']);
 				?>" />
 				</label>
 			</td>

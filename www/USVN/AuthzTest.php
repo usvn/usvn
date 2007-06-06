@@ -57,7 +57,7 @@ class USVN_AuthzTest extends USVN_Test_Test {
 	}
 
 	protected function tearDown() {
-		//		USVN_Db_Utils::deleteAllTables($this->db);
+		USVN_Db_Utils::deleteAllTables($this->db);
 		parent::tearDown();
 	}
 

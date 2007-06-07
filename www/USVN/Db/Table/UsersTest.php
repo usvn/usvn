@@ -222,7 +222,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			return;
 		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidEmailAddress'));
-		$this->assertEquals($user->password, crypt('password', $user->password));
+		$this->assertTrue(USVN_Crypt::checkPassword('password', $user->password));
     }
 
     public function testUserUpdateNoPassword()
@@ -250,7 +250,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			return;
 		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateNoPassword'));
-		$this->assertEquals($user->password, crypt('password', $user->password));
+		$this->assertTrue(USVN_Crypt::checkPassword('password', $user->password));
     }
 
     public function testUserUpdateInvalidPassword()
@@ -278,7 +278,7 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 			return;
 		}
 		$user = $table->fetchRow(array('users_login = ?' => 'UpdateInvalidPassword'));
-		$this->assertEquals($user->password, crypt('password', $user->password));
+		$this->assertTrue(USVN_Crypt::checkPassword('password', $user->password));
     }
 
     public function testUserUpdateOk()

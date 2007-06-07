@@ -39,7 +39,7 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->userTable = new USVN_Db_Table_Users();
 		$this->user = $this->userTable->fetchNew();
 		$this->user->users_login = 'test';
-		$this->user->users_password = crypt("test");
+		$this->user->users_password = USVN_Crypt::crypt("test");
 		$this->userid = $this->user->save();
 
 		$this->groups = new USVN_Db_Table_Groups();

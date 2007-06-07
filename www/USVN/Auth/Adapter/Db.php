@@ -55,7 +55,7 @@ class USVN_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface {
 			return new Zend_Auth_Result($result['isValid'], $result['identity'], $result['messages']);
 		}
 
-		if (crypt($this->_password, $user->password) != $user->password) {
+		if (!USVN_Crypt::checkPassword($this->_password, $user->password)) {
 			$result['messages'][] = T_('Incorrect password');
 			return new Zend_Auth_Result($result['isValid'], $result['identity'], $result['messages']);
 		}

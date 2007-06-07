@@ -162,7 +162,7 @@ class InstallDbTest extends USVN_Test_Test {
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));
 		$this->assertNotEquals(False, $user);
-		$this->assertEquals($user->password, crypt("secretpassword", $user->password));
+		$this->assertTrue(USVN_Crypt::checkPassword("secretpassword", $user->password));
 		$this->assertEquals("James", $user->firstname);
 		$this->assertEquals("Bond", $user->lastname);
 		$this->assertEquals(true, $user->is_admin);

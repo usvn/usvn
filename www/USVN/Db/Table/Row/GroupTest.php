@@ -45,21 +45,21 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 			array(
 				"users_id" => 2,
 				"users_login" => "test",
-				"users_password" => crypt("test")
+				"users_password" => USVN_Crypt::crypt("test")
 			)
 		);
 		$this->users->insert(
 			array(
 				"users_id" => 3,
 				"users_login" => "babar",
-				"users_password" => crypt("test")
+				"users_password" => USVN_Crypt::crypt("test")
 			)
 		);
 		$this->users->insert(
 			array(
 				"users_id" => 4,
 				"users_login" => "john",
-				"users_password" => crypt("test")
+				"users_password" => USVN_Crypt::crypt("test")
 			)
 		);
     }

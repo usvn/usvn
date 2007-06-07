@@ -34,7 +34,7 @@ class ProfileController extends USVN_Controller
 			return array();
 		}
 		$user = $this->getUser();
-		if (crypt($data['users_password'], $user->password) != $user->password) {
+		if (!USVN_Crypt::checkPassword($data['users_password'], $user->password)) {
 			throw new USVN_Exception(T_("Wrong password"));
 		}
 		if (!empty($data['users_new_password']) && !empty($data['users_new_password2'])) {

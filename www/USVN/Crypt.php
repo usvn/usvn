@@ -25,7 +25,7 @@ class USVN_Crypt
 	 */
 	static public function crypt($password)
 	{
-		return crypt($password, $password);
+		return crypt($password);
 	}
 
 	/**

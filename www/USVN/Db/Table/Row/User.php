@@ -153,7 +153,7 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 		$this->checkLogin($this->_data['users_login']);
 		$this->checkEmailAddress($this->_data['users_email']);
 		$this->checkPassword($this->_data['users_password']);
-		$this->_data['users_password'] = crypt($this->_data['users_password']);
+		$this->_data['users_password'] = USVN_Crypt::crypt($this->_data['users_password']);
 	}
 
 	/**
@@ -175,7 +175,7 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 		}
 		if ($this->_data['users_password'] != $this->_cleanData['users_password']) {
 			$this->checkPassword($this->_data['users_password']);
-			$this->_data['users_password'] = crypt($this->_data['users_password']);
+			$this->_data['users_password'] = USVN_Crypt::crypt($this->_data['users_password']);
 		}
 	}
 }

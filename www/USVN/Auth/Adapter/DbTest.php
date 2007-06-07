@@ -52,7 +52,7 @@ class USVN_Auth_Adapter_DbTest extends USVN_Test_DB {
 		$data = array(
 			"users_id" => 2,
 			"users_login" => 'testlogin',
-			"users_password" => crypt('testpassword')
+			"users_password" => USVN_Crypt::crypt('testpassword')
 		);
 		$this->db->insert("usvn_users", $data);
     }

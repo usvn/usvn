@@ -25,6 +25,9 @@ class USVN_Crypt
 	 */
 	static public function crypt($password)
 	{
+		if (0 === strpos(PHP_OS, 'WIN')) {
+			return USVN_Crypt::_cryptApr1MD5($password);
+		}
 		return crypt($password);
 	}
 

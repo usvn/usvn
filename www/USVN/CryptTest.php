@@ -44,6 +44,24 @@ class USVN_CryptTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue( USVN_Crypt::checkPassword("toto", $crypt));
         $this->assertFalse( USVN_Crypt::checkPassword("tutu", $crypt));
     }
+
+    public function testApr1MD5()
+    {
+    	$crypt = USVN_Crypt::_crypt_apr1_md5("toto", "A.IgA/..");
+    	$this->assertEquals($crypt, '$apr1$A.IgA/..$vcK1pKAvkEGvAT0ob46Bw0');
+    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("toto", $crypt));
+
+    	$crypt = USVN_Crypt::_crypt_apr1_md5("toto", "A.IgA/a.");
+    	$this->assertNotEquals($crypt, '$apr1$A.IgA/..$vcK1pKAvkEGvAT0ob46Bw0');
+    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("toto", $crypt));
+
+    	$crypt = USVN_Crypt::_crypt_apr1_md5("toto");
+    	$this->assertNotEquals($crypt, '$apr1$A.IgA/..$vcK1pKAvkEGvAT0ob46Bw0');
+    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("toto", $crypt));
+
+       	$crypt = USVN_Crypt::_crypt_apr1_md5("bidulmachinsuperlong");
+    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("bidulmachinsuperlong", $crypt));
+	}
 }
 
 // Call USVN_CryptTest::main() if this source file is executed directly.

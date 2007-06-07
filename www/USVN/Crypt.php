@@ -37,6 +37,12 @@ class USVN_Crypt
 	 */
 	static public function checkPassword($clear, $encrypt)
 	{
+		if (substr($encrypt, 0, 6) == '$apr1$') {
+			if (USVN_Crypt::_cryptApr1MD5($clear, $encrypt) == $encrypt) {
+				return true;
+			}
+			return false;
+		}
 		if (crypt($clear, $encrypt) == $encrypt) {
 			return true;
 		}

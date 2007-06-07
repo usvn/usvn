@@ -43,24 +43,27 @@ class USVN_CryptTest extends PHPUnit_Framework_TestCase {
         $crypt = USVN_Crypt::crypt("toto");
         $this->assertTrue( USVN_Crypt::checkPassword("toto", $crypt));
         $this->assertFalse( USVN_Crypt::checkPassword("tutu", $crypt));
+
+        $crypt = '$apr1$A.IgA/..$vcK1pKAvkEGvAT0ob46Bw0';
+        $this->assertTrue( USVN_Crypt::checkPassword("toto", $crypt));;
     }
 
     public function testApr1MD5()
     {
-    	$crypt = USVN_Crypt::_crypt_apr1_md5("toto", "A.IgA/..");
+    	$crypt = USVN_Crypt::_cryptApr1MD5("toto", "A.IgA/..");
     	$this->assertEquals($crypt, '$apr1$A.IgA/..$vcK1pKAvkEGvAT0ob46Bw0');
-    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("toto", $crypt));
+    	$this->assertEquals($crypt, USVN_Crypt::_cryptApr1MD5("toto", $crypt));
 
-    	$crypt = USVN_Crypt::_crypt_apr1_md5("toto", "A.IgA/a.");
+    	$crypt = USVN_Crypt::_cryptApr1MD5("toto", "A.IgA/a.");
     	$this->assertNotEquals($crypt, '$apr1$A.IgA/..$vcK1pKAvkEGvAT0ob46Bw0');
-    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("toto", $crypt));
+    	$this->assertEquals($crypt, USVN_Crypt::_cryptApr1MD5("toto", $crypt));
 
-    	$crypt = USVN_Crypt::_crypt_apr1_md5("toto");
+    	$crypt = USVN_Crypt::_cryptApr1MD5("toto");
     	$this->assertNotEquals($crypt, '$apr1$A.IgA/..$vcK1pKAvkEGvAT0ob46Bw0');
-    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("toto", $crypt));
+    	$this->assertEquals($crypt, USVN_Crypt::_cryptApr1MD5("toto", $crypt));
 
-       	$crypt = USVN_Crypt::_crypt_apr1_md5("bidulmachinsuperlong");
-    	$this->assertEquals($crypt, USVN_Crypt::_crypt_apr1_md5("bidulmachinsuperlong", $crypt));
+       	$crypt = USVN_Crypt::_cryptApr1MD5("bidulmachinsuperlong");
+    	$this->assertEquals($crypt, USVN_Crypt::_cryptApr1MD5("bidulmachinsuperlong", $crypt));
 	}
 }
 

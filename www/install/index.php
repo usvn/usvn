@@ -71,44 +71,50 @@ function installationOperation($step)
 {
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
 	switch ($step) {
-            case 1:
-                install::checkSystem();
-            break;
+		case 1:
+			Install::checkSystem();
+		break;
 
-			case 3:
-				Install::installLanguage(CONFIG_FILE, $language);
-				$GLOBALS['language'] = $_POST['language'];
-				USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
-			break;
+		case 4:
+			if ($_POST['agreement'] != "ok") {
+				throw new USVN_Exception(T_("You need to accept the licence to continue installation."));
+			}
+		break;
 
-			case 4:
-                if ($_POST['agreement'] != "ok") {
-                    throw new USVN_Exception(T_("You need to accept the licence to continue installation."));
-                }
-			break;
+		case 3:
+			Install::installLanguage(CONFIG_FILE, $language);
+			$GLOBALS['language'] = $_POST['language'];
+			USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
+		break;
 
-			case 5:
-				Install::installConfiguration(CONFIG_FILE, $_POST['title']);
-				Install::installSubversion(CONFIG_FILE, $_POST['pathSubversion'], $_POST['urlSubversion']);
-			break;
+		case 4:
+			if ($_POST['agreement'] != "ok") {
+				throw new USVN_Exception(T_("You need to accept the licence to continue installation."));
+			}
+		break;
 
-			case 6:
-				if (isset($_POST['createdb'])) {
-					$createdb = true;
-				}
-				else {
-					$createdb = false;
-				}
-				Install::installDb(CONFIG_FILE, "../SQL/", $_POST['host'], $_POST['user'], $_POST['password'], $_POST['database'], $_POST['prefix'], $createdb);
-			break;
+		case 5:
+			Install::installConfiguration(CONFIG_FILE, $_POST['title']);
+			Install::installSubversion(CONFIG_FILE, $_POST['pathSubversion'], $_POST['urlSubversion']);
+		break;
 
-			case 7:
-				Install::installAdmin(CONFIG_FILE, $_POST['login'], $_POST['password'], $_POST['firstname'], $_POST['lastname'], $_POST['email']);
-				Install::installUrl(CONFIG_FILE, HTACCESS_FILE);
-				Install::installEnd(CONFIG_FILE);
-				$GLOBALS['apacheConfig'] = Install::getApacheConfig(CONFIG_FILE);
-			break;
-		}
+		case 6:
+			if (isset($_POST['createdb'])) {
+				$createdb = true;
+			}
+			else {
+				$createdb = false;
+			}
+			Install::installDb(CONFIG_FILE, "../SQL/", $_POST['host'], $_POST['user'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['adapter'], $createdb);
+		break;
+
+		case 7:
+			Install::installAdmin(CONFIG_FILE, $_POST['login'], $_POST['password'], $_POST['firstname'], $_POST['lastname'], $_POST['email']);
+			Install::installUrl(CONFIG_FILE, HTACCESS_FILE);
+			Install::installEnd(CONFIG_FILE);
+			$GLOBALS['apacheConfig'] = Install::getApacheConfig(CONFIG_FILE);
+		break;
+	}
 }
 
 function installationStep($step)

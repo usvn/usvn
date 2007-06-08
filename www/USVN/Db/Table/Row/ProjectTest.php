@@ -41,7 +41,6 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->project->projects_name = 'testStem';
 		$this->project->projects_start_date = '2007-04-01 15:29:57';
 		$this->projectid = $this->project->save();
-
 		$this->groups = new USVN_Db_Table_Groups();
 		$group = $this->groups->insert(
 			array(

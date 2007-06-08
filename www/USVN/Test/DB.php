@@ -28,21 +28,28 @@ class USVN_Test_DB extends USVN_Test_Test {
 
     protected function setUp() {
 		parent::setUp();
+        $this->clean();
 		$params = array ('host'     => 'localhost',
                  'username' => 'usvn-test',
                  'password' => 'usvn-test',
                  'dbname'   => 'usvn-test');
 
-		$this->db = Zend_Db::factory('MYSQLI', $params);
+		Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', 'PDO_SQLITE', false);
+		$this->db = Zend_Db::factory('PDO_SQLITE', $params);
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
-		USVN_Db_Utils::deleteAllTables($this->db);
-		Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', false);
     }
 
+	private function clean()
+	{
+		if (file_exists("usvn-test")) {
+			@unlink("usvn-test");
+		}
+	}
+
     protected function tearDown() {
-		USVN_Db_Utils::deleteAllTables($this->db);
         $this->db->closeConnection();
+        $this->clean();
 		parent::tearDown();
     }
 }

@@ -41,10 +41,11 @@ class Install
 	* @param string Database password
 	* @param string Database name
 	* @param string Database table prefix (ex: usvn_)
+	* @param string Database type (mysql or sqlite)
 	* @param boolean Create the database before installing
 	* @throw USVN_Exception
 	*/
-	static public function installDb($config_file, $path_sql, $host, $user, $password, $database, $prefix, $createdb)
+	static public function installDb($config_file, $path_sql, $host, $user, $password, $database, $prefix, $adapter, $createdb)
 	{
 		$params = array ('host' => $host,
 		'username' => $user,
@@ -65,7 +66,7 @@ class Install
 		}
 
 		try {
-			$db = Zend_Db::factory('PDO_MYSQL', $params);
+			$db = Zend_Db::factory($adapter, $params);
 			$db->getConnection();
 		}
 		catch (Exception $e) {
@@ -75,8 +76,16 @@ class Install
 		USVN_Db_Table::$prefix = $prefix;
 
 		try {
-			USVN_Db_Utils::loadFile($db, $path_sql . "/SVNDB.sql");
-			USVN_Db_Utils::loadFile($db, $path_sql . "/mysql.sql");
+			if ($adapter == "PDO_MYSQL" || $adapter == "MYSQLI") {
+				USVN_Db_Utils::loadFile($db, $path_sql . "/SVNDB.sql");
+				USVN_Db_Utils::loadFile($db, $path_sql . "/mysql.sql");
+			}
+			else if ($adapter == "PDO_SQLITE") {
+				USVN_Db_Utils::loadFile($db, $path_sql . "/SVNDBSQLITE.sql");
+			}
+            else {
+                throw new USVN_Exception(T_("Invalid adapter %s.\n") . $adapter);
+            }
 		}
 		catch (Exception $e) {
 			try {
@@ -87,19 +96,19 @@ class Install
 			$db->closeConnection();
 			throw new USVN_Exception(T_("Can't load SQL file.\n") . $e->getMessage());
 		}
-
+		$db->closeConnection();
 		try {
 			$config = Install::_loadConfig($config_file);
 			/* @var $config USVN_Config */
 			$config->database = array (
-			"adapterName" => "pdo_mysql",
-			"prefix" => $prefix,
-			"options" => array (
-			"host" => $host,
-			"username" => $user,
-			"password" => $password,
-			"dbname" => $database
-			)
+				"adapterName" => $adapter,
+				"prefix" => $prefix,
+				"options" => array (
+					"host" => $host,
+					"username" => $user,
+					"password" => $password,
+					"dbname" => $database
+				)
 			);
 			$config->save();
 		}
@@ -200,7 +209,7 @@ EOF;
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
 		}
 		chmod($htaccess_file, 0644);
-	}
+}
 
 	/**
 	* This method will write create an admin

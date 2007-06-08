@@ -14,7 +14,7 @@ function changeAdapter()
 		createdb.style.display = "none";
 		prefix.style.display = "none";
 		database.value = "<?php
-				echo dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "usvn.db";
+				echo addslashes(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "usvn.db");
 				?>";
 		database.size = 80;
 	}

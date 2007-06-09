@@ -74,7 +74,7 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	public function findByName($name)
 	{
 		$db = $this->getAdapter();
-		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		/* @var $db Zend_Db_Adapter */
 		$where = $db->quoteInto("projects_name = ?", $name);
 		return $this->fetchRow($where, "projects_name");
 	}

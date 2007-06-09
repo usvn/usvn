@@ -56,7 +56,11 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$table = new USVN_Db_Table_GroupsToProjects();
 			$where  = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
 			$where .= " AND " . $table->getAdapter()->quoteInto("groups_id = ?", $group_id);
-			$table->delete($where);
+			if ($table->delete($where) == 0)
+				throw new USVN_Exception(T_("Invalid group %s for project %s."), $group, $this->id);
+		}
+		else {
+			throw new USVN_Exception(T_("Invalid group %s for project %s."), $group, $this->id);
 		}
 	}
 

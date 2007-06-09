@@ -130,6 +130,7 @@ class ProjectController extends USVN_Controller
 	public function deletegroupAction()
 	{
 		$this->requireAdmin();
+		$this->_helper->viewRenderer->setNoRender();
 		$this->_project->deleteGroup($this->getRequest()->getParam('groups_id'));
 		$this->_redirect("/project/{$this->_project->name}/");
 	}

@@ -43,9 +43,12 @@ class BrowserajaxController extends USVN_Controller
 	*/
 	private function getListFile($path)
 	{
+		$path = realpath($path);
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
 		$txthtml = "
+<h2>$path</h2>
+<br />
 <table class=\"usvn_table\">
     <thead>
         <tr>

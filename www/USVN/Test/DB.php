@@ -28,28 +28,40 @@ class USVN_Test_DB extends USVN_Test_Test {
 
     protected function setUp() {
 		parent::setUp();
-        $this->clean();
 		$params = array ('host'     => 'localhost',
-                 'username' => 'usvn-test',
-                 'password' => 'usvn-test',
-                 'dbname'   => 'usvn-test');
+			 'username' => 'usvn-test',
+			 'password' => 'usvn-test',
+			 'dbname'   => 'usvn-test');
 
-		Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', 'PDO_SQLITE', false);
-		$this->db = Zend_Db::factory('PDO_SQLITE', $params);
+		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
+			$this->clean();
+			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', 'PDO_SQLITE', false);
+			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
+		}
+		else {
+			$this->db = Zend_Db::factory(getenv('DB'), $params);
+			$this->clean();
+			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', getenv('DB'), false);
+		}
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
     }
 
 	private function clean()
 	{
-		if (file_exists("usvn-test")) {
-			@unlink("usvn-test");
+		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
+			if (file_exists("usvn-test")) {
+				@unlink("usvn-test");
+			}
+		}
+		else {
+			USVN_Db_Utils::deleteAllTables($this->db);
 		}
 	}
 
     protected function tearDown() {
-        $this->db->closeConnection();
         $this->clean();
+        $this->db->closeConnection();
 		parent::tearDown();
     }
 }

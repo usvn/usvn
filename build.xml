@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
   <property name="license" value="CECILL" override="true" />
-  <property name="version" value="0.5.0" override="true" />
-  <property name="status" value="alpha" override="true" />
+  <property name="version" value="0.6.0" override="true" />
+  <property name="status" value="beta" override="true" />
   <property name="docdir" value="apidocs" override="true" />
   <property name="testdir" value="tests" override="true" />
   <property name="report_test_dir" value="test-report" override="true" />
@@ -47,7 +47,7 @@
     <target name="release">
         <echo msg="Release USVN ${version}" />
         <phingcall target="lint" />
-        <phingcall target="test" />
+        <phingcall target="test-all" />
         <phingcall target="doc" />
         <phingcall target="tar" />
     </target>
@@ -64,6 +64,24 @@
             </fileset>
         </delete>
     </target>
+
+	<target name="test-all">
+		<echo msg="Test PDO_SQLITE" />
+		<php function="putenv">
+			<param value="DB=PDO_SQLITE" />
+		</php>
+        <phingcall target="test" />
+		<echo msg="Test PDO_MYSQL" />
+		<php function="putenv">
+			<param value="DB=PDO_MYSQL" />
+		</php>
+        <phingcall target="test" />
+		<echo msg="Test MYSQLI" />
+		<php function="putenv">
+			<param value="DB=MYSQLI" />
+		</php>
+        <phingcall target="test" />
+	</target>
 
     <target name="test">
 		<if>

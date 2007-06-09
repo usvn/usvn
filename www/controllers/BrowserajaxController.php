@@ -38,6 +38,23 @@ class BrowserajaxController extends USVN_Controller
 		echo "</files>";
 	}
 
+	private function getTopLink($path)
+	{
+		$str = "<h2>";
+		$str .= '<a href=\'javascript:ajax(3, "/");\'>/</a>';
+		$list = array();
+		while ($path != '/') {
+			array_push($list, $path);
+			$path = dirname($path);
+		}
+		$list = array_reverse($list);
+		foreach ($list as $path) {
+			$str .= '<a href=\'javascript:ajax(3, "' . $path . '");\'>' . basename($path) . '/</a>';
+		}
+		$str .= "</h2>";
+		return $str;
+	}
+
 	/**
 	* Get list files of subversion directory.
 	*/
@@ -46,8 +63,7 @@ class BrowserajaxController extends USVN_Controller
 		$path = realpath($path);
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
-		$txthtml = "
-<h2>$path</h2>
+		$txthtml = $this->getTopLink($path) . "
 <br />
 <table class=\"usvn_table\">
     <thead>

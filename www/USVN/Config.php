@@ -60,7 +60,6 @@ class USVN_Config
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$config->site->title = $datas['title'];
 		$config->site->ico = $datas['ico'];
-		$config->site->description = $datas['description'];
 		$config->site->logo = $datas['logo'];
 		$config->save();
 	}

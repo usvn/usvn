@@ -33,15 +33,15 @@ function changeAdapter()
 	<h1><?php echo T_("Step");?> 5: <?php echo T_("Database installation"); ?></h1>
 	<p><?php echo T_("Configuration of database's access."); ?></p>
 </div>
+<form name="configdb" action="index.php?step=6" method="post">
 <div id="usvn_logo_install_step"
-	style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/database.png); height: 320px;">
-	<form name="configdb" action="index.php?step=6" method="POST">
+	style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/database.png); height: 210px;">
 	<table>
 		<tr>
 			<td><label class="usvn_label" for="adapter"><?php echo T_("Database Type");?>:</label></td>
 			<td>
 				<select name="adapter" id="adapter" size="1" onchange="javascript:changeAdapter()">
-					<option value="PDO_MYSQL" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "PDO_MYSQL") echo 'selected';?>">PDO MySql</option>
+					<option value="PDO_MYSQL" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "PDO_MYSQL") echo 'selected';?>>PDO MySql</option>
 					<option value="MYSQLI" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "MYSQLI") echo 'selected';?>>MySqli</option>
 					<option value="PDO_SQLITE" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "PDO_SQLITE") echo 'selected';?>>PDO SqLite</option>
 				</select>
@@ -65,7 +65,8 @@ function changeAdapter()
 		</tr>
 		<tr id="user_config">
 			<td>
-				<label class="usvn_label" for="user"><?php echo T_("Login");?>:</td></label>
+				<label class="usvn_label" for="user"><?php echo T_("Login");?>:</label>
+			</td>
 			<td>
 				<input type="text" name="user" id="user" value="<?php
 				if (isset($_POST['user'])) {

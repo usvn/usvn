@@ -37,6 +37,6 @@ class ConfigadminController extends AdminadminController
 							'ico'			=> $_POST['siteIco'],
 							'logo'			=> $_POST['siteLogo']);
 		USVN_Config::setSiteDatas($siteDatas);
-		$this->_redirect('admin/config/');
+		$this->_redirect('/admin/config/');
 	}
 }

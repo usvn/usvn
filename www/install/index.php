@@ -33,7 +33,7 @@ if (file_exists(CONFIG_FILE)) {
 		$GLOBALS['language'] = $config->translation->locale;
 	}
 	if (isset($config->database->adapterName)) {
-		Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->asArray()));
+		Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));
 		Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
 		USVN_Db_Table::$prefix = $config->database->prefix;
 	}

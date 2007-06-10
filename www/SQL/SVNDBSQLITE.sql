@@ -52,7 +52,7 @@ create table usvn_users
    users_lastname       varchar(100),
    users_firstname      varchar(100),
    users_email          varchar(150),
-   is_admin             bool,
+   users_is_admin       bool,
    users_id integer primary key autoincrement
 );
 

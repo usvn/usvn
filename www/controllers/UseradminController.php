@@ -58,6 +58,8 @@ class UseradminController extends AdminadminController
 	{
 		$table = new USVN_Db_Table_Users();
 		$this->view->user = $table->createRow();
+		$table = new USVN_Db_Table_Groups();
+		$this->view->groups = $table->fetchAll(null, 'groups_name');
 	}
 
 	public function createAction()
@@ -75,6 +77,8 @@ class UseradminController extends AdminadminController
 		catch (Exception $e) {
 			$this->view->user = $user;
 			$this->view->message = $e->getMessage();
+			$table = new USVN_Db_Table_Groups();
+			$this->view->groups = $table->fetchAll(null, 'groups_name');
 			$this->render('new');
 		}
 	}
@@ -86,6 +90,8 @@ class UseradminController extends AdminadminController
 		if ($this->view->user === null) {
 			$this->_redirect("/admin/user/");
 		}
+		$table = new USVN_Db_Table_Groups();
+		$this->view->groups = $table->fetchAll(null, 'groups_name');
 	}
 
 	public function updateAction()
@@ -107,6 +113,8 @@ class UseradminController extends AdminadminController
 		catch (Exception $e) {
 			$this->view->user = $user;
 			$this->view->message = $e->getMessage();
+			$table = new USVN_Db_Table_Groups();
+			$this->view->groups = $table->fetchAll(null, 'groups_name');
 			$this->render('edit');
 		}
 	}

@@ -2,10 +2,11 @@
 	<h1><?php echo T_("Step");?> 2: Language selection</h1>
 	<p>Select your language for USVN's interface.</p>
 </div>
-<div id="usvn_logo_install_step" style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/locale.png);">
-	<form action="index.php?step=3" method="POST">
-	<label class="usvn_label" for="lang">
-		<?php echo T_("Default language");?>:
+<form action="index.php?step=3" method="post">
+	<div id="usvn_logo_install_step" style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/locale.png);">
+		<label class="usvn_label" for="lang">
+			<?php echo T_("Default language");?>:
+		</label>
 		<select name="language" id="lang">
 			<?php
 				$locale = new Zend_Locale('en_US');
@@ -13,12 +14,12 @@
 					$selected = "";
 					if (isset($_POST['language'])) {
 						if ($language == $_POST['language']) {
-							$selected = "selected";
+							$selected = 'selected="selected"';
 						}
 					}
 					else {
 						if ($language == "en_US") {
-							$selected = "selected";
+							$selected = 'selected="selected"';
 						}
 					}
 					$locale2 = new Zend_Locale($language);
@@ -27,8 +28,9 @@
 				}
 			?>
 		</select>
-	</label>
-</div>
-<hr />
-<input type="submit" value="<?php echo T_("Next step");?>" />
+	</div>
+	<hr />
+	<div>
+		<input type="submit" value="<?php echo T_("Next step");?>" />
+	</div>
 </form>

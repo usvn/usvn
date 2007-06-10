@@ -86,6 +86,37 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->assertNotContains("notest", $res);
 	}
 
+	public function testDeleteGroup()
+	{
+		$this->user->addGroup($this->groups->find(42)->current());
+		$this->user->addGroup($this->groups->find(43)->current());
+		$this->user->deleteGroup($this->groups->find(42)->current());
+		$this->groups = $this->user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
+		$res = array();
+		foreach ($this->groups as $group) {
+			array_push($res, $group->groups_name);
+		}
+		$this->assertNotContains("test", $res);
+		$this->assertContains("test2", $res);
+		$this->assertNotContains("notest", $res);
+	}
+
+	public function testDeleteAllGroup()
+	{
+		$this->user->addGroup($this->groups->find(42)->current());
+		$this->user->addGroup($this->groups->find(43)->current());
+		$this->user->deleteAllGroups();
+		$this->groups = $this->user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
+		$res = array();
+		foreach ($this->groups as $group) {
+			array_push($res, $group->groups_name);
+		}
+		$this->assertNotContains("test", $res);
+		$this->assertNotContains("test2", $res);
+		$this->assertNotContains("notest", $res);
+		$this->assertEquals(0, count($res));
+	}
+
 	public function testIsInGroup()
 	{
 		$group = $this->groups->find(42)->current();

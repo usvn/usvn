@@ -68,7 +68,8 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	public function deleteAllGroups()
 	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
-		$user_groups->delete("");
+		$where = $user_groups->getAdapter()->quoteInto('users_id = ?', $this->id);
+		$user_groups->delete($where);
 	}
 
 	/**

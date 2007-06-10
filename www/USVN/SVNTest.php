@@ -66,6 +66,7 @@ class USVN_SVNTest extends USVN_Test_DB {
         chdir($path);
         $svn = new USVN_SVN('test');
         $res = $svn->listFile('/');
+        Zend_Debug::dump($res);
 		$this->assertEquals(3, count($res));
 		$this->assertContains(array("name" => "trunk", "isDirectory" => true, "path" => "/trunk/"), $res);
 		$this->assertContains(array("name" => "branches", "isDirectory" => true, "path" => "/branches/"), $res);

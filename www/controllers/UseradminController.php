@@ -72,6 +72,9 @@ class UseradminController extends AdminadminController
 		$user = $table->createRow($data);
 		try {
 			$user->save();
+			foreach ($_POST['groups'] as $group) {
+				$user->addGroup($group);
+			}
 			$this->_redirect("/admin/user/");
 		}
 		catch (Exception $e) {
@@ -102,12 +105,17 @@ class UseradminController extends AdminadminController
 		}
 		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchRow(array("users_login = ?" => $this->getRequest()->getParam('login')));
+		/* @var $user USVN_Db_Table_Row_Users */
 		if ($user === null) {
 			$this->_redirect("/admin/user/");
 		}
 		$user->setFromArray($data);
 		try {
 			$user->save();
+			$user->deleteAllGroups();
+			foreach ($_POST['groups'] as $group) {
+				$user->addGroup($group);
+			}
 			$this->_redirect("/admin/user/");
 		}
 		catch (Exception $e) {

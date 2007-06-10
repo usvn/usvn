@@ -42,7 +42,10 @@ function checkForm() {
 			</legend>
 			<select multiple="multiple" name="groups[]">
 			<?php foreach ($this->groups as $group) : ?>
-				<option><?php echo $group->name ?></option>
+				<option value="<?php echo $group->id; ?>" <?php 
+				if ($this->user->isInGroup($group)) {
+				 	echo 'selected="selected"';
+				 } ?>><?php echo $group->name ?></option>
 			<?php endforeach; ?>
 			</select>
 		</fieldset>

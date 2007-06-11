@@ -51,6 +51,8 @@ class InstallTest extends USVN_Test_Test {
     public function setUp() {
 		parent::setUp();
 		$_SERVER['SERVER_NAME'] = "localhost";
+		$_SERVER['HTTP_HOST'] = "localhost";
+		$_SERVER['SERVER_PORT'] = 80;
 		$_SERVER['REQUEST_URI'] = "/test/install/index.php?step=7";
     }
 

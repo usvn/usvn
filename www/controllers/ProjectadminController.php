@@ -58,7 +58,6 @@ class ProjectadminController extends AdminadminController
 			$this->_redirect("/admin/project/");
 		}
 		catch (Exception $e) {
-			//$this->view->project = $project; //@todo Remplir de nouveau les champs
 			$this->view->message = nl2br($e->getMessage());
 			$this->render('new');
 		}

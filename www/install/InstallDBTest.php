@@ -154,6 +154,18 @@ class InstallDbTest extends USVN_Test_Test {
 		$this->assertEquals("usvn_", $config->database->prefix);
 	}
 
+	public function testInstallDbTestConfigFileWithRandUser() {
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-root", "usvn-root", "usvn-test", "usvn_", false, true);
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("localhost", $config->database->options->host);
+		$this->assertEquals("usvn-test", $config->database->options->dbname);
+		$this->assertEquals("usvn-test", $config->database->options->username);
+		$this->assertEquals("usvn-test", $config->database->options->password);
+		$this->assertEquals("pdo_mysql", $config->database->adapterName);
+		$this->assertEquals("usvn_", $config->database->prefix);
+	}
+
 	public function testInstallAdmin()
 	{
 		file_put_contents("tests/tmp/config.ini", "[general]\nsubversion.path=tests/tmp/");

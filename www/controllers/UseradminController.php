@@ -68,23 +68,14 @@ class UseradminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/user/new");
 		}
-		$table = new USVN_Db_Table_Users();
-		$user = $table->createRow($data);
+
+		$user = USVN_User::create($data, isset($_POST['create_group']), $_POST['groups']);
 		try {
 			$user->save();
-			if ($_POST['create_group']) {
-				$table = new USVN_Db_Table_Groups();
-				$group = $table->createRow(array("groups_name" => $user->login));
-				$group->save();
-				$_POST['groups'][] = $group->id;
-			}
-			foreach ($_POST['groups'] as $group) {
-				$user->addGroup($group);
-			}
 			$this->_redirect("/admin/user/");
 		}
 		catch (Exception $e) {
-			$this->view->user = $user;
+			$this->view->user = $user->getRowObject();
 			$this->view->message = $e->getMessage();
 			$table = new USVN_Db_Table_Groups();
 			$this->view->groups = $table->fetchAll(null, 'groups_name');
@@ -109,19 +100,10 @@ class UseradminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/user/new");
 		}
-		$table = new USVN_Db_Table_Users();
-		$user = $table->fetchRow(array("users_login = ?" => $this->getRequest()->getParam('login')));
-		/* @var $user USVN_Db_Table_Row_Users */
-		if ($user === null) {
-			$this->_redirect("/admin/user/");
-		}
-		$user->setFromArray($data);
+		$user = null; /* some ugly hack of variable scope... */
 		try {
+			$user = USVN_User::update($this->getRequest()->getParam('login'), $data, $_POST['groups']);
 			$user->save();
-			$user->deleteAllGroups();
-			foreach ($_POST['groups'] as $group) {
-				$user->addGroup($group);
-			}
 			$this->_redirect("/admin/user/");
 		}
 		catch (Exception $e) {

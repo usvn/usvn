@@ -72,6 +72,12 @@ class UseradminController extends AdminadminController
 		$user = $table->createRow($data);
 		try {
 			$user->save();
+			if ($_POST['create_group']) {
+				$table = new USVN_Db_Table_Groups();
+				$group = $table->createRow(array("groups_name" => $user->login));
+				$group->save();
+				$_POST['groups'][] = $group->id;
+			}
 			foreach ($_POST['groups'] as $group) {
 				$user->addGroup($group);
 			}

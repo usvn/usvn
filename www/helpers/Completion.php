@@ -26,7 +26,7 @@ class USVN_View_Helper_Completion {
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
         $grp = isset($view->group) ? $view->group->name : "";
 		return <<<EOF
-		<script>
+		<script type="text/javascript">
 		login = 0;
 		isselect = 0;
 

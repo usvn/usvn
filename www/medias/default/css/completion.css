@@ -1,7 +1,8 @@
-/* CSS Document */
+/**
+ * Completion's css page
+ */
 
 div._list_autocomplete_ajax {
-	position:absolute;
 	width:143px;
 	background-color:white;
 	border:1px solid #888;
@@ -16,10 +17,12 @@ div._list_autocomplete_ajax label {
 	list-style-position:outside;
 	list-style-type:none;
 	margin:0px;
-	padding:0px;	
+	padding:0px;
 }
 
 tr.comp:hover {
 	background-color:#CCFFFF;
 	width:143px;
 }
+
+/* End of Completion's css page*/

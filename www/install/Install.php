@@ -355,5 +355,8 @@ EOF;
                 throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
             }
         }
+		if (function_exists("apache_get_modules") && !in_array("mod_dav_svn", apache_get_modules())) {
+                throw new  USVN_Exception(T_("mod_dav_svn seems not to be loaded"));
+		}
 	}
 }

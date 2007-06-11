@@ -200,39 +200,6 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	}
 
 	/**
-     * Allows post-insert logic to be applied to row.
-     * Subclasses may override this method.
-     *
-     * @return void
-     */
-	protected function _postInsert()
-	{
-		$groups = new USVN_Db_Table_Groups();
-		$group = $groups->createRow();
-		$group->description = sprintf(T_("Autocreated group for project %s"), $this->_data['projects_name']);
-		$group->name = $this->_data['projects_name'];
-		$group->save();
-
-		$this->addGroup($group);
-
-		$files_rights = new USVN_Db_Table_FilesRights();
-		$file_rights = $files_rights->createRow();
-		$file_rights->projects_id = $this->_data['projects_id'];
-		$file_rights->path = "/";
-		$file_rights->save();
-
-		$groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
-		$group_to_file_rights = $groups_to_files_rights->createRow(array(
-			"groups_id" => $group->id,
-			"files_rights_id" => $file_rights->id,
-			"files_rights_path" => "/"
-			));
-		$group_to_file_rights->files_rights_is_readable = true;
-		$group_to_file_rights->files_rights_is_writable = true;
-		$group_to_file_rights->save();
-	}
-
-	/**
      * Allows pre-update logic to be applied to row.
      * Subclasses may override this method.
      *

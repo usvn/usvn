@@ -1,40 +1,3 @@
-<?php echo $this->error($this); ?>
-<script type="text/javascript">
-<!--
-function checkForm() {
-	spanError = document.getElementById('error');
-	var checkRegExp = new RegExp("^[ \t]*$");
-	if (document.user.users_login.value.length == 0
-		|| checkRegExp.test(document.user.users_login.value)) {
-		spanError.innerHTML = "<?php echo T_('Login empty.'); ?>";
-		spanError.className = "usvn_error";
-		return false;
-	}
-	<?php if (!isset($this->user) || !$this->user->id) : ?>
-		if ((!document.user.users_password.value.length || !document.user.users_password2.value.length)) {
-			spanError.innerHTML = "<?php echo T_('Password empty.');?>";
-			spanError.className = "usvn_error";
-			return false;
-		}
-		if (document.user.users_password.value.length < 8 && (!document.user.users_id ||
-			document.user.users_password.value.length >= 1)) {
-			spanError.innerHTML = "<?php echo T_('Password incorrect (need more 8 characters).');?>";
-			spanError.className = "usvn_error";
-			return false;
-		}
-		if (document.user.users_password.value != document.user.users_password2.value) {
-			spanError.innerHTML = "<?php echo T_('Password incorrect (not the same).');?>";
-			spanError.className = "usvn_error";
-			return false;
-		}
-	<?php endif; ?>
-	spanError.innerHTML = '';
-	spanError.className = "";
-	return true;
-}
--->
-</script>
-<form id="user" class="usvn_form" method="post" action="<?php echo $this->url ?>">
 	<fieldset>
 		<fieldset style="float: right;">
 			<legend>
@@ -42,7 +5,7 @@ function checkForm() {
 			</legend>
 			<select multiple="multiple" name="groups[]">
 			<?php foreach ($this->groups as $group) : ?>
-				<option value="<?php echo $group->id; ?>" <?php 
+				<option value="<?php echo $group->id; ?>" <?php
 				if ($this->user->isInGroup($group)) {
 				 	echo 'selected="selected"';
 				 } ?>><?php echo $group->name ?></option>
@@ -75,9 +38,3 @@ function checkForm() {
 		<label><?php echo T_("Administrator"); ?>:<br />
 			<?php echo $this->formCheckbox('users_is_admin', $this->user->is_admin); ?>
 		</label>
-		<br />
-		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')); ?>
-		<br />
-	</fieldset>
-</form>
-<br />

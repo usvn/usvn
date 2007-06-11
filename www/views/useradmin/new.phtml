@@ -1,4 +1,22 @@
 <?php
 
-$this->url = $this->url(array("action" => "create"));
+echo $this->error($this);
+include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'js.phtml';
+?>
+<form id="user" class="usvn_form" method="post" action="<?php echo $this->url(array("action" => "create")) ?>">
+<?php
+
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . "form.phtml";
+
+?>
+		<br />
+		<label><?php echo T_("Create group"); ?>:<br />
+			<?php echo $this->formCheckbox('create_group'); ?>
+		</label>
+		<br />
+		<br />
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')); ?>
+		<br />
+	</fieldset>
+</form>
+<br />

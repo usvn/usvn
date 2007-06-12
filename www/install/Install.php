@@ -58,7 +58,7 @@ class Install
 				$tmp_params['dbname'] = "mysql";
 				$db = Zend_Db::factory('PDO_MYSQL', $tmp_params);
 				$db->getConnection();
-				$db->query("CREATE DATABASE {$database};");
+				$db->query("CREATE DATABASE `{$database}`;");
 				$db->closeConnection();
 			} catch (Exception $e) {
 				throw new USVN_Exception(T_("Can't create database\n") . $e->getMessage());

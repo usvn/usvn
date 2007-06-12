@@ -61,8 +61,8 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 																'users_email' 		=> 'email@email.fr'));
 		$this->_user->save();
 
-		$this->_projectid1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false);
-		$this->_projectid2 = USVN_Project::createProject(array('projects_name'  => "project2"), "test", true, false, false);
+		$this->_projectid1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false)->id;
+		$this->_projectid2 = USVN_Project::createProject(array('projects_name'  => "project2"), "test", true, false, false)->id;
 
 		$group_table = new USVN_Db_Table_Groups();
 		$group = $group_table->fetchNew();

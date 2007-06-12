@@ -69,7 +69,13 @@ class USVN_Db_Table_FileRightsTest extends USVN_Test_DB {
 		$group = $group_table->fetchNew();
 		$group->setFromArray(array("groups_name" => "toto"));
 		$this->_groupid1 = $group->save();;
-    }
+
+		$table_files = new USVN_Db_Table_FilesRights();
+    	$id = $table_files->insert(array(
+    		'projects_id'		=> $this->_projectid1,
+			'files_rights_path' => '/'
+		));
+	}
 
     public function test_findByPath()
     {

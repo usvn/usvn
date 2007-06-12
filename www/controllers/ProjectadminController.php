@@ -97,12 +97,7 @@ class ProjectadminController extends AdminadminController
 
 	public function deleteAction()
 	{
-		$table = new USVN_Db_Table_Projects();
-		$project = $table->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
-		if ($project === null) {
-			$this->_redirect("/admin/project/");
-		}
-		$project->delete();
+		USVN_Project::deleteProject($this->getRequest()->getParam('name'));
 		$this->_redirect("/admin/project/");
 	}
 }

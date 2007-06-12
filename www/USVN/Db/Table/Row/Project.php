@@ -220,12 +220,6 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
      */
 	protected function _postDelete()
 	{
-		$groups = new USVN_Db_Table_Groups();
-		$where = $groups->getAdapter()->quoteInto("groups_name = ?", $this->_cleanData['projects_name']);
-		$group = $groups->fetchRow($where);
-		if ($group !== null) {
-			$group->delete();
-		}
 		USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path
 		. DIRECTORY_SEPARATOR
 		. 'svn'

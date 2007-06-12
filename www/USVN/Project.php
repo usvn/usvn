@@ -76,4 +76,20 @@ class USVN_Project
 		}
 		return $project;
 	}
+
+	public static function deleteProject($project_name)
+	{
+		$table = new USVN_Db_Table_Projects();
+		$project = $table->fetchRow(array('projects_name = ?' => $project_name));
+		if ($project === null) {
+			throw new USVN_Exception(T_("Project %s doesn't exist."), $project_name);
+		}
+		$project->delete();
+		$groups = new USVN_Db_Table_Groups();
+		$where = $groups->getAdapter()->quoteInto("groups_name = ?", $project_name);
+		$group = $groups->fetchRow($where);
+		if ($group !== null) {
+			$group->delete();
+		}
+	}
 }

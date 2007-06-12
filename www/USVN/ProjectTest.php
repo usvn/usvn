@@ -156,6 +156,19 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		}
 		$this->fail();
 	}
+
+	public function testDeleteProject()
+	{
+		USVN_Project::createProject(array('projects_name' => 'InsertProjectOK',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+
+		USVN_Project::deleteProject('InsertProjectOK');
+
+		$table = new  USVN_Db_Table_Projects();
+		$this->assertFalse($table->isAProject('InsertProjectOk'), "Le projet n'est pas supprime");
+		$table_groups = new USVN_Db_Table_Groups();
+		$this->assertFalse($table_groups->isAGroup('InsertProjectOk'),"Le groupe n'est pas supprime");
+	}
+
 }
 
 // Call USVN_ProjectsTest::main() if this source file is executed directly.

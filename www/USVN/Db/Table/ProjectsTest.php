@@ -68,20 +68,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
-
-		$table = new USVN_Db_Table_Groups();
-		$this->assertTrue($table->isAGroup('InsertProjectOk'), "Le groupe n'est pas cree");
-		$group = $table->fetchRow(array("groups_name = ?" => 'InsertProjectOk'));
-
-		$table = new USVN_Db_Table_FilesRights();
-		$right = $table->fetchRow(array("files_rights_path = ?" => "/", "projects_id = ?" => $project->id));
-		$this->assertNotNull($right, "La ligne pour les droits sur / n'a pas ete trouvee");
-
-		$table = new USVN_Db_Table_GroupsToFilesRights();
-		$rights = $table->fetchRow(array("files_rights_id = ?" => $right->id, "groups_id = ?" => $group->id));
-		$this->assertNotNull($rights, "La ligne pour les droits du groupe n'a pas ete trouvee");
-		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas la lecture");
-		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
 	}
 
 	public function testInsertProjectNoName()
@@ -159,9 +145,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 			$obj->save();
 		}
 		catch (Exception $e) {
-			$table_groups = new USVN_Db_Table_Groups();
 			$this->assertTrue($table->isAProject('UpdateProjectOk'), "Le projet UpdateProjectOk n'existe plus");
-			$this->assertTrue($table_groups->isAGroup('UpdateProjectOk'),"Le groupe UpdateProjectOk n'existe plus");
 			return ;
 		}
 		$this->fail("Le projet a ete renomme");
@@ -176,15 +160,11 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas correctement cree");
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas correctement cree");
-		$table_groups = new USVN_Db_Table_Groups();
-		$this->assertTrue($table_groups->isAGroup('InsertProjectOk'), "Le groupe n'est pas correctement cree");
 
 		$obj->delete();
 
 		$this->assertFalse($table->isAProject('InsertProjectOk'), "Le projet n'est pas supprime");
 		$this->assertFalse(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas supprime");
-		$table_groups = new USVN_Db_Table_Groups();
-		$this->assertFalse($table_groups->isAGroup('InsertProjectOk'),"Le groupe n'est pas supprime");
 	}
 
 

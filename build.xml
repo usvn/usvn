@@ -121,36 +121,6 @@
         <fail if="unit_test_failure" message="Unit tests failed!!!" />
 	</target>
 
-
-    <target name="cover">
-        <delete file="${cover_report_dir}/*" />
-        <mkdir dir="${cover_report_dir}" />
-        <coverage-setup database="${cover_report_dir}/database">
-            <fileset dir=".">
-                <include name="**/*.php"/>
-				<exclude name="phing/**"/>
-				<exclude name="**/*Test.php"/>
-				<exclude name="**/*Controller.php"/>
-                <exclude name="${testdir}/**" />
-                <exclude name="**/Abstract*.php" />
-				<exclude name="**/bootstrap.php" />
-				<exclude name="**/index.php" />
-                <exclude name="scripts/**" />
-				<exclude name="www/Zend/**"/>
-            </fileset>
-        </coverage-setup>
-
-        <phpunit2 codecoverage="true">
-            <batchtest>
-                <fileset refid="testfile" />
-            </batchtest>
-        </phpunit2>
-
-        <coverage-report outfile="${cover_report_dir}/coverage.xml">
-            <report styledir="phing" todir="${cover_report_dir}"/>
-        </coverage-report>
-    </target>
-
   <target name="doc">
     <delete dir="${docdir}" />
     <mkdir dir="${docdir}" />

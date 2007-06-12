@@ -52,15 +52,17 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     {
     	parent::setUp();
 
-		$table = new USVN_Db_Table_Projects();
-		$project = $table->fetchNew();
-		$project->setFromArray(array('projects_name' => 'project1',  'projects_start_date' => '1984-12-03 00:00:00'));
-		$this->_projectid1 = $project->save();
+		$table = new USVN_Db_Table_Users();
+		$this->_user = $table->fetchNew();
+		$this->_user->setFromArray(array('users_login' 	=> 'test',
+																'users_password' 	=> 'password',
+																'users_firstname' 	=> 'firstname',
+																'users_lastname' 	=> 'lastname',
+																'users_email' 		=> 'email@email.fr'));
+		$this->_user->save();
 
-		$table = new USVN_Db_Table_Projects();
-		$project = $table->fetchNew();
-		$project->setFromArray(array('projects_name' => 'project2',  'projects_start_date' => '1984-12-03 00:00:00'));
-		$this->_projectid2 = $project->save();
+		$this->_projectid1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false);
+		$this->_projectid2 = USVN_Project::createProject(array('projects_name'  => "project2"), "test", true, false, false);
 
 		$group_table = new USVN_Db_Table_Groups();
 		$group = $group_table->fetchNew();

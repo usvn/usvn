@@ -64,6 +64,10 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$this->assertTrue($table->isAGroup('InsertProjectOk'), "Le groupe n'est pas cree");
 		$group = $table->fetchRow(array("groups_name = ?" => 'InsertProjectOk'));
 
+		$table = new USVN_Db_Table_GroupsToProjects();
+		$groupstoprojects = $table->fetchRow(array("projects_id = ?" => $project->id, "groups_id = ?" => $group->id));
+		$this->assertNotNull($groupstoprojects);
+
 		$table = new USVN_Db_Table_FilesRights();
 		$right = $table->fetchRow(array("files_rights_path = ?" => "/", "projects_id = ?" => $project->id));
 		$this->assertNotNull($right, "La ligne pour les droits sur / n'a pas ete trouvee");

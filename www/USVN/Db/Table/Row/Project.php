@@ -42,7 +42,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	/**
 	 * Delete a group to a project
 	 *
-	 * @param mixed User
+	 * @param mixed Group
 	 */
 	public function deleteGroup($group)
 	{
@@ -54,10 +54,10 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		}
 		if ($group_id) {
 			$table = new USVN_Db_Table_GroupsToProjects();
-			$where  = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
-			$where .= " AND " . $table->getAdapter()->quoteInto("groups_id = ?", $group_id);
-			if ($table->delete($where) == 0)
-				throw new USVN_Exception(T_("Invalid group %s for project %s."), $group, $this->id);
+			$p = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
+			$g = $table->getAdapter()->quoteInto("groups_id = ?", $group_id);
+			if ($table->delete(array($p, $g)) == 0)
+				throw new USVN_Exception(T_("Invalid group %s for project %s."), $group_id, $this->id);
 		}
 		else {
 			throw new USVN_Exception(T_("Invalid group %s for project %s."), $group, $this->id);

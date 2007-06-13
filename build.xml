@@ -32,6 +32,7 @@
 		<exclude name="files/**"/>
 		<exclude name="config.ini"/>
 		<exclude name=".htaccess"/>
+		<exclude name="www/bugs/*"/>
 		<exclude name="**/Test"/>
 </fileset>
 

@@ -42,7 +42,7 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->project->projects_start_date = '2007-04-01 15:29:57';
 		$this->projectid = $this->project->save();
 		$this->groups = new USVN_Db_Table_Groups();
-		$group = $this->groups->insert(
+		$this->groups->insert(
 			array(
 				"groups_id" => 42,
 				"groups_name" => "test",
@@ -97,6 +97,13 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->assertContains("test", $res);
 		$this->assertContains("test2", $res);
 		$this->project->deleteGroup($this->groups->find(42)->current());
+		$this->find_groups = $this->project->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_GroupsToProjects');
+		$res = array();
+		foreach ($this->find_groups as $group) {
+			array_push($res, $group->groups_name);
+		}
+		$this->assertNotContains("test", $res);
+		$this->assertContains("test2", $res);
 		$this->project->deleteGroup($this->groups->find(43)->current());
 		$this->groups = $this->project->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_GroupsToProjects');
 		$res = array();

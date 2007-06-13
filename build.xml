@@ -70,17 +70,19 @@
 		<php function="putenv">
 			<param value="DB=PDO_SQLITE" />
 		</php>
-        <phingcall target="test" />
+		<phingcall target="test" />
+
 		<echo msg="Test PDO_MYSQL" />
 		<php function="putenv">
 			<param value="DB=PDO_MYSQL" />
 		</php>
-        <phingcall target="test" />
+		<phingcall target="test" />
+
 		<echo msg="Test MYSQLI" />
 		<php function="putenv">
 			<param value="DB=MYSQLI" />
 		</php>
-        <phingcall target="test" />
+		<phingcall target="test" />
 	</target>
 
     <target name="test">
@@ -97,6 +99,14 @@
 		</if>
         <mkdir dir="tests" />
         <mkdir dir="tests/tmp" />
+
+		<php function="getenv" returnProperty="toto">
+			<param value="DB"/>
+		</php>
+		<property name="report_test_dir" value="${report_test_dir}/${toto}" override="true" />
+		<echo msg="${toto}" />
+		<echo msg="${report_test_dir}" />
+
         <delete file="${report_test_dir}/**" />
         <mkdir dir="${report_test_dir}" />
 		<php function="define">

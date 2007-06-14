@@ -41,7 +41,7 @@ class BrowserajaxController extends USVN_Controller
 	private function getTopLink($path)
 	{
 		$str = "<h2>";
-		$str .= '<a href=\'javascript:ajax(3, "/");\'>/</a>';
+		$str .= '<a href=\'javascript:ajax(3, "/");\'>root</a>&nbsp;/&nbsp; ';
 		$list = array();
 		while ($path != '/') {
 			array_push($list, $path);
@@ -49,9 +49,10 @@ class BrowserajaxController extends USVN_Controller
 		}
 		$list = array_reverse($list);
 		foreach ($list as $path) {
-			$str .= '<a href=\'javascript:ajax(3, "' . $path . '");\'>' . basename($path) . '/</a>';
+			$str .= '<a href=\'javascript:ajax(3, "' . $path . '");\'>' . basename($path) . '</a>&nbsp;/&nbsp;';
 		}
 		$str .= "</h2>";
+		$str .= "<h3><a href='javascript:ajax(1, \"{$path}\");'>Modifier les droits sur {$path}</a></h3>";
 		return $str;
 	}
 

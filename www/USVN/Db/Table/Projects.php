@@ -218,6 +218,7 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 			foreach ($result as $elem2) {
 				if ($elem['projects_name'] == $elem2['projects_name'])
 					$flag = 0;
+					break;
 			}
 			if ($flag) {
 				$result[] = $elem;

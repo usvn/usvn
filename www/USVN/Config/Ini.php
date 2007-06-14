@@ -36,11 +36,11 @@
 		if (!file_exists($filename)) {
 			if (isset($config['create']) && $config['create'] === true) {
 				if (@file_put_contents($filename, "[$section]\n") === false) {
-					throw new USVN_Exception(T_("Can't write config file."));
+					throw new USVN_Exception("Can't write config file.");
 				}
 			}
 			else {
-				throw new USVN_Exception(T_("Can't open config file."));
+				throw new USVN_Exception("Can't open config file.");
 			}
 		}
 		parent::__construct($filename, $section, true);

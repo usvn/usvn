@@ -31,7 +31,13 @@ try {
 	/**
 	 * Load our ini conf file
 	 */
-	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+	try {
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+	}
+	catch (Exception $e) {
+		header("Location: install");
+		exit(0);
+	}
 	$routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
 
 	/**

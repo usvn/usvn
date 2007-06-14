@@ -185,7 +185,7 @@ msgstr "Base de donnée"
 
 #: ../../../www//install/views/step5.html:108
 msgid "Create database ?"
-msgstr ""
+msgstr "Créer la base de donnée ?"
 
 #: ../../../www//install/views/step5.html:116
 msgid "Table prefix"
@@ -256,7 +256,7 @@ msgstr "Email"
 
 #: ../../../www//install/views/step7.html:2
 msgid "Installation is over"
-msgstr "L'installation est finis"
+msgstr "L'installation est finie"
 
 #: ../../../www//install/views/step7.html:3
 msgid "You can now enjoy of USVN."
@@ -273,7 +273,7 @@ msgid ""
 "at the end of your <span style=\"font-style: italic\">httpd.conf</span>:"
 msgstr ""
 "La dernière étape est de configurer subversion dans apache. Copiez collez "
-"les lignes suivante dans votre fichier <i>httpd.conf</i>:"
+"les lignes suivantes dans votre fichier <i>httpd.conf</i>:"
 
 #: ../../../www//install/views/step7.html:11
 #, fuzzy
@@ -352,12 +352,12 @@ msgid ""
 msgstr ""
 "et après redémarrer votre système (ATTENTION c'est obligatoire). \n"
 "\n"
-"Sinon sous UNIX vous devez probablement installer un package appeller "
+"Sinon sous UNIX vous devez probablement installer un package appelé "
 "subversion."
 
 #: ../../../www//install/Install.php:348 ../../../www//install/Install.php:351
 msgid "mod_rewrite seems not to be loaded"
-msgstr ""
+msgstr "le module mod_rewrite ne semble pas installé"
 
 #: ../../../www//install/index.php:58 ../../../www//install/index.php:64
 msgid "Error"
@@ -425,11 +425,11 @@ msgstr "Connecté sous"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:109
 msgid "Login invalid."
-msgstr "Identifiant invalide"
+msgstr "Identifiant invalide."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:124
 msgid "Invalid email address."
-msgstr "Adresse email invalide"
+msgstr "Adresse email invalide."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:172
 #: ../../../www//USVN/Db/Table/Users.php:85
@@ -448,7 +448,7 @@ msgstr "Le nom du projet est invalide."
 #: ../../../www//USVN/Db/Table/Row/Project.php:208
 #, php-format
 msgid "Autocreated group for project %s"
-msgstr "Groupe crée automatiquement pour le projet %s"
+msgstr "Groupe créé automatiquement pour le projet %s"
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:240
 msgid "You can't rename a project."
@@ -517,7 +517,7 @@ msgid ""
 "Error:\n"
 "%s"
 msgstr ""
-"Impossible d'importer dans le dépot subversion.\n"
+"Impossible d'importer dans le dépôt subversion.\n"
 "Commande:\n"
 "%s\n"
 "\n"
@@ -532,17 +532,17 @@ msgstr "Impossible de créer le dépot subversion:%s"
 #: ../../../www//USVN/SVNUtils.php:213
 #, php-format
 msgid "Can't checkout subversion repository: %s"
-msgstr "Impossible de checkout le dépot subversion:%s"
+msgstr "Impossible de checkout le dépôt subversion:%s"
 
 #: ../../../www//USVN/SVNUtils.php:229
 #, php-format
 msgid "Can't list subversion repository: %s"
-msgstr "Impossible de lister les fichiers du dépot subversion: %s"
+msgstr "Impossible de lister les fichiers du dépôt subversion: %s"
 
 #: ../../../www//USVN/SVNUtils.php:254
 #, php-format
 msgid "Can't get subversion repository logs: %s"
-msgstr "Impossible de récupérer les logs du dépot subversion:%s"
+msgstr "Impossible de récupérer les logs du dépôt subversion:%s"
 
 #: ../../../www//USVN/ImportHtpasswd.php:49
 msgid "Invalid htpasswd file."
@@ -556,11 +556,11 @@ msgstr "L'utilisateur %s existe déjà dans le fichier htpasswd."
 #: ../../../www//USVN/ImportHtpasswd.php:72
 #, php-format
 msgid "Can't add users %s. Import cancel."
-msgstr "Impossible d'ajouter l'utilisateur %s. Importation annulé."
+msgstr "Impossible d'ajouter l'utilisateur %s. Importation annulée."
 
 #: ../../../www//USVN/TranslationTest.php:63
 msgid "Welcome to USVN"
-msgstr "Bienvenue dans USVN"
+msgstr "Bienvenue sur USVN"
 
 #: ../../../www//USVN/Menu.php:94
 msgid "Sign in"
@@ -659,7 +659,7 @@ msgstr "%s est un nom de projet invalide."
 #~ msgstr "Voulez vous vraiment supprimer ce groupe?"
 
 #~ msgid "Manage"
-#~ msgstr "Gérer "
+#~ msgstr "Gérer"
 
 #~ msgid "Last five commit"
 #~ msgstr "Les 5 derniers commit"

@@ -33,6 +33,10 @@ try {
 	 */
 	try {
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		if ($config->version != "0.6") {
+			header("Location: update/{$config->version}/");
+			exit(0);
+		}
 	}
 	catch (Exception $e) {
 		header("Location: install");

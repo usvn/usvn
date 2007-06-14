@@ -240,12 +240,12 @@ ul#usvn_subsubmenu {
 	color: #003366;
 }
 
-#usvn_submenu_selected a, #usvn_subsubmenu_selected a {
+#usvn_submenu li.selected a, #usvn_subsubmenu li.selected a {
 	font-weight: bold;
 	color: white;
 }
 
-#usvn_subsubmenu_selected a {
+#usvn_subsubmenu li.selected a {
 	color: black;
 }
 

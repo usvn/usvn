@@ -62,13 +62,38 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	}
 
 	/**
+	* Check if an user is in the group
+	*
+	* @param USVN_Db_Table_Row_User $user
+	* @return boolean
+	*/
+	public function hasUser($user)
+	{
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$res = $user_groups->fetchRow(
+		array(
+		"users_id = ?" 	=> $user->id,
+		"groups_id = ?" => $this->id
+		)
+		);
+		if ($res === NULL) {
+			return false;
+		}
+		return true;
+	}
+
+
+
+	/**
 	 * Delete all users from usersToGroups
 	 *
 	 */
+
 	public function deleteAllUsers()
 	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
-		$user_groups->delete("");
+		$where = $user_groups->getAdapter()->quoteInto('groups_id = ?', $this->id);
+		$user_groups->delete($where);
 	}
 
 	/**

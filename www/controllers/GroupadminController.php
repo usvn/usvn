@@ -34,16 +34,19 @@ class GroupadminController extends AdminadminController
 		return $group;
 	}
 
+
 	public function indexAction()
-    {
-    	$table = new USVN_Db_Table_Groups();
+	{
+		$table = new USVN_Db_Table_Groups();
 		$this->view->groups = $table->fetchAll(null, "groups_name");
-    }
+	}
 
 	public function newAction()
 	{
 		$table = new USVN_Db_Table_Groups();
 		$this->view->group = $table->createRow();
+		$table = new USVN_Db_Table_Users();
+		$this->view->users = $table->fetchAll(null, "users_login");
 	}
 
 	public function createAction()
@@ -54,18 +57,23 @@ class GroupadminController extends AdminadminController
 		}
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->createRow($data);
-        $this->view->group = $group;
-        if ($table->isAGroup($data['groups_name'])) {
+		$this->view->group = $group;
+		if ($table->isAGroup($data['groups_name'])) {
 			$this->view->message = sprintf(T_("Group %s already exist"), $data['groups_name']);
 			$this->render('new');
-            return;
-        }
+			return;
+		}
 		try {
 			$group->save();
+			foreach ($_POST['users'] as $user) {
+				$group->addUser($user);
+			}
 			$this->_redirect("/admin/group/");
 		}
 		catch (Exception $e) {
 			$this->view->message = $e->getMessage();
+			$table = new USVN_Db_Table_Users();
+			$this->view->users = $table->fetchAll(null, "users_login");
 			$this->render('new');
 		}
 	}
@@ -77,6 +85,8 @@ class GroupadminController extends AdminadminController
 		if ($this->view->group === null) {
 			$this->_redirect("/admin/group/");
 		}
+		$table = new USVN_Db_Table_Users();
+		$this->view->users = $table->fetchAll(null, "users_login");
 	}
 
 	public function updateAction()
@@ -93,11 +103,19 @@ class GroupadminController extends AdminadminController
 		$group->setFromArray($data);
 		try {
 			$group->save();
+			$group->deleteAllUsers();
+			foreach ($_POST['users'] as $user) {
+				$group->addUser($user);
+			}
 			$this->_redirect("/admin/group/");
 		}
 		catch (Exception $e) {
 			$this->view->group = $group;
 			$this->view->message = $e->getMessage();
+
+			$table = new USVN_Db_Table_Users();
+			$this->view->users = $table->fetchAll(null, "users_login");
+
 			$this->render('edit');
 		}
 	}

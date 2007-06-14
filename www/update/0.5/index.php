@@ -18,17 +18,19 @@
  */
 
 
-define('CONFIG_FILE', "../../config.ini");
-define('HTACCESS_FILE', "../../.htaccess");
+define('USVN_CONFIG_FILE', "../../config.ini");
+define('USVN_HTACCESS_FILE', "../../.htaccess");
 
 header("Content-encoding: UTF-8");
 
 set_include_path(get_include_path() .PATH_SEPARATOR ."../../");
 require_once 'USVN/autoload.php';
 
-include dirname(__FILE__) . '/unlink.php';
+$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 
-$config = new USVN_Config_Ini(CONFIG_FILE, 'general');
+include dirname(__FILE__) . '/unlink.php';
+include dirname(__FILE__) . '/db.php';
+
 $config->version = "0.6";
 $config->save();
 

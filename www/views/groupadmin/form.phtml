@@ -20,6 +20,21 @@ function checkName() {
 <form id="group" class="usvn_form" method="post" action="<?php echo $this->url ?>">
 	<fieldset>
 		<legend><?php echo T_("Group's information");?></legend>
+
+		<fieldset style="float: right;">
+			<legend>
+				<?php echo T_("List Users"); ?>
+			</legend>
+			<select multiple="multiple" name="users[]">
+			<?php foreach ($this->users as $user) : ?>
+				<option value="<?php echo $user->id; ?>" <?php
+				if ($this->group->hasUser($user)) {
+				 	echo 'selected="selected"';
+				 } ?>><?php echo $user->login ?></option>
+			<?php endforeach; ?>
+			</select>
+		</fieldset>
+
 		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('groups_name', $this->group->name, array('maxlength' => 150)); ?>
 		</label>

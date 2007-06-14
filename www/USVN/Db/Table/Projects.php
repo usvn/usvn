@@ -206,11 +206,28 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 
 		// return the results
 		$stmt = $this->_db->query($select);
-		$data = array_merge($data, array_diff($stmt->fetchAll(Zend_Db::FETCH_ASSOC), $data));
+		$data2 = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 
+		//merge results
+		$merged_data = array_merge($data, $data2);
+
+		//make results unique
+		$result = array();
+		foreach ($merged_data as $elem) {
+		$flag = 1;
+			foreach ($result as $elem2) {
+				if ($elem['projects_name'] == $elem2['projects_name'])
+					$flag = 0;
+			}
+			if ($flag) {
+				$result[] = $elem;
+			}
+		}
+
+		// return the results
 		$data  = array(
 		'table'    => $this,
-		'data'     => $data,
+		'data'     => $result,
 		'rowClass' => $this->_rowClass,
 		'stored'   => true
 		);

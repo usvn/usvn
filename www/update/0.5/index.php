@@ -25,3 +25,11 @@ header("Content-encoding: UTF-8");
 
 set_include_path(get_include_path() .PATH_SEPARATOR ."../../");
 require_once 'USVN/autoload.php';
+
+include dirname(__FILE__) . '/unlink.php';
+
+$config = new USVN_Config_Ini(CONFIG_FILE, 'general');
+$config->version = "0.6";
+$config->save();
+
+header("Location: ../../");

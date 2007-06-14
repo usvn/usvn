@@ -60,7 +60,7 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 	public function test_translation()
     {
 		USVN_Translation::initTranslation('fr_FR', 'www/locale');
-		$this->assertEquals("Bienvenue dans USVN", T_("Welcome to USVN"), "Translation error.");
+		$this->assertEquals("Bienvenue sur USVN", T_("Welcome to USVN"), "Translation error.");
 	}
 
 	public function test_listTranslation()

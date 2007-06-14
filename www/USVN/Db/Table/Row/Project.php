@@ -126,8 +126,9 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		}
 		if ($user_id) {
 			$table = new USVN_Db_Table_UsersToProjects();
-			$where  = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
-			$where .= " AND " . $table->getAdapter()->quoteInto("users_id = ?", $user_id);
+			$db = $table->getAdapter();
+			$db->getProfiler()->setEnabled(true);
+			$where  = $db->quoteInto('projects_id = ?', $this->id) . $db->quoteInto(' AND users_id = ?', $user_id);
 			$table->delete($where);
 		}
 	}

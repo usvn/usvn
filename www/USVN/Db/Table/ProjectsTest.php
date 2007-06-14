@@ -133,7 +133,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->fail();
 	}
 
-
 	public function testUpdateProject()
 	{
 		$table = new USVN_Db_Table_Projects();

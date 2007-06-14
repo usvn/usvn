@@ -35,7 +35,8 @@ class USVN_Test_DB extends USVN_Test_Test {
 
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
 			$this->clean();
-			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', 'PDO_SQLITE', false);
+			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'tests/usvn.db', 'usvn_', 'PDO_SQLITE', false);
+			$params['dbname'] = "tests/usvn.db";
 			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
 		}
 		else {

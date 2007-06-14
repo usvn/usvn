@@ -232,6 +232,20 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
     }
 
     /**
+     * Quote a raw string.
+     *
+     * @param string $value     Raw string
+     * @return string           Quoted string
+     */
+    public function quote($value)
+    {
+		if (is_int($value) || is_float($value)) {
+			return parent::quote("$value");
+		}
+		return parent::quote($value);
+	}
+
+	/**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
      * @param string $sql

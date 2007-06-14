@@ -20,6 +20,7 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 	private $project;
 	private $projectid;
 	private $groups;
+	private $users;
 
 	/**
      * Runs the test methods of this class.
@@ -63,6 +64,30 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 				"groups_description" => "test3"
 			)
 		);
+		$this->users = new USVN_Db_Table_Users();
+		$this->users->insert(
+			array(
+				"users_id" => 42,
+				"users_login" => "test",
+				"users_password" => "pass",
+			)
+		);
+		$this->users = new USVN_Db_Table_Users();
+		$this->users->insert(
+			array(
+				"users_id" => 43,
+				"users_login" => "test2",
+				"users_password" => "pass",
+			)
+		);
+		$this->users = new USVN_Db_Table_Users();
+		$this->users->insert(
+			array(
+				"users_id" => 44,
+				"users_login" => "test3",
+				"users_password" => "pass",
+			)
+		);
     }
 
     public function testProject()
@@ -82,6 +107,7 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		}
 		$this->assertContains("test", $res);
 		$this->assertContains("test2", $res);
+		$this->assertNotContains("test3", $res);
 		$this->assertNotContains("notest", $res);
 	}
 
@@ -121,6 +147,59 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->project->addGroup($group);
 		$this->assertTrue($this->project->groupIsMember($group));
 	}
+
+	public function testAddUser()
+	{
+		$this->project->addUser($this->groups->find(42)->current());
+		$this->project->addUser($this->groups->find(43)->current());
+		$groups = $this->project->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToProjects');
+		$res = array();
+		foreach ($groups as $group) {
+			array_push($res, $group->users_login);
+		}
+		$this->assertContains("test", $res);
+		$this->assertContains("test2", $res);
+		$this->assertNotContains("test3", $res);
+		$this->assertNotContains("notest", $res);
+	}
+
+	public function testDeleteUser()
+	{
+		$this->project->addUser($this->users->find(42)->current());
+		$this->project->addUser($this->users->find(43)->current());
+		$this->find_users = $this->project->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToProjects');
+		$res = array();
+		foreach ($this->find_users as $user) {
+			array_push($res, $user->users_login);
+		}
+		$this->assertContains("test", $res);
+		$this->assertContains("test2", $res);
+		$this->project->deleteUser($this->users->find(42)->current());
+		$this->find_users = $this->project->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToProjects');
+		$res = array();
+		foreach ($this->find_users as $user) {
+			array_push($res, $user->users_login);
+		}
+		$this->assertNotContains("test", $res);
+		$this->assertContains("test2", $res);
+		$this->project->deleteUser($this->users->find(43)->current());
+		$this->users = $this->project->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToProjects');
+		$res = array();
+		foreach ($this->users as $user) {
+			array_push($res, $user->users_login);
+		}
+		$this->assertNotContains("test", $res);
+		$this->assertNotContains("test2", $res);
+	}
+
+	public function testUserIsMember()
+	{
+		$user = $this->users->find(42)->current();
+		$this->assertFalse($this->project->userIsAdmin($user));
+		$this->project->addUser($user);
+		$this->assertTrue($this->project->userIsAdmin($user));
+	}
+
 }
 
 // Call USVN_Db_Table_Row_GroupTest::main() if this source file is executed directly.

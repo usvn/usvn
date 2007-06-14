@@ -53,15 +53,19 @@ class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 		foreach ($menu_items as $elem) {
 			$img = '';
 			$selected = '';
+			$item = '';
+			//should be unique later with custom images for each tab
+			if ($css_id == 'usvn_menu')
+				$item = ' id="usvn_menu_item"';
 			if (strncmp("/" . $elem['link'], $path, strlen($elem['link']) + 1) === 0) {
 				if (strlen($elem['link']) != 0 || $path == '/' || strlen($path) == 0) {
-					$selected = " id=\"{$css_id}_selected\"";
+					$selected = " class=\"selected\"";
 				}
 			}
 			if (isset($elem["image"]) && !empty($elem["image"])) {
 				$img = "<img src=\"{$elem["image"]}\">";
 			}
-			$str .= "<li$selected><a href=\"$base_url/{$elem["link"]}\">$img{$elem["title"]}</a></li>\n";
+			$str .= "<li$selected$item><a href=\"$base_url/{$elem["link"]}\">$img{$elem["title"]}</a></li>\n";
 		}
 		return $str . "</ul>\n";
 	}
@@ -100,11 +104,12 @@ class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 					<img src="{$config->url->base}/{$config->site->logo}" alt="{$homepage}" />
 				</a>
 			</div>
+			<div id="menu">
 EOF;
 		$header .= $this->buildMenu($menu->getTopMenu(), 'usvn_menu');
 		$header .= $this->buildMenu($menu->getSubMenu(), 'usvn_submenu');
 		$header .= $this->buildMenu($menu->getSubSubMenu(), 'usvn_subsubmenu');
-		$header .= "<div id=\"usvn_content\">";
+		$header .= "</div><div id=\"usvn_content\">";
 		$body = $response->getBody(true);
 		$response->setBody($header);
 		foreach ($body as $text) {

@@ -100,9 +100,85 @@ img {border: 0;}
 	color: #5F5F5F;
 }
 
+/*********** Menu with tabs ***************/
+#menu {
+	min-height: 30px;
+}
+
+#usvn_menu_item {
+	background-image: url(<?php echo $this->images_directory ;?>/tab_left.png);
+}
+
+#usvn_menu {
+	float: left;
+	width: 100%;
+	line-height: normal;
+	background-color: #334BCF;
+/*	border-bottom: 1px solid;
+	border-bottom-color: #0A1648;*/
+}
+
+ul#usvn_menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+#usvn_menu li {
+	float : left;
+	margin : 0;
+	padding : 0 0 0 7px;
+	background-repeat: no-repeat;
+	background-position: 0 -110px;
+	margin-left: 2px;
+	margin-right: 2px;
+	border-bottom: 1px solid;
+	border-bottom-color: #0A1648;
+
+}
+
+#usvn_menu a {
+	float : left;
+	display : block;
+	background-image : url(<?php echo $this->images_directory ;?>/tab_right.png);
+	background-repeat : no-repeat;
+	background-position : 100% -110px;
+	padding : 10px 10px 5px 3px;
+	font-family : Arial,Helvetica,sans-serif;
+	font-weight : bold;
+	text-decoration : none;
+	color: #AFAFAF;
+}
+
+/* Commented Backslash HackCache des rules for IE5-Mac \*/
+#usvn_menu a {float: none;}
+/* End of IE5-Mac's hack */
+
+#usvn_menu li.selected, #usvn_menu li.selected:hover {
+	background-position : 0 0;
+	border-bottom-color: #5F7FFF;
+}
+
+#usvn_menu li.selected a, #usvn_menu li.selected:hover a {
+	padding-bottom : 5px;
+	background-position : 100% 0;
+	color: white;
+}
+
+#usvn_menu li:hover {
+	background-position : 0 -220px;
+}
+
+#usvn_menu li:hover a {
+	background-position : 100% -220px;
+	color: white;
+}
+
 /* ****************************** */
 
-ul#usvn_menu, ul#usvn_submenu, ul#usvn_subsubmenu, #logged {
+
+ul#usvn_submenu, ul#usvn_subsubmenu, #logged {
 	background-color: #334BCF;
 	border-bottom: 4px solid #334BCF;
 	margin: 0;
@@ -112,18 +188,13 @@ ul#usvn_menu, ul#usvn_submenu, ul#usvn_subsubmenu, #logged {
 	font-size: small;
 }
 
-ul#usvn_menu {
-	padding-top: 0;
-	padding-bottom: 4px;
-	border-bottom: 1px solid;
-	border-bottom-color: #0A1648;
-}
-
 ul#usvn_submenu {
 	background-color: #5F7FFF;
-	padding-bottom: 4px;
+	padding-top: 20px;
+	padding-bottom: 6px;
 	border-bottom: 2px solid;
 	border-bottom-color: #000000;
+	vertical-align: middle;
 }
 
 ul#usvn_subsubmenu {
@@ -134,16 +205,10 @@ ul#usvn_subsubmenu {
 	padding: 10px;
 }
 
-#usvn_menu li, #usvn_submenu li, #usvn_subsubmenu li {
+#usvn_submenu li, #usvn_subsubmenu li {
 	display: inline;
 	padding-bottom: 4px;
-}
-
-#usvn_menu li {
-	background-color: #2648CF;
-	border: 1px solid black;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	font-weight: bold;
 }
 
 #usvn_submenu li {
@@ -160,10 +225,11 @@ ul#usvn_subsubmenu {
 	color: #37516F;
 }
 
-#usvn_menu a, #usvn_submenu a, #logged {
+#usvn_submenu a, #logged {
 	color: #AFAFAF;
 	padding-left: 5px;
 	padding-right: 5px;
+	vertical-align: middle;
 }
 
 #usvn_submenu a {
@@ -172,19 +238,6 @@ ul#usvn_subsubmenu {
 
 #usvn_subsubmenu a {
 	color: #003366;
-}
-
-
-#usvn_menu_selected a {
-	background-color: #5F7FFF;
-	color: white;
-	padding: 4px;
-	padding-left: 6px;
-	padding-right: 6px;
-	border: 1px solid black;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	border-bottom-color: #5F7FFF;
 }
 
 #usvn_submenu_selected a, #usvn_subsubmenu_selected a {
@@ -196,11 +249,11 @@ ul#usvn_subsubmenu {
 	color: black;
 }
 
-#usvn_menu a:hover, #usvn_submenu a:hover, #usvn_subsubmenu a:hover {
+#usvn_submenu a:hover {
 	color: white;
+	vertical-align: middle;
+	padding-top: 4px;
 	padding-bottom: 4px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
 }
 
 #usvn_subsubmenu a:hover {
@@ -240,7 +293,7 @@ a:hover {
 	border: 1px solid #ccc;
 	border-bottom: 1px dotted #ccc;
 	min-height: 80px;
-	width: 100%;
+	width: 99%;
 }
 
 
@@ -314,11 +367,6 @@ a.usvn_tooltips:hover span {
 	margin: 5px;
 }
 
-#usvn_subsubmenu li {
-	padding-top: 3px;
-	padding-bottom: 3px;
-}
-
 a.usvn_button:hover {
 	background-image:url(<?php echo $this->images_directory ;?>/button_hover.png);
 	border: 1px solid #5977EF;
@@ -376,17 +424,6 @@ table.usvn_table  tr:hover {
 table.usvn_table a:hover {
 	color: #2F2F2F;
 }
-
-table.usvn_table tr.odd th,
-table.usvn_table tr.odd {
-    background-color: #FFFFFF;
-}
-
-table.usvn_table tr.odd:hover,
-table.usvn_table tr.odd:hover th {
-    background-color: #BFF4FF;
-}
-
 
 <?php include($this->css_directory . "/login.css"); ?>
 <?php include($this->css_directory . "/config.css"); ?>

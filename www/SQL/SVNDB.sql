@@ -65,7 +65,6 @@ create table usvn_projects
    projects_name                  varchar(255)                   not null,
    projects_start_date            datetime                       not null,
    projects_description           varchar(1000),
-   projects_url                   varchar(300),
    primary key (projects_id)
 )
 type = innodb;

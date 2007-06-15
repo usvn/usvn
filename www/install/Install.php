@@ -361,7 +361,7 @@ EOF;
 		else {
 			$method = "http";
 		}
-		$image = dirname($method . "://" . $_SERVER['HTTP_HOST'] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER['PHP_SELF']) . "/../medias/default/images/logo.png";
+		$image = dirname($method . "://" . $_SERVER['HTTP_HOST'] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER['PHP_SELF']) . "/../medias/default/images/USVN-logo.png";
 		if (php_sapi_name() != "cli") {
 			if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
 				throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));

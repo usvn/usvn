@@ -208,19 +208,21 @@ EOF;
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
 		}
 		chmod($htaccess_file, 0644);
-		if (isset($_SERVER['HTTPS'])) {
-			$method = "https";
-		}
-		else {
-			$method = "http";
-		}
-		$url = "{$method}://{$_SERVER['HTTP_HOST']}:{$_SERVER['SERVER_PORT']}{$path}/login/";
+		if (php_sapi_name() != "cli") {
+			if (isset($_SERVER['HTTPS'])) {
+				$method = "https";
+			}
+			else {
+				$method = "http";
+			}
+			$url = "{$method}://{$_SERVER['HTTP_HOST']}:{$_SERVER['SERVER_PORT']}{$path}/login/";
 
-		$client = new Zend_Http_Client($url);
-		$response = $client->request();
+			$client = new Zend_Http_Client($url);
+			$response = $client->request();
 
-		if ($response->getStatus() == 404) {
-			throw new USVN_Exception(T_("AllowOverride seems to be missing.\nPlease check your configuration settings and come back.\n"));
+			if ($response->getStatus() == 404) {
+				throw new USVN_Exception(T_("AllowOverride seems to be missing.\nPlease check your configuration settings and come back.\n"));
+			}
 		}
 	}
 

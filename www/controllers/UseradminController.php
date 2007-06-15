@@ -69,7 +69,7 @@ class UseradminController extends AdminadminController
 			$this->_redirect("/admin/user/new");
 		}
 
-		$user = USVN_User::create($data, isset($_POST['create_group']), $_POST['groups']);
+		$user = USVN_User::create($data, isset($_POST['create_group']), isset($_POST['groups']));
 		try {
 			$user->save();
 			$this->_redirect("/admin/user/");

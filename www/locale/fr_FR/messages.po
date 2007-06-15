@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-15 10:02+0200\n"
-"PO-Revision-Date: 2007-06-15 10:02+0200\n"
+"PO-Revision-Date: 2007-06-15 10:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
@@ -671,11 +671,11 @@ msgstr "Créé automatiquement un groupe pour le projet:"
 
 #: ../../../www//views/projectadmin/form.phtml:34
 msgid "Add me to project group:"
-msgstr "Ajoutez moi au groupe du projet"
+msgstr "Ajoutez moi au groupe du projet:"
 
 #: ../../../www//views/projectadmin/form.phtml:35
 msgid "Add me as admin of the project:"
-msgstr "Ajoutez moi comme administrateur du projet"
+msgstr "Ajoutez moi comme administrateur du projet:"
 
 #: ../../../www//views/projectadmin/form.phtml:39
 #: ../../../www//views/profile/index.phtml:56

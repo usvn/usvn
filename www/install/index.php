@@ -73,6 +73,7 @@ function installationOperation($step)
 	switch ($step) {
 		case 1:
 			Install::checkSystem();
+			Install::installUrl(CONFIG_FILE, HTACCESS_FILE);
 		break;
 
 		case 4:
@@ -110,7 +111,6 @@ function installationOperation($step)
 
 		case 7:
 			Install::installAdmin(CONFIG_FILE, $_POST['login'], $_POST['password'], $_POST['firstname'], $_POST['lastname'], $_POST['email']);
-			Install::installUrl(CONFIG_FILE, HTACCESS_FILE);
 			Install::installEnd(CONFIG_FILE);
 			$GLOBALS['apacheConfig'] = Install::getApacheConfig(CONFIG_FILE);
 		break;

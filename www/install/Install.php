@@ -208,7 +208,21 @@ EOF;
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
 		}
 		chmod($htaccess_file, 0644);
-}
+		if (isset($_SERVER['HTTPS'])) {
+			$method = "https";
+		}
+		else {
+			$method = "http";
+		}
+		$url = "{$method}://{$_SERVER['HTTP_HOST']}:{$_SERVER['SERVER_PORT']}{$path}/login/";
+
+		$client = new Zend_Http_Client($url);
+		$response = $client->request();
+
+		if ($response->getStatus() == 404) {
+			throw new USVN_Exception(T_("AllowOverride seems to be missing.\nPlease check your configuration settings and come back.\n"));
+		}
+	}
 
 	/**
 	* This method will write create an admin
@@ -350,8 +364,14 @@ EOF;
 			if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
 				throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
 			}
-			elseif ((bool) ini_get("allow_url_fopen") && @file_get_contents($image) === false) {
-				throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
+			else {
+				$client = new Zend_Http_Client($image);
+				$response = $client->request();
+
+				if ($response->getStatus() != 200) {
+					throw new USVN_Exception(T_("mod_rewrite seems not to be loaded"));
+				}
+
 			}
 		}
 		if (function_exists("apache_get_modules") && !in_array("mod_dav_svn", apache_get_modules())) {

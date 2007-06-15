@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-14 14:29+0200\n"
-"PO-Revision-Date: 2007-06-14 14:32+0200\n"
+"POT-Creation-Date: 2007-06-15 10:02+0200\n"
+"PO-Revision-Date: 2007-06-15 10:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,14 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../../../www//helpers/ACLLink.php:33
-#: ../../../www//controllers/BrowserajaxController.php:102
+#: ../../../www//controllers/BrowserajaxController.php:103
 msgid "Rights"
 msgstr "Droits"
 
 #: ../../../www//helpers/DeleteLink.php:35
+#: ../../../www//views/project/managegroup.phtml:24
+#: ../../../www//views/project/index.phtml:38
+#: ../../../www//views/project/index.phtml:68
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -31,7 +34,7 @@ msgstr "Supprimer"
 msgid "Edit"
 msgstr "Editer"
 
-#: ../../../www//controllers/GroupadminController.php:59
+#: ../../../www//controllers/GroupadminController.php:62
 #, php-format
 msgid "Group %s already exist"
 msgstr "Le groupe %s existe déjà."
@@ -42,32 +45,39 @@ msgstr "Le groupe %s existe déjà."
 msgid "Unknown user %s"
 msgstr "L'utilisateur %s est inconnu."
 
-#: ../../../www//controllers/BrowserajaxController.php:71
+#: ../../../www//controllers/BrowserajaxController.php:72
+#: ../../../www//views/projectadmin/form.phtml:23
+#: ../../../www//views/projectadmin/index.phtml:11
+#: ../../../www//views/groupadmin/form.phtml:38
+#: ../../../www//views/groupadmin/index.phtml:12
 msgid "Name"
 msgstr "Nom"
 
-#: ../../../www//controllers/BrowserajaxController.php:72
+#: ../../../www//controllers/BrowserajaxController.php:73
+#: ../../../www//views/projectadmin/index.phtml:13
+#: ../../../www//views/groupadmin/index.phtml:14
+#: ../../../www//views/useradmin/index.phtml:18
 msgid "Action"
 msgstr "Action"
 
-#: ../../../www//controllers/BrowserajaxController.php:83
-#: ../../../www//controllers/BrowserajaxController.php:91
+#: ../../../www//controllers/BrowserajaxController.php:84
+#: ../../../www//controllers/BrowserajaxController.php:92
 msgid "Folder"
 msgstr "Dossier"
 
-#: ../../../www//controllers/BrowserajaxController.php:94
+#: ../../../www//controllers/BrowserajaxController.php:95
 msgid "File"
 msgstr "Fichier"
 
-#: ../../../www//controllers/BrowserajaxController.php:127
+#: ../../../www//controllers/BrowserajaxController.php:128
 msgid "Group"
 msgstr "Groupe"
 
-#: ../../../www//controllers/BrowserajaxController.php:127
+#: ../../../www//controllers/BrowserajaxController.php:128
 msgid "Read"
 msgstr "Lecture"
 
-#: ../../../www//controllers/BrowserajaxController.php:127
+#: ../../../www//controllers/BrowserajaxController.php:128
 msgid "Write"
 msgstr "Ecriture"
 
@@ -99,6 +109,7 @@ msgid "Step"
 msgstr "Etape"
 
 #: ../../../www//install/views/step2.html:8
+#: ../../../www//views/configadmin/index.phtml:9
 msgid "Default language"
 msgstr "Langue par d&eacute;faut"
 
@@ -166,11 +177,18 @@ msgstr "Serveur"
 
 #: ../../../www//install/views/step5.html:68
 #: ../../../www//install/views/step6.html:49
+#: ../../../www//views/useradmin/profile.phtml:27
+#: ../../../www//views/useradmin/form.phtml:18
+#: ../../../www//views/useradmin/index.phtml:13
+#: ../../../www//views/login/login.phtml:12
 msgid "Login"
 msgstr "Identifiant"
 
 #: ../../../www//install/views/step5.html:84
 #: ../../../www//install/views/step6.html:100
+#: ../../../www//views/useradmin/profile.phtml:30
+#: ../../../www//views/useradmin/form.phtml:22
+#: ../../../www//views/login/login.phtml:16
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -192,6 +210,7 @@ msgstr "Installation d'USVN"
 
 #: ../../../www//install/views/step6.html:7
 #: ../../../www//USVN/Db/Table/Row/User.php:107
+#: ../../../www//views/useradmin/js.phtml:8
 msgid "Login empty."
 msgstr "Identifiant vide"
 
@@ -201,15 +220,23 @@ msgstr "Nom vide"
 
 #: ../../../www//install/views/step6.html:18
 #: ../../../www//USVN/Db/Table/Row/User.php:139
+#: ../../../www//views/profile/index.phtml:10
+#: ../../../www//views/useradmin/js.phtml:14
 msgid "Password empty."
 msgstr "Mot de passe vide"
 
 #: ../../../www//install/views/step6.html:23
+#: ../../../www//views/profile/index.phtml:15
+#: ../../../www//views/useradmin/profile.phtml:6
+#: ../../../www//views/useradmin/js.phtml:25
 msgid "Password incorrect (not the same)."
 msgstr "Les deux mot de passe sont différents."
 
 #: ../../../www//install/views/step6.html:28
 #: ../../../www//USVN/Db/Table/Row/User.php:142
+#: ../../../www//views/profile/index.phtml:21
+#: ../../../www//views/useradmin/profile.phtml:12
+#: ../../../www//views/useradmin/js.phtml:20
 msgid "Password incorrect (need more 8 characters)."
 msgstr "Il faut au minimum 8 caractères pour le mot de passe."
 
@@ -226,6 +253,10 @@ msgid "admin"
 msgstr "admin"
 
 #: ../../../www//install/views/step6.html:66
+#: ../../../www//views/profile/index.phtml:48
+#: ../../../www//views/useradmin/profile.phtml:39
+#: ../../../www//views/useradmin/form.phtml:30
+#: ../../../www//views/useradmin/index.phtml:14
 msgid "Firstname"
 msgstr "Prénom"
 
@@ -234,10 +265,16 @@ msgid "System"
 msgstr "Système"
 
 #: ../../../www//install/views/step6.html:83
+#: ../../../www//views/profile/index.phtml:45
+#: ../../../www//views/useradmin/profile.phtml:35
+#: ../../../www//views/useradmin/form.phtml:27
+#: ../../../www//views/useradmin/index.phtml:15
 msgid "Lastname"
 msgstr "Nom"
 
 #: ../../../www//install/views/step6.html:91
+#: ../../../www//views/useradmin/form.phtml:38
+#: ../../../www//views/useradmin/index.phtml:17
 msgid "Administrator"
 msgstr "Administrateur"
 
@@ -246,6 +283,10 @@ msgid "Confirm password"
 msgstr "Confirmation du mot de passe"
 
 #: ../../../www//install/views/step6.html:120
+#: ../../../www//views/profile/index.phtml:52
+#: ../../../www//views/useradmin/profile.phtml:43
+#: ../../../www//views/useradmin/form.phtml:34
+#: ../../../www//views/useradmin/index.phtml:16
 msgid "Email"
 msgstr "Email"
 
@@ -271,7 +312,9 @@ msgstr ""
 
 #: ../../../www//install/views/step7.html:11
 msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
-msgstr "Et redémarrez votre serveur apache avec la commande <kbd>apache2ctl restart</kbd>."
+msgstr ""
+"Et redémarrez votre serveur apache avec la commande <kbd>apache2ctl restart</"
+"kbd>."
 
 #: ../../../www//install/views/step7.html:15
 msgid "Connect to USVN"
@@ -367,10 +410,14 @@ msgid "You need to accept the licence to continue installation."
 msgstr "Vous devez accepter la licence pour pouvoir continuer l'installation."
 
 #: ../../../www//menus/configadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:8
+#: ../../../www//views/configadmin/index.phtml:2
 msgid "Configuration"
 msgstr "Configuration"
 
 #: ../../../www//menus/projectadmin.php:33
+#: ../../../www//views/projectadmin/index.phtml:5
+#: ../../../www//views/adminadmin/index.phtml:14
 msgid "Projects"
 msgstr "Projets"
 
@@ -383,6 +430,8 @@ msgid "Browser"
 msgstr "Navigateur de fichier"
 
 #: ../../../www//menus/groupadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:20
+#: ../../../www//views/groupadmin/index.phtml:7
 msgid "Groups"
 msgstr "Groupes"
 
@@ -391,6 +440,8 @@ msgid "Add new group"
 msgstr "Créer un groupe"
 
 #: ../../../www//menus/useradmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:26
+#: ../../../www//views/useradmin/index.phtml:7
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -399,6 +450,7 @@ msgid "Add new user"
 msgstr "Créer un utilisateur"
 
 #: ../../../www//menus/useradmin.php:57
+#: ../../../www//views/useradmin/import.phtml:2
 msgid "Import htpasswd"
 msgstr "Importer un fichier htpasswd"
 
@@ -407,6 +459,7 @@ msgid "Can't write config file."
 msgstr "Impossible d'écrire le fichier de config."
 
 #: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:103
+#: ../../../www//views/index/index.phtml:2
 msgid "Homepage"
 msgstr "Page d'accueil"
 
@@ -551,6 +604,7 @@ msgid "Can't add users %s. Import cancel."
 msgstr "Impossible d'ajouter l'utilisateur %s. Importation annulée."
 
 #: ../../../www//USVN/TranslationTest.php:63
+#: ../../../www//views/login/login.phtml:2
 msgid "Welcome to USVN"
 msgstr "Bienvenue sur USVN"
 
@@ -595,4 +649,219 @@ msgstr "Le projet %s n'existe pas."
 #, php-format
 msgid "User %s does not exist."
 msgstr "L'utilisateur %s n'existe pas."
+
+#: ../../../www//views/projectadmin/form.phtml:10
+msgid "Project's name empty, please fill it."
+msgstr "Le nom du projet est vide."
+
+#: ../../../www//views/projectadmin/form.phtml:22
+msgid "Project's information"
+msgstr "Informations sur le projet"
+
+#: ../../../www//views/projectadmin/form.phtml:27
+#: ../../../www//views/projectadmin/index.phtml:12
+#: ../../../www//views/groupadmin/form.phtml:42
+#: ../../../www//views/groupadmin/index.phtml:13
+msgid "Description"
+msgstr "Description"
+
+#: ../../../www//views/projectadmin/form.phtml:33
+msgid "Create group for project:"
+msgstr "Créé automatiquement un groupe pour le projet:"
+
+#: ../../../www//views/projectadmin/form.phtml:34
+msgid "Add me to project group:"
+msgstr "Ajoutez moi au groupe du projet"
+
+#: ../../../www//views/projectadmin/form.phtml:35
+msgid "Add me as admin of the project:"
+msgstr "Ajoutez moi comme administrateur du projet"
+
+#: ../../../www//views/projectadmin/form.phtml:39
+#: ../../../www//views/profile/index.phtml:56
+#: ../../../www//views/groupadmin/form.phtml:46
+#: ../../../www//views/useradmin/profile.phtml:48
+#: ../../../www//views/useradmin/edit.phtml:13
+#: ../../../www//views/useradmin/new.phtml:18
+#: ../../../www//views/login/login.phtml:20
+msgid "Submit"
+msgstr "Valider"
+
+#: ../../../www//views/projectadmin/index.phtml:20
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr "Voulez vous vraiment supprimer le projet %s?"
+
+#: ../../../www//views/profile/index.phtml:34
+msgid "My account"
+msgstr "Mon compte"
+
+#: ../../../www//views/profile/index.phtml:36
+msgid "Actual password"
+msgstr "Mot de passe actuel"
+
+#: ../../../www//views/profile/index.phtml:40
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: ../../../www//views/adminadmin/index.phtml:2
+msgid "Administration"
+msgstr "Administration"
+
+#: ../../../www//views/browser/index.phtml:74
+msgid "Acces rights for"
+msgstr "Droit d'accès pour"
+
+#: ../../../www//views/browser/index.phtml:101
+msgid "Files list"
+msgstr "Liste des fichiers"
+
+#: ../../../www//views/groupadmin/form.phtml:10
+msgid "Group's name empty, please fill it."
+msgstr "Le nom du groupe est vide."
+
+#: ../../../www//views/groupadmin/form.phtml:22
+msgid "Group's information"
+msgstr "Information sur le groupe"
+
+#: ../../../www//views/groupadmin/form.phtml:26
+msgid "List Users"
+msgstr "Liste des utilisateurs"
+
+#: ../../../www//views/groupadmin/index.phtml:20
+#, php-format
+msgid "Do you really want to delete group %s?"
+msgstr "Voulez vous vraiment supprimer le groupe %s?"
+
+#: ../../../www//views/project/managegroup.phtml:4
+#, php-format
+msgid "Managing group %s"
+msgstr "Gestion du groupe %s"
+
+#: ../../../www//views/project/managegroup.phtml:14
+#: ../../../www//views/project/index.phtml:18
+#: ../../../www//views/project/index.phtml:55
+msgid "Add"
+msgstr "Ajouter"
+
+#: ../../../www//views/project/managegroup.phtml:20
+msgid "Affected Users"
+msgstr "Utilisateurs affectés"
+
+#: ../../../www//views/project/managegroup.phtml:25
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "Voulez vous vraiment supprimer l'utilisateur %s du groupe %s?"
+
+#: ../../../www//views/project/index.phtml:5
+#, php-format
+msgid "Checkout URL : %s"
+msgstr "Url du Subversion: %s"
+
+#: ../../../www//views/project/index.phtml:33
+msgid "Admins users"
+msgstr "Administrateurs "
+
+#: ../../../www//views/project/index.phtml:39
+#, php-format
+msgid "Do you really want to remove user %s as admin of project %s?"
+msgstr ""
+"Voulez vous vraiment supprimer les droits administrateurs à l'utilisateur %s "
+"pour le projet %s?"
+
+#: ../../../www//views/project/index.phtml:63
+#: ../../../www//views/useradmin/form.phtml:4
+msgid "Affected groups"
+msgstr "Groupe affectés"
+
+#: ../../../www//views/project/index.phtml:69
+#, php-format
+msgid "Do you really want to remove group %s from project %s?"
+msgstr "Voulez vous vraiment supprimer le groupe %s du projet %s?"
+
+#: ../../../www//views/project/index.phtml:72
+msgid "Manage"
+msgstr "Gérer"
+
+#: ../../../www//views/project/index.phtml:80
+msgid "Last five commit"
+msgstr "Les cinq dernier commits"
+
+#: ../../../www//views/index/index.phtml:5
+msgid "Your projects"
+msgstr "Mes projets"
+
+#: ../../../www//views/index/index.phtml:15
+msgid "You don't have any project."
+msgstr "Vous n'avez aucun projets."
+
+#: ../../../www//views/useradmin/profile.phtml:23
+#: ../../../www//views/useradmin/form.phtml:16
+msgid "User account"
+msgstr "Compte utilisateur"
+
+#: ../../../www//views/useradmin/index.phtml:31
+msgid "yes"
+msgstr "oui"
+
+#: ../../../www//views/useradmin/index.phtml:33
+msgid "no"
+msgstr "non"
+
+#: ../../../www//views/useradmin/index.phtml:36
+#, php-format
+msgid "Do you really want to delete user %s?"
+msgstr "Voulez vous vraiment supprimer l'utilisateur %s?"
+
+#: ../../../www//views/useradmin/new.phtml:13
+msgid "Create group"
+msgstr "Créer un groupe"
+
+#: ../../../www//views/useradmin/import.phtml:4
+msgid ""
+"This form allow you to add to USVN all users contents into an apache "
+"password file."
+msgstr ""
+"Ce formulaire vous pemettra d'ajouter à USVN tous les utilisateurs contenus "
+"dans un fichier de mots de passe apache."
+
+#: ../../../www//views/useradmin/import.phtml:10
+msgid "Upload"
+msgstr "Envoyer"
+
+#: ../../../www//views/login/login.phtml:4
+msgid "Please enter your login and your password to connect to USVN."
+msgstr "Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
+
+#: ../../../www//views/login/login.phtml:8
+msgid "Authentification"
+msgstr "Authentification"
+
+#: ../../../www//views/configadmin/index.phtml:6
+msgid "General settings"
+msgstr "Configuration globale"
+
+#: ../../../www//views/configadmin/index.phtml:27
+msgid "Default template"
+msgstr "Thème par d&eacute;faut"
+
+#: ../../../www//views/configadmin/index.phtml:45
+msgid "Site's information"
+msgstr "Informations sur le site"
+
+#: ../../../www//views/configadmin/index.phtml:48
+msgid "Title"
+msgstr "Titre"
+
+#: ../../../www//views/configadmin/index.phtml:54
+msgid "Icone"
+msgstr "Icone"
+
+#: ../../../www//views/configadmin/index.phtml:60
+msgid "Logo"
+msgstr "Logo"
+
+#: ../../../www//views/configadmin/index.phtml:68
+msgid "Save"
+msgstr "Sauvegarder"
 

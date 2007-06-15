@@ -68,7 +68,7 @@ class FindStrGetTextTask extends Task {
 		echo $name."\n";
         if ($dir = opendir($name)) {
             while($file = readdir($dir)) {
-				if (preg_match('/\.php$/', $file) || preg_match('/\.html$/', $file)) {
+				if (preg_match('/\.php$/', $file) || preg_match('/\.html$/', $file)  || preg_match('/\.phtml$/', $file)) {
 					$res[] = "$name/$file";
 				}
 				if(is_dir($name."/".$file) && !in_array($file, array(".","..", ".svn"))) {

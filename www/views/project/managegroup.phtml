@@ -19,12 +19,13 @@
 	</form>
 	<h1><?php echo T_("Affected Users");?></h1>
 	<ul>
-	<?php foreach ($this->group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups") as $user) :?>		
+	<?php foreach ($this->group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups") as $user) :?>
 		<li>
 		<?php echo $this->urlConfirm(array("deleteid" => $user->id), $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")),
-		T_("Would you like delete ".$user->login." ?")); ?>
-		
-		&nbsp;<?php echo $user->login; ?></li>	
+			sprintf(T_("Do you really want to remove user %s from group %s?"), $user->login, $this->group->name));
+		?>
+
+		&nbsp;<?php echo $user->login; ?></li>
 	<?php endforeach; ?>
 	</ul>
 </div>

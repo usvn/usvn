@@ -17,6 +17,7 @@ create table usvn_groups
    groups_id                      int                            not null,
    groups_name                    varchar(150)                   not null,
    groups_description             varchar(1000),
+   CONSTRAINT GROUPS_NAME_UNQ UNIQUE (groups_name),
    primary key (groups_id)
 )
 type = innodb;
@@ -65,6 +66,7 @@ create table usvn_projects
    projects_name                  varchar(255)                   not null,
    projects_start_date            datetime                       not null,
    projects_description           varchar(1000),
+   CONSTRAINT PROJECTS_NAME_UNQ UNIQUE (projects_name),
    primary key (projects_id)
 )
 type = innodb;
@@ -78,10 +80,11 @@ create table usvn_users
    users_firstname                varchar(100),
    users_email                    varchar(150),
    users_is_admin                 bool,
+   CONSTRAINT USERS_LOGIN_UNQ UNIQUE (users_login),
    primary key (users_id)
 )
 type = innodb;
-ALTER TABLE `usvn_users` ADD UNIQUE (`users_login`) ;
+
 
 create table usvn_users_to_groups
 (
@@ -150,6 +153,4 @@ alter table usvn_users_to_projects add constraint fk_usvn_users_to_projects2 for
 ALTER TABLE `usvn_groups` CHANGE `groups_id` `groups_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
 ALTER TABLE `usvn_projects` CHANGE `projects_id` `projects_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
 ALTER TABLE `usvn_users` CHANGE `users_id` `users_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
-ALTER TABLE `usvn_groups` CHANGE `groups_name` `groups_name` VARCHAR(150) NOT NULL UNIQUE;
-ALTER TABLE `usvn_projects` CHANGE `projects_name` `projects_name` VARCHAR(255) NOT NULL UNIQUE;
 ALTER TABLE `usvn_files_rights` CHANGE `files_rights_id` `files_rights_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;

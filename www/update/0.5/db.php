@@ -14,5 +14,6 @@ catch (Exception $e) {
 $db = Zend_Db_Table::getDefaultAdapter();
 $db->query("ALTER TABLE usvn_projects DROP COLUMN projects_url");
 $db->query("ALTER TABLE usvn_users_to_groups ADD is_leader bool");
+$db->query("ALTER TABLE usvn_users ADD UNIQUE (users_login)");
 $db->closeConnection();
 

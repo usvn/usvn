@@ -77,11 +77,10 @@ class Install
 
 		try {
 			if ($adapter == "PDO_MYSQL" || $adapter == "MYSQLI") {
-				USVN_Db_Utils::loadFile($db, $path_sql . "/SVNDB.sql");
 				USVN_Db_Utils::loadFile($db, $path_sql . "/mysql.sql");
 			}
 			else if ($adapter == "PDO_SQLITE") {
-				USVN_Db_Utils::loadFile($db, $path_sql . "/SVNDBSQLITE.sql");
+				USVN_Db_Utils::loadFile($db, $path_sql . "/sqlite.sql");
 			}
             else {
                 throw new USVN_Exception(T_("Invalid adapter %s.\n") . $adapter);

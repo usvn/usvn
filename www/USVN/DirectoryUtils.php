@@ -28,22 +28,23 @@ class USVN_DirectoryUtils
                 throw new USVN_Exception(T_("Can't delete directory %s.", $path));
             }
             try {
-                @$dir = new RecursiveDirectoryIterator($path);
+                $dir = new DirectoryIterator($path);
             }
             catch(Exception $e) {
                 return;
             }
-            foreach(@new RecursiveIteratorIterator($dir) as $file) {
-                chmod($file, 0777);
-                unlink($file);
+            foreach($dir as $file) {
+				if ($file != '.' && $file != '..') {
+					if (is_dir($path . DIRECTORY_SEPARATOR . $file)) {
+						USVN_DirectoryUtils::removeDirectory($path . DIRECTORY_SEPARATOR . $file);
+					}
+					else {
+						chmod($path . DIRECTORY_SEPARATOR . $file, 0777);
+						unlink($path . DIRECTORY_SEPARATOR . $file);
+					}
+				}
             }
-            foreach($dir as $subDir) {
-                if(!@rmdir($subDir)) {
-                    USVN_DirectoryUtils::removeDirectory($subDir);
-                }
-            }
-            $dir = NULL; // Else on windows that doesn't work....
-            @rmdir($path);
+            rmdir($path);
         }
     }
 

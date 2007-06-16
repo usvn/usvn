@@ -52,7 +52,7 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
     {
 		parent::setUp();
 		mkdir('tests/fakehome');
-		chmod('tests/fakehome', 0400);
+		chmod('tests/fakehome', 0000);
 		putenv('HOME=tests/fakehome');
 		$this->_saveHOME = getenv("HOME");
         USVN_SVNUtils::createsvndirectoryStruct("tests/tmp/test repository");

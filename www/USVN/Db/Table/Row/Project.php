@@ -34,7 +34,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		}
 		if ($this->id && $group_id) {
 			$table = new USVN_Db_Table_GroupsToProjects();
-			$row = $table->createRow(array("groups_id" => $group->id, "projects_id" => $this->id));
+			$row = $table->createRow(array("groups_id" => $group_id, "projects_id" => $this->id));
 			$row->save();
 		}
 	}

@@ -166,7 +166,48 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertFalse(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas supprime");
 	}
 
+	public function testfetchAllAssignedTo()
+	{
+		$table_user = new USVN_Db_Table_Users();
+		$user = $table_user->fetchNew();
+		$user->setFromArray(array('users_login' 			=> 'test',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$user->save();
 
+		$table_project = new USVN_Db_Table_Projects();
+		$project = $table_project->fetchNew();
+		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project->save();
+		$project2 = $table_project->fetchNew();
+		$project2->setFromArray(array('projects_name' => 'Project2',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project2->save();
+
+		$group_table = new USVN_Db_Table_Groups();
+		$group_table->insert(array("groups_id" => 2, "groups_name" => "toto"));
+		$group = $group_table->find(2)->current();
+
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
+		$project->addUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+		$project2->addUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 2);
+		$project->deleteUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+		$project->addGroup($group);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+		$group->addUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 2);
+		$project->addUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 2);
+		$project->deleteUser($user);
+		$project2->deleteUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+		$project->deleteGroup($group);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
+	}
 }
 
 // Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.

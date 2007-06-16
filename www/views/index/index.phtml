@@ -4,7 +4,7 @@
 <div id="usvn_list_project">
 	<h3><?php echo T_("Your projects") . ":"; ?></h3>
 <?php
-if (isset($this->projects) && count($this->projects)) {
+if (count($this->projects)) {
 	echo '<ul>';
 	foreach ($this->projects as $project) {
 		echo '<li><a href="' . $this->url(array('project' => $project->name), 'project') . '">' . $project->name . '</a></li>';

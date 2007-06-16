@@ -351,7 +351,7 @@ EOF;
 			throw new USVN_Exception(T_("USVN can't run with php's safe mode."));
 		}
 
-		if (USVN_ConsoleUtils::runCmd('svn --version')) {
+		if (USVN_ConsoleUtils::runCmd('svn  --config-dir /USVN/fake --version')) {
 			throw new USVN_Exception(T_("Subversion is not install on your system. If you are under Windows install ") . "http://subversion.tigris.org/files/documents/15/36797/svn-1.4.3-setup.exe" . T_(" and after restart your system (WARNING it's mandatory). \n\nOtherwise under UNIX you probably need to install a package named subversion."));
 		}
 

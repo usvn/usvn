@@ -180,6 +180,12 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 	{
 		$this->assertEquals(array(1, 1, 4), USVN_SVNUtils::parseSvnVersion("1.1.4\n"));
 	}
+
+	public function test_getSvnVersion()
+	{
+		$version = USVN_SVNUtils::getSvnVersion();
+		$this->assertEquals("1", $version[0]);
+	}
 }
 
 // Call USVN_SVNUtilsTest::main() if this source file is executed directly.

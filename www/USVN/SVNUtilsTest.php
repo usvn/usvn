@@ -52,7 +52,7 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
     {
 		parent::setUp();
 		mkdir('tests/fakehome');
-		chmod('tests/fakehome', 0400);
+		chmod('tests/fakehome', 0000);
 		putenv('HOME=tests/fakehome');
 		$this->_saveHOME = getenv("HOME");
         USVN_SVNUtils::createsvndirectoryStruct("tests/tmp/test repository");
@@ -179,6 +179,12 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 	public function test_parseSvnVersion()
 	{
 		$this->assertEquals(array(1, 1, 4), USVN_SVNUtils::parseSvnVersion("1.1.4\n"));
+	}
+
+	public function test_getSvnVersion()
+	{
+		$version = USVN_SVNUtils::getSvnVersion();
+		$this->assertEquals("1", $version[0]);
 	}
 }
 

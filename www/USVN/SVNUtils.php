@@ -72,7 +72,7 @@ class USVN_SVNUtils
 		$command = escapeshellarg($command);
 		$transaction = escapeshellarg($transaction);
 		$repository = escapeshellarg($repository);
-		return USVN_ConsoleUtils::runCmdCaptureMessage("svnlook $command -t $transaction $repository", $return);
+		return USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("$command -t $transaction $repository"), $return);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class USVN_SVNUtils
 		$command = escapeshellarg($command);
 		$revision = escapeshellarg($revision);
 		$repository = escapeshellarg($repository);
-		return USVN_ConsoleUtils::runCmdCaptureMessage("svnlook $command -r $revision $repository", $return);
+		return USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("$command -r $revision $repository"), $return);
 	}
 
 	/**
@@ -110,7 +110,7 @@ class USVN_SVNUtils
 	*/
 	public static function getSvnVersion()
 	{
-		return USVN_SVNUtils::parseSvnVersion(USVN_ConsoleUtils::runCmdCaptureMessage("svn --version --quiet"));
+		return USVN_SVNUtils::parseSvnVersion(USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("--version --quiet"), $return));
 	}
 
 	/**

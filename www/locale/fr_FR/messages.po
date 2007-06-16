@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-15 10:02+0200\n"
-"PO-Revision-Date: 2007-06-15 10:12+0200\n"
+"PO-Revision-Date: 2007-06-16 21:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
@@ -785,7 +785,7 @@ msgstr "Gérer"
 
 #: ../../../www//views/project/index.phtml:80
 msgid "Last five commit"
-msgstr "Les cinq dernier commits"
+msgstr "Les cinq derniers commits"
 
 #: ../../../www//views/index/index.phtml:5
 msgid "Your projects"

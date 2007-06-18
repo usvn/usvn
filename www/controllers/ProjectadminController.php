@@ -59,6 +59,8 @@ class ProjectadminController extends AdminadminController
 		}
 		catch (Exception $e) {
 			$this->view->message = nl2br($e->getMessage());
+			$this->newAction();
+			$this->view->project->setFromArray($data);
 			$this->render('new');
 		}
 	}

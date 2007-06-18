@@ -214,11 +214,12 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		//make results unique
 		$result = array();
 		foreach ($merged_data as $elem) {
-		$flag = 1;
+			$flag = 1;
 			foreach ($result as $elem2) {
-				if ($elem['projects_name'] == $elem2['projects_name'])
+				if ($elem['projects_name'] == $elem2['projects_name']) {
 					$flag = 0;
 					break;
+				}
 			}
 			if ($flag) {
 				$result[] = $elem;

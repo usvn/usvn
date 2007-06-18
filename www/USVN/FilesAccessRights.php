@@ -57,7 +57,7 @@ class USVN_FilesAccessRights
 		}
 		else {
 			if ($path != '/') {
-				return $this->findByPath($group_id, dirname($path));
+				return $this->findByPath($group_id, str_replace(basename($path), '', $path)); // Ugly hack do not use dirname because problems with \
 			}
 		}
 		return $response;

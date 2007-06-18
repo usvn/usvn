@@ -63,7 +63,14 @@ class USVN_Test_DB extends USVN_Test_Test {
     protected function tearDown() {
         $this->clean();
         $this->db->closeConnection();
+        $this->db = null;
 		parent::tearDown();
+    }
+    
+    public function __destruct() {
+        if ($this->db != null) {
+            $this->db->closeConnection();
+        }
     }
 }
 

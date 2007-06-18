@@ -74,7 +74,7 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 		$group->setFromArray(array("groups_name" => "titi"));
 		$this->_groupid2 = $group->save();;
     }
-
+    
     public function test_findByPath()
     {
     	$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);

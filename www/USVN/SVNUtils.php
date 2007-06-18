@@ -223,7 +223,7 @@ class USVN_SVNUtils
 	*/
 	public static function listSvn($repository, $path)
 	{
-        $escape_path = USVN_SVNUtils::_getRepositoryPath($repository . '/' . $path);
+        $escape_path = USVN_SVNUtils::_getRepositoryPath($repository) . '/' . $path;
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("ls $escape_path"), $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $message);

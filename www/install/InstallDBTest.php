@@ -153,6 +153,22 @@ class InstallDbTest extends USVN_Test_Test {
 		$this->assertEquals("PDO_MYSQL", $config->database->adapterName);
 		$this->assertEquals("usvn_", $config->database->prefix);
 	}
+
+	public function testInstallDbTestConfigFileWithNewDb() {
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-root", "usvn-root", "usvn-root", "usvn_", 'PDO_MYSQL', true);
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("localhost", $config->database->options->host);
+		$this->assertEquals("usvn-root", $config->database->options->dbname);
+		$this->assertEquals("usvn-root", $config->database->options->username);
+		$this->assertEquals("usvn-root", $config->database->options->password);
+		$this->assertEquals("PDO_MYSQL", $config->database->adapterName);
+		$this->assertEquals("usvn_", $config->database->prefix);
+		$db = Zend_Db::factory('PDO_MYSQL', $config->database->options->toArray());
+		$db->query("DROP DATABASE `{$config->database->options->dbname}`");
+		$db->closeConnection();
+	}
+
 /*
 	public function testInstallDbTestConfigFileWithRandUser() {
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-root", "usvn-root", "usvn-root", "usvn_", false, true);

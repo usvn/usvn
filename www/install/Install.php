@@ -52,11 +52,11 @@ class Install
 		'password' => $password,
 		'dbname'   => $database);
 
-		if ($createdb) {
+		if ($createdb && ($adapter == 'PDO_MYSQL' || $adapter == 'MYSQLI')) {
 			try {
 				$tmp_params = $params;
 				$tmp_params['dbname'] = "mysql";
-				$db = Zend_Db::factory('PDO_MYSQL', $tmp_params);
+				$db = Zend_Db::factory($adapter, $tmp_params);
 				$db->getConnection();
 				$db->query("CREATE DATABASE `{$database}`;");
 				$db->closeConnection();

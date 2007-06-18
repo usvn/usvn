@@ -29,11 +29,6 @@ class Bugs_409_Test extends USVN_Test_DB {
 		$this->_user->save();
     }
 
-	public function tearDown()
-	{
-
-	}
-
     public function testCreateProjectAndDeleteProjectAdminUser()
 	{
 		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);

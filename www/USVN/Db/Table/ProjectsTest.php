@@ -170,7 +170,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 	{
 		$table_user = new USVN_Db_Table_Users();
 		$user = $table_user->fetchNew();
-		$user->setFromArray(array('users_login' 			=> 'test',
+		$user->setFromArray(array('users_login' 		=> 'test',
 									'users_password' 	=> 'password',
 									'users_firstname' 	=> 'firstname',
 									'users_lastname' 	=> 'lastname',
@@ -208,6 +208,166 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$project->deleteGroup($group);
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
 	}
+
+	public function testfetchAllAssignedToUserInTwoGroup()
+	{
+		$table_user = new USVN_Db_Table_Users();
+		$user = $table_user->fetchNew();
+		$user->setFromArray(array('users_login' 			=> 'test',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$user->save();
+
+		$table_project = new USVN_Db_Table_Projects();
+		$project = $table_project->fetchNew();
+		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project->save();
+		$project2 = $table_project->fetchNew();
+		$project2->setFromArray(array('projects_name' => 'Project2',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project2->save();
+
+		$group_table = new USVN_Db_Table_Groups();
+		$group_table->insert(array("groups_id" => 2, "groups_name" => "toto"));
+		$group = $group_table->find(2)->current();
+
+        $group_table = new USVN_Db_Table_Groups();
+		$group_table->insert(array("groups_id" => 3, "groups_name" => "titi"));
+		$group2 = $group_table->find(3)->current();
+
+		$project->addGroup($group);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
+		$group->addUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+        $group2->addUser($user);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+		$project->addGroup($group2);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+	}
+
+    public function testfetchAllAssignedTwoUserInGroup()
+	{
+		$table_user = new USVN_Db_Table_Users();
+		$user = $table_user->fetchNew();
+		$user->setFromArray(array('users_login' 		=> 'test',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$user->save();
+		$user2 = $table_user->fetchNew();
+		$user2->setFromArray(array('users_login' 		=> 'test2',
+									'users_password' 	=> 'password',
+									'users_firstname' 	=> 'firstname',
+									'users_lastname' 	=> 'lastname',
+									'users_email' 		=> 'email@email.fr'));
+		$user2->save();
+
+		$table_project = new USVN_Db_Table_Projects();
+		$project = $table_project->fetchNew();
+		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project->save();
+		$project2 = $table_project->fetchNew();
+		$project2->setFromArray(array('projects_name' => 'Project2',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project2->save();
+
+		$group_table = new USVN_Db_Table_Groups();
+		$group_table->insert(array("groups_id" => 2, "groups_name" => "toto"));
+		$group = $group_table->find(2)->current();
+
+        $group_table = new USVN_Db_Table_Groups();
+		$group_table->insert(array("groups_id" => 3, "groups_name" => "titi"));
+		$group = $group_table->find(3)->current();
+
+		$project->addGroup($group);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
+		$group->addUser($user);
+        $group->addUser($user2);
+		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
+	}
+
+	public function testfetchAllAssignedToAll()
+	{
+		$users = array('stem', 'noplay', 'crivis_s', 'duponc_j', 'dolean_j', 'billar_m', 'attal_m', 'joanic_g', 'guyoll_o');
+		foreach ($users as $user) {
+			${$user} = $this->createUser($user);
+		}
+
+		/* @var $stem USVN_Db_Table_Row_User */
+		/* @var $noplay USVN_Db_Table_Row_User */
+		/* @var $crivis_s USVN_Db_Table_Row_User */
+		/* @var $duponc_j USVN_Db_Table_Row_User */
+		/* @var $dolean_j USVN_Db_Table_Row_User */
+		/* @var $billar_m USVN_Db_Table_Row_User */
+		/* @var $attal_m USVN_Db_Table_Row_User */
+		/* @var $joanic_g USVN_Db_Table_Row_User */
+		/* @var $guyoll_o USVN_Db_Table_Row_User */
+
+		$projects = array('usvn', 'private', 'website', 'proj4', 'proj5', 'proj6', 'proj7', 'proj8', 'proj9', 'proj10', 'proj11');
+		foreach ($projects as $project) {
+			${$project} = $this->createProject($project);
+			${$project}->addUser($stem);
+			if ($project != 'private' && $project != 'website') {
+				$group = "group_{$project}";
+				${$group} = $this->createGroup($group);
+				${$project}->addGroup(${$group});
+				if ($project == 'usvn') {
+					$crivis_s->addGroup(${$group});
+					$dolean_j->addGroup(${$group});
+					$guyoll_o->addGroup(${$group});
+					$billar_m->addGroup(${$group});
+					$attal_m->addGroup(${$group});
+					$joanic_g->addGroup(${$group});
+					$duponc_j->addGroup(${$group});
+				} else {
+					$stem->addGroup(${$group});
+				}
+			} else {
+				${$project}->addGroup(${"group_usvn"});
+			}
+		}
+
+		/* @var $usvn USVN_Db_Table_Row_Project */
+		/* @var $private USVN_Db_Table_Row_Project */
+		/* @var $website USVN_Db_Table_Row_Project */
+		/* @var $ETNA USVN_Db_Table_Row_Project */
+		/* @var $toeic USVN_Db_Table_Row_Project */
+		/* @var $conf USVN_Db_Table_Row_Project */
+		/* @var $dotNET USVN_Db_Table_Row_Project */
+		/* @var $generic USVN_Db_Table_Row_Project */
+
+		$table = new USVN_Db_Table_Projects();
+		$this->assertEquals(3, count($table->fetchAllAssignedTo($crivis_s)));
+		$this->assertEquals(count($projects), count($table->fetchAllAssignedTo($stem)));
+	}
+
+	private function createGroup($name)
+	{
+		$table = new USVN_Db_Table_Groups();
+		$group = $table->createRow(array("groups_name" => $name));
+		$group->save();
+		return $group;
+	}
+	private function createProject($name)
+	{
+		$table = new USVN_Db_Table_Projects();
+		$project = $table->createRow(array("projects_name" => $name));
+		$project->save();
+		return $project;
+	}
+	private function createUser($name)
+	{
+		$table_user = new USVN_Db_Table_Users();
+		$user = $table_user->createRow(array('users_login' 		=> $name,
+		'users_password' 	=> 'password',
+		'users_firstname' 	=> 'firstname',
+		'users_lastname' 	=> 'lastname',
+		'users_email' 		=> 'email@email.fr'));
+		$user->save();
+		return $user;
+	}
+
 }
 
 // Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.

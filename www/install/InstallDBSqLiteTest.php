@@ -99,9 +99,7 @@ class InstallDbSqLiteTest extends USVN_Test_Test {
 		$this->assertTrue(in_array('fake_users', $list_tables), "usvn_users does not exist");
 		$this->assertTrue(in_array('fake_groups', $list_tables), "fake_groups does not exist");
 		$this->db->closeConnection();
-
 	}
-
 
 	public function testInstallDbTestConfigFile() {
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_", "PDO_SQLITE", false);
@@ -123,14 +121,13 @@ class InstallDbSqLiteTest extends USVN_Test_Test {
 		$userTable = new USVN_Db_Table_Users();
 		$user = $userTable->fetchRow(array('users_login = ?' => 'root'));
 		$this->assertNotEquals(False, $user);
-		$this->assertEquals($user->password, crypt("secretpassword", $user->password));
+		$this->assertTrue(USVN_Crypt::checkPassword("secretpassword", $user->password));
 		$this->assertEquals("James", $user->firstname);
 		$this->assertEquals("Bond", $user->lastname);
 		$this->assertEquals(true, $user->is_admin);
 		$groupTable = new USVN_Db_Table_Groups();
 		$this->assertEquals(0, count($groupTable->fetchAll()));
 	}
-
 }
 
 // Call InstallTest::main() if this source file is executed directly.

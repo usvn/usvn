@@ -21,30 +21,38 @@ class USVN_DirectoryUtils
     /**
     * Remove a directory even if it is not empty.
     */
-    static public function removeDirectory($path)
+    static public function removeDirectory($remove_path)
     {
-        if (file_exists($path)) {
-            if (!chmod($path, 0777)) {
-                throw new USVN_Exception(T_("Can't delete directory %s.", $path));
+        if (($path = realpath($remove_path)) !== FALSE) {
+            if (chmod($path, 0777) === FALSE) {
+                throw new USVN_Exception(T_("Can't delete directory %s. Permission denied."), $path);
             }
             try {
-                $dir = new DirectoryIterator($path);
+                $dh = opendir($path);
             }
             catch(Exception $e) {
                 return;
             }
-            foreach($dir as $file) {
+            while (($file = readdir($dh)) !== false) {
 				if ($file != '.' && $file != '..') {
 					if (is_dir($path . DIRECTORY_SEPARATOR . $file)) {
 						USVN_DirectoryUtils::removeDirectory($path . DIRECTORY_SEPARATOR . $file);
 					}
 					else {
-						chmod($path . DIRECTORY_SEPARATOR . $file, 0777);
+                        if (chmod($path . DIRECTORY_SEPARATOR . $file, 0777) === FALSE) {
+                            throw new USVN_Exception(T_("Can't delete file %s.", $path . DIRECTORY_SEPARATOR . $file));
+                        }
 						unlink($path . DIRECTORY_SEPARATOR . $file);
 					}
 				}
             }
-            rmdir($path);
+            closedir($dh);
+            if (@rmdir($path) === FALSE) {
+                throw new USVN_Exception(T_("Can't delete directory %s."), $path);
+            }
+        }
+        else {
+            throw new USVN_Exception("File %s doesn't exist.", $remove_path);
         }
     }
 

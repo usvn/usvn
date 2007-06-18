@@ -107,7 +107,9 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 	 */
 	public function update(array $data, $where)
 	{
-		$this->checkGroupName($data['groups_name']);
+        if (isset($data['groups_name'])) {
+		    $this->checkGroupName($data['groups_name']);
+        }
 		return parent::update($data, $where);
 	}
 

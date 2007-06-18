@@ -127,6 +127,19 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$this->assertTrue($table->isAGroup('UpdateGroupOk2'));
     }
 
+    public function testUpdateOnlyDesc()
+	{
+		$table = new USVN_Db_Table_Groups();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('groups_name' => 'UpdateGroupOk'));
+		$id = $obj->save();
+		$this->assertTrue($table->isAGroup('UpdateGroupOk'));
+		$obj = $table->find($id)->current();
+		$obj->setFromArray(array('groups_description' => 'test'));
+		$id = $obj->save();
+		$this->assertTrue($table->isAGroup('UpdateGroupOk'));
+    }
+
 	public function testFindUserInGroup()
 	{
 		$user = new USVN_Db_Table_Users();

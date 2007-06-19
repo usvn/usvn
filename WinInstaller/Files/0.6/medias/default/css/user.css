@@ -1,0 +1,9 @@
+/**
+ * User's css page
+ */
+
+.usvn_info_user {
+	background-image:url(<?php echo $this->images_directory ;?>/CrystalClear/64x64/apps/kdmconfig.png);
+}
+
+/* End of user's css page*/

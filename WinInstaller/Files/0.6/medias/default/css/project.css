@@ -1,0 +1,9 @@
+/**
+ * Project's css page
+ */
+
+.usvn_info_project {
+	background-image:url(<?php echo $this->images_directory ;?>/CrystalClear/64x64/apps/easymoblog.png);
+}
+
+/* End of Project's css page*/

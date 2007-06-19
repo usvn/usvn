@@ -1,0 +1,438 @@
+
+/**
+ * screen.css of default's template
+ */
+
+/* Require for HTMLTableTools */
+@import "<?php echo $this->medias_directory; ?>/default/js/tools/HTMLTableTools/table.css";
+
+html, body {
+	font-size: 13px;
+	font-family: 'Verdana', 'Helvetica';
+	margin: auto;
+    background: #FFFFFF;
+    height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body > div {
+ 	margin: auto;
+}
+
+img {border: 0;}
+
+#usvn_page {
+	position: relative;
+	min-height: 100%;
+}
+
+#usvn_header {
+	background-color: #334BCF;
+	background-image:url(<?php echo $this->images_directory ;?>/bg_banner.png);
+	background-repeat:repeat-x;
+	height: 135px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#usvn_logo img {
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+#usvn_content {
+	position: relative;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    min-height: 100%;
+}
+
+#usvn_footer {
+	position: absolute;
+	border-top: 4px solid #0A1648;
+	background: #4F6EFF;
+	color: #FFFFFF;
+	bottom: 0;
+	width: 100%;
+}
+
+#usvn_footer h5 {
+	padding: 0;
+	margin: 0;
+	padding-left: 5px;
+}
+
+#usvn_footer a {
+	color: white;
+}
+
+#usvn_footer a:hover {
+	text-decoration: underline;
+}
+
+#usvn_title {
+	height:45px;
+	color: #003366;
+	margin-bottom: 10px;
+}
+
+.usvn_error {
+	color: red;
+	font-weight: bold;
+	background-color: #FF9F9F;
+	border : solid 1px #CF0000;
+	background-image: url(<?php echo $this->images_directory ;?>/CrystalClear/32x32/actions/stop.png);
+	background-position: 10px;
+	background-repeat: no-repeat;
+	padding-left: 60px;
+	vertical-align: middle;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#usvn_logged {
+	color: #5F5F5F;
+}
+
+/*********** Menu with tabs ***************/
+#menu {
+	min-height: 30px;
+}
+
+#usvn_menu_item {
+	background-image: url(<?php echo $this->images_directory ;?>/tab_left.png);
+}
+
+#usvn_menu {
+	float: left;
+	width: 100%;
+	line-height: normal;
+	background-color: #334BCF;
+/*	border-bottom: 1px solid;
+	border-bottom-color: #0A1648;*/
+}
+
+ul#usvn_menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+#usvn_menu li {
+	float : left;
+	margin : 0;
+	padding : 0 0 0 7px;
+	background-repeat: no-repeat;
+	background-position: 0 -110px;
+	margin-left: 2px;
+	margin-right: 2px;
+	border-bottom: 1px solid;
+	border-bottom-color: #0A1648;
+
+}
+
+#usvn_menu a {
+	float : left;
+	display : block;
+	background-image : url(<?php echo $this->images_directory ;?>/tab_right.png);
+	background-repeat : no-repeat;
+	background-position : 100% -110px;
+	padding : 10px 10px 5px 3px;
+	font-family : Arial,Helvetica,sans-serif;
+	font-weight : bold;
+	text-decoration : none;
+	color: #AFAFAF;
+}
+
+/* Commented Backslash HackCache des rules for IE5-Mac \*/
+#usvn_menu a {float: none;}
+/* End of IE5-Mac's hack */
+
+#usvn_menu li.selected, #usvn_menu li.selected:hover {
+	background-position : 0 0;
+	border-bottom-color: #5F7FFF;
+}
+
+#usvn_menu li.selected a, #usvn_menu li.selected:hover a {
+	padding-bottom : 5px;
+	background-position : 100% 0;
+	color: white;
+}
+
+#usvn_menu li:hover {
+	background-position : 0 -220px;
+}
+
+#usvn_menu li:hover a {
+	background-position : 100% -220px;
+	color: white;
+}
+
+/* ****************************** */
+
+
+ul#usvn_submenu, ul#usvn_subsubmenu, #logged {
+	background-color: #334BCF;
+	border-bottom: 4px solid #334BCF;
+	margin: 0;
+	padding: 4px;
+	padding-bottom: 1px;
+	list-style-type: none;
+	font-size: small;
+}
+
+ul#usvn_submenu {
+	background-color: #5F7FFF;
+	padding-top: 20px;
+	padding-bottom: 6px;
+	border-bottom: 2px solid;
+	border-bottom-color: #000000;
+	vertical-align: middle;
+}
+
+ul#usvn_subsubmenu {
+	border-bottom: 3px solid;
+	border-color: #000000;
+	background-color: #000055;
+	list-style-type: none;
+	padding: 10px;
+}
+
+#usvn_submenu li, #usvn_subsubmenu li {
+	display: inline;
+	padding-bottom: 4px;
+	font-weight: bold;
+}
+
+#usvn_submenu li {
+	border-bottom: 4px;
+}
+
+#usvn_subsubmenu li {
+}
+
+#usvn_subsubmenu li {
+	background-color: #7F98FF;
+	padding: 3px;
+	border: 1px solid black;
+	color: #37516F;
+}
+
+#usvn_submenu a, #logged {
+	color: #AFAFAF;
+	padding-left: 5px;
+	padding-right: 5px;
+	vertical-align: middle;
+}
+
+#usvn_submenu a {
+	color: #19255D;
+}
+
+#usvn_subsubmenu a {
+	color: #003366;
+}
+
+#usvn_submenu li.selected a, #usvn_subsubmenu li.selected a {
+	font-weight: bold;
+	color: white;
+}
+
+#usvn_subsubmenu li.selected a {
+	color: black;
+}
+
+#usvn_submenu a:hover {
+	color: white;
+	vertical-align: middle;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+#usvn_subsubmenu a:hover {
+	color: black;
+}
+
+/* ****************************** */
+
+#usvn_debug div:hover div{
+	display: block;
+}
+
+a:link, a:visited {
+	color: #0810E5;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #8888E5;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.usvn_action_js {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
+	background-repeat: no-repeat;
+	background-position: right 17px;
+	background-color: #EFF2FF;
+	padding: 5px;
+	clear: both;
+	margin: 0 0 2em 0;
+	border: 1px solid #ccc;
+	border-bottom: 1px dotted #ccc;
+	min-height: 80px;
+	width: 99%;
+}
+
+
+.usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
+	font-weight: bold;
+	font-size: 180%;
+	margin: 0 0 3px 0;
+	clear: left;
+	color: #003366;
+}
+
+.usvn_info p, .usvn_info_config p, .usvn_info_user p, .usvn_info_group p, .usvn_info_project p {
+	font-size: 95%;
+	line-height: 130%;
+	margin: 10px 0 12px 10px;
+}
+
+a.usvn_tooltips {
+    position: relative;
+    z-index: 24;
+    color: #000;
+    text-decoration: none;
+    background-image: url(<?php echo $this->images_directory ;?>/CrystalClear/16x16/actions/documentinfo.png);
+    padding-right: 13px;
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+a.usvn_tooltips:hover {
+	z-index: 25;
+	background-color: #ff0;
+}
+
+a.usvn_tooltips span {
+	display: none
+}
+
+a.usvn_tooltips:hover span {
+    display: block;
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    width: 15em;
+    border:1px solid #0cf;
+    background-color:#cff;
+    color:#000;
+    text-align: center
+}
+
+.usvn_require {
+	margin-left: 3px;
+	float: none;
+	color: red;
+	font-weight: bold;
+}
+
+.usvn_button {
+	background-image:url(<?php echo $this->images_directory ;?>/button.png);
+	border: 1px solid #1E568F;
+	background-repeat: repeat-x;
+	font-style: normal;
+	font-weight: bolder;
+	font-size:120%;
+	text-decoration: none;
+	color: black;
+	height: 32px;
+	padding-top: 5px;
+	padding-bottom: 7px;
+	padding-left: 4px;
+	padding-right: 4px;
+	margin: 5px;
+}
+
+a.usvn_button:hover {
+	background-image:url(<?php echo $this->images_directory ;?>/button_hover.png);
+	border: 1px solid #5977EF;
+	background-repeat: repeat-x;
+	border: 1px solid #0A1648;
+	color: #0A1648;
+}
+
+form.usvn_form label,
+.usvn_label {
+	line-height:150%;
+	margin-left: 2px;
+	margin-bottom: 3px;
+	padding: 0 4px 1px 0;
+	border:none;
+	color:#222;
+	font-size:95%;
+    font-size:small;
+	font-weight:bold;
+}
+
+form.usvn_form > fieldset > legend,
+.usvn_legend {
+	font-weight:bold;
+}
+
+form.usvn_form > fieldset {
+	margin-bottom: 1em;
+}
+
+table.usvn_table {
+	width: 80%;
+	min-width: 300px;
+	margin: auto;
+    text-decoration: none;
+    border-collapse: collapse;
+}
+
+table.usvn_table tr th {
+    border: 1px solid black;
+    background-color: #5F7FFF;
+}
+
+table.usvn_table td {
+	border-style:solid;
+	border-width:1px;
+	border-color:#BFCCFF;
+}
+
+table.usvn_table  tr:hover {
+    background-color: #BFF4FF;
+    cursor:pointer;
+}
+
+table.usvn_table a:hover {
+	color: #2F2F2F;
+}
+
+<?php include($this->css_directory . "/login.css"); ?>
+<?php include($this->css_directory . "/config.css"); ?>
+<?php include($this->css_directory . "/user.css"); ?>
+<?php include($this->css_directory . "/group.css"); ?>
+<?php include($this->css_directory . "/project.css"); ?>
+<?php include($this->css_directory . "/admin.css"); ?>
+<?php include($this->css_directory . "/index.css"); ?>
+<?php include($this->css_directory . "/completion.css"); ?>
+<?php include($this->css_directory . "/bubblerights.css"); ?>
+
+/* End of screen.css */

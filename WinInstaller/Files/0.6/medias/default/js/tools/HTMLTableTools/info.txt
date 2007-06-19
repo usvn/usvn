@@ -1,0 +1,33 @@
+(c) vb1, lx barjon (zilx)
+HTMLTableTools.js
+
+OUTILS POUR TABLEAU HTML EN JAVASCRIPT, ORIENTÉ OBJET (Tri multi-colonnes, highlight au survol des lignes, sélection simple ou multiple de lignes, possibilité de fournir les index des colonnes qui ne doivent pas être triées ...
+
+
+Pas besoins de modifier le tableau :
+Les fleches permettant d'activer le tri sur tel ou tel colonne sont ajoutées par le script dans les entêtes ainsi que les évènements correspondant (onClick).
+Ce script utilise la très bonne librairie prototype.js (Version 1.4) qui doit avoir été fournie avec le script ainsi que le script builder.js.
+
+utiliser l'option d'initialisation pathToImgs: 'your_path' pour signifier le chemin vers les images
+
+syntaxe :
+var myTable = new tableTools( idTable, { options1 , optionsN } );
+
+avec myTable le nom de votre objet tableTools
+avec idTable = l'id de votre tag table
+options possibles :
+
+- pathToImgs: ''												chemin vers les images
+- imgUp: 'fleche_haut.png'							image haut
+- imgUpActive: 'fleche_haut_active.png'	image haut active
+- imgDown: 'fleche_bas.png'							image bas
+- imgDown: 'fleche_bas_active.png'			image bas active
+- skipCells: []							un tableau des index des colonnes qui ne peuvent être triée (ex: [1,2]) - vide par défaut
+- reorderCol: false					réorganise les colonnes en fonction index de tri - false par défaut
+- showSortIndex: false			montre dans l'entête l'index de tri des colonnes - false par défaut
+- highlight: true						le sytème d'highlight des lignes au survol de la souris est activé - true par défaut
+- highlightColumn: false		highlight les colonnes au survol de la souris - false par défaut
+- selectRow: true						les lignes sont sélectionnables, les id des lignes est recupérable par myTable.selectedValues
+- multipleSelect: true			il est possible de sélectionner plusieurs lignes
+
+-------------------------------------------

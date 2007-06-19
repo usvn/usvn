@@ -1,0 +1,24 @@
+<div class="usvn_info_project">
+	<h1><?php echo T_("Welcome to USVN"); ?></h1>
+	<p>
+		<?php echo T_("Please enter your login and your password to connect to USVN."); ?>
+	</p>
+</div>
+<fieldset>
+	<legend class="usvn_legend"><?php echo T_("Authentification"); ?></legend>
+	<form method="post" action="<?php echo $this->url(); ?>">
+		<table id="loginBox">
+			<tr id="username">
+				<td id="lbLogin"><?php echo T_("Login") . ':'; ?></td>
+				<td><?php echo $this->formText('login', (isset($this->login) ? $this->login : "")); ?></td>
+			</tr>
+			<tr id="pass">
+				<td id="lbPass"><?php echo T_("Password") . ':'; ?></td>
+				<td><?php echo $this->formPassword('password'); ?></td>
+			</tr>
+			<tr id="logon">
+				<td colspan="2"><?php echo $this->formSubmit('submit', T_("Submit")); ?></td>
+			</tr>
+		</table>
+	</form>
+</fieldset>

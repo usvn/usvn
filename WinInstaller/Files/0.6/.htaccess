@@ -1,0 +1,8 @@
+<Files *.ini>
+Order Allow,Deny
+Deny from all
+</Files>
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !/install*
+RewriteBase /usvn/
+RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php

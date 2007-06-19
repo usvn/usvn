@@ -1,7 +1,7 @@
 [Setup]
 AppName=USVN
 AppVerName=Userfriendly SVN
-OutputBaseFilename=USVN_add-on_172
+OutputBaseFilename=USVN_06_add-on_172
 AppPublisher=Userfriendly SVN
 AppPublisherURL=http://www.usvn.info
 AppSupportURL=http://www.usvn.info
@@ -26,10 +26,11 @@ AlwaysRestart=yes
 Source: ".\Files\svn-1.4.3-setup.exe"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InstallSVN('{app}\USVN\svn-1.4.3-setup.exe')
 Source: ".\Files\mod_authz_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs;
 Source: ".\Files\mod_dav_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigApache('{app}')
-Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
 Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
+
 Source: ".\Files\usvn.conf"; DestDir: "{app}\Apache2\conf\alias\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigAlias('{app}')
-Source: "..\www\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
+Source: ".\Files\0.6\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
 [Code]
 var
   ResultCode: Integer;
@@ -73,7 +74,6 @@ begin
   StringChangeEx(SrcContent4, '<Directory "c:/usvn/">', '<Directory "' + FileName2 + '/USVN/">', True);
   DeleteFile (FileName + '\Apache2\conf\alias\usvn.conf');
   SaveStringToFile(FileName + '\Apache2\conf\alias\usvn.conf',SrcContent4, false);
-
 
   LoadStringFromFile (FileName + '\Apache2\conf\httpd.conf', SrcContent4);
   if Pos('Include "' + FileName2 + '/apache2/conf/alias/usvn.conf"', SrcContent4) = 0 then

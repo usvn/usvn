@@ -71,10 +71,9 @@ class InstallDbTest extends USVN_Test_Test {
 
 		$this->db = Zend_Db::factory($this->_driver, $params);
 		try {
-			$this->db->query("DROP DATABASE `usvn-root`");
+			$this->db->getConnection()->query("DROP DATABASE `usvn-root`");
 		}
 		catch (Exception $e) {
-			$this->db = Zend_Db::factory($this->_driver, $params);
 		}
 
 		Zend_Db_Table::setDefaultAdapter($this->db);
@@ -183,8 +182,6 @@ class InstallDbTest extends USVN_Test_Test {
 		$this->assertEquals("usvn-root", $config->database->options->password);
 		$this->assertEquals($this->_driver, $config->database->adapterName);
 		$this->assertEquals("usvn_", $config->database->prefix);
-		$db = Zend_Db::factory($this->_driver, $config->database->options->toArray());
-		$db->closeConnection();
 	}
 
 /*

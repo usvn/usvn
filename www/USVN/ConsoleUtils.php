@@ -29,19 +29,26 @@ class USVN_ConsoleUtils
 		fclose($stderr);
 	}
 
-	private static $lang;
-	
+	private static $lang = null;
+
 	static private function prepareLang()
 	{
-		USVN_ConsoleUtils::$lang = getenv('LANG');
-		putenv('LANG=en_US.utf8');
+		if (PHP_OS == "Linux") {
+			USVN_ConsoleUtils::$lang = getenv('LANG');
+			putenv('LANG=en_US.utf8');
+		} else {
+			USVN_ConsoleUtils::$lang = getenv('LANG');
+			putenv('LANG=en_US.UTF-8');
+		}
 	}
 
 	static private function restoreLang()
 	{
-		putenv('LANG=' . USVN_ConsoleUtils::$lang);
+		if (USVN_ConsoleUtils::$lang !== null) {
+			putenv('LANG=' . USVN_ConsoleUtils::$lang);
+		}
 	}
-	
+
 	/**
 	* Run a cmd and return result from stdout and stderror
 	*

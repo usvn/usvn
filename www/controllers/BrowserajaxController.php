@@ -127,6 +127,11 @@ class BrowserajaxController extends USVN_Controller
 		$table_groups = new USVN_Db_Table_Groups();
 		$text = "<table class='usvn_table'><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td></tr>";
 		$i = 0;
+		$disabled = "";
+		$identity = Zend_Auth::getInstance()->getIdentity();
+		if (!$res_project->userIsAdmin($identity["username"])) {
+			$disabled = " disabled";
+		}
 		foreach ($res_groupstoproject as $groups)
 		{
 			$access = $acces_rights->findByPath($groups->groups_id, $_GET['name']);
@@ -134,17 +139,18 @@ class BrowserajaxController extends USVN_Controller
 			$grp_name = $res_groups->groups_name;
 			$text .= "<tr><td><label id=Lb".$i.">".$grp_name."</label></td>";
 			if ($access['read'] == 1)
-				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
 			else
-				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");'/></td>";
+				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
 			if ($access['write'] == 1)
-				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
+				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
 			else
-				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");'/></td></tr>";
+				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
 			$i++;
-
 		}
 		$text .= "</table>";
+		$text .= "<br /><table><tr><td><input type='button' value='Ok' onclick=\"javascript:ajax(2, '" . $_GET['name'] . "');\" $disabled/></td><td>";
+		$text .= "<input type='button' value='Cancel' onclick='javascript:cancel();'/></td></tr></table><label id='labelError'></label>";
 		echo "<nbgroup>".$i."</nbgroup>\n";
 		echo "<groups><![CDATA[".$text."]]></groups>\n";
 	}
@@ -160,6 +166,11 @@ class BrowserajaxController extends USVN_Controller
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
 			$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
 
+			$user = $this->getRequest()->getParam('user');
+			if (!$res_project->userIsAdmin($user) && !$user->is_admin) {
+				$this->_redirect("/");
+			}
+
 			$msg = "Ok";
 
 			$tabgroup = split("-", $_GET['group']);
@@ -169,11 +180,6 @@ class BrowserajaxController extends USVN_Controller
 			{
 				$table_group = new USVN_Db_Table_Groups();
 				$res_groups = $table_group->findByGroupsName($group);
-				echo $res_groups->groups_id . "\n";
-				echo $_GET['name'] . "\n";
-				echo $tabrights[$j] . "\n";
-				echo $tabrights[$j + 1] . "\n";
-				echo "###################\n";
 				$acces_rights->setRightByPath(
 					$res_groups->groups_id,
 					$_GET['name'],

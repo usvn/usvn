@@ -29,7 +29,7 @@ function checkName() {
 		</label>
 		<br />
         <?php
-            if ($this->action == 'new') {
+            if ($this->action == 'new' || $this->action == 'create') {
                 echo '<label>' . T_('Create group for project:') . $this->formCheckbox('creategroup', 1) . '</label><br />';
                 echo '<label>' . T_('Add me to project group:') . $this->formCheckbox('addmetogroup', 1) . '</label><br />';
                 echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 1) . '</label><br />';

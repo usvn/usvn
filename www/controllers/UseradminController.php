@@ -25,20 +25,20 @@ class UseradminController extends AdminadminController
 	protected function getUserData($data)
 	{
 		if (!isset($data['users_login'])
-			|| !isset($data['users_lastname'])
-			|| !isset($data['users_firstname'])
-			|| !isset($data['users_email'])
-			|| !isset($data['users_password'])
-			|| !isset($data['users_is_admin'])
-			) {
+		|| !isset($data['users_lastname'])
+		|| !isset($data['users_firstname'])
+		|| !isset($data['users_email'])
+		|| !isset($data['users_password'])
+		|| !isset($data['users_is_admin'])
+		) {
 			return array();
 		}
 		$user = array('users_login'     => $data['users_login'],
-					  'users_lastname'  => $data['users_lastname'],
-					  'users_firstname' => $data['users_firstname'],
-					  'users_email'     => $data['users_email'],
-					  'users_is_admin'  => $data['users_is_admin'],
-						);
+		'users_lastname'  => $data['users_lastname'],
+		'users_firstname' => $data['users_firstname'],
+		'users_email'     => $data['users_email'],
+		'users_is_admin'  => $data['users_is_admin'],
+		);
 		if (!empty($_POST['users_password']) && !empty($_POST['users_password2'])) {
 			if ($_POST['users_password'] !== $_POST['users_password2']) {
 				throw new Exception(T_('Not the same password.'));
@@ -49,10 +49,10 @@ class UseradminController extends AdminadminController
 	}
 
 	public function indexAction()
-    {
-    	$table = new USVN_Db_Table_Users();
+	{
+		$table = new USVN_Db_Table_Users();
 		$this->view->users = $table->fetchAll(null, "users_login");
-    }
+	}
 
 	public function newAction()
 	{
@@ -70,6 +70,15 @@ class UseradminController extends AdminadminController
 		}
 
 		$user = USVN_User::create($data, isset($_POST['create_group']), isset($_POST['groups']));
+
+		
+		$table = new USVN_Db_Table_Groups();
+		$where  = $table->getAdapter()->quoteInto('groups_name = ?', $data['users_login']);
+		$row = $table->fetchRow($where);
+		if ($row != null) {
+			throw new USVN_Exception(T_("This user can't be created. A group  has the same name."));
+		}
+			
 		try {
 			$user->save();
 			$this->_redirect("/admin/user/");
@@ -134,6 +143,6 @@ class UseradminController extends AdminadminController
 	public function importFileAction()
 	{
 		new USVN_ImportHtpasswd($_FILES['file']['tmp_name']);
-        $this->_redirect('/admin/user');
+		$this->_redirect('/admin/user');
 	}
 }

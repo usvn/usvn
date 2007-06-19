@@ -60,7 +60,6 @@ class USVN_User
 	static public function create($data, $createGroup, $groups = null)
 	{
 		$user = new USVN_User();
-
 		$table = new USVN_Db_Table_Users();
 		$user->user = $table->createRow($data);
 		$user->createGroup = $createGroup;
@@ -79,7 +78,6 @@ class USVN_User
 	static public function update($login, $data, $groups = null)
 	{
 		$user = new USVN_User();
-
 		$table = new USVN_Db_Table_Users();
 		$user->user = $table->fetchRow(array("users_login = ?" => $login));
 		if ($user->user === null) {
@@ -100,13 +98,19 @@ class USVN_User
 		if ($this->createGroup) {
 			$table = new USVN_Db_Table_Groups();
 			$group = $table->createRow(array("groups_name" => $this->user->login));
-			$group->save();
-			$this->groups[] = $group->id;
-		}
-		if ($this->groups != null) {
-			$this->user->deleteAllGroups();
-			foreach ($this->groups as $group) {
-				$this->user->addGroup($group);
+			try {
+				$group->save();
+				if ($this->groups != null) {
+					$this->user->deleteAllGroups();
+					foreach ($this->groups as $group) {
+						$this->user->addGroup($group);
+					}
+				}
+				$this->groups[] = $group->id;
+			}
+			catch (Exception $e){
+				$this->user->delete();
+				throw $e;
 			}
 		}
 	}

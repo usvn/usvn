@@ -30,18 +30,22 @@ class USVN_ConsoleUtils
 	}
 
 	private static $lang;
-	
+	private static $lc_ctype;
+
 	static private function prepareLang()
 	{
 		USVN_ConsoleUtils::$lang = getenv('LANG');
 		putenv('LANG=en_US.utf8');
+		USVN_ConsoleUtils::$lc_ctype = getenv('LC_CTPYE');
+		putenv('LC_CTYPE=UTF-8');
 	}
 
 	static private function restoreLang()
 	{
 		putenv('LANG=' . USVN_ConsoleUtils::$lang);
+		putenv('LC_CTYPE=' . USVN_ConsoleUtils::$lc_ctype);
 	}
-	
+
 	/**
 	* Run a cmd and return result from stdout and stderror
 	*

@@ -146,11 +146,15 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	/**
 	 * Check if an user is in the project
 	 *
-	 * @param USVN_Db_Table_Row_User User
+	 * @param USVN_Db_Table_Row_User or string User
 	 * @return boolean
 	 */
-	public function userIsAdmin(USVN_Db_Table_Row_User $user)
+	public function userIsAdmin($user)
 	{
+		if (!is_object($user)) {
+			$table = new USVN_Db_Table_Users();
+			$user = $table->fetchRow(array('users_login = ?' => $user));
+		}
 		$table = new USVN_Db_Table_UsersToProjects();
 		$res = $table->fetchRow(array("users_id = ?" => $user->id, "projects_id = ?" => $this->id));
 		if ($res === null) {
@@ -158,8 +162,6 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		}
 		return true;
 	}
-
-
 
 	/**
 	 * Check if the project's name is valid or not.

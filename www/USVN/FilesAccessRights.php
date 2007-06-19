@@ -53,6 +53,10 @@ class USVN_FilesAccessRights
 				if ($res_groupstofiles->files_rights_is_writable) {
 					$response['write'] = true;
 				}
+			} else {
+				if ($path != '/') {
+					return $this->findByPath($group_id, str_replace(basename($path), '', $path)); // Ugly hack do not use dirname because problems with \
+				}
 			}
 		}
 		else {

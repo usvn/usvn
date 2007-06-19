@@ -160,6 +160,11 @@ class BrowserajaxController extends USVN_Controller
 			$res_project = $table_project->findByName($this->_request->getParam('project'));
 			$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
 
+			$user = $this->getRequest()->getParam('user');
+			if (!$res_project->userIsAdmin($user) && !$user->is_admin) {
+				$this->_redirect("/");
+			}
+
 			$msg = "Ok";
 
 			$tabgroup = split("-", $_GET['group']);

@@ -220,7 +220,7 @@ EOF;
 			else {
 				$method = "http";
 			}
-			$url = "{$method}://{$_SERVER['HTTP_HOST']}:{$_SERVER['SERVER_PORT']}{$path}/login/";
+			$url = "{$method}://{$_SERVER['HTTP_HOST']}{$path}/login/";
 
 			$client = new Zend_Http_Client($url);
 			$response = $client->request();
@@ -366,7 +366,7 @@ EOF;
 		else {
 			$method = "http";
 		}
-		$image = dirname($method . "://" . $_SERVER['HTTP_HOST'] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER['PHP_SELF']) . "/../medias/default/images/USVN-logo.png";
+		$image = dirname($method . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']) . "/../medias/default/images/USVN-logo.png";
 		if (php_sapi_name() != "cli") {
 			if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
 				throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));

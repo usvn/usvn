@@ -56,9 +56,6 @@
 
     <target name="release-wamp">
         <echo msg="Release USVN Wamp addon ${version}" />
-        <phingcall target="lint" />
-        <phingcall target="test-all" />
-        <phingcall target="doc" />
         <phingcall target="wamp" />
     </target>
 

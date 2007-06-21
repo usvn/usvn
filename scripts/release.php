@@ -46,5 +46,6 @@ USVN_DirectoryUtils::removeDirectory("bugs");
 USVN_DirectoryUtils::removeDirectory("USVN/Test");
 removeTest('.');
 chdir('..');
-`tar -czf usvn$version.tgz usvn`;
+`tar -czf usvn-$version.tgz usvn`;
+`zip -r usvn-$version.zip usvn`
 ?>

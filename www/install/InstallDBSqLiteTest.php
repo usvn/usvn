@@ -60,6 +60,10 @@ class InstallDbSqLiteTest extends USVN_Test_Test {
 
 	public function setUp() {
 		parent::setUp();
+		if (getenv('DB') != '' && getenv('DB') != 'PDO_SQLITE') {
+			$this->markTestSkipped("Bad database");
+		}
+
 		$this->clean();
 		$_SERVER['SERVER_NAME'] = "localhost";
 		$_SERVER['REQUEST_URI'] = "/test/install/index.php?step=7";

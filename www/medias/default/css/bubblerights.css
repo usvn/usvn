@@ -1,17 +1,11 @@
 /* CSS Document */
 
-div.bulle
-{
-	visibility:hidden; 
-	position:absolute; 
-	background-color:#FFFFFF; 
-	border:1px solid #5F7FFF;
-}
-
 .bubblerights
 {
 	visibility:hidden; 
 	position:absolute; 
 	background-color:#FFFFFF; 
 	border:1px solid #5F7FFF;
+	width:310px;
+	z-index:2;
 }

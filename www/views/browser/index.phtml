@@ -39,7 +39,9 @@ function ajax(index, id)
 		groupe += grp + "-";
 	}
 	if (index == 1)
-		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'RightManagement?pg=1&name="+ id + "&group="+ groupe.substring(0, groupe.length - 1) +"')); ?>", true);
+	{
+		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'RightManagement?pg=1&name="+ id + "&group="+ groupe.substring(0, 		groupe.length - 1) +"')); ?>", true);
+	}
 	if (index == 2)
 	{
 		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'RightManagement?pg=2&name="+ id +"&rights="+ text.substring(0, text.length - 1) +
@@ -71,12 +73,15 @@ function alert_ajax(xhr, index, id)
 		{
 			var items_groups = docXML.getElementsByTagName("groups").item(0).firstChild.data;
 			items_nbgroup = docXML.getElementsByTagName("nbgroup").item(0).firstChild.data;
-			var bulle = "<h3>&nbsp;<?php echo T_('Acces rights for'); ?>" + " " + id +"&nbsp;</h3>";
+			basename = docXML.getElementsByTagName("basename").item(0).firstChild.data;
+			var bulle = "<h3>&nbsp;<?php echo T_('Acces rights for'); ?>" + " " + basename + "&nbsp;</h3>";
 			bulle += items_groups;
 			document.getElementById('bulle').style.visibility = 'visible';
 			document.getElementById('bulle').innerHTML = bulle;
-			document.getElementById('bulle').style.left = mouse_x - 15 + "px";
-  			document.getElementById('bulle').style.top = mouse_y - 205 + "px";
+			//document.getElementById('bulle').style.left = mouse_x - 15 + "px";
+  			//document.getElementById('bulle').style.top = mouse_y - 205 + "px";		
+			document.getElementById('bulle').style.left = mouse_x + 5 + "px";
+  			document.getElementById('bulle').style.top = mouse_y - 212 + "px";		
 		}
 		if (index == 2)
 		{

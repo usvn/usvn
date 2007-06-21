@@ -67,14 +67,14 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 		$group_table = new USVN_Db_Table_Groups();
 		$group = $group_table->fetchNew();
 		$group->setFromArray(array("groups_name" => "toto"));
-		$this->_groupid1 = $group->save();;
+		$this->_groupid1 = $group->save();
 
 		$group_table = new USVN_Db_Table_Groups();
 		$group = $group_table->fetchNew();
 		$group->setFromArray(array("groups_name" => "titi"));
-		$this->_groupid2 = $group->save();;
+		$this->_groupid2 = $group->save();
     }
-    
+
     public function test_findByPath()
     {
     	$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
@@ -104,8 +104,8 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 		));
 
     	$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
-    	$this->assertFalse($rights['read']);
-    	$this->assertFalse($rights['write']);
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
 
 		$table_groupstofiles->insert(array(
 			'files_rights_id' 		  => $fileid,
@@ -163,6 +163,79 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk/test/tutu/titi');
     	$this->assertTrue($rights['read']);
     	$this->assertTrue($rights['write']);
+    }
+
+    public function test_findByPathInheritsTowGroups()
+    {
+    	$file_right = new USVN_FilesAccessRights($this->_projectid1);
+    	$file_right->setRightByPath($this->_groupid1, "/", true, true);
+    	$file_right->setRightByPath($this->_groupid1, "/tags", true, false);
+
+    	$rights = $file_right->findByPath($this->_groupid1, "/");
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid1, "/branches");
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid1, "/tags");
+    	$this->assertTrue($rights['read']);
+    	$this->assertFalse($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid1, "/tags/tutu");
+    	$this->assertTrue($rights['read']);
+    	$this->assertFalse($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "/");
+    	$this->assertFalse($rights['read']);
+    	$this->assertFalse($rights['write']);
+
+    	$file_right->setRightByPath($this->_groupid2, "/", true, true);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "/");
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "/branches");
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "/tags");
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "/tags/tutu");
+    	$this->assertTrue($rights['read']);
+    	$this->assertTrue($rights['write']);
+    }
+
+    public function test_findByPathTowGroupsNoRightsOnSlash()
+    {
+    	$file_right = new USVN_FilesAccessRights($this->_projectid1);
+    	$file_right->setRightByPath($this->_groupid1, "/tags", true, false);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "/branches");
+    	$this->assertFalse($rights['read']);
+    	$this->assertFalse($rights['write']);
+        
+        $rights = $file_right->findByPath($this->_groupid2, "/");
+    	$this->assertFalse($rights['read']);
+    	$this->assertFalse($rights['write']);
+    }
+
+    public function test_findByPathSlashSlash()
+    {
+    	$file_right = new USVN_FilesAccessRights($this->_projectid1);
+    	$file_right->setRightByPath($this->_groupid1, "/tags", true, false);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "//");
+    	$this->assertFalse($rights['read']);
+    	$this->assertFalse($rights['write']);
+
+    	$rights = $file_right->findByPath($this->_groupid2, "/../../../../../../../../../../..");
+    	$this->assertFalse($rights['read']);
+    	$this->assertFalse($rights['write']);
     }
 
     public function test_findByPathError()

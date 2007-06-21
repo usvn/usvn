@@ -37,6 +37,7 @@ class USVN_FilesAccessRights
 	 */
 	public function findByPath($group_id, $path)
 	{
+        $path = str_replace('//', '/', $path);
 		if (strlen($path) == 0 || $path{0} !== '/') {
 			throw new USVN_Exception(T_("Invalid path %s."), $path);
 		}
@@ -52,6 +53,10 @@ class USVN_FilesAccessRights
 				}
 				if ($res_groupstofiles->files_rights_is_writable) {
 					$response['write'] = true;
+				}
+			} else {
+				if ($path != '/') {
+					return $this->findByPath($group_id, str_replace(basename($path), '', $path)); // Ugly hack do not use dirname because problems with \
 				}
 			}
 		}

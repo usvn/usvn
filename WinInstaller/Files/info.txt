@@ -1,0 +1,3 @@
+USVN url : http://localhost/usvn/
+login : admin
+password : usvnadmin

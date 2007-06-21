@@ -124,13 +124,12 @@ EOF;
 	 */
 	protected function addFooter($response)
 	{
-		$base_url = $this->getRequest()->getBaseUrl();
 		$footer = <<<EOF
 			<script type="text/javascript">
 				lookForHTMLTableTools(HTMLTableToolsOptions);
 			</script>
 			</div><br />
-			<div id="usvn_footer"><h5>Powered by <a href="http://www.usvn.info">USVN</a></h5></div>
+			
 		</div>
 	</body>
 </html>

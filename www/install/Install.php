@@ -168,6 +168,7 @@ class Install
 			"url" => $url
 			);
 			$config->save();
+            touch($path . DIRECTORY_SEPARATOR . 'authz');
 		}
 		else {
 			throw new USVN_Exception(T_("Invalid subversion path \"%s\", please check if directory exist and is writable."), $path);
@@ -220,7 +221,7 @@ EOF;
 			else {
 				$method = "http";
 			}
-			$url = "{$method}://{$_SERVER['HTTP_HOST']}:{$_SERVER['SERVER_PORT']}{$path}/login/";
+			$url = "{$method}://{$_SERVER['HTTP_HOST']}{$path}/login/";
 
 			$client = new Zend_Http_Client($url);
 			$response = $client->request();
@@ -269,7 +270,7 @@ EOF;
 	static public function installEnd($config_file)
 	{
 		$config = Install::_loadConfig($config_file);
-		$config->version = "0.6";
+		$config->version = "0.6.1";
 		$config->save();
 	}
 
@@ -366,7 +367,7 @@ EOF;
 		else {
 			$method = "http";
 		}
-		$image = dirname($method . "://" . $_SERVER['HTTP_HOST'] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER['PHP_SELF']) . "/../medias/default/images/USVN-logo.png";
+		$image = dirname($method . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']) . "/../medias/default/images/USVN-logo.png";
 		if (php_sapi_name() != "cli") {
 			if (function_exists("apache_get_modules") && !in_array("mod_rewrite", apache_get_modules())) {
 				throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));

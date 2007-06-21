@@ -8,6 +8,7 @@
   <property name="report_test_dir" value="test-report" override="true" />
   <property name="cover_report_dir" value="cover-report" override="true" />
   <property name="archive_dir" value="archive" override="true" />
+  <property name="wamp_dir" value="WinInstaller/Files/USVN" override="true" />
 
 
  <!-- File set -->
@@ -51,6 +52,11 @@
         <phingcall target="test-all" />
         <phingcall target="doc" />
         <phingcall target="tar" />
+    </target>
+
+    <target name="release-wamp">
+        <echo msg="Release USVN Wamp addon ${version}" />
+        <phingcall target="wamp" />
     </target>
 
     <target name="clean">
@@ -188,5 +194,14 @@
         <include name="**" />
       </fileset>
     </tar>
+  </target>
+
+<!-- Wamp -->
+  <target name="wamp">
+    <delete file="${wamp_dir)" />
+    <mkdir dir="${wamp_dir}" />
+    <copy todir="${wamp_dir}/">
+        <fileset refid="projectfile" />
+    </copy>
   </target>
 </project>

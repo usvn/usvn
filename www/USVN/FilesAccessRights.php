@@ -37,6 +37,7 @@ class USVN_FilesAccessRights
 	 */
 	public function findByPath($group_id, $path)
 	{
+        $path = str_replace('//', '/', $path);
 		if (strlen($path) == 0 || $path{0} !== '/') {
 			throw new USVN_Exception(T_("Invalid path %s."), $path);
 		}

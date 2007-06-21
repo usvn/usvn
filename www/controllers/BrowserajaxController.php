@@ -43,7 +43,7 @@ class BrowserajaxController extends USVN_Controller
 		$str = "<h2>";
 		$str .= '<a href=\'javascript:ajax(3, "/");\'>root</a>&nbsp;/&nbsp;';
 		$list = array();
-		while ($path != '/') {
+		while ($path != '/' && $path != '\\') {
 			array_push($list, $path);
 			$path = dirname($path);
 		}
@@ -61,7 +61,6 @@ class BrowserajaxController extends USVN_Controller
 	*/
 	private function getListFile($path)
 	{
-		$path = realpath($path);
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
 		$txthtml = $this->getTopLink($path) . "

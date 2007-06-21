@@ -124,7 +124,7 @@ class BrowserajaxController extends USVN_Controller
 		$table_groupstoproject = new USVN_Db_Table_GroupsToProjects();
 		$res_groupstoproject = $table_groupstoproject->findByProjectId($res_project->projects_id);
 		$table_groups = new USVN_Db_Table_Groups();
-		$text = "<table class='usvn_table'><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td></tr>";
+		$text = "<table class='usvn_table' width=22% cellpadding=3><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td></tr>";
 		$i = 0;
 		$disabled = "";
 		$identity = Zend_Auth::getInstance()->getIdentity();
@@ -136,20 +136,21 @@ class BrowserajaxController extends USVN_Controller
 			$access = $acces_rights->findByPath($groups->groups_id, $_GET['name']);
 			$res_groups = $table_groups->findByGroupsId($groups->groups_id);
 			$grp_name = $res_groups->groups_name;
-			$text .= "<tr><td><label id=Lb".$i.">".$grp_name."</label></td>";
+			$text .= "<tr><td weight=10%><label id=Lb".$i.">".$grp_name."</label></td>";
 			if ($access['read'] == 1)
-				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
+				$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
 			else
-				$text .= "<td><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
+				$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
 			if ($access['write'] == 1)
-				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
+				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
 			else
-				$text .= "<td><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
+				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
 			$i++;
 		}
 		$text .= "</table>";
 		$text .= "<br /><table><tr><td><input type='button' value='Ok' onclick=\"javascript:ajax(2, '" . $_GET['name'] . "');\" $disabled/></td><td>";
 		$text .= "<input type='button' value='Cancel' onclick='javascript:cancel();'/></td></tr></table><label id='labelError'></label>";
+		echo "<basename>".basename($_GET['name'])."</basename>";
 		echo "<nbgroup>".$i."</nbgroup>\n";
 		echo "<groups><![CDATA[".$text."]]></groups>\n";
 	}

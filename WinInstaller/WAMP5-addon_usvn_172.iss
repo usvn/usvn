@@ -30,7 +30,12 @@ Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignorevers
 Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
 
 Source: ".\Files\usvn.conf"; DestDir: "{app}\Apache2\conf\alias\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigAlias('{app}')
+Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
 Source: ".\Files\USVN\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
+Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
+Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InfoBox('{app}\USVN\')
 [Code]
 var
   ResultCode: Integer;
@@ -70,8 +75,13 @@ begin
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
   LoadStringFromFile (FileName + '\Apache2\conf\alias\usvn.conf', SrcContent4);
-  StringChangeEx(SrcContent4, 'Alias /usvn/ "c:/usvn/"', 'Alias /usvn/' + ' "' + FileName2 + '/USVN/"', True);
+  StringChangeEx(SrcContent4, 'Alias /usvn "c:/usvn/"', 'Alias /usvn' + ' "' + FileName2 + '/USVN/"', True);
   StringChangeEx(SrcContent4, '<Directory "c:/usvn/">', '<Directory "' + FileName2 + '/USVN/">', True);
+  
+  StringChangeEx(SrcContent4, '	SVNParentPath c:/usvn/', '	SVNParentPath "' + FileName2 + '/USVN/files/svn"', True);
+  StringChangeEx(SrcContent4, '	AuthUserFile c:/usvn/', '	AuthUserFile "' + FileName2 + '/USVN/files/htpasswd"', True);
+  StringChangeEx(SrcContent4, '	AuthzSVNAccessFile c:/usvn/', '	AuthzSVNAccessFile "' + FileName2 + '/USVN/files/authz"', True);
+  
   DeleteFile (FileName + '\Apache2\conf\alias\usvn.conf');
   SaveStringToFile(FileName + '\Apache2\conf\alias\usvn.conf',SrcContent4, false);
 
@@ -81,6 +91,45 @@ begin
     SaveStringToFile(FileName + '\Apache2\conf\httpd.conf', #13#10 + 'Include "' + FileName2 + '/apache2/conf/alias/usvn.conf"' + #13#10, true);
   end;
   
+end;
+
+procedure ConfigConfig(FileName: String);
+var SrcContent4: String;
+var FileName2: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+  FileName2:= FileName;
+  StringChange (FileName2, '\','/');
+  LoadStringFromFile (FileName + '\USVN\config.ini', SrcContent4);
+  StringChangeEx(SrcContent4, 'subversion.path = ""', 'subversion.path = "' + FileName2 + '/USVN/files/"', True);
+  StringChangeEx(SrcContent4, 'database.options.dbname = ""', 'database.options.dbname = "' + FileName2 + '/USVN/files/usvn.db"', True);
+  DeleteFile (FileName + '\USVN\config.ini');
+  SaveStringToFile(FileName + '\USVN\config.ini', SrcContent4, false);
+end;
+
+
+procedure ConfigDB(FileName: String);
+var SrcContent4: String;
+var FileName2: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+  FileName2:= FileName;
+  StringChange (FileName2, '\','/');
+  CreateDir(FileName2 + '/USVN/files/svn/');
+end;
+
+procedure InfoBox(FileName: String);
+var FileName2: String;
+var ErrorCode: Integer;
+
+begin
+
+  FileName:= ExpandConstant(FileName);
+  FileName2:= FileName;
+  StringChange (FileName2, '\','/');
+  ShellExec('open', FileName2 + '/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
 end;
 
 [Run]

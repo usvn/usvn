@@ -68,6 +68,7 @@ class InstallTest extends USVN_Test_Test {
 	{
 		Install::installSubversion("tests/tmp/config.ini", "tests", "http://test.com");
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$this->assertTrue(file_exists("tests/authz"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("tests" . DIRECTORY_SEPARATOR, $config->subversion->path);
 		$this->assertEquals("http://test.com/", $config->subversion->url);
@@ -155,7 +156,7 @@ class InstallTest extends USVN_Test_Test {
 	{
 		Install::installEnd("tests/tmp/config.ini");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("0.6", $config->version);
+		$this->assertEquals("0.6.1", $config->version);
 	}
 
 	public function testInstallPossibleNoConfigFile()

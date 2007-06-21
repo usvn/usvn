@@ -168,6 +168,7 @@ class Install
 			"url" => $url
 			);
 			$config->save();
+            touch($path . DIRECTORY_SEPARATOR . 'authz');
 		}
 		else {
 			throw new USVN_Exception(T_("Invalid subversion path \"%s\", please check if directory exist and is writable."), $path);
@@ -269,7 +270,7 @@ EOF;
 	static public function installEnd($config_file)
 	{
 		$config = Install::_loadConfig($config_file);
-		$config->version = "0.6";
+		$config->version = "0.6.1";
 		$config->save();
 	}
 

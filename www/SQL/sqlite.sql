@@ -19,8 +19,6 @@ CREATE TABLE usvn_projects ( projects_name varchar(255) not null, projects_start
 CREATE UNIQUE INDEX usvn_projects_projects_name ON usvn_projects(projects_name);
 
 
-
-
 CREATE TABLE usvn_users ( users_login varchar(255) not null, users_password varchar(64) not null, users_lastname varchar(100), users_firstname varchar(100), users_email varchar(150), users_is_admin bool, users_id integer primary key autoincrement );
 CREATE UNIQUE INDEX usvn_users_users_login ON usvn_users(users_login);
 
@@ -31,3 +29,5 @@ CREATE TABLE usvn_users_to_groups ( users_id, groups_id integer , is_leader bool
 
 
 CREATE TABLE usvn_users_to_projects ( users_id, projects_id integer, constraint fk_usvn_users_to_projects foreign key (users_id) references usvn_users (users_id) on delete restrict on update restrict, constraint fk_usvn_users_to_projects2 foreign key (projects_id) references usvn_projects (projects_id) on delete restrict on update restrict );
+CREATE UNIQUE INDEX users_to_projects ON usvn_users_to_projects(users_id, projects_id);
+CREATE UNIQUE INDEX groups_to_projects ON usvn_groups_to_projects(groups_id,projects_id)

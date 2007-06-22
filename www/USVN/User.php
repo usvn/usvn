@@ -99,34 +99,29 @@ class USVN_User
 			$table = new USVN_Db_Table_Groups();
 			$group = $table->createRow(array("groups_name" => $this->user->login));
 			try {
-				try {
-					$group->save();
-				}
-				catch (Exception $e) {
-					$table = new USVN_Db_Table_Groups();
-					$where = $table->getAdapter()->quoteInto('groups_name = ?', $this->user->login);
-					$row = $table->fetchRow($where);
-					if ($row != null) {
-						$this->user->delete();
-						throw new USVN_Exception(T_("This user can't be created. A group  has the same name."));
-					}
-					else {
-						throw $e;
-					}
-				}
-				if ($this->groups != null) {
-					$this->user->deleteAllGroups();
-					foreach ($this->groups as $group) {
-						$this->user->addGroup($group);
-					}
-				}
-				$this->groups[] = $group->id;
+				$group->save();
 			}
-			catch (Exception $e){
-				$this->user->delete();
-				throw $e;
+			catch (Exception $e) {
+				$table = new USVN_Db_Table_Groups();
+				$where = $table->getAdapter()->quoteInto('groups_name = ?', $this->user->login);
+				$row = $table->fetchRow($where);
+				if ($row != null) {
+					$this->user->delete();
+					throw new USVN_Exception(T_("This user can't be created. A group has the same name."));
+				}
+				else {
+					throw $e;
+				}
+				return ;
 			}
 		}
+		if ($this->groups != null) {
+			$this->user->deleteAllGroups();
+			foreach ($this->groups as $group) {
+				$this->user->addGroup($group);
+			}
+		}
+		$this->groups[] = $group->id;
 	}
 
 	/**

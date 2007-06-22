@@ -25,6 +25,7 @@ header("Content-encoding: UTF-8");
 
 set_include_path(get_include_path() .PATH_SEPARATOR ."../../");
 require_once 'USVN/autoload.php';
+USVN_Translation::initTranslation('en_US', '../../locale');
 
 $config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 

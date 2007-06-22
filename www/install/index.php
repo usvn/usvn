@@ -22,7 +22,7 @@ define('HTACCESS_FILE', "../.htaccess");
 
 header("Content-encoding: UTF-8");
 
-set_include_path(get_include_path() .PATH_SEPARATOR ."..");
+set_include_path(get_include_path() .PATH_SEPARATOR . "..");
 require_once 'USVN/autoload.php';
 require_once 'Install.php';
 

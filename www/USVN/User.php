@@ -100,6 +100,7 @@ class USVN_User
 			$group = $table->createRow(array("groups_name" => $this->user->login));
 			try {
 				$group->save();
+				$this->groups[] = $group->id;
 			}
 			catch (Exception $e) {
 				$table = new USVN_Db_Table_Groups();
@@ -112,16 +113,16 @@ class USVN_User
 				else {
 					throw $e;
 				}
-				return ;
 			}
 		}
-		if ($this->groups != null) {
+
+
+		if ($this->groups !== null) {
 			$this->user->deleteAllGroups();
 			foreach ($this->groups as $group) {
 				$this->user->addGroup($group);
 			}
 		}
-		$this->groups[] = $group->id;
 	}
 
 	/**

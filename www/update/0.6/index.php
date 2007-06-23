@@ -25,10 +25,17 @@ header("Content-encoding: UTF-8");
 
 set_include_path(get_include_path() .PATH_SEPARATOR ."../../");
 require_once 'USVN/autoload.php';
+USVN_Translation::initTranslation('en_US', '../../locale');
 
-$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
-
-$config->version = "0.6.1";
-$config->save();
+try {
+	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
+	$config->version = "0.6.1";
+	$config->save();
+}
+catch (USVN_Exception $e) {
+	echo "<h1>Update error</h1>";
+	echo $e->getMessage();
+	exit(1);
+}
 
 header("Location: ../../");

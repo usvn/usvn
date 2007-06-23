@@ -73,15 +73,19 @@ function alert_ajax(xhr, index, id)
 		{
 			var items_groups = docXML.getElementsByTagName("groups").item(0).firstChild.data;
 			items_nbgroup = docXML.getElementsByTagName("nbgroup").item(0).firstChild.data;
-			basename = docXML.getElementsByTagName("basename").item(0).firstChild.data;
+			if (docXML.getElementsByTagName("basename").item(0).firstChild) {
+				basename = docXML.getElementsByTagName("basename").item(0).firstChild.data;
+			} else {
+				basename = "/";
+			}
 			var bulle = "<h3>&nbsp;<?php echo T_('Acces rights for'); ?>" + " " + basename + "&nbsp;</h3>";
 			bulle += items_groups;
 			document.getElementById('bulle').style.visibility = 'visible';
 			document.getElementById('bulle').innerHTML = bulle;
 			//document.getElementById('bulle').style.left = mouse_x - 15 + "px";
-  			//document.getElementById('bulle').style.top = mouse_y - 205 + "px";		
+  			//document.getElementById('bulle').style.top = mouse_y - 205 + "px";
 			document.getElementById('bulle').style.left = mouse_x + 5 + "px";
-  			document.getElementById('bulle').style.top = mouse_y - 212 + "px";		
+  			document.getElementById('bulle').style.top = mouse_y - 212 + "px";
 		}
 		if (index == 2)
 		{

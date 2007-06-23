@@ -66,7 +66,18 @@ class UseradminController extends AdminadminController
 
 	public function createAction()
 	{
-		$data = $this->getUserData($_POST);
+		try {
+			$data = $this->getUserData($_POST);
+		}
+		catch (Exception $e) {
+			$this->view->user = USVN_User::create($_POST, false, false)->getRowObject();
+			$this->view->message = $e->getMessage();
+			$table = new USVN_Db_Table_Groups();
+			$this->view->groups = $table->fetchAll(null, 'groups_name');
+			$this->render('new');
+			return ;
+		}
+
 		if (empty($data)) {
 			$this->_redirect("/admin/user/new");
 		}
@@ -97,7 +108,18 @@ class UseradminController extends AdminadminController
 
 	public function updateAction()
 	{
-		$data = $this->getUserData($_POST);
+		try {
+			$data = $this->getUserData($_POST);
+		}
+		catch (Exception $e) {
+			$this->view->user = USVN_User::create($_POST, false, false)->getRowObject();
+			$this->view->message = $e->getMessage();
+			$table = new USVN_Db_Table_Groups();
+			$this->view->groups = $table->fetchAll(null, 'groups_name');
+			$this->render('new');
+			return ;
+		}
+
 		if (empty($data)) {
 			$this->_redirect("/admin/user/new");
 		}

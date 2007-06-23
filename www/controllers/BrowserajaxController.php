@@ -43,6 +43,7 @@ class BrowserajaxController extends USVN_Controller
 		$str = "<h2>";
 		$str .= '<a href=\'javascript:ajax(3, "/");\'>root</a>&nbsp;/&nbsp;';
 		$list = array();
+		$path = preg_replace("#/+#", '/', $path);
 		while ($path != '/' && $path != '\\') {
 			array_push($list, $path);
 			$path = dirname($path);

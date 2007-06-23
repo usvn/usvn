@@ -39,12 +39,14 @@ class UseradminController extends AdminadminController
 					  'users_email'     => $data['users_email'],
 					  'users_is_admin'  => $data['users_is_admin'],
 						);
+
 		if (!empty($_POST['users_password']) && !empty($_POST['users_password2'])) {
 			if ($_POST['users_password'] !== $_POST['users_password2']) {
 				throw new Exception(T_('Not the same password.'));
 			}
 			$user['users_password'] = $data['users_password'];
 		}
+
 		return $user;
 	}
 
@@ -68,8 +70,7 @@ class UseradminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/user/new");
 		}
-
-		$user = USVN_User::create($data, isset($_POST['create_group']), isset($_POST['groups']));
+		$user = USVN_User::create($data, isset($_POST['create_group']) ? $_POST['create_group'] : false, $_POST['groups']);
 		try {
 			$user->save();
 			$this->_redirect("/admin/user/");

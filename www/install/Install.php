@@ -223,11 +223,16 @@ EOF;
 			}
 			$url = "{$method}://{$_SERVER['HTTP_HOST']}{$path}/login/";
 
-			$client = new Zend_Http_Client($url);
-			$response = $client->request();
+			try {
+				$client = new Zend_Http_Client($url);
+				$response = $client->request();
 
-			if ($response->getStatus() == 404) {
-				throw new USVN_Exception(T_("AllowOverride seems to be missing.\nPlease check your configuration settings and come back.\n"));
+				if ($response->getStatus() == 404) {
+					throw new USVN_Exception(T_("AllowOverride seems to be missing.\nPlease check your configuration settings and come back.\n"));
+				}
+			}
+			catch (Zend_Http_Client_Adapter_Exception $e) {
+				;
 			}
 		}
 	}
@@ -373,13 +378,17 @@ EOF;
 				throw new  USVN_Exception(T_("mod_rewrite seems not to be loaded"));
 			}
 			else {
-				$client = new Zend_Http_Client($image);
-				$response = $client->request();
+				try {
+					$client = new Zend_Http_Client($image);
+					$response = $client->request();
 
-				if ($response->getStatus() != 200) {
-					throw new USVN_Exception(T_("mod_rewrite seems not to be loaded"));
+					if ($response->getStatus() != 200) {
+						throw new USVN_Exception(T_("mod_rewrite seems not to be loaded"));
+					}
 				}
-
+				catch (Zend_Http_Client_Adapter_Exception $e) {
+					;
+				}
 			}
 		}
 		if (function_exists("apache_get_modules") && !in_array("mod_dav_svn", apache_get_modules())) {

@@ -28,7 +28,7 @@ require_once 'USVN/autoload.php';
 
 $config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 
-$config->version = "0.6.1";
+$config->version = "0.6.2";
 include dirname(__FILE__) . '/db.php';
 $config->save();
 

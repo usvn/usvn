@@ -72,7 +72,7 @@ function installationOperation($step)
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
 	switch ($step) {
 		case 1:
-			//Install::checkSystem();
+			Install::checkSystem();
 			Install::installUrl(CONFIG_FILE, HTACCESS_FILE);
 		break;
 

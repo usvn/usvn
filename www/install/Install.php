@@ -224,11 +224,13 @@ EOF;
 			$url = "{$method}://{$_SERVER['HTTP_HOST']}{$path}/login/";
 
 			try {
-				$client = new Zend_Http_Client($url);
+				$client = new Zend_Http_Client($url, array(
+					'maxredirects' => 0,
+					'timeout'      => 30));
 				$response = $client->request();
 
 				if ($response->getStatus() == 404) {
-					throw new USVN_Exception(T_("AllowOverride seems to be missing.\nPlease check your configuration settings and come back.\n"));
+					throw new USVN_Exception(T_("AllowOverride seems to be missing.\nPlease check your configuration settings and come back.\n$url"));
 				}
 			}
 			catch (Zend_Http_Client_Adapter_Exception $e) {

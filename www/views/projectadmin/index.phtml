@@ -1,4 +1,6 @@
 <script type="text/javascript">
+HTMLTableToolsOptions.multiColSort = false;
+HTMLTableToolsOptions.showSortIndex = false;
 HTMLTableToolsOptions.skipCells = [3];
 </script>
 <div class="usvn_info_project">
@@ -6,7 +8,7 @@ HTMLTableToolsOptions.skipCells = [3];
 </div>
 <?php
 
-print '<table class="sortable" id="project">' .
+print '<table class="sortable" id="projects">' .
 		'<thead><tr>' .
 		'<th>' . T_('Name') . '</th>' .
 		'<th>' . T_('Description') . '</th>' .
@@ -20,14 +22,10 @@ if (count($this->projects)) {
 		$deletetext = T_("Do you really want to delete project %s?");
 		echo <<<EOF
 		<tr>
+			<td><a href="{$adminurl}">{$project->projects_name}</a></td>
+			<td><a href="{$editurl}">{$project->projects_description}</a></td>
 			<td>
-				<a href="{$adminurl}">{$project->projects_name}</a>
-			</td>
-			<td>
-				<a href="{$editurl}">{$project->projects_description}</a>
-			</td>
-			<td>
-                {$this->editLink('name', $project->name)}
+				{$this->editLink('name', $project->name)}
                 {$this->deleteLink('name', $project->name, $deletetext)}
                 {$this->ACLLink($project->name)}
             </td>

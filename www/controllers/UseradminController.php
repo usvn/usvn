@@ -81,7 +81,9 @@ class UseradminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/user/new");
 		}
-		$user = USVN_User::create($data, isset($_POST['create_group']) ? $_POST['create_group'] : false, $_POST['groups']);
+		$user = USVN_User::create($data,
+									isset($_POST['create_group']) ? $_POST['create_group'] : false,
+									isset($_POST['groups']) ? $_POST['groups'] : null);
 		try {
 			$user->save();
 			$this->_redirect("/admin/user/");
@@ -125,7 +127,9 @@ class UseradminController extends AdminadminController
 		}
 		$user = null; /* some ugly hack of variable scope... */
 		try {
-			$user = USVN_User::update($this->getRequest()->getParam('login'), $data, $_POST['groups']);
+			$user = USVN_User::update($this->getRequest()->getParam('login'),
+										$data,
+										isset($_POST['groups']) ? $_POST['groups'] : null);
 			$user->save();
 			$this->_redirect("/admin/user/");
 		}

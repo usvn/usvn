@@ -45,6 +45,18 @@ String.prototype.trim = function(str) {
 	return str.replace(/^[\s\xA0]+/g, '').replace(/[\s\xA0]+$/g, '');
 };
 
+// propriete unescape sur les string
+String.prototype.unescape = function(str) {
+	str = this != window ? this : str;
+	str = str.replace(/&lt;/g, "<");
+	str = str.replace(/&gt;/g, ">");
+	str = str.replace(/<br\s*\/>/g, "|");
+	str = str.replace(/&nbsp;/g, " ");
+	str = str.replace(/&amp;/g, "&");
+	str = str.replace(/^[\s\xA0]+/g, '').replace(/[\s\xA0]+$/g, '');
+	return str;
+};
+
 // propriete removeaccent sur les string
 String.prototype.removeaccent = function(str) {
     str = this != window? this : str;
@@ -106,7 +118,11 @@ HTMLTableTools.prototype = {
 			this.errorMsg = "Veuillez fournir l'ID du tableau à gérer.";
 			return;
 		}
-;
+
+		//Get userAgent for some compatibility tests
+		userAgent = new String(navigator.userAgent);
+		var checkRegExpIE = new RegExp("IE");
+
 		// recup l'objet tableau correspondant a l'id fourni
 		this.table = $(tableId);
 
@@ -237,7 +253,7 @@ HTMLTableTools.prototype = {
 		spanIndex[0].innerHTML = '';
 		  //Span pour le text
 		var spanText = new Array();
-		spanText[0] = Builder.node( 'span', {id: this.table.id + 'spanText0', style: 'cursor: pointer'} );
+		spanText[0] = Builder.node( 'span', {id: this.table.id + 'spanText0', style: (!checkRegExpIE.test(userAgent) ? 'cursor: pointer' : 'padding-right: 3px')} );
 		spanText[0].innerHTML = '';
 		//Input pour les filtres
 		input[0] = Builder.node('input', {type:'text', size: 10});
@@ -267,7 +283,12 @@ HTMLTableTools.prototype = {
 				}
 				//set des input pour les filtres
 				input[cellCpt].id = this.table.id + 'search[' + cellCpt + ']';
-				input[cellCpt].style.visibility = 'collapse';
+				//visibility properties not compatible with Internet Explorer
+				if (!checkRegExpIE.test(userAgent)) {
+					input[cellCpt].style.visibility = 'collapse';
+				} else {
+					input[cellCpt].style.display = 'none';
+				}
 				input[cellCpt].cellCpt = cellCpt;
 				//span pour le libelle des colonnes
 				spanText[cellCpt].innerHTML = this.table.rows[0].cells[cellCpt].innerHTML;
@@ -545,11 +566,20 @@ HTMLTableTools.prototype = {
 			cellIndex = element.cellCpt;
 			for ( var rowCpt = 1; rowCpt < this.table.rows.length; rowCpt++ ) {
 					var currentRow = $(this.table.rows[rowCpt]);
-					var string = new String(this.table.rows[rowCpt].cells[cellIndex].innerHTML).toLowerCase();
-					if (string.indexOf(element.value.toLowerCase(), 0) == -1) {
+					var text = new String(currentRow.cells[cellIndex].innerHTML.unescapeHTML()).toLowerCase();
+					if (text.indexOf(element.value.toLowerCase(), 0) == -1) {
 							this.table.rows[rowCpt].style.visibility = "collapse";
+//code a voir plus tard pour permettre la compatibilite avec IE ET firefox (ok sous IE mais pas firefox)
+//							this.table.rows[rowCpt].style.display = "none";
 					} else {
 							this.table.rows[rowCpt].style.visibility = "visible";
+//							userAgent = new String(navigator.userAgent);
+//							var checkRegExp = new RegExp("IE");
+//							if (!checkRegExp.test(userAgent)) {
+//								this.table.rows[rowCpt].style.display = "block";
+//							} else {
+//								this.table.rows[rowCpt].style.display = "table-row";
+//							}
 					}
 			}
 	},

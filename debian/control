@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: usvn
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, php5, subversion, libapache2-svn, apache2
+Depends: ${shlibs:Depends}, ${misc:Depends}, php5, subversion, libapache2-svn, apache2, php5-sqlite
 Description: Graphical web interface for manage Subversion repositories.
    USVN is an Open Source free software which allows everyone to use Subversion in an easily way.
    It's a web tool which can manage SVN official server configuration.

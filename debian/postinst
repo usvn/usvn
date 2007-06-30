@@ -1,0 +1,2 @@
+a2enmod rewrite
+apache2ctl restart

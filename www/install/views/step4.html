@@ -40,6 +40,36 @@
 		</tr>
 		<tr>
 			<td>
+                               <label class="usvn_label" for="passwdFile">
+                               <a href="#" class="usvn_tooltips">
+                                       <?php echo T_("Subversion password file ");?>
+                                       <span><?php echo T_("Location where usvn will create password file."); ?></span>
+                               </a>:
+                       </td>
+                       <td>
+                               <input type="text" size="67" name="passwdFile" value="<?php
+                               echo dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "htpasswd";
+                               ?>" />
+                               </label>
+                       </td>
+               </tr>
+               <tr>
+                       <td>
+                               <label class="usvn_label" for="authzFile">
+                               <a href="#" class="usvn_tooltips">
+                                       <?php echo T_("Subversion access file") ;?>
+                                       <span><?php echo T_("Location where usvn will create access file."); ?></span>
+                               </a>:
+                       </td>
+                       <td>
+                               <input type="text" size="67" name="authzFile" value="<?php
+                               echo dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "authz";
+                               ?>" />
+                               </label>
+                       </td>
+               </tr>
+               <tr>
+                       <td>
 				<label class="usvn_label" for="urlSubversion">
 				<a href="#" class="usvn_tooltips">
 					<?php echo T_("Subversion url");?>

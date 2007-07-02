@@ -62,6 +62,6 @@ class USVN_Authz
 			}
 		}
 
-		@file_put_contents($config->subversion->path . "authz", $file);
+               @file_put_contents($config->subversion->authz, $file);
 	}
 }

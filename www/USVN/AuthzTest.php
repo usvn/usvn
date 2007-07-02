@@ -65,7 +65,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$table = new USVN_Db_Table_Groups();
 		$table->delete(1);
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\n", $file);
 	}
 
@@ -77,7 +77,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group->name = "toto";
 		$group->save();
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ntoto = \n", $file);
 	}
 
@@ -95,7 +95,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 
 		$group->addUser($user1);
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ntoto = user1\n", $file);
 	}
 
@@ -115,7 +115,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group->addUser($user1);
 		$group->addUser($user2);
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ntoto = user1, user2\n", $file);
 	}
 
@@ -137,7 +137,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group->addUser($user2);
 		$group->addUser($user3);
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ntoto = user1, user2, user3\n", $file);
 	}
 
@@ -153,7 +153,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group1->addUser($user1);
 		$group2->addUser($user1);
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1\ngroup2 = user1\n", $file);
 	}
 
@@ -170,7 +170,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group1->addUser($user1);
 		$group2->addUser($user2);
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1\ngroup2 = user2\n", $file);
 	}
 
@@ -191,7 +191,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group2->addUser($user1);
 		$group2->addUser($user2);
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\n", $file);
 	}
 
@@ -213,7 +213,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group2->addUser($user2);
 
 		$project1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false);
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\nproject1 = \n\n\n# Project project1\n[project1:/]\n@project1 = rw\n\n", $file);
 	}
 
@@ -245,7 +245,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 			${"files_rights" . $i}->save();
 		}
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\nproject1 = \n\n\n# Project project1\n[project1:/]\n@project1 = rw\n\n[project1:/directory1]\n\n[project1:/directory2]\n\n[project1:/directory3]\n\n", $file);
 	}
 
@@ -315,7 +315,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 			}
 		}
 
-		$file = file_get_contents(Zend_Registry::get('config')->subversion->path . "authz");
+		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals("[/]\n* = \n\n[groups]\ngroup1 = user1, user2, user3\ngroup2 = user1, user2\ngroup3 = user1, user3\nproject1 = \nproject2 = \nproject3 = \n\n\n# Project project1\n[project1:/]\n@project1 = rw\n\n[project1:/directory1]\n@group1 = rw\n@group2 = \n@group3 = r\n\n[project1:/directory2]\n@group1 = rw\n@group2 = \n@group3 = \n\n[project1:/directory3]\n@group1 = rw\n@group2 = \n@group3 = r\n\n[project1:/directory4]\n@group1 = rw\n@group2 = \n@group3 = \n\n[project1:/directory5]\n@group1 = rw\n@group2 = \n@group3 = r\n\n\n\n# Project project2\n[project2:/]\n@project2 = rw\n\n[project2:/directory1]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n[project2:/directory2]\n@group1 = \n@group2 = rw\n@group3 = \n\n[project2:/directory3]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n[project2:/directory4]\n@group1 = \n@group2 = rw\n@group3 = \n\n[project2:/directory5]\n@group1 = r\n@group2 = rw\n@group3 = r\n\n\n\n# Project project3\n[project3:/]\n@project3 = rw\n\n[project3:/directory1]\n@group1 = r\n@group2 = \n@group3 = rw\n\n[project3:/directory2]\n@group1 = \n@group2 = \n@group3 = rw\n\n[project3:/directory3]\n@group1 = r\n@group2 = \n@group3 = rw\n\n[project3:/directory4]\n@group1 = \n@group2 = \n@group3 = rw\n\n[project3:/directory5]\n@group1 = r\n@group2 = \n@group3 = rw\n\n", $file);
 	}
 

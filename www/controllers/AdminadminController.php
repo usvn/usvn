@@ -38,4 +38,10 @@ class AdminadminController extends USVN_Controller
 			$this->_redirect("/");
 		}
 	}
+
+	public function indexAction()
+	{
+		$this->view->config = Zend_Registry::get('config');
+		parent::indexAction();
+	}
 }

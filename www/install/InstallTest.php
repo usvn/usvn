@@ -66,18 +66,20 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallSubversion()
 	{
-		Install::installSubversion("tests/tmp/config.ini", "tests", "http://test.com");
+		Install::installSubversion("tests/tmp/config.ini", "tests", "tests" . DIRECTORY_SEPARATOR . "htpasswd", "tests" . DIRECTORY_SEPARATOR . "authz", "http://test.com");
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$this->assertTrue(file_exists("tests/authz"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("tests" . DIRECTORY_SEPARATOR, $config->subversion->path);
+		$this->assertEquals("tests" . DIRECTORY_SEPARATOR . "htpasswd", $config->subversion->passwd);
+		$this->assertEquals("tests" . DIRECTORY_SEPARATOR . "authz", $config->subversion->authz);
 		$this->assertEquals("http://test.com/", $config->subversion->url);
 	}
 
 	public function testInstallSubversionPathDoesntExist()
 	{
 		try	{
-		Install::installSubversion("tests/tmp/config.ini", "test2", 'http://test.com');
+		Install::installSubversion("tests/tmp/config.ini", "test2", "test2/htpasswd", "test2/authz", 'http://test.com');
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -200,8 +202,10 @@ class InstallTest extends USVN_Test_Test {
 	public function testGetApacheConfig()
 	{
 		file_put_contents("tests/tmp/config.ini", "[general]
-subversion.path=tests" .DIRECTORY_SEPARATOR . "tmp
+subversion.path=tests" . DIRECTORY_SEPARATOR . "tmp
 subversion.url=http://exemple/dev/usvn/
+subversion.authz=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
+subversion.passwd=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 site.title=USVN
 		");
 		$this->assertEquals(

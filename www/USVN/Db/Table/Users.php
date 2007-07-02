@@ -126,8 +126,8 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 			$text .= "{$user->login}:{$user->password}\n";
 		}
 		$config = Zend_Registry::get('config');
-		if (@file_put_contents($config->subversion->path . "htpasswd", $text) === false) {
-			throw new USVN_Exception(T_('Can\'t create or write on htpasswd file.'));
+		if (@file_put_contents($config->subversion->passwd, $text) === false) {
+			throw new USVN_Exception(T_('Can\'t create or write on htpasswd file %s.'), $config->subversion->passwd);
 		}
 	}
 
@@ -145,7 +145,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Return all users like login
 	 *

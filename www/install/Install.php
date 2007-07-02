@@ -149,9 +149,11 @@ class Install
 	*
 	* @param string Path to the USVN config file
 	* @param string Path to subversion directory
+	* @param string Path to subversion password file
+	* @param string Path to subversion access file
 	* @param string Url of subversion repository
 	*/
-	static public function installSubversion($config_file, $path, $url)
+	static public function installSubversion($config_file, $path, $passwd, $authz, $url)
 	{
 		if (substr($path, -1) != DIRECTORY_SEPARATOR) {
 			$path .= DIRECTORY_SEPARATOR;
@@ -165,10 +167,12 @@ class Install
 		&& (file_exists($path . DIRECTORY_SEPARATOR . 'svn') || mkdir($path . DIRECTORY_SEPARATOR . 'svn'))) {
 			$config->subversion = array(
 			"path" => $path,
+			"passwd" => $passwd,
+			"authz" => $authz,
 			"url" => $url
 			);
 			$config->save();
-            touch($path . DIRECTORY_SEPARATOR . 'authz');
+			touch($authz);
 		}
 		else {
 			throw new USVN_Exception(T_("Invalid subversion path \"%s\", please check if directory exist and is writable."), $path);
@@ -347,8 +351,8 @@ EOF;
 		$res .= "\tSVNListParentPath off\n";
 		$res .= "\tAuthType Basic\n";
 		$res .= "\tAuthName \"" . $config->site->title . "\"\n";
-		$res .= "\tAuthUserFile " . $path . "htpasswd\n";
-		$res .= "\tAuthzSVNAccessFile " . $path . "authz\n";
+		$res .= "\tAuthUserFile " . $config->subversion->passwd . "\n";
+		$res .= "\tAuthzSVNAccessFile " . $config->subversion->authz . "\n";
 		$res .= "</Location>";
 		return $res;
 	}

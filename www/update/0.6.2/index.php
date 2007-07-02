@@ -1,12 +1,12 @@
 <?php
 /**
- * Upgrade from 0.6.1 to 0.6.2
+ * Upgrade from 0.6.2 to 0.6.3
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
- * @since 0.6.2
+ * @since 0.6.3
  * @package update
  *
  * This software has been written at EPITECH <http://www.epitech.net>
@@ -19,7 +19,6 @@
 
 
 define('USVN_CONFIG_FILE', "../../config.ini");
-define('USVN_HTACCESS_FILE', "../../.htaccess");
 
 header("Content-encoding: UTF-8");
 
@@ -29,8 +28,7 @@ USVN_Translation::initTranslation('en_US', '../../locale');
 
 try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
-	$config->version = "0.6.2";
-	include dirname(__FILE__) . '/db.php';
+	$config->version = "0.6.3";
 	$config->save();
 }
 catch (Exception $e) {

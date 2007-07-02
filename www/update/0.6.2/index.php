@@ -29,6 +29,8 @@ USVN_Translation::initTranslation('en_US', '../../locale');
 try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 	$config->version = "0.6.3";
+	$config->subversion->passwd = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $config->subversion->path . DIRECTORY_SEPARATOR . "htpasswd");
+	$config->subversion->authz = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $config->subversion->path . DIRECTORY_SEPARATOR . "authz");
 	$config->save();
 }
 catch (Exception $e) {

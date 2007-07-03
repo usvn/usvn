@@ -146,6 +146,23 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		return true;
 	}
 
+
+	/**
+	 * Return the user by his name
+	 *
+	 * @param string $name
+	 * @return USVN_Db_Table_Row
+	 */
+	public function findByName($name)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter */
+		$where = $db->quoteInto("users_login = ?", $name);
+		return $this->fetchRow($where, "users_login");
+	}
+
+
+
 	/**
 	 * Return all users like login
 	 *

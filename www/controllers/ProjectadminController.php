@@ -85,6 +85,14 @@ class ProjectadminController extends AdminadminController
 		if ($project === null) {
 			$this->_redirect("/admin/project/");
 		}
+
+		$identity = Zend_Auth::getInstance()->getIdentity();
+		$user_table = new USVN_Db_Table_Users();
+		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
+
+		$table->AddUserToProject($users, $project);
+		
+
 		$project->setFromArray($data);
 		try {
 			$project->save();

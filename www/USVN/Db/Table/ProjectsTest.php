@@ -53,6 +53,39 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
 	}
 
+
+
+	public function testInsertUserToProjects()
+	{
+
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array(
+		'users_login' 		=> 'TestOk',
+		'users_password' 	=> 'password',
+		'users_firstname' 	=> 'firstname',
+		'users_lastname' 	=> 'lastname',
+		'users_email' 		=> 'email@email.fr'));
+		$obj->save();
+		$users_id = $table->findByName("TestOk")->users_id;
+
+		$table = new USVN_Db_Table_Projects();
+		$project = $table->fetchNew();
+		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project->save();
+
+		$projects_id = $table->findByName("InsertProjectOk")->projects_id;
+
+		$create = new USVN_Db_Table_UsersToProjects();
+		$add = $create->createRow(array('users_id' => $users_id, 'projects_id' => $projects_id));
+		try {
+			$add->save();
+		}
+		catch (Exception $e) {
+			throw $e;
+			return;
+		}
+	}
 	public function testInsertProjectOkSVNAlreadyExist()
 	{
 		USVN_SVNUtils::createSVN('tests/tmp/'
@@ -171,10 +204,10 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$table_user = new USVN_Db_Table_Users();
 		$user = $table_user->fetchNew();
 		$user->setFromArray(array('users_login' 		=> 'test',
-									'users_password' 	=> 'password',
-									'users_firstname' 	=> 'firstname',
-									'users_lastname' 	=> 'lastname',
-									'users_email' 		=> 'email@email.fr'));
+		'users_password' 	=> 'password',
+		'users_firstname' 	=> 'firstname',
+		'users_lastname' 	=> 'lastname',
+		'users_email' 		=> 'email@email.fr'));
 		$user->save();
 
 		$table_project = new USVN_Db_Table_Projects();
@@ -209,15 +242,16 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
 	}
 
+
 	public function testfetchAllAssignedToUserInTwoGroup()
 	{
 		$table_user = new USVN_Db_Table_Users();
 		$user = $table_user->fetchNew();
 		$user->setFromArray(array('users_login' 			=> 'test',
-									'users_password' 	=> 'password',
-									'users_firstname' 	=> 'firstname',
-									'users_lastname' 	=> 'lastname',
-									'users_email' 		=> 'email@email.fr'));
+		'users_password' 	=> 'password',
+		'users_firstname' 	=> 'firstname',
+		'users_lastname' 	=> 'lastname',
+		'users_email' 		=> 'email@email.fr'));
 		$user->save();
 
 		$table_project = new USVN_Db_Table_Projects();
@@ -232,7 +266,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$group_table->insert(array("groups_id" => 2, "groups_name" => "toto"));
 		$group = $group_table->find(2)->current();
 
-        $group_table = new USVN_Db_Table_Groups();
+		$group_table = new USVN_Db_Table_Groups();
 		$group_table->insert(array("groups_id" => 3, "groups_name" => "titi"));
 		$group2 = $group_table->find(3)->current();
 
@@ -240,28 +274,28 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
 		$group->addUser($user);
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
-        $group2->addUser($user);
+		$group2->addUser($user);
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
 		$project->addGroup($group2);
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
 	}
 
-    public function testfetchAllAssignedTwoUserInGroup()
+	public function testfetchAllAssignedTwoUserInGroup()
 	{
 		$table_user = new USVN_Db_Table_Users();
 		$user = $table_user->fetchNew();
 		$user->setFromArray(array('users_login' 		=> 'test',
-									'users_password' 	=> 'password',
-									'users_firstname' 	=> 'firstname',
-									'users_lastname' 	=> 'lastname',
-									'users_email' 		=> 'email@email.fr'));
+		'users_password' 	=> 'password',
+		'users_firstname' 	=> 'firstname',
+		'users_lastname' 	=> 'lastname',
+		'users_email' 		=> 'email@email.fr'));
 		$user->save();
 		$user2 = $table_user->fetchNew();
 		$user2->setFromArray(array('users_login' 		=> 'test2',
-									'users_password' 	=> 'password',
-									'users_firstname' 	=> 'firstname',
-									'users_lastname' 	=> 'lastname',
-									'users_email' 		=> 'email@email.fr'));
+		'users_password' 	=> 'password',
+		'users_firstname' 	=> 'firstname',
+		'users_lastname' 	=> 'lastname',
+		'users_email' 		=> 'email@email.fr'));
 		$user2->save();
 
 		$table_project = new USVN_Db_Table_Projects();
@@ -276,14 +310,14 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$group_table->insert(array("groups_id" => 2, "groups_name" => "toto"));
 		$group = $group_table->find(2)->current();
 
-        $group_table = new USVN_Db_Table_Groups();
+		$group_table = new USVN_Db_Table_Groups();
 		$group_table->insert(array("groups_id" => 3, "groups_name" => "titi"));
 		$group = $group_table->find(3)->current();
 
 		$project->addGroup($group);
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 0);
 		$group->addUser($user);
-        $group->addUser($user2);
+		$group->addUser($user2);
 		$this->assertEquals(count($table_project->fetchAllAssignedTo($user)), 1);
 	}
 

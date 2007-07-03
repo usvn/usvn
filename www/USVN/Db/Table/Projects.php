@@ -109,6 +109,26 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		return true;
 	}
 
+	
+	
+	/**
+	 * Add a row in users_to_project
+	 *
+	 * @param int $user
+	 * @param int $project
+	 */
+	public function AddUserToProject($user, $project)
+	{
+		if ($_POST['admin'] == true) {
+			$create = new USVN_Db_Table_UsersToProjects();
+			$add = $create->createRow(array('users_id' => $user->users_id, 'projects_id' => $project->projects_id));
+			$add->save();
+		} else {
+			$delete = new USVN_Db_Table_UsersToProjects();
+			$delete->delete(array('users_id = ?' => $user->users_id), array('projects_id = ?', $project->projects_id));
+		}
+	}
+	
 	/**
      * Fetches all groups and joins with users
      *

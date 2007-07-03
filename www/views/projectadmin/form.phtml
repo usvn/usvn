@@ -6,7 +6,7 @@ function checkName() {
 	var checkRegExp = new RegExp("^[ \t]*$");
 	var project = document.getElementById('project');
 	if (project.projects_name.value.length == 0
-		|| checkRegExp.test(project.projects_name.value)) {
+	|| checkRegExp.test(project.projects_name.value)) {
 		spanError.innerHTML = "<?php echo T_('Project\'s name empty, please fill it.'); ?>;"
 		spanError.className = "usvn_error";
 		return false;
@@ -20,7 +20,8 @@ function checkName() {
 <form id="project" class="usvn_form" method="post" action="<?php echo $this->url; ?>">
 	<fieldset>
 		<legend><?php echo T_("Project's information"); ?></legend>
-		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
+
+			<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('projects_name', $this->project->name, array('maxlength' => 255)); ?>
 		</label>
 		<br />
@@ -29,11 +30,13 @@ function checkName() {
 		</label>
 		<br />
         <?php
-            if ($this->action == 'new' || $this->action == 'create') {
-                echo '<label>' . T_('Create group for project:') . $this->formCheckbox('creategroup', 1) . '</label><br />';
-                echo '<label>' . T_('Add me to project group:') . $this->formCheckbox('addmetogroup', 1) . '</label><br />';
-                echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 1) . '</label><br />';
-            }
+        if ($this->action == 'new' || $this->action == 'create') {
+        	echo '<label>' . T_('Create group for project:') . $this->formCheckbox('creategroup', 1) . '</label><br />';
+        	echo '<label>' . T_('Add me to project group:') . $this->formCheckbox('addmetogroup', 1) . '</label><br />';
+        	echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 1) . '</label><br />';
+        } else if ($this->action == 'edit') {
+        	echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 0) . '</label><br />';
+        }
         ?>
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>

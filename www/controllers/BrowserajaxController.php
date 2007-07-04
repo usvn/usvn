@@ -53,7 +53,9 @@ class BrowserajaxController extends USVN_Controller
 			$str .= '<a href=\'javascript:ajax(3, "' . $path . '");\'>' . basename($path) . '</a>&nbsp;/&nbsp;';
 		}
 		$str .= "</h2>";
-		$str .= "<h3><a href='javascript:ajax(1, \"{$path}\");'>Modifier les droits sur {$path}</a></h3>";
+		$str .= "<h3><a href='javascript:ajax(1, \"{$path}\");'>";
+		$str .= sprintf(T_("Apply rights on %s"), $path);
+		$str .= "</a></h3>";
 		return $str;
 	}
 

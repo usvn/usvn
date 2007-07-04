@@ -1,4 +1,6 @@
 <script type="text/javascript">
+HTMLTableToolsOptions.multiColSort = false;
+HTMLTableToolsOptions.showSortIndex = false;
 HTMLTableToolsOptions.skipCells = [3];
 </script>
 <div class="usvn_info_project">
@@ -6,7 +8,7 @@ HTMLTableToolsOptions.skipCells = [3];
 </div>
 <?php
 
-print '<table class="sortable" id="project">' .
+print '<table class="sortable" id="projects">' .
 		'<thead><tr>' .
 		'<th>' . T_('Name') . '</th>' .
 		'<th>' . T_('Description') . '</th>' .
@@ -15,19 +17,15 @@ print '<table class="sortable" id="project">' .
 
 if (count($this->projects)) {
 	foreach ($this->projects as $project) {
-		$adminurl = $this->url(array('controller' => 'project', 'action' => null, 'project' => $project->name), 'project', true);
 		$editurl = $this->url(array('action' => 'edit', 'name' => $project->name));
 		$deletetext = T_("Do you really want to delete project %s?");
 		echo <<<EOF
 		<tr>
+			<td><a href="{$editurl}">{$project->projects_name}</a></td>
+			<td><a href="{$editurl}">{$project->projects_description}</a></td>
 			<td>
-				<a href="{$adminurl}">{$project->projects_name}</a>
-			</td>
-			<td>
-				<a href="{$editurl}">{$project->projects_description}</a>
-			</td>
-			<td>
-                {$this->editLink('name', $project->name)}
+				{$this->homeLink($project->name)}
+				{$this->editLink('name', $project->name)}
                 {$this->deleteLink('name', $project->name, $deletetext)}
                 {$this->ACLLink($project->name)}
             </td>

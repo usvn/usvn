@@ -3,6 +3,7 @@
 function checkForm() {
 	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
+	var checkRegExpMail = new RegExp("^\\w[\\w+\.\-]*@[\\w\-]+\.\\w[\\w+\.\-]*\\w$", "gi");
 	if (document.user.users_login.value.length == 0
 		|| checkRegExp.test(document.user.users_login.value)) {
 		spanError.innerHTML = "<?php echo T_('Login empty.'); ?>";
@@ -27,6 +28,12 @@ function checkForm() {
 			return false;
 		}
 	<?php endif; ?>
+	if (document.user.users_email.value.length != 0
+		&& !checkRegExpMail.test(document.user.users_email.value)) {
+		spanError.innerHTML = "<?php echo T_('Email incorrect.');?>";
+		spanError.className = "usvn_error";
+		return false;
+	}
 	spanError.innerHTML = '';
 	spanError.className = "";
 	return true;

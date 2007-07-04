@@ -23,7 +23,7 @@ class CompletionController extends USVN_Controller
 
 	public function completionAction()
 	{
-		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
+		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		$table = "<table width=100%>";
 		$nb = 0;
 		echo "<files>\n";

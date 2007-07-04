@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-03 10:48+0200\n"
-"PO-Revision-Date: 2007-06-29 12:41+0200\n"
+"PO-Revision-Date: 2007-07-04 12:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
@@ -152,8 +152,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN ne peut pas être utilisé avec le safe mode de PHP."
 
 #: ../../../www//install/Install.php:372
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 "Subversion n'est pas installé sur votre système. Si vous êtes sous Windows "
 "installez "
@@ -233,8 +232,7 @@ msgid "Configure USVN"
 msgstr "Configurer USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
+msgid "Settings of general configuration of USVN. You can keep default settings."
 msgstr "Configuration de USVN. Vous pouvez garder les réglages par défaut."
 
 #: ../../../www//install/views/step4.html:12
@@ -250,24 +248,20 @@ msgid "Location where usvn will create subversion repository."
 msgstr "L'emplacement où usvn créera les dépots Subversion."
 
 #: ../../../www//install/views/step4.html:45
-#, fuzzy
 msgid "Subversion password file "
-msgstr "URL du Subversion"
+msgstr "Fichier de mots de passe pour subversion"
 
 #: ../../../www//install/views/step4.html:46
-#, fuzzy
 msgid "Location where usvn will create password file."
-msgstr "L'emplacement où usvn créera les dépots Subversion."
+msgstr "L'emplacement où usvn créera son fichier de mots de passe"
 
 #: ../../../www//install/views/step4.html:60
-#, fuzzy
 msgid "Subversion access file"
-msgstr "URL du Subversion"
+msgstr "Fichier authz de Subversion"
 
 #: ../../../www//install/views/step4.html:61
-#, fuzzy
 msgid "Location where usvn will create access file."
-msgstr "L'emplacement où usvn créera les dépots Subversion."
+msgstr "L'emplacement où usvn créera le fichier authz"
 
 #: ../../../www//install/views/step4.html:75
 msgid "Subversion url"
@@ -506,8 +500,7 @@ msgstr "Impossible d'écrire le fichier de config."
 #: ../../../www//USVN/DirectoryUtils.php:28
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr ""
-"Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
+msgstr "Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
 
 #: ../../../www//USVN/DirectoryUtils.php:43
 #, php-format
@@ -614,9 +607,9 @@ msgid "Login %s already exist."
 msgstr "L'identifiant %s existe déjà."
 
 #: ../../../www//USVN/Db/Table/Users.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Can't create or write on htpasswd file %s."
-msgstr "Impossible de créer ou d'écrire dans le fichier htpasswd."
+msgstr "Impossible de créer ou d'écrire dans le fichier htpasswd %s."
 
 #: ../../../www//USVN/Db/Table/Groups.php:82
 msgid "The group's name is empty."
@@ -757,9 +750,8 @@ msgid "Administration"
 msgstr "Administration"
 
 #: ../../../www//views/adminadmin/index.phtml:3
-#, fuzzy
 msgid "USVN version: "
-msgstr "URL du Subversion"
+msgstr "Version de USVN: "
 
 #: ../../../www//views/browser/index.phtml:81
 msgid "Acces rights for"
@@ -888,8 +880,7 @@ msgstr "Envoyer"
 
 #: ../../../www//views/login/login.phtml:4
 msgid "Please enter your login and your password to connect to USVN."
-msgstr ""
-"Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
+msgstr "Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
 
 #: ../../../www//views/login/login.phtml:8
 msgid "Authentification"
@@ -922,3 +913,4 @@ msgstr "Logo"
 #: ../../../www//views/configadmin/index.phtml:68
 msgid "Save"
 msgstr "Sauvegarder"
+

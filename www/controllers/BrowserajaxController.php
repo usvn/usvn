@@ -68,7 +68,7 @@ class BrowserajaxController extends USVN_Controller
 		$tab = $SVN->listFile($path);
 		$txthtml = $this->getTopLink($path) . "
 <br />
-<table class=\"sortable\">
+<table class=\"usvn_table\">
     <thead>
         <tr>
             <th>" . T_('Name') . "</th>

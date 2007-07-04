@@ -90,8 +90,12 @@ class ProjectadminController extends AdminadminController
 		$user_table = new USVN_Db_Table_Users();
 		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 
-		$table->AddUserToProject($users, $project);
-		
+		if ($_POST['admin'] == true) {
+			$table->AddUserToProject($users, $project);
+		}
+		else {
+			$table->DeleteUserToProject($users, $project);
+		}
 
 		$project->setFromArray($data);
 		try {

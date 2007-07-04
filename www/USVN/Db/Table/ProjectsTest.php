@@ -67,24 +67,20 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		'users_lastname' 	=> 'lastname',
 		'users_email' 		=> 'email@email.fr'));
 		$obj->save();
-		$users_id = $table->findByName("TestOk")->users_id;
+		$users = $table->findByName("TestOk");
 
 		$table = new USVN_Db_Table_Projects();
 		$project = $table->fetchNew();
 		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$project->save();
-
-		$projects_id = $table->findByName("InsertProjectOk")->projects_id;
-
-		$create = new USVN_Db_Table_UsersToProjects();
-		$add = $create->createRow(array('users_id' => $users_id, 'projects_id' => $projects_id));
-		try {
-			$add->save();
-		}
-		catch (Exception $e) {
-			throw $e;
-			return;
-		}
+		$projects = $table->findByName("InsertProjectOk");
+		
+		$table->AddUserToProject($users, $projects);
+		$UserToProject = new USVN_Db_Table_UsersToProjects();
+		$this->assertEquals(count($UserToProject->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $projects->projects_id ))), 1);
+		
+		$table->DeleteUserToProject($users, $projects);
+		$this->assertEquals(count($UserToProject->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $projects->projects_id ))), 0);
 	}
 	public function testInsertProjectOkSVNAlreadyExist()
 	{

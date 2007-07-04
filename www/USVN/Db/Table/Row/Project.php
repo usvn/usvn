@@ -40,7 +40,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	}
 
 	/**
-	 * Delete a group to a project
+	 * Delete a group from a project
 	 *
 	 * @param mixed Group
 	 */
@@ -53,25 +53,18 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$group_id = intval($group);
 		}
 		if ($group_id) {
-			$table = new USVN_Db_Table_GroupsToProjects();
-			$p = $table->getAdapter()->quoteInto("projects_id = ?", $this->id);
-			$g = $table->getAdapter()->quoteInto("groups_id = ?", $group_id);
-			if ($table->delete(array($p, $g)) == 0)
+			$table_groupstoproject = new USVN_Db_Table_GroupsToProjects();
+			$p = $table_groupstoproject->getAdapter()->quoteInto("projects_id = ?", $this->id);
+			$g = $table_groupstoproject->getAdapter()->quoteInto("groups_id = ?", $group_id);
+			if ($table_groupstoproject->delete(array($p, $g)) == 0) {
 				throw new USVN_Exception(T_("Invalid group %s for project %s."), $group_id, $this->id);
+			}
+			$table_groupstofilesrights = new USVN_Db_Table_GroupsToFilesRights();
+			$table_groupstofilesrights->delete($g);
 		}
 		else {
 			throw new USVN_Exception(T_("Invalid group %s for project %s."), $group, $this->id);
 		}
-	}
-
-	/**
-	 * Delete all groups from workgroups
-	 *
-	 */
-	public function deleteAllGroups()
-	{
-		$table = new USVN_Db_Table_GroupsToProjects();
-		$table->delete($table->getAdapter()->quoteInto("projects_id = ?", $this->id));
 	}
 
 	/**

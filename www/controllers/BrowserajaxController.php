@@ -22,7 +22,7 @@ class BrowserajaxController extends USVN_Controller
 
 	public function RightManagementAction()
 	{
-		echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n";
+		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		echo "<files>\n";
 		if (isset($_GET['pg']) && $_GET['pg'] == 1) {
 			$this->dumpRights();

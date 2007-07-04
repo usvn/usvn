@@ -1,4 +1,4 @@
-# translation of messages.po to Spanish
+# translation of messages.po to castellano
 #
 # Esteban Cerutti <ecerutti@lifia.info.unlp.edu.ar>, 2007.
 msgid ""
@@ -6,18 +6,18 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-03 10:48+0200\n"
-"PO-Revision-Date: 2007-07-02 18:00-0300\n"
+"PO-Revision-Date: 2007-07-03 16:32-0300\n"
 "Last-Translator: Esteban Cerutti <ecerutti@lifia.info.unlp.edu.ar>\n"
-"Language-Team: Spanish\n"
+"Language-Team: castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: vim\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../../../www//helpers/ACLLink.php:33
 #: ../../../www//controllers/BrowserajaxController.php:105
 msgid "Rights"
-msgstr "Droits"
+msgstr "Permisos"
 
 #: ../../../www//helpers/DeleteLink.php:35
 #: ../../../www//views/project/managegroup.phtml:24
@@ -49,7 +49,7 @@ msgstr "Usuario %s desconocido"
 #: ../../../www//controllers/BrowserajaxController.php:57
 #, php-format
 msgid "Apply rights on %s"
-msgstr ""
+msgstr "Aplicar permisos sobre %s"
 
 #: ../../../www//controllers/BrowserajaxController.php:74
 #: ../../../www//views/projectadmin/form.phtml:23
@@ -69,7 +69,7 @@ msgstr "Acci&oacute;n"
 #: ../../../www//controllers/BrowserajaxController.php:86
 #: ../../../www//controllers/BrowserajaxController.php:94
 msgid "Folder"
-msgstr "Dossier"
+msgstr "Carpeta"
 
 #: ../../../www//controllers/BrowserajaxController.php:97
 msgid "File"
@@ -90,37 +90,37 @@ msgstr "Escritura"
 #: ../../../www//controllers/UseradminController.php:45
 #: ../../../www//controllers/ProfileController.php:42
 msgid "Not the same password."
-msgstr "La contrase&ntilde;a es diferente"
+msgstr "No es la misma contrase&ntilde;a"
 
 #: ../../../www//controllers/ProfileController.php:38
 msgid "Wrong password"
-msgstr "Contrase&ntilde;a inconrrecta"
+msgstr "Contrase&ntilde;a incorrecta"
 
 #: ../../../www//install/Install.php:27 ../../../www//install/Install.php:122
 #, php-format
 msgid "Can't write config file %s.\n"
-msgstr "Imposible escribir el archivo de configuraci&oacute;n %s.\n"
+msgstr "No se puede escribir el archivo de configuraci&oacute;n %s.\n"
 
 #: ../../../www//install/Install.php:69
 msgid "Can't create database\n"
-msgstr "Imposible crear la base de datos\n"
+msgstr "No se puede crear la base de datos\n"
 
 #: ../../../www//install/Install.php:78
 msgid "Can't connect to database.\n"
-msgstr "Imposible conectarse a la base de datos.\n"
+msgstr "No se puede conectar a la base de datos.\n"
 
 #: ../../../www//install/Install.php:91
 #, php-format
 msgid "Invalid adapter %s.\n"
-msgstr "El driver de base de datos %s es invalido.\n"
+msgstr "El driver de base de datos %s es inv&aacute;lido.\n"
 
 #: ../../../www//install/Install.php:101
 msgid "Can't load SQL file.\n"
-msgstr "Imposible de cargar el archivo SQL.\n"
+msgstr "No se puede cargar el archivo SQL.\n"
 
 #: ../../../www//install/Install.php:143 ../../../www//USVN/Config.php:36
 msgid "Invalid language"
-msgstr "Lenguaje invalido"
+msgstr "Lenguaje inv&aacute;lido"
 
 #: ../../../www//install/Install.php:178
 #, php-format
@@ -128,17 +128,17 @@ msgid ""
 "Invalid subversion path \"%s\", please check if directory exist and is "
 "writable."
 msgstr ""
-"El path subversion \"%s\", es inv&aacute;lido, por favor chequee que el "
+"El path subversion \"%s\", es inv&aacute;lido, por favor verifique que el "
 "directorio exista y posea permisos de escritura."
 
 #: ../../../www//install/Install.php:218
 #, php-format
 msgid "Can't write htaccess file %s.\n"
-msgstr "Impossible de escribir el archivo htaccess %s\n"
+msgstr "No se puede escribir el archivo htaccess %s\n"
 
 #: ../../../www//install/Install.php:262
 msgid "Password empty"
-msgstr "Contrase&ntilde;a vacia"
+msgstr "Contrase&ntilde;a vac&iacute;a"
 
 #: ../../../www//install/Install.php:319
 msgid "Need a title."
@@ -149,11 +149,8 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN no puede ejecutarse en el modo seguro de PHP."
 
 #: ../../../www//install/Install.php:372
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
-msgstr ""
-"Subversion no esta instalado en su sistema. Si ud. se encuentra en una "
-"instalaci&oacute;n de Windows "
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Subversion no esta instalado en su sistema. Si usted se encuentra en Windows instale"
 
 #: ../../../www//install/Install.php:372
 msgid ""
@@ -161,9 +158,9 @@ msgid ""
 "\n"
 "Otherwise under UNIX you probably need to install a package named subversion."
 msgstr ""
-" y luego de reiniciasr su sistema (ADVERTENCIA obligatoria). \n"
+" y luego reinicie su sistema (ADVERTENCIA obligatoria). \n"
 "\n"
-"Sino en UNIX probablemente necesite instalar a paquete llamado subversion."
+"Sino en UNIX probablemente necesite instalar un paquete llamado subversion."
 
 #: ../../../www//install/Install.php:384 ../../../www//install/Install.php:392
 msgid "mod_rewrite seems not to be loaded"
@@ -171,7 +168,7 @@ msgstr "el m&oacute;dulo mod_rewrite no pudo ser cargado"
 
 #: ../../../www//install/Install.php:401
 msgid "mod_dav_svn seems not to be loaded"
-msgstr "el m&oacute;dulo mod_dav_svn parace no estar instalado"
+msgstr "el m&oacute;dulo mod_dav_svn parece no estar cargado"
 
 #: ../../../www//install/index.php:58 ../../../www//install/index.php:64
 msgid "Error"
@@ -179,7 +176,7 @@ msgstr "Error"
 
 #: ../../../www//install/index.php:64
 msgid "USVN is already install."
-msgstr "USVN se encuentra instalado actualmente"
+msgstr "USVN se encuentra instalado actualmente."
 
 #: ../../../www//install/index.php:81 ../../../www//install/index.php:93
 msgid "You need to accept the licence to continue installation."
@@ -214,7 +211,7 @@ msgstr "Copyright USVN"
 
 #: ../../../www//install/views/step3.html:2
 msgid "Agreement of the licence"
-msgstr "Aceptaci&oacute;n de la licencia"
+msgstr "Acuerdo de la licencia"
 
 #: ../../../www//install/views/step3.html:3
 msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
@@ -229,14 +226,12 @@ msgid "Configure USVN"
 msgstr "Configurar USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
-msgstr ""
-"Configuraci&oacute;n general de USVN. Puede dejar los valores por defecto."
+msgid "Settings of general configuration of USVN. You can keep default settings."
+msgstr "Configuraci&oacute;n general de USVN. Puede dejar los valores por defecto."
 
 #: ../../../www//install/views/step4.html:12
 msgid "Page title"
-msgstr "Titulo de la p&aacute;gina"
+msgstr "T&iacute;tulo de la p&aacute;gina"
 
 #: ../../../www//install/views/step4.html:30
 msgid "Subversion repository"
@@ -244,27 +239,23 @@ msgstr "Repositorio Subversion"
 
 #: ../../../www//install/views/step4.html:31
 msgid "Location where usvn will create subversion repository."
-msgstr "Ubicaci&oacute;n donde usvn crear&aaute; el repositorio Subversion."
+msgstr "Ubicaci&oacute;n donde usvn crear&aacute; el repositorio Subversion."
 
 #: ../../../www//install/views/step4.html:45
-#, fuzzy
 msgid "Subversion password file "
-msgstr "Subversion url"
+msgstr "Archivo de contrase&ntilde;as de Subversion"
 
 #: ../../../www//install/views/step4.html:46
-#, fuzzy
 msgid "Location where usvn will create password file."
-msgstr "Ubicaci&oacute;n donde usvn crear&aaute; el repositorio Subversion."
+msgstr "Ubicaci&oacute;n donde usvn crear&aacute; el archivo de contrase&ntilde;as."
 
 #: ../../../www//install/views/step4.html:60
-#, fuzzy
 msgid "Subversion access file"
-msgstr "Subversion url"
+msgstr "Archivo de accesos de Subversion"
 
 #: ../../../www//install/views/step4.html:61
-#, fuzzy
 msgid "Location where usvn will create access file."
-msgstr "Ubicaci&oacute;n donde usvn crear&aaute; el repositorio Subversion."
+msgstr "Ubicaci&oacute;n donde usvn crear&aacute; el archivo de accesos."
 
 #: ../../../www//install/views/step4.html:75
 msgid "Subversion url"
@@ -272,11 +263,11 @@ msgstr "Subversion url"
 
 #: ../../../www//install/views/step4.html:76
 msgid "The url used by users to checkout projects."
-msgstr "URL utilizada por los usuarios para realizar un checkout del projecto."
+msgstr "URL utilizada por los usuarios para realizar un checkout de los projectos."
 
 #: ../../../www//install/views/step5.html:33
 msgid "Database installation"
-msgstr "Instalacii&oacuten de la base de datos"
+msgstr "Instalaci&oacute;n de la base de datos"
 
 #: ../../../www//install/views/step5.html:34
 msgid "Configuration of database's access."
@@ -327,18 +318,18 @@ msgstr "Instalaci&oacute;n de USVN"
 #: ../../../www//USVN/Db/Table/Row/User.php:107
 #: ../../../www//views/useradmin/js.phtml:9
 msgid "Login empty."
-msgstr "Login vacio"
+msgstr "Login vac&iacute;o"
 
 #: ../../../www//install/views/step6.html:13
 msgid "Lastname empty."
-msgstr "Apellido vacio"
+msgstr "Apellido vac&iacute;o"
 
 #: ../../../www//install/views/step6.html:18
 #: ../../../www//USVN/Db/Table/Row/User.php:139
 #: ../../../www//views/profile/index.phtml:10
 #: ../../../www//views/useradmin/js.phtml:15
 msgid "Password empty."
-msgstr "Contrse&ntilde;a vacia"
+msgstr "Contrse&ntilde;a vac&iacute;a"
 
 #: ../../../www//install/views/step6.html:23
 #: ../../../www//views/profile/index.phtml:15
@@ -353,7 +344,7 @@ msgstr "Contrase&ntilde;a incorrecta (no coincide)"
 #: ../../../www//views/useradmin/js.phtml:21
 #: ../../../www//views/useradmin/profile.phtml:12
 msgid "Password incorrect (need more 8 characters)."
-msgstr "Debe ingresar almenos 8 caracteres en la contrase&ntilde;a."
+msgstr "Debe ingresar al menos 8 caracteres en la contrase&ntilde;a."
 
 #: ../../../www//install/views/step6.html:39
 msgid "Create administrator user"
@@ -423,7 +414,7 @@ msgid ""
 "Last step is to configure subversion into apache. Copy past following lines "
 "at the end of your <em>httpd.conf</em>:"
 msgstr ""
-"El &uacute;ltimo configura Subversion en Apache. Copy y pegue las siguientes "
+"El &uacute;ltimo paso es para configurar Subversion en Apache. Copie y pegue las siguientes "
 "lineas al final del archivo de configuraci&oacute;n <em>httpd.conf</em>:"
 
 #: ../../../www//install/views/step7.html:11
@@ -452,7 +443,7 @@ msgstr "Nuevo proyecto"
 
 #: ../../../www//menus/browser.php:32 ../../../www//menus/browserTest.php:47
 msgid "Browser"
-msgstr "Navegador"
+msgstr "Explorador"
 
 #: ../../../www//menus/groupadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:21
@@ -481,40 +472,40 @@ msgstr "Importar un archivo htpasswd"
 
 #: ../../../www//USVN/Config.php:47
 msgid "Invalid template"
-msgstr "Template inv&aacute;lido"
+msgstr "Plantilla inv&aacute;lida"
 
 #: ../../../www//USVN/User.php:84
 #, php-format
 msgid "User %s does not exist."
-msgstr "El usaurio %s no existe."
+msgstr "El usuario %s no existe."
 
 #: ../../../www//USVN/User.php:111
 msgid "This user can't be created. A group has the same name."
-msgstr ""
+msgstr "Este usuario no puede ser creado. Un grupo tiene el mismo nombre."
 
 #: ../../../www//USVN/Config/Ini.php:67
 msgid "Can't write config file."
-msgstr "Imposible escribir el archivo de configuraci&oacute;n."
+msgstr "No se puede escribir el archivo de configuraci&oacute;n."
 
 #: ../../../www//USVN/DirectoryUtils.php:28
-#, fuzzy, php-format
+#, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr "Imposible borrar directorio %s."
+msgstr "No se puede borrar directorio %s. Permiso denegado."
 
 #: ../../../www//USVN/DirectoryUtils.php:43
-#, fuzzy, php-format
+#, php-format
 msgid "Can't delete file %s."
-msgstr "Imposible borrar directorio %s."
+msgstr "No se puede borrar el archivo %s."
 
 #: ../../../www//USVN/DirectoryUtils.php:51
 #, php-format
 msgid "Can't delete directory %s."
-msgstr "Imposible borrar directorio %s."
+msgstr "No se puede borrar el directorio %s."
 
 #: ../../../www//USVN/DirectoryUtils.php:71
 #, php-format
 msgid "Can't read directory %s."
-msgstr "Imposible leer directorio %s."
+msgstr "No se puede leer el directorio %s."
 
 #: ../../../www//USVN/SVNUtils.php:165
 msgid "Commit by USVN"
@@ -530,7 +521,7 @@ msgid ""
 "Error:\n"
 "%s"
 msgstr ""
-"Impossible de importar en el repositorio subversion.\n"
+"No se pudo importar en el repositorio subversion.\n"
 "Comando:\n"
 "%s\n"
 "\n"
@@ -540,26 +531,26 @@ msgstr ""
 #: ../../../www//USVN/SVNUtils.php:185
 #, php-format
 msgid "Can't create subversion repository: %s"
-msgstr "Imposible de crear el repositorio subversion:%s"
+msgstr "No se puede crear el repositorio subversion: %s"
 
 #: ../../../www//USVN/SVNUtils.php:213
 #, php-format
 msgid "Can't checkout subversion repository: %s"
-msgstr "Imposible de checkout el repositorio subversion:%s"
+msgstr "No se pudo realizar un checkout del repositorio subversion: %s"
 
 #: ../../../www//USVN/SVNUtils.php:229
 #, php-format
 msgid "Can't list subversion repository: %s"
-msgstr "Imposible de listar el repositorio subversion: %s"
+msgstr "No se pudo de listar el repositorio subversion: %s"
 
 #: ../../../www//USVN/SVNUtils.php:254
 #, php-format
 msgid "Can't get subversion repository logs: %s"
-msgstr "Imposible de obtener el repositorio subversion:%s"
+msgstr "No su pudo obtener el repositorio subversion: %s"
 
 #: ../../../www//USVN/ImportHtpasswd.php:49
 msgid "Invalid htpasswd file."
-msgstr "Archivo htpasswd invalido."
+msgstr "Archivo htpasswd inv&aacute;lido."
 
 #: ../../../www//USVN/ImportHtpasswd.php:52
 #, php-format
@@ -569,7 +560,7 @@ msgstr "El usuario %s ya existe en el archivo htpasswd."
 #: ../../../www//USVN/ImportHtpasswd.php:72
 #, php-format
 msgid "Can't add users %s. Import cancel."
-msgstr "Imposible de agregar el usuario %s. Importaci&oacute;n cancelada."
+msgstr "No se pudo agregar el usuario %s. Importaci&oacute;n cancelada."
 
 #: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:103
 #: ../../../www//views/index/index.phtml:2
@@ -588,7 +579,7 @@ msgstr "Bienvenido a USVN"
 #: ../../../www//USVN/Db/Utils.php:33 ../../../www//USVN/Menu.php:58
 #, php-format
 msgid "Can't open file %s."
-msgstr "Imposible de abrir el archivo %s."
+msgstr "No se pudo abrir el archivo %s."
 
 #: ../../../www//USVN/Db/Utils.php:46
 #, php-format
@@ -596,7 +587,7 @@ msgid ""
 "Can't load file %s at:\n"
 "%s"
 msgstr ""
-"Impossible de cargar el archivo %s en la linea:\n"
+"No se pudo cargar el archivo %s en la l&iacute;nea:\n"
 "%s"
 
 #: ../../../www//USVN/Db/Table/Users.php:85
@@ -606,13 +597,13 @@ msgid "Login %s already exist."
 msgstr "Login %s ya existe."
 
 #: ../../../www//USVN/Db/Table/Users.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Can't create or write on htpasswd file %s."
-msgstr "Imposible crear o escribir el archivo htpasswd."
+msgstr "No se pudo crear o escribir en el archivo de contrase&ntilde;as %s."
 
 #: ../../../www//USVN/Db/Table/Groups.php:82
 msgid "The group's name is empty."
-msgstr "El nombre de grupo esta vacio."
+msgstr "El nombre de grupo esta vac&iacute;o."
 
 #: ../../../www//USVN/Db/Table/Groups.php:85
 msgid "The group's name is invalid."
@@ -624,7 +615,7 @@ msgstr "Login inv&aacute;lido."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:125
 msgid "Invalid email address."
-msgstr "Direcci&oacute;n de email invalida."
+msgstr "Direcci&oacute;n de email inv&aacute;lida."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:60
 #: ../../../www//USVN/Db/Table/Row/Project.php:63
@@ -634,7 +625,7 @@ msgstr "El grupo %s para el proyecto %s es inv&aacute;lido."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid "The project's name is empty."
-msgstr "El nombre del proyecto esta vacio."
+msgstr "El nombre del proyecto esta vac&iacute;o."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:181
 msgid "The project's name is invalid."
@@ -664,22 +655,22 @@ msgstr "Desconectarse"
 #: ../../../www//USVN/FilesAccessRights.php:82
 #, php-format
 msgid "Invalid path %s."
-msgstr "El path %s es invalido."
+msgstr "La ruta %s es inv&aacute;lida."
 
 #: ../../../www//USVN/SVN.php:32
 #, php-format
 msgid "Invalid project name %s."
-msgstr "El nombre de proyecto %s es invalido."
+msgstr "El nombre de proyecto %s es inv&aacute;lido."
 
 #: ../../../www//USVN/Project.php:38 ../../../www//USVN/Auth/Adapter/Db.php:54
 #, php-format
 msgid "Login %s not found"
-msgstr "Login %s no econtrado"
+msgstr "Login %s no encontrado"
 
 #: ../../../www//USVN/Project.php:48
 #, php-format
 msgid "Autocreated group for project %s"
-msgstr "Grupo automaticamente creado para el proyeto %s"
+msgstr "Grupo autom&aacute;ticamente creado para el proyecto %s"
 
 #: ../../../www//USVN/Project.php:85
 #, php-format
@@ -692,7 +683,7 @@ msgstr "Contrase&ntilde;a incorrecta"
 
 #: ../../../www//views/projectadmin/form.phtml:10
 msgid "Project's name empty, please fill it."
-msgstr "El nombre del proyecto esta vacio."
+msgstr "El nombre del proyecto esta vac&iacute;o."
 
 #: ../../../www//views/projectadmin/form.phtml:22
 msgid "Project's information"
@@ -749,13 +740,12 @@ msgid "Administration"
 msgstr "Administraci&oacute;n"
 
 #: ../../../www//views/adminadmin/index.phtml:3
-#, fuzzy
 msgid "USVN version: "
-msgstr "Subversion url"
+msgstr "USVN versi&oacute;n:"
 
 #: ../../../www//views/browser/index.phtml:81
 msgid "Acces rights for"
-msgstr "Derecho de acceso para"
+msgstr "Permisos de acceso para"
 
 #: ../../../www//views/browser/index.phtml:108
 msgid "Files list"
@@ -763,7 +753,7 @@ msgstr "Lista de archivos"
 
 #: ../../../www//views/groupadmin/form.phtml:10
 msgid "Group's name empty, please fill it."
-msgstr "El nombre de grupo esta vacio."
+msgstr "El nombre de grupo esta vac&iacute;o."
 
 #: ../../../www//views/groupadmin/form.phtml:22
 msgid "Group's information"
@@ -810,8 +800,7 @@ msgstr "Usuarios administradores"
 #: ../../../www//views/project/index.phtml:39
 #, php-format
 msgid "Do you really want to remove user %s as admin of project %s?"
-msgstr ""
-"Realmente desea borrrar el usuario %s como administrador del proyecto %s?"
+msgstr "Realmente desea borrar el usuario %s como administrador del proyecto %s?"
 
 #: ../../../www//views/project/index.phtml:63
 #: ../../../www//views/useradmin/form.phtml:4
@@ -829,19 +818,19 @@ msgstr "Administrar"
 
 #: ../../../www//views/project/index.phtml:80
 msgid "Last five commit"
-msgstr "Ultimos cinco commits"
+msgstr "&Uacute;ltimos cinco commits"
 
 #: ../../../www//views/index/index.phtml:5
 msgid "Your projects"
-msgstr "Mis proyectos"
+msgstr "Sus proyectos"
 
 #: ../../../www//views/index/index.phtml:15
 msgid "You don't have any project."
-msgstr "Ud. no tiene proyetos."
+msgstr "Usted no tiene proyetos."
 
 #: ../../../www//views/useradmin/js.phtml:33
 msgid "Email incorrect."
-msgstr ""
+msgstr "Email incorrecto."
 
 #: ../../../www//views/useradmin/profile.phtml:23
 #: ../../../www//views/useradmin/form.phtml:16
@@ -879,8 +868,7 @@ msgstr "Subir"
 
 #: ../../../www//views/login/login.phtml:4
 msgid "Please enter your login and your password to connect to USVN."
-msgstr ""
-"Por favor, ingrese su usuario y contrase&ntilde;a para conectarse a USVN."
+msgstr "Por favor, ingrese su nombre de usuario y contrase&ntilde;a para conectarse a USVN."
 
 #: ../../../www//views/login/login.phtml:8
 msgid "Authentification"
@@ -892,7 +880,7 @@ msgstr "Configuraci&oacute;n global"
 
 #: ../../../www//views/configadmin/index.phtml:27
 msgid "Default template"
-msgstr "Template por defecto"
+msgstr "Plantilla por defecto"
 
 #: ../../../www//views/configadmin/index.phtml:45
 msgid "Site's information"
@@ -913,3 +901,4 @@ msgstr "Logo"
 #: ../../../www//views/configadmin/index.phtml:68
 msgid "Save"
 msgstr "Guardar"
+

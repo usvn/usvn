@@ -1,2 +1,8 @@
+#!/bin/sh -e
+
 a2enmod rewrite
 apache2ctl restart
+
+chown -R www-data /usr/share/usvn
+chgrp -R www-data /usr/share/usvn
+chmod -R 500 /usr/share/usvn

@@ -140,6 +140,25 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->assertNotContains("test2", $res);
 	}
 
+	public function testDeleteGroupWithFIleRights()
+	{
+		$table_files = new USVN_Db_Table_FilesRights();
+			$fileid = $table_files->insert(array(
+    		'projects_id'		=> $this->project->id,
+			'files_rights_path' => '/trunk'
+		));
+		$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
+
+		$this->project->addGroup($this->groups->find(42)->current());
+		$table_groupstofiles->insert(array('files_rights_id' 		  => $fileid,
+										   'files_rights_is_readable' => true,
+				 						   'files_rights_is_writable' => false,
+			       	 					   'groups_id'	 			  => 42));
+		$this->assertNotNull($table_groupstofiles->findByIdRightsAndIdGroup($fileid, 42));
+		$this->project->deleteGroup($this->groups->find(42)->current());
+		$this->assertNull($table_groupstofiles->findByIdRightsAndIdGroup($fileid, 42));
+	}
+
 	public function testGroupIsMember()
 	{
 		$group = $this->groups->find(42)->current();

@@ -49,7 +49,7 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs
-	dh_install
+	dh_install --fail-missing
 	dh_installdirs
 	dh_link
 	dh_compress

@@ -43,12 +43,12 @@ install: build
 
 
 	# set rights on some files
-	find debian/ -type f -and -name \*.php -print0 | xargs -0ri chmod 0444  '{}'
-	find debian/ -type f -and -name \*.xml -print0 | xargs -0ri chmod 0444  '{}'
-	find debian/ -type f -and -name \*.png -print0 | xargs -0ri chmod 0444  '{}'
-	find debian/ -type f -and -name \*.mo -print0 | xargs -0ri chmod 0444  '{}'
-	find debian/ -type f -and -name \*.txt -print0 | xargs -0ri chmod 0444  '{}'
-	find debian/ -type f -and -name \*.phtml -print0 | xargs -0ri chmod 0444  '{}'
+	find debian/ -type f -and -name \*.php -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.xml -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.png -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.mo -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.txt -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.phtml -print0 | xargs -0ri chmod 0644  '{}'
 
 
 # Build architecture-independent files here.
@@ -60,10 +60,8 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs
-	dh_installdirs
 	dh_link
 	dh_compress
-	dh_fixperms
 	dh_installdeb
 	dh_gencontrol
 	dh_md5sums

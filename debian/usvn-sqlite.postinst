@@ -1,1 +1,4 @@
 #!/bin/sh -e
+
+chown www-data:www-data /var/lib/usvn
+chown www-data:www-data /var/lib/svn

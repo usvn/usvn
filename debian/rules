@@ -50,6 +50,7 @@ binary-arch: build install
 	dh_testroot
 	dh_installchangelogs
 	dh_install
+	dh_installdirs
 	dh_link
 	dh_compress
 	dh_fixperms

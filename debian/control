@@ -8,13 +8,11 @@ Standards-Version: 3.7.2
 Package: usvn-sqlite
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends} usvn-common, php5-sqlite
-Description: Graphical web interface for manage Subversion repositories. Sqlite version.
-   USVN is an Open Source free software which allows everyone to use Subversion in an easily way.
-   It's a web tool which can manage SVN official server configuration.
+Description:SQLite version of USVN
+ Graphical web interface for manage Subversion repositories.
 
 Package: usvn-common
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, php5, subversion, libapache2-svn, apache2
-Description: Common files for USVN.
-   USVN is an Open Source free software which allows everyone to use Subversion in an easily way.
-   It's a web tool which can manage SVN official server configuration.
+Description: Common files for USVN
+ Graphical web interface for manage Subversion repositories.

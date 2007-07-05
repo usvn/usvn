@@ -1,1 +1,2 @@
 debian/sqlite/etc/config.ini /etc/usvn
+debian/copyright /usr/share/doc/usvn-sqlite

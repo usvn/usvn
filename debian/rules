@@ -8,7 +8,8 @@
 #  Distributed under the GNU General Public License version 2
 #
 
-
+# Include dpatch stuff.
+include /usr/share/dpatch/dpatch.make
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -21,17 +22,16 @@ configure-stamp:
 	touch configure-stamp
 
 
-build: build-stamp
+build: patch build-stamp
 
 build-stamp: configure-stamp
 	dh_testdir
 	touch $@
 
-clean:
+clean: unpatch
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-
 	dh_clean
 
 install: build

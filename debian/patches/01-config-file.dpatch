@@ -1,0 +1,19 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01-config-file.dpatch by  <julien@duponchelle.info>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad usvn-0.6.2~/index.php usvn-0.6.2/index.php
+--- usvn-0.6.2~/index.php	2007-06-14 11:51:40.000000000 +0200
++++ usvn-0.6.2/index.php	2007-07-05 11:17:34.000000000 +0200
+@@ -21,7 +21,7 @@
+ define('USVN_LIBRARY_DIRECTORY', dirname(__FILE__) . '/library');
+ define('USVN_LOCALE_DIRECTORY', dirname(__FILE__) . '/locale');
+ define('USVN_MEDIAS_DIRECTORY', dirname(__FILE__) . '/medias');
+-define('USVN_CONFIG_FILE', dirname(__FILE__) . '/config.ini');
++define('USVN_CONFIG_FILE', '/etc/usvn/config.ini');
+ define('USVN_CONFIG_SECTION', 'general');
+ define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
+ define('USVN_CONTROLLERS_DIR', dirname(__FILE__) . '/controllers/');

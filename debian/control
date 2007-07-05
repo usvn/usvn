@@ -5,13 +5,6 @@ Maintainer: Julien Duponchelle <julien@duponchelle.info>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
 
-Package: usvn-mysql
-Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends} usvn-common, php5-mysql, mysql-server
-Description: Graphical web interface for manage Subversion repositories. MySQL version.
-   USVN is an Open Source free software which allows everyone to use Subversion in an easily way.
-   It's a web tool which can manage SVN official server configuration.
-
 Package: usvn-sqlite
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends} usvn-common, php5-sqlite

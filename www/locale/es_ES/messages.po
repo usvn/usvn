@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-03 10:48+0200\n"
-"PO-Revision-Date: 2007-07-03 16:32-0300\n"
+"PO-Revision-Date: 2007-07-05 16:27-0300\n"
 "Last-Translator: Esteban Cerutti <ecerutti@lifia.info.unlp.edu.ar>\n"
 "Language-Team: castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,7 @@ msgstr "Escritura"
 #: ../../../www//controllers/UseradminController.php:45
 #: ../../../www//controllers/ProfileController.php:42
 msgid "Not the same password."
-msgstr "No es la misma contrase&ntilde;a"
+msgstr "La contrase&ntilde;a no coincide."
 
 #: ../../../www//controllers/ProfileController.php:38
 msgid "Wrong password"
@@ -329,7 +329,7 @@ msgstr "Apellido vac&iacute;o"
 #: ../../../www//views/profile/index.phtml:10
 #: ../../../www//views/useradmin/js.phtml:15
 msgid "Password empty."
-msgstr "Contrse&ntilde;a vac&iacute;a"
+msgstr "Contrase&ntilde;a vac&iacute;a"
 
 #: ../../../www//install/views/step6.html:23
 #: ../../../www//views/profile/index.phtml:15
@@ -352,7 +352,7 @@ msgstr "Crear usuario administrador"
 
 #: ../../../www//install/views/step6.html:40
 msgid "Creation of the first administrator of USVN."
-msgstr "Creaci&oaute;n del primer usuario administrador de USVN"
+msgstr "Creaci&oacute;n del primer usuario administrador de USVN"
 
 #: ../../../www//install/views/step6.html:57
 msgid "admin"
@@ -637,7 +637,7 @@ msgstr "No puede renombrar el proyecto."
 
 #: ../../../www//USVN/Menu.php:94
 msgid "Sign in"
-msgstr "Entrar"
+msgstr "Iniciar sesi&oacute;n"
 
 #: ../../../www//USVN/Menu.php:119
 msgid "Edit my profile"
@@ -670,7 +670,7 @@ msgstr "Login %s no encontrado"
 #: ../../../www//USVN/Project.php:48
 #, php-format
 msgid "Autocreated group for project %s"
-msgstr "Grupo autom&aacute;ticamente creado para el proyecto %s"
+msgstr "Grupo automáticamente creado para el proyecto %s"
 
 #: ../../../www//USVN/Project.php:85
 #, php-format

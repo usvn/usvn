@@ -23,8 +23,11 @@ class USVN_DirectoryUtils
     */
     static public function removeDirectory($remove_path)
     {
+		if (!file_exists($remove_path)) {
+			return;
+		}
         if (($path = realpath($remove_path)) !== FALSE) {
-            if (chmod($path, 0777) === FALSE) {
+            if (@chmod($path, 0777) === FALSE) {
                 throw new USVN_Exception(T_("Can't delete directory %s. Permission denied."), $path);
             }
             try {
@@ -50,9 +53,6 @@ class USVN_DirectoryUtils
             if (@rmdir($path) === FALSE) {
                 throw new USVN_Exception(T_("Can't delete directory %s."), $path);
             }
-        }
-        else {
-            throw new USVN_Exception("File %s doesn't exist.", $remove_path);
         }
     }
 

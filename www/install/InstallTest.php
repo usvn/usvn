@@ -50,10 +50,6 @@ class InstallTest extends USVN_Test_Test {
 
     public function setUp() {
 		parent::setUp();
-		$_SERVER['SERVER_NAME'] = "localhost";
-		$_SERVER['HTTP_HOST'] = "localhost";
-		$_SERVER['SERVER_PORT'] = 80;
-		$_SERVER['REQUEST_URI'] = "/test/install/index.php?step=7";
     }
 
 	public function testInstallLanguage()
@@ -111,23 +107,31 @@ class InstallTest extends USVN_Test_Test {
 
 	public function testInstallUrl()
 	{
-		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess");
+		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess", "/test/install/index.php?step=7", "localhost", false);
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$this->assertTrue(file_exists("tests/tmp/.htaccess"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("/test", $config->url->base);
-		$this->assertEquals("localhost", $config->url->host);
+		$htaccess = file_get_contents("tests/tmp/.htaccess");
+		$this->assertContains("RewriteBase /test", $htaccess);
+	}
+
+	public function testInstallUrlWithoutinstall()
+	{
+		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess", "/test/", "localhost", false);
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$this->assertTrue(file_exists("tests/tmp/.htaccess"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("/test", $config->url->base);
 		$htaccess = file_get_contents("tests/tmp/.htaccess");
 		$this->assertContains("RewriteBase /test", $htaccess);
 	}
 
 	public function testInstallUrlRoot()
 	{
-		$_SERVER['REQUEST_URI'] = "/install/index.php?step=7";
-		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess");
+		Install::installUrl("tests/tmp/config.ini", "tests/tmp/.htaccess", "/install/index.php?step=7", "localhost", false);
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		$this->assertEquals("", $config->url->base);
-		$this->assertEquals("localhost", $config->url->host);
 		$htaccess = file_get_contents("tests/tmp/.htaccess");
 		$this->assertContains("RewriteBase /", $htaccess);
 	}
@@ -135,7 +139,7 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallUrlCantWriteHtaccess()
 	{
 		try {
-			Install::installUrl("tests/tmp/config.ini", "tests/fake/.htaccess");
+			Install::installUrl("tests/tmp/config.ini", "tests/fake/.htaccess", "/test/install/index.php?step=7", "localhost", false);
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -146,7 +150,7 @@ class InstallTest extends USVN_Test_Test {
 	public function testInstallUrlCantWriteConfig()
 	{
 		try {
-			Install::installUrl("tests/fake/config.ini", "tests/tmp/.htaccess");
+			Install::installUrl("tests/fake/config.ini", "tests/tmp/.htaccess", "/test/install/index.php?step=7", "localhost", false);
 		}
 		catch (USVN_Exception $e) {
 			return;
@@ -224,6 +228,7 @@ site.title=USVN
 
 	public function testcheckSystem()
 	{
+		$_SERVER['HTTP_HOST'] = 'localhost';
 		Install::checkSystem();
 	}
 

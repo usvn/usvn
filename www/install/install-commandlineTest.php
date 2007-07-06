@@ -111,11 +111,10 @@ database.options.dbname = "../tests/usvn.db"
 		echo $message;
 		$config = new USVN_Config_Ini('../tests/config.ini', 'general');
 
-		$params = array ('host'     => 'localhost',
-			 'username' => 'usvn-test',
-			 'password' => 'usvn-test',
-			 'dbname'   => '../tests/usvn.db');
-		$this->db = Zend_Db::factory('PDO_SQLITE', $params);
+		$params = array ('dbname'   => '../tests/usvn.db');
+		$db = Zend_Db::factory('PDO_SQLITE', $params);
+		Zend_Db_Table::setDefaultAdapter($db);
+		USVN_Db_Table::$prefix = "usvn_";
 
 		$this->assertTrue(isset($config->version));
 		$this->assertTrue(file_exists("../tests/htaccess"), "htpasswd not create");
@@ -135,6 +134,11 @@ database.options.dbname = "../tests/usvn.db"
 		$this->assertEquals("PDO_SQLITE", $config->database->adapterName);
 		$this->assertEquals("usvn_", $config->database->prefix);
 		$this->assertEquals("../tests/usvn.db", $config->database->options->dbname);
+
+		$user_table = new USVN_Db_Table_Users();
+		$this->assertTrue($user_table->isAUser('admin'));
+		$user = $user_table->fetchRow(array('users_login = ?' => 'admin'));
+		$this->assertEquals(1, $user->is_admin);
 	}
 
 }

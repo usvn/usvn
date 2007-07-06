@@ -110,10 +110,31 @@ database.options.dbname = "../tests/usvn.db"
 		$this->assertEquals(0, $return, $message);
 		echo $message;
 		$config = new USVN_Config_Ini('../tests/config.ini', 'general');
+
+		$params = array ('host'     => 'localhost',
+			 'username' => 'usvn-test',
+			 'password' => 'usvn-test',
+			 'dbname'   => '../tests/usvn.db');
+		$this->db = Zend_Db::factory('PDO_SQLITE', $params);
+
 		$this->assertTrue(isset($config->version));
 		$this->assertTrue(file_exists("../tests/htaccess"), "htpasswd not create");
 		$this->assertTrue(file_exists("../tests/htpasswd"), "htpasswd not create");
 		$this->assertTrue(file_exists("../tests/authz"), "authz not create");
+		$this->assertTrue(file_exists("../tests/usvn.db"), "Database not create");
+		$this->assertEquals("/usvn", $config->url->base);
+		$this->assertEquals("en_US", $config->translation->locale);
+		$this->assertEquals("default", $config->template->name);
+		$this->assertEquals("USVN", $config->site->title);
+		$this->assertEquals("medias/default/images/USVN.ico", $config->site->ico);
+		$this->assertEquals("medias/default/images/USVN-logo.png", $config->site->logo);
+		$this->assertEquals("../tests/", $config->subversion->path);
+		$this->assertEquals("../tests/htpasswd", $config->subversion->passwd);
+		$this->assertEquals("../tests/authz", $config->subversion->authz);
+		$this->assertEquals("http://localhost/usvn/svn/", $config->subversion->url);
+		$this->assertEquals("PDO_SQLITE", $config->database->adapterName);
+		$this->assertEquals("usvn_", $config->database->prefix);
+		$this->assertEquals("../tests/usvn.db", $config->database->options->dbname);
 	}
 
 }

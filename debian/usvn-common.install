@@ -9,3 +9,5 @@ install /usr/share/usvn
 locale /usr/share/usvn
 update /usr/share/usvn
 views /usr/share/usvn
+debian/apache/usvn.conf /etc/apache2/conf.d
+debian/copyright /usr/share/doc/usvn-common

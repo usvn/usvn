@@ -1,0 +1,6 @@
+#!/bin/sh -e
+
+a2enmod rewrite
+apache2ctl restart
+
+chown -R www-data:www-data /usr/share/usvn

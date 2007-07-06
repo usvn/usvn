@@ -4,11 +4,12 @@
 #  debian/rules file for usvn Debian package
 #
 #
-#  Copyright 200 USVN Team <contact@usvn.info>
+#  Copyright 2007 USVN Team <contact@usvn.info>
 #  Distributed under the GNU General Public License version 2
 #
 
-
+# Include dpatch stuff.
+include /usr/share/dpatch/dpatch.make
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -21,17 +22,16 @@ configure-stamp:
 	touch configure-stamp
 
 
-build: build-stamp
+build: patch build-stamp
 
 build-stamp: configure-stamp
 	dh_testdir
 	touch $@
 
-clean:
+clean: unpatch
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-
 	dh_clean
 
 install: build
@@ -39,6 +39,17 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
+	dh_install --fail-missing
+
+
+	# set rights on some files
+	find debian/ -type f -and -name \*.php -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.xml -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.png -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.mo -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.txt -print0 | xargs -0ri chmod 0644  '{}'
+	find debian/ -type f -and -name \*.phtml -print0 | xargs -0ri chmod 0644  '{}'
+
 
 # Build architecture-independent files here.
 binary-indep: build install
@@ -49,10 +60,8 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs
-	dh_install
 	dh_link
 	dh_compress
-	dh_fixperms
 	dh_installdeb
 	dh_gencontrol
 	dh_md5sums

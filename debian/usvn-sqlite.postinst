@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+chown www-data:www-data /var/lib/usvn
+chown www-data:www-data /var/lib/svn
+chown www-data:www-data /etc/usvn/config.ini
+chmod 600 /etc/usvn/config.ini
+

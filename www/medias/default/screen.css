@@ -3,8 +3,6 @@
  * screen.css of default's template
  */
 
-/* Require for HTMLTableTools */
-@import "<?php echo $this->medias_directory; ?>/default/js/tools/HTMLTableTools/table.css";
 
 html, body {
 	font-size: 13px;
@@ -397,7 +395,7 @@ form.usvn_form > fieldset {
 	margin-bottom: 1em;
 }
 
-table.usvn_table {
+table.usvn_table, table.sortable {
 	width: 80%;
 	min-width: 300px;
 	margin: auto;
@@ -405,24 +403,32 @@ table.usvn_table {
     border-collapse: collapse;
 }
 
-table.usvn_table tr th {
+table.usvn_table th, table.sortable th {
     border: 1px solid black;
     background-color: #5F7FFF;
 }
 
-table.usvn_table td {
+
+table.usvn_table td, table.sortable td {
 	border-style:solid;
 	border-width:1px;
-	border-color:#BFCCFF;
 }
 
-table.usvn_table  tr:hover {
+table.usvn_table  tr:hover, table.sortable tr:hover {
     background-color: #BFF4FF;
     cursor:pointer;
 }
 
-table.usvn_table a:hover {
+table.usvn_table a:hover, table.sortable a:hover {
 	color: #2F2F2F;
+}
+
+
+.odd {
+  background-color: #eff2ff;
+}
+.even {
+  background-color: #fff;
 }
 
 <?php include($this->css_directory . "/login.css"); ?>

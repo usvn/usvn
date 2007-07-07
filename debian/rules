@@ -1,14 +1,5 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-#
-#  debian/rules file for usvn Debian package
-#
-#
-#  Copyright 2007 USVN Team <contact@usvn.info>
-#  Distributed under the GNU General Public License version 2
-#
 
-# Include dpatch stuff.
 include /usr/share/dpatch/dpatch.make
 
 # Uncomment this to turn on verbose mode.
@@ -53,12 +44,9 @@ install: build
 
 # Build architecture-independent files here.
 binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
 	dh_testdir
 	dh_testroot
+	dh_installdebconf
 	dh_installchangelogs
 	dh_link
 	dh_compress
@@ -66,6 +54,10 @@ binary-arch: build install
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
+
+# Build architecture-dependent files here.
+binary-arch: build install
+# We have nothing to do by default.
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure

@@ -1,7 +1,20 @@
 #!/bin/sh -e
 
+. /usr/share/debconf/confmodule
+
+
+
 chown www-data:www-data /var/lib/usvn
 chown www-data:www-data /var/lib/svn
 chown www-data:www-data /etc/usvn/config.ini
 chmod 600 /etc/usvn/config.ini
+#DEBHELPER#
+
+#Get USVN admin user
+db_get usvn-sqlite/user
+USER=$RET
+echo User $USER
+db_get usvn-sqlite/password
+PASSWORD=$RET
+echo Password $PASSWORD
 

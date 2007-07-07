@@ -73,7 +73,7 @@ function installationOperation($step)
 	switch ($step) {
 		case 1:
 			Install::checkSystem();
-			Install::installUrl(CONFIG_FILE, HTACCESS_FILE);
+			Install::installUrl(CONFIG_FILE, HTACCESS_FILE, $_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'], isset($_SERVER['HTTPS']));
 		break;
 
 		case 4:

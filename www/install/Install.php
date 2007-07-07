@@ -172,7 +172,9 @@ class Install
 			"url" => $url
 			);
 			$config->save();
-			touch($authz);
+			if (!@touch($authz)) {
+				throw new USVN_Exception(T_("Can't write access file %s.\n"),  $authz);
+			}
 		}
 		else {
 			throw new USVN_Exception(T_("Invalid subversion path \"%s\", please check if directory exist and is writable."), $path);
@@ -186,13 +188,19 @@ class Install
 	*
 	* @param string Path to the USVN config file
 	* @param string Path to the USVN htaccess file
+	* @param string Url of usvn with or without /install
+	* @param string Server host
+	* @param boolean Is https?
 	* @throw USVN_Exception
 	*/
-	static public function installUrl($config_file, $htaccess_file)
+	static public function installUrl($config_file, $htaccess_file, $usvn_url, $server_host, $https)
 	{
-		preg_match("#(.*)/install.*#", $_SERVER['REQUEST_URI'], $regs);
-		$path = $regs[1];
-		//here
+		if (preg_match("#(.*)/install.*#", $usvn_url, $regs)) {
+			$path = $regs[1];
+		}
+		else {
+			$path = $usvn_url;
+		}
 		if (substr($path, strlen($path) - 1, strlen($path)) == "/") {
 			$path = rtrim($path, "/");
 		}
@@ -201,7 +209,6 @@ class Install
 			$config->url = array();
 		}
 		$config->url->base = $path;
-		$config->url->host = $_SERVER['SERVER_NAME'];
 		$config->save();
 		$content = <<<EOF
 <Files *.ini>
@@ -219,13 +226,13 @@ EOF;
 		}
 		chmod($htaccess_file, 0644);
 		if (php_sapi_name() != "cli") {
-			if (isset($_SERVER['HTTPS'])) {
+			if ($https) {
 				$method = "https";
 			}
 			else {
 				$method = "http";
 			}
-			$url = "{$method}://{$_SERVER['HTTP_HOST']}{$path}/login/";
+			$url = "{$method}://{$server_host}{$path}/login/";
 
 			try {
 				$client = new Zend_Http_Client($url, array(

@@ -2,12 +2,13 @@ Source: usvn
 Section: admin
 Priority: extra
 Maintainer: Julien Duponchelle <julien@duponchelle.info>
-Build-Depends: debhelper (>= 5)
+Build-Depends: debhelper (>= 5), dpatch, debconf
 Standards-Version: 3.7.2
 
 Package: usvn-sqlite
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends} usvn-common, php5-sqlite
+Depends: ${shlibs:Depends}, ${misc:Depends}, usvn-common, php5-sqlite
+Conflicts: usvn-mysql
 Description:SQLite version of USVN
  Graphical web interface for manage Subversion repositories.
 

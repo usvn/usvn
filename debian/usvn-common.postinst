@@ -1,6 +1,15 @@
 #!/bin/sh -e
 
+. /usr/share/debconf/confmodule
+
 a2enmod rewrite
-apache2ctl restart
 
 chown -R www-data:www-data /usr/share/usvn
+#DEBHELPER#
+
+db_get usvn-common/restart-apache
+APACHE=$RET
+if [ $APACHE = true ];then
+	apache2ctl restart
+fi
+

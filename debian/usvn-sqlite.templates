@@ -1,0 +1,11 @@
+Template: usvn-sqlite/user
+Type: string
+Default: admin
+Description: Login?
+ The selected user will have administration rights on the USVN interface.
+
+Template: usvn-sqlite/password
+Type: password
+Default:
+Description: Password?
+ 8 characters or more.

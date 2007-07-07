@@ -1,8 +1,3 @@
-<script type="text/javascript">
-HTMLTableToolsOptions.multiColSort = true;
-HTMLTableToolsOptions.showSortIndex = true;
-HTMLTableToolsOptions.skipCells = [6];
-</script>
 <div class="usvn_info_user">
 	<h1><?php echo T_("Users"); ?></h1>
 </div>
@@ -15,7 +10,7 @@ print '<table class="sortable" id="users">' .
 		'<th>' . T_('Lastname') . '</th>' .
 		'<th>' . T_('Email') . '</th>' .
 		'<th>' . T_('Administrator') . '</th>' .
-		'<th>' . T_('Action') . '</th>' .
+		'<th class="sorttable_nosort">' . T_('Action') . '</th>' .
 		'</tr></thead><tbody>';
 
 if (count($this->users)) {

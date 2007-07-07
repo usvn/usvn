@@ -139,6 +139,7 @@ database.options.dbname = "../tests/usvn.db"
 		$this->assertTrue($user_table->isAUser('admin'));
 		$user = $user_table->fetchRow(array('users_login = ?' => 'admin'));
 		$this->assertEquals(1, $user->is_admin);
+		$this->assertTrue(USVN_Crypt::checkPassword("testtest", $user->password));
 	}
 
 }

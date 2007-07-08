@@ -30,7 +30,12 @@ $htaccessfile = $argv[2];
 $login = $argv[3];
 $password = $argv[4];
 
+
 USVN_Translation::initTranslation('en_US', 'locale');
+if (!Install::installPossible($configfile)) {
+	echo T_("Error") . ": " . T_("USVN is already install.");
+	exit(1);
+}
 try {
 	$config = new USVN_Config_Ini($configfile, 'general');
 	Zend_Registry::set('config', $config);

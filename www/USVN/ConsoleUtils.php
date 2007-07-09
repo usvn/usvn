@@ -50,7 +50,7 @@ class USVN_ConsoleUtils
 	}
 
 	/**
-	* Run a cmd and return result from stdout and stderror
+	* Run a cmd and return result from stdout and stderror. Html characters are escaped.
 	*
 	* @param string command line
 	* @param reference return value
@@ -58,14 +58,27 @@ class USVN_ConsoleUtils
 	*/
 	static public function runCmdCaptureMessage($command, &$return)
 	{
+		return(htmlspecialchars(USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($command, $return)));
+	}
+
+	/**
+	* Run a cmd and return result from stdout and stderror. Unsafe doesn't escape HTML.
+	*
+	* @param string command line
+	* @param reference return value
+	* @return string Ouput of STDOUT and STDERR
+	*/
+	static public function runCmdCaptureMessageUnsafe($command, &$return)
+	{
 		USVN_ConsoleUtils::prepareLang();
 		ob_start();
 		passthru($command . " 2>&1", $return);
 		$msg = ob_get_contents();
 		ob_end_clean();
 		USVN_ConsoleUtils::restoreLang();
-		return(htmlspecialchars($msg));
+		return($msg);
 	}
+
 
 	/**
 	* Run a cmd and return result

@@ -78,5 +78,22 @@
 </div>
 <div class="usvn_info">
 	<h1><?php echo T_("Last five commit") ?></h1>
-	<pre><?php echo $this->log ?></pre>
+	<table id="commits" class="sortable">
+		<thead>
+			<tr>
+				<th><?php echo T_("Revision");?></th>
+				<th><?php echo T_("Author");?></th>
+				<th><?php echo T_("Date");?></th>
+				<th><?php echo T_("Message");?></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+			foreach (array_keys($this->log) as $revision) {
+				$commit = $this->log[$revision];
+				echo "<tr><td>{$revision}</td><td>{$commit['author']}</td><td>" . date("Y-m-d H:i", $commit["date"]) . "</td><td>" . nl2br($commit['msg']) . "</td></tr>";
+			}
+		?>
+		</tbody>
+	</table>
 </div>

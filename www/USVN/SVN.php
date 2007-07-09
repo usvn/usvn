@@ -44,8 +44,19 @@ class USVN_SVN
 		return USVN_SVNUtils::listSvn($this->_repository, $path);
 	}
 
+	/**
+	 * @param string Path to repository
+	 * @param int Number of revisiom (0 = no limit)
+	 * @return array  Key are revision number example:
+	*		array(
+	*			1 => array("author" => "duponc_j", "msg" => "Test", date=> 1265413),
+	*			2 => array("revision" => "crivis_s", "msg" => "Test2", date=>4565654)
+	*		)
+	*
+	* Date are unix timestamp
+	*/
 	public function log($limit = 0)
 	{
-		return USVN_SVNUtils::log($this->_repository, $limit);
+		return USVN_SVNLog::log($this->_repository, $limit);
 	}
 }

@@ -141,13 +141,22 @@ class USVN_SVNUtils
 		@mkdir($path . "/db");
 	}
 
-
-	private static function svnCommand($cmd)
+	/**
+	* Get the command svn
+	*
+	* @param string Parameters
+	*/
+	public static function svnCommand($cmd)
 	{
 		return "svn --config-dir /USVN/fake $cmd";
 	}
 
-	private static function svnadminCommand($cmd)
+	/**
+	* Get the command svnadmin
+	*
+	* @param string Parameters
+	*/
+	public static function svnadminCommand($cmd)
 	{
 		return "svnadmin --config-dir /USVN/fake $cmd";
 	}
@@ -160,7 +169,7 @@ class USVN_SVNUtils
     */
     private static function _svnImport($server, $local)
     {
-        $server = USVN_SVNUtils::_getRepositoryPath($server);
+        $server = USVN_SVNUtils::getRepositoryPath($server);
         $local = escapeshellarg($local);
         $cmd = USVN_SVNUtils::svnCommand("import --non-interactive --username USVN -m \"" . T_("Commit by USVN") ."\" $local $server");
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage($cmd, $return);
@@ -207,7 +216,7 @@ class USVN_SVNUtils
     public static function checkoutSvn($src, $dst)
     {
 		$dst = escapeshellarg($dst);
-		$src = USVN_SVNUtils::_getRepositoryPath($src);
+		$src = USVN_SVNUtils::getRepositoryPath($src);
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("co $src $dst"), $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
@@ -223,7 +232,7 @@ class USVN_SVNUtils
 	*/
 	public static function listSvn($repository, $path)
 	{
-        $escape_path = USVN_SVNUtils::_getRepositoryPath($repository) . '/' . $path;
+        $escape_path = USVN_SVNUtils::getRepositoryPath($repository) . '/' . $path;
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("ls $escape_path"), $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $message);
@@ -242,25 +251,13 @@ class USVN_SVNUtils
         return $res;
 	}
 
-	public static function log($repository, $limit = 0)
-	{
-        $repository = USVN_SVNUtils::_getRepositoryPath($repository);
-        $limit = escapeshellarg($limit);
-        if ($limit) {
-        	$limit = "--limit $limit";
-        }
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("log $limit $repository"), $return);
-		if ($return) {
-			throw new USVN_Exception(T_("Can't get subversion repository logs: %s"), $message);
-		}
-		return $message;
-	}
-
 	/**
+	 * Return clean version of a Subversion repository path betwenn ' and with file:// before
+	 *
 	 * @param string Path to repository
 	 * @return string absolute path to repository
 	 */
-	private static function _getRepositoryPath($path)
+	public static function getRepositoryPath($path)
 	{
 		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
 			$newpath = realpath($path);

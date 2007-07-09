@@ -37,6 +37,7 @@ class JsController extends Zend_Controller_Action
         header('Cache-Control: max-age=3600, must-revalidate');
         header("Content-type: $this->_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/default/js/usvn.js');
-		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/script.js');
+ 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/script.js');
+ 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/js/tools/sortable.js');
 	}
 }

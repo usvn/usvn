@@ -1,5 +1,5 @@
 /**
- * Javascript file loaded automaticly for this template (here default)
+ * Javascript file loaded automatically for this template (here default)
  * Not required for USVN
  */
 

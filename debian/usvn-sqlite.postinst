@@ -16,4 +16,4 @@ USER=$RET
 db_get usvn-sqlite/password
 PASSWORD=$RET
 cd /usr/share/usvn/
-php install/install-commandline.php /etc/usvn.config.ini /usr/share/usvn/.htaccess $USER $PASSWORD || exit 1
+php install/install-commandline.php /etc/usvn/config.ini /usr/share/usvn/.htaccess "$USER" "$PASSWORD"

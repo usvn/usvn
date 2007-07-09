@@ -4,22 +4,19 @@
 # root <(null)>, 2007.
 # , fuzzy
 # root <(null)>, 2007.
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-07 15:59+0200\n"
-"PO-Revision-Date: 2007-07-07 02:06+0800\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2007-07-09 17:41+0800\n"
+"Last-Translator:  <>\n"
 "Language-Team: Chinese/Simplified <contact@usvn.info>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-Country: FRANCE\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../../../www//helpers/ACLLink.php:33
 #: ../../../www//controllers/BrowserajaxController.php:105
@@ -56,7 +53,7 @@ msgstr "%s 未知的用户名"
 #: ../../../www//controllers/BrowserajaxController.php:57
 #, php-format
 msgid "Apply rights on %s"
-msgstr ""
+msgstr "设置 %s 的权限"
 
 #: ../../../www//controllers/BrowserajaxController.php:74
 #: ../../../www//views/projectadmin/form.phtml:24
@@ -685,7 +682,7 @@ msgstr "用户 %s 不存在"
 
 #: ../../../www//USVN/User.php:111
 msgid "This user can't be created. A group has the same name."
-msgstr ""
+msgstr "无法创建用户, 一个同名的用户组已经存在."
 
 #: ../../../www//views/projectadmin/form.phtml:10
 msgid "Project's name empty, please fill it."
@@ -870,7 +867,7 @@ msgstr "上传"
 
 #: ../../../www//views/useradmin/js.phtml:33
 msgid "Email incorrect."
-msgstr ""
+msgstr "Email 不正确."
 
 #: ../../../www//views/login/login.phtml:4
 msgid "Please enter your login and your password to connect to USVN."

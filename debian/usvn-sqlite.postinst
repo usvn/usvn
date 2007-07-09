@@ -13,8 +13,7 @@ chmod 600 /etc/usvn/config.ini
 #Get USVN admin user
 db_get usvn-sqlite/user
 USER=$RET
-echo User $USER
 db_get usvn-sqlite/password
 PASSWORD=$RET
-echo Password $PASSWORD
-
+cd /usr/share/usvn/
+php install/install-commandline.php /etc/usvn.config.ini /usr/share/usvn/.htaccess $USER $PASSWORD || exit 1

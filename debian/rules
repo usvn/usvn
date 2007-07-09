@@ -40,7 +40,7 @@ install: build
 	find debian/ -type f -and -name \*.mo -print0 | xargs -0ri chmod 0644  '{}'
 	find debian/ -type f -and -name \*.txt -print0 | xargs -0ri chmod 0644  '{}'
 	find debian/ -type f -and -name \*.phtml -print0 | xargs -0ri chmod 0644  '{}'
-
+	find debian/ -type f -and -name install-commandline.php -print0 | xargs -0ri chmod 0755  '{}'
 
 # Build architecture-independent files here.
 binary-indep: build install

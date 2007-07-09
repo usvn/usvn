@@ -93,7 +93,6 @@ class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 		<link type="text/css" rel="stylesheet" media="screen" href="{$config->url->base}/css/screen" />
 		<link type="text/css" rel="stylesheet" media="print" href="{$config->url->base}/css/print" />
 		<script type="text/javascript" src="{$config->url->base}/js/"></script>
-        <script type="text/javascript" src="{$config->url->base}/medias/default/js/tools/sortable.js"></script>
 	</head>
 	<body>
 		<div id="usvn_page">

@@ -142,6 +142,29 @@ database.options.dbname = "../tests/usvn.db"
 		$this->assertTrue(USVN_Crypt::checkPassword("testtest", $user->password));
 	}
 
+	public function testAlreadyInstall()
+	{
+		file_put_contents('../tests/config.ini', '[general]
+url.base = "/usvn"
+translation.locale = "en_US"
+template.name = "default"
+site.title = "USVN"
+site.ico = "medias/default/images/USVN.ico"
+site.logo = "medias/default/images/USVN-logo.png"
+subversion.path = "../tests/"
+subversion.passwd = "../tests/htpasswd"
+subversion.authz = "../tests/authz"
+subversion.url = "http://localhost/usvn/svn/"
+database.adapterName = "PDO_SQLITE"
+database.prefix = "usvn_"
+database.options.dbname = "../tests/usvn.db"
+version = "0.6.3"
+		');
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php ../tests/config.ini ../tests/htaccess admin testtest", $return);
+		$this->assertEquals(1, $return, $message);
+	}
+
+
 }
 
 // Call InstallCommandLine_Test::main() if this source file is executed directly.

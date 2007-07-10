@@ -55,6 +55,7 @@ class USVN_ConfigTest extends USVN_Test_Test {
 		file_put_contents(USVN_CONFIG_FILE, "
 		[general]
 translation.locale = \"en_US\"
+version = \"0.84\"
 		");
 	}
 
@@ -62,8 +63,18 @@ translation.locale = \"en_US\"
 	{
 		USVN_Config::setLanguage('fr_FR');
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-		$this->assertEquals($config->translation->locale, 'fr_FR');
+		$this->assertEquals('fr_FR', $config->translation->locale);
     }
+
+    public function testUnset()
+	{
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		unset($config->translation->locale);
+		unset($config->version);
+		$this->assertFalse(isset($config->translation->locale));
+		$this->assertFalse(isset($config->version));
+    }
+
 
     public function testSetLanguageInvalid()
 	{

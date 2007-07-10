@@ -44,13 +44,13 @@ function ts_makeSortable(t) {
 		}
 	}
 	if (!firstRow) return;
-	
+
 	// We have a first row: assume it's the header, and make its contents clickable links
 	for (var i=0;i<firstRow.cells.length;i++) {
 		var cell = firstRow.cells[i];
 		var txt = ts_getInnerText(cell);
 		if (cell.className != "unsortable" && cell.className.indexOf("unsortable") == -1) {
-			cell.innerHTML = '<a href="#" class="sortheader" onclick="ts_resortTable(this, '+i+');return false;">'+txt+'<span class="sortarrow">&nbsp;&nbsp;<img src="'+ image_path + image_none + '" alt="&darr;"/></span></a>';
+			cell.innerHTML = '<a href="#" class="sortheader" onclick="ts_resortTable(this, ' + i + ');return false;">' + txt + '&nbsp;&nbsp;<span class="sortarrow"><img src="' + image_path + image_none + '" alt="&darr;"/></span></a>';
 		}
 	}
 	if (alternate_row_colors) {
@@ -63,7 +63,7 @@ function ts_getInnerText(el) {
 	if (typeof el == "undefined") { return el };
 	if (el.innerText) return el.innerText;	//Not needed but it is faster
 	var str = "";
-	
+
 	var cs = el.childNodes;
 	var l = cs.length;
 	for (var i = 0; i < l; i++) {
@@ -100,7 +100,7 @@ function ts_resortTable(lnk, clid) {
 		}
 		i++;
 	}
-	if (itm == "") return; 
+	if (itm == "") return;
 	sortfn = ts_sort_caseinsensitive;
 	if (itm.match(/^\d\d[\/\.-][a-zA-z][a-zA-Z][a-zA-Z][\/\.-]\d\d\d\d$/)) sortfn = ts_sort_date;
 	if (itm.match(/^\d\d[\/\.-]\d\d[\/\.-]\d\d\d{2}?$/)) sortfn = ts_sort_date;
@@ -110,42 +110,42 @@ function ts_resortTable(lnk, clid) {
 	var firstRow = new Array();
 	var newRows = new Array();
 	for (k=0;k<t.tBodies.length;k++) {
-		for (i=0;i<t.tBodies[k].rows[0].length;i++) { 
-			firstRow[i] = t.tBodies[k].rows[0][i]; 
+		for (i=0;i<t.tBodies[k].rows[0].length;i++) {
+			firstRow[i] = t.tBodies[k].rows[0][i];
 		}
 	}
 	for (k=0;k<t.tBodies.length;k++) {
 		if (!thead) {
 			// Skip the first row
-			for (j=1;j<t.tBodies[k].rows.length;j++) { 
+			for (j=1;j<t.tBodies[k].rows.length;j++) {
 				newRows[j-1] = t.tBodies[k].rows[j];
 			}
 		} else {
 			// Do NOT skip the first row
-			for (j=0;j<t.tBodies[k].rows.length;j++) { 
+			for (j=0;j<t.tBodies[k].rows.length;j++) {
 				newRows[j] = t.tBodies[k].rows[j];
 			}
 		}
 	}
 	newRows.sort(sortfn);
 	if (span.getAttribute("sortdir") == 'down') {
-			ARROW = '&nbsp;&nbsp;<img src="'+ image_path + image_down + '" alt="&darr;"/>';
+			ARROW = '<img src="'+ image_path + image_down + '" alt="&darr;"/>';
 			newRows.reverse();
 			span.setAttribute('sortdir','up');
 	} else {
-			ARROW = '&nbsp;&nbsp;<img src="'+ image_path + image_up + '" alt="&uarr;"/>';
+			ARROW = '<img src="'+ image_path + image_up + '" alt="&uarr;"/>';
 			span.setAttribute('sortdir','down');
-	} 
+	}
     // We appendChild rows that already exist to the tbody, so it moves them rather than creating new ones
     // don't do sortbottom rows
-    for (i=0; i<newRows.length; i++) { 
+    for (i=0; i<newRows.length; i++) {
 		if (!newRows[i].className || (newRows[i].className && (newRows[i].className.indexOf('sortbottom') == -1))) {
 			t.tBodies[0].appendChild(newRows[i]);
 		}
 	}
     // do sortbottom rows only
     for (i=0; i<newRows.length; i++) {
-		if (newRows[i].className && (newRows[i].className.indexOf('sortbottom') != -1)) 
+		if (newRows[i].className && (newRows[i].className.indexOf('sortbottom') != -1))
 			t.tBodies[0].appendChild(newRows[i]);
 	}
 	// Delete any other arrows there may be showing
@@ -153,10 +153,10 @@ function ts_resortTable(lnk, clid) {
 	for (var ci=0;ci<allspans.length;ci++) {
 		if (allspans[ci].className == 'sortarrow') {
 			if (getParent(allspans[ci],"table") == getParent(lnk,"table")) { // in the same table as us?
-				allspans[ci].innerHTML = '&nbsp;&nbsp;<img src="'+ image_path + image_none + '" alt="&darr;"/>';
+				allspans[ci].innerHTML = '<img src="'+ image_path + image_none + '" alt="&darr;"/>';
 			}
 		}
-	}		
+	}
 	span.innerHTML = ARROW;
 	alternate(t);
 }
@@ -171,7 +171,7 @@ function getParent(el, pTagName) {
 	}
 }
 
-function sort_date(date) {	
+function sort_date(date) {
 	// y2k notes: two digit years less than 50 are treated as 20XX, greater than 50 are treated as 19XX
 	dt = "00000000";
 	if (date.length == 11) {
@@ -204,10 +204,10 @@ function sort_date(date) {
 		}
 	} else if (date.length == 8) {
 		yr = date.substr(6,2);
-		if (parseInt(yr) < 50) { 
-			yr = '20'+yr; 
-		} else { 
-			yr = '19'+yr; 
+		if (parseInt(yr) < 50) {
+			yr = '20'+yr;
+		} else {
+			yr = '19'+yr;
 		}
 		if (europeandate == true) {
 			dt = yr+date.substr(3,2)+date.substr(0,2);
@@ -223,11 +223,11 @@ function sort_date(date) {
 function ts_sort_date(a,b) {
 	dt1 = sort_date(ts_getInnerText(a.cells[SORT_COLUMN_INDEX]));
 	dt2 = sort_date(ts_getInnerText(b.cells[SORT_COLUMN_INDEX]));
-	
+
 	if (dt1==dt2) {
 		return 0;
 	}
-	if (dt1<dt2) { 
+	if (dt1<dt2) {
 		return -1;
 	}
 	return 1;
@@ -317,7 +317,7 @@ function alternate(table) {
 						tableRows[j].className += " odd";
 					}
 				}
-			} 
+			}
 		}
 	}
 }

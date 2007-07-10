@@ -162,7 +162,7 @@ class InstallTest extends USVN_Test_Test {
 	{
 		Install::installEnd("tests/tmp/config.ini");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("0.6.3", $config->version);
+		$this->assertEquals("0.6.4", $config->version);
 	}
 
 	public function testInstallPossibleNoConfigFile()

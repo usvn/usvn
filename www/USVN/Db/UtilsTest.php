@@ -53,6 +53,9 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 		'password' => 'usvn-test',
 		'dbname'   => 'usvn-test');
 
+		if (getenv('DB') != "PDO_MYSQL") {
+			$this->markTestSkipped("Test only with PDO_MYSQL");
+		}
 		$this->db = Zend_Db::factory('PDO_MYSQL', $params);
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Utils::deleteAllTables($this->db);

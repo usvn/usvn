@@ -32,6 +32,10 @@ try {
 	$config->subversion->passwd = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $config->subversion->path . DIRECTORY_SEPARATOR . "htpasswd");
 	$config->subversion->authz = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $config->subversion->path . DIRECTORY_SEPARATOR . "authz");
 	$config->save();
+
+	USVN_DirectoryUtils::removeDirectory("../../medias/default/js/tools/HTMLTableTools");
+	USVN_DirectoryUtils::removeDirectory("../../medias/default/js/tools/scriptaculous");
+	@unlink("../../medias/default/js/tools/prototype.js");
 }
 catch (Exception $e) {
 	echo "<h1>Update error</h1>";

@@ -18,6 +18,11 @@
  * $Id$
  */
 
+/**
+ * This flag tell us if the current user is admin
+ */
+$admin = 0;
+
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminadminController.php';
 
 class ProjectadminController extends AdminadminController
@@ -67,6 +72,7 @@ class ProjectadminController extends AdminadminController
 
 	public function editAction()
 	{
+		
 		$table = new USVN_Db_Table_Projects();
 		$this->view->project = $table->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
 		if ($this->view->project === null) {

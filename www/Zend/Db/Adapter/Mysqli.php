@@ -18,7 +18,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php 5139 2007-06-06 21:01:50Z bkarwin $
+ * @version    $Id: Mysqli.php 5503 2007-06-29 18:18:06Z bkarwin $
  */
 
 
@@ -61,6 +61,9 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
+        if (is_numeric($value)) {
+            return $value;
+        }
         $this->_connect();
         return "'" . $this->_connection->real_escape_string($value) . "'";
     }
@@ -184,7 +187,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 $row['Type'] = 'decimal';
                 $row['Precision'] = $matches[1];
                 $row['Scale'] = $matches[2];
-            } else if (preg_match('/^((?:big|medium|small)?int)\((\d+)\)/', $row['Type'], $matches)) {
+            } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row['Type'], $matches)) {
                 $row['Type'] = $matches[1];
                 /**
                  * The optional argument of a MySQL int type is not precision
@@ -202,9 +205,9 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 ++$p;
             }
             $desc[$this->foldCase($row['Field'])] = array(
-                'SCHEMA_NAME'      => null,
-                'TABLE_NAME'       => $tableName,
-                'COLUMN_NAME'      => $row['Field'],
+                'SCHEMA_NAME'      => null, // @todo
+                'TABLE_NAME'       => $this->foldCase($tableName),
+                'COLUMN_NAME'      => $this->foldCase($row['Field']),
                 'COLUMN_POSITION'  => $i,
                 'DATA_TYPE'        => $row['Type'],
                 'DEFAULT'          => $row['Default'],

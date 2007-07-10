@@ -27,7 +27,7 @@ require_once 'Zend/Controller/Request/Abstract.php';
 /** Zend_Uri */ 
 require_once 'Zend/Uri.php'; 
 
- /**
+/**
  * Zend_Controller_Request_Http
  *
  * HTTP request object for use with Zend_Controller family.

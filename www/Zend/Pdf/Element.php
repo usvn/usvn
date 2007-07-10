@@ -24,9 +24,6 @@ require_once 'Zend/Pdf/Element.php';
 /** Zend_Pdf_Element_Object */
 require_once 'Zend/Pdf/Element/Object.php';
 
-/** Zend_Pdf_ElementFactory */
-require_once 'Zend/Pdf/ElementFactory.php';
-
 
 /**
  * PDF file element implementation
@@ -78,9 +75,9 @@ abstract class Zend_Pdf_Element
      *
      * @param Zend_Pdf_Element_Object $parent
      */
-    public function setParentObject(Zend_Pdf_Element_Object $parent)
+    public function setParentObject(Zend_Pdf_Element_Object &$parent)
     {
-        $this->_parentObject = $parent;
+        $this->_parentObject = &$parent;
     }
 
 
@@ -106,6 +103,14 @@ abstract class Zend_Pdf_Element
         if ($this->_parentObject !== null) {
             $this->_parentObject->touch();
         }
+    }
+
+    /**
+     * Clean up resources, used by object
+     */
+    public function cleanUp()
+    {
+        // Do nothing
     }
 }
 

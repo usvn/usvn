@@ -17,7 +17,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Float.php 4974 2007-05-25 21:11:56Z bkarwin $
+ * @version    $Id: Float.php 5229 2007-06-11 20:19:01Z darby $
  */
 
 
@@ -48,7 +48,7 @@ class Zend_Validate_Float extends Zend_Validate_Abstract
     /**
      * Defined by Zend_Validate_Interface
      *
-     * Returns true if and only if $value only contains digit characters
+     * Returns true if and only if $value is a floating-point value
      *
      * @param  string $value
      * @return boolean

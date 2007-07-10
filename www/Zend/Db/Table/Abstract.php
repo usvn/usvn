@@ -18,7 +18,7 @@
  * @subpackage Table
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5113 2007-06-04 23:42:36Z bkarwin $
+ * @version    $Id: Abstract.php 5502 2007-06-29 18:15:35Z bkarwin $
  */
 
 /**
@@ -822,12 +822,14 @@ abstract class Zend_Db_Table_Abstract
                     case self::CASCADE:
                         $newRefs = array();
                         for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
-                            if (array_key_exists($map[self::REF_COLUMNS][$i], $newPrimaryKey)) {
-                                $newRefs[$map[self::COLUMNS][$i]] = $newPrimaryKey[$map[self::REF_COLUMNS][$i]];
+                            $col = $this->_db->foldCase($map[self::COLUMNS][$i]);
+                            $refCol = $this->_db->foldCase($map[self::REF_COLUMNS][$i]);
+                            if (array_key_exists($refCol, $newPrimaryKey)) {
+                                $newRefs[$col] = $newPrimaryKey[$refCol];
                             }
                             $where[] = $this->_db->quoteInto(
-                                $this->_db->quoteIdentifier($map[self::COLUMNS][$i], true) . ' = ?',
-                                $oldPrimaryKey[$map[self::REF_COLUMNS][$i]]
+                                $this->_db->quoteIdentifier($col, true) . ' = ?',
+                                $oldPrimaryKey[$refCol]
                             );
                         }
                         $rowsAffected += $this->update($newRefs, $where);
@@ -867,9 +869,11 @@ abstract class Zend_Db_Table_Abstract
                 switch ($map[self::ON_DELETE]) {
                     case self::CASCADE:
                         for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
+                            $col = $this->_db->foldCase($map[self::COLUMNS][$i]);
+                            $refCol = $this->_db->foldCase($map[self::REF_COLUMNS][$i]);
                             $where[] = $this->_db->quoteInto(
-                                $this->_db->quoteIdentifier($map[self::COLUMNS][$i], true) . ' = ?',
-                                $primaryKey[$map[self::REF_COLUMNS][$i]]
+                                $this->_db->quoteIdentifier($col, true) . ' = ?',
+                                $primaryKey[$refCol]
                             );
                         }
                         $rowsAffected += $this->delete($where);
@@ -1034,7 +1038,17 @@ abstract class Zend_Db_Table_Abstract
         $keys = array_flip($this->_cols);
         $data = array_intersect_key($data, $keys);
         $data = array_merge($defaults, $data);
-
+        
+        /**
+         * If the primary key can be generated automatically, and no value was 
+         * specified in the user-supplied data, then omit it from the tuple.
+         */
+        $primary = (array) $this->_primary;
+        $pkIdentity = $primary[(int)$this->_identity];
+        if ($data[$pkIdentity] === null) {
+            unset($data[$pkIdentity]);   
+        }
+        
         $config = array(
             'table'   => $this,
             'data'    => $data,

@@ -273,6 +273,7 @@ class Zend_Gdata_App
     public static function import($uri, $client = null, $className='Zend_Gdata_App_Feed')
     {
         $client->resetParameters();
+        $client->setHeaders('x-http-method-override', null);
         $client->setUri($uri);
         $client->setConfig(array('maxredirects' => self::getMaxRedirects()));
         $response = $client->request('GET');
@@ -351,6 +352,8 @@ class Zend_Gdata_App
     public function get($uri)
     {
         $client->setConfig(array('maxredirects' => self::getMaxRedirects()));
+        $client->resetParameters();
+        $client->setHeaders('x-http-method-override', null);
         $client->setUri($uri);
         $response = $client->request('GET');
         if ($response->getStatus() !== 200) {
@@ -394,6 +397,8 @@ class Zend_Gdata_App
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('You must specify an URI to which to post.');
         }
+        $this->_httpClient->resetParameters();
+        $this->_httpClient->setHeaders('x-http-method-override', null);
         $this->_httpClient->setUri($uri);
         $this->_httpClient->setConfig(array('maxredirects' => 0));
         $this->_httpClient->setRawData($rawData,'application/atom+xml');
@@ -405,15 +410,19 @@ class Zend_Gdata_App
         }
         /**
          * set "S" cookie to avoid future redirects.
-         */
+         * TEMPORARILY removed until Zend_Http_Client has a method to set
+         * raw cookie data
         if($cookie = $response->getHeader('Set-cookie')) {
             list($cookieName, $cookieValue) = explode('=', $cookie, 2);
             $this->_httpClient->setCookie($cookieName, $cookieValue);
         }
+         */
         if ($response->isRedirect()) {
             if ($remainingRedirects > 0) {
-                $response = $this->post($data, $uri, $remainingRedirects - 1);
+                $newUri = $response->getHeader('Location');
+                $response = $this->post($data, $newUri, $remainingRedirects - 1);
             } else {
+                require_once 'Zend/Gdata/App/HttpException.php';
                 throw new Zend_Gdata_App_HttpException(
                         'No more redirects allowed', null, $response);
             }
@@ -464,6 +473,8 @@ class Zend_Gdata_App
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException('You must specify an URI to which to put.');
         }
+        $this->_httpClient->resetParameters();
+        $this->_httpClient->setHeaders('x-http-method-override', null);
         $this->_httpClient->setUri($uri);
         $this->_httpClient->setConfig(array('maxredirects' => 0));
         $this->_httpClient->setRawData($rawData,'application/atom+xml');
@@ -482,15 +493,19 @@ class Zend_Gdata_App
         }
         /**
          * set "S" cookie to avoid future redirects.
-         */
+         * TEMPORARILY removed until Zend_Http_Client has a method to set
+         * raw cookie data
         if($cookie = $response->getHeader('Set-cookie')) {
             list($cookieName, $cookieValue) = explode('=', $cookie, 2);
             $this->_httpClient->setCookie($cookieName, $cookieValue);
         }
+         */
         if ($response->isRedirect()) {
             if ($remainingRedirects > 0) {
-                $response = $this->put($data, $uri, $remainingRedirects - 1);
+                $newUri = $response->getHeader('Location');
+                $response = $this->put($data, $newUri, $remainingRedirects - 1);
             } else {
+                require_once 'Zend/Gdata/App/HttpException.php';
                 throw new Zend_Gdata_App_HttpException(
                         'No more redirects allowed', null, $response);
             }
@@ -536,6 +551,7 @@ class Zend_Gdata_App
             throw new Zend_Gdata_App_InvalidArgumentException('You must specify an URI which needs deleted.');
         }
         $this->_httpClient->resetParameters();
+        $this->_httpClient->setHeaders('x-http-method-override', null);
         $this->_httpClient->setUri($uri);
         $this->_httpClient->setConfig(array('maxredirects' => 0));
         try {
@@ -552,8 +568,10 @@ class Zend_Gdata_App
         }
         if ($response->isRedirect()) {
             if ($remainingRedirects > 0) {
-                $response = $this->delete($data, $remainingRedirects - 1);
+                $newUri = $response->getHeader('Location');
+                $response = $this->delete($newUri, $remainingRedirects - 1);
             } else {
+                require_once 'Zend/Gdata/App/HttpException.php';
                 throw new Zend_Gdata_App_HttpException(
                         'No more redirects allowed', null, $response);
             }
@@ -564,6 +582,7 @@ class Zend_Gdata_App
             $exception->setResponse($response);
             throw $exception;
         }
+        return $response;
     }
 
     /**

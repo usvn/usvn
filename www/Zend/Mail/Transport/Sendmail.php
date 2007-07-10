@@ -82,12 +82,21 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
      */
     public function _sendMail()
     {
-        if (!mail(
+        if ($this->parameters === null) {
+            $result = mail(
+                $this->recipients, 
+                $this->_mail->getSubject(), 
+                $this->body, 
+                $this->header);
+        } else {
+            $result = mail(
                 $this->recipients, 
                 $this->_mail->getSubject(), 
                 $this->body, 
                 $this->header,
-                $this->parameters)) 
+                $this->parameters);
+        }
+        if (!$result)
         {
             throw new Zend_Mail_Transport_Exception('Unable to send mail');
         }

@@ -58,6 +58,14 @@ class Zend_Service_StrikeIron_Base
      */     
     public function __construct($options = array())
     {
+        if (!extension_loaded('soap')) {
+            /**
+             * @see Zend_Service_StrikeIron_Exception
+             */
+            require_once 'Zend/Service/StrikeIron/Exception.php';
+            throw new Zend_Service_StrikeIron_Exception('SOAP extension is not enabled');
+        }
+
         $this->_options  = array_merge($this->_options, $options);
 
         $this->_initSoapHeaders();

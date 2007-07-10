@@ -123,7 +123,7 @@ class Zend_Config implements Countable, Iterator
         }
         return $result;
     }
-    
+
     /**
      * Magic function so that $obj->value will work.
      *
@@ -174,7 +174,7 @@ class Zend_Config implements Countable, Iterator
         }
         return $array;
     }
-    
+
     /**
      * Support isset() overloading on PHP 5.1
      *

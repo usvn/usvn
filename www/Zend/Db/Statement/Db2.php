@@ -57,14 +57,16 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
      * @return void
      * @throws Zend_Db_Statement_Db2_Exception
      */
-    public function _prepSql($sql)
+    public function _prepare($sql)
     {
-        parent::_prepSql($sql);
         $connection = $this->_adapter->getConnection();
 
         $this->_stmt = db2_prepare($connection, $sql);
 
         if (!$this->_stmt) {
+            /**
+             * @see Zend_Db_Statement_Db2_Exception
+             */
             require_once 'Zend/Db/Statement/Db2/Exception.php';
             throw new Zend_Db_Statement_Db2_Exception(
                 db2_stmt_errormsg(),
@@ -84,12 +86,8 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
      * @return bool
      * @throws Zend_Db_Statement_Db2_Exception
      */
-    public function bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
+    public function _bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
     {
-        $position = $this->_normalizeBindParam($parameter, $variable, true, true);
-        // the value is returned 0-indexed, but db2_bind_param() wants it to be 1-indexed
-        $position++;
-
         if ($type === null) {
             $type = DB2_PARAM_IN;
         }
@@ -101,6 +99,9 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
         }
 
         if (!db2_bind_param($this->_stmt, $position, "variable", $type, $datatype)) {
+            /**
+             * @see Zend_Db_Statement_Db2_Exception
+             */
             require_once 'Zend/Db/Statement/Db2/Exception.php';
             throw new Zend_Db_Statement_Db2_Exception(
                 db2_stmt_errormsg($this->_stmt),
@@ -186,22 +187,23 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
      * @return bool
      * @throws Zend_Db_Statement_Db2_Exception
      */
-    public function execute(array $params = array())
+    public function _execute(array $params = null)
     {
         if (!$this->_stmt) {
             return false;
         }
 
-        if (!$this->_stmt) {
-            require_once 'Zend/Db/Statement/Db2/Exception.php';
-            throw new Zend_Db_Statement_Db2_Exception(
-                db2_conn_errormsg($connection),
-                db2_conn_error($connection));
+        $retval = true;
+        if ($params !== null) {
+            $retval = @db2_execute($this->_stmt, $params);
+        } else {
+            $retval = @db2_execute($this->_stmt);
         }
 
-        $retval = @db2_execute($this->_stmt, $params);
-
         if ($retval === false) {
+            /**
+             * @see Zend_Db_Statement_Db2_Exception
+             */
             require_once 'Zend/Db/Statement/Db2/Exception.php';
             throw new Zend_Db_Statement_Db2_Exception(
                 db2_stmt_errormsg($this->_stmt),
@@ -245,31 +247,32 @@ class Zend_Db_Statement_Db2 extends Zend_Db_Statement
 
         switch ($style) {
             case Zend_Db::FETCH_NUM :
-                $fetch_function = "db2_fetch_array";
+                $row = db2_fetch_array($this->_stmt);
                 break;
             case Zend_Db::FETCH_ASSOC :
-                $fetch_function = "db2_fetch_assoc";
+                $row = db2_fetch_assoc($this->_stmt);
                 break;
             case Zend_Db::FETCH_BOTH :
-                $fetch_function = "db2_fetch_both";
+                $row = db2_fetch_both($this->_stmt);
                 break;
             case Zend_Db::FETCH_OBJ :
-                $fetch_function = "db2_fetch_object";
+                $row = db2_fetch_object($this->_stmt);
                 break;
-            case Zend_Db::FETCH_BOUND: // bound to PHP variable
-                /**
-                 * @see Zend_Db_Adapter_Mysqli_Exception
-                 */
-                require_once 'Zend/Db/Adapter/Mysqli/Exception.php';
-                throw new Zend_Db_Adapter_Mysqli_Exception('FETCH_BOUND is not supported yet');
+            case Zend_Db::FETCH_BOUND:
+                $row = db2_fetch_both($this->_stmt);
+                if ($row !== false) {
+                    return $this->_fetchBound($row);
+                }
                 break;
             default:
+                /**
+                 * @see Zend_Db_Statement_Db2_Exception
+                 */
                 require_once 'Zend/Db/Statement/Db2/Exception.php';
                 throw new Zend_Db_Statement_Db2_Exception("Invalid fetch mode '$style' specified");
                 break;
         }
 
-        $row = $fetch_function($this->_stmt);
         return $row;
     }
 

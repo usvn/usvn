@@ -40,7 +40,7 @@ abstract class Zend_Cache
      * 
      * @var array $availableBackends array of backends name (string)
      */
-    public static $availableBackends = array('File', 'Sqlite', 'Memcached', 'Apc');
+    public static $availableBackends = array('File', 'Sqlite', 'Memcached', 'Apc', 'ZendPlatform');
     
     /**
      * Consts for clean() method
@@ -62,14 +62,14 @@ abstract class Zend_Cache
     {
         
         // because lowercase will fail
-        $frontend = @ucfirst(strtolower($frontend));
-        $backend = @ucfirst(strtolower($backend));
+        $frontend = self::_normalizeName($frontend);
+        $backend  = self::_normalizeName($backend);
         
-        if (!in_array($frontend, Zend_Cache::$availableFrontends)) {
-            Zend_Cache::throwException("Incorrect frontend ($frontend)");
+        if (!in_array($frontend, self::$availableFrontends)) {
+            self::throwException("Incorrect frontend ($frontend)");
         }
         if (!in_array($backend, Zend_Cache::$availableBackends)) {
-            Zend_Cache::throwException("Incorrect backend ($backend)");
+            self::throwException("Incorrect backend ($backend)");
         }
         
         // For perfs reasons, with frontend == 'Core', we can interact with the Core itself
@@ -101,4 +101,19 @@ abstract class Zend_Cache
         throw new Zend_Cache_Exception($msg);
     }
     
+    /**
+     * Normalize frontend and backend names to allow multiple words TitleCased
+     * 
+     * @param  string $name 
+     * @return string
+     */
+    protected static function _normalizeName($name)
+    {
+        $name = ucfirst(strtolower($name));
+        $name = str_replace(array('-', '_', '.'), ' ', $name);
+        $name = ucwords($name);
+        $name = str_replace(' ', '', $name);
+        return $name;
+    }
+
 }

@@ -278,7 +278,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * @return boolean true if no problem
      */
     private function _registerTag($id, $tag) {
-        $res = @sqlite_query($this->_db, "DELETE FROM TAG WHERE tag='$tag' AND id='$id'");
+        $res = @sqlite_query($this->_db, "DELETE FROM TAG WHERE name='$tag' AND id='$id'");
         $res = @sqlite_query($this->_db, "INSERT INTO tag (name, id) VALUES ('$tag', '$id')");
         if (!$res) {        
             $this->_log("Zend_Cache_Backend_Sqlite::_registerTag() : impossible to register tag=$tag on id=$id");

@@ -54,7 +54,7 @@ class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
         } else {
             $value = strtotime($value);
             if ($value === false || $value == -1) { // cannot convert the value to a timestamp
-                throw new Zend_Xml_Rpc_Value_Exception('Cannot convert given value \''. $value .'\' to a timestamp');
+                throw new Zend_XmlRpc_Value_Exception('Cannot convert given value \''. $value .'\' to a timestamp');
             }
         }
         $value = date('c', $value); // Convert the timestamp to iso8601 format

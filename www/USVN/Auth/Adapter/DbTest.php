@@ -74,6 +74,10 @@ class USVN_Auth_Adapter_DbTest extends USVN_Test_DB {
 
 	public function testAuthenticateBadPassword()
 	{
+		$authAdapter = new USVN_Auth_Adapter_Db('testlogin', 'tesdasswordfalse');
+		$result = $authAdapter->authenticate();
+		$this->assertFalse($result->isValid());
+		$this->assertEquals(array('Incorrect password'), $result->getMessages());
 		$authAdapter = new USVN_Auth_Adapter_Db('testlogin', 'testpasswordfalse');
 		$result = $authAdapter->authenticate();
 		$this->assertFalse($result->isValid());

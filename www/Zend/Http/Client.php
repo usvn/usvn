@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client
- * @version    $Id: Client.php 5052 2007-05-29 19:38:17Z darby $
+ * @version    $Id: Client.php 5439 2007-06-24 13:15:43Z shahar $
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -326,8 +326,10 @@ class Zend_Http_Client
             if ($value === null && (strpos($name, ':') > 0))
                 list($name, $value) = explode(':', $name, 2);
 
+            $name = strtolower($name);
+            
             // Make sure the name is valid
-            if (! preg_match('/^[A-Za-z0-9-]+$/', $name)) {
+            if (! preg_match('/^[a-z0-9-]+$/', $name)) {
                 throw new Zend_Http_Client_Exception("{$name} is not a valid HTTP header name");
             }
 
@@ -338,7 +340,6 @@ class Zend_Http_Client
             // Else, set the header
             } else {
                 // Header names are storred lowercase internally.
-                $name = strtolower($name);
                 if (is_string($value)) $value = trim($value);
                 $this->headers[$name] = $value;
             }
@@ -656,10 +657,10 @@ class Zend_Http_Client
     public function resetParameters()
     {
         // Reset parameter data
-        $this->paramsGet = array();
-        $this->paramsPost = array();
+        $this->paramsGet     = array();
+        $this->paramsPost    = array();
+        $this->files         = array();
         $this->raw_post_data = null;
-        $this->files = array();
 
         // Clear outdated headers
         if (isset($this->headers['content-type'])) unset($this->headers['content-type']);
@@ -850,8 +851,10 @@ class Zend_Http_Client
         }
 
         // Set the content-type header
-        if (! isset($this->headers['content-type']) && isset($this->enctype)) {
-            $headers[] = "Content-type: {$this->enctype}";
+        if ($this->method == self::POST && 
+           (! isset($this->headers['content-type']) && isset($this->enctype))) {
+            
+	    $headers[] = "Content-type: {$this->enctype}";
         }
 
         // Set the user agent header

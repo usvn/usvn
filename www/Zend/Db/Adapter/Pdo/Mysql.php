@@ -101,9 +101,9 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         // the version with this improvement is in wide use.
 
         if ($schemaName) {
-            $sql = 'DESCRIBE ' . $this->quoteIdentifier("$schemaName.$tableName");
+            $sql = 'DESCRIBE ' . $this->quoteIdentifier("$schemaName.$tableName", true);
         } else {
-            $sql = 'DESCRIBE ' . $this->quoteIdentifier($tableName);
+            $sql = 'DESCRIBE ' . $this->quoteIdentifier($tableName, true);
         }
         $stmt = $this->query($sql);
 
@@ -133,7 +133,7 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
                 $row[$type] = 'decimal';
                 $precision = $matches[1];
                 $scale = $matches[2];
-            } else if (preg_match('/^((?:big|medium|small)?int)\((\d+)\)/', $row[$type], $matches)) {
+            } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row[$type], $matches)) {
                 $row[$type] = $matches[1];
                 // The optional argument of a MySQL int type is not precision
                 // or length; it is only a hint for display width.
@@ -148,10 +148,10 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
                 }
                 ++$p;
             }
-            $desc[$row[$field]] = array(
-                'SCHEMA_NAME'      => null,
-                'TABLE_NAME'       => $tableName,
-                'COLUMN_NAME'      => $row[$field],
+            $desc[$this->foldCase($row[$field])] = array(
+                'SCHEMA_NAME'      => null, // @todo
+                'TABLE_NAME'       => $this->foldCase($tableName),
+                'COLUMN_NAME'      => $this->foldCase($row[$field]),
                 'COLUMN_POSITION'  => $i,
                 'DATA_TYPE'        => $row[$type],
                 'DEFAULT'          => $row[$default],

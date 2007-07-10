@@ -53,6 +53,7 @@ class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
             // enabled; display label
             $xhtml = '<label'
                    . ' for="' . $this->view->escape($name) . '"'
+                   . $this->_htmlAttribs($attribs)
                    . '>' . $this->view->escape($value) . '</label>';
         }
         

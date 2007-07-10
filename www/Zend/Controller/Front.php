@@ -150,10 +150,6 @@ class Zend_Controller_Front
     private function __construct()
     {
         $this->_plugins = new Zend_Controller_Plugin_Broker();
-        $this->_plugins->registerPlugin(new Zend_Controller_Plugin_ErrorHandler());
-        if (!Zend_Controller_Action_HelperBroker::hasHelper('viewRenderer')) {
-            Zend_Controller_Action_HelperBroker::addHelper(new Zend_Controller_Action_Helper_ViewRenderer());
-        }
     }
 
     /**
@@ -191,7 +187,6 @@ class Zend_Controller_Front
                     break;
                 case '_plugins':
                     $this->{$name} = new Zend_Controller_Plugin_Broker();
-                    $this->{$name}->registerPlugin(new Zend_Controller_Plugin_ErrorHandler());
                     break;
                 case '_throwExceptions':
                 case '_returnResponse':
@@ -323,6 +318,12 @@ class Zend_Controller_Front
             }
 
             $module    = $file->getFilename();
+
+            // Don't use SCCS directories as modules
+            if (preg_match('/^[^a-z]/i', $module) || ('CVS' == $module)) {
+                continue;
+            }
+
             $moduleDir = $file->getPathname() . DIRECTORY_SEPARATOR . $this->getModuleControllerDirectoryName();
             $this->addControllerDirectory($moduleDir, $module);
         }
@@ -693,12 +694,13 @@ class Zend_Controller_Front
     /**
      * Register a plugin.
      *
-     * @param Zend_Controller_Plugin_Abstract $plugin
+     * @param  Zend_Controller_Plugin_Abstract $plugin
+     * @param  int $stackIndex Optional; stack index for plugin
      * @return Zend_Controller_Front
      */
-    public function registerPlugin(Zend_Controller_Plugin_Abstract $plugin)
+    public function registerPlugin(Zend_Controller_Plugin_Abstract $plugin, $stackIndex = null)
     {
-        $this->_plugins->registerPlugin($plugin);
+        $this->_plugins->registerPlugin($plugin, $stackIndex);
         return $this;
     }
 
@@ -712,6 +714,17 @@ class Zend_Controller_Front
     {
         $this->_plugins->unregisterPlugin($plugin);
         return $this;
+    }
+
+    /**
+     * Is a particular plugin registered?
+     * 
+     * @param  string $class 
+     * @return bool
+     */
+    public function hasPlugin($class)
+    {
+        return $this->_plugins->hasPlugin($class);
     }
 
     /**
@@ -788,6 +801,15 @@ class Zend_Controller_Front
      */
     public function dispatch(Zend_Controller_Request_Abstract $request = null, Zend_Controller_Response_Abstract $response = null)
     {
+        if (!$this->getParam('noErrorHandler') && !$this->_plugins->hasPlugin('Zend_Controller_Plugin_ErrorHandler')) {
+            // Register with stack index of 100
+            $this->_plugins->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(), 100);
+        }
+
+        if (!$this->getParam('noViewRenderer') && !Zend_Controller_Action_HelperBroker::hasHelper('viewRenderer')) {
+            Zend_Controller_Action_HelperBroker::addHelper(new Zend_Controller_Action_Helper_ViewRenderer());
+        }
+
         /**
          * Instantiate default request object (HTTP version) if none provided
          */

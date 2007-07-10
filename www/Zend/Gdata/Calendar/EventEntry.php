@@ -78,7 +78,7 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
         if ($this->_timezone != null) {
             $element->appendChild($this->_timezone->getDOM($element->ownerDocument));
         }        
-        if ($this->quickadd != null) {
+        if ($this->_quickadd != null) {
             $element->appendChild($this->_quickadd->getDOM($element->ownerDocument));
         }
         return $element;

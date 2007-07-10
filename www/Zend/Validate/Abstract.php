@@ -17,7 +17,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5134 2007-06-06 17:54:16Z darby $
+ * @version    $Id: Abstract.php 5411 2007-06-22 14:08:39Z bkarwin $
  */
 
 /**
@@ -90,7 +90,8 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     protected function _error($messageKey = null, $value = null)
     {
         if ($messageKey === null) {
-            $messageKey = current(array_keys($this->_messageTemplates));
+            $keys = array_keys($this->_messageTemplates);
+            $messageKey = current($keys);
         }
         if ($value === null) {
             $value = $this->_value;
@@ -127,6 +128,14 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     }
 
     /**
+     * @return array
+     */
+    public function getMessageVariables()
+    {
+        return array_keys($this->_messageVariables);
+    }
+
+    /**
      * @param string $messageString
      * @param string $messageKey    OPTIONAL
      * @return Zend_Validate_Abstract
@@ -135,7 +144,8 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     public function setMessage($messageString, $messageKey = null)
     {
         if ($messageKey === null) {
-            $messageKey = current(array_keys($this->_messageTemplates));
+            $keys = array_keys($this->_messageTemplates);
+            $messageKey = current($keys);
         }
         if (!isset($this->_messageTemplates[$messageKey])) {
             require_once 'Zend/Validate/Exception.php';

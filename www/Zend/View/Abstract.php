@@ -850,7 +850,10 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
         }
 
         require_once 'Zend/View/Exception.php';
-        throw new Zend_View_Exception("script '$name' not found in path", $this);
+        $message = "script '$name' not found in path (" 
+                 . implode(PATH_SEPARATOR, $this->_path['script'])
+                 . ")";
+        throw new Zend_View_Exception($message, $this);
     }
 
     /**

@@ -18,7 +18,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5100 2007-06-04 19:02:22Z bkarwin $
+ * @version    $Id: Abstract.php 5503 2007-06-29 18:18:06Z bkarwin $
  */
 
 
@@ -259,9 +259,7 @@ abstract class Zend_Db_Adapter_Abstract
 
         // prepare and execute the statement with profiling
         $stmt = $this->prepare($sql);
-        $q = $this->_profiler->queryStart($sql);
         $stmt->execute($bind);
-        $this->_profiler->queryEnd($q);
 
         // return the results embedded in the prepared statement object
         $stmt->setFetchMode($this->_fetchMode);
@@ -567,6 +565,9 @@ abstract class Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
+        if (is_numeric($value)) {
+            return $value;
+        }
         return "'" . addcslashes($value, "\000\n\r\\'\"\032") . "'";
     }
 
@@ -582,20 +583,19 @@ abstract class Zend_Db_Adapter_Abstract
     public function quote($value)
     {
         $this->_connect();
+
         if ($value instanceof Zend_Db_Expr) {
             return $value->__toString();
-        } else if (is_array($value)) {
+        }
+
+        if (is_array($value)) {
             foreach ($value as &$val) {
                 $val = $this->quote($val);
             }
             return implode(', ', $value);
-        } else {
-            if (is_int($value) || is_float($value)) {
-                return $value;
-            } else {
-                return $this->_quote($value);
-            }
         }
+
+        return $this->_quote($value);
     }
 
     /**

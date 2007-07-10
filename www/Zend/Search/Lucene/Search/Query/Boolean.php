@@ -530,6 +530,12 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
         $score = 0;
 
         foreach ($this->_subqueries as $subquery) {
+            $subscore = $subquery->score($docId, $reader);
+
+            if ($subscore == 0) {
+                return 0;
+            }
+
             $score += $subquery->score($docId, $reader) * $this->_coord;
         }
 

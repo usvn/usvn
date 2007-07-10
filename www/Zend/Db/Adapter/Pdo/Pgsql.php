@@ -18,7 +18,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pgsql.php 4969 2007-05-25 19:16:50Z darby $
+ * @version    $Id: Pgsql.php 5296 2007-06-13 23:20:37Z bkarwin $
  */
 
 
@@ -164,10 +164,10 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
                 $primaryPosition = array_search($row[$attnum], explode(',', $row[$conkey])) + 1;
                 $identity = (bool) (preg_match('/^nextval/', $row[$default_value]));
             }
-            $desc[$row[$colname]] = array(
-                'SCHEMA_NAME'      => $row[$nspname],
-                'TABLE_NAME'       => $row[$relname],
-                'COLUMN_NAME'      => $row[$colname],
+            $desc[$this->foldCase($row[$colname])] = array(
+                'SCHEMA_NAME'      => $this->foldCase($row[$nspname]),
+                'TABLE_NAME'       => $this->foldCase($row[$relname]),
+                'COLUMN_NAME'      => $this->foldCase($row[$colname]),
                 'COLUMN_POSITION'  => $row[$attnum],
                 'DATA_TYPE'        => $row[$type],
                 'DEFAULT'          => $row[$default_value],

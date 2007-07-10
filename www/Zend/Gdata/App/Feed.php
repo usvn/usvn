@@ -86,7 +86,8 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Retrieves the DOM model representing this object and all children
      *
-     * @param 
+     * @param DOMDocument $doc
+     * @return DOMElement
      */
     public function getDOM($doc = null)
     {

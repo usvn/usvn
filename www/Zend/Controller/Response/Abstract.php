@@ -108,8 +108,9 @@ abstract class Zend_Controller_Response_Abstract
         }
 
         $this->_headers[] = array(
-            'name'  => $name,
-            'value' => $value
+            'name'    => $name,
+            'value'   => $value,
+            'replace' => $replace
         );
 
         return $this;
@@ -229,7 +230,7 @@ abstract class Zend_Controller_Response_Abstract
             throw new Zend_Controller_Response_Exception('Invalid HTTP response code');
         }
 
-        if ((300 <= $code) || (307 >= $code)) {
+        if ((300 <= $code) && (307 >= $code)) {
             $this->_isRedirect = true;
         } else {
             $this->_isRedirect = false;
@@ -298,10 +299,10 @@ abstract class Zend_Controller_Response_Abstract
 
         foreach ($this->_headers as $header) {
             if (!$httpCodeSent && $this->_httpResponseCode) {
-                header($header['name'] . ': ' . $header['value'], false, $this->_httpResponseCode);
+                header($header['name'] . ': ' . $header['value'], $header['replace'], $this->_httpResponseCode);
                 $httpCodeSent = true;
             } else {
-                header($header['name'] . ': ' . $header['value'], false);
+                header($header['name'] . ': ' . $header['value'], $header['replace']);
             }
         }
 
@@ -560,6 +561,125 @@ abstract class Zend_Controller_Response_Abstract
     public function isException()
     {
         return !empty($this->_exceptions);
+    }
+
+    /**
+     * Does the response object contain an exception of a given type?
+     * 
+     * @param  string $type 
+     * @return boolean
+     */
+    public function hasExceptionOfType($type)
+    {
+        foreach ($this->_exceptions as $e) {
+            if ($e instanceof $type) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Does the response object contain an exception with a given message?
+     * 
+     * @param  string $message 
+     * @return boolean
+     */
+    public function hasExceptionOfMessage($message)
+    {
+        foreach ($this->_exceptions as $e) {
+            if ($message == $e->getMessage()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Does the response object contain an exception with a given code?
+     * 
+     * @param  int $code 
+     * @return boolean
+     */
+    public function hasExceptionOfCode($code)
+    {
+        $code = (int) $code;
+        foreach ($this->_exceptions as $e) {
+            if ($code == $e->getCode()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve all exceptions of a given type
+     * 
+     * @param  string $type 
+     * @return false|array
+     */
+    public function getExceptionByType($type)
+    {
+        $exceptions = array();
+        foreach ($this->_exceptions as $e) {
+            if ($e instanceof $type) {
+                $exceptions[] = $e; 
+            }
+        }
+
+        if (empty($exceptions)) {
+            $exceptions = false;
+        }
+
+        return $exceptions;
+    }
+
+    /**
+     * Retrieve all exceptions of a given message
+     * 
+     * @param  string $message 
+     * @return false|array
+     */
+    public function getExceptionByMessage($message)
+    {
+        $exceptions = array();
+        foreach ($this->_exceptions as $e) {
+            if ($message == $e->getMessage()) {
+                $exceptions[] = $e; 
+            }
+        }
+
+        if (empty($exceptions)) {
+            $exceptions = false;
+        }
+
+        return $exceptions;
+    }
+
+    /**
+     * Retrieve all exceptions of a given code
+     * 
+     * @param mixed $code 
+     * @return void
+     */
+    public function getExceptionByCode($code)
+    {
+        $code       = (int) $code;
+        $exceptions = array();
+        foreach ($this->_exceptions as $e) {
+            if ($code == $e->getCode()) {
+                $exceptions[] = $e; 
+            }
+        }
+
+        if (empty($exceptions)) {
+            $exceptions = false;
+        }
+
+        return $exceptions;
     }
 
     /**

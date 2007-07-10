@@ -18,7 +18,7 @@
  * @subpackage Statement
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php 5065 2007-05-31 05:04:21Z bkarwin $
+ * @version    $Id: Mysqli.php 5401 2007-06-21 01:30:53Z bkarwin $
  */
 
 
@@ -62,14 +62,17 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     protected $_values;
 
     /**
+     * @var array
+     */
+    protected $_meta = null;
+
+    /**
      * @param  string $sql
      * @return void
      * @throws Zend_Db_Statement_Mysqli_Exception
      */
-    public function _prepSql($sql)
+    public function _prepare($sql)
     {
-        parent::_prepSql($sql);
-
         $mysqli = $this->_adapter->getConnection();
 
         $this->_stmt = $mysqli->prepare($sql);
@@ -84,6 +87,22 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     }
 
     /**
+     * Binds a parameter to the specified variable name.
+     *
+     * @param mixed $parameter Name the parameter, either integer or string.
+     * @param mixed $variable  Reference to PHP variable containing the value.
+     * @param mixed $type      OPTIONAL Datatype of SQL parameter.
+     * @param mixed $length    OPTIONAL Length of SQL parameter.
+     * @param mixed $options   OPTIONAL Other options.
+     * @return bool
+     * @throws Zend_Db_Statement_Db2_Exception
+     */
+    protected function _bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
+    {
+        return true;
+    }
+
+    /**
      * Closes the cursor, allowing the statement to be executed again.
      *
      * @return bool
@@ -93,7 +112,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
-        $this->_stmt->close();
+        $this->_stmt->reset();
         return true;
     }
 
@@ -120,7 +139,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     public function errorCode()
     {
         if (!$this->_stmt) {
-            return null;
+            return false;
         }
         return substr($this->_stmt->sqlstate, 0, 5);
     }
@@ -134,7 +153,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     public function errorInfo()
     {
         if (!$this->_stmt) {
-            return null;
+            return false;
         }
         return array(
             substr($this->_stmt->sqlstate, 0, 5),
@@ -150,19 +169,21 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
      * @return bool
      * @throws Zend_Db_Statement_Mysqli_Exception
      */
-    public function execute(array $params = null)
+    public function _execute(array $params = null)
     {
         if (!$this->_stmt) {
             return false;
         }
         // retain metadata
-        $this->_meta = $this->_stmt->result_metadata();
-        if ($this->_stmt->errno) {
-            /**
-             * @see Zend_Db_Statement_Mysqli_Exception
-             */
-            require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-            throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement metadata error: " . $this->_stmt->error);
+        if ($this->_meta === null) {
+            $this->_meta = $this->_stmt->result_metadata();
+            if ($this->_stmt->errno) {
+                /**
+                 * @see Zend_Db_Statement_Mysqli_Exception
+                 */
+                require_once 'Zend/Db/Statement/Mysqli/Exception.php';
+                throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement metadata error: " . $this->_stmt->error);
+            }
         }
 
         // statements that have no result set do not return metadata
@@ -194,7 +215,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
 
         // if no params were given as an argument to execute(),
         // then default to the _bindParam array
-        if (!$params) {
+        if ($params === null) {
             $params = $this->_bindParam;
         }
         // send $params as input parameters to the statement
@@ -230,14 +251,14 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     public function fetch($style = null, $cursor = null, $offset = null)
     {
         if (!$this->_stmt) {
-            return null;
+            return false;
         }
         // fetch the next result
         $retval = $this->_stmt->fetch();
         switch ($retval) {
         case null: // end of data
         case false: // error occurred
-            $this->closeCursor();
+            $this->_stmt->reset();
             return $retval;
         default:
             // fallthrough
@@ -255,51 +276,36 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
             $values[] = $val;
         }
 
-        // bind back to external references
-        foreach ($this->_bindColumn as $key => &$val) {
-            if (is_integer($key)) {
-                // bind by column position
-                // note that vals are 0-based, but cols are 1-based
-                $val = $values[$key-1];
-            } else {
-                // bind by column name
-                $i = array_search($key, $this->_keys);
-                $val = $values[$i];
-            }
-        }
-
-        $data = false;
+        $row = false;
         switch ($style) {
             case Zend_Db::FETCH_NUM:
-                $data = $values;
+                $row = $values;
                 break;
             case Zend_Db::FETCH_ASSOC:
-                $data = array_combine($this->_keys, $values);
+                $row = array_combine($this->_keys, $values);
                 break;
             case Zend_Db::FETCH_BOTH:
                 $assoc = array_combine($this->_keys, $values);
-                $data = array_merge($values, $assoc);
+                $row = array_merge($values, $assoc);
                 break;
             case Zend_Db::FETCH_OBJ:
-                $data = (object) array_combine($this->_keys, $values);
+                $row = (object) array_combine($this->_keys, $values);
                 break;
             case Zend_Db::FETCH_BOUND:
-                /**
-                 * @see Zend_Db_Statement_Mysqli_Exception
-                 */
-                require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-                throw new Zend_Db_Statement_Mysqli_Exception("FETCH_BOUND is not supported yet");
+                $assoc = array_combine($this->_keys, $values);
+                $row = array_merge($values, $assoc);
+                return $this->_fetchBound($row);
                 break;
             default:
                 /**
                  * @see Zend_Db_Statement_Mysqli_Exception
                  */
                 require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-                throw new Zend_Db_Statement_Mysqli_Exception("Invalid fetch mode specified");
+                throw new Zend_Db_Statement_Mysqli_Exception("Invalid fetch mode '$style' specified");
                 break;
         }
 
-        return $data;
+        return $row;
     }
 
     /**
@@ -329,7 +335,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     public function rowCount()
     {
         if (!$this->_adapter) {
-            return null;
+            return false;
         }
         $mysqli = $this->_adapter->getConnection();
         return $mysqli->affected_rows;

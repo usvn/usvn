@@ -57,6 +57,12 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
      * @var string
      */
     protected $_redirectUrl = null;
+
+    /**
+     * Whether or not to use an absolute URI when redirecting
+     * @var bool
+     */
+    protected $_useAbsoluteUri = false;
     
     /**
      * Retrieve HTTP status code to emit on {@link _redirect()} call
@@ -144,6 +150,28 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
     }
     
     /**
+     * Return use absolute URI flag
+     * 
+     * @return boolean
+     */
+    public function getUseAbsoluteUri()
+    {
+        return $this->_useAbsoluteUri;
+    }
+
+    /**
+     * Set use absolute URI flag
+     * 
+     * @param  bool $flag 
+     * @return Zend_Controller_Action_Helper_Redirector
+     */
+    public function setUseAbsoluteUri($flag = true)
+    {
+        $this->_useAbsoluteUri = ($flag) ? true : false;
+        return $this;
+    }
+    
+    /**
      * Set redirect in response object
      * 
      * @return void
@@ -151,6 +179,16 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
     protected function _redirect($url)
     {
         $this->_redirectUrl = $url;
+        if ($this->getUseAbsoluteUri() && !preg_match('#^(https?|ftp)://#', $url)) {
+            $host  = $_SERVER['HTTP_HOST'];
+            $proto = (empty($_SERVER['HTTPS'])) ? 'http' : 'https';
+            $port  = $_SERVER['SERVER_PORT'];
+            $uri   = $proto . '://' . $host;
+            if ((('http' == $proto) && (80 != $port)) || (('https' == $proto) && (443 != $port))) {
+                $uri .= ':' . $port;
+            }
+            $url = $uri . '/' . ltrim($url, '/');
+        }
         $this->getResponse()->setRedirect($url, $this->getCode());
     }
 
@@ -257,7 +295,7 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
 
         $this->_redirect($url);
     }
-    
+
     /**
      * Set a redirect URL string
      * 
@@ -292,10 +330,10 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
         $code        = $this->getCode();
         if (null !== $options) {
             if (isset($options['exit'])) {
-                $exit = ($options['exit']) ? true : false;
+                $this->setExit(($options['exit']) ? true : false);
             }
             if (isset($options['prependBase'])) {
-                $prependBase = ($options['prependBase']) ? true : false;
+                $this->setPrependBase(($options['prependBase']) ? true : false);
             }
             if (isset($options['code'])) {
                 $this->setCode($options['code']);
@@ -403,7 +441,7 @@ class Zend_Controller_Action_Helper_Redirector extends Zend_Controller_Action_He
      * @param  array $options 
      * @return void
      */
-    public function gotoUrlAndExit($url, array $options = null)
+    public function gotoUrlAndExit($url, array $options = array())
     {
         $this->gotoUrl($url, $options);
         $this->redirectAndExit();

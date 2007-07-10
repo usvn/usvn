@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage CookieJar
- * @version    $Id: CookieJar.php 4223 2007-03-24 10:20:34Z thomas $
+ * @version    $Id: CookieJar.php 5460 2007-06-27 15:54:43Z shahar $
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com/)
  * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
  */
@@ -307,6 +307,7 @@ class Zend_Http_CookieJar
      */
     protected function _matchPath($domains, $path) {
         $ret = array();
+        if (substr($path, -1) != '/') $path .= '/';
         
         foreach ($domains as $dom => $paths_array) {
             foreach (array_keys($paths_array) as $cpath) {

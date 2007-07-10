@@ -300,7 +300,7 @@ abstract class Zend_Gdata_App_Base
         } else {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'Property ' . $name . '  does not exist');
+                    'Property ' . $name . ' does not exist');
         }
     }
 

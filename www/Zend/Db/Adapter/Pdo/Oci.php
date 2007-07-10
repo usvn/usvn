@@ -82,6 +82,9 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      */
     protected function _quote($value)
     {
+        if (is_numeric($value)) {
+            return $value;
+        }
         return "'" . addcslashes($value, "\000\n\r\\'\"\032") . "'";
     }
 
@@ -186,10 +189,10 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
                  */
                 $identity = false;
             }
-            $desc[$row[$column_name]] = array(
-                'SCHEMA_NAME'      => $row[$owner],
-                'TABLE_NAME'       => $row[$table_name],
-                'COLUMN_NAME'      => $row[$column_name],
+            $desc[$this->foldCase($row[$column_name])] = array(
+                'SCHEMA_NAME'      => $this->foldCase($row[$owner]),
+                'TABLE_NAME'       => $this->foldCase($row[$table_name]),
+                'COLUMN_NAME'      => $this->foldCase($row[$column_name]),
                 'COLUMN_POSITION'  => $row[$column_id],
                 'DATA_TYPE'        => $row[$data_type],
                 'DEFAULT'          => $row[$data_default],
@@ -217,7 +220,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     public function lastSequenceId($sequenceName)
     {
         $this->_connect();
-        $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName).'.CURRVAL FROM dual');
+        $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName, true).'.CURRVAL FROM dual');
         return $value;
     }
 
@@ -232,7 +235,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     public function nextSequenceId($sequenceName)
     {
         $this->_connect();
-        $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName).'.NEXTVAL FROM dual');
+        $value = $this->fetchOne('SELECT '.$this->quoteIdentifier($sequenceName, true).'.NEXTVAL FROM dual');
         return $value;
     }
 
@@ -259,9 +262,9 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         if ($tableName !== null) {
             $sequenceName = $tableName;
             if ($primaryKey) {
-                $sequenceName .= "_$primaryKey";
+                $sequenceName .= $this->foldCase("_$primaryKey");
             }
-            $sequenceName .= '_seq';
+            $sequenceName .= $this->foldCase('_SEQ');
             return $this->lastSequenceId($sequenceName);
         }
         return $this->_connection->lastInsertId($tableName);

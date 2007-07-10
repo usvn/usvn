@@ -44,6 +44,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     private $_tuv         = null;
     private $_seg         = null;
     private $_content     = null;
+    private $_defined     = false;
 
     /**
      * Generates the tmx adapter
@@ -63,7 +64,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
      * Load translation data (TMX file reader)
      *
      * @param  string  $filename  TMX file to add, full path must be given for access
-     * @param  string  $locale    Locale has no effect for TMX because TMX defines all languages within 
+     * @param  string  $locale    Locale has no effect for TMX because TMX defines all languages within
      *                            the source file
      * @param  array   $option    OPTIONAL Options to use
      * @throws Zend_Translation_Exception
@@ -74,6 +75,10 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
 
         if ($options['clear']) {
             $this->_translate = array();
+        }
+
+        if ((in_array('defined_language', $options)) and !empty($options['defined_language'])) {
+            $this->_defined = true;
         }
 
         if (!is_readable($filename)) {
@@ -87,10 +92,18 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
         xml_set_character_data_handler($this->_file, "_contentElement");
 
         if (!xml_parse($this->_file, file_get_contents($filename))) {
-            throw new Zend_Translate_Exception(sprintf('XML error: %s at line %d', 
+            throw new Zend_Translate_Exception(sprintf('XML error: %s at line %d',
                       xml_error_string(xml_get_error_code($this->_file)),
                       xml_get_current_line_number($this->_file)));
             xml_parser_free($this->_file);
+        }
+
+        if ($this->_defined !== true) {
+            foreach ($this->_translate as $key => $value) {
+                if (!in_array($key, $this->_languages)) {
+                    $this->_languages[$key] = $key;
+                }
+            }
         }
     }
 
@@ -107,6 +120,9 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
                     $this->_tuv = $attrib['xml:lang'];
                     if (!array_key_exists($this->_tuv, $this->_translate)) {
                         $this->_translate[$this->_tuv] = array();
+                    }
+                    if (!array_key_exists($this->_tuv, $this->_languages) and ($this->_defined === true)) {
+                        $this->_languages[$this->_tuv] = $this->_tuv;
                     }
                 }
                 break;

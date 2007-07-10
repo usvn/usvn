@@ -102,7 +102,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
                 $this->_endTime = $attribute->nodeValue;
                 break;
             case 'valueString':
-                $this->_valueString = $attribute->valueString;
+                $this->_valueString = $attribute->nodeValue;
                 break;
             default:
                 parent::takeAttributeFromDOM($attribute);

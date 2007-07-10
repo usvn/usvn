@@ -133,7 +133,7 @@ class Zend_Pdf_Page
     /**
      * PDF objects factory.
      *
-     * @var Zend_Pdf_ElementFactory
+     * @var Zend_Pdf_ElementFactory_Interface
      */
     private $_objFactory = null;
 
@@ -187,8 +187,8 @@ class Zend_Pdf_Page
      * 1. Load PDF page from a parsed PDF file.
      *    Object factory is created by PDF parser.
      * ---------------------------------------------------------
-     * new Zend_Pdf_Page(Zend_Pdf_Element_Dictionary $pageDict,
-     *                   Zend_Pdf_ElementFactory     $factory);
+     * new Zend_Pdf_Page(Zend_Pdf_Element_Dictionary       $pageDict,
+     *                   Zend_Pdf_ElementFactory_Interface $factory);
      * ---------------------------------------------------------
      *
      * 2. Clone PDF page.
@@ -203,14 +203,14 @@ class Zend_Pdf_Page
      *    If $factory is null then it will be created and page must be attached to the document to be
      *    included into output.
      * ---------------------------------------------------------
-     * new Zend_Pdf_Page(string $pagesize, Zend_Pdf_ElementFactory $factory = null);
+     * new Zend_Pdf_Page(string $pagesize, Zend_Pdf_ElementFactory_Interface $factory = null);
      * ---------------------------------------------------------
      *
      * 4. Create new page with a specified pagesize (in default user space units).
      *    If $factory is null then it will be created and page must be attached to the document to be
      *    included into output.
      * ---------------------------------------------------------
-     * new Zend_Pdf_Page(numeric $width, numeric $height, Zend_Pdf_ElementFactory $factory = null);
+     * new Zend_Pdf_Page(numeric $width, numeric $height, Zend_Pdf_ElementFactory_Interface $factory = null);
      * ---------------------------------------------------------
      *
      *
@@ -223,7 +223,7 @@ class Zend_Pdf_Page
     {
         if ($param1 instanceof Zend_Pdf_Element_Reference &&
             $param1->getType() == Zend_Pdf_Element::TYPE_DICTIONARY &&
-            $param2 instanceof Zend_Pdf_ElementFactory &&
+            $param2 instanceof Zend_Pdf_ElementFactory_Interface &&
             $param3 === null
            ) {
             $this->_pageDictionary = $param1;
@@ -236,9 +236,9 @@ class Zend_Pdf_Page
             throw new Zend_Pdf_Exception('Not implemented yet.');
 
         } else if (is_string($param1) &&
-                   ($param2 === null || $param2 instanceof Zend_Pdf_ElementFactory) &&
+                   ($param2 === null || $param2 instanceof Zend_Pdf_ElementFactory_Interface) &&
                    $param3 === null) {
-            $this->_objFactory = ($param2 !== null)? $param2 : new Zend_Pdf_ElementFactory(1);
+            $this->_objFactory = ($param2 !== null)? $param2 : Zend_Pdf_ElementFactory::createFactory(1);
             $this->_attached = false;
 
             switch (strtolower($param1)) {
@@ -274,8 +274,8 @@ class Zend_Pdf_Page
              */
 
         } else if (is_numeric($param1) && is_numeric($param2) &&
-                   ($param3 === null || $param3 instanceof Zend_Pdf_ElementFactory)) {
-            $this->_objFactory = ($param3 !== null)? $param3 : new Zend_Pdf_ElementFactory(1);
+                   ($param3 === null || $param3 instanceof Zend_Pdf_ElementFactory_Interface)) {
+            $this->_objFactory = ($param3 !== null)? $param3 : Zend_Pdf_ElementFactory::createFactory(1);
             $this->_attached = false;
             $pageWidth  = $param1;
             $pageHeight = $param2;
@@ -301,10 +301,10 @@ class Zend_Pdf_Page
      * Attach resource to the page
      *
      * @param string $type
-     * @param Zend_Pdf_Reference|Zend_Pdf_Object $resObject
+     * @param Zend_Pdf_Resource $resource
      * @return string
      */
-    private function _attachResource($type, $resObject)
+    private function _attachResource($type, Zend_Pdf_Resource $resource)
     {
         // Check that Resources dictionary contains appropriate resource set
         if ($this->_pageDictionary->Resources->$type === null) {
@@ -314,7 +314,8 @@ class Zend_Pdf_Page
             $this->_pageDictionary->Resources->$type->touch();
         }
 
-        // Chack, that resource is already attached to resource set.
+        // Check, that resource is already attached to resource set.
+        $resObject = $resource->getResource();
         foreach ($this->_pageDictionary->Resources->$type->getKeys() as $ResID) {
             if ($this->_pageDictionary->Resources->$type->$ResID === $resObject) {
                 return $ResID;
@@ -327,7 +328,7 @@ class Zend_Pdf_Page
         } while ($this->_pageDictionary->Resources->$type->$newResName !== null);
 
         $this->_pageDictionary->Resources->$type->$newResName = $resObject;
-        $this->_objFactory->attach($resObject->getFactory());
+        $this->_objFactory->attach($resource->getFactory());
 
         return $newResName;
     }
@@ -409,10 +410,10 @@ class Zend_Pdf_Page
      *
      * @todo Don't forget to close all current graphics operations (like path drawing)
      *
-     * @param Zend_Pdf_ElementFactory $objFactory
+     * @param Zend_Pdf_ElementFactory_Interface $objFactory
      * @throws Zend_Pdf_Exception
      */
-    public function render(Zend_Pdf_ElementFactory $objFactory)
+    public function render(Zend_Pdf_ElementFactory_Interface $objFactory)
     {
         $this->flush();
 
@@ -512,7 +513,7 @@ class Zend_Pdf_Page
     public function setFont(Zend_Pdf_Resource_Font $font, $fontSize)
     {
         $this->_addProcSet('Text');
-        $fontName = $this->_attachResource('Font', $font->getResource());
+        $fontName = $this->_attachResource('Font', $font);
 
         $this->_font     = $font;
         $this->_fontSize = $fontSize;
@@ -945,7 +946,7 @@ class Zend_Pdf_Page
     {
         $this->_addProcSet('PDF');
 
-        $imageName    = $this->_attachResource('XObject', $image->getResource());
+        $imageName    = $this->_attachResource('XObject', $image);
         $imageNameObj = new Zend_Pdf_Element_Name($imageName);
 
         $x1Obj     = new Zend_Pdf_Element_Numeric($x1);

@@ -218,16 +218,16 @@ class Zend_XmlRpc_Fault
             throw new Zend_XmlRpc_Exception('Invalid fault structure', 500);
         }
 
-        $struct = $xml->fault->value->struct;
-        foreach ($struct->member as $member) {
-            if ('faultCode' == (string) $member->name) {
-                $code = (int) $member->value->int;
-                continue;
-            }
-            if ('faultString' == (string) $member->name) {
-                $message = (string) $member->value->string;
-                continue;
-            }
+        $structXml = $xml->fault->value->asXML();
+        $structXml = preg_replace('/<\?xml version=.*?\?>/i', '', $structXml);
+        $struct    = Zend_XmlRpc_Value::getXmlRpcValue(trim($structXml), Zend_XmlRpc_Value::XML_STRING);
+        $struct    = $struct->getValue();
+
+        if (isset($struct['faultCode'])) {
+            $code = $struct['faultCode'];
+        }
+        if (isset($struct['faultString'])) {
+            $message = $struct['faultString'];
         }
 
         if (empty($code) && empty($message)) {

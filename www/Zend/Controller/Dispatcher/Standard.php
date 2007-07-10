@@ -125,6 +125,10 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
      */
     public function formatModuleName($unformatted)
     {
+        if ($this->_defaultModule == $unformatted) {
+            return $unformatted;
+        }
+
         return ucfirst($this->_formatName($unformatted));
     }
 
@@ -224,10 +228,26 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
 
         // by default, buffer output
         $disableOb = $this->getParam('disableOutputBuffering');
+        $obLevel   = ob_get_level();
         if (empty($disableOb)) {
             ob_start();
         }
-        $controller->dispatch($action);
+
+        try {
+            $controller->dispatch($action);
+        } catch (Exception $e) {
+            // Clean output buffer on error
+            $curObLevel = ob_get_level();
+            if ($curObLevel > $obLevel) {
+                do {
+                    ob_get_clean();
+                    $curObLevel = ob_get_level();
+                } while ($curObLevel > $obLevel);
+            }
+
+            throw $e;
+        }
+
         if (empty($disableOb)) {
             $content = ob_get_clean();
             $response->appendBody($content);
@@ -259,6 +279,7 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         try {
             Zend_Loader::loadFile($file, $dir, true);
         } catch (Zend_Exception $e) {
+            require_once 'Zend/Controller/Dispatcher/Exception.php';
             throw new Zend_Controller_Dispatcher_Exception('Cannot load controller class "' . $className . '" from file "' . $file . '" in directory "' . $dir . '"');
         }
 
@@ -344,9 +365,12 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
             $moduleDir = $controllerDirs[$module];
             $fileSpec  = $moduleDir . DIRECTORY_SEPARATOR . $this->classToFilename($default);
             if (Zend_Loader::isReadable($fileSpec)) {
+                $request->setModuleName($module);
                 $this->_curModule    = $this->formatModuleName($module);
                 $this->_curDirectory = $moduleDir;
             }
+        } else {
+            $request->setModuleName($this->_defaultModule);
         }
 
         return $default;

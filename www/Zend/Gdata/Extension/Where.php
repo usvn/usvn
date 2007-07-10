@@ -41,12 +41,12 @@ class Zend_Gdata_Extension_Where extends Zend_Gdata_Extension
     protected $_valueString = null;
     protected $_entryLink = null;
     
-    public function __construct($label = null, $rel = null, $valueString = null, $entryLink = null) 
+    public function __construct($valueString = null, $label = null, $rel = null, $entryLink = null) 
     {
         parent::__construct();
+        $this->_valueString = $valueString;
         $this->_label = $label;
         $this->_rel = $rel;
-        $this->_valueString = $valueString;
         $this->_entryLink = $entryLink;
     }
 
@@ -75,7 +75,7 @@ class Zend_Gdata_Extension_Where extends Zend_Gdata_Extension
             $this->_label = $attribute->nodeValue;
             break;
         case 'rel':
-            $this->_rel = $attribute->rel;
+            $this->_rel = $attribute->nodeValue;
             break;
         case 'valueString':
             $this->_valueString = $attribute->nodeValue;

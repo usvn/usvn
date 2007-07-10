@@ -18,7 +18,7 @@
  * @subpackage Profiler
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Query.php 4779 2007-05-11 18:28:57Z darby $
+ * @version    $Id: Query.php 5401 2007-06-21 01:30:53Z bkarwin $
  */
 
 
@@ -61,6 +61,16 @@ class Zend_Db_Profiler_Query
     protected $_endedMicrotime = null;
 
     /**
+     * @var array
+     */
+    protected $_boundParams = array();
+
+    /**
+     * @var array
+     */
+    protected $_parameterValues = array();
+
+    /**
      * Class constructor.  A query is about to be started, save the query text ($query) and its
      * type (one of the Zend_Db_Profiler::* constants).
      *
@@ -72,6 +82,31 @@ class Zend_Db_Profiler_Query
     {
         $this->_query = $query;
         $this->_queryType = $queryType;
+        // by default, and for backward-compatibility, start the click ticking
+        $this->start();
+    }
+
+    /**
+     * Clone handler for the query object.
+     * @return void
+     */
+    public function __clone()
+    {
+        $this->_parameterValues = array();
+        $this->_endedMicrotime = null;
+        $this->start();
+    }
+
+    /**
+     * Starts the elapsed time click ticking.
+     * This can be called subsequent to object creation,
+     * to restart the clock.  For instance, this is useful
+     * right before executing a prepared query.
+     *
+     * @return void
+     */
+    public function start()
+    {
         $this->_startedMicrotime = microtime(true);
     }
 
@@ -82,6 +117,10 @@ class Zend_Db_Profiler_Query
      */
     public function end()
     {
+        $this->_parameterValues = array();
+        foreach ($this->_boundParams as $key => $value) {
+            $this->_parameterValues[$key] = $value;
+        }
         $this->_endedMicrotime = microtime(true);
     }
 
@@ -113,6 +152,24 @@ class Zend_Db_Profiler_Query
     public function getQueryType()
     {
         return $this->_queryType;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $param
+     * @return void
+     */
+    public function bindParam($param, &$variable)
+    {
+        $this->_boundParams[$param] =& $variable;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQueryParams()
+    {
+        return $this->_parameterValues;
     }
 
     /**

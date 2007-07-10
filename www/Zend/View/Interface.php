@@ -51,6 +51,31 @@ interface Zend_View_Interface
     public function setScriptPath($path);
 
     /**
+     * Retrieve all view script paths
+     * 
+     * @return array
+     */
+    public function getScriptPaths();
+
+    /**
+     * Set a base path to all view resources
+     * 
+     * @param  string $path 
+     * @param  string $classPrefix 
+     * @return void
+     */
+    public function setBasePath($path, $classPrefix = 'Zend_View');
+
+    /**
+     * Add an additional path to view resources
+     * 
+     * @param  string $path 
+     * @param  string $classPrefix 
+     * @return void
+     */
+    public function addBasePath($path, $classPrefix = 'Zend_View');
+
+    /**
      * Assign a variable to the view
      *
      * @param string $key The variable name.

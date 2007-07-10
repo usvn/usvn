@@ -67,8 +67,8 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
     {
         parent::__construct();
         $this->_email = $email;
-	$this->_rel = $rel;
-	$this->_valueString = $valueString;
+        $this->_rel = $rel;
+        $this->_valueString = $valueString;
         $this->_attendeeStatus = $attendeeStatus;
         $this->_attendeeType = $attendeeType;
         $this->_entryLink = $entryLink;
@@ -151,6 +151,11 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
             $attendeeType = new Zend_Gdata_Extension_AttendeeType();
             $attendeeType->transferFromDOM($child);
             $this->_attendeeType = $attendeeType;
+            break;
+        case $this->lookupNamespace('gd') . ':' . 'entryLink':
+            $entryLink = new Zend_Gdata_Extension_EntryLink();
+            $entryLink->transferFromDOM($child);
+            $this->_entryLink = $entryLink;
             break;
         default:
             parent::takeChildFromDOM($child);

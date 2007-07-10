@@ -61,9 +61,29 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
         unset($dsn['username']);
         unset($dsn['password']);
         unset($dsn['driver_options']);
+
         if (isset($dsn['port'])) {
             $dsn['host'] .= ',' . $port;
             unset($dsn['port']);
+        }
+
+        // this driver supports multiple DSN prefixes
+        // @see http://www.php.net/manual/en/ref.pdo-dblib.connection.php
+        if (isset($dsn['pdoType'])) {
+            switch (strtolower($dsn['pdoType'])) {
+                case 'freetds':
+                case 'sybase':
+                    $this->_pdoType = 'sybase';
+                    break;
+                case 'mssql':
+                    $this->_pdoType = 'mssql';
+                    break;
+                case 'dblib':
+                default:
+                    $this->_pdoType = 'dblib';
+                    break;
+            }
+            unset($dsn['pdoType']);
         }
 
         // use all remaining parts in the DSN
@@ -71,8 +91,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
             $dsn[$key] = "$key=$val";
         }
 
-        // $dsn = $this->_pdoType . ':' . implode(';', $dsn);
-        $dsn = 'mssql' . ':' . implode(';', $dsn);
+        $dsn = $this->_pdoType . ':' . implode(';', $dsn);
         return $dsn;
     }
 
@@ -135,7 +154,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
         /**
          * Discover metadata information about this table.
          */
-        $sql = "exec sp_columns @table_name = " . $this->quoteIdentifier($tableName);
+        $sql = "exec sp_columns @table_name = " . $this->quoteIdentifier($tableName, true);
         $stmt = $this->query($sql);
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
 
@@ -152,7 +171,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
         /**
          * Discover primary key column(s) for this table.
          */
-        $sql = "exec sp_pkeys @table_name = " . $this->quoteIdentifier($tableName);
+        $sql = "exec sp_pkeys @table_name = " . $this->quoteIdentifier($tableName, true);
         $stmt = $this->query($sql);
         $primaryKeysResult = $stmt->fetchAll(Zend_Db::FETCH_NUM);
         $pkey_column_name = 3;
@@ -180,10 +199,10 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
                 $primaryPosition = null;
             }
 
-            $desc[$row[$column_name]] = array(
+            $desc[$this->foldCase($row[$column_name])] = array(
                 'SCHEMA_NAME'      => null, // @todo
-                'TABLE_NAME'       => $row[$table_name],
-                'COLUMN_NAME'      => $row[$column_name],
+                'TABLE_NAME'       => $this->foldCase($row[$table_name]),
+                'COLUMN_NAME'      => $this->foldCase($row[$column_name]),
                 'COLUMN_POSITION'  => (int) $row[$column_position],
                 'DATA_TYPE'        => $type,
                 'DEFAULT'          => $row[$column_def],

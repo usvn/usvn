@@ -353,6 +353,9 @@ EOF;
 		$location = str_replace("//", "/", $location);
 		$res = "<Location $location>\n";
 		$res .= "\tDAV svn\n";
+		if (substr($config->subversion->url, 0, 8) == "https://") {
+			$res .= "\tSSLRequireSSL\n";
+		}
 		$res .= "\tRequire valid-user\n";
 		$res .= "\tSVNParentPath " . $path . "svn\n";
 		$res .= "\tSVNListParentPath off\n";
@@ -360,7 +363,7 @@ EOF;
 		$res .= "\tAuthName \"" . $config->site->title . "\"\n";
 		$res .= "\tAuthUserFile " . $config->subversion->passwd . "\n";
 		$res .= "\tAuthzSVNAccessFile " . $config->subversion->authz . "\n";
-		$res .= "</Location>";
+		$res .= "</Location>\n";
 		return $res;
 	}
 

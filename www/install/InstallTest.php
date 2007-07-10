@@ -222,7 +222,33 @@ site.title=USVN
 	AuthName \"USVN\"
 	AuthUserFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
-</Location>",
+</Location>
+",
+		Install::getApacheConfig("tests/tmp/config.ini"));
+	}
+
+	public function testGetApacheConfigWithSSL()
+	{
+		file_put_contents("tests/tmp/config.ini", "[general]
+subversion.path=tests" . DIRECTORY_SEPARATOR . "tmp
+subversion.url=https://exemple/dev/usvn/
+subversion.authz=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
+subversion.passwd=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
+site.title=USVN
+		");
+		$this->assertEquals(
+"<Location /dev/usvn/>
+	DAV svn
+	SSLRequireSSL
+	Require valid-user
+	SVNParentPath tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "svn
+	SVNListParentPath off
+	AuthType Basic
+	AuthName \"USVN\"
+	AuthUserFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
+	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
+</Location>
+",
 		Install::getApacheConfig("tests/tmp/config.ini"));
 	}
 

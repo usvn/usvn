@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-07 15:59+0200\n"
-"PO-Revision-Date: 2007-07-09 17:41+0800\n"
+"PO-Revision-Date: 2007-07-10 10:21+0800\n"
 "Last-Translator:  <>\n"
 "Language-Team: Chinese/Simplified <contact@usvn.info>\n"
 "MIME-Version: 1.0\n"
@@ -35,20 +35,19 @@ msgid "Edit"
 msgstr "编辑"
 
 #: ../../../www//helpers/HomeLink.php:34
-#, fuzzy
 msgid "Home"
-msgstr "主页"
+msgstr "首页"
 
 #: ../../../www//controllers/GroupadminController.php:62
 #, php-format
 msgid "Group %s already exist"
-msgstr "%s 组已经存在"
+msgstr "用户组 %s 已经存在"
 
 #: ../../../www//controllers/ProjectController.php:154
 #: ../../../www//controllers/ProjectController.php:161
 #, php-format
 msgid "Unknown user %s"
-msgstr "%s 未知的用户名"
+msgstr "未知的用户名 %s "
 
 #: ../../../www//controllers/BrowserajaxController.php:57
 #, php-format
@@ -158,27 +157,23 @@ msgstr "Subversion 仓库"
 
 #: ../../../www//install/views/step4.html:31
 msgid "Location where usvn will create subversion repository."
-msgstr "usvn 将在哪里创建 subversion仓库(repository)"
+msgstr "usvn 将在哪里创建 subversion 仓库(repository)"
 
 #: ../../../www//install/views/step4.html:45
-#, fuzzy
 msgid "Subversion password file "
-msgstr "Subversion 连接地址"
+msgstr "Subversion 密码文件"
 
 #: ../../../www//install/views/step4.html:46
-#, fuzzy
 msgid "Location where usvn will create password file."
-msgstr "usvn 将在哪里创建 subversion仓库(repository)"
+msgstr "usvn 将在这里创建密码文件 "
 
 #: ../../../www//install/views/step4.html:60
-#, fuzzy
 msgid "Subversion access file"
-msgstr "Subversion 连接地址"
+msgstr "Subversion 访问控制文件"
 
 #: ../../../www//install/views/step4.html:61
-#, fuzzy
 msgid "Location where usvn will create access file."
-msgstr "usvn 将在哪里创建 subversion仓库(repository)"
+msgstr "usvn 将在这里创建访问控制文件"
 
 #: ../../../www//install/views/step4.html:75
 msgid "Subversion url"
@@ -186,7 +181,7 @@ msgstr "Subversion 连接地址"
 
 #: ../../../www//install/views/step4.html:76
 msgid "The url used by users to checkout projects."
-msgstr "用户使用检出 (checkout) 项目的url"
+msgstr "用户检出 (checkout) 项目的 url"
 
 #: ../../../www//install/views/step5.html:33
 msgid "Database installation"
@@ -333,7 +328,7 @@ msgid ""
 "Last step is to configure subversion into apache. Copy past following lines "
 "at the end of your <em>httpd.conf</em>:"
 msgstr ""
-"最后一步是设置 apache 集成 subversion 添加下面的几行到您的设置文本 <em>httpd."
+"最后一步是设置 apache 集成 subversion 添加下面的几行到您的配置文件 <em>httpd."
 "conf</em> 的末尾"
 
 #: ../../../www//install/views/step7.html:14
@@ -406,7 +401,7 @@ msgid ""
 "Otherwise under UNIX you probably need to install a package named subversion."
 msgstr ""
 " 重启您的系统 (注意: 这是必须的). \n"
-"否则, 在 UNIX 中您很可能需要安装 subversion 软件包."
+"如果, 在 UNIX 中您很可能需要安装 subversion 软件包."
 
 #: ../../../www//install/Install.php:384 ../../../www//install/Install.php:392
 msgid "mod_rewrite seems not to be loaded"
@@ -475,7 +470,7 @@ msgstr "导入 htpasswd"
 
 #: ../../../www//USVN/Config/Ini.php:67
 msgid "Can't write config file."
-msgstr "无法创建设置文件."
+msgstr "无法创建配置文件."
 
 #: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:103
 #: ../../../www//views/index/index.phtml:2
@@ -492,7 +487,7 @@ msgstr "登录名无效."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:125
 msgid "Invalid email address."
-msgstr "Email地址无效."
+msgstr "Email 地址无效."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:173
 #: ../../../www//USVN/Db/Table/Users.php:85
@@ -516,12 +511,12 @@ msgstr "项目名无效."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:207
 msgid "You can't rename a project."
-msgstr "您不能更改项目."
+msgstr "您不能更改项目名称."
 
 #: ../../../www//USVN/Db/Table/Users.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Can't create or write on htpasswd file %s."
-msgstr "无法创建或写 htpasswd 文件."
+msgstr "无法创建或写 htpasswd 文件 %s."
 
 #: ../../../www//USVN/Db/Table/Groups.php:82
 msgid "The group's name is empty."
@@ -534,7 +529,7 @@ msgstr "用户组名无效."
 #: ../../../www//USVN/Db/Utils.php:33 ../../../www//USVN/Menu.php:58
 #, php-format
 msgid "Can't open file %s."
-msgstr "无法打开%s文件."
+msgstr "无法打开 %s 文件."
 
 #: ../../../www//USVN/Db/Utils.php:46
 #, php-format
@@ -542,7 +537,7 @@ msgid ""
 "Can't load file %s at:\n"
 "%s"
 msgstr ""
-"无法加载%s文件 \n"
+"无法加载 %s 文件 \n"
 "文件在 : %s"
 
 #: ../../../www//USVN/Auth/Adapter/Db.php:54 ../../../www//USVN/Project.php:38
@@ -559,14 +554,14 @@ msgid "Invalid template"
 msgstr "无效的模板"
 
 #: ../../../www//USVN/DirectoryUtils.php:28
-#, fuzzy, php-format
+#, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr "无法删除目录 %s."
+msgstr "无法删除目录 %s, 权限不足."
 
 #: ../../../www//USVN/DirectoryUtils.php:43
-#, fuzzy, php-format
+#, php-format
 msgid "Can't delete file %s."
-msgstr "无法删除目录 %s."
+msgstr "无法删除文件 %s ."
 
 #: ../../../www//USVN/DirectoryUtils.php:51
 #, php-format
@@ -580,7 +575,7 @@ msgstr "无法读目录 %s."
 
 #: ../../../www//USVN/SVNUtils.php:165
 msgid "Commit by USVN"
-msgstr "USVN提交"
+msgstr "USVN 提交"
 
 #: ../../../www//USVN/SVNUtils.php:168
 #, php-format
@@ -725,7 +720,7 @@ msgstr "提交"
 #: ../../../www//views/projectadmin/index.phtml:16
 #, php-format
 msgid "Do you really want to delete project %s?"
-msgstr "确认要删除%s项目?"
+msgstr "确认要删除 %s 项目?"
 
 #: ../../../www//views/profile/index.phtml:34
 msgid "My account"
@@ -744,13 +739,12 @@ msgid "Administration"
 msgstr "管理功能"
 
 #: ../../../www//views/adminadmin/index.phtml:3
-#, fuzzy
 msgid "USVN version: "
-msgstr "Subversion 连接地址"
+msgstr "USVN 版本 :"
 
 #: ../../../www//views/browser/index.phtml:81
 msgid "Acces rights for"
-msgstr "访问权利 :"
+msgstr "访问权限 :"
 
 #: ../../../www//views/browser/index.phtml:108
 msgid "Files list"
@@ -771,7 +765,7 @@ msgstr "用户列表"
 #: ../../../www//views/groupadmin/index.phtml:16
 #, php-format
 msgid "Do you really want to delete group %s?"
-msgstr "确定要删除%s用户组 ?"
+msgstr "确定要删除用户组 %s ?"
 
 #: ../../../www//views/project/managegroup.phtml:4
 #, php-format
@@ -791,7 +785,7 @@ msgstr "包含用户:"
 #: ../../../www//views/project/managegroup.phtml:25
 #, php-format
 msgid "Do you really want to remove user %s from group %s?"
-msgstr "确认要将%s用户从%s用户组中删除 ?"
+msgstr "确认要将用户 %s 从用户组 %s 中删除 ?"
 
 #: ../../../www//views/project/index.phtml:5
 #, php-format
@@ -805,7 +799,7 @@ msgstr "有管理权的用户"
 #: ../../../www//views/project/index.phtml:39
 #, php-format
 msgid "Do you really want to remove user %s as admin of project %s?"
-msgstr "您确定要取消%s用户关于%s项目的管理权?"
+msgstr "您确定要取消用户 %s 对于项目 %s 的管理权?"
 
 #: ../../../www//views/project/index.phtml:63
 #: ../../../www//views/useradmin/form.phtml:4
@@ -815,7 +809,7 @@ msgstr "包含用户组:"
 #: ../../../www//views/project/index.phtml:69
 #, php-format
 msgid "Do you really want to remove group %s from project %s?"
-msgstr "您确定要将%s组从%s项目中删除？"
+msgstr "您确定要将用户组 %s 从项目 %s 中删除？"
 
 #: ../../../www//views/project/index.phtml:72
 msgid "Manage"
@@ -849,7 +843,7 @@ msgstr "否"
 #: ../../../www//views/useradmin/index.phtml:31
 #, php-format
 msgid "Do you really want to delete user %s?"
-msgstr "确定要删除%s用户?"
+msgstr "确定要删除用户 %s ?"
 
 #: ../../../www//views/useradmin/new.phtml:13
 msgid "Create group"
@@ -859,7 +853,7 @@ msgstr "创建用户组"
 msgid ""
 "This form allow you to add to USVN all users contents into an apache "
 "password file."
-msgstr "这个区你可以添加所有usvn用户作为Apache的密码档案."
+msgstr "这个表单允许你添加所有 usvn 用户到 Apache 的密码文件中."
 
 #: ../../../www//views/useradmin/import.phtml:10
 msgid "Upload"
@@ -899,7 +893,7 @@ msgstr "图标"
 
 #: ../../../www//views/configadmin/index.phtml:60
 msgid "Logo"
-msgstr "标致"
+msgstr "标致 (logo)"
 
 #: ../../../www//views/configadmin/index.phtml:68
 msgid "Save"

@@ -91,7 +91,7 @@
 		<?php
 			foreach (array_keys($this->log) as $revision) {
 				$commit = $this->log[$revision];
-				echo "<tr><td>{$revision}</td><td>{$commit['author']}</td><td>" . date("Y-m-d H:i", $commit["date"]) . "</td><td>" . nl2br($commit['msg']) . "</td></tr>";
+				echo "<tr><td>{$revision}</td><td>{$commit['author']}</td><td>" . date("Y-m-d",  $commit["date"]) . "&nbsp;" . date("H:i", $commit["date"]) . "</td><td>" . nl2br($commit['msg']) . "</td></tr>";
 			}
 		?>
 		</tbody>

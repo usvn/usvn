@@ -36,6 +36,8 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$table = new USVN_Db_Table_GroupsToProjects();
 			$row = $table->createRow(array("groups_id" => $group_id, "projects_id" => $this->id));
 			$row->save();
+			$acces_rights = new USVN_FilesAccessRights($this->id);
+			$acces_rights->setRightByPath($group_id, "/", true, false);
 		}
 	}
 

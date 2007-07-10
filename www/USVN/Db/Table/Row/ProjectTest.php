@@ -109,6 +109,10 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->assertContains("test2", $res);
 		$this->assertNotContains("test3", $res);
 		$this->assertNotContains("notest", $res);
+		$access = new USVN_FilesAccessRights($this->project->id);
+		$access = $access->findByPath(42, "/");
+		$this->assertTrue($access['read']);
+		$this->assertFalse($access['write']);
 	}
 
 	public function testDeleteGroup()

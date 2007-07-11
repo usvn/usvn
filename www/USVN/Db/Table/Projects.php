@@ -201,13 +201,11 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 
 		$groups_to_projects = self::$prefix . "groups_to_projects";
 		$users_to_groups    = self::$prefix . "users_to_groups";
-		$users              = self::$prefix . "users";
 
 		$select->join($groups_to_projects, "{$groups_to_projects}.projects_id = {$this->_name}.projects_id", array());
 		$select->join($users_to_groups, "{$users_to_groups}.groups_id = {$groups_to_projects}.groups_id", array());
-		$select->join($users, "{$users}.users_id = {$users_to_groups}.users_id", array());
 
-		$select->where($this->_db->quoteInto("{$users}.users_id = ?", $user->id));
+		$select->where($this->_db->quoteInto("{$users_to_groups}.users_id = ?", $user->id));
 
 		// the GROUP clause
 		$select->group("{$this->_name}.projects_id");
@@ -227,12 +225,8 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		$select->from($this->_name);
 
 		$users_to_projects = self::$prefix . "users_to_projects";
-		$users              = self::$prefix . "users";
-
 		$select->join($users_to_projects, "{$users_to_projects}.projects_id = {$this->_name}.projects_id", array());
-		$select->join($users, "{$users}.users_id = {$users_to_projects}.users_id", array());
-
-		$select->where($this->_db->quoteInto("{$users}.users_id = ?", $user->id));
+		$select->where($this->_db->quoteInto("{$users_to_projects}.users_id = ?", $user->id));
 
 		// the ORDER clause
 		$select->order("projects_name");

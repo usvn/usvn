@@ -112,21 +112,21 @@ class USVN_ImportHtpasswdTest extends USVN_Test_DB {
 		$this->fail("This test need to throw an exception.");
 	}
 
-	public function test_invalidFile4()
+	public function test_updateUser()
 	{
 		file_put_contents("tests/htpasswd", "noplay:lQeKGl9L6sH3M\nbibi:9bhJwNgJ00I6E");
 		$import = new USVN_ImportHtpasswd("tests/htpasswd");
-		try {
-			file_put_contents("tests/htpasswd", "noplay:lQeKGl9L6sH3M\nbibi:9bhJwNgJ00I6E\njames:hkjfhdjk");
-			$import = new USVN_ImportHtpasswd("tests/htpasswd");
-		}
-		catch (USVN_Exception $e) {
-			$userTable = new USVN_Db_Table_Users();
-			$user = $userTable->fetchRow(array('users_login = ?' => "james"));
-			$this->assertFalse(isset($user->password));
-			return;
-		}
-		$this->fail("This test need to throw an exception.");
+		file_put_contents("tests/htpasswd", "noplay:BD3ZmTBhHmWJs\nbibi:9bhJwNgJ00I6E\njames:hkjfhdjk");
+		$import = new USVN_ImportHtpasswd("tests/htpasswd");
+		$userTable = new USVN_Db_Table_Users();
+		$user = $userTable->fetchRow(array('users_login = ?' => "james"));
+		$this->assertNotNull($user);
+		$user = $userTable->fetchRow(array('users_login = ?' => "bibi"));
+		$this->assertNotNull($user);
+		$this->assertEquals("9bhJwNgJ00I6E", $user->password);
+		$user = $userTable->fetchRow(array('users_login = ?' => "noplay"));
+		$this->assertNotNull($user);
+		$this->assertEquals("BD3ZmTBhHmWJs", $user->password);
 	}
 }
 

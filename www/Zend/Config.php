@@ -124,13 +124,6 @@ class Zend_Config implements Countable, Iterator
         return $result;
     }
 
-	public function __unset($name)
-	{
-        if ($this->_allowModifications) {
-                unset($this->_data[$name]);
-		}
-	}
-
     /**
      * Magic function so that $obj->value will work.
      *

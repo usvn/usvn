@@ -18,7 +18,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5314 2007-06-14 20:11:28Z bkarwin $
+ * @version    $Id: Abstract.php 5503 2007-06-29 18:18:06Z bkarwin $
  */
 
 
@@ -221,7 +221,7 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
-        if (is_int($value) || is_float($value)) {
+        if (is_numeric($value)) {
             return $value;
         }
         $this->_connect();

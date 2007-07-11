@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client
- * @version    $Id: Client.php 5278 2007-06-13 10:43:26Z shahar $
+ * @version    $Id: Client.php 5439 2007-06-24 13:15:43Z shahar $
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -657,10 +657,10 @@ class Zend_Http_Client
     public function resetParameters()
     {
         // Reset parameter data
-        $this->paramsGet = array();
-        $this->paramsPost = array();
+        $this->paramsGet     = array();
+        $this->paramsPost    = array();
+        $this->files         = array();
         $this->raw_post_data = null;
-        $this->files = array();
 
         // Clear outdated headers
         if (isset($this->headers['content-type'])) unset($this->headers['content-type']);
@@ -851,8 +851,10 @@ class Zend_Http_Client
         }
 
         // Set the content-type header
-        if (! isset($this->headers['content-type']) && isset($this->enctype)) {
-            $headers[] = "Content-type: {$this->enctype}";
+        if ($this->method == self::POST && 
+           (! isset($this->headers['content-type']) && isset($this->enctype))) {
+            
+	    $headers[] = "Content-type: {$this->enctype}";
         }
 
         // Set the user agent header

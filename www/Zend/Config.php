@@ -157,6 +157,13 @@ class Zend_Config implements Countable, Iterator
         }
     }
 
+	public function __unset($name)
+	{
+        if ($this->_allowModifications) {
+                unset($this->_data[$name]);
+		}
+	}
+
     /**
      * Return an associative array of the stored data.
      *

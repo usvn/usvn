@@ -82,7 +82,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      */
     protected function _quote($value)
     {
-        if (is_int($value) || is_float($value)) {
+        if (is_numeric($value)) {
             return $value;
         }
         return "'" . addcslashes($value, "\000\n\r\\'\"\032") . "'";

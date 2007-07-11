@@ -75,8 +75,12 @@ class Zend_Loader
                 $dirs = array($dirPath);
             } else {
                 foreach ($dirs as $key => $dir) {
-                    $dir = rtrim($dir, '\\/');
-                    $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
+                    if ($dir == '.') {
+                        $dirs[$key] = $dirPath;
+                    } else {
+                        $dir = rtrim($dir, '\\/');
+                        $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
+                    }
                 }
             }
             $file = basename($path) . '.php';
@@ -128,7 +132,7 @@ class Zend_Loader
         /**
          * Search for the file in each of the dirs named in $dirs.
          */
-        if (empty($dirs)) {
+        if (is_null($dirs)) {
             $dirs = array();
         } elseif (is_string($dirs))  {
             $dirs = explode(PATH_SEPARATOR, $dirs);

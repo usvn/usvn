@@ -230,15 +230,13 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
-        if (is_int($value) || is_float($value)) {
+        if (is_numeric($value)) {
             return $value;
         }
         /**
-         * Some releases of the IBM DB2 extension appear
-         * to be missing the db2_escape_string() method.
-         * The method was added in ibm_db2.c revision 1.53
-         * according to cvs.php.net.  But the function is
-         * not present in my build of PHP 5.2.1.
+         * Use db2_escape_string() if it is present in the IBM DB2 extension.  
+         * But some supported versions of PHP do not include this function,
+         * so fall back to default quoting in the parent class.
          */
         if (function_exists('db2_escape_string')) {
             return "'" . db2_escape_string($value) . "'";

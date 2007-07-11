@@ -46,8 +46,8 @@ class Zend_Gdata_Extension_EntryLink extends Zend_Gdata_Extension
     protected $_rel = null; 
     protected $_entry = null; 
 
-    public function __construct($href = null, $readOnly = null, 
-            $rel = null, $entry = null)
+    public function __construct($href = null, $rel = null,
+            $readOnly = null, $entry = null)
     {
         parent::__construct();
         $this->_href = $href;

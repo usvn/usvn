@@ -17,7 +17,7 @@
  * @package    Zend_Uri
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Uri.php 5051 2007-05-29 19:31:09Z darby $
+ * @version    $Id: Uri.php 5492 2007-06-29 00:51:43Z bkarwin $
  */
 
 
@@ -109,21 +109,17 @@ abstract class Zend_Uri
          * scheme, return an instance of that class. Otherwise, a Zend_Uri_Exception is thrown.
          */
         switch ($scheme) {
-            case 'mailto':
-                // fall through to next case
             case 'http':
-                // fall through to next case
             case 'https':
-                if ($scheme == 'https' or $scheme == 'http') {
-                    $className = 'Zend_Uri_Http';
-                } else {
-                    $className = 'Zend_Uri_' . ucfirst($scheme);
-                }
-                Zend_Loader::loadClass($className);
-                return new $className($scheme, $schemeSpecific);
+                $className = 'Zend_Uri_Http';
+                break;
+            case 'mailto':
+                // @todo
             default:
                 throw new Zend_Uri_Exception("Scheme \"$scheme\" is not supported");
         }
+        Zend_Loader::loadClass($className);
+        return new $className($scheme, $schemeSpecific);
 
     }
 

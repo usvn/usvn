@@ -263,9 +263,9 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
     /**
      * Make a partial id depending on options
      * 
-     * @var string $arrayName superglobal array name
-     * @var $bool1 if true, cache is still on even if there are some variables in the superglobal array
-     * @var $bool2 if true, we have to use the content of the superglobal array to make a partial id
+     * @param string $arrayName superglobal array name
+     * @param bool $bool1 if true, cache is still on even if there are some variables in the superglobal array
+     * @param bool $bool2 if true, we have to use the content of the superglobal array to make a partial id
      * @return mixed partial id (string) or false if the cache should have not to be used
      */
     private function _makePartialId($arrayName, $bool1, $bool2)

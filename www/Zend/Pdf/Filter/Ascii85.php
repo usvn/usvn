@@ -29,7 +29,7 @@ require_once 'Zend/Pdf/Filter.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Pdf_Filter_Ascii85 implements Zend_Pdf_Filter
+class Zend_Pdf_Filter_Ascii85 extends Zend_Pdf_Filter
 {
     /**
      * Encode data

@@ -17,7 +17,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Alpha.php 5347 2007-06-15 19:30:56Z darby $
+ * @version    $Id: Alpha.php 5470 2007-06-28 17:05:56Z andries $
  */
 
 
@@ -43,6 +43,13 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
     public $allowWhiteSpace;
 
     /**
+     * Is PCRE is compiled with UTF-8 and Unicode support
+     *
+     * @var mixed
+     **/
+    protected static $_unicodeEnabled;
+
+    /**
      * Sets default option values for this instance
      *
      * @param  boolean $allowWhiteSpace
@@ -51,6 +58,9 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
     public function __construct($allowWhiteSpace = false)
     {
         $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
+        if (null === self::$_unicodeEnabled) {
+            self::$_unicodeEnabled = (@preg_match('/\pL/u', 'a')) ? true : false;
+        }
     }
 
     /**
@@ -63,7 +73,13 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
      */
     public function filter($value)
     {
-        $pattern = '/[^\p{L}' . ($this->allowWhiteSpace ? '\s' : '') . ']/u';
+        $whiteSpace = $this->allowWhiteSpace ? '\s' : '';
+        if (!self::$_unicodeEnabled) {
+            // POSIX named classes are not supported, use alternative a-zA-Z match
+            $pattern = '/[^a-zA-Z' . $whiteSpace . ']/';
+        } else {
+            $pattern = '/[^\p{L}' . $whiteSpace . ']/u';
+        }
 
         return preg_replace($pattern, '', (string) $value);
     }

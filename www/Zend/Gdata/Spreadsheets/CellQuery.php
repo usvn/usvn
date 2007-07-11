@@ -132,7 +132,6 @@ class Zend_Gdata_Spreadsheets_CellQuery extends Zend_Gdata_Query
 
     /**
      * Sets the visibility for this query.
-     * @return string visibility
      * @return Zend_Gdata_Spreadsheets_CellQuery Provides a fluent interface
      */
     public function setVisibility($value)

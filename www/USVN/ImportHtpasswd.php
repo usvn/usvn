@@ -36,7 +36,7 @@ class USVN_ImportHtpasswd
 
 	private function importFile()
 	{
-		$f = fopen($this->_file, "r");
+		$f = @fopen($this->_file, "r");
 		if (!$f) {
 			throw new USVN_Exception(T_("File {$this->_file} not found or invalid access rights."));
 		}
@@ -64,13 +64,19 @@ class USVN_ImportHtpasswd
 		foreach (array_keys($this->_users_password) as $user) {
 			$data['users_login'] = $user;
 			$data['users_password'] = $this->_users_password[$user];
+			$where = $users->getAdapter()->quoteInto('users_login = ?', $user);
+			$user_row = $users->fetchRow($where);
 			try  {
-				$users->insert($data);
+				if ($user_row === null) {
+					$users->insert($data);
+				}
+				else {
+					$users->update($data, $where);
+				}
 			}
 			catch (Exception $e) {
-					$users->getAdapter()->rollBack();
-					throw new USVN_Exception(T_("Can't add users %s. Import cancel."), $user);
-					echo "TITI";
+				$users->getAdapter()->rollBack();
+				throw new USVN_Exception(T_("Can't add users %s. Import cancel."), $user);
 			}
 		}
 		$users->getAdapter()->commit();

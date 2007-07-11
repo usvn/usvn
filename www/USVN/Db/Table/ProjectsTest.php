@@ -197,6 +197,11 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 
 	public function testfetchAllAssignedTo()
 	{
+		if (getenv('DB') == "MYSQLI") {
+			$this->markTestSkipped("Do not test with MYSQLI");
+		}
+
+
 		$table_user = new USVN_Db_Table_Users();
 		$user = $table_user->fetchNew();
 		$user->setFromArray(array('users_login' 		=> 'test',
@@ -319,6 +324,11 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 
 	public function testfetchAllAssignedToAll()
 	{
+		if (getenv('DB') == "MYSQLI") {
+			$this->markTestSkipped("Do not test with MYSQLI");
+		}
+
+
 		$users = array('stem', 'noplay', 'crivis_s', 'duponc_j', 'dolean_j', 'billar_m', 'attal_m', 'joanic_g', 'guyoll_o');
 		foreach ($users as $user) {
 			${$user} = $this->createUser($user);

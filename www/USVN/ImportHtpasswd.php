@@ -36,7 +36,7 @@ class USVN_ImportHtpasswd
 
 	private function importFile()
 	{
-		$f = fopen($this->_file, "r");
+		$f = @fopen($this->_file, "r");
 		if (!$f) {
 			throw new USVN_Exception(T_("File {$this->_file} not found or invalid access rights."));
 		}

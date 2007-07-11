@@ -32,17 +32,34 @@ class USVN_Test_DB extends USVN_Test_Test {
 			 'username' => 'usvn-test',
 			 'password' => 'usvn-test',
 			 'dbname'   => 'usvn-test');
-
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
 			$this->clean();
 			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'tests/usvn.db', 'usvn_', 'PDO_SQLITE', false);
 			$params['dbname'] = "tests/usvn.db";
 			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
+			file_put_contents('tests/config-db.ini', '[general]
+database.adapterName = "PDO_SQLITE"
+database.prefix = "usvn_"
+database.options.host = "localhost"
+database.options.username = "usvn-test"
+database.options.password = "usvn-test"
+database.options.dbname = "' . getcwd() . '/tests/usvn.db"
+subversion.passwd = "' . getcwd() . '/tests/htpasswd"
+');
 		}
 		else {
 			$this->db = Zend_Db::factory(getenv('DB'), $params);
 			$this->clean();
 			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', getenv('DB'), false);
+			file_put_contents('tests/config-db.ini', '[general]
+database.adapterName = "' . getenv('DB') . '"
+database.prefix = "usvn_"
+database.options.host = "localhost"
+database.options.username = "usvn-test"
+database.options.password = "usvn-test"
+database.options.dbname = "usvn-test"
+subversion.passwd = "' . getcwd() . '/tests/htpasswd"
+');
 		}
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
@@ -66,7 +83,7 @@ class USVN_Test_DB extends USVN_Test_Test {
         $this->db = null;
 		parent::tearDown();
     }
-    
+
     public function __destruct() {
         if ($this->db != null) {
             $this->db->closeConnection();

@@ -55,7 +55,12 @@ if (Install::installPossible(CONFIG_FILE)) {
 		installationOperation($step);
 	}
 	catch (USVN_Exception $e) {
-		echo "<div class='usvn_error'>" . T_("Error"). ": " . nl2br($e->getMessage()) . "</div>";
+		if ($step == 1) {
+			include "views/install_error.html";
+		}
+		else {
+			echo "<div class='usvn_error'>" . T_("Error"). ": " . nl2br($e->getMessage()) . "</div>";
+		}
 		$step--;
 	}
 	installationStep($step);
@@ -72,7 +77,9 @@ function installationOperation($step)
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
 	switch ($step) {
 		case 1:
-			Install::checkSystem();
+			if (!isset($_GET['force'])) {
+				Install::checkSystem();
+			}
 			Install::installUrl(CONFIG_FILE, HTACCESS_FILE, $_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'], isset($_SERVER['HTTPS']));
 		break;
 

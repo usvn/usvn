@@ -17,7 +17,7 @@
  * @package    Zend_Session
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Session.php 5500 2007-06-29 14:39:50Z darby $
+ * @version    $Id: Session.php 4773 2007-05-09 19:33:10Z darby $
  * @since      Preview Release 0.2
  */
 
@@ -46,8 +46,8 @@ require_once 'Zend/Session/SaveHandler/Interface.php';
 /**
  * Zend_Session
  *
- * @category   Zend
- * @package    Zend_Session
+ * @category Zend
+ * @package Zend_Session
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -150,14 +150,14 @@ class Zend_Session extends Zend_Session_Abstract
     /**
      * Default number of seconds the session will be remembered for when asked to be remembered
      *
-     * @var int
+     * @var unknown_type
      */
     private static $_rememberMeSeconds = 1209600; // 2 weeks
 
     /**
      * Whether the default options listed in Zend_Session::$_localOptions have been set
      *
-     * @var bool
+     * @var unknown_type
      */
     private static $_defaultOptionsSet = false;
 
@@ -239,36 +239,37 @@ class Zend_Session extends Zend_Session_Abstract
     public static function regenerateId()
     {
         if (headers_sent($filename, $linenum)) {
-            throw new Zend_Session_Exception("You must call " . __CLASS__ . '::' . __FUNCTION__ .
+            throw new Zend_Session_Exception("You must call ".__CLASS__.'::'.__FUNCTION__.
                 "() before any output has been sent to the browser; output started in {$filename}/{$linenum}");
         }
 
-        if (self::$_sessionStarted && self::$_regenerateIdState <= 0) {
+        if (self::$_sessionStarted && self::$_regenerateIdState <=0) {
             session_regenerate_id(true);
             self::$_regenerateIdState = 1;
         } else {
-            /**
-             * @todo If we can detect that this requester had no session previously,
-             *       then why regenerate the id before the session has started?
-             *       Feedback wanted for:
-             //
-            if (isset($_COOKIE[session_name()]) || (!use only cookies && isset($_REQUEST[session_name()]))) {
+            /*
+            // If we can detect that this requester had no session previously,
+            // then why regenerate the id before the session has started?
+            // Feedback wanted for:
+            if (isset($_COOKIE[session_name()])
+                || (!use only cookies && isset($_REQUEST[session_name()]))) {
                 self::$_regenerateIdState = 1;
             } else {
                 self::$_regenerateIdState = -1;
             }
-            //*/
+            */
             self::$_regenerateIdState = -1;
         }
     }
 
 
     /**
-     * rememberMe() - Write a persistent cookie that expires after a number of seconds in the future. If no number of
-     * seconds is specified, then this defaults to self::$_rememberMeSeconds.  Due to clock errors on end users' systems,
-     * large values are recommended to avoid undesirable expiration of session cookies.
+     * rememberMe() - Replace the session cookie with one that will expire after a number of seconds in the future
+     * (not when the browser closes).  Seconds are determined by self::$_rememberMeSeconds.
+     * plus $seconds (defaulting to self::$_rememberMeSeconds).  Due to clock errors on end users' systems,
+     * large values are recommended to avoid undesireable expiration of session cookies.
      *
-     * @param $seconds integer - OPTIONAL specifies TTL for cookie in seconds from present time
+     * @param $seconds integer - OPTIONAL specifies TTL for cookie in seconds from present time()
      * @return void
      */
     public static function rememberMe($seconds = null)
@@ -281,14 +282,13 @@ class Zend_Session extends Zend_Session_Abstract
 
 
     /**
-     * forgetMe() - Write a volatile session cookie, removing any persistent cookie that may have existed. The session
-     * would end upon, for example, termination of a web browser program.
+     * forgetMe() - The exact opposite of rememberMe(), a session cookie is ensured to be 'session based'
      *
      * @return void
      */
     public static function forgetMe()
     {
-        self::rememberUntil(0);
+        self::rememberUntil(0); // this will make sure the session is not 'session based'
     }
 
 
@@ -301,13 +301,13 @@ class Zend_Session extends Zend_Session_Abstract
      */
     public static function rememberUntil($seconds = 0)
     {
-        $cookieParams = session_get_cookie_params();
+        $cookie_params = session_get_cookie_params();
 
         session_set_cookie_params(
             $seconds,
-            $cookieParams['path'],
-            $cookieParams['domain'],
-            $cookieParams['secure']
+            $cookie_params['path'],
+            $cookie_params['domain'],
+            $cookie_params['secure']
             );
 
         // normally "rememberMe()" represents a security context change, so should use new session id

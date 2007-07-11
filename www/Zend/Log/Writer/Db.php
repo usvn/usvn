@@ -17,7 +17,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 5453 2007-06-26 17:03:01Z bkarwin $
+ * @version    $Id: Db.php 4560 2007-04-20 08:01:32Z mike $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -29,7 +29,7 @@ require_once 'Zend/Log/Writer/Abstract.php';
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 5453 2007-06-26 17:03:01Z bkarwin $
+ * @version    $Id: Db.php 4560 2007-04-20 08:01:32Z mike $
  */ 
 class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
 {
@@ -57,7 +57,6 @@ class Zend_Log_Writer_Db extends Zend_Log_Writer_Abstract
      *
      * @param Zend_Db_Adapter $db   Database adapter instance
      * @param string $table         Log table in database
-     * @param array $columnMap
      */
     public function __construct($db, $table, $columnMap = null)
     {

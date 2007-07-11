@@ -18,7 +18,7 @@
  * @subpackage Table
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5502 2007-06-29 18:15:35Z bkarwin $
+ * @version    $Id: Abstract.php 5296 2007-06-13 23:20:37Z bkarwin $
  */
 
 /**
@@ -1038,17 +1038,7 @@ abstract class Zend_Db_Table_Abstract
         $keys = array_flip($this->_cols);
         $data = array_intersect_key($data, $keys);
         $data = array_merge($defaults, $data);
-        
-        /**
-         * If the primary key can be generated automatically, and no value was 
-         * specified in the user-supplied data, then omit it from the tuple.
-         */
-        $primary = (array) $this->_primary;
-        $pkIdentity = $primary[(int)$this->_identity];
-        if ($data[$pkIdentity] === null) {
-            unset($data[$pkIdentity]);   
-        }
-        
+
         $config = array(
             'table'   => $this,
             'data'    => $data,

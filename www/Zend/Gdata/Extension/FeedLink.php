@@ -47,8 +47,8 @@ class Zend_Gdata_Extension_FeedLink extends Zend_Gdata_Extension
     protected $_rel = null; 
     protected $_feed = null; 
 
-    public function __construct($href = null, $rel = null, 
-            $countHint = null, $readOnly = null, $feed = null)
+    public function __construct($countHint = null, $href = null, 
+            $readOnly = null, $rel = null, $feed = null)
     {
         parent::__construct();
         $this->_countHint = $countHint;

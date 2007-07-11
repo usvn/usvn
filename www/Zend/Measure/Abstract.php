@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Measure
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Abstract.php 5533 2007-06-30 16:38:20Z bkarwin $
+ * @version    $Id: Abstract.php 3867 2007-03-11 13:02:10Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -289,7 +289,7 @@ abstract class Zend_Measure_Abstract
      * Alias function for setType returning the converted unit
      *
      * @param $type  type
-     * @return string
+     * @return
      */
     public function convertTo($type)
     {

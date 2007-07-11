@@ -29,7 +29,7 @@ require_once 'Zend/Pdf/Filter.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Pdf_Filter_Compression extends Zend_Pdf_Filter
+abstract class Zend_Pdf_Filter_Compression implements Zend_Pdf_Filter
 {
     /**
      * Paeth prediction function

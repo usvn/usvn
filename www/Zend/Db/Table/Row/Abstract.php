@@ -18,7 +18,7 @@
  * @subpackage Table
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5486 2007-06-28 22:53:25Z bkarwin $
+ * @version    $Id: Abstract.php 5296 2007-06-13 23:20:37Z bkarwin $
  */
 
 /**
@@ -112,6 +112,7 @@ abstract class Zend_Db_Table_Row_Abstract
                 require_once 'Zend/Db/Table/Row/Exception.php';
                 throw new Zend_Db_Table_Row_Exception('Data must be an array');
             }
+            // @todo: use setFromArray(), which employs _transformColumn().
             $this->_data = $config['data'];
         }
         if (isset($config['stored']) && $config['stored'] === true) {
@@ -367,6 +368,7 @@ abstract class Zend_Db_Table_Row_Abstract
         /**
          * Compare the data to the clean data to discover
          * which columns have been changed.
+         * @todo: do this in the __set() and setFromArray() methods.
          */
         $diffData = array_diff_assoc($this->_data, $this->_cleanData);
 
@@ -861,9 +863,8 @@ abstract class Zend_Db_Table_Row_Abstract
          * Recognize methods for Has-Many cases:
          * findParent<Class>()
          * findParent<Class>By<Rule>()
-         * Use the non-greedy pattern repeat modifier e.g. \w+?
          */
-        if (preg_match('/^findParent(\w+?)(?:By(\w+))?$/', $method, $matches)) {
+        if (preg_match('/^findParent(\w+)(?:By(\w+))?$/', $method, $matches)) {
             $class    = $matches[1];
             $ruleKey1 = isset($matches[2]) ? $matches[2] : null;
             return $this->findParentRow($class, $ruleKey1);
@@ -874,9 +875,8 @@ abstract class Zend_Db_Table_Row_Abstract
          * find<Class1>Via<Class2>()
          * find<Class1>Via<Class2>By<Rule>()
          * find<Class1>Via<Class2>By<Rule1>And<Rule2>()
-         * Use the non-greedy pattern repeat modifier e.g. \w+?
          */
-        if (preg_match('/^find(\w+?)Via(\w+?)(?:By(\w+?)(?:And(\w+))?)?$/', $method, $matches)) {
+        if (preg_match('/^find(\w+)Via(\w+)(?:By(\w+)(?:And(\w+))?)?$/', $method, $matches)) {
             $class    = $matches[1];
             $viaClass = $matches[2];
             $ruleKey1 = isset($matches[3]) ? $matches[3] : null;
@@ -888,9 +888,8 @@ abstract class Zend_Db_Table_Row_Abstract
          * Recognize methods for Belongs-To cases:
          * find<Class>()
          * find<Class>By<Rule>()
-         * Use the non-greedy pattern repeat modifier e.g. \w+?
          */
-        if (preg_match('/^find(\w+?)(?:By(\w+))?$/', $method, $matches)) {
+        if (preg_match('/^find(\w+)(?:By(\w+))?$/', $method, $matches)) {
             $class    = $matches[1];
             $ruleKey1 = isset($matches[2]) ? $matches[2] : null;
             return $this->findDependentRowset($class, $ruleKey1);

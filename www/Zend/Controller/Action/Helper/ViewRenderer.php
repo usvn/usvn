@@ -115,12 +115,6 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
     protected $_noRender        = false;
 
     /**
-     * Characters representing path delimiters in the controller
-     * @var string|array
-     */
-    protected $_pathDelimiters;
-
-    /**
      * Which named segment of the response to utilize
      * @var string
      */
@@ -701,25 +695,21 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
         }
 
         // Module, controller, and action names need normalized delimiters
-        $dispatcher = $front->getDispatcher();
-        if (null === $this->_pathDelimiters) {
-            $this->_pathDelimiters = $dispatcher->getPathDelimiter();
-        }
         if (null === $this->_delimiters) {
+            $dispatcher        = $front->getDispatcher();
             $wordDelimiters    = $dispatcher->getWordDelimiter();
             $pathDelimiters    = $dispatcher->getPathDelimiter();
-            $this->_delimiters = array_unique(array_merge($wordDelimiters, (array) $this->_pathDelimiters));
+            $this->_delimiters = array_unique(array_merge($wordDelimiters, (array) $pathDelimiters));
         }
 
         $replacements = array(
             ':moduleDir'  => $moduleDir,
-            ':module'     => str_replace($this->_delimiters, '-', strtolower($module)),
-            ':controller' => str_replace($this->_delimiters, '-', strtolower(str_replace($this->_pathDelimiters, '/', $controller))),
-            ':action'     => str_replace($this->_delimiters, '-', strtolower($action)),
+            ':module'     => str_replace($this->_delimiters, '-', $module),
+            ':controller' => str_replace($this->_delimiters, '-', $controller),
+            ':action'     => str_replace($this->_delimiters, '-', $action),
             ':suffix'     => $suffix
         );
         $value = str_replace(array_keys($replacements), array_values($replacements), $spec);
-        $value = preg_replace('/-+/', '-', $value);
         return $value;
     }
 

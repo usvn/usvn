@@ -132,6 +132,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
 
     /**
      * Sets the visibility for this query.
+     * @return string visibility
      * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
      */
     public function setVisibility($value)

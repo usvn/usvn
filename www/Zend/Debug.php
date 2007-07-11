@@ -90,7 +90,7 @@ class Zend_Debug
         } else {
             $output = '<pre>'
                     . $label
-                    . htmlspecialchars($output, ENT_QUOTES)
+                    . htmlentities($output, ENT_QUOTES, 'UTF-8')
                     . '</pre>';
         }
 

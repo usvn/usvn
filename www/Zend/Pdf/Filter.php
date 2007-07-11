@@ -29,7 +29,7 @@ require_once 'Zend/Pdf/Exception.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Pdf_Filter
+interface Zend_Pdf_Filter
 {
     /**
      * Encode data
@@ -39,7 +39,7 @@ abstract class Zend_Pdf_Filter
      * @return string
      * @throws Zend_Pdf_Exception
      */
-    abstract public static function encode($data, $params = null);
+    public static function encode($data, $params = null);
 
     /**
      * Decode data
@@ -49,5 +49,5 @@ abstract class Zend_Pdf_Filter
      * @return string
      * @throws Zend_Pdf_Exception
      */
-    abstract public static function decode($data, $params = null);
+    public static function decode($data, $params = null);
 }

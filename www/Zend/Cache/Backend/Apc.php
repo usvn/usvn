@@ -38,7 +38,7 @@ require_once 'Zend/Cache/Backend.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
+class Zend_Cache_Backend_APC extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
 {
 
     // ----------------------
@@ -61,7 +61,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
     /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
      * 
-     * WARNING $doNotTestCacheValidity=true is unsupported by the Apc backend
+     * WARNING $doNotTestCacheValidity=true is unsupported by the APC backend
      * 
      * @param string $id cache id
      * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
@@ -70,7 +70,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
     public function load($id, $doNotTestCacheValidity = false) 
     {
         if ($doNotTestCacheValidity) {
-            $this->_log("Zend_Cache_Backend_Apc::load() : \$doNotTestCacheValidity=true is unsupported by the Apc backend");
+            $this->_log("Zend_Cache_Backend_APC::load() : \$doNotTestCacheValidity=true is unsupported by the APC backend");
         }
         $tmp = apc_fetch($id);
         if (is_array($tmp)) {
@@ -111,7 +111,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
         $lifetime = $this->getLifetime($specificLifetime);
         $result = apc_store($id, array($data, time()), $lifetime);
         if (count($tags) > 0) {
-            $this->_log("Zend_Cache_Backend_Apc::save() : tags are unsupported by the Apc backend");
+            $this->_log("Zend_Cache_Backend_APC::save() : tags are unsupported by the APC backend");
         }
         return $result;       
     }
@@ -148,13 +148,13 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
             return apc_clear_cache('user');
         }
         if ($mode==Zend_Cache::CLEANING_MODE_OLD) {
-            $this->_log("Zend_Cache_Backend_Apc::clean() : CLEANING_MODE_OLD is unsupported by the Apc backend");
+            $this->_log("Zend_Cache_Backend_APC::clean() : CLEANING_MODE_OLD is unsupported by the APC backend");
         }
         if ($mode==Zend_Cache::CLEANING_MODE_MATCHING_TAG) {
-            $this->_log("Zend_Cache_Backend_Apc::clean() : tags are unsupported by the Apc backend");
+            $this->_log("Zend_Cache_Backend_APC::clean() : tags are unsupported by the APC backend");
         }
         if ($mode==Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG) {
-            $this->_log("Zend_Cache_Backend_Apc::clean() : tags are unsupported by the Apc backend");
+            $this->_log("Zend_Cache_Backend_APC::clean() : tags are unsupported by the APC backend");
         }
     }
         

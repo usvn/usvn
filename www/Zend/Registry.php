@@ -16,8 +16,13 @@
  * @package    Zend_Registry
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Registry.php 5491 2007-06-29 00:41:56Z bkarwin $
+ * @version    $Id: Registry.php 4223 2007-03-24 10:20:34Z thomas $
  */
+
+/**
+ * Zend_Exception
+ */
+require_once 'Zend/Exception.php';
 
 /**
  * Generic storage class helps to manage global data.
@@ -66,7 +71,6 @@ class Zend_Registry extends ArrayObject
     public static function setInstance(Zend_Registry $registry)
     {
         if (self::$_registry !== null) {
-            require_once 'Zend/Exception.php';
             throw new Zend_Exception('Registry is already initialized');
         }
 
@@ -78,6 +82,7 @@ class Zend_Registry extends ArrayObject
      * Initialize the default registry instance.
      *
      * @return void
+     * @throws Zend_Exception if default registry is already initialized.
      */
     protected static function init()
     {
@@ -97,20 +102,16 @@ class Zend_Registry extends ArrayObject
     public static function setClassName($registryClassName = 'Zend_Registry')
     {
         if (self::$_registry !== null) {
-            require_once 'Zend/Exception.php';
             throw new Zend_Exception('Registry is already initialized');
         }
 
         if (!is_string($registryClassName)) {
-            require_once 'Zend/Exception.php';
             throw new Zend_Exception("Argument is not a class name");
         }
 
-        /**
-         * @see Zend_Loader
-         */
-        require_once 'Zend/Loader.php';
-        Zend_Loader::loadClass($registryClassName);
+        if (!class_exists($registryClassName, false)) {
+            throw new Zend_Exception("'$registryClassName' class is not found");
+        }
 
         self::$_registryClassName = $registryClassName;
     }
@@ -141,8 +142,7 @@ class Zend_Registry extends ArrayObject
         $instance = self::getInstance();
 
         if (!$instance->offsetExists($index)) {
-            require_once 'Zend/Exception.php';
-            throw new Zend_Exception("No entry is registered for key '$index'");
+           throw new Zend_Exception("No entry is registered for key '$index'");
         }
 
         return $instance->offsetGet($index);

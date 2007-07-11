@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -14,37 +13,34 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Filter
+ * @package    Zend_Uri
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Digits.php 5134 2007-06-06 17:54:16Z darby $
  */
 
 
 /**
- * @see Zend_Filter_Interface
+ * Zend_Uri
  */
-require_once 'Zend/Filter/Interface.php';
+require_once 'Zend/Uri.php';
 
 
 /**
  * @category   Zend
- * @package    Zend_Filter
+ * @package    Zend_Uri
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Filter_Digits implements Zend_Filter_Interface
-{
-    /**
-     * Defined by Zend_Filter_Interface
-     *
-     * Returns the string $value, removing all but digit characters
-     *
-     * @param  string $value
-     * @return string
-     */
-    public function filter($value)
-    {
-        return preg_replace('/[\p{^N}]/', '', (string) $value);
-    }
+class Zend_Uri_Mailto extends Zend_Uri {
+
+    protected function __construct($scheme, $schemeSpecific)
+    {}
+
+    public function getUri()
+    {}
+
+    public function valid()
+    {}
+
 }
+

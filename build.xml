@@ -85,11 +85,11 @@
 		</php>
 		<phingcall target="test" />
 
-		<echo msg="Test MYSQLI" />
+		<!--<echo msg="Test MYSQLI" />
 		<php function="putenv">
 			<param value="DB=MYSQLI" />
 		</php>
-		<phingcall target="test" />
+		<phingcall target="test" />-->
 	</target>
 
     <target name="test">

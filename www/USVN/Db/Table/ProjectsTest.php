@@ -74,11 +74,11 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$project->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$project->save();
 		$projects = $table->findByName("InsertProjectOk");
-		
+
 		$table->AddUserToProject($users, $projects);
 		$UserToProject = new USVN_Db_Table_UsersToProjects();
 		$this->assertEquals(count($UserToProject->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $projects->projects_id ))), 1);
-		
+
 		$table->DeleteUserToProject($users, $projects);
 		$this->assertEquals(count($UserToProject->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $projects->projects_id ))), 0);
 	}
@@ -197,11 +197,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 
 	public function testfetchAllAssignedTo()
 	{
-		if (getenv('DB') == "MYSQLI") {
-			$this->markTestSkipped("Do not test with MYSQLI");
-		}
-
-
 		$table_user = new USVN_Db_Table_Users();
 		$user = $table_user->fetchNew();
 		$user->setFromArray(array('users_login' 		=> 'test',

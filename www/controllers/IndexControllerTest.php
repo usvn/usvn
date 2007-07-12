@@ -48,7 +48,26 @@ class IndexControllerTest extends USVN_Test_Controller {
 	public function test_indexActionNoProject()
 	{
 		$this->runAction('index', 'index');
+		$this->assertEquals(0, count($this->controller->view->projects));
 		$this->assertContains("You don't have any project.", $this->getBody());
+	}
+
+	public function test_indexActionTwoProject()
+	{
+		$table_project = new USVN_Db_Table_Projects();
+		$project = $table_project->fetchNew();
+		$project->setFromArray(array('projects_name' => 'OpenBSD',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project->save();
+		$project->addUser($this->user);
+		$project2 = $table_project->fetchNew();
+		$project2->setFromArray(array('projects_name' => 'Hurd',  'projects_start_date' => '1984-12-03 00:00:00'));
+		$project2->save();
+		$project2->addUser($this->user);
+
+		$this->runAction('index', 'index');
+		$this->assertEquals(2, count($this->controller->view->projects));
+		$this->assertContains("OpenBSD", $this->getBody());
+		$this->assertContains("Hurd", $this->getBody());
 	}
 }
 

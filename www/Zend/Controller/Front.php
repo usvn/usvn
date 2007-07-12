@@ -59,13 +59,13 @@ class Zend_Controller_Front
 {
     /**
      * Base URL
-     * @var string 
+     * @var string
      */
     protected $_baseUrl = null;
 
     /**
      * Directory|ies where controllers are stored
-     * 
+     *
      * @var string|array
      */
     protected $_controllerDir = null;
@@ -79,9 +79,9 @@ class Zend_Controller_Front
     /**
      * Singleton instance
      *
-     * Marked only as protected to allow extension of the class. To extend, 
+     * Marked only as protected to allow extension of the class. To extend,
      * simply override {@link getInstance()}.
-     * 
+     *
      * @var Zend_Controller_Front
      */
     protected static $_instance = null;
@@ -118,7 +118,7 @@ class Zend_Controller_Front
     protected $_response = null;
 
     /**
-     * Whether or not to return the response prior to rendering output while in 
+     * Whether or not to return the response prior to rendering output while in
      * {@link dispatch()}; default is to send headers and render output.
      * @var boolean
      */
@@ -131,7 +131,7 @@ class Zend_Controller_Front
     protected $_router = null;
 
     /**
-     * Whether or not exceptions encountered in {@link dispatch()} should be 
+     * Whether or not exceptions encountered in {@link dispatch()} should be
      * thrown or trapped in the response object
      * @var boolean
      */
@@ -140,7 +140,7 @@ class Zend_Controller_Front
     /**
      * Constructor
      *
-     * Instantiate using {@link getInstance()}; front controller is a singleton 
+     * Instantiate using {@link getInstance()}; front controller is a singleton
      * object.
      *
      * Instantiates the plugin broker.
@@ -154,7 +154,7 @@ class Zend_Controller_Front
 
     /**
      * Singleton instance
-     * 
+     *
      * @return Zend_Controller_Front
      */
     public static function getInstance()
@@ -170,7 +170,7 @@ class Zend_Controller_Front
      * Resets all object properties of the singleton instance
      *
      * Primarily used for testing; could be used to chain front controllers.
-     * 
+     *
      * @return void
      */
     public function resetInstance()
@@ -209,10 +209,10 @@ class Zend_Controller_Front
     /**
      * Convenience feature, calls setControllerDirectory()->setRouter()->dispatch()
      *
-     * In PHP 5.1.x, a call to a static method never populates $this -- so run() 
+     * In PHP 5.1.x, a call to a static method never populates $this -- so run()
      * may actually be called after setting up your front controller.
      *
-     * @param string|array $controllerDirectory Path to Zend_Controller_Action 
+     * @param string|array $controllerDirectory Path to Zend_Controller_Action
      * controller classes or array of such paths
      * @return void
      * @throws Zend_Controller_Exception if called from an object instance
@@ -227,10 +227,10 @@ class Zend_Controller_Front
     /**
      * Add a controller directory to the controller directory stack
      *
-     * If $args is presented and is a string, uses it for the array key mapping 
+     * If $args is presented and is a string, uses it for the array key mapping
      * to the directory specified.
-     * 
-     * @param string $directory 
+     *
+     * @param string $directory
      * @param string $module Optional argument; module with which to associate directory. If none provided, assumes 'defualt'
      * @return Zend_Controller_Front
      * @throws Zend_Controller_Exception if directory not found or readable
@@ -249,10 +249,10 @@ class Zend_Controller_Front
     /**
      * Set controller directory
      *
-     * Stores controller directory to pass to dispatcher. May be an array of 
+     * Stores controller directory to pass to dispatcher. May be an array of
      * directories or a string containing a single directory.
      *
-     * @param string|array $directory Path to Zend_Controller_Action controller 
+     * @param string|array $directory Path to Zend_Controller_Action controller
      * classes or array of such paths
      * @param  string $module Optional module name to use with string $directory
      * @return Zend_Controller_Front
@@ -302,11 +302,11 @@ class Zend_Controller_Front
     /**
      * Specify a directory as containing modules
      *
-     * Iterates through the directory, adding any subdirectories as modules; 
+     * Iterates through the directory, adding any subdirectories as modules;
      * the subdirectory within each module named after {@link $_moduleControllerDirectoryName}
      * will be used as the controller directory path.
-     * 
-     * @param  string $path 
+     *
+     * @param  string $path
      * @return Zend_Controller_Front
      */
     public function addModuleDirectory($path)
@@ -333,7 +333,7 @@ class Zend_Controller_Front
 
     /**
      * Set the directory name within a module containing controllers
-     * 
+     *
      * @param  string $name
      * @return Zend_Controller_Front
      */
@@ -346,7 +346,7 @@ class Zend_Controller_Front
 
     /**
      * Return the directory name within a module containing controllers
-     * 
+     *
      * @return string
      */
     public function getModuleControllerDirectoryName()
@@ -414,7 +414,7 @@ class Zend_Controller_Front
     }
 
     /**
-     * Retrieve the default module 
+     * Retrieve the default module
      *
      * @return string
      */
@@ -507,7 +507,7 @@ class Zend_Controller_Front
     /**
      * Set the base URL used for requests
      *
-     * Use to set the base URL segment of the REQUEST_URI to use when 
+     * Use to set the base URL segment of the REQUEST_URI to use when
      * determining PATH_INFO, etc. Examples:
      * - /admin
      * - /myapp
@@ -519,7 +519,7 @@ class Zend_Controller_Front
      * - http://example.com/subdir/index.php
      *
      * If a null value is passed, this can be used as well for autodiscovery (default).
-     * 
+     *
      * @param string $base
      * @return Zend_Controller_Front
      * @throws Zend_Controller_Exception for non-string $base
@@ -537,7 +537,7 @@ class Zend_Controller_Front
 
     /**
      * Retrieve the currently set base URL
-     * 
+     *
      * @return string
      */
     public function getBaseUrl()
@@ -641,8 +641,8 @@ class Zend_Controller_Front
 
     /**
      * Retrieve a single parameter from the controller parameter stack
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      * @return mixed
      */
     public function getParam($name)
@@ -667,10 +667,10 @@ class Zend_Controller_Front
     /**
      * Clear the controller parameter stack
      *
-     * By default, clears all parameters. If a parameter name is given, clears 
-     * only that parameter; if an array of parameter names is provided, clears 
+     * By default, clears all parameters. If a parameter name is given, clears
+     * only that parameter; if an array of parameter names is provided, clears
      * each.
-     * 
+     *
      * @param null|string|array single key or array of keys for params to clear
      * @return Zend_Controller_Front
      */
@@ -718,8 +718,8 @@ class Zend_Controller_Front
 
     /**
      * Is a particular plugin registered?
-     * 
-     * @param  string $class 
+     *
+     * @param  string $class
      * @return bool
      */
     public function hasPlugin($class)
@@ -729,8 +729,8 @@ class Zend_Controller_Front
 
     /**
      * Retrieve a plugin or plugins by class
-     * 
-     * @param  string $class 
+     *
+     * @param  string $class
      * @return false|Zend_Controller_Plugin_Abstract|array
      */
     public function getPlugin($class)
@@ -740,7 +740,7 @@ class Zend_Controller_Front
 
     /**
      * Retrieve all plugins
-     * 
+     *
      * @return array
      */
     public function getPlugins()
@@ -749,12 +749,12 @@ class Zend_Controller_Front
     }
 
     /**
-     * Set whether exceptions encounted in the dispatch loop should be thrown 
+     * Set whether exceptions encounted in the dispatch loop should be thrown
      * or caught and trapped in the response object
      *
-     * Default behaviour is to trap them in the response object; call this 
+     * Default behaviour is to trap them in the response object; call this
      * method to have them thrown.
-     * 
+     *
      * @param boolean $flag Defaults to true
      * @return boolean|Zend_Controller_Front Used as a setter, returns object; as a getter, returns boolean
      */
@@ -772,11 +772,11 @@ class Zend_Controller_Front
     }
 
     /**
-     * Set whether {@link dispatch()} should return the response without first 
-     * rendering output. By default, output is rendered and dispatch() returns 
+     * Set whether {@link dispatch()} should return the response without first
+     * rendering output. By default, output is rendered and dispatch() returns
      * nothing.
-     * 
-     * @param boolean $flag 
+     *
+     * @param boolean $flag
      * @return boolean|Zend_Controller_Front Used as a setter, returns object; as a getter, returns boolean
      */
     public function returnResponse($flag = null)

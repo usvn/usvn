@@ -25,30 +25,64 @@ require_once 'www/USVN/autoload.php';
 define('USVN_VIEWS_DIR', 'www/views/');
 define('USVN_HELPERS_DIR', 'www/helpers/');
 define('USVN_CONTROLLERS_DIR', 'www/controllers/');
+define('USVN_CONFIG_SECTION', 'general');
+define('USVN_ROUTES_CONFIG_FILE', 'www/USVN/routes.ini');
 
 
 class USVN_Test_Controller extends USVN_Test_DB {
+	/* To be overload */
 	protected $controller_name;
 	protected $controller_class;
+
+	/* ****** */
 	protected $request;
 	protected $response;
+	protected $controller;
+	protected $user;
 
     protected function setUp() {
 		parent::setUp();
-		$table = new USVN_Db_Table_Users();
-		$obj = $table->fetchNew();
-		$obj->setFromArray(array(
-													'users_login' => 'user',
-													'users_password' => 'password'));
-		$obj->save();
+
+		Zend_Auth::getInstance()->setStorage(new Zend_Auth_Storage_NonPersistent());
+
+		$this->clean();
 
 		$front = Zend_Controller_Front::getInstance();
-		Zend_Auth::getInstance()->setStorage(new Zend_Auth_Storage_NonPersistent());
-		$authAdapter = new USVN_Auth_Adapter_Db('user', 'password');
+		$router = new Zend_Controller_Router_Rewrite();
+		$routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$router->addConfig($routes_config, 'routes');
+		$front->setRouter($router);
+
+		$table = new USVN_Db_Table_Users();
+		$this->user = $table->fetchNew();
+		$this->user->setFromArray(array(
+													'users_login' => 'john',
+													'users_password' => 'pinocchio'));
+		$this->user->save();
+
+		$authAdapter = new USVN_Auth_Adapter_Db('john', 'pinocchio');
 		Zend_Auth::getInstance()->authenticate($authAdapter);
+
 		$front->setControllerDirectory(USVN_CONTROLLERS_DIR);
 		$this->request = new USVN_Controller_Request_Http();
+		$front->setRequest($this->request);
 		$this->response = new Zend_Controller_Response_Cli();
+		$front->setResponse($this->response);
+	}
+
+	protected function tearDown()
+	{
+		parent::tearDown();
+		$this->clean();
+	}
+
+	private function clean()
+	{
+		Zend_Controller_Front::getInstance()->resetInstance();
+		Zend_Auth::getInstance()->clearIdentity();
+		Zend_Controller_Action_HelperBroker::resetHelpers();
+		$this->request = null;
+		$this->response = null;
 	}
 
 	/**
@@ -63,8 +97,8 @@ class USVN_Test_Controller extends USVN_Test_DB {
 		$this->request->setActionName($action);
 		$this->request->setDispatched(true);;
 		require_once 'www/controllers/' . $this->controller_class . '.php';
-		$controller = new $this->controller_class($this->request, $this->response);
-		$controller->dispatch($action. "Action");
+		$this->controller = new $this->controller_class($this->request, $this->response);
+		$this->controller->dispatch($action. "Action");
 		$content = ob_get_flush();
 	}
 

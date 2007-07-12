@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-07 15:59+0200\n"
-"PO-Revision-Date: 2007-07-04 12:18+0200\n"
+"PO-Revision-Date: 2007-07-12 16:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: Chinese\n"
 "MIME-Version: 1.0\n"
@@ -143,8 +143,7 @@ msgid "Configure USVN"
 msgstr "Configurer USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
+msgid "Settings of general configuration of USVN. You can keep default settings."
 msgstr "Configuration de USVN. Vous pouvez garder les réglages par défaut."
 
 #: ../../../www//install/views/step4.html:12
@@ -396,8 +395,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN ne peut pas être utilisé avec le safe mode de PHP."
 
 #: ../../../www//install/Install.php:372
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 "Subversion n'est pas installé sur votre système. Si vous êtes sous Windows "
 "installez "
@@ -566,8 +564,7 @@ msgstr "Style invalide"
 #: ../../../www//USVN/DirectoryUtils.php:28
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr ""
-"Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
+msgstr "Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
 
 #: ../../../www//USVN/DirectoryUtils.php:43
 #, php-format
@@ -755,7 +752,7 @@ msgstr "Version de USVN: "
 
 #: ../../../www//views/browser/index.phtml:81
 msgid "Acces rights for"
-msgstr "Droit d'accès pour"
+msgstr "Droits d'accès pour"
 
 #: ../../../www//views/browser/index.phtml:108
 msgid "Files list"
@@ -880,8 +877,7 @@ msgstr "Email incorrect."
 
 #: ../../../www//views/login/login.phtml:4
 msgid "Please enter your login and your password to connect to USVN."
-msgstr ""
-"Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
+msgstr "Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
 
 #: ../../../www//views/login/login.phtml:8
 msgid "Authentification"
@@ -915,5 +911,3 @@ msgstr "Logo"
 msgid "Save"
 msgstr "Sauvegarder"
 
-#~ msgid "admin"
-#~ msgstr "admin"

@@ -104,7 +104,7 @@ class Install
 		try {
 			$config = Install::_loadConfig($config_file);
 			/* @var $config USVN_Config */
-			$config->database = array (
+			$array = array (
 				"adapterName" => $adapter,
 				"prefix" => $prefix,
 				"options" => array (
@@ -114,6 +114,12 @@ class Install
 					"dbname" => $database
 				)
 			);
+			if ($adapter == "PDO_SQLITE") {
+				unset($array['options']['host']);
+				unset($array['options']['username']);
+				unset($array['options']['password']);
+			}
+			$config->database = $array;
 			$config->save();
 		}
 		catch (Exception $e) {

@@ -25,13 +25,9 @@ class USVN_Controller_Request_Http extends Zend_Controller_Request_Http
      */
 	public function getControllerName()
 	{
-		parent::getControllerName();
-
 		if ($this->getParam('area') == "admin") {
 			return $this->_controller . "admin";
 		}
-
 		return $this->_controller;
 	}
-
 }

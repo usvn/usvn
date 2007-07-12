@@ -37,10 +37,10 @@ require_once 'Zend/Controller/Response/Abstract.php';
 class Zend_Controller_Response_Cli extends Zend_Controller_Response_Abstract
 {
     /**
-     * Flag; if true, when header operations are called after headers have been 
-     * sent, an exception will be raised; otherwise, processing will continue 
+     * Flag; if true, when header operations are called after headers have been
+     * sent, an exception will be raised; otherwise, processing will continue
      * as normal. Defaults to false.
-     * 
+     *
      * @see canSendHeaders()
      * @var boolean
      */
@@ -64,4 +64,25 @@ class Zend_Controller_Response_Cli extends Zend_Controller_Response_Abstract
 
         return $this->_body;
     }
+
+	public function sendHeaders()
+    {
+		$this->canSendHeaders(true);
+		return $this;
+	}
+
+	public function getBody($spec = false)
+    {
+        if (false === $spec) {
+            $this->outputBody();
+            return "";
+        } elseif (true === $spec) {
+            return $this->_body;
+        } elseif (is_string($spec) && isset($this->_body[$spec])) {
+            return $this->_body[$spec];
+        }
+
+        return null;
+    }
+
 }

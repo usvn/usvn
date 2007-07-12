@@ -49,6 +49,7 @@ class USVN_Test_Controller extends USVN_Test_DB {
 
 		$front = Zend_Controller_Front::getInstance();
 		$router = new Zend_Controller_Router_Rewrite();
+
 		$routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$router->addConfig($routes_config, 'routes');
 		$front->setRouter($router);
@@ -60,6 +61,8 @@ class USVN_Test_Controller extends USVN_Test_DB {
 													'users_password' => 'pinocchio'));
 		$this->user->save();
 
+
+
 		$authAdapter = new USVN_Auth_Adapter_Db('john', 'pinocchio');
 		Zend_Auth::getInstance()->authenticate($authAdapter);
 
@@ -68,6 +71,7 @@ class USVN_Test_Controller extends USVN_Test_DB {
 		$front->setRequest($this->request);
 		$this->response = new Zend_Controller_Response_Cli();
 		$front->setResponse($this->response);
+		$router->addRoute('default', new Zend_Controller_Router_Route_Module(array(), $front->getDispatcher(), $front->getRequest()));
 	}
 
 	protected function tearDown()
@@ -95,7 +99,7 @@ class USVN_Test_Controller extends USVN_Test_DB {
 	{
 		$this->request->setControllerName($this->controller_name);
 		$this->request->setActionName($action);
-		$this->request->setDispatched(true);;
+		$this->request->setDispatched(true);
 		require_once 'www/controllers/' . $this->controller_class . '.php';
 		$this->controller = new $this->controller_class($this->request, $this->response);
 		$this->controller->dispatch($action. "Action");

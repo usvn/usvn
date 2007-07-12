@@ -22,7 +22,7 @@ else {
 if (count($this->groups)) {
 	echo '<ul>';
 	foreach ($this->groups as $group) {
-		echo '<li>'. $group->name . '</li>';
+		echo '<li><a href="' . $this->url(array('controller' => 'group', 'group' => $group->name), 'default') . '">' . $group->name . '</a></li>';
 	}
 	echo '</ul>';
 }

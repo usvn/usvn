@@ -66,8 +66,8 @@ class IndexControllerTest extends USVN_Test_Controller {
 
 		$this->runAction('index', 'index');
 		$this->assertEquals(2, count($this->controller->view->projects));
-		$this->assertContains("OpenBSD", $this->getBody());
-		$this->assertContains("Hurd", $this->getBody());
+		$this->assertContains('href="/project/OpenBSD">OpenBSD</a>', $this->getBody(), $this->getBody());
+		$this->assertContains('href="/project/Hurd">Hurd</a>', $this->getBody());
 	}
 
 	public function test_indexActionNoGroup()
@@ -98,8 +98,8 @@ class IndexControllerTest extends USVN_Test_Controller {
 		$this->user->addGroup($g2);
 		$this->runAction('index', 'index');
 		$this->assertEquals(2, count($this->controller->view->groups));
-		$this->assertContains("Indochine", $this->getBody());
-		$this->assertContains("Telephone", $this->getBody());
+		$this->assertContains('href="/group/index/group/Indochine">Indochine</a>', $this->getBody(), $this->getBody());
+		$this->assertContains('href="/group/index/group/Telephone">Telephone</a>', $this->getBody());
 	}
 }
 

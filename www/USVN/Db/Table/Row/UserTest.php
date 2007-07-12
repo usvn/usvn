@@ -76,7 +76,7 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 	{
 		$this->user->addGroup($this->groups->find(42)->current());
 		$this->user->addGroup($this->groups->find(43)->current());
-		$this->groups = $this->user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
+		$this->groups = $this->user->listGroups();
 		$res = array();
 		foreach ($this->groups as $group) {
 			array_push($res, $group->groups_name);
@@ -91,7 +91,7 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->user->addGroup($this->groups->find(42)->current());
 		$this->user->addGroup($this->groups->find(43)->current());
 		$this->user->deleteGroup($this->groups->find(42)->current());
-		$this->groups = $this->user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
+		$this->groups = $this->user->listGroups();
 		$res = array();
 		foreach ($this->groups as $group) {
 			array_push($res, $group->groups_name);
@@ -106,7 +106,7 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->user->addGroup($this->groups->find(42)->current());
 		$this->user->addGroup($this->groups->find(43)->current());
 		$this->user->deleteAllGroups();
-		$this->groups = $this->user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
+		$this->groups = $this->user->listGroups();
 		$res = array();
 		foreach ($this->groups as $group) {
 			array_push($res, $group->groups_name);
@@ -123,6 +123,14 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->assertFalse($this->user->isInGroup($group));
 		$this->user->addGroup($group);
 		$this->assertTrue($this->user->isInGroup($group));
+	}
+
+	public function testListGroups()
+	{
+		$this->assertEquals(0, count($this->user->listGroups()));
+		$this->user->addGroup($this->groups->find(42)->current());
+		$this->user->addGroup($this->groups->find(43)->current());
+		$this->assertEquals(2, count($this->user->listGroups()));
 	}
 }
 

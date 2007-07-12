@@ -20,7 +20,7 @@
 class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 {
 	/**
-	* Add an group to a user
+	* Add user in a group
 	*
 	* @param mixed Group
 	*/
@@ -91,6 +91,16 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	* Return list of groups where user is member
+	*
+	* @return Zend_Db_Table_Rowset
+	*/
+	public function listGroups()
+	{
+		return $this->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
 	}
 
 	/**

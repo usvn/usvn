@@ -16,3 +16,18 @@ else {
 }
 ?>
 </div>
+<div id="usvn_list_groups">
+	<h3><?php echo T_("Your groups") . ":"; ?></h3>
+<?php
+if (count($this->groups)) {
+	echo '<ul>';
+	foreach ($this->groups as $group) {
+		echo '<li>'. $group->name . '</li>';
+	}
+	echo '</ul>';
+}
+else {
+	echo "<p>" . T_("You are not assign to a group.") . "</p>";
+}
+?>
+</div>

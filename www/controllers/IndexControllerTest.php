@@ -69,6 +69,38 @@ class IndexControllerTest extends USVN_Test_Controller {
 		$this->assertContains("OpenBSD", $this->getBody());
 		$this->assertContains("Hurd", $this->getBody());
 	}
+
+	public function test_indexActionNoGroup()
+	{
+		$this->runAction('index', 'index');
+		$this->assertEquals(0, count($this->controller->view->group));
+		$this->assertContains("You are not assign to a group.", $this->getBody());
+	}
+
+	public function test_indexActionTwoGroup()
+	{
+		$groups = new USVN_Db_Table_Groups();
+		$g1 = $groups->insert(
+			array(
+				"groups_id" => 42,
+				"groups_name" => "Telephone",
+				"groups_description" => "test"
+			)
+		);
+		$g2 = $groups->insert(
+			array(
+				"groups_id" => 43,
+				"groups_name" => "Indochine",
+				"groups_description" => "test2"
+			)
+		);
+		$this->user->addGroup($g1);
+		$this->user->addGroup($g2);
+		$this->runAction('index', 'index');
+		$this->assertEquals(2, count($this->controller->view->groups));
+		$this->assertContains("Indochine", $this->getBody());
+		$this->assertContains("Telephone", $this->getBody());
+	}
 }
 
 // Call IndexControllerTest::main() if this source file is executed directly.

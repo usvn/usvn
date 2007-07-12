@@ -423,6 +423,10 @@ table.usvn_table a:hover, table.sortable a:hover {
 	color: #2F2F2F;
 }
 
+h3 {
+	color: #11518F;
+	margin-bottom: 5px;
+}
 
 .odd {
   background-color: #eff2ff;
@@ -437,7 +441,6 @@ table.usvn_table a:hover, table.sortable a:hover {
 <?php include($this->css_directory . "/group.css"); ?>
 <?php include($this->css_directory . "/project.css"); ?>
 <?php include($this->css_directory . "/admin.css"); ?>
-<?php include($this->css_directory . "/index.css"); ?>
 <?php include($this->css_directory . "/completion.css"); ?>
 <?php include($this->css_directory . "/bubblerights.css"); ?>
 

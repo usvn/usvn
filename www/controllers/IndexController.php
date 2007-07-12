@@ -25,5 +25,10 @@ class IndexController extends USVN_Controller {
 	public function indexAction() {
 		$projects = new USVN_Db_Table_Projects();
 		$this->view->projects = $projects->fetchAllAssignedTo($this->getRequest()->getParam('user'));
+
+		$identity = Zend_Auth::getInstance()->getIdentity();
+		$user_table = new USVN_Db_Table_Users();
+		$user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
+		$this->view->groups = $user->listGroups();
 	}
 }

@@ -28,6 +28,29 @@
 				}
 			?>
 		</select>
+		<label class="usvn_label" for="timezone">
+			<?php echo T_("Default timezone");?>:
+		</label>
+		<select name="timezone" id="timezone">
+			<?php
+				$timezones = Zend_Locale_Data::getContent("en", "timezonestandard");
+				ksort($timezones);
+				foreach ($timezones as $timezone => $display) {
+					$selected = "";
+					if (isset($_POST['timezone'])) {
+						if ($timezone == $_POST['timezone']) {
+							$selected = 'selected="selected"';
+						}
+					}
+					else {
+						if ($language == "en_US") {
+							$selected = 'selected="selected"';
+						}
+					}
+					echo "<option $selected value=\"$timezone\">$timezone</option>";
+				}
+			?>
+		</select>
 	</div>
 	<hr />
 	<div>

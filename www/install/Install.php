@@ -145,6 +145,28 @@ class Install
 	}
 
 	/**
+	 * This method will  write the choosen timezone into config file.
+	 *
+	 * Throw an exception in case of problems.
+	 *
+	 * @param string Path to the USVN config file
+	 * @param string Language
+	 * @throw USVN_Exception
+	 */
+	static public function installTimezone($config_file, $timezone)
+	{
+		$availableTimeZones = Zend_Locale_Data::getContent("en", "timezonestandard");
+		if (array_key_exists($timezone, $availableTimeZones)) {
+			$config = Install::_loadConfig($config_file);
+			$config->timezone = $timezone;
+			$config->save();
+		}
+		else {
+			throw new USVN_Exception(T_("Invalid timezone"));
+		}
+	}
+
+	/**
 	* This method will add subversion path
 	*
 	* @param string Path to the USVN config file

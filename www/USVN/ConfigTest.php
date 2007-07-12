@@ -66,6 +66,13 @@ version = \"0.84\"
 		$this->assertEquals('fr_FR', $config->translation->locale);
     }
 
+    public function testSetTimezone()
+	{
+		USVN_Config::setTimezone('Europe/Paris');
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$this->assertEquals('Europe/Paris', $config->timezone);
+    }
+
     public function testUnset()
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);

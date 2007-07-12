@@ -37,6 +37,25 @@ class USVN_Config
 		}
 	}
 
+	/**
+	 * Set default time zone in the config file
+	 *
+	 * @param string The default time zone
+	 * @throw USVN_Exception
+	 */
+	static public function setTimeZone($timezone)
+	{
+		$availableTimezones = Zend_Locale_Data::getContent("en", "timezonestandard");
+		if (array_key_exists($timezone, $availableTimezones)) {
+			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+			$config->timezone = $timezone;
+			$config->save();
+		}
+		else {
+			throw new USVN_Exception(T_("Invalid timezone"));
+		}
+	}
+
 	static public function setTemplate($template)
 	{
 		if (in_array($template, USVN_Template::listTemplate())) {

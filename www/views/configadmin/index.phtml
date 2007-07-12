@@ -24,6 +24,24 @@
 			</td>
 		</tr>
 		<tr>
+			<td><label><?php echo T_("Default timezone");?>:</label></td>
+			<td>
+				<select name="timezone">
+					<?php
+						$timezones = Zend_Locale_Data::getContent("en", "timezonestandard");
+						ksort($timezones);
+						foreach ($timezones as $timezone => $city) {
+							if ($timezone == date_default_timezone_get()) {
+								echo "<option selected=\"selected\">$timezone</option>";
+							} else {
+								echo "<option>$timezone</option>";
+							}
+						}
+					?>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<td><label><?php echo T_("Default template");?>:</label></td>
 			<td>
 				<select name="template">

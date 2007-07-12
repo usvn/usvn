@@ -60,6 +60,14 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals("fr_FR", $config->translation->locale);
 	}
 
+	public function testInstallTimeZone()
+	{
+		Install::installTimezone("tests/tmp/config.ini", "Europe/Paris");
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertEquals("Europe/Paris", $config->timezone);
+	}
+
 	public function testInstallSubversion()
 	{
 		Install::installSubversion("tests/tmp/config.ini", "tests", "tests" . DIRECTORY_SEPARATOR . "htpasswd", "tests" . DIRECTORY_SEPARATOR . "authz", "http://test.com");

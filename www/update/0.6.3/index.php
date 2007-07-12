@@ -29,6 +29,7 @@ USVN_Translation::initTranslation('en_US', '../../locale');
 try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 	$config->version = "0.6.4";
+	$config->timezone = "UTC";
 	if (isset($config->url->host)) {
 		unset($config->url->host);
 	}

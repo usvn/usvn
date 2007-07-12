@@ -32,6 +32,9 @@ if (file_exists(CONFIG_FILE)) {
 	if (isset($config->translation->locale)) {
 		$GLOBALS['language'] = $config->translation->locale;
 	}
+	if (isset($config->timezone)) {
+		date_default_timezone_set($config->timezone);
+	}
 	if (isset($config->database->adapterName)) {
 		Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));
 		Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
@@ -91,6 +94,7 @@ function installationOperation($step)
 
 		case 3:
 			Install::installLanguage(CONFIG_FILE, $language);
+			Install::installTimezone(CONFIG_FILE, $_POST['timezone']);
 			$GLOBALS['language'] = $_POST['language'];
 			USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
 		break;

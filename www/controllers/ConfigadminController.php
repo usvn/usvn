@@ -32,6 +32,7 @@ class ConfigadminController extends AdminadminController
 	public function saveAction()
 	{
 		USVN_Config::setLanguage($_POST['language']);
+		USVN_Config::setTimeZone($_POST['timezone']);
 		USVN_Config::setTemplate($_POST['template']);
 		$siteDatas = array('title'			=> $_POST['siteTitle'],
 							'ico'			=> $_POST['siteIco'],

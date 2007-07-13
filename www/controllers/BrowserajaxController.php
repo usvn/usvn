@@ -194,12 +194,9 @@ class BrowserajaxController extends USVN_Controller
 					$res_groups->groups_id,
 					$_GET['name'],
 					($tabrights[$j] == 'true' ? true : false),
-					($tabrights[$j + 1] == 'true' ? true : false)
+					($tabrights[$j + 1] == 'true' ? true : false),
+					($tabrights[$j + 2] == 'true' ? true : false)
 				);
-				if ($tabrights[$j + 2] == 'true') {
-					$path = rtrim($_GET['name'], "/");
-					$acces_rights->unsetRightByPath($res_groups->id, "{$path}/_%");
-				}
 				$j += 3;
 			}
 		}

@@ -76,7 +76,7 @@ class USVN_FilesAccessRights
 	* @param bool read
 	* @param bool write
 	*/
-	public function setRightByPath($group_id, $path, $read, $write)
+	public function setRightByPath($group_id, $path, $read, $write, $recursive = false)
 	{
 		if (strlen($path) == 0 || $path{0} !== '/') {
 			throw new USVN_Exception(T_("Invalid path %s."), $path);
@@ -115,9 +115,14 @@ class USVN_FilesAccessRights
 				$groupstofiles->save();
 			}
 		}
+
+		if ($recursive === true) {
+			$path = rtrim($path, "/");
+			$this->unsetRightByPath($group_id, "{$path}/_%");
+		}
 	}
 
-	public function unsetRightByPath($group_id, $path)
+	private function unsetRightByPath($group_id, $path)
 	{
 		$filesRightsId = array();
 		$tableFilesRights = new USVN_Db_Table_FilesRights();

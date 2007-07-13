@@ -47,7 +47,7 @@ class IndexControllerTest extends USVN_Test_Controller {
 
 	public function test_indexActionNoProject()
 	{
-		$this->runAction('index', 'index');
+		$this->runAction('index');
 		$this->assertEquals(0, count($this->controller->view->projects));
 		$this->assertContains("You don't have any project.", $this->getBody());
 	}
@@ -64,7 +64,7 @@ class IndexControllerTest extends USVN_Test_Controller {
 		$project2->save();
 		$project2->addUser($this->user);
 
-		$this->runAction('index', 'index');
+		$this->runAction('index');
 		$this->assertEquals(2, count($this->controller->view->projects));
 		$this->assertContains('href="/project/OpenBSD">OpenBSD</a>', $this->getBody(), $this->getBody());
 		$this->assertContains('href="/project/Hurd">Hurd</a>', $this->getBody());
@@ -72,7 +72,7 @@ class IndexControllerTest extends USVN_Test_Controller {
 
 	public function test_indexActionNoGroup()
 	{
-		$this->runAction('index', 'index');
+		$this->runAction('index');
 		$this->assertEquals(0, count($this->controller->view->group));
 		$this->assertContains("You are not assign to a group.", $this->getBody());
 	}
@@ -91,12 +91,12 @@ class IndexControllerTest extends USVN_Test_Controller {
 			array(
 				"groups_id" => 43,
 				"groups_name" => "Indochine",
-				"groups_description" => "test2"
+				"groups_description" => "Bob morane"
 			)
 		);
 		$this->user->addGroup($g1);
 		$this->user->addGroup($g2);
-		$this->runAction('index', 'index');
+		$this->runAction('index');
 		$this->assertEquals(2, count($this->controller->view->groups));
 		$this->assertContains('href="/group/index/group/Indochine">Indochine</a>', $this->getBody(), $this->getBody());
 		$this->assertContains('href="/group/index/group/Telephone">Telephone</a>', $this->getBody());

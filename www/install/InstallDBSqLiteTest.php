@@ -109,10 +109,7 @@ class InstallDbSqLiteTest extends USVN_Test_Test {
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_", "PDO_SQLITE", false);
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("localhost", $config->database->options->host);
 		$this->assertEquals("usvn-test", $config->database->options->dbname);
-		$this->assertEquals("usvn-test", $config->database->options->username);
-		$this->assertEquals("usvn-test", $config->database->options->password);
 		$this->assertEquals("PDO_SQLITE", $config->database->adapterName);
 		$this->assertEquals("usvn_", $config->database->prefix);
 	}

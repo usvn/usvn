@@ -127,27 +127,34 @@ class BrowserajaxController extends USVN_Controller
 		$table_groupstoproject = new USVN_Db_Table_GroupsToProjects();
 		$res_groupstoproject = $table_groupstoproject->findByProjectId($res_project->projects_id);
 		$table_groups = new USVN_Db_Table_Groups();
-		$text = "<table class='usvn_table' width=22% cellpadding=3><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td></tr>";
+		$text = "<table class='usvn_table' width=22% cellpadding=3><tr><td>".T_('Group')."</td><td>".T_('Read')."</td><td>".T_('Write')."</td><td>" . T_('Recursive') . "</td></tr>";
 		$i = 0;
 		$disabled = "";
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		if (!$res_project->userIsAdmin($identity["username"])) {
 			$disabled = " disabled";
 		}
-		foreach ($res_groupstoproject as $groups)
-		{
+		foreach ($res_groupstoproject as $groups) {
 			$access = $acces_rights->findByPath($groups->groups_id, $_GET['name']);
 			$res_groups = $table_groups->findByGroupsId($groups->groups_id);
 			$grp_name = $res_groups->groups_name;
 			$text .= "<tr><td weight=10%><label id=Lb".$i.">".$grp_name."</label></td>";
-			if ($access['read'] == 1)
-				$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
-			else
+
+			if ($access['read'] == 1) {
+				$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' checked='checked' onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
+			} else {
 				$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
-			if ($access['write'] == 1)
-				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
-			else
-				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
+			}
+
+			if ($access['write'] == 1) {
+				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' checked='checked' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td>";
+			} else {
+				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td>";
+			}
+
+			$text .= '<td><input type="checkbox" id="recursive' . $grp_name . '" /></td>';
+
+			$text .= "</tr>";
 			$i++;
 		}
 		$text .= "</table>";
@@ -189,7 +196,11 @@ class BrowserajaxController extends USVN_Controller
 					($tabrights[$j] == 'true' ? true : false),
 					($tabrights[$j + 1] == 'true' ? true : false)
 				);
-				$j += 2;
+				if ($tabrights[$j + 2] == 'true') {
+					$path = rtrim($_GET['name'], "/");
+					$acces_rights->unsetRightByPath($res_groups->id, "{$path}/_%");
+				}
+				$j += 3;
 			}
 		}
 		catch (Exception $e)

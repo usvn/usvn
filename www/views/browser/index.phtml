@@ -35,7 +35,7 @@ function ajax(index, id)
 	for (i = 0; i < items_nbgroup; i++)
 	{
 		var grp = document.getElementById('Lb'+i).innerHTML;
-		text += document.getElementById('checkRead'+grp).checked + "-" + document.getElementById('checkWrite'+grp).checked + "-";
+		text += document.getElementById('checkRead'+grp).checked + "-" + document.getElementById('checkWrite'+grp).checked + "-"+ document.getElementById('recursive'+grp).checked + "-";
 		groupe += grp + "-";
 	}
 	if (index == 1)

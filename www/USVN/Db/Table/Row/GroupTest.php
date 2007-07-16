@@ -137,6 +137,28 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 		}
 		$this->fail();
 	}
+
+	public function testDemoteUser()
+	{
+		$user = $this->users->find(2)->current();
+		$this->group->addUser($user);
+		$this->group->promoteUser($user);
+		$this->assertTrue($this->group->userIsGroupLeader($user));
+		$this->group->demoteUser($user);
+		$this->assertFalse($this->group->userIsGroupLeader($user));
+	}
+
+	public function testDemoteUserNotGroupMember()
+	{
+		$user = $this->users->find(2)->current();
+		try {
+			$this->group->demoteUser($user);
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
 }
 
 // Call USVN_Db_Table_Row_GroupTest::main() if this source file is executed directly.

@@ -156,6 +156,42 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function userIsMember($user)
 	{
+		return $this->getLinkUserToGroups($user) === null ? false : true;
+	}
+
+	/**
+	* Promote user as group leader. User need to be already members of group.
+	*
+	* @param USVN_Db_Table_User
+	* @throw USVN_Exception
+	*/
+	public function promoteUser($user)
+	{
+		$link = $this->getLinkUserToGroups($user);
+		if ($link === null) {
+			throw new USVN_Exception(T_("User %s is not member of group %s"), $user->login, $this->name);
+		}
+		$link->is_leader = true;
+		$link->save();
+	}
+
+	/**
+	* Check if an user is in the group and is group leader;
+	*
+	* @param USVN_Db_Table_Row_User User
+	* @return boolean
+	*/
+	public function userIsGroupLeader($user)
+	{
+		$res = $this->getLinkUserToGroups($user);
+		if ($res === NULL) {
+			return false;
+		}
+		return (boolean)$res->is_leader;
+	}
+
+	private function getLinkUserToGroups($user)
+	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$res = $user_groups->fetchRow(
 			array(
@@ -163,9 +199,6 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 				"users_id = ?" 	=> $user->id
 			)
 		);
-		if ($res === NULL) {
-			return false;
-		}
-		return true;
+		return $res;
 	}
 }

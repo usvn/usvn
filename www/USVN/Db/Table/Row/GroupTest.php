@@ -91,6 +91,52 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 		$this->group->addUser($user);
 		$this->assertTrue($this->group->userIsMember($user));
 	}
+
+	public function testUserIsGroupLeader()
+	{
+		$user2 = $this->users->find(2)->current();
+		$user3 = $this->users->find(3)->current();
+		$user4 = $this->users->find(4)->current();
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$user_groups->insert(
+			array(
+				"groups_id" => $this->groupid,
+				"users_id" => $user3->id,
+				"is_leader" => 0
+			)
+		);
+		$user_groups->insert(
+			array(
+				"groups_id" => $this->groupid,
+				"users_id" => $user4->id,
+				"is_leader" => 1
+			)
+		);
+		$this->assertFalse($this->group->userIsGroupLeader($user2));
+		$this->assertFalse($this->group->userIsGroupLeader($user3));
+		$this->assertTrue($this->group->userIsGroupLeader($user4));
+	}
+
+	public function testPromoteUser()
+	{
+		$user = $this->users->find(2)->current();
+		$this->group->addUser($user);
+		$this->assertFalse($this->group->userIsGroupLeader($user));
+		$this->group->promoteUser($user);
+		$this->assertTrue($this->group->userIsGroupLeader($user));
+	}
+
+	public function testPromoteUserNotGroupMember()
+	{
+		$user = $this->users->find(2)->current();
+		try {
+			$this->group->promoteUser($user);
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
 }
 
 // Call USVN_Db_Table_Row_GroupTest::main() if this source file is executed directly.

@@ -37,7 +37,7 @@ class USVN_Db_Table_UsersToGroups extends USVN_Db_TableAuthz {
 	/**
 	 * The table name derived from the class name (underscore format).
 	 *
-	 * @var array
+	 * @var string
 	 */
 	protected $_name = "users_to_groups";
 

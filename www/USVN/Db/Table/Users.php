@@ -66,13 +66,6 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups");
 
 	/**
-	 * Expected entries like anonymous user
-	 *
-	 * @var array
-	 */
-	public $exceptedEntries = array('users_login' => 'anonymous');
-
-	/**
 	 * Inserts a new row
 	 *
 	 * @param array Column-value pairs.

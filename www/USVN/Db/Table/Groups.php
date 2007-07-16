@@ -58,14 +58,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups");
-
-	/**
-	 * Excepted entries
-	 *
-	 * @var array
-	 */
-	public $exceptedEntries = array('groups_name' => 'Anonymous');
+	protected $_dependentTables  = array("USVN_Db_Table_UsersToGroups");
 
 	/**
 	 * Check if the group's name is valid or not
@@ -165,7 +158,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		Zend_Loader::loadClass($this->_rowsetClass);
 		return new $this->_rowsetClass($data);
 	}
-	
+
 	/**
 	 * Return the groups by groups_id
 	 *
@@ -179,7 +172,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_id = ?", $id);
 		return $this->fetchRow($where, "groups_id");
 	}
-	
+
 	/**
 	 * Return the groups by groups_name
 	 *
@@ -193,7 +186,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_name = ?", $name);
 		return $this->fetchRow($where, "groups_name");
 	}
-	
+
 	/**
 	 * Return all groups like group name
 	 *

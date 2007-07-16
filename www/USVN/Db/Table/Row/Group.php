@@ -82,13 +82,10 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 		return true;
 	}
 
-
-
 	/**
 	 * Delete all users from usersToGroups
 	 *
 	 */
-
 	public function deleteAllUsers()
 	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
@@ -156,7 +153,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function userIsMember($user)
 	{
-		return $this->getLinkUserToGroups($user) === null ? false : true;
+		return $this->getLinkUsersToGroups($user) === null ? false : true;
 	}
 
 	/**
@@ -167,7 +164,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function promoteUser($user)
 	{
-		$link = $this->getLinkUserToGroups($user);
+		$link = $this->getLinkUsersToGroups($user);
 		if ($link === null) {
 			throw new USVN_Exception(T_("User %s is not member of group %s"), $user->login, $this->name);
 		}
@@ -183,7 +180,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function demoteUser($user)
 	{
-		$link = $this->getLinkUserToGroups($user);
+		$link = $this->getLinkUsersToGroups($user);
 		if ($link === null) {
 			throw new USVN_Exception(T_("User %s is not member of group %s"), $user->login, $this->name);
 		}
@@ -199,14 +196,40 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function userIsGroupLeader($user)
 	{
-		$res = $this->getLinkUserToGroups($user);
+		$res = $this->getLinkUsersToGroups($user);
 		if ($res === NULL) {
 			return false;
 		}
 		return (boolean)$res->is_leader;
 	}
 
-	private function getLinkUserToGroups($user)
+	/**
+	* Return list of group leaders
+	*
+	* @return USVN_Db_Table_Rowset_Users
+	*/
+	public function getGroupLeaders()
+	{
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$links = $user_groups->fetchAll(array('groups_id = ?' => $this->id, 'is_leader = ?' => true));
+		if (count($links) === 0) {
+			return array();
+		}
+		$users = new USVN_Db_Table_Users();
+		$leaders = array();
+		foreach ($links  as $link) {
+			array_push($leaders, $link->users_id);
+		}
+		return $users->find($leaders);
+	}
+
+	/**
+	* Get link between user and groups.  It's a row in table UsersToGroups.
+	*
+	* @param USVN_Db_Table_Row_User
+	* @return USVN_Db_Table_Row_UsersToGroups|null
+	*/
+	private function getLinkUsersToGroups($user)
 	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$res = $user_groups->fetchRow(

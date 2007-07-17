@@ -8,7 +8,7 @@ CREATE UNIQUE INDEX usvn_groups_groups_name ON usvn_groups(groups_name);
 
 
 
-CREATE TABLE usvn_groups_to_files_rights ( files_rights_is_readable bool, files_rights_is_writable bool, files_rights_id, groups_id integer, constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id) references usvn_files_rights (files_rights_id) on delete restrict on update restrict, constraint fk_usvn_groups_to_files_rights2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict );
+CREATE TABLE usvn_groups_to_files_rights ( files_rights_is_readable bool not null, files_rights_is_writable bool not null, files_rights_id, groups_id integer, constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id) references usvn_files_rights (files_rights_id) on delete restrict on update restrict, constraint fk_usvn_groups_to_files_rights2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict );
 
 
 
@@ -19,7 +19,7 @@ CREATE TABLE usvn_projects ( projects_name varchar(255) not null, projects_start
 CREATE UNIQUE INDEX usvn_projects_projects_name ON usvn_projects(projects_name);
 
 
-CREATE TABLE usvn_users ( users_login varchar(255) not null, users_password varchar(64) not null, users_lastname varchar(100), users_firstname varchar(100), users_email varchar(150), users_is_admin bool, users_id integer primary key autoincrement );
+CREATE TABLE usvn_users ( users_login varchar(255) not null, users_password varchar(64) not null, users_lastname varchar(100), users_firstname varchar(100), users_email varchar(150), users_is_admin bool not null, users_id integer primary key autoincrement );
 CREATE UNIQUE INDEX usvn_users_users_login ON usvn_users(users_login);
 
 

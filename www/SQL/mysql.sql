@@ -26,8 +26,8 @@ create table usvn_groups_to_files_rights
 (
    files_rights_id                int                            not null,
    groups_id                      int                            not null,
-   files_rights_is_readable       bool,
-   files_rights_is_writable       bool,
+   files_rights_is_readable       bool					not null,
+   files_rights_is_writable       bool					not null,
    primary key (files_rights_id, groups_id)
 )
 type = innodb;
@@ -79,7 +79,7 @@ create table usvn_users
    users_lastname                 varchar(100),
    users_firstname                varchar(100),
    users_email                    varchar(150),
-   users_is_admin                 bool,
+   users_is_admin                 bool						not null,
    CONSTRAINT USERS_LOGIN_UNQ UNIQUE (users_login),
    primary key (users_id)
 )

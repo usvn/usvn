@@ -77,6 +77,9 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		if ($user !== null) {
 			throw new USVN_Exception(sprintf(T_("Login %s already exist."), $user->login));
 		}
+		if (!isset($data['users_is_admin'])) {
+			$data['users_is_admin'] = false;
+		}
 		$res = parent::insert($data);
 		$this->updateHtpasswd();
 		return $res;

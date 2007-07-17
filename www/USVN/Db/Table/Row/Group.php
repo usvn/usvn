@@ -36,7 +36,8 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 			$user_groups->insert(
 				array(
 					"groups_id" => $this->id,
-					"users_id" 	=> $user_id
+					"users_id" 	=> $user_id,
+					"is_leader" => false,
 				)
 			);
 		}
@@ -210,8 +211,23 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function getGroupLeaders()
 	{
+		return $this->getGroupMembersByIsLeader(true);
+	}
+
+	/**
+	* Return list of users who are not group leaders
+	*
+	* @return USVN_Db_Table_Rowset_Users
+	*/
+	public function getNormalUsers()
+	{
+		return $this->getGroupMembersByIsLeader(false);
+	}
+
+	private function getGroupMembersByIsLeader($is_leader)
+	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();
-		$links = $user_groups->fetchAll(array('groups_id = ?' => $this->id, 'is_leader = ?' => true));
+		$links = $user_groups->fetchAll(array('groups_id = ?' => $this->id, 'is_leader = ?' => $is_leader));
 		if (count($links) === 0) {
 			return array();
 		}

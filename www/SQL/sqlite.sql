@@ -24,7 +24,7 @@ CREATE UNIQUE INDEX usvn_users_users_login ON usvn_users(users_login);
 
 
 
-CREATE TABLE usvn_users_to_groups ( users_id, groups_id integer , is_leader bool, constraint fk_usvn_users_to_groups foreign key (users_id) references usvn_users (users_id) on delete restrict on update restrict, constraint fk_usvn_users_to_groups2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict );
+CREATE TABLE usvn_users_to_groups ( users_id, groups_id integer , is_leader bool not null, constraint fk_usvn_users_to_groups foreign key (users_id) references usvn_users (users_id) on delete restrict on update restrict, constraint fk_usvn_users_to_groups2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict );
 
 
 

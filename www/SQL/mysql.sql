@@ -90,7 +90,7 @@ create table usvn_users_to_groups
 (
    users_id                       int                            not null,
    groups_id                      int                            not null,
-   is_leader				      bool,
+   is_leader				      bool							not null,
    primary key (users_id, groups_id)
 )
 type = innodb;

@@ -172,13 +172,15 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$user_groups->insert(
 			array(
 				"groups_id" => 2,
-				"users_id" => 2
+				"users_id" => 2,
+				"is_leader" => false
 			)
 		);
 		$user_groups->insert(
 			array(
 				"groups_id" => 2,
-				"users_id" => 3
+				"users_id" => 3,
+				"is_leader" => false
 			)
 		);
 		$group = $group_table->find(2)->current();

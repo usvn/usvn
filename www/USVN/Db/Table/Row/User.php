@@ -26,20 +26,11 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	*/
 	public function addGroup($group)
 	{
-		if (is_object($group)) {
-			$group_id = $group->id;
-		} elseif (is_numeric($group)) {
-			$group_id = intval($group);
+		if (is_numeric($group)) {
+			$groups = new USVN_Db_Table_Groups();
+			$group = $groups->find($group)->current();
 		}
-		if ($this->id && $group_id) {
-			$user_groups = new USVN_Db_Table_UsersToGroups();
-			$user_groups->insert(
-			array(
-			"groups_id" => $group_id,
-			"users_id" 	=> $this->id
-			)
-			);
-		}
+		$group->addUser($this);
 	}
 
 	/**

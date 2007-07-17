@@ -176,6 +176,23 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 		$this->group->promoteUser($user3);
 		$this->assertEquals(2, count($this->group->getGroupLeaders()));
 	}
+
+	public function testgetGroupNormalUsers()
+	{
+		$user2 = $this->users->find(2)->current();
+		$user3 = $this->users->find(3)->current();
+		$this->assertEquals(0, count($this->group->getNormalUsers()));
+		$this->group->addUser($user2);
+		$this->group->addUser($user3);
+		$this->assertEquals(2, count($this->group->getNormalUsers()));
+		$this->group->promoteUser($user2);
+		$members = $this->group->getNormalUsers();
+		$this->assertEquals(1, count($members));
+		$this->assertEquals(3, $members->current()->users_id);
+		$this->assertEquals('babar', $members->current()->users_login);
+		$this->group->promoteUser($user3);
+		$this->assertEquals(0, count($this->group->getNormalUsers()));
+	}
 }
 
 // Call USVN_Db_Table_Row_GroupTest::main() if this source file is executed directly.

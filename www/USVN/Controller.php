@@ -103,4 +103,23 @@ class USVN_Controller extends Zend_Controller_Action {
     {
         $this->_redirect('/');
     }
+
+	/**
+     * Redirect to another URL
+     *
+     * Proxies to {@link Zend_Controller_Action_Helper_Redirector::gotoUrl()}.
+     *
+     * @param string $url
+     * @param array $options Options to be used when redirecting
+     * @return void
+     */
+    protected function _redirect($url, array $options = array())
+	{
+		if (!defined("PHPUnit_MAIN_METHOD")) {
+			return parent::_redirect($url, $options);
+		}
+		else {
+			throw new USVN_Test_Exception_Redirect($url, $options);
+		}
+	}
 }

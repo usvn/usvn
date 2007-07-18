@@ -34,7 +34,6 @@ class GroupadminController extends AdminadminController
 		return $group;
 	}
 
-
 	public function indexAction()
 	{
 		$table = new USVN_Db_Table_Groups();

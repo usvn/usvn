@@ -44,6 +44,10 @@ class USVN_Test_Controller extends USVN_Test_DB {
     protected function setUp() {
 		parent::setUp();
 
+
+		foreach (array_keys($_POST) as $key) {
+			unset($_POST[$key]);
+		}
 		Zend_Auth::getInstance()->setStorage(new Zend_Auth_Storage_NonPersistent());
 
 		$this->clean();

@@ -92,12 +92,12 @@ class GroupadminController extends AdminadminController
 	{
 		$data = $this->getGroupData($_POST);
 		if (empty($data)) {
-			$this->_redirect("/admin/group/new");
+			$this->_redirect("/admin/group/");
 		}
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array("groups_name = ?" => $this->getRequest()->getParam('name')));
 		if ($group === null) {
-			$this->_redirect("/admin/group/");
+			throw new USVN_Exception(T_("Invalid group %s."), $this->getRequest()->getParam('name'));
 		}
 		$group->setFromArray($data);
 		try {

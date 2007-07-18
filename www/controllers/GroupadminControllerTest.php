@@ -20,7 +20,7 @@
 
 // Call GroupControllerTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "GroupControllerTest::main");
+    define("PHPUnit_MAIN_METHOD", "GroupadminControllerTest::main");
 }
 
 require_once "PHPUnit/Framework/TestCase.php";
@@ -28,7 +28,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class GroupControllerTest extends USVN_Test_AdminController {
+class GroupadminControllerTest extends USVN_Test_AdminController {
 	protected $controller_name = "groupadmin";
 	protected $controller_class = "GroupadminController";
 
@@ -41,7 +41,7 @@ class GroupControllerTest extends USVN_Test_AdminController {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
-        $suite  = new PHPUnit_Framework_TestSuite("GroupControllerTest");
+        $suite  = new PHPUnit_Framework_TestSuite("GroupadminControllerTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
@@ -73,6 +73,31 @@ class GroupControllerTest extends USVN_Test_AdminController {
 		$this->assertContains('Bob morane', $this->getBody());
 	}
 
+	public function test_updateNoPostData()
+	{
+		try {
+			$this->runAction('update');
+		}
+		catch (USVN_Test_Exception_Redirect $e) {
+			$this->assertEquals('/admin/group/', $e->url);
+		}
+	}
+
+	public function test_updateInvalidGroup()
+	{
+		$_POST['groups_name'] = 'Pif';
+		$_POST["groups_description"] = '';
+		$this->request->setParam('name', 'Pif');
+		try {
+			$this->runAction('update');
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains('Pif', $e->getMessage());
+			return;
+		}
+		$this->fail();
+	}
+
 	public function test_delete()
 	{
 		$groups = new USVN_Db_Table_Groups();
@@ -89,7 +114,7 @@ class GroupControllerTest extends USVN_Test_AdminController {
 }
 
 // Call GroupControllerTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "GroupControllerTest::main") {
-    GroupControllerTest::main();
+if (PHPUnit_MAIN_METHOD == "GroupadminControllerTest::main") {
+    GroupadminControllerTest::main();
 }
 ?>

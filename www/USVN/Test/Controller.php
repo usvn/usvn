@@ -39,6 +39,7 @@ class USVN_Test_Controller extends USVN_Test_DB {
 	protected $response;
 	protected $controller;
 	protected $user;
+	protected $admin_user;
 
     protected function setUp() {
 		parent::setUp();
@@ -60,8 +61,12 @@ class USVN_Test_Controller extends USVN_Test_DB {
 													'users_login' => 'john',
 													'users_password' => 'pinocchio'));
 		$this->user->save();
-
-
+		$this->admin_user = $table->fetchNew();
+		$this->admin_user->setFromArray(array(
+													'users_login' => 'god',
+													'users_password' => 'ingodwetrust',
+													'users_is_admin' => true));
+		$this->admin_user->save();
 
 		$authAdapter = new USVN_Auth_Adapter_Db('john', 'pinocchio');
 		Zend_Auth::getInstance()->authenticate($authAdapter);

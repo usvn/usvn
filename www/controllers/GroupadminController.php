@@ -69,7 +69,7 @@ class GroupadminController extends AdminadminController
 			}
 			$this->_redirect("/admin/group/");
 		}
-		catch (Exception $e) {
+		catch (USVN_Exception $e) {
 			$this->view->message = $e->getMessage();
 			$table = new USVN_Db_Table_Users();
 			$this->view->users = $table->fetchAll(null, "users_login");
@@ -82,7 +82,7 @@ class GroupadminController extends AdminadminController
 		$table = new USVN_Db_Table_Groups();
 		$this->view->group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
 		if ($this->view->group === null) {
-			$this->_redirect("/admin/group/");
+			throw new USVN_Exception(T_("Invalid group %s."), $this->getRequest()->getParam('name'));
 		}
 		$table = new USVN_Db_Table_Users();
 		$this->view->users = $table->fetchAll(null, "users_login");
@@ -108,7 +108,7 @@ class GroupadminController extends AdminadminController
 			}
 			$this->_redirect("/admin/group/");
 		}
-		catch (Exception $e) {
+		catch (USVN_Exception $e) {
 			$this->view->group = $group;
 			$this->view->message = $e->getMessage();
 
@@ -124,7 +124,7 @@ class GroupadminController extends AdminadminController
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
 		if ($group === null) {
-			$this->_redirect("/admin/group/");
+			throw new USVN_Exception(T_("Invalid group %s."), $this->getRequest()->getParam('name'));
 		}
 		$group->delete();
 		$this->_redirect("/admin/group/");

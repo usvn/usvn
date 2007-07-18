@@ -17,7 +17,7 @@
  * $Id: Exception.php 756 2007-06-13 09:27:51Z crivis_s $
  */
 
-class USVN_Test_Exception_Redirect extends USVN_Exception {
+class USVN_Test_Exception_Redirect extends Exception {
 	public $url;
 	public $options;
 

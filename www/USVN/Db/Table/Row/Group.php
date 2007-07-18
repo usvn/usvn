@@ -70,11 +70,14 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function hasUser($user)
 	{
+		if (!$this->__isset('groups_id')) {
+			return false;
+		}
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$res = $user_groups->fetchRow(
 		array(
-		"users_id = ?" 	=> $user->id,
-		"groups_id = ?" => $this->id
+			"users_id = ?" 	=> $user->id,
+			"groups_id = ?" => $this->id
 		)
 		);
 		if ($res === NULL) {

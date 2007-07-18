@@ -196,6 +196,12 @@ class GroupadminControllerTest extends USVN_Test_AdminController {
 		$this->assertContains('Indochine', $this->getBody(), $this->getBody());
 		$this->assertContains('<option value="' . $this->user->id.  '" selected="selected">', $this->getBody(), $this->getBody());
 	}
+
+	public function test_new()
+	{
+		$this->runAction('new');
+		$this->assertEquals(2, count($this->controller->view->users));
+	}
 }
 
 // Call GroupControllerTest::main() if this source file is executed directly.

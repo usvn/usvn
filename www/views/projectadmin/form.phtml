@@ -35,7 +35,11 @@ function checkName() {
         	echo '<label>' . T_('Add me to project group:') . $this->formCheckbox('addmetogroup', 1) . '</label><br />';
         	echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 1) . '</label><br />';
         } else if ($this->action == 'edit') {
-        	echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 0) . '</label><br />';
+        	if ($this->AdminProject != 1) {
+        		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin">';
+        	} else {
+        		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin" checked >';
+        	}
         }
         ?>
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>

@@ -21,7 +21,7 @@
 /**
  * This flag tell us if the current user is admin
  */
-$admin = 0;
+$adminproject = 0;
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminadminController.php';
 
@@ -72,9 +72,22 @@ class ProjectadminController extends AdminadminController
 
 	public function editAction()
 	{
-		
+
+		//rechercher projet + users
+		$identity = Zend_Auth::getInstance()->getIdentity();
+
+		$user_table = new USVN_Db_Table_Users();
+		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
+
 		$table = new USVN_Db_Table_Projects();
 		$this->view->project = $table->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
+
+		$table = new USVN_Db_Table_UsersToProjects();
+		$UserToProject = $table->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $this->view->project->projects_id));
+		if ($UserToProject !== null) {
+			$this->view->AdminProject = 1;
+		}
+
 		if ($this->view->project === null) {
 			$this->_redirect("/admin/project/");
 		}
@@ -96,12 +109,22 @@ class ProjectadminController extends AdminadminController
 		$user_table = new USVN_Db_Table_Users();
 		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 
-		if ($_POST['admin'] == true) {
+		//		var dump($_POST['admin']);
+		$Fnm = "/tmp/fichier.txt";
+		$inF = fopen($Fnm,"w+");
+		fwrite($inF,$_POST['admin']);
+		fwrite($inF,'\n');
+		if (isset($_POST['admin'])) {
+			fwrite($inF,'add');
+
 			$table->AddUserToProject($users, $project);
 		}
 		else {
+			fwrite($inF,'delete');
+
 			$table->DeleteUserToProject($users, $project);
 		}
+		fclose($inF);
 
 		$project->setFromArray($data);
 		try {

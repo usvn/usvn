@@ -18,11 +18,6 @@
  * $Id$
  */
 
-/**
- * This flag tell us if the current user is admin
- */
-$adminproject = 0;
-
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminadminController.php';
 
 class ProjectadminController extends AdminadminController
@@ -109,22 +104,12 @@ class ProjectadminController extends AdminadminController
 		$user_table = new USVN_Db_Table_Users();
 		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 
-		//		var dump($_POST['admin']);
-		$Fnm = "/tmp/fichier.txt";
-		$inF = fopen($Fnm,"w+");
-		fwrite($inF,$_POST['admin']);
-		fwrite($inF,'\n');
 		if (isset($_POST['admin'])) {
-			fwrite($inF,'add');
-
 			$table->AddUserToProject($users, $project);
 		}
 		else {
-			fwrite($inF,'delete');
-
 			$table->DeleteUserToProject($users, $project);
 		}
-		fclose($inF);
 
 		$project->setFromArray($data);
 		try {

@@ -222,6 +222,7 @@ site.title=USVN
 		");
 		$this->assertEquals(
 "<Location /dev/usvn/>
+	ErrorDocument 404 default
 	DAV svn
 	Require valid-user
 	SVNParentPath tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "svn
@@ -246,6 +247,7 @@ site.title=USVN
 		");
 		$this->assertEquals(
 "<Location /dev/usvn/>
+	ErrorDocument 404 default
 	DAV svn
 	SSLRequireSSL
 	Require valid-user

@@ -380,6 +380,7 @@ EOF;
 		$location = preg_replace("#http[s]?://[^/]*#", "", $config->subversion->url);
 		$location = str_replace("//", "/", $location);
 		$res = "<Location $location>\n";
+		$res .= "\tErrorDocument 404 default\n";
 		$res .= "\tDAV svn\n";
 		if (substr($config->subversion->url, 0, 8) == "https://") {
 			$res .= "\tSSLRequireSSL\n";

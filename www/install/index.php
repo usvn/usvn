@@ -28,19 +28,23 @@ require_once 'Install.php';
 
 $GLOBALS['language'] = 'en_US';
 if (file_exists(CONFIG_FILE)) {
-	$config = new USVN_Config_Ini(CONFIG_FILE, 'general');
-	if (isset($config->translation->locale)) {
-		$GLOBALS['language'] = $config->translation->locale;
+	try {
+		$config = new USVN_Config_Ini(CONFIG_FILE, 'general');
+		if (isset($config->translation->locale)) {
+			$GLOBALS['language'] = $config->translation->locale;
+		}
+		if (isset($config->timezone)) {
+			date_default_timezone_set($config->timezone);
+		}
+		if (isset($config->database->adapterName)) {
+			Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));
+			Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
+			USVN_Db_Table::$prefix = $config->database->prefix;
+		}
+		Zend_Registry::set('config', $config);
 	}
-	if (isset($config->timezone)) {
-		date_default_timezone_set($config->timezone);
+	catch (Exception $e) {
 	}
-	if (isset($config->database->adapterName)) {
-		Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));
-		Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
-		USVN_Db_Table::$prefix = $config->database->prefix;
-	}
-	Zend_Registry::set('config', $config);
 }
 USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
 

@@ -412,6 +412,7 @@ table.usvn_table th, table.sortable th {
 table.usvn_table td, table.sortable td {
 	border-style:solid;
 	border-width:1px;
+	border-color: #CFD3FF;
 }
 
 table.usvn_table  tr:hover, table.sortable tr:hover {

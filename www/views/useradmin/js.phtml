@@ -10,7 +10,7 @@ function checkForm() {
 		spanError.className = "usvn_error";
 		return false;
 	}
-	<?php if (!isset($this->user) || !$this->user->id) : ?>
+	<?php if (!isset($this->user)) : ?>
 		if ((!document.user.users_password.value.length || !document.user.users_password2.value.length)) {
 			spanError.innerHTML = "<?php echo T_('Password empty.');?>";
 			spanError.className = "usvn_error";

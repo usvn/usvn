@@ -29,9 +29,10 @@ class UseradminController extends AdminadminController
 		|| !isset($data['users_firstname'])
 		|| !isset($data['users_email'])
 		|| !isset($data['users_password'])
+		|| !isset($data['users_password2'])
 		|| !isset($data['users_is_admin'])
 		) {
-			return array();
+			throw new USVN_Exception(T_('Missing fields.'));
 		}
 		$user = array('users_login'     => $data['users_login'],
 		'users_lastname'  => $data['users_lastname'],
@@ -42,11 +43,10 @@ class UseradminController extends AdminadminController
 
 		if (!empty($_POST['users_password']) && !empty($_POST['users_password2'])) {
 			if ($_POST['users_password'] !== $_POST['users_password2']) {
-				throw new Exception(T_('Not the same password.'));
+				throw new USVN_Exception(T_('Not the same password.'));
 			}
 			$user['users_password'] = $data['users_password'];
 		}
-
 		return $user;
 	}
 
@@ -77,10 +77,6 @@ class UseradminController extends AdminadminController
 			$this->render('new');
 			return ;
 		}
-
-		if (empty($data)) {
-			$this->_redirect("/admin/user/new");
-		}
 		$user = USVN_User::create($data,
 									isset($_POST['create_group']) ? $_POST['create_group'] : false,
 									isset($_POST['groups']) ? $_POST['groups'] : null);
@@ -88,7 +84,7 @@ class UseradminController extends AdminadminController
 			$user->save();
 			$this->_redirect("/admin/user/");
 		}
-		catch (Exception $e) {
+		catch (USVN_Exception $e) {
 			$this->view->user = $user->getRowObject();
 			$this->view->message = $e->getMessage();
 			$table = new USVN_Db_Table_Groups();
@@ -102,7 +98,7 @@ class UseradminController extends AdminadminController
 		$table = new USVN_Db_Table_Users();
 		$this->view->user = $table->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
 		if ($this->view->user === null) {
-			$this->_redirect("/admin/user/");
+			throw new USVN_Exception(T_("Invalid user %s."), $this->getRequest()->getParam('login'));
 		}
 		$table = new USVN_Db_Table_Groups();
 		$this->view->groups = $table->fetchAll(null, 'groups_name');
@@ -110,21 +106,7 @@ class UseradminController extends AdminadminController
 
 	public function updateAction()
 	{
-		try {
-			$data = $this->getUserData($_POST);
-		}
-		catch (Exception $e) {
-			$this->view->user = USVN_User::create($_POST, false, false)->getRowObject();
-			$this->view->message = $e->getMessage();
-			$table = new USVN_Db_Table_Groups();
-			$this->view->groups = $table->fetchAll(null, 'groups_name');
-			$this->render('new');
-			return ;
-		}
-
-		if (empty($data)) {
-			$this->_redirect("/admin/user/new");
-		}
+		$data = $this->getUserData($_POST);
 		$user = null; /* some ugly hack of variable scope... */
 		try {
 			$user = USVN_User::update($this->getRequest()->getParam('login'),
@@ -133,7 +115,7 @@ class UseradminController extends AdminadminController
 			$user->save();
 			$this->_redirect("/admin/user/");
 		}
-		catch (Exception $e) {
+		catch (USVN_Exception $e) {
 			$this->view->user = $user;
 			$this->view->message = $e->getMessage();
 			$table = new USVN_Db_Table_Groups();
@@ -146,8 +128,11 @@ class UseradminController extends AdminadminController
 	{
 		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchRow(array('users_login = ?' => $this->getRequest()->getParam('login')));
-		if ($user === null || $user->login == $this->getRequest()->getParam('user')->login) {
-			$this->_redirect("/admin/user/");
+		if ($user === null) {
+			throw new USVN_Exception(T_("Invalid user %s."), $this->getRequest()->getParam('login'));
+		}
+		if ($user->login == $this->getRequest()->getParam('user')->login) {
+			throw new USVN_Exception(T_("You can't delete yourself."));
 		}
 		$user->delete();
 		$this->_redirect("/admin/user/");

@@ -99,6 +99,7 @@ function installationOperation($step)
 		case 3:
 			Install::installLanguage(CONFIG_FILE, $language);
 			Install::installTimezone(CONFIG_FILE, $_POST['timezone']);
+			Install::installLocale(CONFIG_FILE);
 			$GLOBALS['language'] = $_POST['language'];
 			USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
 		break;

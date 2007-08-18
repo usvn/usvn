@@ -151,7 +151,7 @@ class Install
 	}
 
 	/**
-	 * This method will  write the choosen timezone into config file.
+	 * This method will write the choosen timezone into config file.
 	 *
 	 * Throw an exception in case of problems.
 	 *
@@ -170,6 +170,22 @@ class Install
 		else {
 			throw new USVN_Exception(T_("Invalid timezone"));
 		}
+	}
+
+	/**
+	 * This method will write the system local into config file.
+	 *
+	 * @param string Path to the USVN config file
+	 */
+	static public function installLocale($config_file)
+	{
+		$config = Install::_loadConfig($config_file);
+		if (PHP_OS == "Linux") {
+			$config->system = array("locale" => "en_US.utf8");
+		} else {
+			$config->system = array("locale" => 'en_US.UTF-8');
+		}
+		$config->save();
 	}
 
 	/**

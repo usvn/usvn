@@ -68,6 +68,18 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals("Europe/Paris", $config->timezone);
 	}
 
+	public function testInstallLocale()
+	{
+		Install::installLocale("tests/tmp/config.ini");
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		if (PHP_OS == "Linux") {
+			$this->assertEquals("en_US.utf8", $config->system->locale);
+		} else {
+			$this->assertEquals('en_US.UTF-8', $config->system->locale);
+		}
+	}
+
 	public function testInstallSubversion()
 	{
 		Install::installSubversion("tests/tmp/config.ini", "tests", "tests" . DIRECTORY_SEPARATOR . "htpasswd", "tests" . DIRECTORY_SEPARATOR . "authz", "http://test.com");

@@ -30,6 +30,11 @@ try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 	$config->version = "0.6.4";
 	$config->timezone = "UTC";
+	if (PHP_OS == "Linux") {
+		$config->system = array("locale" => "en_US.utf8");
+	} else {
+		$config->system = array("locale" => 'en_US.UTF-8');
+	}
 	if (isset($config->url->host)) {
 		unset($config->url->host);
 	}

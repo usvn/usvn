@@ -38,7 +38,7 @@ try {
 			exit(0);
 		}
 		if ($config->version != "0.6.4") {
-			header("Location: update/{$config->version}/");
+			header("Location: {$config->url->base}/update/{$config->version}/");
 			exit(0);
 		}
 	}

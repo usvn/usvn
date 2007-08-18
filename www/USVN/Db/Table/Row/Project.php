@@ -172,7 +172,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		if (empty($name) || preg_match('/^\s+$/', $name)) {
 			throw new USVN_Exception(T_("The project's name is empty."));
 		}
-		if (!preg_match('/^[0-9a-zA-Z_]+$/', $name)) {
+		if (!preg_match('/^[0-9a-zA-Z_\-]+$/', $name)) {
 			throw new USVN_Exception(T_("The project's name is invalid."));
 		}
 	}

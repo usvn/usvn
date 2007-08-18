@@ -34,9 +34,9 @@ function ajax(index, id)
 	var groupe = "";
 	for (i = 0; i < items_nbgroup; i++)
 	{
-		var grp = document.getElementById('Lb'+i).innerHTML;
-		text += document.getElementById('checkRead'+grp).checked + "-" + document.getElementById('checkWrite'+grp).checked + "-";
-		groupe += grp + "-";
+		var grp = document.getElementById('Lb' + i).innerHTML;
+		text += document.getElementById('checkRead' + grp).checked + "," + document.getElementById('checkWrite' + grp).checked + ",";
+		groupe += grp + ",";
 	}
 	if (index == 1)
 	{

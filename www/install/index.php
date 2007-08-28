@@ -54,7 +54,15 @@ USVN_Translation::initTranslation($GLOBALS['language'], '../locale');
 
 include "views/head.html";
 
-if (Install::installPossible(CONFIG_FILE)) {
+try{
+	$install_is_possible = Install::installPossible(CONFIG_FILE);
+}
+catch (USVN_Exception $e) {
+	displayError($e->getMessage());
+	include "views/footer.html";
+	exit(0);
+}
+if ($install_is_possible) {
 	if (!isset($_GET['step'])) {
 		$step = 1;
 	}
@@ -69,7 +77,7 @@ if (Install::installPossible(CONFIG_FILE)) {
 			include "views/install_error.html";
 		}
 		else {
-			echo "<div class='usvn_error'>" . T_("Error"). ": " . nl2br($e->getMessage()) . "</div>";
+			displayError($e->getMessage());
 		}
 		$step--;
 	}
@@ -82,6 +90,11 @@ else {
 include "views/footer.html";
 
 //------------------------------------------------------------------------------------------------
+function displayError($message)
+{
+	echo "<div class='usvn_error'>" . T_("Error"). ": " . nl2br($message) . "</div>";
+}
+
 function installationOperation($step)
 {
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];

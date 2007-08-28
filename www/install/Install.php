@@ -20,12 +20,7 @@ class Install
 {
 	private static function _loadConfig($config_file)
 	{
-		try {
-			return new USVN_Config_Ini($config_file, 'general', array("create" => true));
-		}
-		catch (Exception $e) {
-			throw new USVN_Exception(T_("Can't write config file %s.\n") ." ". $e->getMessage(),  $config_file);
-		}
+		return new USVN_Config_Ini($config_file, 'general', array("create" => true));
 	}
 
 	/**

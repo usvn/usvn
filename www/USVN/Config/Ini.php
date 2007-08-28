@@ -36,14 +36,19 @@
 		if (!file_exists($filename)) {
 			if (isset($config['create']) && $config['create'] === true) {
 				if (@file_put_contents($filename, "[$section]\n") === false) {
-					throw new USVN_Exception("Can't write config file %s.", $filename);
+					throw new USVN_Exception("Can't write config file %s.", getcwd() . DIRECTORY_SEPARATOR . $filename);
 				}
 			}
 			else {
-				throw new USVN_Exception("Can't open config file %s.", $filename);
+				throw new USVN_Exception("Can't open config file %s.", getcwd() . DIRECTORY_SEPARATOR . $filename);
 			}
 		}
-		parent::__construct($filename, $section, true);
+		try {
+			parent::__construct($filename, $section, true);
+		}
+		catch (Exception $e) {
+			throw new USVN_Exception($e->getMessage());
+		}
 	}
 
 	private function dumpLevel($handle, $prefix, $data)

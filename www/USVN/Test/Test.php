@@ -28,6 +28,7 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
         error_reporting(E_ALL | E_STRICT);
         date_default_timezone_set('UTC');
         $this->_path = getcwd();
+		$this->setConsoleLocale();
 		USVN_Translation::initTranslation('en_US', 'www/locale');
 		USVN_DirectoryUtils::removeDirectory('tests/');
 		mkdir("tests");
@@ -41,6 +42,16 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
         chdir($this->_path);
     }
+
+	private function setConsoleLocale()
+	{
+		if (PHP_OS == "Linux") {
+			USVN_ConsoleUtils::setLocale("en_US.utf8");
+		}
+		else {
+			USVN_ConsoleUtils::setLocale("en_US.UTF-8");
+		}
+	}
 }
 
 ?>

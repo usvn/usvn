@@ -49,6 +49,8 @@ try {
 
 	date_default_timezone_set($config->timezone);
 
+	USVN_ConsoleUtils::setLocale($config->system->locale);
+
 	$routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
 
 	/**

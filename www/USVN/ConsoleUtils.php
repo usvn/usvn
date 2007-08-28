@@ -30,15 +30,18 @@ class USVN_ConsoleUtils
 	}
 
 	private static $lang = null;
+	private static $locale = null;
+
+	static public function setLocale($system_locale)
+	{
+		USVN_ConsoleUtils::$locale = $system_locale;
+	}
 
 	static private function prepareLang()
 	{
-		if (PHP_OS == "Linux") {
+		if (USVN_ConsoleUtils::$locale !== null) {
 			USVN_ConsoleUtils::$lang = getenv('LANG');
-			putenv('LANG=en_US.utf8');
-		} else {
-			USVN_ConsoleUtils::$lang = getenv('LANG');
-			putenv('LANG=en_US.UTF-8');
+			putenv('LANG=' . USVN_ConsoleUtils::$locale);
 		}
 	}
 

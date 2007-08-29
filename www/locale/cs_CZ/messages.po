@@ -1,47 +1,268 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: USVN 0.6.3\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-08-22 15:20+0100\n"
+"Project-Id-Version: USVN 0.6.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-29 11:28+0200\n"
+"PO-Revision-Date: 2007-08-29 11:38+0100\n"
 "Last-Translator: Alois Bělaška <alois.belaska@monetplus.cz>\n"
 "Language-Team: cs <alois.belaska@monetplus.cz>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Czech\n"
 "X-Poedit-Country: CZECH REPUBLIC\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../../../www//helpers/ACLLink.php:33
-#: ../../../www//controllers/BrowserajaxController.php:105
-msgid "Rights"
-msgstr "Práva"
-
-#: ../../../www//helpers/DeleteLink.php:35
-#: ../../../www//views/project/managegroup.phtml:24
-#: ../../../www//views/project/index.phtml:38
-#: ../../../www//views/project/index.phtml:68
-msgid "Delete"
-msgstr "Smazat"
-
-#: ../../../www//helpers/EditLink.php:35
-msgid "Edit"
-msgstr "Editovat"
-
-#: ../../../www//helpers/HomeLink.php:34
-msgid "Home"
-msgstr "Doma"
-
-#: ../../../www//controllers/GroupadminController.php:62
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:38
 #, php-format
-msgid "Group %s already exist"
-msgstr "Skupina %s již existuje"
+msgid "Login %s not found"
+msgstr "Login %s nenalezen"
 
-#: ../../../www//controllers/ProjectController.php:154
-#: ../../../www//controllers/ProjectController.php:161
+#: ../../../www//USVN/Auth/Adapter/Db.php:59
+msgid "Incorrect password"
+msgstr "Nesprávné heslo"
+
+#: ../../../www//USVN/Config/Ini.php:72
+msgid "Can't write config file."
+msgstr "Nelze zapsat konfigurační soubor."
+
+#: ../../../www//USVN/Config.php:36
+#: ../../../www//install/Install.php:144
+msgid "Invalid language"
+msgstr "Špatný jazyk"
+
+#: ../../../www//USVN/Config.php:55
+#: ../../../www//install/Install.php:166
+msgid "Invalid timezone"
+msgstr "Špatná časová zóna"
+
+#: ../../../www//USVN/Config.php:66
+msgid "Invalid template"
+msgstr "Špatná šablona"
+
+#: ../../../www//USVN/Db/Table/Groups.php:75
+msgid "The group's name is empty."
+msgstr "Jméno skupiny je prázdné."
+
+#: ../../../www//USVN/Db/Table/Groups.php:78
+msgid "The group's name is invalid."
+msgstr "Jméno skupiny je špatné."
+
+#: ../../../www//USVN/Db/Table/Row/Group.php:173
+#: ../../../www//USVN/Db/Table/Row/Group.php:189
 #, php-format
-msgid "Unknown user %s"
-msgstr "Neznámý uživatel %s"
+msgid "User %s is not member of group %s"
+msgstr "Uživatel %s není členem skupiny %s"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:62
+#: ../../../www//USVN/Db/Table/Row/Project.php:68
+#, php-format
+msgid "Invalid group %s for project %s."
+msgstr "Špatná skupina %s pro projekt %s."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:173
+msgid "The project's name is empty."
+msgstr "Jméno projektu je prázdné."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:176
+msgid "The project's name is invalid."
+msgstr "Jméno projektu je špatné."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:209
+msgid "You can't rename a project."
+msgstr "Nemůžete přejmenovat projekt."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:108
+#: ../../../www//install/views/step6.html:7
+#: ../../../www//views/useradmin/js.phtml:9
+msgid "Login empty."
+msgstr "Prázdný login."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:111
+msgid "Login invalid."
+msgstr "Špatný login."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:126
+msgid "Invalid email address."
+msgstr "Špatná e-mailová adresa."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:140
+#: ../../../www//install/views/step6.html:18
+#: ../../../www//views/profile/index.phtml:10
+#: ../../../www//views/useradmin/js.phtml:15
+msgid "Password empty."
+msgstr "Prázdné heslo."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:143
+#: ../../../www//install/views/step6.html:28
+#: ../../../www//views/profile/index.phtml:21
+#: ../../../www//views/useradmin/js.phtml:21
+#: ../../../www//views/useradmin/profile.phtml:12
+msgid "Password incorrect (need more 8 characters)."
+msgstr "Špatné heslo (minimální délka je 8 znaků)"
+
+#: ../../../www//USVN/Db/Table/Row/User.php:174
+#: ../../../www//USVN/Db/Table/Users.php:78
+#, php-format
+msgid "Login %s already exist."
+msgstr "Login %s již existuje."
+
+#: ../../../www//USVN/Db/Table/Users.php:126
+#, php-format
+msgid "Can't create or write on htpasswd file %s."
+msgstr "Nelze vytvořit nebo zapsat htpasswd soubor %s."
+
+#: ../../../www//USVN/Db/Utils.php:33
+#: ../../../www//USVN/Menu.php:58
+#, php-format
+msgid "Can't open file %s."
+msgstr "Nelze otevřít soubor %s."
+
+#: ../../../www//USVN/Db/Utils.php:46
+#, php-format
+msgid ""
+"Can't load file %s at:\n"
+"%s"
+msgstr ""
+"Nelze načíst soubor %s v:\n"
+"%s"
+
+#: ../../../www//USVN/DirectoryUtils.php:31
+#, php-format
+msgid "Can't delete directory %s. Permission denied."
+msgstr "Nelze smazat adresář %s. Přístup odepřen."
+
+#: ../../../www//USVN/DirectoryUtils.php:46
+#, php-format
+msgid "Can't delete file %s."
+msgstr "Nelze smazat soubor %s."
+
+#: ../../../www//USVN/DirectoryUtils.php:54
+#, php-format
+msgid "Can't delete directory %s."
+msgstr "Nelze smazat adresář %s."
+
+#: ../../../www//USVN/DirectoryUtils.php:71
+#, php-format
+msgid "Can't read directory %s."
+msgstr "Nelze číst adresář %s."
+
+#: ../../../www//USVN/FilesAccessRights.php:42
+#: ../../../www//USVN/FilesAccessRights.php:82
+#, php-format
+msgid "Invalid path %s."
+msgstr "Špatná cesta %s."
+
+#: ../../../www//USVN/ImportHtpasswd.php:49
+msgid "Invalid htpasswd file."
+msgstr "Špatný htpassws soubor."
+
+#: ../../../www//USVN/ImportHtpasswd.php:52
+#, php-format
+msgid "User %s already exist into htpasswd file."
+msgstr "Uživatel %s již existuje v htpasswd souboru."
+
+#: ../../../www//USVN/ImportHtpasswd.php:79
+#, php-format
+msgid "Can't add users %s. Import cancel."
+msgstr "Nelze přidat uživatele %s. Import přerušen."
+
+#: ../../../www//USVN/Menu.php:94
+msgid "Sign in"
+msgstr "Přihlášení"
+
+#: ../../../www//USVN/Menu.php:103
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//views/index/index.phtml:2
+msgid "Homepage"
+msgstr "Domácí stránka"
+
+#: ../../../www//USVN/Menu.php:119
+msgid "Edit my profile"
+msgstr "Editovat můj profil"
+
+#: ../../../www//USVN/Menu.php:126
+msgid "Admin"
+msgstr "Administrátor"
+
+#: ../../../www//USVN/Menu.php:135
+msgid "Logout"
+msgstr "Odhlášení"
+
+#: ../../../www//USVN/Project.php:48
+#, php-format
+msgid "Autocreated group for project %s"
+msgstr "Automaticky vytvořená skupina pro projekt %s"
+
+#: ../../../www//USVN/Project.php:85
+#, php-format
+msgid "Project %s doesn't exist."
+msgstr "Projekt %s neexistuje."
+
+#: ../../../www//USVN/SVN.php:32
+#, php-format
+msgid "Invalid project name %s."
+msgstr "Špatné jméno projektu %s."
+
+#: ../../../www//USVN/SVNLog.php:45
+#, php-format
+msgid "Can't get subversion repository logs: %s"
+msgstr "Nelze získat logy subversion repozitáře: %s"
+
+#: ../../../www//USVN/SVNUtils.php:174
+msgid "Commit by USVN"
+msgstr "USVN commit"
+
+#: ../../../www//USVN/SVNUtils.php:177
+#, php-format
+msgid ""
+"Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Nelze importovat do subversion repozitáře.\n"
+"Přikaz:\n"
+"%s\n"
+"\n"
+"Chyba:\n"
+"%s"
+
+#: ../../../www//USVN/SVNUtils.php:194
+#, php-format
+msgid "Can't create subversion repository: %s"
+msgstr "Nelze vytvořit subversion repozitář: %s"
+
+#: ../../../www//USVN/SVNUtils.php:222
+#, php-format
+msgid "Can't checkout subversion repository: %s"
+msgstr "Nelze provést checkout ye subversion repozitáře: %s"
+
+#: ../../../www//USVN/SVNUtils.php:238
+#, php-format
+msgid "Can't list subversion repository: %s"
+msgstr "Nelze vylistovat subversion respozitář: %s"
+
+#: ../../../www//USVN/TranslationTest.php:63
+#: ../../../www//views/login/login.phtml:2
+msgid "Welcome to USVN"
+msgstr "Vítejte v USVN"
+
+#: ../../../www//USVN/User.php:84
+#, php-format
+msgid "User %s does not exist."
+msgstr "Uživatel %s neexistuje."
+
+#: ../../../www//USVN/User.php:111
+msgid "This user can't be created. A group has the same name."
+msgstr "Tento uživatel nemůže být vytvořen. Již existuje skupina se shodným jménem. "
+
+#: ../../../www//USVN/plugins/layout.php:83
+msgid "Logged as"
+msgstr "Přihlášen jako"
 
 #: ../../../www//controllers/BrowserajaxController.php:57
 #, php-format
@@ -49,16 +270,16 @@ msgid "Apply rights on %s"
 msgstr "Aplikuj práva na %s"
 
 #: ../../../www//controllers/BrowserajaxController.php:74
-#: ../../../www//views/projectadmin/form.phtml:24
-#: ../../../www//views/projectadmin/index.phtml:8
 #: ../../../www//views/groupadmin/form.phtml:38
 #: ../../../www//views/groupadmin/index.phtml:8
+#: ../../../www//views/projectadmin/form.phtml:24
+#: ../../../www//views/projectadmin/index.phtml:8
 msgid "Name"
 msgstr "Jméno"
 
 #: ../../../www//controllers/BrowserajaxController.php:75
-#: ../../../www//views/projectadmin/index.phtml:10
 #: ../../../www//views/groupadmin/index.phtml:10
+#: ../../../www//views/projectadmin/index.phtml:10
 #: ../../../www//views/useradmin/index.phtml:13
 msgid "Action"
 msgstr "Akce"
@@ -72,6 +293,11 @@ msgstr "Adresář"
 msgid "File"
 msgstr "Soubor"
 
+#: ../../../www//controllers/BrowserajaxController.php:105
+#: ../../../www//helpers/ACLLink.php:33
+msgid "Rights"
+msgstr "Práva"
+
 #: ../../../www//controllers/BrowserajaxController.php:130
 msgid "Group"
 msgstr "Skupina"
@@ -84,17 +310,165 @@ msgstr "Čtení"
 msgid "Write"
 msgstr "Zápis"
 
-#: ../../../www//controllers/UseradminController.php:45
-#: ../../../www//controllers/ProfileController.php:42
-msgid "Not the same password."
-msgstr "Není stejné heslo."
+#: ../../../www//controllers/BrowserajaxController.php:130
+msgid "Recursive"
+msgstr "Rekurzivně"
+
+#: ../../../www//controllers/GroupadminController.php:61
+#, php-format
+msgid "Group %s already exist"
+msgstr "Skupina %s již existuje"
+
+#: ../../../www//controllers/GroupadminController.php:85
+#: ../../../www//controllers/GroupadminController.php:100
+#: ../../../www//controllers/GroupadminController.php:127
+#, php-format
+msgid "Invalid group %s."
+msgstr "Špatná skupina %s."
 
 #: ../../../www//controllers/ProfileController.php:38
 msgid "Wrong password"
 msgstr "Špatné heslo"
 
-#: ../../../www//install/views/step1.html:18
-#: ../../../www//install/views/step2.html:34
+#: ../../../www//controllers/ProfileController.php:42
+#: ../../../www//controllers/UseradminController.php:46
+msgid "Not the same password."
+msgstr "Není stejné heslo."
+
+#: ../../../www//controllers/ProjectController.php:154
+#: ../../../www//controllers/ProjectController.php:161
+#, php-format
+msgid "Unknown user %s"
+msgstr "Neznámý uživatel %s"
+
+#: ../../../www//controllers/UseradminController.php:35
+msgid "Missing fields."
+msgstr "Chybějící položky."
+
+#: ../../../www//controllers/UseradminController.php:101
+#: ../../../www//controllers/UseradminController.php:132
+#, php-format
+msgid "Invalid user %s."
+msgstr "Špatný uživatel %s."
+
+#: ../../../www//controllers/UseradminController.php:135
+msgid "You can't delete yourself."
+msgstr "Nelze smazat vlastní účet."
+
+#: ../../../www//helpers/DeleteLink.php:35
+#: ../../../www//views/project/index.phtml:38
+#: ../../../www//views/project/index.phtml:68
+#: ../../../www//views/project/managegroup.phtml:24
+msgid "Delete"
+msgstr "Smazat"
+
+#: ../../../www//helpers/EditLink.php:35
+msgid "Edit"
+msgstr "Editovat"
+
+#: ../../../www//helpers/HomeLink.php:34
+msgid "Home"
+msgstr "Doma"
+
+#: ../../../www//install/Install.php:64
+msgid "Can't create database\n"
+msgstr "Nelze vytvořit databázi\n"
+
+#: ../../../www//install/Install.php:73
+msgid "Can't connect to database.\n"
+msgstr "Nelze se připojit k databázi\n"
+
+#: ../../../www//install/Install.php:86
+#, php-format
+msgid "Invalid adapter %s.\n"
+msgstr "Špatný adaptér %s.\n"
+
+#: ../../../www//install/Install.php:96
+msgid "Can't load SQL file.\n"
+msgstr "Nelze načíst SQL soubor.\n"
+
+#: ../../../www//install/Install.php:123
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "Nelze zapsat configurační soubor %s.\n"
+
+#: ../../../www//install/Install.php:215
+#, php-format
+msgid "Can't write access file %s.\n"
+msgstr "Nelze zapsat přístupový soubor %s.\n"
+
+#: ../../../www//install/Install.php:219
+#, php-format
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "Špatná subversion cesta \"%s\", prosím zkontrolujte zda adresář existuje a je zapisovatelný."
+
+#: ../../../www//install/Install.php:264
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr "Nelze zapsat htaccess soubor %s.\n"
+
+#: ../../../www//install/Install.php:308
+msgid "Password empty"
+msgstr "Heslo prázdné"
+
+#: ../../../www//install/Install.php:365
+msgid "Need a title."
+msgstr "Vyžaduje titulek."
+
+#: ../../../www//install/Install.php:418
+msgid "USVN can't run with php's safe mode."
+msgstr "USVN nemůže běžet v php safe módu."
+
+#: ../../../www//install/Install.php:422
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Subversion není nainstalováno."
+
+#: ../../../www//install/Install.php:422
+msgid ""
+" and after restart your system (WARNING it's mandatory). \n"
+"\n"
+"Otherwise under UNIX you probably need to install a package named subversion."
+msgstr "Pod UNIX systémem pravděpodobně potřebujete nainstalovat balíček subversion."
+
+#: ../../../www//install/Install.php:434
+#: ../../../www//install/Install.php:442
+msgid "mod_rewrite seems not to be loaded"
+msgstr "mod_rewrite není nainstalován"
+
+#: ../../../www//install/Install.php:451
+msgid "mod_dav_svn seems not to be loaded"
+msgstr "mod_dav_svn není nainstalován"
+
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
+#: ../../../www//install/install-commandline.php:36
+msgid "Error"
+msgstr "Chyba"
+
+#: ../../../www//install/index.php:87
+#: ../../../www//install/install-commandline.php:36
+msgid "USVN is already install."
+msgstr "USVN je již nainstalováno."
+
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
+msgid "You need to accept the licence to continue installation."
+msgstr "Musíte akceptovat licenci pro pokračování v instalaci."
+
+#: ../../../www//install/views/footer.html:3
+msgid "Copyright USVN"
+msgstr "Copyright USVN"
+
+#: ../../../www//install/views/head.html:201
+msgid "USVN installation"
+msgstr "USVN instalace"
+
+#: ../../../www//install/views/install_error.html:12
+msgid "Force installation"
+msgstr "Vynucená instalace"
+
+#: ../../../www//install/views/step1.html:16
+#: ../../../www//install/views/step2.html:57
 #: ../../../www//install/views/step3.html:1969
 #: ../../../www//install/views/step4.html:97
 #: ../../../www//install/views/step5.html:133
@@ -116,9 +490,10 @@ msgstr "Krok"
 msgid "Default language"
 msgstr "Standartní jazyk"
 
-#: ../../../www//install/views/footer.html:3
-msgid "Copyright USVN"
-msgstr "Copyright USVN"
+#: ../../../www//install/views/step2.html:32
+#: ../../../www//views/configadmin/index.phtml:27
+msgid "Default timezone"
+msgstr "Standartní časová zóna"
 
 #: ../../../www//install/views/step3.html:2
 msgid "Agreement of the licence"
@@ -194,18 +569,18 @@ msgstr "Host"
 
 #: ../../../www//install/views/step5.html:68
 #: ../../../www//install/views/step6.html:50
-#: ../../../www//views/useradmin/profile.phtml:27
+#: ../../../www//views/login/login.phtml:12
 #: ../../../www//views/useradmin/form.phtml:18
 #: ../../../www//views/useradmin/index.phtml:8
-#: ../../../www//views/login/login.phtml:12
+#: ../../../www//views/useradmin/profile.phtml:27
 msgid "Login"
 msgstr "Login"
 
 #: ../../../www//install/views/step5.html:84
 #: ../../../www//install/views/step6.html:101
-#: ../../../www//views/useradmin/profile.phtml:30
-#: ../../../www//views/useradmin/form.phtml:22
 #: ../../../www//views/login/login.phtml:16
+#: ../../../www//views/useradmin/form.phtml:22
+#: ../../../www//views/useradmin/profile.phtml:30
 msgid "Password"
 msgstr "Heslo"
 
@@ -221,41 +596,16 @@ msgstr "Vytvořit databázi ?"
 msgid "Table prefix"
 msgstr "Prefix tabulek"
 
-#: ../../../www//install/views/head.html:201
-msgid "USVN installation"
-msgstr "USVN instalace"
-
-#: ../../../www//install/views/step6.html:7
-#: ../../../www//USVN/Db/Table/Row/User.php:107
-#: ../../../www//views/useradmin/js.phtml:9
-msgid "Login empty."
-msgstr "Prázdný login."
-
 #: ../../../www//install/views/step6.html:13
 msgid "Lastname empty."
 msgstr "Prázdné příjmení."
 
-#: ../../../www//install/views/step6.html:18
-#: ../../../www//USVN/Db/Table/Row/User.php:139
-#: ../../../www//views/profile/index.phtml:10
-#: ../../../www//views/useradmin/js.phtml:15
-msgid "Password empty."
-msgstr "Prázdné heslo."
-
 #: ../../../www//install/views/step6.html:23
 #: ../../../www//views/profile/index.phtml:15
-#: ../../../www//views/useradmin/profile.phtml:6
 #: ../../../www//views/useradmin/js.phtml:26
+#: ../../../www//views/useradmin/profile.phtml:6
 msgid "Password incorrect (not the same)."
 msgstr "Špatné heslo (není shodné)."
-
-#: ../../../www//install/views/step6.html:28
-#: ../../../www//USVN/Db/Table/Row/User.php:142
-#: ../../../www//views/profile/index.phtml:21
-#: ../../../www//views/useradmin/profile.phtml:12
-#: ../../../www//views/useradmin/js.phtml:21
-msgid "Password incorrect (need more 8 characters)."
-msgstr "Špatné heslo (minimální počet je 8 znaků)"
 
 #: ../../../www//install/views/step6.html:39
 msgid "Create administrator user"
@@ -267,9 +617,9 @@ msgstr "Vytvoření prvního administrátora USVN"
 
 #: ../../../www//install/views/step6.html:67
 #: ../../../www//views/profile/index.phtml:48
-#: ../../../www//views/useradmin/profile.phtml:39
 #: ../../../www//views/useradmin/form.phtml:33
 #: ../../../www//views/useradmin/index.phtml:9
+#: ../../../www//views/useradmin/profile.phtml:39
 msgid "Firstname"
 msgstr "Jméno"
 
@@ -279,9 +629,9 @@ msgstr "Systém"
 
 #: ../../../www//install/views/step6.html:84
 #: ../../../www//views/profile/index.phtml:45
-#: ../../../www//views/useradmin/profile.phtml:35
 #: ../../../www//views/useradmin/form.phtml:30
 #: ../../../www//views/useradmin/index.phtml:10
+#: ../../../www//views/useradmin/profile.phtml:35
 msgid "Lastname"
 msgstr "Příjmení"
 
@@ -298,9 +648,9 @@ msgstr "Potvrdit heslo"
 
 #: ../../../www//install/views/step6.html:121
 #: ../../../www//views/profile/index.phtml:52
-#: ../../../www//views/useradmin/profile.phtml:43
 #: ../../../www//views/useradmin/form.phtml:37
 #: ../../../www//views/useradmin/index.phtml:11
+#: ../../../www//views/useradmin/profile.phtml:43
 msgid "Email"
 msgstr "Email"
 
@@ -310,7 +660,7 @@ msgstr "Instalace ukončena"
 
 #: ../../../www//install/views/step7.html:3
 msgid "You can now enjoy of USVN."
-msgstr "Naní si můžete užít USVN"
+msgstr "Nyní si můžete užít USVN"
 
 #: ../../../www//install/views/step7.html:7
 msgid "Apache configuration"
@@ -328,110 +678,16 @@ msgstr "A restartujte váš apaceh server příkazem <kbd>apache2ctl restart</kb
 msgid "Connect to USVN"
 msgstr "Připojit k USVN"
 
-#: ../../../www//install/Install.php:27
-#: ../../../www//install/Install.php:122
-#, php-format
-msgid "Can't write config file %s.\n"
-msgstr "Nelze zapsat configurační soubor %s.\n"
-
-#: ../../../www//install/Install.php:69
-msgid "Can't create database\n"
-msgstr "Nelze vytvořit databázi\n"
-
-#: ../../../www//install/Install.php:78
-msgid "Can't connect to database.\n"
-msgstr "Nelze se připojit k databázi\n"
-
-#: ../../../www//install/Install.php:91
-#, php-format
-msgid "Invalid adapter %s.\n"
-msgstr "Špatný adaptér %s.\n"
-
-#: ../../../www//install/Install.php:101
-msgid "Can't load SQL file.\n"
-msgstr "Nelze načíst SQL soubor.\n"
-
-#: ../../../www//install/Install.php:143
-#: ../../../www//USVN/Config.php:36
-msgid "Invalid language"
-msgstr "Špatný jazyk"
-
-#: ../../../www//install/Install.php:178
-#, php-format
-msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
-msgstr "Špatná subversion cesta \"%s\", prosím zkontrolujte zda adresář existuje a je zapisovatelný."
-
-#: ../../../www//install/Install.php:218
-#, php-format
-msgid "Can't write htaccess file %s.\n"
-msgstr "Nelze zapsat htaccess soubor %s.\n"
-
-#: ../../../www//install/Install.php:262
-msgid "Password empty"
-msgstr "Heslo prázdné"
-
-#: ../../../www//install/Install.php:319
-msgid "Need a title."
-msgstr "Vyžaduje titulek."
-
-#: ../../../www//install/Install.php:368
-msgid "USVN can't run with php's safe mode."
-msgstr "USVN nemůže běžet v php safe módu."
-
-#: ../../../www//install/Install.php:372
-msgid "Subversion is not install on your system. If you are under Windows install "
-msgstr "Subversion není nainstalováno."
-
-#: ../../../www//install/Install.php:372
-msgid ""
-" and after restart your system (WARNING it's mandatory). \n"
-"\n"
-"Otherwise under UNIX you probably need to install a package named subversion."
-msgstr "Pod UNIX systémem pravděpodobně potřebujete nainstalovat balíček subversion."
-
-#: ../../../www//install/Install.php:384
-#: ../../../www//install/Install.php:392
-msgid "mod_rewrite seems not to be loaded"
-msgstr "mod_rewrite není nainstalován"
-
-#: ../../../www//install/Install.php:401
-msgid "mod_dav_svn seems not to be loaded"
-msgstr "mod_dav_svn není nainstalován"
-
-#: ../../../www//install/index.php:58
-#: ../../../www//install/index.php:64
-msgid "Error"
-msgstr "Chyba"
-
-#: ../../../www//install/index.php:64
-msgid "USVN is already install."
-msgstr "USVN je již nainstalováno."
-
-#: ../../../www//install/index.php:81
-#: ../../../www//install/index.php:93
-msgid "You need to accept the licence to continue installation."
-msgstr "Musíte akceptovat licenci pro pokračování v instalaci."
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
+msgid "Browser"
+msgstr "Prohlížeč"
 
 #: ../../../www//menus/configadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:9
 #: ../../../www//views/configadmin/index.phtml:2
 msgid "Configuration"
 msgstr "Konfigurace"
-
-#: ../../../www//menus/projectadmin.php:33
-#: ../../../www//views/projectadmin/index.phtml:2
-#: ../../../www//views/adminadmin/index.phtml:15
-msgid "Projects"
-msgstr "Projekty"
-
-#: ../../../www//menus/projectadmin.php:53
-msgid "Add new project"
-msgstr "Přidat nový projekt"
-
-#: ../../../www//menus/browser.php:32
-#: ../../../www//menus/browserTest.php:47
-msgid "Browser"
-msgstr "Prohlížeč"
 
 #: ../../../www//menus/groupadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:21
@@ -442,6 +698,16 @@ msgstr "Skupiny"
 #: ../../../www//menus/groupadmin.php:51
 msgid "Add new group"
 msgstr "Přidat novou skupinu"
+
+#: ../../../www//menus/projectadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:15
+#: ../../../www//views/projectadmin/index.phtml:2
+msgid "Projects"
+msgstr "Projekty"
+
+#: ../../../www//menus/projectadmin.php:53
+msgid "Add new project"
+msgstr "Přidat nový projekt"
 
 #: ../../../www//menus/useradmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:27
@@ -457,275 +723,6 @@ msgstr "Přidat nového uživatele"
 #: ../../../www//views/useradmin/import.phtml:2
 msgid "Import htpasswd"
 msgstr "Import htpasswd"
-
-#: ../../../www//USVN/Config/Ini.php:67
-msgid "Can't write config file."
-msgstr "Nelze zapsat konfigurační soubor."
-
-#: ../../../www//USVN/plugins/layout.php:81
-#: ../../../www//USVN/Menu.php:103
-#: ../../../www//views/index/index.phtml:2
-msgid "Homepage"
-msgstr "Domácí stránka"
-
-#: ../../../www//USVN/plugins/layout.php:83
-msgid "Logged as"
-msgstr "Přihlášen jako"
-
-#: ../../../www//USVN/Db/Table/Row/User.php:110
-msgid "Login invalid."
-msgstr "Špatný login."
-
-#: ../../../www//USVN/Db/Table/Row/User.php:125
-msgid "Invalid email address."
-msgstr "Špatná e-mailová adresa."
-
-#: ../../../www//USVN/Db/Table/Row/User.php:173
-#: ../../../www//USVN/Db/Table/Users.php:85
-#, php-format
-msgid "Login %s already exist."
-msgstr "Login %s již existuje."
-
-#: ../../../www//USVN/Db/Table/Row/Project.php:60
-#: ../../../www//USVN/Db/Table/Row/Project.php:66
-#, php-format
-msgid "Invalid group %s for project %s."
-msgstr "Špatná skupina %s pro projekt %s."
-
-#: ../../../www//USVN/Db/Table/Row/Project.php:171
-msgid "The project's name is empty."
-msgstr "Jméno projektu je prázdné."
-
-#: ../../../www//USVN/Db/Table/Row/Project.php:174
-msgid "The project's name is invalid."
-msgstr "Jméno projektu je špatné."
-
-#: ../../../www//USVN/Db/Table/Row/Project.php:207
-msgid "You can't rename a project."
-msgstr "Nemůžete přejmenovat projekt."
-
-#: ../../../www//USVN/Db/Table/Users.php:130
-#, php-format
-msgid "Can't create or write on htpasswd file %s."
-msgstr "Nelze vytvořit nebo zapsat htpasswd soubor %s."
-
-#: ../../../www//USVN/Db/Table/Groups.php:82
-msgid "The group's name is empty."
-msgstr "Jméno skupiny je prázdné."
-
-#: ../../../www//USVN/Db/Table/Groups.php:85
-msgid "The group's name is invalid."
-msgstr "Jméno skupiny je špatné."
-
-#: ../../../www//USVN/Db/Utils.php:33
-#: ../../../www//USVN/Menu.php:58
-#, php-format
-msgid "Can't open file %s."
-msgstr "Nelze otevřít soubor %s."
-
-#: ../../../www//USVN/Db/Utils.php:46
-#, php-format
-msgid ""
-"Can't load file %s at:\n"
-"%s"
-msgstr ""
-"Nelze načíst soubor %s v:\n"
-"%s"
-
-#: ../../../www//USVN/Auth/Adapter/Db.php:54
-#: ../../../www//USVN/Project.php:38
-#, php-format
-msgid "Login %s not found"
-msgstr "Login %s nenalezen"
-
-#: ../../../www//USVN/Auth/Adapter/Db.php:59
-msgid "Incorrect password"
-msgstr "Nesprávné heslo"
-
-#: ../../../www//USVN/Config.php:47
-msgid "Invalid template"
-msgstr "Špatná šablona"
-
-#: ../../../www//USVN/DirectoryUtils.php:28
-#, php-format
-msgid "Can't delete directory %s. Permission denied."
-msgstr "Nelze smazat adresář %s. Přístup odepřen."
-
-#: ../../../www//USVN/DirectoryUtils.php:43
-#, php-format
-msgid "Can't delete file %s."
-msgstr "Nelze smazat soubor %s."
-
-#: ../../../www//USVN/DirectoryUtils.php:51
-#, php-format
-msgid "Can't delete directory %s."
-msgstr "Nelze smazat adresář %s."
-
-#: ../../../www//USVN/DirectoryUtils.php:71
-#, php-format
-msgid "Can't read directory %s."
-msgstr "Nelze číst adresář %s."
-
-#: ../../../www//USVN/SVNUtils.php:165
-msgid "Commit by USVN"
-msgstr "USVN commit"
-
-#: ../../../www//USVN/SVNUtils.php:168
-#, php-format
-msgid ""
-"Can't import into subversion repository.\n"
-"Command:\n"
-"%s\n"
-"\n"
-"Error:\n"
-"%s"
-msgstr ""
-"Nelze importovat do subversion repozitáře.\n"
-"Přikaz:\n"
-"%s\n"
-"\n"
-"Chyba:\n"
-"%s"
-
-#: ../../../www//USVN/SVNUtils.php:185
-#, php-format
-msgid "Can't create subversion repository: %s"
-msgstr "Nelze vytvořit subversion repozitář: %s"
-
-#: ../../../www//USVN/SVNUtils.php:213
-#, php-format
-msgid "Can't checkout subversion repository: %s"
-msgstr "Nelze provést checkout ye subversion repozitáře: %s"
-
-#: ../../../www//USVN/SVNUtils.php:229
-#, php-format
-msgid "Can't list subversion repository: %s"
-msgstr "Nelze vylistovat subversion respozitář: %s"
-
-#: ../../../www//USVN/SVNUtils.php:254
-#, php-format
-msgid "Can't get subversion repository logs: %s"
-msgstr "Nelze získat logy subversion repozitáře: %s"
-
-#: ../../../www//USVN/ImportHtpasswd.php:49
-msgid "Invalid htpasswd file."
-msgstr "Špatný htpassws soubor."
-
-#: ../../../www//USVN/ImportHtpasswd.php:52
-#, php-format
-msgid "User %s already exist into htpasswd file."
-msgstr "Uživatel %s již existuje v htpasswd souboru."
-
-#: ../../../www//USVN/ImportHtpasswd.php:72
-#, php-format
-msgid "Can't add users %s. Import cancel."
-msgstr "Nelze přidat uživatele %s. Import přerušen."
-
-#: ../../../www//USVN/TranslationTest.php:63
-#: ../../../www//views/login/login.phtml:2
-msgid "Welcome to USVN"
-msgstr "Vítejte v USVN"
-
-#: ../../../www//USVN/Menu.php:94
-msgid "Sign in"
-msgstr "Přihlášení"
-
-#: ../../../www//USVN/Menu.php:119
-msgid "Edit my profile"
-msgstr "Editovat můj profil"
-
-#: ../../../www//USVN/Menu.php:126
-msgid "Admin"
-msgstr "Administrátor"
-
-#: ../../../www//USVN/Menu.php:135
-msgid "Logout"
-msgstr "Odhlášení"
-
-#: ../../../www//USVN/FilesAccessRights.php:42
-#: ../../../www//USVN/FilesAccessRights.php:82
-#, php-format
-msgid "Invalid path %s."
-msgstr "Špatná cesta %s."
-
-#: ../../../www//USVN/SVN.php:32
-#, php-format
-msgid "Invalid project name %s."
-msgstr "Špatné jméno projektu %s."
-
-#: ../../../www//USVN/Project.php:48
-#, php-format
-msgid "Autocreated group for project %s"
-msgstr "Automaticky vytvořena skupina pro projekt %s"
-
-#: ../../../www//USVN/Project.php:85
-#, php-format
-msgid "Project %s doesn't exist."
-msgstr "Projekt %s neexistuje."
-
-#: ../../../www//USVN/User.php:84
-#, php-format
-msgid "User %s does not exist."
-msgstr "Uživatel %s neexistuje."
-
-#: ../../../www//USVN/User.php:111
-msgid "This user can't be created. A group has the same name."
-msgstr "Tento uživatel nemůže být vytvořen. Již existuje skupina se shodným jménem. "
-
-#: ../../../www//views/projectadmin/form.phtml:10
-msgid "Project's name empty, please fill it."
-msgstr "Jméno projektu je prázdné, prosím zadejte jméno projektu."
-
-#: ../../../www//views/projectadmin/form.phtml:22
-msgid "Project's information"
-msgstr "Informace o projektu"
-
-#: ../../../www//views/projectadmin/form.phtml:28
-#: ../../../www//views/projectadmin/index.phtml:9
-#: ../../../www//views/groupadmin/form.phtml:42
-#: ../../../www//views/groupadmin/index.phtml:9
-msgid "Description"
-msgstr "Popis"
-
-#: ../../../www//views/projectadmin/form.phtml:34
-msgid "Create group for project:"
-msgstr "Vytvořit skupinu pro projekt:"
-
-#: ../../../www//views/projectadmin/form.phtml:35
-msgid "Add me to project group:"
-msgstr "Přidat mě do projektové skupiny:"
-
-#: ../../../www//views/projectadmin/form.phtml:36
-#: ../../../www//views/projectadmin/form.phtml:38
-msgid "Add me as admin of the project:"
-msgstr "Přidat mě jako administrátora projektu:"
-
-#: ../../../www//views/projectadmin/form.phtml:42
-#: ../../../www//views/profile/index.phtml:56
-#: ../../../www//views/groupadmin/form.phtml:46
-#: ../../../www//views/useradmin/profile.phtml:48
-#: ../../../www//views/useradmin/edit.phtml:13
-#: ../../../www//views/useradmin/new.phtml:18
-#: ../../../www//views/login/login.phtml:20
-msgid "Submit"
-msgstr "Potvrzení"
-
-#: ../../../www//views/projectadmin/index.phtml:16
-#, php-format
-msgid "Do you really want to delete project %s?"
-msgstr "Opravdu si přejete odstranit projekt %s?"
-
-#: ../../../www//views/profile/index.phtml:34
-msgid "My account"
-msgstr "Můj účet"
-
-#: ../../../www//views/profile/index.phtml:36
-msgid "Actual password"
-msgstr "Aktuální heslo"
-
-#: ../../../www//views/profile/index.phtml:40
-msgid "New password"
-msgstr "Nové heslo"
 
 #: ../../../www//views/adminadmin/index.phtml:2
 msgid "Administration"
@@ -743,6 +740,34 @@ msgstr "Přístupové práva pro"
 msgid "Files list"
 msgstr "Seznam souborů"
 
+#: ../../../www//views/configadmin/index.phtml:6
+msgid "General settings"
+msgstr "Hlavní nastavení"
+
+#: ../../../www//views/configadmin/index.phtml:45
+msgid "Default template"
+msgstr "Standartní šablona"
+
+#: ../../../www//views/configadmin/index.phtml:63
+msgid "Site's information"
+msgstr "Informace o umístění"
+
+#: ../../../www//views/configadmin/index.phtml:66
+msgid "Title"
+msgstr "Titulek"
+
+#: ../../../www//views/configadmin/index.phtml:72
+msgid "Icone"
+msgstr "Ikona"
+
+#: ../../../www//views/configadmin/index.phtml:78
+msgid "Logo"
+msgstr "Logo"
+
+#: ../../../www//views/configadmin/index.phtml:86
+msgid "Save"
+msgstr "Uložit"
+
 #: ../../../www//views/groupadmin/form.phtml:10
 msgid "Group's name empty, please fill it."
 msgstr "Jméno skupiny je prázdné, prosím zadejte jméno skupiny."
@@ -755,35 +780,74 @@ msgstr "Informace o skupinách"
 msgid "List Users"
 msgstr "Seznam uživatelů"
 
+#: ../../../www//views/groupadmin/form.phtml:42
+#: ../../../www//views/groupadmin/index.phtml:9
+#: ../../../www//views/projectadmin/form.phtml:28
+#: ../../../www//views/projectadmin/index.phtml:9
+msgid "Description"
+msgstr "Popis"
+
+#: ../../../www//views/groupadmin/form.phtml:46
+#: ../../../www//views/login/login.phtml:20
+#: ../../../www//views/profile/index.phtml:56
+#: ../../../www//views/projectadmin/form.phtml:46
+#: ../../../www//views/useradmin/edit.phtml:13
+#: ../../../www//views/useradmin/new.phtml:18
+#: ../../../www//views/useradmin/profile.phtml:48
+msgid "Submit"
+msgstr "Potvrzení"
+
 #: ../../../www//views/groupadmin/index.phtml:16
 #, php-format
 msgid "Do you really want to delete group %s?"
 msgstr "Opravdu si přejete odebrat skupinu %s?"
 
-#: ../../../www//views/project/managegroup.phtml:4
-#, php-format
-msgid "Managing group %s"
-msgstr "Správa skupiny %s"
+#: ../../../www//views/index/index.phtml:5
+msgid "Your projects"
+msgstr "Vaše projekty"
 
-#: ../../../www//views/project/managegroup.phtml:14
-#: ../../../www//views/project/index.phtml:18
-#: ../../../www//views/project/index.phtml:55
-msgid "Add"
-msgstr "Přidat"
+#: ../../../www//views/index/index.phtml:15
+msgid "You don't have any project."
+msgstr "Nejste účastníkem žádného projektu."
 
-#: ../../../www//views/project/managegroup.phtml:20
-msgid "Affected Users"
-msgstr "Ovlivnění uživatelé"
+#: ../../../www//views/index/index.phtml:20
+msgid "Your groups"
+msgstr "Vaše skupiny"
 
-#: ../../../www//views/project/managegroup.phtml:25
-#, php-format
-msgid "Do you really want to remove user %s from group %s?"
-msgstr "Opravdu si přejete odebrat uživatele %s ze skupiny %s?"
+#: ../../../www//views/index/index.phtml:30
+msgid "You are not assign to a group."
+msgstr "Nejste členem skupiny."
+
+#: ../../../www//views/login/login.phtml:4
+msgid "Please enter your login and your password to connect to USVN."
+msgstr "Prosím zadejte váš login a heslo pro přihlášení k USVN."
+
+#: ../../../www//views/login/login.phtml:8
+msgid "Authentification"
+msgstr "Autentizace"
+
+#: ../../../www//views/profile/index.phtml:34
+msgid "My account"
+msgstr "Můj účet"
+
+#: ../../../www//views/profile/index.phtml:36
+msgid "Actual password"
+msgstr "Aktuální heslo"
+
+#: ../../../www//views/profile/index.phtml:40
+msgid "New password"
+msgstr "Nové heslo"
 
 #: ../../../www//views/project/index.phtml:5
 #, php-format
 msgid "Checkout URL : %s"
 msgstr "Checkout URL : %s"
+
+#: ../../../www//views/project/index.phtml:18
+#: ../../../www//views/project/index.phtml:55
+#: ../../../www//views/project/managegroup.phtml:14
+msgid "Add"
+msgstr "Přidat"
 
 #: ../../../www//views/project/index.phtml:33
 msgid "Admins users"
@@ -812,18 +876,75 @@ msgstr "Správa"
 msgid "Last five commit"
 msgstr "Posledních 5 commitů"
 
-#: ../../../www//views/index/index.phtml:5
-msgid "Your projects"
-msgstr "Vaše projekty"
+#: ../../../www//views/project/index.phtml:84
+msgid "Revision"
+msgstr "Revize"
 
-#: ../../../www//views/index/index.phtml:15
-msgid "You don't have any project."
-msgstr "Nejste účastníkem žádného projektu."
+#: ../../../www//views/project/index.phtml:85
+msgid "Author"
+msgstr "Autor"
 
-#: ../../../www//views/useradmin/profile.phtml:23
+#: ../../../www//views/project/index.phtml:86
+msgid "Date"
+msgstr "Datum"
+
+#: ../../../www//views/project/index.phtml:87
+msgid "Message"
+msgstr "Zpráva"
+
+#: ../../../www//views/project/managegroup.phtml:4
+#, php-format
+msgid "Managing group %s"
+msgstr "Správa skupiny %s"
+
+#: ../../../www//views/project/managegroup.phtml:20
+msgid "Affected Users"
+msgstr "Ovlivnění uživatelé"
+
+#: ../../../www//views/project/managegroup.phtml:25
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "Opravdu si přejete odebrat uživatele %s ze skupiny %s?"
+
+#: ../../../www//views/projectadmin/form.phtml:10
+msgid "Project's name empty, please fill it."
+msgstr "Jméno projektu je prázdné, prosím zadejte jméno projektu."
+
+#: ../../../www//views/projectadmin/form.phtml:22
+msgid "Project's information"
+msgstr "Informace o projektu"
+
+#: ../../../www//views/projectadmin/form.phtml:34
+msgid "Create group for project:"
+msgstr "Vytvořit skupinu pro projekt:"
+
+#: ../../../www//views/projectadmin/form.phtml:35
+msgid "Add me to project group:"
+msgstr "Přidat mě do projektové skupiny:"
+
+#: ../../../www//views/projectadmin/form.phtml:36
+#: ../../../www//views/projectadmin/form.phtml:39
+#: ../../../www//views/projectadmin/form.phtml:41
+msgid "Add me as admin of the project:"
+msgstr "Přidat mě jako administrátora projektu:"
+
+#: ../../../www//views/projectadmin/index.phtml:16
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr "Opravdu si přejete odstranit projekt %s?"
+
 #: ../../../www//views/useradmin/form.phtml:16
+#: ../../../www//views/useradmin/profile.phtml:23
 msgid "User account"
 msgstr "Uživatelský účet"
+
+#: ../../../www//views/useradmin/import.phtml:4
+msgid "This form allow you to add to USVN all users contents into an apache password file."
+msgstr "Tento formulář vám umožní přidat do USVN všechny uživatele uvedené v apache souboru s hesly."
+
+#: ../../../www//views/useradmin/import.phtml:10
+msgid "Upload"
+msgstr "Upload"
 
 #: ../../../www//views/useradmin/index.phtml:26
 msgid "yes"
@@ -838,55 +959,11 @@ msgstr "ne"
 msgid "Do you really want to delete user %s?"
 msgstr "Opravdu si přejete odebrat uživatele %s?"
 
-#: ../../../www//views/useradmin/new.phtml:13
-msgid "Create group"
-msgstr "Vytvořit skupinu"
-
-#: ../../../www//views/useradmin/import.phtml:4
-msgid "This form allow you to add to USVN all users contents into an apache password file."
-msgstr "Tento formulář vám umožní přidat do USVN všechny uživatele uvedené v apache souboru s hesly."
-
-#: ../../../www//views/useradmin/import.phtml:10
-msgid "Upload"
-msgstr "Upload"
-
 #: ../../../www//views/useradmin/js.phtml:33
 msgid "Email incorrect."
 msgstr "špatná e-mail adresa"
 
-#: ../../../www//views/login/login.phtml:4
-msgid "Please enter your login and your password to connect to USVN."
-msgstr "Prosím zadejte váš login a heslo pro přihlášení k USVN."
-
-#: ../../../www//views/login/login.phtml:8
-msgid "Authentification"
-msgstr "Autentizace"
-
-#: ../../../www//views/configadmin/index.phtml:6
-msgid "General settings"
-msgstr "Hlavní nastavení"
-
-#: ../../../www//views/configadmin/index.phtml:27
-msgid "Default template"
-msgstr "Standartní šablona"
-
-#: ../../../www//views/configadmin/index.phtml:45
-msgid "Site's information"
-msgstr "Informace o umístění"
-
-#: ../../../www//views/configadmin/index.phtml:48
-msgid "Title"
-msgstr "Titulek"
-
-#: ../../../www//views/configadmin/index.phtml:54
-msgid "Icone"
-msgstr "Ikona"
-
-#: ../../../www//views/configadmin/index.phtml:60
-msgid "Logo"
-msgstr "Logo"
-
-#: ../../../www//views/configadmin/index.phtml:68
-msgid "Save"
-msgstr "Uložit"
+#: ../../../www//views/useradmin/new.phtml:13
+msgid "Create group"
+msgstr "Vytvořit skupinu"
 

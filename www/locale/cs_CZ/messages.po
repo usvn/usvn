@@ -2,12 +2,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-28 14:49+0200\n"
-"PO-Revision-Date: 2007-08-28 15:00+0100\n"
+"POT-Creation-Date: 2007-08-29 11:28+0200\n"
+"PO-Revision-Date: 2007-08-29 11:38+0100\n"
 "Last-Translator: Alois Bělaška <alois.belaska@monetplus.cz>\n"
 "Language-Team: cs <alois.belaska@monetplus.cz>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Czech\n"
 "X-Poedit-Country: CZECH REPUBLIC\n"
@@ -23,17 +23,17 @@ msgstr "Login %s nenalezen"
 msgid "Incorrect password"
 msgstr "Nesprávné heslo"
 
-#: ../../../www//USVN/Config/Ini.php:67
+#: ../../../www//USVN/Config/Ini.php:72
 msgid "Can't write config file."
 msgstr "Nelze zapsat konfigurační soubor."
 
 #: ../../../www//USVN/Config.php:36
-#: ../../../www//install/Install.php:149
+#: ../../../www//install/Install.php:144
 msgid "Invalid language"
 msgstr "Špatný jazyk"
 
 #: ../../../www//USVN/Config.php:55
-#: ../../../www//install/Install.php:171
+#: ../../../www//install/Install.php:166
 msgid "Invalid timezone"
 msgstr "Špatná časová zóna"
 
@@ -100,7 +100,7 @@ msgstr "Prázdné heslo."
 #: ../../../www//views/useradmin/js.phtml:21
 #: ../../../www//views/useradmin/profile.phtml:12
 msgid "Password incorrect (need more 8 characters)."
-msgstr "Špatné heslo (minimální počet je 8 znaků)"
+msgstr "Špatné heslo (minimální délka je 8 znaků)"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:174
 #: ../../../www//USVN/Db/Table/Users.php:78
@@ -193,7 +193,7 @@ msgstr "Odhlášení"
 #: ../../../www//USVN/Project.php:48
 #, php-format
 msgid "Autocreated group for project %s"
-msgstr "Automaticky vytvořena skupina pro projekt %s"
+msgstr "Automaticky vytvořená skupina pro projekt %s"
 
 #: ../../../www//USVN/Project.php:85
 #, php-format
@@ -370,89 +370,88 @@ msgstr "Editovat"
 msgid "Home"
 msgstr "Doma"
 
-#: ../../../www//install/Install.php:27
-#: ../../../www//install/Install.php:128
-#, php-format
-msgid "Can't write config file %s.\n"
-msgstr "Nelze zapsat configurační soubor %s.\n"
-
-#: ../../../www//install/Install.php:69
+#: ../../../www//install/Install.php:64
 msgid "Can't create database\n"
 msgstr "Nelze vytvořit databázi\n"
 
-#: ../../../www//install/Install.php:78
+#: ../../../www//install/Install.php:73
 msgid "Can't connect to database.\n"
 msgstr "Nelze se připojit k databázi\n"
 
-#: ../../../www//install/Install.php:91
+#: ../../../www//install/Install.php:86
 #, php-format
 msgid "Invalid adapter %s.\n"
 msgstr "Špatný adaptér %s.\n"
 
-#: ../../../www//install/Install.php:101
+#: ../../../www//install/Install.php:96
 msgid "Can't load SQL file.\n"
 msgstr "Nelze načíst SQL soubor.\n"
 
-#: ../../../www//install/Install.php:220
+#: ../../../www//install/Install.php:123
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "Nelze zapsat configurační soubor %s.\n"
+
+#: ../../../www//install/Install.php:215
 #, php-format
 msgid "Can't write access file %s.\n"
 msgstr "Nelze zapsat přístupový soubor %s.\n"
 
-#: ../../../www//install/Install.php:224
+#: ../../../www//install/Install.php:219
 #, php-format
 msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
 msgstr "Špatná subversion cesta \"%s\", prosím zkontrolujte zda adresář existuje a je zapisovatelný."
 
-#: ../../../www//install/Install.php:269
+#: ../../../www//install/Install.php:264
 #, php-format
 msgid "Can't write htaccess file %s.\n"
 msgstr "Nelze zapsat htaccess soubor %s.\n"
 
-#: ../../../www//install/Install.php:313
+#: ../../../www//install/Install.php:308
 msgid "Password empty"
 msgstr "Heslo prázdné"
 
-#: ../../../www//install/Install.php:370
+#: ../../../www//install/Install.php:365
 msgid "Need a title."
 msgstr "Vyžaduje titulek."
 
-#: ../../../www//install/Install.php:423
+#: ../../../www//install/Install.php:418
 msgid "USVN can't run with php's safe mode."
 msgstr "USVN nemůže běžet v php safe módu."
 
-#: ../../../www//install/Install.php:427
+#: ../../../www//install/Install.php:422
 msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr "Subversion není nainstalováno."
 
-#: ../../../www//install/Install.php:427
+#: ../../../www//install/Install.php:422
 msgid ""
 " and after restart your system (WARNING it's mandatory). \n"
 "\n"
 "Otherwise under UNIX you probably need to install a package named subversion."
 msgstr "Pod UNIX systémem pravděpodobně potřebujete nainstalovat balíček subversion."
 
-#: ../../../www//install/Install.php:439
-#: ../../../www//install/Install.php:447
+#: ../../../www//install/Install.php:434
+#: ../../../www//install/Install.php:442
 msgid "mod_rewrite seems not to be loaded"
 msgstr "mod_rewrite není nainstalován"
 
-#: ../../../www//install/Install.php:456
+#: ../../../www//install/Install.php:451
 msgid "mod_dav_svn seems not to be loaded"
 msgstr "mod_dav_svn není nainstalován"
 
-#: ../../../www//install/index.php:69
-#: ../../../www//install/index.php:76
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
 #: ../../../www//install/install-commandline.php:36
 msgid "Error"
 msgstr "Chyba"
 
-#: ../../../www//install/index.php:76
+#: ../../../www//install/index.php:87
 #: ../../../www//install/install-commandline.php:36
 msgid "USVN is already install."
 msgstr "USVN je již nainstalováno."
 
-#: ../../../www//install/index.php:95
-#: ../../../www//install/index.php:109
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
 msgid "You need to accept the licence to continue installation."
 msgstr "Musíte akceptovat licenci pro pokračování v instalaci."
 
@@ -661,7 +660,7 @@ msgstr "Instalace ukončena"
 
 #: ../../../www//install/views/step7.html:3
 msgid "You can now enjoy of USVN."
-msgstr "Naní si můžete užít USVN"
+msgstr "Nyní si můžete užít USVN"
 
 #: ../../../www//install/views/step7.html:7
 msgid "Apache configuration"

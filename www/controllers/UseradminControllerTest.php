@@ -63,6 +63,14 @@ class UseradminControllerTest extends USVN_Test_AdminController {
 				"users_password" => "secret",
 			)
 		);
+		$groups = new USVN_Db_Table_Groups();
+		$groups->insert(
+			array(
+				"groups_id" => 42,
+				"groups_name" => "Telephone",
+				"groups_description" => "test"
+			)
+		);
 	}
 
 	public function test_index()
@@ -138,7 +146,7 @@ class UseradminControllerTest extends USVN_Test_AdminController {
 		$_POST['users_password2'] = 'secretsecret';
 		$_POST['users_is_admin'] = false;
 		$this->runAction('create');
-		$this->assertContains("Login Indochine already exist", $this->getBody(), $this->getBody());
+		$this->assertContains("Login Indochine already exist", $this->getBody());
 	}
 
 	public function test_delete()
@@ -201,6 +209,12 @@ class UseradminControllerTest extends USVN_Test_AdminController {
 		$this->request->setParam('login', 'Indochine');
 		$this->runAction('edit');
 		$this->assertContains('Indochine', $this->getBody(), $this->getBody());
+	}
+
+	public function test_new()
+	{
+		$this->runAction('new');
+		$this->assertEquals(1, count($this->controller->view->groups));
 	}
 }
 

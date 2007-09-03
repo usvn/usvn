@@ -125,6 +125,13 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->assertTrue($this->user->isInGroup($group));
 	}
 
+	public function testIsInGroupNewUser()
+	{
+		$group = $this->groups->find(42)->current();
+		$user = $this->userTable->fetchNew();
+		$this->assertFalse($user->isInGroup($group));
+	}
+
 	public function testListGroups()
 	{
 		$this->assertEquals(0, count($this->user->listGroups()));

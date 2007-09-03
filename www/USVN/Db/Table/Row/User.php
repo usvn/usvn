@@ -71,10 +71,13 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	*/
 	public function isInGroup($group)
 	{
+		if ($this->_cleanData  === array()) {
+			return false;
+		}
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$res = $user_groups->fetchRow(
 		array(
-		"groups_id = ?" => $group->id,
+		"groups_id = ?" => $group->groups_id,
 		"users_id = ?" 	=> $this->id
 		)
 		);

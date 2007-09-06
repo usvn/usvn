@@ -8,13 +8,435 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-28 14:23+0200\n"
+"POT-Creation-Date: 2007-09-06 14:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../www//bugs/test_traduction.php:6
+#: ../../../www//helpers/DeleteLink.php:35
+#: ../../../www//views/project/managegroup.phtml:24
+#: ../../../www//views/project/index.phtml:38
+#: ../../../www//views/project/index.phtml:68
+msgid "Delete"
+msgstr ""
+
+#: ../../../www//helpers/ACLLink.php:33
+#: ../../../www//controllers/BrowserajaxController.php:105
+msgid "Rights"
+msgstr ""
+
+#: ../../../www//helpers/EditLink.php:35
+msgid "Edit"
+msgstr ""
+
+#: ../../../www//helpers/HomeLink.php:34
+msgid "Home"
+msgstr ""
+
+#: ../../../www//controllers/GroupadminController.php:62
+#, php-format
+msgid "Group %s already exist"
+msgstr ""
+
+#: ../../../www//controllers/ProjectController.php:154
+#: ../../../www//controllers/ProjectController.php:161
+#, php-format
+msgid "Unknown user %s"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:57
+#, php-format
+msgid "Apply rights on %s"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:74
+#: ../../../www//views/projectadmin/form.phtml:23
+#: ../../../www//views/projectadmin/index.phtml:8
+#: ../../../www//views/groupadmin/form.phtml:38
+#: ../../../www//views/groupadmin/index.phtml:8
+msgid "Name"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:75
+#: ../../../www//views/projectadmin/index.phtml:10
+#: ../../../www//views/groupadmin/index.phtml:10
+#: ../../../www//views/useradmin/index.phtml:13
+msgid "Action"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:86
+#: ../../../www//controllers/BrowserajaxController.php:94
+msgid "Folder"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:97
+msgid "File"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:130
+msgid "Group"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:130
+msgid "Read"
+msgstr ""
+
+#: ../../../www//controllers/BrowserajaxController.php:130
+msgid "Write"
+msgstr ""
+
+#: ../../../www//controllers/UseradminController.php:45
+#: ../../../www//controllers/ProfileController.php:42
+msgid "Not the same password."
+msgstr ""
+
+#: ../../../www//controllers/ProfileController.php:38
+msgid "Wrong password"
+msgstr ""
+
+#: ../../../www//install/views/step1.html:16
+#: ../../../www//install/views/step2.html:57
+#: ../../../www//install/views/step3.html:1969
+#: ../../../www//install/views/step4.html:97
+#: ../../../www//install/views/step5.html:133
+#: ../../../www//install/views/step6.html:135
+msgid "Next step"
+msgstr ""
+
+#: ../../../www//install/views/step2.html:2
+#: ../../../www//install/views/step3.html:2
+#: ../../../www//install/views/step4.html:2
+#: ../../../www//install/views/step5.html:33
+#: ../../../www//install/views/step6.html:39
+#: ../../../www//install/views/step7.html:2
+msgid "Step"
+msgstr ""
+
+#: ../../../www//install/views/step2.html:8
+#: ../../../www//views/configadmin/index.phtml:9
+msgid "Default language"
+msgstr ""
+
+#: ../../../www//install/views/step2.html:32
+#: ../../../www//views/configadmin/index.phtml:27
+msgid "Default timezone"
+msgstr ""
+
+#: ../../../www//install/views/footer.html:3
+msgid "Copyright USVN"
+msgstr ""
+
+#: ../../../www//install/views/step3.html:2
+msgid "Agreement of the licence"
+msgstr ""
+
+#: ../../../www//install/views/step3.html:3
+msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
+msgstr ""
+
+#: ../../../www//install/views/step3.html:1966
+msgid "I understand and accept this license."
+msgstr ""
+
+#: ../../../www//install/views/step4.html:2
+msgid "Configure USVN"
+msgstr ""
+
+#: ../../../www//install/views/step4.html:3
+msgid ""
+"Settings of general configuration of USVN. You can keep default settings."
+msgstr ""
+
+#: ../../../www//install/views/step4.html:12
+msgid "Page title"
+msgstr ""
+
+#: ../../../www//install/views/step4.html:30
+msgid "Subversion repository"
+msgstr ""
+
+#: ../../../www//install/views/step4.html:31
+msgid "Location where usvn will create subversion repository."
+msgstr ""
+
+#: ../../../www//install/views/step4.html:45
+msgid "Subversion password file "
+msgstr ""
+
+#: ../../../www//install/views/step4.html:46
+msgid "Location where usvn will create password file."
+msgstr ""
+
+#: ../../../www//install/views/step4.html:60
+msgid "Subversion access file"
+msgstr ""
+
+#: ../../../www//install/views/step4.html:61
+msgid "Location where usvn will create access file."
+msgstr ""
+
+#: ../../../www//install/views/step4.html:75
+msgid "Subversion url"
+msgstr ""
+
+#: ../../../www//install/views/step4.html:76
+msgid "The url used by users to checkout projects."
+msgstr ""
+
+#: ../../../www//install/views/step5.html:33
+msgid "Database installation"
+msgstr ""
+
+#: ../../../www//install/views/step5.html:34
+msgid "Configuration of database's access."
+msgstr ""
+
+#: ../../../www//install/views/step5.html:41
+msgid "Database Type"
+msgstr ""
+
+#: ../../../www//install/views/step5.html:53
+msgid "Host"
+msgstr ""
+
+#: ../../../www//install/views/step5.html:68
+#: ../../../www//install/views/step6.html:50
+#: ../../../www//views/useradmin/profile.phtml:27
+#: ../../../www//views/useradmin/form.phtml:18
+#: ../../../www//views/useradmin/index.phtml:8
+#: ../../../www//views/login/login.phtml:12
+msgid "Login"
+msgstr ""
+
+#: ../../../www//install/views/step5.html:84
+#: ../../../www//install/views/step6.html:101
+#: ../../../www//views/useradmin/profile.phtml:30
+#: ../../../www//views/useradmin/form.phtml:22
+#: ../../../www//views/login/login.phtml:16
+msgid "Password"
+msgstr ""
+
+#: ../../../www//install/views/step5.html:93
+msgid "Database"
+msgstr ""
+
+#: ../../../www//install/views/step5.html:109
+msgid "Create database ?"
+msgstr ""
+
+#: ../../../www//install/views/step5.html:117
+msgid "Table prefix"
+msgstr ""
+
+#: ../../../www//install/views/head.html:201
+msgid "USVN installation"
+msgstr ""
+
+#: ../../../www//install/views/step6.html:7
+#: ../../../www//USVN/Db/Table/Row/User.php:107
+#: ../../../www//views/useradmin/js.phtml:9
+msgid "Login empty."
+msgstr ""
+
+#: ../../../www//install/views/step6.html:13
+msgid "Lastname empty."
+msgstr ""
+
+#: ../../../www//install/views/step6.html:18
+#: ../../../www//USVN/Db/Table/Row/User.php:139
+#: ../../../www//views/profile/index.phtml:10
+#: ../../../www//views/useradmin/js.phtml:15
+msgid "Password empty."
+msgstr ""
+
+#: ../../../www//install/views/step6.html:23
+#: ../../../www//views/profile/index.phtml:15
+#: ../../../www//views/useradmin/js.phtml:26
+#: ../../../www//views/useradmin/profile.phtml:6
+msgid "Password incorrect (not the same)."
+msgstr ""
+
+#: ../../../www//install/views/step6.html:28
+#: ../../../www//USVN/Db/Table/Row/User.php:142
+#: ../../../www//views/profile/index.phtml:21
+#: ../../../www//views/useradmin/js.phtml:21
+#: ../../../www//views/useradmin/profile.phtml:12
+msgid "Password incorrect (need more 8 characters)."
+msgstr ""
+
+#: ../../../www//install/views/step6.html:39
+msgid "Create administrator user"
+msgstr ""
+
+#: ../../../www//install/views/step6.html:40
+msgid "Creation of the first administrator of USVN."
+msgstr ""
+
+#: ../../../www//install/views/step6.html:67
+#: ../../../www//views/profile/index.phtml:48
+#: ../../../www//views/useradmin/profile.phtml:39
+#: ../../../www//views/useradmin/form.phtml:33
+#: ../../../www//views/useradmin/index.phtml:9
+msgid "Firstname"
+msgstr ""
+
+#: ../../../www//install/views/step6.html:75
+msgid "System"
+msgstr ""
+
+#: ../../../www//install/views/step6.html:84
+#: ../../../www//views/profile/index.phtml:45
+#: ../../../www//views/useradmin/profile.phtml:35
+#: ../../../www//views/useradmin/form.phtml:30
+#: ../../../www//views/useradmin/index.phtml:10
+msgid "Lastname"
+msgstr ""
+
+#: ../../../www//install/views/step6.html:92
+#: ../../../www//views/useradmin/form.phtml:41
+#: ../../../www//views/useradmin/index.phtml:12
+msgid "Administrator"
+msgstr ""
+
+#: ../../../www//install/views/step6.html:111
+#: ../../../www//views/useradmin/form.phtml:26
+msgid "Confirm password"
+msgstr ""
+
+#: ../../../www//install/views/step6.html:121
+#: ../../../www//views/profile/index.phtml:52
+#: ../../../www//views/useradmin/profile.phtml:43
+#: ../../../www//views/useradmin/form.phtml:37
+#: ../../../www//views/useradmin/index.phtml:11
+msgid "Email"
+msgstr ""
+
+#: ../../../www//install/views/step7.html:2
+msgid "Installation is over"
+msgstr ""
+
+#: ../../../www//install/views/step7.html:3
+msgid "You can now enjoy of USVN."
+msgstr ""
+
+#: ../../../www//install/views/step7.html:7
+msgid "Apache configuration"
+msgstr ""
+
+#: ../../../www//install/views/step7.html:8
+msgid ""
+"Last step is to configure subversion into apache. Copy past following lines "
+"at the end of your <em>httpd.conf</em>:"
+msgstr ""
+
+#: ../../../www//install/views/step7.html:14
+msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
+msgstr ""
+
+#: ../../../www//install/views/step7.html:18
+msgid "Connect to USVN"
+msgstr ""
+
+#: ../../../www//install/views/install_error.html:12
+msgid "Force installation"
+msgstr ""
+
+#: ../../../www//install/Install.php:64
+msgid "Can't create database\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:73
+msgid "Can't connect to database.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:86
+#, php-format
+msgid "Invalid adapter %s.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:96
+msgid "Can't load SQL file.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:123
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:144 ../../../www//USVN/Config.php:36
+msgid "Invalid language"
+msgstr ""
+
+#: ../../../www//install/Install.php:166 ../../../www//USVN/Config.php:55
+msgid "Invalid timezone"
+msgstr ""
+
+#: ../../../www//install/Install.php:215
+#, php-format
+msgid "Can't write access file %s.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:219
+#, php-format
+msgid ""
+"Invalid subversion path \"%s\", please check if directory exist and is "
+"writable."
+msgstr ""
+
+#: ../../../www//install/Install.php:264
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr ""
+
+#: ../../../www//install/Install.php:308
+msgid "Password empty"
+msgstr ""
+
+#: ../../../www//install/Install.php:365
+msgid "Need a title."
+msgstr ""
+
+#: ../../../www//install/Install.php:418
+msgid "USVN can't run with php's safe mode."
+msgstr ""
+
+#: ../../../www//install/Install.php:422
+msgid ""
+"Subversion is not install on your system. If you are under Windows install "
+msgstr ""
+
+#: ../../../www//install/Install.php:422
+msgid ""
+" and after restart your system (WARNING it's mandatory). \n"
+"\n"
+"Otherwise under UNIX you probably need to install a package named subversion."
+msgstr ""
+
+#: ../../../www//install/Install.php:434 ../../../www//install/Install.php:442
+msgid "mod_rewrite seems not to be loaded"
+msgstr ""
+
+#: ../../../www//install/Install.php:451
+msgid "mod_dav_svn seems not to be loaded"
+msgstr ""
+
+#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+#: ../../../www//install/install-commandline.php:36
+msgid "Error"
+msgstr ""
+
+#: ../../../www//install/index.php:87
+#: ../../../www//install/install-commandline.php:36
+msgid "USVN is already install."
+msgstr ""
+
+#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
+msgid "You need to accept the licence to continue installation."
+msgstr ""
 
 #: ../../../www//menus/configadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:9
@@ -61,7 +483,7 @@ msgstr ""
 msgid "Import htpasswd"
 msgstr ""
 
-#: ../../../www//USVN/Config/Ini.php:67
+#: ../../../www//USVN/Config/Ini.php:72
 msgid "Can't write config file."
 msgstr ""
 
@@ -74,43 +496,16 @@ msgstr ""
 msgid "Logged as"
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Row/Group.php:173
-#: ../../../www//USVN/Db/Table/Row/Group.php:189
-#, php-format
-msgid "User %s is not member of group %s"
-msgstr ""
-
-#: ../../../www//USVN/Db/Table/Row/User.php:108
-#: ../../../www//views/useradmin/js.phtml:9
-#: ../../../www//install/views/step6.html:7
-msgid "Login empty."
-msgstr ""
-
-#: ../../../www//USVN/Db/Table/Row/User.php:111
+#: ../../../www//USVN/Db/Table/Row/User.php:110
 msgid "Login invalid."
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Row/User.php:126
+#: ../../../www//USVN/Db/Table/Row/User.php:125
 msgid "Invalid email address."
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Row/User.php:140
-#: ../../../www//views/profile/index.phtml:10
-#: ../../../www//views/useradmin/js.phtml:15
-#: ../../../www//install/views/step6.html:18
-msgid "Password empty."
-msgstr ""
-
-#: ../../../www//USVN/Db/Table/Row/User.php:143
-#: ../../../www//views/profile/index.phtml:21
-#: ../../../www//views/useradmin/js.phtml:21
-#: ../../../www//views/useradmin/profile.phtml:12
-#: ../../../www//install/views/step6.html:28
-msgid "Password incorrect (need more 8 characters)."
-msgstr ""
-
-#: ../../../www//USVN/Db/Table/Row/User.php:174
-#: ../../../www//USVN/Db/Table/Users.php:78
+#: ../../../www//USVN/Db/Table/Row/User.php:173
+#: ../../../www//USVN/Db/Table/Users.php:85
 #, php-format
 msgid "Login %s already exist."
 msgstr ""
@@ -133,16 +528,16 @@ msgstr ""
 msgid "You can't rename a project."
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Users.php:126
+#: ../../../www//USVN/Db/Table/Users.php:130
 #, php-format
 msgid "Can't create or write on htpasswd file %s."
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Groups.php:75
+#: ../../../www//USVN/Db/Table/Groups.php:82
 msgid "The group's name is empty."
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Groups.php:78
+#: ../../../www//USVN/Db/Table/Groups.php:85
 msgid "The group's name is invalid."
 msgstr ""
 
@@ -167,29 +562,16 @@ msgstr ""
 msgid "Incorrect password"
 msgstr ""
 
-#: ../../../www//USVN/Config.php:36 ../../../www//install/Install.php:149
-msgid "Invalid language"
-msgstr ""
-
-#: ../../../www//USVN/Config.php:55 ../../../www//install/Install.php:171
-msgid "Invalid timezone"
-msgstr ""
-
 #: ../../../www//USVN/Config.php:66
 msgid "Invalid template"
 msgstr ""
 
-#: ../../../www//USVN/SVNLog.php:45
-#, php-format
-msgid "Can't get subversion repository logs: %s"
-msgstr ""
-
-#: ../../../www//USVN/User.php:84
+#: ../../../www//USVN/User.php:86
 #, php-format
 msgid "User %s does not exist."
 msgstr ""
 
-#: ../../../www//USVN/User.php:111
+#: ../../../www//USVN/User.php:113
 msgid "This user can't be created. A group has the same name."
 msgstr ""
 
@@ -299,6 +681,11 @@ msgstr ""
 msgid "Project %s doesn't exist."
 msgstr ""
 
+#: ../../../www//USVN/SVNLog.php:45
+#, php-format
+msgid "Can't get subversion repository logs: %s"
+msgstr ""
+
 #: ../../../www//views/projectadmin/form.phtml:10
 msgid "Project's name empty, please fill it."
 msgstr ""
@@ -307,36 +694,26 @@ msgstr ""
 msgid "Project's information"
 msgstr ""
 
-#: ../../../www//views/projectadmin/form.phtml:24
-#: ../../../www//views/projectadmin/index.phtml:8
-#: ../../../www//views/groupadmin/form.phtml:38
-#: ../../../www//views/groupadmin/index.phtml:8
-#: ../../../www//controllers/BrowserajaxController.php:74
-msgid "Name"
-msgstr ""
-
-#: ../../../www//views/projectadmin/form.phtml:28
+#: ../../../www//views/projectadmin/form.phtml:27
 #: ../../../www//views/projectadmin/index.phtml:9
 #: ../../../www//views/groupadmin/form.phtml:42
 #: ../../../www//views/groupadmin/index.phtml:9
 msgid "Description"
 msgstr ""
 
-#: ../../../www//views/projectadmin/form.phtml:34
+#: ../../../www//views/projectadmin/form.phtml:33
 msgid "Create group for project:"
 msgstr ""
 
-#: ../../../www//views/projectadmin/form.phtml:35
+#: ../../../www//views/projectadmin/form.phtml:34
 msgid "Add me to project group:"
 msgstr ""
 
-#: ../../../www//views/projectadmin/form.phtml:36
-#: ../../../www//views/projectadmin/form.phtml:39
-#: ../../../www//views/projectadmin/form.phtml:41
+#: ../../../www//views/projectadmin/form.phtml:35
 msgid "Add me as admin of the project:"
 msgstr ""
 
-#: ../../../www//views/projectadmin/form.phtml:46
+#: ../../../www//views/projectadmin/form.phtml:39
 #: ../../../www//views/profile/index.phtml:56
 #: ../../../www//views/groupadmin/form.phtml:46
 #: ../../../www//views/useradmin/profile.phtml:48
@@ -346,23 +723,9 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: ../../../www//views/projectadmin/index.phtml:10
-#: ../../../www//views/groupadmin/index.phtml:10
-#: ../../../www//views/useradmin/index.phtml:13
-#: ../../../www//controllers/BrowserajaxController.php:75
-msgid "Action"
-msgstr ""
-
 #: ../../../www//views/projectadmin/index.phtml:16
 #, php-format
 msgid "Do you really want to delete project %s?"
-msgstr ""
-
-#: ../../../www//views/profile/index.phtml:15
-#: ../../../www//views/useradmin/js.phtml:26
-#: ../../../www//views/useradmin/profile.phtml:6
-#: ../../../www//install/views/step6.html:23
-msgid "Password incorrect (not the same)."
 msgstr ""
 
 #: ../../../www//views/profile/index.phtml:34
@@ -375,30 +738,6 @@ msgstr ""
 
 #: ../../../www//views/profile/index.phtml:40
 msgid "New password"
-msgstr ""
-
-#: ../../../www//views/profile/index.phtml:45
-#: ../../../www//views/useradmin/profile.phtml:35
-#: ../../../www//views/useradmin/form.phtml:30
-#: ../../../www//views/useradmin/index.phtml:10
-#: ../../../www//install/views/step6.html:84
-msgid "Lastname"
-msgstr ""
-
-#: ../../../www//views/profile/index.phtml:48
-#: ../../../www//views/useradmin/profile.phtml:39
-#: ../../../www//views/useradmin/form.phtml:33
-#: ../../../www//views/useradmin/index.phtml:9
-#: ../../../www//install/views/step6.html:67
-msgid "Firstname"
-msgstr ""
-
-#: ../../../www//views/profile/index.phtml:52
-#: ../../../www//views/useradmin/profile.phtml:43
-#: ../../../www//views/useradmin/form.phtml:37
-#: ../../../www//views/useradmin/index.phtml:11
-#: ../../../www//install/views/step6.html:121
-msgid "Email"
 msgstr ""
 
 #: ../../../www//views/adminadmin/index.phtml:2
@@ -447,13 +786,6 @@ msgstr ""
 
 #: ../../../www//views/project/managegroup.phtml:20
 msgid "Affected Users"
-msgstr ""
-
-#: ../../../www//views/project/managegroup.phtml:24
-#: ../../../www//views/project/index.phtml:38
-#: ../../../www//views/project/index.phtml:68
-#: ../../../www//helpers/DeleteLink.php:35
-msgid "Delete"
 msgstr ""
 
 #: ../../../www//views/project/managegroup.phtml:25
@@ -517,14 +849,6 @@ msgstr ""
 msgid "You don't have any project."
 msgstr ""
 
-#: ../../../www//views/index/index.phtml:20
-msgid "Your groups"
-msgstr ""
-
-#: ../../../www//views/index/index.phtml:30
-msgid "You are not assign to a group."
-msgstr ""
-
 #: ../../../www//views/useradmin/js.phtml:33
 msgid "Email incorrect."
 msgstr ""
@@ -532,34 +856,6 @@ msgstr ""
 #: ../../../www//views/useradmin/profile.phtml:23
 #: ../../../www//views/useradmin/form.phtml:16
 msgid "User account"
-msgstr ""
-
-#: ../../../www//views/useradmin/profile.phtml:27
-#: ../../../www//views/useradmin/form.phtml:18
-#: ../../../www//views/useradmin/index.phtml:8
-#: ../../../www//views/login/login.phtml:12
-#: ../../../www//install/views/step5.html:68
-#: ../../../www//install/views/step6.html:50
-msgid "Login"
-msgstr ""
-
-#: ../../../www//views/useradmin/profile.phtml:30
-#: ../../../www//views/useradmin/form.phtml:22
-#: ../../../www//views/login/login.phtml:16
-#: ../../../www//install/views/step5.html:84
-#: ../../../www//install/views/step6.html:101
-msgid "Password"
-msgstr ""
-
-#: ../../../www//views/useradmin/form.phtml:26
-#: ../../../www//install/views/step6.html:111
-msgid "Confirm password"
-msgstr ""
-
-#: ../../../www//views/useradmin/form.phtml:41
-#: ../../../www//views/useradmin/index.phtml:12
-#: ../../../www//install/views/step6.html:92
-msgid "Administrator"
 msgstr ""
 
 #: ../../../www//views/useradmin/index.phtml:26
@@ -601,16 +897,6 @@ msgstr ""
 msgid "General settings"
 msgstr ""
 
-#: ../../../www//views/configadmin/index.phtml:9
-#: ../../../www//install/views/step2.html:8
-msgid "Default language"
-msgstr ""
-
-#: ../../../www//views/configadmin/index.phtml:27
-#: ../../../www//install/views/step2.html:32
-msgid "Default timezone"
-msgstr ""
-
 #: ../../../www//views/configadmin/index.phtml:45
 msgid "Default template"
 msgstr ""
@@ -633,330 +919,4 @@ msgstr ""
 
 #: ../../../www//views/configadmin/index.phtml:86
 msgid "Save"
-msgstr ""
-
-#: ../../../www//helpers/ACLLink.php:33
-#: ../../../www//controllers/BrowserajaxController.php:105
-msgid "Rights"
-msgstr ""
-
-#: ../../../www//helpers/EditLink.php:35
-msgid "Edit"
-msgstr ""
-
-#: ../../../www//helpers/HomeLink.php:34
-msgid "Home"
-msgstr ""
-
-#: ../../../www//install/views/step1.html:16
-#: ../../../www//install/views/step2.html:57
-#: ../../../www//install/views/step3.html:1969
-#: ../../../www//install/views/step4.html:97
-#: ../../../www//install/views/step5.html:133
-#: ../../../www//install/views/step6.html:135
-msgid "Next step"
-msgstr ""
-
-#: ../../../www//install/views/step2.html:2
-#: ../../../www//install/views/step3.html:2
-#: ../../../www//install/views/step4.html:2
-#: ../../../www//install/views/step5.html:33
-#: ../../../www//install/views/step6.html:39
-#: ../../../www//install/views/step7.html:2
-msgid "Step"
-msgstr ""
-
-#: ../../../www//install/views/footer.html:3
-msgid "Copyright USVN"
-msgstr ""
-
-#: ../../../www//install/views/step3.html:2
-msgid "Agreement of the licence"
-msgstr ""
-
-#: ../../../www//install/views/step3.html:3
-msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
-msgstr ""
-
-#: ../../../www//install/views/step3.html:1966
-msgid "I understand and accept this license."
-msgstr ""
-
-#: ../../../www//install/views/install_error.html:12
-msgid "Force installation"
-msgstr ""
-
-#: ../../../www//install/views/step4.html:2
-msgid "Configure USVN"
-msgstr ""
-
-#: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
-msgstr ""
-
-#: ../../../www//install/views/step4.html:12
-msgid "Page title"
-msgstr ""
-
-#: ../../../www//install/views/step4.html:30
-msgid "Subversion repository"
-msgstr ""
-
-#: ../../../www//install/views/step4.html:31
-msgid "Location where usvn will create subversion repository."
-msgstr ""
-
-#: ../../../www//install/views/step4.html:45
-msgid "Subversion password file "
-msgstr ""
-
-#: ../../../www//install/views/step4.html:46
-msgid "Location where usvn will create password file."
-msgstr ""
-
-#: ../../../www//install/views/step4.html:60
-msgid "Subversion access file"
-msgstr ""
-
-#: ../../../www//install/views/step4.html:61
-msgid "Location where usvn will create access file."
-msgstr ""
-
-#: ../../../www//install/views/step4.html:75
-msgid "Subversion url"
-msgstr ""
-
-#: ../../../www//install/views/step4.html:76
-msgid "The url used by users to checkout projects."
-msgstr ""
-
-#: ../../../www//install/views/step5.html:33
-msgid "Database installation"
-msgstr ""
-
-#: ../../../www//install/views/step5.html:34
-msgid "Configuration of database's access."
-msgstr ""
-
-#: ../../../www//install/views/step5.html:41
-msgid "Database Type"
-msgstr ""
-
-#: ../../../www//install/views/step5.html:53
-msgid "Host"
-msgstr ""
-
-#: ../../../www//install/views/step5.html:93
-msgid "Database"
-msgstr ""
-
-#: ../../../www//install/views/step5.html:109
-msgid "Create database ?"
-msgstr ""
-
-#: ../../../www//install/views/step5.html:117
-msgid "Table prefix"
-msgstr ""
-
-#: ../../../www//install/views/head.html:201
-msgid "USVN installation"
-msgstr ""
-
-#: ../../../www//install/views/step6.html:13
-msgid "Lastname empty."
-msgstr ""
-
-#: ../../../www//install/views/step6.html:39
-msgid "Create administrator user"
-msgstr ""
-
-#: ../../../www//install/views/step6.html:40
-msgid "Creation of the first administrator of USVN."
-msgstr ""
-
-#: ../../../www//install/views/step6.html:75
-msgid "System"
-msgstr ""
-
-#: ../../../www//install/views/step7.html:2
-msgid "Installation is over"
-msgstr ""
-
-#: ../../../www//install/views/step7.html:3
-msgid "You can now enjoy of USVN."
-msgstr ""
-
-#: ../../../www//install/views/step7.html:7
-msgid "Apache configuration"
-msgstr ""
-
-#: ../../../www//install/views/step7.html:8
-msgid ""
-"Last step is to configure subversion into apache. Copy past following lines "
-"at the end of your <em>httpd.conf</em>:"
-msgstr ""
-
-#: ../../../www//install/views/step7.html:14
-msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
-msgstr ""
-
-#: ../../../www//install/views/step7.html:18
-msgid "Connect to USVN"
-msgstr ""
-
-#: ../../../www//install/install-commandline.php:36
-#: ../../../www//install/index.php:69 ../../../www//install/index.php:76
-msgid "Error"
-msgstr ""
-
-#: ../../../www//install/install-commandline.php:36
-#: ../../../www//install/index.php:76
-msgid "USVN is already install."
-msgstr ""
-
-#: ../../../www//install/Install.php:27 ../../../www//install/Install.php:128
-#, php-format
-msgid "Can't write config file %s.\n"
-msgstr ""
-
-#: ../../../www//install/Install.php:69
-msgid "Can't create database\n"
-msgstr ""
-
-#: ../../../www//install/Install.php:78
-msgid "Can't connect to database.\n"
-msgstr ""
-
-#: ../../../www//install/Install.php:91
-#, php-format
-msgid "Invalid adapter %s.\n"
-msgstr ""
-
-#: ../../../www//install/Install.php:101
-msgid "Can't load SQL file.\n"
-msgstr ""
-
-#: ../../../www//install/Install.php:220
-#, php-format
-msgid "Can't write access file %s.\n"
-msgstr ""
-
-#: ../../../www//install/Install.php:224
-#, php-format
-msgid ""
-"Invalid subversion path \"%s\", please check if directory exist and is "
-"writable."
-msgstr ""
-
-#: ../../../www//install/Install.php:269
-#, php-format
-msgid "Can't write htaccess file %s.\n"
-msgstr ""
-
-#: ../../../www//install/Install.php:313
-msgid "Password empty"
-msgstr ""
-
-#: ../../../www//install/Install.php:370
-msgid "Need a title."
-msgstr ""
-
-#: ../../../www//install/Install.php:423
-msgid "USVN can't run with php's safe mode."
-msgstr ""
-
-#: ../../../www//install/Install.php:427
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
-msgstr ""
-
-#: ../../../www//install/Install.php:427
-msgid ""
-" and after restart your system (WARNING it's mandatory). \n"
-"\n"
-"Otherwise under UNIX you probably need to install a package named subversion."
-msgstr ""
-
-#: ../../../www//install/Install.php:439 ../../../www//install/Install.php:447
-msgid "mod_rewrite seems not to be loaded"
-msgstr ""
-
-#: ../../../www//install/Install.php:456
-msgid "mod_dav_svn seems not to be loaded"
-msgstr ""
-
-#: ../../../www//install/index.php:95 ../../../www//install/index.php:109
-msgid "You need to accept the licence to continue installation."
-msgstr ""
-
-#: ../../../www//controllers/BrowserajaxController.php:57
-#, php-format
-msgid "Apply rights on %s"
-msgstr ""
-
-#: ../../../www//controllers/BrowserajaxController.php:86
-#: ../../../www//controllers/BrowserajaxController.php:94
-msgid "Folder"
-msgstr ""
-
-#: ../../../www//controllers/BrowserajaxController.php:97
-msgid "File"
-msgstr ""
-
-#: ../../../www//controllers/BrowserajaxController.php:130
-msgid "Group"
-msgstr ""
-
-#: ../../../www//controllers/BrowserajaxController.php:130
-msgid "Read"
-msgstr ""
-
-#: ../../../www//controllers/BrowserajaxController.php:130
-msgid "Write"
-msgstr ""
-
-#: ../../../www//controllers/BrowserajaxController.php:130
-msgid "Recursive"
-msgstr ""
-
-#: ../../../www//controllers/UseradminController.php:35
-msgid "Missing fields."
-msgstr ""
-
-#: ../../../www//controllers/UseradminController.php:46
-#: ../../../www//controllers/ProfileController.php:42
-msgid "Not the same password."
-msgstr ""
-
-#: ../../../www//controllers/UseradminController.php:101
-#: ../../../www//controllers/UseradminController.php:132
-#, php-format
-msgid "Invalid user %s."
-msgstr ""
-
-#: ../../../www//controllers/UseradminController.php:135
-msgid "You can't delete yourself."
-msgstr ""
-
-#: ../../../www//controllers/ProfileController.php:38
-msgid "Wrong password"
-msgstr ""
-
-#: ../../../www//controllers/GroupadminController.php:61
-#, php-format
-msgid "Group %s already exist"
-msgstr ""
-
-#: ../../../www//controllers/GroupadminController.php:85
-#: ../../../www//controllers/GroupadminController.php:100
-#: ../../../www//controllers/GroupadminController.php:127
-#, php-format
-msgid "Invalid group %s."
-msgstr ""
-
-#: ../../../www//controllers/ProjectController.php:154
-#: ../../../www//controllers/ProjectController.php:161
-#, php-format
-msgid "Unknown user %s"
 msgstr ""

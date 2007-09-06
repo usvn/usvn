@@ -162,7 +162,6 @@ class GroupadminControllerTest extends USVN_Test_AdminController {
 
 	public function test_deleteBadGroup()
 	{
-		$groups = new USVN_Db_Table_Groups();
 		$this->request->setParam('name', 'Pif');
 		try {
 			$this->runAction('delete');

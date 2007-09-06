@@ -10,25 +10,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-07 15:59+0200\n"
+"POT-Creation-Date: 2007-09-06 14:09+0200\n"
 "PO-Revision-Date: 2007-07-10 10:21+0800\n"
 "Last-Translator:  <>\n"
 "Language-Team: Chinese/Simplified <contact@usvn.info>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: ../../../www//helpers/ACLLink.php:33
-#: ../../../www//controllers/BrowserajaxController.php:105
-msgid "Rights"
-msgstr "权限"
-
+#: ../../../www//bugs/test_traduction.php:6
 #: ../../../www//helpers/DeleteLink.php:35
 #: ../../../www//views/project/managegroup.phtml:24
 #: ../../../www//views/project/index.phtml:38
 #: ../../../www//views/project/index.phtml:68
 msgid "Delete"
 msgstr "删除"
+
+#: ../../../www//helpers/ACLLink.php:33
+#: ../../../www//controllers/BrowserajaxController.php:105
+msgid "Rights"
+msgstr "权限"
 
 #: ../../../www//helpers/EditLink.php:35
 msgid "Edit"
@@ -55,7 +56,7 @@ msgid "Apply rights on %s"
 msgstr "设置 %s 的权限"
 
 #: ../../../www//controllers/BrowserajaxController.php:74
-#: ../../../www//views/projectadmin/form.phtml:24
+#: ../../../www//views/projectadmin/form.phtml:23
 #: ../../../www//views/projectadmin/index.phtml:8
 #: ../../../www//views/groupadmin/form.phtml:38
 #: ../../../www//views/groupadmin/index.phtml:8
@@ -99,8 +100,8 @@ msgstr "密码不一致."
 msgid "Wrong password"
 msgstr "密码错误"
 
-#: ../../../www//install/views/step1.html:18
-#: ../../../www//install/views/step2.html:34
+#: ../../../www//install/views/step1.html:16
+#: ../../../www//install/views/step2.html:57
 #: ../../../www//install/views/step3.html:1969
 #: ../../../www//install/views/step4.html:97
 #: ../../../www//install/views/step5.html:133
@@ -121,6 +122,12 @@ msgstr "步骤"
 #: ../../../www//views/configadmin/index.phtml:9
 msgid "Default language"
 msgstr "默认语言"
+
+#: ../../../www//install/views/step2.html:32
+#: ../../../www//views/configadmin/index.phtml:27
+#, fuzzy
+msgid "Default timezone"
+msgstr "默认模板"
 
 #: ../../../www//install/views/footer.html:3
 msgid "Copyright USVN"
@@ -251,16 +258,16 @@ msgstr "密码不可为空."
 
 #: ../../../www//install/views/step6.html:23
 #: ../../../www//views/profile/index.phtml:15
-#: ../../../www//views/useradmin/profile.phtml:6
 #: ../../../www//views/useradmin/js.phtml:26
+#: ../../../www//views/useradmin/profile.phtml:6
 msgid "Password incorrect (not the same)."
 msgstr "密码不正确 (两次不一样)"
 
 #: ../../../www//install/views/step6.html:28
 #: ../../../www//USVN/Db/Table/Row/User.php:142
 #: ../../../www//views/profile/index.phtml:21
-#: ../../../www//views/useradmin/profile.phtml:12
 #: ../../../www//views/useradmin/js.phtml:21
+#: ../../../www//views/useradmin/profile.phtml:12
 msgid "Password incorrect (need more 8 characters)."
 msgstr "密码不正确 (需要 8 个字符以上)."
 
@@ -339,62 +346,77 @@ msgstr "使用 <kbd>apache2ctl restart</kbd> 重启服务."
 msgid "Connect to USVN"
 msgstr "连接到 USVN"
 
-#: ../../../www//install/Install.php:27 ../../../www//install/Install.php:122
-#, php-format
-msgid "Can't write config file %s.\n"
-msgstr "无法写配置文件 %s.\n"
+#: ../../../www//install/views/install_error.html:12
+#, fuzzy
+msgid "Force installation"
+msgstr "USVN 安装"
 
-#: ../../../www//install/Install.php:69
+#: ../../../www//install/Install.php:64
 msgid "Can't create database\n"
 msgstr "无法创建数据库\n"
 
-#: ../../../www//install/Install.php:78
+#: ../../../www//install/Install.php:73
 msgid "Can't connect to database.\n"
 msgstr "无法连接到数据库.\n"
 
-#: ../../../www//install/Install.php:91
+#: ../../../www//install/Install.php:86
 #, php-format
 msgid "Invalid adapter %s.\n"
 msgstr "无效的适配器 (adapter) %s \n"
 
-#: ../../../www//install/Install.php:101
+#: ../../../www//install/Install.php:96
 msgid "Can't load SQL file.\n"
 msgstr "无法加载 SQL 文件.\n"
 
-#: ../../../www//install/Install.php:143 ../../../www//USVN/Config.php:36
+#: ../../../www//install/Install.php:123
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "无法写配置文件 %s.\n"
+
+#: ../../../www//install/Install.php:144 ../../../www//USVN/Config.php:36
 msgid "Invalid language"
 msgstr "无效的语言"
 
-#: ../../../www//install/Install.php:178
+#: ../../../www//install/Install.php:166 ../../../www//USVN/Config.php:55
+#, fuzzy
+msgid "Invalid timezone"
+msgstr "无效的模板"
+
+#: ../../../www//install/Install.php:215
+#, fuzzy, php-format
+msgid "Can't write access file %s.\n"
+msgstr "无法写 htaccess 文件 %s .\n"
+
+#: ../../../www//install/Install.php:219
 #, php-format
 msgid ""
 "Invalid subversion path \"%s\", please check if directory exist and is "
 "writable."
 msgstr "无效的 subversion 路径 %s, 请检查目录是否存在并且可写."
 
-#: ../../../www//install/Install.php:218
+#: ../../../www//install/Install.php:264
 #, php-format
 msgid "Can't write htaccess file %s.\n"
 msgstr "无法写 htaccess 文件 %s .\n"
 
-#: ../../../www//install/Install.php:262
+#: ../../../www//install/Install.php:308
 msgid "Password empty"
 msgstr "密码不可为空"
 
-#: ../../../www//install/Install.php:319
+#: ../../../www//install/Install.php:365
 msgid "Need a title."
 msgstr "需要一个标题."
 
-#: ../../../www//install/Install.php:368
+#: ../../../www//install/Install.php:418
 msgid "USVN can't run with php's safe mode."
 msgstr "USVN 无法在 php 的安全模式下运行."
 
-#: ../../../www//install/Install.php:372
+#: ../../../www//install/Install.php:422
 msgid ""
 "Subversion is not install on your system. If you are under Windows install "
 msgstr "Subversion 在您的系统上没有安装, 如果您正在 Windows 中安装 USVN."
 
-#: ../../../www//install/Install.php:372
+#: ../../../www//install/Install.php:422
 msgid ""
 " and after restart your system (WARNING it's mandatory). \n"
 "\n"
@@ -403,23 +425,25 @@ msgstr ""
 " 重启您的系统 (注意: 这是必须的). \n"
 "如果, 在 UNIX 中您很可能需要安装 subversion 软件包."
 
-#: ../../../www//install/Install.php:384 ../../../www//install/Install.php:392
+#: ../../../www//install/Install.php:434 ../../../www//install/Install.php:442
 msgid "mod_rewrite seems not to be loaded"
 msgstr "mod_rewrite 没有被加载"
 
-#: ../../../www//install/Install.php:401
+#: ../../../www//install/Install.php:451
 msgid "mod_dav_svn seems not to be loaded"
 msgstr "mod_dav_svn 没有加载"
 
-#: ../../../www//install/index.php:58 ../../../www//install/index.php:64
+#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+#: ../../../www//install/install-commandline.php:36
 msgid "Error"
 msgstr "错误"
 
-#: ../../../www//install/index.php:64
+#: ../../../www//install/index.php:87
+#: ../../../www//install/install-commandline.php:36
 msgid "USVN is already install."
 msgstr "USVN 已经安装"
 
-#: ../../../www//install/index.php:81 ../../../www//install/index.php:93
+#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
 msgid "You need to accept the licence to continue installation."
 msgstr "您需要接受这个协议才能继续安装."
 
@@ -468,7 +492,7 @@ msgstr "添加新用户"
 msgid "Import htpasswd"
 msgstr "导入 htpasswd"
 
-#: ../../../www//USVN/Config/Ini.php:67
+#: ../../../www//USVN/Config/Ini.php:72
 msgid "Can't write config file."
 msgstr "无法创建配置文件."
 
@@ -495,21 +519,21 @@ msgstr "Email 地址无效."
 msgid "Login %s already exist."
 msgstr "登录名 %s 已经存在"
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:60
-#: ../../../www//USVN/Db/Table/Row/Project.php:66
+#: ../../../www//USVN/Db/Table/Row/Project.php:62
+#: ../../../www//USVN/Db/Table/Row/Project.php:68
 #, php-format
 msgid "Invalid group %s for project %s."
 msgstr "无效的用户组 %s (对于项目 %s)."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:171
+#: ../../../www//USVN/Db/Table/Row/Project.php:173
 msgid "The project's name is empty."
 msgstr "项目名是空的."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:174
+#: ../../../www//USVN/Db/Table/Row/Project.php:176
 msgid "The project's name is invalid."
 msgstr "项目名无效."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:207
+#: ../../../www//USVN/Db/Table/Row/Project.php:209
 msgid "You can't rename a project."
 msgstr "您不能更改项目名称."
 
@@ -549,21 +573,30 @@ msgstr "登录名 %s 未找到"
 msgid "Incorrect password"
 msgstr "密码不正确"
 
-#: ../../../www//USVN/Config.php:47
+#: ../../../www//USVN/Config.php:66
 msgid "Invalid template"
 msgstr "无效的模板"
 
-#: ../../../www//USVN/DirectoryUtils.php:28
+#: ../../../www//USVN/User.php:86
+#, php-format
+msgid "User %s does not exist."
+msgstr "用户 %s 不存在"
+
+#: ../../../www//USVN/User.php:113
+msgid "This user can't be created. A group has the same name."
+msgstr "无法创建用户, 一个同名的用户组已经存在."
+
+#: ../../../www//USVN/DirectoryUtils.php:31
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
 msgstr "无法删除目录 %s, 权限不足."
 
-#: ../../../www//USVN/DirectoryUtils.php:43
+#: ../../../www//USVN/DirectoryUtils.php:46
 #, php-format
 msgid "Can't delete file %s."
 msgstr "无法删除文件 %s ."
 
-#: ../../../www//USVN/DirectoryUtils.php:51
+#: ../../../www//USVN/DirectoryUtils.php:54
 #, php-format
 msgid "Can't delete directory %s."
 msgstr "无法删除目录 %s."
@@ -573,11 +606,11 @@ msgstr "无法删除目录 %s."
 msgid "Can't read directory %s."
 msgstr "无法读目录 %s."
 
-#: ../../../www//USVN/SVNUtils.php:165
+#: ../../../www//USVN/SVNUtils.php:174
 msgid "Commit by USVN"
 msgstr "USVN 提交"
 
-#: ../../../www//USVN/SVNUtils.php:168
+#: ../../../www//USVN/SVNUtils.php:177
 #, php-format
 msgid ""
 "Can't import into subversion repository.\n"
@@ -594,25 +627,20 @@ msgstr ""
 "错误:\n"
 "%s"
 
-#: ../../../www//USVN/SVNUtils.php:185
+#: ../../../www//USVN/SVNUtils.php:194
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr "无法创建 subversion 仓库: %s"
 
-#: ../../../www//USVN/SVNUtils.php:213
+#: ../../../www//USVN/SVNUtils.php:222
 #, php-format
 msgid "Can't checkout subversion repository: %s"
 msgstr "无法检出 (checkout) subversion 仓库: %s"
 
-#: ../../../www//USVN/SVNUtils.php:229
+#: ../../../www//USVN/SVNUtils.php:238
 #, php-format
 msgid "Can't list subversion repository: %s"
 msgstr "无法列出 subversion 仓库: %s"
-
-#: ../../../www//USVN/SVNUtils.php:254
-#, php-format
-msgid "Can't get subversion repository logs: %s"
-msgstr "无法获得 subversion 仓库的日志: %s"
 
 #: ../../../www//USVN/ImportHtpasswd.php:49
 msgid "Invalid htpasswd file."
@@ -623,7 +651,7 @@ msgstr "无效的 htpasswd 文件."
 msgid "User %s already exist into htpasswd file."
 msgstr "用户 %s 已经存在于 htpasswd 文件中."
 
-#: ../../../www//USVN/ImportHtpasswd.php:72
+#: ../../../www//USVN/ImportHtpasswd.php:79
 #, php-format
 msgid "Can't add users %s. Import cancel."
 msgstr "无法添加用户 %s. 导入取消."
@@ -670,14 +698,10 @@ msgstr "为项目 %s 自动创建的用户组."
 msgid "Project %s doesn't exist."
 msgstr "项目 %s 不存在."
 
-#: ../../../www//USVN/User.php:84
+#: ../../../www//USVN/SVNLog.php:45
 #, php-format
-msgid "User %s does not exist."
-msgstr "用户 %s 不存在"
-
-#: ../../../www//USVN/User.php:111
-msgid "This user can't be created. A group has the same name."
-msgstr "无法创建用户, 一个同名的用户组已经存在."
+msgid "Can't get subversion repository logs: %s"
+msgstr "无法获得 subversion 仓库的日志: %s"
 
 #: ../../../www//views/projectadmin/form.phtml:10
 msgid "Project's name empty, please fill it."
@@ -687,27 +711,26 @@ msgstr "项目名为空, 请填写."
 msgid "Project's information"
 msgstr "项目信息"
 
-#: ../../../www//views/projectadmin/form.phtml:28
+#: ../../../www//views/projectadmin/form.phtml:27
 #: ../../../www//views/projectadmin/index.phtml:9
 #: ../../../www//views/groupadmin/form.phtml:42
 #: ../../../www//views/groupadmin/index.phtml:9
 msgid "Description"
 msgstr "描述"
 
-#: ../../../www//views/projectadmin/form.phtml:34
+#: ../../../www//views/projectadmin/form.phtml:33
 msgid "Create group for project:"
 msgstr "为项目创建一个新的用户组"
 
-#: ../../../www//views/projectadmin/form.phtml:35
+#: ../../../www//views/projectadmin/form.phtml:34
 msgid "Add me to project group:"
 msgstr "把我添加到此项目的用户组中"
 
-#: ../../../www//views/projectadmin/form.phtml:36
-#: ../../../www//views/projectadmin/form.phtml:38
+#: ../../../www//views/projectadmin/form.phtml:35
 msgid "Add me as admin of the project:"
 msgstr "添加我为此项目的管理员"
 
-#: ../../../www//views/projectadmin/form.phtml:42
+#: ../../../www//views/projectadmin/form.phtml:39
 #: ../../../www//views/profile/index.phtml:56
 #: ../../../www//views/groupadmin/form.phtml:46
 #: ../../../www//views/useradmin/profile.phtml:48
@@ -819,6 +842,24 @@ msgstr "管理"
 msgid "Last five commit"
 msgstr "最近 5 次提交"
 
+#: ../../../www//views/project/index.phtml:84
+msgid "Revision"
+msgstr ""
+
+#: ../../../www//views/project/index.phtml:85
+msgid "Author"
+msgstr ""
+
+#: ../../../www//views/project/index.phtml:86
+#, fuzzy
+msgid "Date"
+msgstr "数据库"
+
+#: ../../../www//views/project/index.phtml:87
+#, fuzzy
+msgid "Message"
+msgstr "管理"
+
 #: ../../../www//views/index/index.phtml:5
 msgid "Your projects"
 msgstr "您的项目"
@@ -826,6 +867,10 @@ msgstr "您的项目"
 #: ../../../www//views/index/index.phtml:15
 msgid "You don't have any project."
 msgstr "您没有任何项目"
+
+#: ../../../www//views/useradmin/js.phtml:33
+msgid "Email incorrect."
+msgstr "Email 不正确."
 
 #: ../../../www//views/useradmin/profile.phtml:23
 #: ../../../www//views/useradmin/form.phtml:16
@@ -859,10 +904,6 @@ msgstr "这个表单允许你添加所有 usvn 用户到 Apache 的密码文件�
 msgid "Upload"
 msgstr "上传"
 
-#: ../../../www//views/useradmin/js.phtml:33
-msgid "Email incorrect."
-msgstr "Email 不正确."
-
 #: ../../../www//views/login/login.phtml:4
 msgid "Please enter your login and your password to connect to USVN."
 msgstr "请输入您的登录名和密码"
@@ -875,27 +916,27 @@ msgstr "验证"
 msgid "General settings"
 msgstr "一般设置"
 
-#: ../../../www//views/configadmin/index.phtml:27
+#: ../../../www//views/configadmin/index.phtml:45
 msgid "Default template"
 msgstr "默认模板"
 
-#: ../../../www//views/configadmin/index.phtml:45
+#: ../../../www//views/configadmin/index.phtml:63
 msgid "Site's information"
 msgstr "网站信息"
 
-#: ../../../www//views/configadmin/index.phtml:48
+#: ../../../www//views/configadmin/index.phtml:66
 msgid "Title"
 msgstr "标题"
 
-#: ../../../www//views/configadmin/index.phtml:54
+#: ../../../www//views/configadmin/index.phtml:72
 msgid "Icone"
 msgstr "图标"
 
-#: ../../../www//views/configadmin/index.phtml:60
+#: ../../../www//views/configadmin/index.phtml:78
 msgid "Logo"
 msgstr "标致 (logo)"
 
-#: ../../../www//views/configadmin/index.phtml:68
+#: ../../../www//views/configadmin/index.phtml:86
 msgid "Save"
 msgstr "保存"
 

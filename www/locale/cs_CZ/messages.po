@@ -937,27 +937,3 @@ msgstr "Logo"
 #: ../../../www//views/configadmin/index.phtml:86
 msgid "Save"
 msgstr "Uložit"
-
-#~ msgid "User %s is not member of group %s"
-#~ msgstr "Uživatel %s není členem skupiny %s"
-
-#~ msgid "Recursive"
-#~ msgstr "Rekurzivně"
-
-#~ msgid "Invalid group %s."
-#~ msgstr "Špatná skupina %s."
-
-#~ msgid "Missing fields."
-#~ msgstr "Chybějící položky."
-
-#~ msgid "Invalid user %s."
-#~ msgstr "Špatný uživatel %s."
-
-#~ msgid "You can't delete yourself."
-#~ msgstr "Nelze smazat vlastní účet."
-
-#~ msgid "Your groups"
-#~ msgstr "Vaše skupiny"
-
-#~ msgid "You are not assign to a group."
-#~ msgstr "Nejste členem skupiny."

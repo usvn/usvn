@@ -19,6 +19,15 @@
  */
 class USVN_Hooks
 {
+	private function checkProject($project_name)
+	{
+		$projectTable = new USVN_Db_Table_Projects();
+		$project = $projectTable->fetchRow(array('projects_name = ?' => $project_name));
+		if ($project == false) {
+			throw new USVN_Exception(T_("Project %s doesn't exists."), $project_name);
+		}
+	}
+
 	/**
 	* Start commit hook
 	*
@@ -28,6 +37,7 @@ class USVN_Hooks
 	*/
 	public function startCommit($project, $user)
 	{
+		$this->checkProject($project);
 		return 0;
 	}
 
@@ -42,6 +52,7 @@ class USVN_Hooks
 	*/
 	public function preCommit($project, $user, $log, $changedfiles)
 	{
+		$this->checkProject($project);
 		return 0;
 	}
 
@@ -56,6 +67,7 @@ class USVN_Hooks
 	*/
 	public function postCommit($project, $revision, $user, $log, $changedfiles)
 	{
+		$this->checkProject($project);
 	}
 
 	/**
@@ -68,6 +80,7 @@ class USVN_Hooks
 	*/
 	public function preLock($project, $path, $user)
 	{
+		$this->checkProject($project);
 		return 0;
 	}
 
@@ -81,6 +94,7 @@ class USVN_Hooks
 	*/
 	public function postLock($project, $path, $user)
 	{
+		$this->checkProject($project);
 	}
 
 	/**
@@ -93,6 +107,7 @@ class USVN_Hooks
 	*/
 	public function preUnlock($project, $path, $user)
 	{
+		$this->checkProject($project);
 		return 0;
 	}
 
@@ -105,6 +120,7 @@ class USVN_Hooks
 	*/
 	public function postUnlock($project, $path, $user)
 	{
+		$this->checkProject($project);
 	}
 
 	/**
@@ -120,6 +136,7 @@ class USVN_Hooks
 	*/
 	public function preRevpropChange($project, $revision, $user, $property, $action, $value)
 	{
+		$this->checkProject($project);
 		return 0;
 	}
 
@@ -135,6 +152,7 @@ class USVN_Hooks
 	*/
 	public function postRevpropChange($project, $revision, $user, $property, $action, $value)
 	{
+		$this->checkProject($project);
 	}
 
 	/**
@@ -145,6 +163,7 @@ class USVN_Hooks
 	*/
 	public function validUSVNServer($project)
 	{
+		$this->checkProject($project);
 		return 0;
 	}
 }

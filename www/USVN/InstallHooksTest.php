@@ -53,6 +53,12 @@ class USVN_InstallHooksTest extends USVN_Test_DB {
 		$this->assertTrue(file_exists("tests/mysvn/pre-revprop-change"));
 		$this->assertTrue(file_exists("tests/mysvn/pre-unlock"));
 		$this->assertTrue(file_exists("tests/mysvn/start-commit"));
+		$this->assertEquals(
+			"#!/bin/sh\n" .
+			'cd ' . getcwd() . "\n" .
+			'php hooks/unix/start-commit "$@"' . "\n" .
+			'exit $?' . "\n"
+			, file_get_contents("tests/mysvn/start-commit"));
 	}
 }
 
@@ -60,4 +66,3 @@ class USVN_InstallHooksTest extends USVN_Test_DB {
 if (PHPUnit_MAIN_METHOD == "USVN_InstallHooksTest::main") {
 	USVN_InstallHooksTest::main();
 }
-?>

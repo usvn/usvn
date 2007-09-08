@@ -18,19 +18,32 @@
  */
 class USVN_InstallHooks
 {
+	private $hooks_without_stdin = array("post-commit",
+		"post-lock",
+		"post-revprop-change",
+		"post-unlock",
+		"pre-commit",
+		"pre-lock",
+		"pre-revprop-change",
+		"pre-unlock",
+		"start-commit");
+
 	/**
 	* @string Repository path
 	*/
 	public function __construct($path)
 	{
-		touch($path . DIRECTORY_SEPARATOR . "post-commit");
-		touch($path . DIRECTORY_SEPARATOR . "post-lock");
-		touch($path . DIRECTORY_SEPARATOR . "post-revprop-change");
-		touch($path . DIRECTORY_SEPARATOR . "post-unlock");
-		touch($path . DIRECTORY_SEPARATOR . "pre-commit");
-		touch($path . DIRECTORY_SEPARATOR . "pre-lock");
-		touch($path . DIRECTORY_SEPARATOR . "pre-revprop-change");
-		touch($path . DIRECTORY_SEPARATOR . "pre-unlock");
-		touch($path . DIRECTORY_SEPARATOR . "start-commit");
+		$USVN_path = getcwd();
+		foreach ($this->hooks_without_stdin as $hook) {
+			file_put_contents($path . DIRECTORY_SEPARATOR . $hook,
+<<<EOF
+#!/bin/sh
+cd $USVN_path
+php hooks/unix/$hook "\$@"
+exit \$?
+
+EOF
+);
+		}
 	}
 }

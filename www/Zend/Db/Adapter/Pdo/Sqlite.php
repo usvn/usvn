@@ -278,4 +278,22 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
         return $sql;
     }
 
+    /**
+     * Safely quotes a value for an SQL statement.
+     *
+     * If an array is passed as the value, the array values are quoted
+     * and then returned as a comma-separated string.
+     *
+     * @param mixed $value The value to quote.
+     * @param mixed $type  OPTIONAL the SQL datatype name, or constant, or null.
+     * @return mixed An SQL-safe quoted value (or string of separated values).
+     */
+    public function quote($value, $type = null)
+    {
+        if (is_int($value) || is_float($value)) {
+            return parent::quote("$value", $type);
+        }
+        return parent::quote($value, $type);
+    }
+
 }

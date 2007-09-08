@@ -78,7 +78,7 @@ version = \"0.84\"
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		unset($config->translation->locale);
 		unset($config->version);
-		$this->assertFalse(isset($config->translation->locale));
+		$this->assertFalse(isset($config->translation->locale), "Ca serait pas le patch sur le framework pour supprimer un champ par hasard ?");
 		$this->assertFalse(isset($config->version));
     }
 

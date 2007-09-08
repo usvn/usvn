@@ -125,7 +125,7 @@ class InstallDbSqLiteTest extends USVN_Test_Test {
 		$this->assertTrue(USVN_Crypt::checkPassword("secretpassword", $user->password));
 		$this->assertEquals("James", $user->firstname);
 		$this->assertEquals("Bond", $user->lastname);
-		$this->assertEquals(true, $user->is_admin);
+		$this->assertEquals(true, (bool) $user->is_admin);
 		$groupTable = new USVN_Db_Table_Groups();
 		$this->assertEquals(0, count($groupTable->fetchAll()));
 	}

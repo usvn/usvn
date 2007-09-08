@@ -68,7 +68,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     protected $_rootElement = 'entry';
 
     /**
-     * Class name for each entry in this feed* 
+     * Class name for each entry in this feed*
      *
      * @var string
      */
@@ -77,7 +77,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     /**
      * atom:content element
      *
-     * @var Zend_Gdata_App_Extension_Content 
+     * @var Zend_Gdata_App_Extension_Content
      */
     protected $_content = null;
 
@@ -178,11 +178,11 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
-     * Deletes this entry to the server using the referenced 
-     * Zend_Http_Client to do a HTTP DELETE to the edit link stored in this 
-     * entry's link collection.  
+     * Deletes this entry to the server using the referenced
+     * Zend_Http_Client to do a HTTP DELETE to the edit link stored in this
+     * entry's link collection.
      *
-     * @return void 
+     * @return void
      * @throws Zend_Gdata_App_Exception
      */
     public function delete()
@@ -192,7 +192,7 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Content 
+     * @return Zend_Gdata_App_Extension_Content
      */
     public function getContent()
     {
@@ -200,17 +200,17 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Content $value 
+     * @param Zend_Gdata_App_Extension_Content $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setContent($value)
     {
         $this->_content = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Published 
+     * @return Zend_Gdata_App_Extension_Published
      */
     public function getPublished()
     {
@@ -218,17 +218,17 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Published $value 
+     * @param Zend_Gdata_App_Extension_Published $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setPublished($value)
     {
         $this->_published = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Source 
+     * @return Zend_Gdata_App_Extension_Source
      */
     public function getSource()
     {
@@ -236,17 +236,17 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Source $value 
+     * @param Zend_Gdata_App_Extension_Source $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setSource($value)
     {
         $this->_source = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Summary 
+     * @return Zend_Gdata_App_Extension_Summary
      */
     public function getSummary()
     {
@@ -254,17 +254,17 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Summary $value 
+     * @param Zend_Gdata_App_Extension_Summary $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setSummary($value)
     {
         $this->_summary = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Control 
+     * @return Zend_Gdata_App_Extension_Control
      */
     public function getControl()
     {
@@ -272,12 +272,12 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Control $value 
+     * @param Zend_Gdata_App_Extension_Control $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setControl($value)
     {
         $this->_control = $value;
-        return $this; 
+        return $this;
     }
 }

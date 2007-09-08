@@ -18,7 +18,7 @@
  * @subpackage Table
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5486 2007-06-28 22:53:25Z bkarwin $
+ * @version    $Id: Abstract.php 5867 2007-07-26 22:23:35Z bkarwin $
  */
 
 /**
@@ -533,13 +533,13 @@ abstract class Zend_Db_Table_Row_Abstract
     /**
      * Retrieves an associative array of primary keys.
      *
-     * @param bool $dirty
+     * @param bool $useDirty
      * @return array
      */
-    protected function _getPrimaryKey($dirty = true)
+    protected function _getPrimaryKey($useDirty = true)
     {
         $primary = array_flip($this->_primary);
-        if ($dirty) {
+        if ($useDirty) {
             return array_intersect_key($this->_data, $primary);
         } else {
             return array_intersect_key($this->_cleanData, $primary);
@@ -549,17 +549,23 @@ abstract class Zend_Db_Table_Row_Abstract
     /**
      * Constructs where statement for retrieving row(s).
      *
+     * @param bool $useDirty
      * @return array
      */
-    protected function _getWhereQuery($dirty = true)
+    protected function _getWhereQuery($useDirty = true)
     {
         $where = array();
         $db = $this->_getTable()->getAdapter();
-        $primaryKey = $this->_getPrimaryKey($dirty);
+        $primaryKey = $this->_getPrimaryKey($useDirty);
+        $info = $this->_getTable()->info();
+        $metadata = $info[Zend_Db_Table_Abstract::METADATA];
 
         // retrieve recently updated row using primary keys
-        foreach ($primaryKey as $columnName => $val) {
-            $where[] = $db->quoteInto($db->quoteIdentifier($columnName, true) . ' = ?', $val);
+        foreach ($primaryKey as $columnName => $value) {
+            $type = $metadata[$columnName]['DATA_TYPE'];
+            $where[] = $db->quoteInto(
+                $db->quoteIdentifier($columnName, true) . ' = ?',
+                $value, $type);
         }
 
         return $where;

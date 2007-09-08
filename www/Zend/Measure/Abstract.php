@@ -15,12 +15,14 @@
  * @category   Zend
  * @package    Zend_Measure
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Abstract.php 5533 2007-06-30 16:38:20Z bkarwin $
+ * @version    $Id: Abstract.php 5786 2007-07-19 18:34:23Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 
 require_once 'Zend/Locale.php';
+require_once 'Zend/Locale/Math.php';
+require_once 'Zend/Locale/Format.php';
 
 
 /**
@@ -154,7 +156,7 @@ abstract class Zend_Measure_Abstract
 
     /**
      * Returns the original type
-     * 
+     *
      * @return type
      */
     public function getType()
@@ -276,7 +278,7 @@ abstract class Zend_Measure_Abstract
 
     /**
      * Returns the conversion list
-     * 
+     *
      * @return array
      */
     public function getConversionList()
@@ -324,7 +326,7 @@ abstract class Zend_Measure_Abstract
     {
         $object->setType($this->getType());
         $value  = $this->getValue() - $object->getValue();
-        
+
         $this->setValue($value, $this->getType(), $this->_Locale);
         return $this;
     }

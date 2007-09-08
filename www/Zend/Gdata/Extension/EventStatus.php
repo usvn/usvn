@@ -25,7 +25,7 @@
 require_once 'Zend/Gdata/Extension.php';
 
 /**
- * Represents the gd:eventStatus element 
+ * Represents the gd:eventStatus element
  *
  * @category   Zend
  * @package    Zend_Gdata
@@ -93,6 +93,6 @@ class Zend_Gdata_Extension_EventStatus extends Zend_Gdata_Extension
     public function __toString()
     {
         return $this->getValue();
-    }    
+    }
 
 }

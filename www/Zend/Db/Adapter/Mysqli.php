@@ -18,7 +18,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php 5503 2007-06-29 18:18:06Z bkarwin $
+ * @version    $Id: Mysqli.php 5906 2007-07-28 02:58:20Z bkarwin $
  */
 
 
@@ -54,6 +54,41 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
 {
 
     /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'INT'                => Zend_Db::INT_TYPE,
+        'INTEGER'            => Zend_Db::INT_TYPE,
+        'MEDIUMINT'          => Zend_Db::INT_TYPE,
+        'SMALLINT'           => Zend_Db::INT_TYPE,
+        'TINYINT'            => Zend_Db::INT_TYPE,
+        'BIGINT'             => Zend_Db::BIGINT_TYPE,
+        'SERIAL'             => Zend_Db::BIGINT_TYPE,
+        'DEC'                => Zend_Db::FLOAT_TYPE,
+        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
+        'DOUBLE'             => Zend_Db::FLOAT_TYPE,
+        'DOUBLE PRECISION'   => Zend_Db::FLOAT_TYPE,
+        'FIXED'              => Zend_Db::FLOAT_TYPE,
+        'FLOAT'              => Zend_Db::FLOAT_TYPE
+    );
+
+    /**
+     * @var Zend_Db_Statement_Mysqli
+     */
+    protected $_stmt = null;
+
+    /**
      * Quote a raw string.
      *
      * @param string $value     Raw string
@@ -61,7 +96,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
-        if (is_numeric($value)) {
+        if (is_int($value) || is_float($value)) {
             return $value;
         }
         $this->_connect();
@@ -281,8 +316,15 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     public function prepare($sql)
     {
         $this->_connect();
+        if ($this->_stmt) {
+            $this->_stmt->close();
+        }
         $stmt = new Zend_Db_Statement_Mysqli($this, $sql);
+        if ($stmt === false) {
+            return false;
+        }
         $stmt->setFetchMode($this->_fetchMode);
+        $this->_stmt = $stmt;
         return $stmt;
     }
 
@@ -300,12 +342,12 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      *
      * @param string $tableName   OPTIONAL Name of table.
      * @param string $primaryKey  OPTIONAL Name of primary key column.
-     * @return integer
+     * @return string
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
         $mysqli = $this->_connection;
-        return $mysqli->insert_id;
+        return (string) $mysqli->insert_id;
     }
 
     /**

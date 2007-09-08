@@ -87,7 +87,7 @@ class Zend_Mime_Message
     }
 
     /**
-     * Set Zend_Mime object for the message 
+     * Set Zend_Mime object for the message
      *
      * This can be used to set the boundary specifically or to use a subclass of
      * Zend_Mime for generating the boundary.
@@ -144,7 +144,7 @@ class Zend_Mime_Message
                   . "your mail reader does not support this format." . $EOL;
 
             foreach (array_keys($this->_parts) as $p) {
-                $body .= $boundaryLine 
+                $body .= $boundaryLine
                        . $this->getPartHeaders($p, $EOL)
                        . $EOL
                        . $this->getPartContent($p);
@@ -208,23 +208,23 @@ class Zend_Mime_Message
         $p = strpos($body, '--'.$boundary."\n", $start);
         if ($p === false) {
             // no parts found!
-            return array();  
+            return array();
         }
-        
+
         // position after first boundary line
-        $start = $p + 3 + strlen($boundary); 
+        $start = $p + 3 + strlen($boundary);
 
         while (($p = strpos($body, '--' . $boundary . "\n", $start)) !== false) {
             $res[] = substr($body, $start, $p-$start);
             $start = $p + 3 + strlen($boundary);
         }
-        
+
         // no more parts, find end boundary
         $p = strpos($body, '--' . $boundary . '--', $start);
         if ($p===false) {
             throw new Zend_Exception('Not a valid Mime Message: End Missing');
         }
-        
+
         // the remaining part also needs to be parsed:
         $res[] = substr($body, $start, $p-$start);
         return $res;

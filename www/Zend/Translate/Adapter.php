@@ -159,6 +159,28 @@ abstract class Zend_Translate_Adapter {
 
 
     /**
+     * Returns all avaiable message ids from this adapter
+     *
+     * @return array
+     */
+    public function getMessageIds()
+    {
+        return array_keys($this->_translate);
+    }
+
+
+    /**
+     * Returns all avaiable translations from this adapter
+     *
+     * @return array
+     */
+    public function getMessages()
+    {
+        return $this->_translate;
+    }
+
+
+    /**
      * Is the wished language avaiable ?
      *
      * @param  string|Zend_Locale  $locale  Language to search for, identical with locale identifier,

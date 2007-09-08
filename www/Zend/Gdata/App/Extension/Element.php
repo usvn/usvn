@@ -26,7 +26,7 @@ require_once 'Zend/Gdata/App/Extension.php';
 
 /**
  * Class that represents elements which were not handled by other parsing
- * code in the library.  
+ * code in the library.
  *
  * @category   Zend
  * @package    Zend_Gdata

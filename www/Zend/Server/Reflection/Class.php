@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_Server_Reflection_Method
@@ -31,34 +31,34 @@ require_once 'Zend/Server/Reflection/Exception.php';
 /**
  * Class/Object reflection
  *
- * Proxies calls to a ReflectionClass object, and decorates getMethods() by 
+ * Proxies calls to a ReflectionClass object, and decorates getMethods() by
  * creating its own list of {@link Zend_Server_Reflection_Method}s.
- * 
+ *
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Reflection
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Class.php 2815 2007-01-16 01:42:33Z bkarwin $
+ * @version $Id: Class.php 5756 2007-07-18 21:07:42Z thomas $
  */
 class Zend_Server_Reflection_Class
 {
     /**
-     * Optional configuration parameters; accessible via {@link __get} and 
+     * Optional configuration parameters; accessible via {@link __get} and
      * {@link __set()}
-     * @var array 
+     * @var array
      */
     protected $_config = array();
 
     /**
      * Array of {@link Zend_Server_Reflection_Method}s
-     * @var array 
+     * @var array
      */
     protected $_methods = array();
 
     /**
      * Namespace
-     * @var string 
+     * @var string
      */
     protected $_namespace = null;
 
@@ -71,12 +71,12 @@ class Zend_Server_Reflection_Class
     /**
      * Constructor
      *
-     * Create array of dispatchable methods, each a 
+     * Create array of dispatchable methods, each a
      * {@link Zend_Server_Reflection_Method}. Sets reflection object property.
-     * 
-     * @param ReflectionClass $reflection 
-     * @param string $namespace 
-     * @param mixed $argv 
+     *
+     * @param ReflectionClass $reflection
+     * @param string $namespace
+     * @param mixed $argv
      * @return void
      */
     public function __construct(ReflectionClass $reflection, $namespace = null, $argv = false)
@@ -99,9 +99,9 @@ class Zend_Server_Reflection_Class
 
     /**
      * Proxy reflection calls
-     * 
-     * @param string $method 
-     * @param array $args 
+     *
+     * @param string $method
+     * @param array $args
      * @return mixed
      */
     public function __call($method, $args)
@@ -116,10 +116,10 @@ class Zend_Server_Reflection_Class
     /**
      * Retrieve configuration parameters
      *
-     * Values are retrieved by key from {@link $_config}. Returns null if no 
+     * Values are retrieved by key from {@link $_config}. Returns null if no
      * value found.
-     * 
-     * @param string $key 
+     *
+     * @param string $key
      * @return mixed
      */
     public function __get($key)
@@ -135,9 +135,9 @@ class Zend_Server_Reflection_Class
      * Set configuration parameters
      *
      * Values are stored by $key in {@link $_config}.
-     * 
-     * @param string $key 
-     * @param mixed $value 
+     *
+     * @param string $key
+     * @param mixed $value
      * @return void
      */
     public function __set($key, $value)
@@ -147,7 +147,7 @@ class Zend_Server_Reflection_Class
 
     /**
      * Return array of dispatchable {@link Zend_Server_Reflection_Method}s.
-     * 
+     *
      * @access public
      * @return array
      */
@@ -158,7 +158,7 @@ class Zend_Server_Reflection_Class
 
     /**
      * Get namespace for this class
-     * 
+     *
      * @return string
      */
     public function getNamespace()
@@ -168,7 +168,7 @@ class Zend_Server_Reflection_Class
 
     /**
      * Set namespace for this class
-     * 
+     *
      * @param string $namespace
      * @return void
      */
@@ -188,10 +188,10 @@ class Zend_Server_Reflection_Class
 
     /**
      * Wakeup from serialization
-     * 
-     * Reflection needs explicit instantiation to work correctly. Re-instantiate 
+     *
+     * Reflection needs explicit instantiation to work correctly. Re-instantiate
      * reflection object on wakeup.
-     * 
+     *
      * @return void
      */
     public function __wakeup()

@@ -44,8 +44,8 @@ class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
      * @var string
      */
     protected $_username;
-    
-    
+
+
     /**
      * LOGIN password
      *
@@ -53,7 +53,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
      */
     protected $_password;
 
-    
+
     /**
      * Constructor.
      *
@@ -72,11 +72,11 @@ class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
                 $this->_password = $config['password'];
             }
         }
-        
+
         parent::__construct($host, $port, $config);
     }
 
-    
+
     /**
      * Perform LOGIN authentication with supplied credentials
      *
@@ -86,7 +86,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Login extends Zend_Mail_Protocol_Smtp
     {
         // Ensure AUTH has not already been initiated.
         parent::auth();
-        
+
         $this->_send('AUTH LOGIN');
         $this->_expect(334);
         $this->_send(base64_encode($this->_username));

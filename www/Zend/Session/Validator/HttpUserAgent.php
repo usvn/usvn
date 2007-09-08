@@ -16,7 +16,7 @@
  * @package    Zend_Session
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HttpUserAgent.php 2812 2007-01-16 01:40:54Z bkarwin $
+ * @version    $Id: HttpUserAgent.php 5754 2007-07-18 21:01:51Z thomas $
  * @since      Preview Release 0.2
  */
 
@@ -27,16 +27,16 @@ require_once 'Zend/Session/Validator/Abstract.php';
 
 /**
  * Zend_Session_Validator_HttpUserAgent
- * 
+ *
  * @category Zend
  * @package Zend_Session
  * @subpackage Validators
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Session_Validator_HttpUserAgent extends Zend_Session_Validator_Abstract 
+class Zend_Session_Validator_HttpUserAgent extends Zend_Session_Validator_Abstract
 {
-    
+
     /**
      * Setup() - this method will get the current user agent and store it in the session
      * as 'valid data'
@@ -45,11 +45,11 @@ class Zend_Session_Validator_HttpUserAgent extends Zend_Session_Validator_Abstra
     public function setup()
     {
         $this->setValidData( (isset($_SERVER['HTTP_USER_AGENT'])
-		    ? $_SERVER['HTTP_USER_AGENT'] : null) );
+            ? $_SERVER['HTTP_USER_AGENT'] : null) );
     }
-    
+
     /**
-     * Validate() - this method will determine if the current user agent matches the 
+     * Validate() - this method will determine if the current user agent matches the
      * user agent we stored when we initialized this variable.
      *
      * @return bool
@@ -57,13 +57,13 @@ class Zend_Session_Validator_HttpUserAgent extends Zend_Session_Validator_Abstra
     public function validate()
     {
         $current_browser = (isset($_SERVER['HTTP_USER_AGENT'])
-		    ? $_SERVER['HTTP_USER_AGENT'] : null);
-        
+            ? $_SERVER['HTTP_USER_AGENT'] : null);
+
         if ($current_browser === $this->getValidData()) {
             return true;
         } else {
             return false;
         }
     }
-    
+
 }

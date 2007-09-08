@@ -1,7 +1,7 @@
 Priority 1 :
 
 - end of "Page" frontend (clone of "jpcache")
-	=> introduce conditionnal HTTP requests (304 Not Modified...)
+    => introduce conditionnal HTTP requests (304 Not Modified...)
 
 
 Priority 2 :

@@ -38,6 +38,9 @@ require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
 /** Zend_Search_Lucene_Search_Query_Empty */
 require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
 
+/** Zend_Search_Lucene_Search_Query_Insignificant */
+require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
+
 
 /** Zend_Search_Lucene_Search_QueryLexer */
 require_once 'Zend/Search/Lucene/Search/QueryLexer.php';
@@ -335,7 +338,7 @@ class Zend_Search_Lucene_Search_QueryParser extends Zend_Search_Lucene_FSM
 
         // Empty query
         if (count(self::$_instance->_tokens) == 0) {
-            return new Zend_Search_Lucene_Search_Query_Empty();
+            return new Zend_Search_Lucene_Search_Query_Insignificant();
         }
 
 

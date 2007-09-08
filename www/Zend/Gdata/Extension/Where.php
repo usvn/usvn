@@ -40,8 +40,8 @@ class Zend_Gdata_Extension_Where extends Zend_Gdata_Extension
     protected $_rel = null;
     protected $_valueString = null;
     protected $_entryLink = null;
-    
-    public function __construct($valueString = null, $label = null, $rel = null, $entryLink = null) 
+
+    public function __construct($valueString = null, $label = null, $rel = null, $entryLink = null)
     {
         parent::__construct();
         $this->_valueString = $valueString;
@@ -64,7 +64,7 @@ class Zend_Gdata_Extension_Where extends Zend_Gdata_Extension
         }
         if ($this->entryLink != null) {
             $element->appendChild($this->_entryLink->getDOM($element->ownerDocument));
-        }    
+        }
         return $element;
     }
 
@@ -79,7 +79,7 @@ class Zend_Gdata_Extension_Where extends Zend_Gdata_Extension
             break;
         case 'valueString':
             $this->_valueString = $attribute->nodeValue;
-            break;   
+            break;
         default:
             parent::takeAttributeFromDOM($attribute);
         }
@@ -106,7 +106,7 @@ class Zend_Gdata_Extension_Where extends Zend_Gdata_Extension
         }
     }
 
-    public function __toString() 
+    public function __toString()
     {
         if ($this->_valueString != null) {
             return $this->_valueString;

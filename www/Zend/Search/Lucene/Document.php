@@ -54,10 +54,10 @@ class Zend_Search_Lucene_Document
      * @param  $offset
      * @return string
      */
-	public function __get($offset)
-	{
-		return $this->getFieldValue($offset);
-	}
+    public function __get($offset)
+    {
+        return $this->getFieldValue($offset);
+    }
 
 
     /**
@@ -78,7 +78,7 @@ class Zend_Search_Lucene_Document
      */
     public function getFieldNames()
     {
-    	return array_keys($this->_fields);
+        return array_keys($this->_fields);
     }
 
 
@@ -105,7 +105,7 @@ class Zend_Search_Lucene_Document
      */
     public function getFieldValue($fieldName)
     {
-    	return $this->getField($fieldName)->value;
+        return $this->getField($fieldName)->value;
     }
 
     /**
@@ -116,6 +116,6 @@ class Zend_Search_Lucene_Document
      */
     public function getFieldUtf8Value($fieldName)
     {
-    	return $this->getField($fieldName)->getUtf8Value();
+        return $this->getField($fieldName)->getUtf8Value();
     }
 }

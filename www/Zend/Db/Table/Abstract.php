@@ -18,7 +18,7 @@
  * @subpackage Table
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5502 2007-06-29 18:15:35Z bkarwin $
+ * @version    $Id: Abstract.php 5867 2007-07-26 22:23:35Z bkarwin $
  */
 
 /**
@@ -752,6 +752,14 @@ abstract class Zend_Db_Table_Abstract
         }
 
         /**
+         * If the primary key can be generated automatically, and no value was
+         * specified in the user-supplied data, then omit it from the tuple.
+         */
+        if (array_key_exists($pkIdentity, $data) && $data[$pkIdentity] === null) {
+            unset($data[$pkIdentity]);
+        }
+
+        /**
          * INSERT the new row.
          */
         $this->_db->insert($this->_name, $data);
@@ -827,10 +835,10 @@ abstract class Zend_Db_Table_Abstract
                             if (array_key_exists($refCol, $newPrimaryKey)) {
                                 $newRefs[$col] = $newPrimaryKey[$refCol];
                             }
+                            $type = $this->_metadata[$col]['DATA_TYPE'];
                             $where[] = $this->_db->quoteInto(
                                 $this->_db->quoteIdentifier($col, true) . ' = ?',
-                                $oldPrimaryKey[$refCol]
-                            );
+                                $oldPrimaryKey[$refCol], $type);
                         }
                         $rowsAffected += $this->update($newRefs, $where);
                         break;
@@ -871,10 +879,10 @@ abstract class Zend_Db_Table_Abstract
                         for ($i = 0; $i < count($map[self::COLUMNS]); ++$i) {
                             $col = $this->_db->foldCase($map[self::COLUMNS][$i]);
                             $refCol = $this->_db->foldCase($map[self::REF_COLUMNS][$i]);
+                            $type = $this->_metadata[$col]['DATA_TYPE'];
                             $where[] = $this->_db->quoteInto(
                                 $this->_db->quoteIdentifier($col, true) . ' = ?',
-                                $primaryKey[$refCol]
-                            );
+                                $primaryKey[$refCol], $type);
                         }
                         $rowsAffected += $this->delete($where);
                         break;
@@ -947,10 +955,10 @@ abstract class Zend_Db_Table_Abstract
             foreach ($whereList as $keyValueSets) {
                 $whereAndTerms = array();
                 foreach ($keyValueSets as $keyPosition => $keyValue) {
+                    $type = $this->_metadata[$keyNames[$keyPosition]]['DATA_TYPE'];
                     $whereAndTerms[] = $this->_db->quoteInto(
                         $this->_db->quoteIdentifier($keyNames[$keyPosition], true) . ' = ?',
-                        $keyValue
-                    );
+                        $keyValue, $type);
                 }
                 $whereOrTerms[] = '(' . implode(' AND ', $whereAndTerms) . ')';
             }
@@ -1038,17 +1046,7 @@ abstract class Zend_Db_Table_Abstract
         $keys = array_flip($this->_cols);
         $data = array_intersect_key($data, $keys);
         $data = array_merge($defaults, $data);
-        
-        /**
-         * If the primary key can be generated automatically, and no value was 
-         * specified in the user-supplied data, then omit it from the tuple.
-         */
-        $primary = (array) $this->_primary;
-        $pkIdentity = $primary[(int)$this->_identity];
-        if ($data[$pkIdentity] === null) {
-            unset($data[$pkIdentity]);   
-        }
-        
+
         $config = array(
             'table'   => $this,
             'data'    => $data,

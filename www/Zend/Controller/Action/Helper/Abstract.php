@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 
 /** Zend_Controller_Exception */
@@ -33,7 +33,7 @@ require_once 'Zend/Controller/Action.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Controller_Action_Helper_Abstract 
+abstract class Zend_Controller_Action_Helper_Abstract
 {
 
     /**
@@ -45,14 +45,14 @@ abstract class Zend_Controller_Action_Helper_Abstract
 
     /**
      * Request object
-     * 
+     *
      * @var Zend_Controller_Request_Abstract
      */
     protected $_request;
 
     /**
      * Response object
-     * 
+     *
      * @var Zend_Controller_Response_Abstract
      */
     protected $_response;
@@ -71,47 +71,47 @@ abstract class Zend_Controller_Action_Helper_Abstract
 
     /**
      * Retrieve current action controller
-     * 
+     *
      * @return Zend_Controller_Action
      */
     public function getActionController()
     {
         return $this->_actionController;
     }
-    
+
     /**
      * Hook into action controller initialization
-     * 
+     *
      * @return void
      */
     public function init()
     {
     }
-    
+
     /**
      * Hook into action controller preDispatch() workflow
-     * 
+     *
      * @return void
      */
     public function preDispatch()
     {
     }
-    
+
     /**
      * Hook into action controller postDispatch() workflow
-     * 
+     *
      * @return void
      */
     public function postDispatch()
     {
     }
-    
+
     /**
-     * getRequest() - 
-     * 
-     * @return Zend_Controller_Request_Abstract $request 
+     * getRequest() -
+     *
+     * @return Zend_Controller_Request_Abstract $request
      */
-    public function getRequest() 
+    public function getRequest()
     {
         if (null === $this->_request) {
             $this->_request = $this->_actionController->getRequest();
@@ -122,8 +122,8 @@ abstract class Zend_Controller_Action_Helper_Abstract
 
     /**
      * getResponse() -
-     * 
-     * @return Zend_Controller_Response_Abstract $response 
+     *
+     * @return Zend_Controller_Response_Abstract $response
      */
     public function getResponse()
     {
@@ -133,9 +133,9 @@ abstract class Zend_Controller_Action_Helper_Abstract
 
         return $this->_response;
     }
-    
+
     /**
-     * getName() 
+     * getName()
      *
      * @return string
      */

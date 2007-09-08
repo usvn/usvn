@@ -17,7 +17,7 @@
  * @package    Zend_Db
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db.php 5100 2007-06-04 19:02:22Z bkarwin $
+ * @version    $Id: Db.php 5867 2007-07-26 22:23:35Z bkarwin $
  */
 
 
@@ -43,9 +43,22 @@ require_once 'Zend/Db/Exception.php';
 class Zend_Db
 {
 
+    /**
+     * Use the CASE_FOLDING constant in the config of a Zend_Db_Adapter.
+     */
     const CASE_FOLDING = 'caseFolding';
 
+    /**
+     * Use the AUTO_QUOTE_IDENTIFIERS constant in the config of a Zend_Db_Adapter.
+     */
     const AUTO_QUOTE_IDENTIFIERS = 'autoQuoteIdentifiers';
+
+    /**
+     * Use the INT_TYPE, BIGINT_TYPE, and FLOAT_TYPE with the quoteType() method.
+     */
+    const INT_TYPE    = 0;
+    const BIGINT_TYPE = 1;
+    const FLOAT_TYPE  = 2;
 
     /**
      * PDO constant values discovered by this script result:

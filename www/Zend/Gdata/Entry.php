@@ -40,7 +40,7 @@ class Zend_Gdata_Entry extends Zend_Gdata_App_Entry
     public function __construct($element = null)
     {
         foreach (Zend_Gdata::$namespaces as $nsPrefix => $nsUri) {
-            $this->registerNamespace($nsPrefix, $nsUri); 
+            $this->registerNamespace($nsPrefix, $nsUri);
         }
         parent::__construct($element);
     }

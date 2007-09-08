@@ -45,7 +45,7 @@ require_once 'Zend/Gdata/Calendar/ListFeed.php';
 require_once 'Zend/Gdata/Calendar/ListEntry.php';
 
 /**
- * Service class for interacting with the Google Calendar data API 
+ * Service class for interacting with the Google Calendar data API
  * @link http://code.google.com/apis/gdata/calendar.html
  *
  * @category   Zend

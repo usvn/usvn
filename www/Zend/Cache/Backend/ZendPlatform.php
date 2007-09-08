@@ -46,8 +46,8 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
     // --- Constants ---
     // -----------------
     const TAGS_PREFIX = "internal_ZPtag:";
-    
-    
+
+
     // ----------------------
     // --- Public methods ---
     // ----------------------
@@ -77,7 +77,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
         if (!is_writable($accConf['output_cache_dir'])) {
             Zend_Cache::throwException('The cache copies directory \''. ini_get('zend_accelerator.output_cache_dir') .'\' must be writable !');
         }
-        parent:: __construct($options);       
+        parent:: __construct($options);
     }
 
     /**
@@ -140,7 +140,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
         $lifetime = $this->_directives['lifetime'];
         $result1  = output_cache_put($id, array($data, time()));
         $result2  = (count($tags) == 0);
-        
+
         foreach ($tags as $tag) {
             $tagid = self::TAGS_PREFIX.$tag;
             $old_tags = output_cache_get($tagid, $lifetime);

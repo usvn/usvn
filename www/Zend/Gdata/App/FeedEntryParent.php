@@ -120,7 +120,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
                 $this->transferFromDOM($element);
             }
         } else {
-	        $this->transferFromDOM($element);
+            $this->transferFromDOM($element);
         }
     }
 
@@ -252,13 +252,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param array $value 
+     * @param array $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setAuthor($value)
     {
         $this->_author = $value;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -270,13 +270,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param array $value 
+     * @param array $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setCategory($value)
     {
         $this->_category = $value;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -288,13 +288,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param array $value 
+     * @param array $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setContributor($value)
     {
         $this->_contributor = $value;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -309,14 +309,14 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * @param Zend_Gdata_App_Extension_Id $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
-    public function setId($value) 
+    public function setId($value)
     {
         $this->_id = $value;
         return $this;
     }
 
     /**
-     * @param string $rel The rel value of the link to be found.  If null, 
+     * @param string $rel The rel value of the link to be found.  If null,
      * the array of links is returned
      */
     public function getLink($rel = null)
@@ -395,7 +395,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * @param Zend_Gdata_App_Extension_Rights $value
      * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
-    public function setRights($value) 
+    public function setRights($value)
     {
         $this->_rights = $value;
         return $this;
@@ -410,13 +410,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Title $value 
+     * @param Zend_Gdata_App_Extension_Title $value
      * @return Zend_Gdata_App_Feed_Entry_Parent Provides a fluent interface
      */
     public function setTitle($value)
     {
         $this->_title = $value;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -428,13 +428,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Updated $value 
+     * @param Zend_Gdata_App_Extension_Updated $value
      * @return Zend_Gdata_App_Feed_Entry_Parent Provides a fluent interface
      */
     public function setUpdated($value)
     {
         $this->_updated = $value;
-        return $this; 
+        return $this;
     }
 
 }

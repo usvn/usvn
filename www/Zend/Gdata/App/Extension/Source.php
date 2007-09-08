@@ -35,7 +35,7 @@ require_once 'Zend/Gdata/App/FeedSourceParent.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Gdata_App_Extension_Source extends Zend_Gdata_App_FeedSourceParent 
+class Zend_Gdata_App_Extension_Source extends Zend_Gdata_App_FeedSourceParent
 {
 
     protected $_rootElement = 'source';

@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client
- * @version    $Id: Client.php 5439 2007-06-24 13:15:43Z shahar $
+ * @version    $Id: Client.php 5771 2007-07-18 22:06:24Z thomas $
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -326,22 +326,22 @@ class Zend_Http_Client
             if ($value === null && (strpos($name, ':') > 0))
                 list($name, $value) = explode(':', $name, 2);
 
-            $name = strtolower($name);
-            
             // Make sure the name is valid
-            if (! preg_match('/^[a-z0-9-]+$/', $name)) {
+            if (! preg_match('/^[a-zA-Z0-9-]+$/', $name)) {
                 throw new Zend_Http_Client_Exception("{$name} is not a valid HTTP header name");
             }
 
+            $normalized_name = strtolower($name);
+
             // If $value is null or false, unset the header
             if ($value === null || $value === false) {
-                unset($this->headers[$name]);
+                unset($this->headers[$normalized_name]);
 
             // Else, set the header
             } else {
                 // Header names are storred lowercase internally.
                 if (is_string($value)) $value = trim($value);
-                $this->headers[$name] = $value;
+                $this->headers[$normalized_name] = array($name, $value);
             }
         }
 
@@ -361,7 +361,7 @@ class Zend_Http_Client
     {
         $key = strtolower($key);
         if (isset($this->headers[$key])) {
-            return $this->headers[$key];
+            return $this->headers[$key][1];
         } else {
             return null;
         }
@@ -569,8 +569,8 @@ class Zend_Http_Client
 
             $value = addslashes($value);
 
-            if (! isset($this->headers['cookie'])) $this->headers['cookie'] = '';
-            $this->headers['cookie'] .= $cookie . '=' . $value . '; ';
+            if (! isset($this->headers['cookie'])) $this->headers['cookie'] = array('Cookie', '');
+            $this->headers['cookie'][1] .= $cookie . '=' . $value . '; ';
         }
 
         return $this;
@@ -850,11 +850,20 @@ class Zend_Http_Client
             if (! $this->config['keepalive']) $headers[] = "Connection: close";
         }
 
+        // Set the Accept-encoding header if not set - depending on whether
+        // zlib is available or not.
+        if (! isset($this->headers['accept-encoding'])) {
+            if (function_exists('gzinflate')) {
+                $headers[] = 'Accept-encoding: gzip, deflate';
+            } else {
+                $headers[] = 'Accept-encoding: identity';
+            }
+        }
+
         // Set the content-type header
-        if ($this->method == self::POST && 
+        if ($this->method == self::POST &&
            (! isset($this->headers['content-type']) && isset($this->enctype))) {
-            
-	    $headers[] = "Content-type: {$this->enctype}";
+            $headers[] = "Content-type: {$this->enctype}";
         }
 
         // Set the user agent header
@@ -877,11 +886,12 @@ class Zend_Http_Client
         }
 
         // Add all other user defined headers
-        foreach ($this->headers as $name => $value) {
+        foreach ($this->headers as $header) {
+            list($name, $value) = $header;
             if (is_array($value))
                 $value = implode(', ', $value);
 
-            $headers[] = ucfirst($name) . ": {$value}";
+            $headers[] = "$name: $value";
         }
 
         return $headers;
@@ -901,7 +911,7 @@ class Zend_Http_Client
 
         // If we have raw_post_data set, just use it as the body.
         if (isset($this->raw_post_data)) {
-            $this->setHeaders('content-length', strlen($this->raw_post_data));
+            $this->setHeaders('Content-length', strlen($this->raw_post_data));
             return $this->raw_post_data;
         }
 
@@ -946,7 +956,7 @@ class Zend_Http_Client
             }
         }
 
-        if ($body) $this->setHeaders('content-length', strlen($body));
+        if ($body) $this->setHeaders('Content-length', strlen($body));
         return $body;
     }
 
@@ -998,7 +1008,7 @@ class Zend_Http_Client
      */
     public static function encodeFormData($boundary, $name, $value, $filename = null, $headers = array()) {
         $ret = "--{$boundary}\r\n" .
-            'Content-Disposition: form-data; name="' . $name .'"';
+            'Content-disposition: form-data; name="' . $name .'"';
 
         if ($filename) $ret .= '; filename="' . $filename . '"';
         $ret .= "\r\n";

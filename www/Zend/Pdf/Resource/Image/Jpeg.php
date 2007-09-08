@@ -106,16 +106,16 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
         fclose($imageFile);
         $this->_resource->skipFilters();
 
-	$this->_width = $imageInfo[0];
-	$this->_height = $imageInfo[1];
-	$this->_imageProperties = array();
-	$this->_imageProperties['bitDepth'] = $imageInfo['bits'];
-	$this->_imageProperties['jpegImageType'] = $imageInfo[2];
-	$this->_imageProperties['jpegColorType'] = $imageInfo['channels'];
+    $this->_width = $imageInfo[0];
+    $this->_height = $imageInfo[1];
+    $this->_imageProperties = array();
+    $this->_imageProperties['bitDepth'] = $imageInfo['bits'];
+    $this->_imageProperties['jpegImageType'] = $imageInfo[2];
+    $this->_imageProperties['jpegColorType'] = $imageInfo['channels'];
     }
 
     /**
-     * Image width 
+     * Image width
      */
     public function getPixelWidth() {
         return $this->_width;

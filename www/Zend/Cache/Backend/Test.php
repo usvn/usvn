@@ -20,7 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
- 
+
 /**
  * Zend_Cache_Backend_Interface
  */
@@ -33,78 +33,78 @@ require_once 'Zend/Cache/Backend/Interface.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface 
+class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface
 {
-    
+
     // ------------------
     // --- Properties ---
     // ------------------
-       
+
     /**
      * Available options
-     * 
+     *
      * @var array available options
      */
     private $_options = array();
-  
+
     /**
      * Frontend or Core directives
-     * 
+     *
      * @var array directives
      */
     private $_directives = array();
-    
+
     /**
      * Array to log actions
-     * 
+     *
      * @var array $_log
      */
     private $_log = array();
-    
+
     /**
      * Current index for log array
-     * 
+     *
      * @var int $_index
      */
     private $_index = 0;
-    
-    
+
+
     // ----------------------
     // --- Public methods ---
     // ----------------------
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param array $options associative array of options
      */
     public function __construct($options = array())
-    {      
+    {
         $this->_addLog('construct', array($options));
     }
-    
+
     /**
      * Set the frontend directives
-     * 
+     *
      * @param array $directives assoc of directives
      */
     public function setDirectives($directives)
     {
         $this->_addLog('setDirectives', array($directives));
-    } 
-    
+    }
+
     /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
-     * 
+     *
      * For this test backend only, if $id == 'false', then the method will return false
      * if $id == 'serialized', the method will return a serialized array
      * ('foo' else)
-     * 
+     *
      * @param string $id cache id
      * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
      * @return string cached datas (or false)
      */
-    public function load($id, $doNotTestCacheValidity = false) 
+    public function load($id, $doNotTestCacheValidity = false)
     {
         $this->_addLog('get', array($id, $doNotTestCacheValidity));
         if ($id=='false') {
@@ -118,13 +118,13 @@ class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface
         }
         return 'foo';
     }
-    
+
     /**
      * Test if a cache is available or not (for the given id)
-     * 
+     *
      * For this test backend only, if $id == 'false', then the method will return false
      * (123456 else)
-     * 
+     *
      * @param string $id cache id
      * @return mixed false (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
@@ -139,7 +139,7 @@ class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface
         }
         return 123456;
     }
-    
+
     /**
      * Save some string datas into a cache record
      *
@@ -160,17 +160,17 @@ class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface
         }
         return true;
     }
-    
+
     /**
      * Remove a cache record
-     * 
+     *
      * For this test backend only, if $id == 'false', then the method will return false
      * (true else)
-     * 
+     *
      * @param string $id cache id
      * @return boolean true if no problem
      */
-    public function remove($id) 
+    public function remove($id)
     {
         $this->_addLog('remove', array($id));
         if ($id=='false') {
@@ -178,7 +178,7 @@ class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface
         }
         return true;
     }
-    
+
     /**
      * Clean some cache records
      *
@@ -187,63 +187,73 @@ class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface
      *
      * Available modes are :
      * Zend_Cache::CLEANING_MODE_ALL (default)    => remove all cache entries ($tags is not used)
-     * Zend_Cache::CLEANING_MODE_OLD              => remove too old cache entries ($tags is not used) 
-     * Zend_Cache::CLEANING_MODE_MATCHING_TAG     => remove cache entries matching all given tags 
-     *                                               ($tags can be an array of strings or a single string) 
+     * Zend_Cache::CLEANING_MODE_OLD              => remove too old cache entries ($tags is not used)
+     * Zend_Cache::CLEANING_MODE_MATCHING_TAG     => remove cache entries matching all given tags
+     *                                               ($tags can be an array of strings or a single string)
      * Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG => remove cache entries not {matching one of the given tags}
-     *                                               ($tags can be an array of strings or a single string)       
-     * 
+     *                                               ($tags can be an array of strings or a single string)
+     *
      * @param string $mode clean mode
      * @param tags array $tags array of tags
      * @return boolean true if no problem
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array()) 
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
         $this->_addLog('clean', array($mode, $tags));
         if ($mode=='false') {
             return false;
         }
         return true;
-    }  
-    
+    }
+
     /**
      * Get the last log
-     * 
+     *
      * @return string the last log
      */
     public function getLastLog()
     {
         return $this->_log[$this->_index - 1];
     }
-    
+
     /**
      * Get the log index
-     * 
+     *
      * @return int log index
      */
     public function getLogIndex()
     {
         return $this->_index;
     }
-    
+
     /**
      * Get the complete log array
-     * 
+     *
      * @return array complete log array
      */
     public function getAllLogs()
     {
         return $this->_log;
     }
-    
-         
+
+    /**
+     * Return true if the automatic cleaning is available for the backend
+     *
+     * @return boolean
+     */
+    public function isAutomaticCleaningAvailable()
+    {
+        return true;
+    }
+
+
     // -----------------------
     // --- Private methods ---
     // -----------------------
-    
+
     /**
      * Add an event to the log array
-     * 
+     *
      * @param string $methodName methodName
      * @param array $args arguments
      */
@@ -254,6 +264,6 @@ class Zend_Cache_Backend_Test implements Zend_Cache_Backend_Interface
             'args' => $args
         );
         $this->_index = $this->_index + 1;
-    }  
-    
+    }
+
 }

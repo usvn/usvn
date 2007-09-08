@@ -23,7 +23,7 @@
 require_once 'Zend/Controller/Router/Route/Interface.php';
 
 /**
- * Regex Route 
+ * Regex Route
  *
  * @package    Zend_Controller
  * @subpackage Router
@@ -35,13 +35,13 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
     protected $_regex = null;
     protected $_defaults = array();
     protected $_reverse = null;
-    
+
     protected $_values = array();
-    
+
     /**
      * Instantiates route based on passed Zend_Config structure
      */
-    public static function getInstance(Zend_Config $config) 
+    public static function getInstance(Zend_Config $config)
     {
         $defs = ($config->defaults instanceof Zend_Config) ? $config->defaults->toArray() : array();
         $map = ($config->map instanceof Zend_Config) ? $config->map->toArray() : array();
@@ -58,10 +58,10 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
     }
 
     /**
-     * Matches a user submitted path with a previously defined route. 
-     * Assigns and returns an array of defaults on a successful match.  
+     * Matches a user submitted path with a previously defined route.
+     * Assigns and returns an array of defaults on a successful match.
      *
-     * @param string Path used to match against this routing map 
+     * @param string Path used to match against this routing map
      * @return array|false An array of assigned values or a false on a mismatch
      */
     public function match($path)
@@ -69,7 +69,7 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
         $path = trim(urldecode($path), '/');
         $res = preg_match($this->_regex, $path, $values);
 
-        if ($res === 0) return false; 
+        if ($res === 0) return false;
 
         // array_filter_key()? Why isn't this in a standard PHP function set yet? :)
         foreach ($values as $i => $value) {
@@ -77,39 +77,39 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
                 unset($values[$i]);
             }
         }
-        
+
         $this->_values = $values;
-                     
+
         $values = $this->_getMappedValues($values);
         $defaults = $this->_getMappedValues($this->_defaults, false, true);
 
         $return = $values + $defaults;
-         
+
         return $return;
     }
-    
+
     /**
-     * Maps numerically indexed array values to it's associative mapped counterpart. 
-     * Or vice versa. Uses user provided map array which consists of index => name 
+     * Maps numerically indexed array values to it's associative mapped counterpart.
+     * Or vice versa. Uses user provided map array which consists of index => name
      * parameter mapping. If map is not found, it returns original array.
-     * 
-     * Method strips destination type of keys form source array. Ie. if source array is 
-     * indexed numerically then every associative key will be stripped. Vice versa if reversed 
-     * is set to true.      
      *
-     * @param array Indexed or associative array of values to map 
-     * @param boolean False means translation of index to association. True means reverse.  
-     * @param boolean Should wrong type of keys be preserved or stripped.  
+     * Method strips destination type of keys form source array. Ie. if source array is
+     * indexed numerically then every associative key will be stripped. Vice versa if reversed
+     * is set to true.
+     *
+     * @param array Indexed or associative array of values to map
+     * @param boolean False means translation of index to association. True means reverse.
+     * @param boolean Should wrong type of keys be preserved or stripped.
      * @return array An array of mapped values
      */
     protected function _getMappedValues($values, $reversed = false, $preserve = false)
     {
         if (count($this->_map) == 0) {
-            return $values; 
+            return $values;
         }
 
         $return = array();
-        
+
         foreach ($values as $key => $value) {
             if (is_int($key) && !$reversed) {
                 if (array_key_exists($key, $this->_map)) {
@@ -127,14 +127,14 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
                 $return[$key] = $value;
             }
         }
-        
+
         return $return;
     }
-    
+
     /**
-     * Assembles a URL path defined by this route 
+     * Assembles a URL path defined by this route
      *
-     * @param array An array of name (or index) and value pairs used as parameters 
+     * @param array An array of name (or index) and value pairs used as parameters
      * @return string Route path with user submitted parameters
      */
     public function assemble($data = array())
@@ -143,28 +143,28 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
             require_once 'Zend/Controller/Router/Exception.php';
             throw new Zend_Controller_Router_Exception('Cannot assemble. Reversed route is not specified.');
         }
-        
+
         $data = $this->_getMappedValues($data, true, false);
         $data += $this->_getMappedValues($this->_defaults, true, false);
         $data += $this->_values;
-        
+
         ksort($data);
-        
+
         $return = @vsprintf($this->_reverse, $data);
 
         if ($return === false) {
             require_once 'Zend/Controller/Router/Exception.php';
             throw new Zend_Controller_Router_Exception('Cannot assemble. Too few arguments?');
         }
-        
+
         return $return;
-        
+
     }
-    
+
     /**
-     * Return a single parameter of route's defaults 
+     * Return a single parameter of route's defaults
      *
-     * @param name Array key of the parameter 
+     * @param name Array key of the parameter
      * @return string Previously set default
      */
     public function getDefault($name) {
@@ -174,7 +174,7 @@ class Zend_Controller_Router_Route_Regex implements Zend_Controller_Router_Route
     }
 
     /**
-     * Return an array of defaults 
+     * Return an array of defaults
      *
      * @return array Route defaults
      */

@@ -118,7 +118,7 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
         $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($this->_phrase, $encoding);
 
         if (count($tokens) == 0) {
-            return new Zend_Search_Lucene_Search_Query_Empty();
+            return new Zend_Search_Lucene_Search_Query_Insignificant();
         }
 
         if (count($tokens) == 1) {
@@ -130,10 +130,12 @@ class Zend_Search_Lucene_Search_QueryEntry_Phrase extends Zend_Search_Lucene_Sea
         }
 
         //It's not empty or one term query
+        $position = -1;
         $query = new Zend_Search_Lucene_Search_Query_Phrase();
         foreach ($tokens as $token) {
+            $position += $token->getPositionIncrement();
             $term = new Zend_Search_Lucene_Index_Term($token->getTermText(), $this->_field);
-            $query->addTerm($term);
+            $query->addTerm($term, $position);
         }
 
         if ($this->_proximityQuery) {

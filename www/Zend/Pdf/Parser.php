@@ -218,8 +218,8 @@ class Zend_Pdf_Parser
                     }
                     $this->_stringParser->offset++;
 
-                	$refCount--;
-                	$objNum++;
+                    $refCount--;
+                    $objNum++;
                 }
             }
 

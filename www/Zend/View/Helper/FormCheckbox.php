@@ -28,20 +28,20 @@ require_once 'Zend/View/Helper/FormElement.php';
 
 /**
  * Helper to generate a "checkbox" element
- * 
+ *
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement 
+class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
 {
     /**
      * Generates a 'checkbox' element.
-     * 
+     *
      * @access public
-     * 
+     *
      * @param string|array $name If a string, the element name.  If an
      * array, all other parameters are ignored, and the array elements
      * are extracted in place of added parameters.
@@ -57,11 +57,11 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
     {
         $info = $this->_getInfo($name, $value, $attribs, $options);
         extract($info); // name, id, value, attribs, options, listsep, disable
-        
+
         // make sure attribs don't overwrite name and value
         unset($attribs['name']);
         unset($attribs['value']);
-        
+
         // set up checked/unchecked options
         if (empty($options)) {
             $options = array(1, 0);
@@ -71,7 +71,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
                 $options[1] = null;
             }
         }
-        
+
         // build the element
         if ($disable) {
             // disabled.
@@ -86,18 +86,17 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
             // enabled. add the hidden "unchecked" option first, then
             // the the checkbox itself) next. this way, if not-checked,
             // the "unchecked" option is returned to the server instead.
-            $checkboxValue = (null === $value) ? $options[0] : $value;
-            $xhtml = $this->_hidden($name, $options[1]) 
+            $xhtml = $this->_hidden($name, $options[1])
                    . '<input type="checkbox"'
                    . ' name="' . $this->view->escape($name) . '"'
                    . ' id="' . $this->view->escape($id) . '"'
-                   . ' value="' . $this->view->escape($checkboxValue) . '"';
-            
+                   . ' value="' . $this->view->escape($options[0]) . '"';
+
             // is it checked already?
             if ($value == $options[0]) {
                 $xhtml .= ' checked="checked"';
             }
-            
+
             // add attributes and close.
             $xhtml .= ' ' . $this->_htmlAttribs($attribs) . ' />';
         }

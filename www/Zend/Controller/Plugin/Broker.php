@@ -64,7 +64,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
         }
 
         $stackIndex = (int) $stackIndex;
-        
+
         if ($stackIndex) {
             if (isset($this->_plugins[$stackIndex])) {
                 throw new Zend_Controller_Exception('Plugin with stackIndex "' . $stackIndex . '" already registered');
@@ -77,7 +77,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
             }
             $this->_plugins[$stackIndex] = $plugin;
         }
-        
+
         ksort($this->_plugins);
 
         return $this;
@@ -112,8 +112,8 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
 
     /**
      * Is a plugin of a particular class registered?
-     * 
-     * @param  string $class 
+     *
+     * @param  string $class
      * @return bool
      */
     public function hasPlugin($class)
@@ -131,7 +131,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
 
     /**
      * Retrieve a plugin or plugins by class
-     * 
+     *
      * @param  string $class Class name of plugin(s) desired
      * @return false|Zend_Controller_Plugin_Abstract|array Returns false if none found, plugin if only one found, and array of plugins if multiple plugins of same class found
      */
@@ -157,7 +157,7 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
 
     /**
      * Retrieve all plugins
-     * 
+     *
      * @return array
      */
     public function getPlugins()
@@ -167,11 +167,11 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
 
     /**
      * Set request object, and register with each plugin
-     * 
-     * @param Zend_Controller_Request_Abstract $request 
+     *
+     * @param Zend_Controller_Request_Abstract $request
      * @return Zend_Controller_Plugin_Broker
      */
-    public function setRequest(Zend_Controller_Request_Abstract $request) 
+    public function setRequest(Zend_Controller_Request_Abstract $request)
     {
         $this->_request = $request;
 
@@ -184,21 +184,21 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
 
     /**
      * Get request object
-     * 
-     * @return Zend_Controller_Request_Abstract $request 
+     *
+     * @return Zend_Controller_Request_Abstract $request
      */
-    public function getRequest() 
+    public function getRequest()
     {
         return $this->_request;
     }
 
     /**
      * Set response object
-     * 
-     * @param Zend_Controller_Response_Abstract $response 
+     *
+     * @param Zend_Controller_Response_Abstract $response
      * @return Zend_Controller_Plugin_Broker
      */
-    public function setResponse(Zend_Controller_Response_Abstract $response) 
+    public function setResponse(Zend_Controller_Response_Abstract $response)
     {
         $this->_response = $response;
 
@@ -212,10 +212,10 @@ class Zend_Controller_Plugin_Broker extends Zend_Controller_Plugin_Abstract
 
     /**
      * Get response object
-     * 
-     * @return Zend_Controller_Response_Abstract $response 
+     *
+     * @return Zend_Controller_Response_Abstract $response
      */
-    public function getResponse() 
+    public function getResponse()
     {
         return $this->_response;
     }

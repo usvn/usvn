@@ -49,10 +49,10 @@ class Zend_Rest_Client extends Zend_Service_Abstract
      * @var Zend_Uri_Http
      */
     protected $_uri = null;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param string|Zend_Uri_Http $uri URI for the web service
      * @return void
      */
@@ -65,7 +65,7 @@ class Zend_Rest_Client extends Zend_Service_Abstract
 
     /**
      * Set the URI to use in the request
-     * 
+     *
      * @param string|Zend_Uri_Http $uri URI for the web service
      * @return Zend_Rest_Client
      */
@@ -82,7 +82,7 @@ class Zend_Rest_Client extends Zend_Service_Abstract
 
     /**
      * Retrieve the current request URI object
-     * 
+     *
      * @return Zend_Uri_Http
      */
     public function getUri()
@@ -104,15 +104,15 @@ class Zend_Rest_Client extends Zend_Service_Abstract
             require_once 'Zend/Rest/Client/Exception.php';
             throw new Zend_Rest_Client_Exception('URI object must be set before performing call');
         }
-        
+
         $uri = $this->_uri->getUri();
-        
+
         if ($path[0] != '/' && $uri[strlen($uri)-1] != '/') {
             $path = '/' . $path;
         }
 
         $this->_uri->setPath($path);
-       
+
         /**
          * Get the HTTP client and configure it for the endpoint URI.  Do this each time
          * because the Zend_Http_Client instance is shared among all Zend_Service_Abstract subclasses.
@@ -138,12 +138,12 @@ class Zend_Rest_Client extends Zend_Service_Abstract
     /**
      * Perform a POST or PUT
      *
-     * Performs a POST or PUT request. Any data provided is set in the HTTP 
-     * client. String data is pushed in as raw POST data; array or object data 
+     * Performs a POST or PUT request. Any data provided is set in the HTTP
+     * client. String data is pushed in as raw POST data; array or object data
      * is pushed in as POST parameters.
-     * 
-     * @param mixed $method 
-     * @param mixed $data 
+     *
+     * @param mixed $method
+     * @param mixed $data
      * @return Zend_Http_Response
      */
     protected function _performPost($method, $data = null)
@@ -198,14 +198,14 @@ class Zend_Rest_Client extends Zend_Service_Abstract
     /**
      * Method call overload
      *
-     * Allows calling REST actions as object methods; however, you must 
-     * follow-up by chaining the request with a request to an HTTP request 
+     * Allows calling REST actions as object methods; however, you must
+     * follow-up by chaining the request with a request to an HTTP request
      * method (post, get, delete, put):
      * <code>
      * $response = $rest->sayHello('Foo', 'Manchu')->get();
      * </code>
      *
-     * You can also use an HTTP request method as a calling method, using the 
+     * You can also use an HTTP request method as a calling method, using the
      * path as the first argument:
      * <code>
      * $rest->get('/sayHello', 'Foo', 'Manchu');
@@ -219,13 +219,13 @@ class Zend_Rest_Client extends Zend_Service_Abstract
      *
      * @param string $method Method name
      * @param array $args Method args
-     * @return Zend_Rest_Client_Result|Zend_Rest_Client Zend_Rest_Client if using 
+     * @return Zend_Rest_Client_Result|Zend_Rest_Client Zend_Rest_Client if using
      * a remote method, Zend_Rest_Client_Result if using an HTTP request method
      */
     public function __call($method, $args)
     {
         $methods = array('post', 'get', 'delete', 'put');
-        
+
         if (in_array(strtolower($method), $methods)) {
             if (!isset($args[0])) {
                 $args[0] = $this->_uri->getPath();

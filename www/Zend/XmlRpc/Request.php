@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_XmlRpc_Exception
@@ -36,43 +36,43 @@ require_once 'Zend/XmlRpc/Fault.php';
 /**
  * XmlRpc Request object
  *
- * Encapsulates an XmlRpc request, holding the method call and all parameters. 
- * Provides accessors for these, as well as the ability to load from XML and to 
+ * Encapsulates an XmlRpc request, holding the method call and all parameters.
+ * Provides accessors for these, as well as the ability to load from XML and to
  * create the XML request string.
  *
- * Additionally, if errors occur setting the method or parsing XML, a fault is 
- * generated and stored in {@link $_fault}; developers may check for it using 
+ * Additionally, if errors occur setting the method or parsing XML, a fault is
+ * generated and stored in {@link $_fault}; developers may check for it using
  * {@link isFault()} and {@link getFault()}.
- * 
+ *
  * @category Zend
  * @package  Zend_XmlRpc
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Request.php 4901 2007-05-23 15:46:16Z matthew $
+ * @version $Id: Request.php 5750 2007-07-18 20:49:47Z thomas $
  */
 class Zend_XmlRpc_Request
 {
     /**
      * Request character encoding
-     * @var string 
+     * @var string
      */
     protected $_encoding = 'UTF-8';
 
     /**
      * Method to call
-     * @var string 
+     * @var string
      */
     protected $_method;
 
     /**
      * XML request
-     * @var string 
+     * @var string
      */
     protected $_xml;
 
     /**
      * Method parameters
-     * @var array 
+     * @var array
      */
     protected $_params = array();
 
@@ -82,7 +82,7 @@ class Zend_XmlRpc_Request
      */
     protected $_fault = null;
 
-    
+
     /**
      * Create a new XML-RPC request
      *
@@ -94,7 +94,7 @@ class Zend_XmlRpc_Request
         if ($method !== null) {
             $this->setMethod($method);
         }
-        
+
         if ($params !== null) {
             $this->setParams($params);
         }
@@ -103,8 +103,8 @@ class Zend_XmlRpc_Request
 
     /**
      * Set encoding to use in request
-     * 
-     * @param string $encoding 
+     *
+     * @param string $encoding
      * @return Zend_XmlRpc_Request
      */
     public function setEncoding($encoding)
@@ -115,7 +115,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Retrieve current request encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -125,8 +125,8 @@ class Zend_XmlRpc_Request
 
     /**
      * Set method to call
-     * 
-     * @param string $method 
+     *
+     * @param string $method
      * @return boolean Returns true on success, false if method name is invalid
      */
     public function setMethod($method)
@@ -143,7 +143,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Retrieve call method
-     * 
+     *
      * @return string
      */
     public function getMethod()
@@ -154,10 +154,10 @@ class Zend_XmlRpc_Request
     /**
      * Add a parameter to the parameter stack
      *
-     * Adds a parameter to the parameter stack, associating it with the type 
+     * Adds a parameter to the parameter stack, associating it with the type
      * $type if provided
-     * 
-     * @param mixed $value 
+     *
+     * @param mixed $value
      * @param string $type Optional; type hinting
      * @return void
      */
@@ -170,11 +170,11 @@ class Zend_XmlRpc_Request
     /**
      * Set the parameters array
      *
-     * If called with a single, array value, that array is used to set the 
-     * parameters stack. If called with multiple values or a single non-array 
+     * If called with a single, array value, that array is used to set the
+     * parameters stack. If called with multiple values or a single non-array
      * value, the arguments are used to set the parameters stack.
      *
-     * Best is to call with array of the format, in order to allow type hinting 
+     * Best is to call with array of the format, in order to allow type hinting
      * when creating the XMLRPC values for each parameter:
      * <code>
      * $array = array(
@@ -230,7 +230,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Retrieve the array of parameters
-     * 
+     *
      * @return array
      */
     public function getParams()
@@ -240,8 +240,8 @@ class Zend_XmlRpc_Request
 
     /**
      * Load XML and parse into request components
-     * 
-     * @param string $request 
+     *
+     * @param string $request
      * @return boolean True on success, false if an error occurred.
      */
     public function loadXml($request)
@@ -259,7 +259,7 @@ class Zend_XmlRpc_Request
             $this->_fault = new Zend_XmlRpc_Fault(631);
             $this->_fault->setEncoding($this->getEncoding());
             return false;
-        } 
+        }
 
         // Check for method name
         if (empty($xml->methodName)) {
@@ -299,9 +299,9 @@ class Zend_XmlRpc_Request
     }
 
     /**
-     * Does the current request contain errors and should it return a fault 
+     * Does the current request contain errors and should it return a fault
      * response?
-     * 
+     *
      * @return boolean
      */
     public function isFault()
@@ -311,7 +311,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Retrieve the fault response, if any
-     * 
+     *
      * @return null|Zend_XmlRpc_Fault
      */
     public function getFault()
@@ -321,7 +321,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Retrieve method parameters as XMLRPC values
-     * 
+     *
      * @return array
      */
     protected function _getXmlRpcParams()
@@ -341,7 +341,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Create XML request
-     * 
+     *
      * @return string
      */
     public function saveXML()
@@ -371,7 +371,7 @@ class Zend_XmlRpc_Request
 
     /**
      * Return XML request
-     * 
+     *
      * @return string
      */
     public function __toString()

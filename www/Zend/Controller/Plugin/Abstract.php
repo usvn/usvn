@@ -46,11 +46,11 @@ abstract class Zend_Controller_Plugin_Abstract
 
     /**
      * Set request object
-     * 
-     * @param Zend_Controller_Request_Abstract $request 
+     *
+     * @param Zend_Controller_Request_Abstract $request
      * @return Zend_Controller_Plugin_Abstract
      */
-    public function setRequest(Zend_Controller_Request_Abstract $request) 
+    public function setRequest(Zend_Controller_Request_Abstract $request)
     {
         $this->_request = $request;
         return $this;
@@ -58,21 +58,21 @@ abstract class Zend_Controller_Plugin_Abstract
 
     /**
      * Get request object
-     * 
-     * @return Zend_Controller_Request_Abstract $request 
+     *
+     * @return Zend_Controller_Request_Abstract $request
      */
-    public function getRequest() 
+    public function getRequest()
     {
         return $this->_request;
     }
 
     /**
      * Set response object
-     * 
-     * @param Zend_Controller_Response_Abstract $response 
+     *
+     * @param Zend_Controller_Response_Abstract $response
      * @return Zend_Controller_Plugin_Abstract
      */
-    public function setResponse(Zend_Controller_Response_Abstract $response) 
+    public function setResponse(Zend_Controller_Response_Abstract $response)
     {
         $this->_response = $response;
         return $this;
@@ -80,10 +80,10 @@ abstract class Zend_Controller_Plugin_Abstract
 
     /**
      * Get response object
-     * 
-     * @return Zend_Controller_Response_Abstract $response 
+     *
+     * @return Zend_Controller_Response_Abstract $response
      */
-    public function getResponse() 
+    public function getResponse()
     {
         return $this->_response;
     }

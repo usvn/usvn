@@ -30,19 +30,19 @@ require_once 'Zend/Log/Writer/Abstract.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Null.php 3980 2007-03-15 21:38:38Z mike $
- */ 
+ */
 class Zend_Log_Writer_Mock extends Zend_Log_Writer_Abstract
 {
     /**
      * array of log events
      */
     public $events = array();
-    
+
     /**
      * shutdown called?
      */
     public $shutdown = false;
-    
+
     /**
      * Write a message to the log.
      *
@@ -53,12 +53,12 @@ class Zend_Log_Writer_Mock extends Zend_Log_Writer_Abstract
     {
         $this->events[] = $event;
     }
-    
+
     /**
      * Record shutdown
      *
      * @return void
-     */ 
+     */
     public function shutdown()
     {
         $this->shutdown = true;

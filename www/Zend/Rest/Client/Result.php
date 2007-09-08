@@ -31,7 +31,7 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
      * @var SimpleXMLElement
      */
     private $_sxml;
-    
+
     /**
      * Constructor
      *
@@ -46,7 +46,7 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
     /**
      * Casts a SimpleXMLElement to its appropriate PHP value
      *
-     * @param SimpleXMLElement $value 
+     * @param SimpleXMLElement $value
      * @return mixed
      */
     public function toValue(SimpleXMLElement $value)
@@ -54,7 +54,7 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
         $node = dom_import_simplexml($value);
         return $node->nodeValue;
     }
-    
+
     /**
      * Get Property Overload
      *
@@ -66,10 +66,10 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
         if (isset($this->_sxml->{$name})) {
             return $this->_sxml->{$name};
         }
-        
+
         $result = $this->_sxml->xpath("//$name");
         $count  = count($result);
-        
+
         if ($count == 0) {
             return null;
         } elseif ($count == 1) {
@@ -83,9 +83,9 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
      * Cast properties to PHP values
      *
      * For arrays, loops through each element and casts to a value as well.
-     * 
-     * @param string $method 
-     * @param array $args 
+     *
+     * @param string $method
+     * @param array $args
      * @return mixed
      */
     public function __call($method, $args)
@@ -105,7 +105,7 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
         return null;
     }
 
-    
+
     /**
      * Isset Overload
      *
@@ -117,16 +117,16 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
         if (isset($this->_sxml->{$name})) {
             return true;
         }
-        
+
         $result = $this->_sxml->xpath("//$name");
-        
+
         if (sizeof($result) > 0) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Implement IteratorAggregate::getIterator()
      *
@@ -145,9 +145,9 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
     public function getStatus()
     {
         $status = $this->_sxml->xpath('//status/text()');
-        
+
         $status = strtolower($status[0]);
-        
+
         if (ctype_alpha($status) && $status == 'success') {
             return true;
         } elseif (ctype_alpha($status) && $status != 'success') {
@@ -156,7 +156,7 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
             return (bool) $status;
         }
     }
-    
+
     public function isError()
     {
         $status = $this->getStatus();
@@ -166,7 +166,7 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
             return true;
         }
     }
-    
+
     public function isSuccess()
     {
         $status = $this->getStatus();
@@ -176,19 +176,19 @@ class Zend_Rest_Client_Result implements IteratorAggregate {
             return false;
         }
     }
-    
+
     /**
      * toString overload
      *
      * Be sure to only call this when the result is a single value!
-     * 
+     *
      * @return string
      */
     public function __toString()
     {
         if (!$this->getStatus()) {
             $message = $this->_sxml->xpath('//message');
-            return (string) $message[0]; 
+            return (string) $message[0];
         } else {
             $result = $this->_sxml->xpath('//response');
             if (sizeof($result) > 1) {

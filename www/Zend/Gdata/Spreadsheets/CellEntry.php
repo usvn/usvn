@@ -55,7 +55,7 @@ class Zend_Gdata_Spreadsheets_CellEntry extends Zend_Gdata_Entry
         }
         parent::__construct($element);
     }
-    
+
     public function getDOM($doc = null)
     {
         $element = parent::getDOM($doc);
@@ -64,7 +64,7 @@ class Zend_Gdata_Spreadsheets_CellEntry extends Zend_Gdata_Entry
         }
         return $element;
     }
-    
+
     protected function takeChildFromDOM($child)
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
@@ -79,7 +79,7 @@ class Zend_Gdata_Spreadsheets_CellEntry extends Zend_Gdata_Entry
             break;
         }
     }
-    
+
     /**
      * Gets the Cell element of this Cell Entry.
      * @return Zend_Gdata_Spreadsheets_Extension_Cell
@@ -88,7 +88,7 @@ class Zend_Gdata_Spreadsheets_CellEntry extends Zend_Gdata_Entry
     {
         return $this->_cell;
     }
-    
+
     /**
      * Sets the Cell element of this Cell Entry.
      * @param $cell Zend_Gdata_Spreadsheets_Extension_Cell $cell

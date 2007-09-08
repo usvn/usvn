@@ -49,6 +49,36 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
     protected $_pdoType = 'mysql';
 
     /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'INT'                => Zend_Db::INT_TYPE,
+        'INTEGER'            => Zend_Db::INT_TYPE,
+        'MEDIUMINT'          => Zend_Db::INT_TYPE,
+        'SMALLINT'           => Zend_Db::INT_TYPE,
+        'TINYINT'            => Zend_Db::INT_TYPE,
+        'BIGINT'             => Zend_Db::BIGINT_TYPE,
+        'SERIAL'             => Zend_Db::BIGINT_TYPE,
+        'DEC'                => Zend_Db::FLOAT_TYPE,
+        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
+        'DOUBLE'             => Zend_Db::FLOAT_TYPE,
+        'DOUBLE PRECISION'   => Zend_Db::FLOAT_TYPE,
+        'FIXED'              => Zend_Db::FLOAT_TYPE,
+        'FLOAT'              => Zend_Db::FLOAT_TYPE
+    );
+
+    /**
      * @return string
      */
     public function getQuoteIdentifierSymbol()

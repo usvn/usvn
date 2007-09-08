@@ -19,8 +19,8 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
- 
+
+
 /**
  * Zend_Cache_Core
  */
@@ -35,17 +35,17 @@ require_once 'Zend/Cache/Core.php';
  */
 class Zend_Cache_Frontend_Page extends Zend_Cache_Core
 {
-    
+
     /**
      * This frontend specific options
-     * 
-     * ====> (boolean) http_conditional : 
+     *
+     * ====> (boolean) http_conditional :
      * - if true, http conditional mode is on
      * WARNING : http_conditional OPTION IS NOT IMPLEMENTED FOR THE MOMENT (TODO)
-     * 
+     *
      * ====> (boolean) debug_header :
      * - if true, a debug text is added before each cached pages
-     * 
+     *
      * ====> (array) default_options :
      * - an associative array of default options :
      *     - (boolean) cache : cache is on by default if true
@@ -53,16 +53,16 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      *       if true,  cache is still on even if there are some variables in this superglobal array
      *       if false, cache is off if there are some variables in this superglobal array
      *     - (boolean) makeIdWithXXXVariables (XXXX = 'Get', 'Post', 'Session', 'Files' or 'Cookie') :
-     *       if true, we have to use the content of this superglobal array to make a cache id 
+     *       if true, we have to use the content of this superglobal array to make a cache id
      *       if false, the cache id won't be dependent of the content of this superglobal array
-     *     
+     *
      * ====> (array) regexps :
      * - an associative array to set options only for some REQUEST_URI
      * - keys are (pcre) regexps
      * - values are associative array with specific options to set if the regexp matchs on $_SERVER['REQUEST_URI']
      *   (see default_options for the list of available options)
-     * - if several regexps match the $_SERVER['REQUEST_URI'], only the last one will be used  
-     * 
+     * - if several regexps match the $_SERVER['REQUEST_URI'], only the last one will be used
+     *
      * @var array options
      */
     protected $_specificOptions = array(
@@ -83,17 +83,17 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         ),
         'regexps' => array()
     );
-    
+
     /**
      * Internal array to store some options
-     * 
+     *
      * @var array associative array of options
      */
     protected $_activeOptions = array();
-            
+
     /**
      * Constructor
-     * 
+     *
      * @param array $options associative array of options
      * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
      */
@@ -124,10 +124,10 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
             }
         }
     }
-    
+
     /**
      * Specific setter for the 'default_options' option (with some additional tests)
-     * 
+     *
      * @param array $options associative array
      */
     protected function _setDefaultOptions($options)
@@ -149,11 +149,11 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
                 $this->_specificOptions['default_options'][$key] = $value;
             }
         }
-    }    
-    
+    }
+
     /**
      * Specific setter for the 'regexps' option (with some additional tests)
-     * 
+     *
      * @param array $options associative array
      */
     protected function _setRegexps($regexps)
@@ -181,7 +181,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         }
         $this->setOption('regexps', $regexps);
     }
-    
+
     /**
      * Start the cache
      *
@@ -194,7 +194,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         $lastMatchingRegexp = null;
         foreach ($this->_specificOptions['regexps'] as $regexp => $conf) {
             if (preg_match("`$regexp`", $_SERVER['REQUEST_URI'])) {
-                $lastMatchingRegexp = $regexp;       
+                $lastMatchingRegexp = $regexp;
             }
         }
         $this->_activeOptions = $this->_specificOptions['default_options'];
@@ -208,7 +208,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
             return false;
         }
         if (!$id) {
-            $id = $this->_makeId(); 
+            $id = $this->_makeId();
             if (!$id) {
                 return false;
             }
@@ -228,11 +228,11 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         ob_implicit_flush(false);
         return false;
     }
-    
+
     /**
      * callback for output buffering
      * (shouldn't really be called manually)
-     * 
+     *
      * @param string $data buffered output
      * @return string data to send to browser
      */
@@ -241,16 +241,16 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         $this->save($data);
         return $data;
     }
-    
+
     /**
      * Make an id depending on REQUEST_URI and superglobal arrays (depending on options)
-     * 
+     *
      * @return mixed a cache id (string), false if the cache should have not to be used
      */
     private function _makeId()
     {
         $tmp = $_SERVER['REQUEST_URI'];
-        foreach (array('Get', 'Post', 'Session', 'Files', 'Cookie') as $arrayName) {           
+        foreach (array('Get', 'Post', 'Session', 'Files', 'Cookie') as $arrayName) {
             $tmp2 = $this->_makePartialId($arrayName, $this->_activeOptions['cache_with_' . strtolower($arrayName) . '_variables'], $this->_activeOptions['make_id_with_' . strtolower($arrayName) . '_variables']);
             if ($tmp2===false) {
                 return false;
@@ -259,10 +259,10 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         }
         return md5($tmp);
     }
-    
+
     /**
      * Make a partial id depending on options
-     * 
+     *
      * @param string $arrayName superglobal array name
      * @param bool $bool1 if true, cache is still on even if there are some variables in the superglobal array
      * @param bool $bool2 if true, we have to use the content of the superglobal array to make a partial id
@@ -293,10 +293,10 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
             break;
         case 'Files':
             $var = $_FILES;
-            break;            
+            break;
         default:
             return false;
-        }    
+        }
         if ($bool1) {
             if ($bool2) {
                 return serialize($var);
@@ -305,9 +305,9 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
         }
         if (count($var) > 0) {
             return false;
-        } 
+        }
         return '';
     }
-    
+
 }
 

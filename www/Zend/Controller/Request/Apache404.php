@@ -24,18 +24,18 @@ require_once 'Zend/Controller/Request/Exception.php';
 /** Zend_Controller_Request_Http */
 require_once 'Zend/Controller/Request/Http.php';
 
-/** Zend_Uri */ 
-require_once 'Zend/Uri.php'; 
+/** Zend_Uri */
+require_once 'Zend/Uri.php';
 
 /**
  * Zend_Controller_Request_Apache404
  *
- * HTTP request object for use with Zend_Controller family. Extends basic HTTP 
+ * HTTP request object for use with Zend_Controller family. Extends basic HTTP
  * request object to allow for two edge cases when using Apache:
  * - Using Apache's 404 handler instead of mod_rewrite to direct requests
  * - Using the PT flag in rewrite rules
  *
- * In each case, the URL to check against is found in REDIRECT_URL, not 
+ * In each case, the URL to check against is found in REDIRECT_URL, not
  * REQUEST_URI.
  *
  * @uses       Zend_Controller_Request_Http
@@ -46,21 +46,21 @@ class Zend_Controller_Request_Apache404 extends Zend_Controller_Request_Http
 {
     public function setRequestUri($requestUri = null)
     {
-        if ($requestUri === null) { 
+        if ($requestUri === null) {
             if (isset($_SERVER['HTTP_X_REWRITE_URL'])) { // check this first so IIS will catch
-                $requestUri = $_SERVER['HTTP_X_REWRITE_URL']; 
+                $requestUri = $_SERVER['HTTP_X_REWRITE_URL'];
             } elseif (isset($_SERVER['REDIRECT_URL'])) {  // Check if using mod_rewrite
                 $requestUri = $_SERVER['REDIRECT_URL'];
-            } elseif (isset($_SERVER['REQUEST_URI'])) { 
-                $requestUri = $_SERVER['REQUEST_URI']; 
+            } elseif (isset($_SERVER['REQUEST_URI'])) {
+                $requestUri = $_SERVER['REQUEST_URI'];
             } elseif (isset($_SERVER['ORIG_PATH_INFO'])) { // IIS 5.0, PHP as CGI
                 $requestUri = $_SERVER['ORIG_PATH_INFO'];
                 if (!empty($_SERVER['QUERY_STRING'])) {
                     $requestUri .= '?' . $_SERVER['QUERY_STRING'];
                 }
-            } else { 
-                return $this; 
-            } 
+            } else {
+                return $this;
+            }
         } elseif (!is_string($requestUri)) {
             return $this;
         } else {
@@ -73,8 +73,8 @@ class Zend_Controller_Request_Apache404 extends Zend_Controller_Request_Http
                 $_GET = $vars;
             }
         }
-         
-        $this->_requestUri = $requestUri; 
+
+        $this->_requestUri = $requestUri;
         return $this;
     }
 }

@@ -17,7 +17,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: At.php 4011 2007-03-16 08:46:49Z studio24 $
+ * @version    $Id: At.php 5752 2007-07-18 20:53:10Z thomas $
  */
 
 
@@ -33,9 +33,9 @@ require_once 'Zend/Validate/Hostname/Interface.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Validate_Hostname_At implements Zend_Validate_Hostname_Interface 
+class Zend_Validate_Hostname_At implements Zend_Validate_Hostname_Interface
 {
-    
+
     /**
      * Returns UTF-8 characters allowed in DNS hostnames for the specified Top-Level-Domain
      *
@@ -46,5 +46,5 @@ class Zend_Validate_Hostname_At implements Zend_Validate_Hostname_Interface
     {
         return '\x{00EO}-\x{00F6}\x{00F8}-\x{00FF}\x{0153}\x{0161}\x{017E}';
     }
-    
+
 }

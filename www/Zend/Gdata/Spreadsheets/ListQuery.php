@@ -30,7 +30,7 @@ require_once('Zend/Gdata/App/Util.php');
 require_once('Zend/Gdata/Query.php');
 
 /**
- * Assists in constructing queries for Google Spreadsheets lists 
+ * Assists in constructing queries for Google Spreadsheets lists
  *
  * @link http://code.google.com/apis/gdata/calendar/
  *
@@ -43,14 +43,14 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
 {
 
     const SPREADSHEETS_LIST_FEED_URI = 'http://spreadsheets.google.com/feeds/list';
-    
+
     protected $_defaultFeedUri = self::SPREADSHEETS_LIST_FEED_URI;
     protected $_visibility = 'private';
     protected $_projection = 'full';
     protected $_spreadsheetKey = null;
     protected $_worksheetId = 'default';
     protected $_rowId = null;
-    
+
     /**
      * Constructs a new Zend_Gdata_Spreadsheets_ListQuery object.
      */
@@ -58,7 +58,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
         parent::__construct();
     }
-    
+
     /**
      * Sets the spreadsheet key for the query.
      * @param string $value
@@ -69,7 +69,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         $this->_spreadsheetKey = $value;
         return $this;
     }
-    
+
     /**
      * Gets the spreadsheet key for the query.
      * @return string spreadsheet key
@@ -78,7 +78,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
         return $this->_spreadsheetKey;
     }
-    
+
     /**
      * Sets the worksheet id for the query.
      * @param string $value
@@ -89,7 +89,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         $this->_worksheetId = $value;
         return $this;
     }
-    
+
     /**
      * Gets the worksheet id for the query.
      * @return string worksheet id
@@ -98,7 +98,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
         return $this->_worksheetId;
     }
-    
+
     /**
      * Sets the row id for the query.
      * @param string $value row id
@@ -109,7 +109,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         $this->_rowId = $value;
         return $this;
     }
-    
+
     /**
      * Gets the row id for the query.
      * @return string row id
@@ -118,7 +118,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
         return $this->_rowId;
     }
-    
+
     /**
      * Sets the projection for the query.
      * @param string $value Projection
@@ -140,7 +140,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         $this->_visibility = $value;
         return $this;
     }
-    
+
     /**
      * Gets the projection for this query.
      * @return string projection
@@ -149,7 +149,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
         return $this->_projection;
     }
-    
+
     /**
      * Gets the visibility for this query.
      * @return string visibility
@@ -158,7 +158,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
         return $this->_visibility;
     }
-    
+
     /**
      * Sets the spreadsheet key for this query.
      * @param string $value
@@ -173,7 +173,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         }
         return $this;
     }
-    
+
     /**
      * Gets the spreadsheet key for this query.
      * @return string spreadsheet query
@@ -186,7 +186,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
             return null;
         }
     }
-    
+
     /**
      * Sets the orderby attribute for this query.
      * @param string $value
@@ -201,7 +201,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         }
         return $this;
     }
-    
+
     /**
      * Gets the orderby attribute for this query.
      * @return string orderby
@@ -214,7 +214,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
             return null;
         }
     }
-    
+
     /**
      * Sets the reverse attribute for this query.
      * @param string $value
@@ -229,7 +229,7 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
         }
         return $this;
     }
-    
+
     /**
      * Gets the reverse attribute for this query.
      * @return string reverse
@@ -237,14 +237,14 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     public function getReverse()
     {
 
-    
+
         if (array_key_exists('reverse', $this->_params)) {
             return $this->_params['reverse'];
         } else {
             return null;
         }
     }
-    
+
     /**
      * Gets the full query URL for this query.
      * @return string url
@@ -253,39 +253,39 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
 
         $uri = $this->_defaultFeedUri;
-        
+
         if ($this->_spreadsheetKey != null) {
             $uri .= '/'.$this->_spreadsheetKey;
         } else {
             throw new Zend_Gdata_App_Exception('A spreadsheet key must be provided for list queries.');
         }
-        
+
         if ($this->_worksheetId != null) {
             $uri .= '/'.$this->_worksheetId;
         } else {
             throw new Zend_Gdata_App_Exception('A worksheet id must be provided for list queries.');
         }
-        
+
         if ($this->_visibility != null) {
             $uri .= '/'.$this->_visibility;
         } else {
             throw new Zend_Gdata_App_Exception('A visibility must be provided for list queries.');
         }
-        
+
         if ($this->_projection != null) {
             $uri .= '/'.$this->_projection;
         } else {
             throw new Zend_Gdata_App_Exception('A projection must be provided for list queries.');
         }
-        
+
         if ($this->_rowId != null) {
             $uri .= '/'.$this->_rowId;
         }
-        
+
         $uri .= $this->getQueryString();
         return $uri;
     }
-    
+
     /**
      * Gets the attribute query string for this query.
      * @return string query string
@@ -294,5 +294,5 @@ class Zend_Gdata_Spreadsheets_ListQuery extends Zend_Gdata_Query
     {
         return parent::getQueryString();
     }
-    
+
 }

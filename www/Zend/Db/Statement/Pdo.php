@@ -27,7 +27,7 @@ require_once 'Zend/Db/Statement.php';
 
 /**
  * Proxy class to wrap a PDOStatement object.
- * Matches the interface of PDOStatement.  All methods simply proxy to the 
+ * Matches the interface of PDOStatement.  All methods simply proxy to the
  * matching method in PDOStatement.  PDOExceptions thrown by PDOStatement
  * are re-thrown as Zend_Db_Statement_Exception.
  *
@@ -340,7 +340,7 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement
     public function getColumnMeta($column)
     {
         try {
-            return $this->_stmt->getColumnMeta();
+            return $this->_stmt->getColumnMeta($column);
         } catch (PDOException $e) {
             require_once 'Zend/Db/Statement/Exception.php';
             throw new Zend_Db_Statement_Exception($e->getMessage());

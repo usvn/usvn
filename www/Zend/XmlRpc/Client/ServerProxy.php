@@ -43,13 +43,13 @@ class Zend_XmlRpc_Client_ServerProxy
      */
     private $_namespace = '';
 
-    
+
     /**
      * @var array of Zend_XmlRpc_Client_ServerProxy
      */
     private $_cache = array();
 
-    
+
     /**
      * Class constructor
      *
@@ -62,7 +62,7 @@ class Zend_XmlRpc_Client_ServerProxy
         $this->_client    = $client;
     }
 
-    
+
     /**
      * Get the next successive namespace
      *
@@ -78,7 +78,7 @@ class Zend_XmlRpc_Client_ServerProxy
         return $this->_cache[$namespace];
     }
 
-    
+
     /**
      * Call a method in this namespace.
      *

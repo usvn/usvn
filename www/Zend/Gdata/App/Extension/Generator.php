@@ -36,8 +36,8 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
 {
 
     protected $_rootElement = 'generator';
-    protected $_uri = null; 
-    protected $_version = null; 
+    protected $_uri = null;
+    protected $_version = null;
 
     public function __construct($text = null, $uri = null, $version = null)
     {
@@ -74,7 +74,7 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Uri 
+     * @return Zend_Gdata_App_Extension_Uri
      */
     public function getUri()
     {
@@ -82,17 +82,17 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Uri $value 
+     * @param Zend_Gdata_App_Extension_Uri $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setUri($value)
     {
         $this->_uri = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Version 
+     * @return Zend_Gdata_App_Extension_Version
      */
     public function getVersion()
     {
@@ -100,7 +100,7 @@ class Zend_Gdata_App_Extension_Generator extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Version $value 
+     * @param Zend_Gdata_App_Extension_Version $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setVersion($value)

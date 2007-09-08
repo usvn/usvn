@@ -18,7 +18,7 @@
  * @subpackage Delicious
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Delicious.php 5384 2007-06-19 21:26:22Z darby $
+ * @version    $Id: Delicious.php 5791 2007-07-19 20:07:45Z ghacek $
  */
 
 
@@ -28,9 +28,9 @@
 require_once 'Zend/Rest/Client.php';
 
 /**
- * @see Zend_Json
+ * @see Zend_Json_Decoder
  */
-require_once 'Zend/Json.php';
+require_once 'Zend/Json/Decoder.php';
 
 /**
  * @see Zend_Service_Delicious_SimplePost
@@ -79,6 +79,7 @@ class Zend_Service_Delicious
     const JSON_TAGS    = '/feeds/json/tags/%s';
     const JSON_NETWORK = '/feeds/json/network/%s';
     const JSON_FANS    = '/feeds/json/fans/%s';
+    const JSON_URL     = '/feeds/json/url/data';
 
     /**
      * Zend_Service_Rest instance
@@ -425,14 +426,40 @@ class Zend_Service_Delicious
         $path = sprintf(self::JSON_FANS, $user);
         return $this->makeRequest($path, array(), 'json');
     }
+    
+    /**
+     * Get details on a particular bookmarked URL
+     * 
+     * Returned array contains four elements:
+     *  - hash - md5 hash of URL
+     *  - top_tags - array of tags and their respective usage counts
+     *  - url - URL for which details were returned
+     *  - total_posts - number of users that have bookmarked URL
+     *
+     * If URL hasen't been bookmarked null is returned.
+     *
+     * @param  string $url URL for which to get details
+     * @return array 
+     */
+    public function getUrlDetails($url) {
+	    $parms = array('hash' => md5($url));
+	    
+	    $res = $this->makeRequest(self::JSON_URL, $parms, 'json');
+	    
+	    if(isset($res[0])) {
+		    return $res[0];
+	    } else {
+		    return null;
+    	}
+    }
 
     /**
      * Handles all GET requests to a web service
      *
      * @param  string $path  Path
      * @param  array  $parms Array of GET parameters
-     * @param  string $type  Type of a request xml|json
-     * @return DOMDocument response from web service
+     * @param  string $type  Type of a request ("xml"|"json")
+     * @return mixed  decoded response from web service
      */
     public function makeRequest($path, array $parms = array(), $type = 'xml')
     {
@@ -488,7 +515,7 @@ class Zend_Service_Delicious
 
                 return $dom;
             case 'json':
-                return Zend_Json::decode($responseBody);
+                return Zend_Json_Decoder::decode($responseBody);
         }
     }
 

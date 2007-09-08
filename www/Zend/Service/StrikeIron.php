@@ -26,7 +26,7 @@ require_once 'Zend/Loader.php';
 require_once 'Zend/Service/StrikeIron/Exception.php';
 
 /**
- * This class allows StrikeIron authentication credentials to be specified 
+ * This class allows StrikeIron authentication credentials to be specified
  * in one place and provides a factory for returning instances of different
  * StrikeIron service classes.
  *
@@ -35,7 +35,7 @@ require_once 'Zend/Service/StrikeIron/Exception.php';
  * @subpackage StrikeIron
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 class Zend_Service_StrikeIron
 {
     /**
@@ -43,7 +43,7 @@ class Zend_Service_StrikeIron
      * @param array
      */
     protected $_options;
-    
+
     /**
      * Class constructor
      *
@@ -53,7 +53,7 @@ class Zend_Service_StrikeIron
     {
         $this->_options = $options;
     }
-        
+
     /**
      * Factory method to return a preconfigured Zend_Service_StrikeIron_*
      * instance.
@@ -65,7 +65,7 @@ class Zend_Service_StrikeIron
     {
         $class = isset($options['class']) ? $options['class'] : 'Base';
         unset($options['class']);
-        
+
         if (strpos($class, '_') === false) {
             $class = "Zend_Service_StrikeIron_{$class}";
         }
@@ -81,5 +81,5 @@ class Zend_Service_StrikeIron
         $service = new $class(array_merge($this->_options, $options));
         return $service;
     }
-    
+
 }

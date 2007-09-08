@@ -20,23 +20,23 @@ $id = 'foo'; // cache id of "what we want to cache"
 
 if (!($cache->test($id))) {
     // cache missed
-    
+
     require_once ... // for perfs reasons, all "require_once" have to be loaded ONLY if the cache is missed
     require_once ...
-    
+
     // we build "what we want to cache"
     // for example
     $data = '';
     for ($i=0;$i<10000;$i++) {
         $data = $data . $i;
-    } 
-    
+    }
+
     // We save the result into the cache
     $cache->save($data);
 
 } else {
     // cache hit
-    
+
     $data = $cache->load($id);
 
 }
@@ -64,15 +64,15 @@ $id = 'foo'; // cache id of "what we want to cache"
 
 if (!($data = $cache->load($id))) {
     // cache missed
-    
+
     $data = '';
     for ($i=0;$i<10000;$i++) {
         $data = $data . $i;
     }
-    
+
     $cache->save($data);
-    
-} 
+
+}
 
 echo($data);
 
@@ -99,15 +99,15 @@ $id2 = 'bar'; // cache id of block2
 // BLOCK1
 if (!($data = $cache->load($id1))) {
     // cache missed
-    
+
     $data = '';
     for ($i=0;$i<10000;$i++) {
         $data = $data . $i;
     }
-    
+
     $cache->save($data);
-    
-} 
+
+}
 echo($data);
 
 // NEVER CACHED BLOCK
@@ -116,15 +116,15 @@ echo('NEVER CACHED !');
 // BLOCK2
 if (!($data = $cache->load($id2))) {
     // cache missed
-    
+
     $data = '';
     for ($i=0;$i<10000;$i++) {
         $data = $data . '!';
     }
-    
+
     $cache->save($data);
-    
-} 
+
+}
 echo($data);
 
 ?>
@@ -146,15 +146,15 @@ $id2 = 'bar'; // cache id of block2
 // BLOCK1
 if (!($data = $cache->load($id1))) {
     // cache missed
-    
+
     $data = '';
     for ($i=0;$i<10000;$i++) {
         $data = $data . $i;
     }
-    
+
     $cache->save($data);
-    
-} 
+
+}
 echo($data);
 
 // NEVER CACHED BLOCK
@@ -163,16 +163,16 @@ echo('NEVER CACHED !');
 // BLOCK2
 if (!($data = $cache->load($id2))) {
     // cache missed
-    
+
     $data = '';
     for ($i=0;$i<10000;$i++) {
         $data = $data . '!';
     }
-    
+
     $cache->save($data, null, array(), 3600);
     // => this cache will have a specific lifetime of 3600 seconds
-    
-} 
+
+}
 echo($data);
 
 ?>
@@ -200,7 +200,7 @@ $id = 'foo'; // cache id of "what we want to cache"
 
 if (!($cache->start($id))) {
     // cache is not hit !
-    
+
     // Output you want to cache
     for ($i=0;$i<10000;$i++) {
         echo($i);
@@ -263,7 +263,7 @@ class test {
 
     public static function foobar($param1, $param2) {
         echo "foobar_output($param1, $param2)";
-        return "foobar_return($param1, $param2)";   
+        return "foobar_return($param1, $param2)";
     }
 
 }
@@ -307,11 +307,11 @@ echo($res3);
 class test {
 
     private $_string = 'hello !';
-      
+
     public function foobar2($param1, $param2) {
         echo($this->_string);
         echo "foobar2_output($param1, $param2)";
-        return "foobar2_return($param1, $param2)";   
+        return "foobar2_return($param1, $param2)";
     }
 
 }

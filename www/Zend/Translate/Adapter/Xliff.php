@@ -47,7 +47,7 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
     private $_tcontent    = null;
     private $_stag        = false;
     private $_ttag        = true;
-    
+
     /**
      * Generates the xliff adapter
      * This adapter reads with php's xml_parser
@@ -90,7 +90,7 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
         xml_set_character_data_handler($this->_file, "_contentElement");
 
         if (!xml_parse($this->_file, file_get_contents($filename))) {
-            throw new Zend_Translate_Exception(sprintf('XML error: %s at line %d', 
+            throw new Zend_Translate_Exception(sprintf('XML error: %s at line %d',
                       xml_error_string(xml_get_error_code($this->_file)),
                       xml_get_current_line_number($this->_file)));
             xml_parser_free($this->_file);
@@ -137,14 +137,14 @@ class Zend_Translate_Adapter_Xliff extends Zend_Translate_Adapter {
                 $this->_tcontent = null;
                 break;
             case 'source':
-                if (!empty($this->_scontent) and !empty($this->_tcontent) or 
+                if (!empty($this->_scontent) and !empty($this->_tcontent) or
                     !array_key_exists($this->_scontent, $this->_translate[$this->_source])) {
                     $this->_translate[$this->_source][$this->_scontent] = $this->_scontent;
                 }
                 $this->_stag = false;
                 break;
             case 'target':
-                if (!empty($this->_scontent) and !empty($this->_tcontent) or 
+                if (!empty($this->_scontent) and !empty($this->_tcontent) or
                     !array_key_exists($this->_scontent, $this->_translate[$this->_source])) {
                     $this->_translate[$this->_target][$this->_scontent] = $this->_tcontent;
                 }

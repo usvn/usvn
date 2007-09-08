@@ -16,15 +16,15 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Node Tree class for Zend_Server reflection operations
- * 
+ *
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Reflection
- * @version $Id: Node.php 2815 2007-01-16 01:42:33Z bkarwin $
+ * @version $Id: Node.php 5756 2007-07-18 21:07:42Z thomas $
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -38,7 +38,7 @@ class Zend_Server_Reflection_Node
 
     /**
      * Array of child nodes (if any)
-     * @var array 
+     * @var array
      */
     protected $_children = array();
 
@@ -50,8 +50,8 @@ class Zend_Server_Reflection_Node
 
     /**
      * Constructor
-     * 
-     * @param mixed $value 
+     *
+     * @param mixed $value
      * @param Zend_Server_Reflection_Node $parent Optional
      * @return Zend_Server_Reflection_Node
      */
@@ -67,9 +67,9 @@ class Zend_Server_Reflection_Node
 
     /**
      * Set parent node
-     * 
-     * @param Zend_Server_Reflection_Node $node 
-     * @param boolean $new Whether or not the child node is newly created 
+     *
+     * @param Zend_Server_Reflection_Node $node
+     * @param boolean $new Whether or not the child node is newly created
      * and should always be attached
      * @return void
      */
@@ -85,8 +85,8 @@ class Zend_Server_Reflection_Node
 
     /**
      * Create and attach a new child node
-     * 
-     * @param mixed $value 
+     *
+     * @param mixed $value
      * @access public
      * @return Zend_Server_Reflection_Node New child node
      */
@@ -99,8 +99,8 @@ class Zend_Server_Reflection_Node
 
     /**
      * Attach a child node
-     * 
-     * @param Zend_Server_Reflection_Node $node 
+     *
+     * @param Zend_Server_Reflection_Node $node
      * @return void
      */
     public function attachChild(Zend_Server_Reflection_Node $node)
@@ -114,7 +114,7 @@ class Zend_Server_Reflection_Node
 
     /**
      * Return an array of all child nodes
-     * 
+     *
      * @return array
      */
     public function getChildren()
@@ -124,7 +124,7 @@ class Zend_Server_Reflection_Node
 
     /**
      * Does this node have children?
-     * 
+     *
      * @return boolean
      */
     public function hasChildren()
@@ -134,7 +134,7 @@ class Zend_Server_Reflection_Node
 
     /**
      * Return the parent node
-     * 
+     *
      * @return null|Zend_Server_Reflection_Node
      */
     public function getParent()
@@ -144,7 +144,7 @@ class Zend_Server_Reflection_Node
 
     /**
      * Return the node's current value
-     * 
+     *
      * @return mixed
      */
     public function getValue()
@@ -154,8 +154,8 @@ class Zend_Server_Reflection_Node
 
     /**
      * Set the node value
-     * 
-     * @param mixed $value 
+     *
+     * @param mixed $value
      * @return void
      */
     public function setValue($value)
@@ -166,10 +166,10 @@ class Zend_Server_Reflection_Node
     /**
      * Retrieve the bottommost nodes of this node's tree
      *
-     * Retrieves the bottommost nodes of the tree by recursively calling 
-     * getEndPoints() on all children. If a child is null, it returns the parent 
+     * Retrieves the bottommost nodes of the tree by recursively calling
+     * getEndPoints() on all children. If a child is null, it returns the parent
      * as an end point.
-     * 
+     *
      * @return array
      */
     public function getEndPoints()
@@ -185,7 +185,7 @@ class Zend_Server_Reflection_Node
             if (null === $value) {
                 $endPoints[] = $this;
             } elseif ((null !== $value)
-                && $child->hasChildren()) 
+                && $child->hasChildren())
             {
                 $childEndPoints = $child->getEndPoints();
                 if (!empty($childEndPoints)) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework
  *
@@ -12,42 +13,38 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @package    Zend_Pdf
+ * @category   Zend
+ * @package    Zend_Gdata
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-
-/** Zend_Pdf_Exception */
-require_once 'Zend/Pdf/Exception.php';
-
 
 /**
- * PDF stream filter
+ * @see Zend_Gdata_Feed
+ */
+require_once 'Zend/Gdata/Feed.php';
+
+/**
+ * @see Zend_Gdata_Gapps_UserEntry
+ */
+require_once 'Zend/Gdata/Gapps/UserEntry.php';
+
+/**
+ * Data model for a collection of Google Apps user entries, usually 
+ * provided by the Google Apps servers.
+ * 
+ * For information on requesting this feed from a server, see the Google 
+ * Apps service class, Zend_Gdata_Gapps.
  *
- * @package    Zend_Pdf
+ * @category   Zend
+ * @package    Zend_Gdata
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_Pdf_Filter
+class Zend_Gdata_Gapps_UserFeed extends Zend_Gdata_Feed
 {
-    /**
-     * Encode data
-     *
-     * @param string $data
-     * @param array $params
-     * @return string
-     * @throws Zend_Pdf_Exception
-     */
-    abstract public static function encode($data, $params = null);
-
-    /**
-     * Decode data
-     *
-     * @param string $data
-     * @param array $params
-     * @return string
-     * @throws Zend_Pdf_Exception
-     */
-    abstract public static function decode($data, $params = null);
+    
+    protected $_entryClassName = 'Zend_Gdata_Gapps_UserEntry';
+    protected $_feedClassName = 'Zend_Gdata_Gapps_UserFeed';
+    
 }

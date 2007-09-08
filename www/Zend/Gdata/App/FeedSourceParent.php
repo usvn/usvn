@@ -72,7 +72,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      *
      * @var string
      */
-    protected $_rootElement = null; 
+    protected $_rootElement = null;
 
     protected $_generator = null;
     protected $_icon = null;
@@ -118,7 +118,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
 
     public function getDOM($doc = null)
     {
-        $element = parent::getDOM($doc); 
+        $element = parent::getDOM($doc);
         if ($this->_generator != null) {
             $element->appendChild($this->_generator->getDOM($element->ownerDocument));
         }
@@ -182,7 +182,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      * @param Zend_Gdata_App_Extension_Generator $value
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
-    public function setGenerator($value) 
+    public function setGenerator($value)
     {
         $this->_generator = $value;
         return $this;
@@ -200,7 +200,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      * @param Zend_Gdata_App_Extension_Icon $value
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
-    public function setIcon($value) 
+    public function setIcon($value)
     {
         $this->_icon = $value;
         return $this;
@@ -218,7 +218,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      * @param Zend_Gdata_App_Extension_logo $value
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
-    public function setlogo($value) 
+    public function setlogo($value)
     {
         $this->_logo = $value;
         return $this;
@@ -236,7 +236,7 @@ abstract class Zend_Gdata_App_FeedSourceParent extends Zend_Gdata_App_FeedEntryP
      * @param Zend_Gdata_App_Extension_Subtitle $value
      * @return Zend_Gdata_App_FeedSourceParent Provides a fluent interface
      */
-    public function setSubtitle($value) 
+    public function setSubtitle($value)
     {
         $this->_subtitle = $value;
         return $this;

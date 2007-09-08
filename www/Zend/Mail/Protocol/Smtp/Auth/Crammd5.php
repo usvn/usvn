@@ -56,11 +56,11 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
                 $this->_password = $config['password'];
             }
         }
-        
+
         parent::__construct($host, $port, $config);
     }
 
-    
+
     /**
      * @todo Perform CRAM-MD5 authentication with supplied credentials
      *
@@ -70,17 +70,17 @@ class Zend_Mail_Protocol_Smtp_Auth_Crammd5 extends Zend_Mail_Protocol_Smtp
     {
         // Ensure AUTH has not already been initiated.
         parent::auth();
-        
+
         $this->_send('AUTH CRAM-MD5');
         $challenge = $this->_expect(334);
         $challenge = base64_decode($challenge);
-        $digest = $this->_hmacMd5($this->_password, $challenge); 
+        $digest = $this->_hmacMd5($this->_password, $challenge);
         $this->_send(base64_encode($this->_username . ' ' . $digest));
         $this->_expect(235);
         $this->_auth = true;
     }
 
-    
+
     /**
      * Prepare CRAM-MD5 response to server's ticket
      *

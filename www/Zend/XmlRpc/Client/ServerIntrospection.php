@@ -40,9 +40,9 @@ class Zend_XmlRpc_Client_ServerIntrospection
      */
     private $_system = null;
 
-    
+
     /**
-     * @param Zend_XmlRpc_Client $client 
+     * @param Zend_XmlRpc_Client $client
      */
     public function __construct(Zend_XmlRpc_Client $client)
     {
@@ -65,11 +65,11 @@ class Zend_XmlRpc_Client_ServerIntrospection
         } catch (Zend_XmlRpc_Client_FaultException $e) {
             // degrade to looping
         }
-        
+
         if (empty($signatures)) {
             $signatures = $this->getSignatureForEachMethodByLooping($methods);
         }
-        
+
         return $signatures;
     }
 
@@ -78,7 +78,7 @@ class Zend_XmlRpc_Client_ServerIntrospection
      * This is a boxcar feature of XML-RPC and is found on fewer servers.  However,
      * can significantly improve performance if present.
      *
-     * @param  array $methods 
+     * @param  array $methods
      * @return array array(array(return, param, param, param...))
      */
     public function getSignatureForEachMethodByMulticall($methods = null)
@@ -86,7 +86,7 @@ class Zend_XmlRpc_Client_ServerIntrospection
         if ($methods === null) {
             $methods = $this->listMethods();
         }
-        
+
         $multicallParams = array();
         foreach ($methods as $method) {
             $multicallParams[] = array('methodName' => 'system.methodSignature',
@@ -99,8 +99,8 @@ class Zend_XmlRpc_Client_ServerIntrospection
             $type = gettype($serverSignatures);
             $error = "Multicall return is malformed.  Expected array, got $type";
             throw new Zend_XmlRpc_Client_IntrospectException($error);
-        } 
-        
+        }
+
         if (count($serverSignatures) != count($methods)) {
             $error = 'Bad number of signatures received from multicall';
             throw new Zend_XmlRpc_Client_IntrospectException($error);
@@ -114,7 +114,7 @@ class Zend_XmlRpc_Client_ServerIntrospection
 
         return $signatures;
     }
-    
+
     /**
      * Get the method signatures for every method by
      * successively calling system.methodSignature
@@ -139,7 +139,7 @@ class Zend_XmlRpc_Client_ServerIntrospection
     /**
      * Call system.methodSignature() for the given method
      *
-     * @param  array  $method 
+     * @param  array  $method
      * @return array  array(array(return, param, param, param...))
      */
     public function getMethodSignature($method)
@@ -151,12 +151,12 @@ class Zend_XmlRpc_Client_ServerIntrospection
     /**
      * Call system.listMethods()
      *
-     * @param  array  $method 
+     * @param  array  $method
      * @return array  array(method, method, method...)
      */
     public function listMethods()
     {
         return $this->_system->listMethods();
     }
-    
+
 }

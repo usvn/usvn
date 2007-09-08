@@ -16,14 +16,14 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Client_Adapter
- * @version    $Id: Interface.php 2805 2007-01-16 01:38:10Z bkarwin $
+ * @version    $Id: Interface.php 5771 2007-07-18 22:06:24Z thomas $
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
- * An interface description for Zend_Http_Client_Adapter classes. 
- * 
+ * An interface description for Zend_Http_Client_Adapter classes.
+ *
  * These classes are used as connectors for Zend_Http_Client, performing the
  * tasks of connecting, writing, reading and closing connection to the server.
  *
@@ -33,15 +33,15 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Zend_Http_Client_Adapter_Interface 
-{    
+interface Zend_Http_Client_Adapter_Interface
+{
     /**
      * Set the configuration array for the adapter
      *
      * @param array $config
      */
     public function setConfig($config = array());
-    
+
     /**
      * Connect to the remote server
      *
@@ -50,7 +50,7 @@ interface Zend_Http_Client_Adapter_Interface
      * @param boolean $secure
      */
     public function connect($host, $port = 80, $secure = false);
-    
+
     /**
      * Send request to the remote server
      *
@@ -62,14 +62,14 @@ interface Zend_Http_Client_Adapter_Interface
      * @return string Request as text
      */
     public function write($method, $url, $http_ver = '1.1', $headers = array(), $body = '');
-    
+
     /**
      * Read response from server
      *
      * @return string
      */
     public function read();
-    
+
     /**
      * Close the connection to the server
      *

@@ -219,8 +219,8 @@ class Zend_Loader
      * <code>
      * spl_autoload_register(array('Zend_Loader', 'autoload'));
      * </code>
-     * 
-     * @param string $class 
+     *
+     * @param string $class
      * @return string|false Class name on success; false on failure
      */
     public static function autoload($class)
@@ -235,7 +235,7 @@ class Zend_Loader
 
     /**
      * Register {@link autoload()} with spl_autoload()
-     * 
+     *
      * @param string OPTIONAL $class
      * @return void
      * @throws Zend_Exception if spl_autoload() is not found

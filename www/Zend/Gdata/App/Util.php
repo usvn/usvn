@@ -44,7 +44,7 @@ class Zend_Gdata_App_Util
 
         if (ctype_digit($timestamp)) {
             return gmdate('Y-m-d\TH:i:sP', $timestamp);
-        } elseif (preg_match($rfc3339, $timestamp) > 0) { 
+        } elseif (preg_match($rfc3339, $timestamp) > 0) {
             // timestamp is already properly formatted
             return $timestamp;
         } else {
@@ -54,7 +54,7 @@ class Zend_Gdata_App_Util
                 throw new Zend_Gdata_App_InvalidArgumentException("Invalid timestamp: $timestamp.");
             }
             return date('Y-m-d\TH:i:s', $ts);
-        } 
+        }
     }
 
 }

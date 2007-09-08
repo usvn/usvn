@@ -165,6 +165,31 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
             $signs[]      = ($this->_signs === null)? true : $this->_signs[$id];
         }
 
+        // Remove insignificant subqueries
+        foreach ($subqueries as $id => $subquery) {
+            if ($subquery instanceof Zend_Search_Lucene_Search_Query_Insignificant) {
+                // Insignificant subquery has to be removed anyway
+                unset($subqueries[$id]);
+                unset($signs[$id]);
+            }
+        }
+        if (count($subqueries) == 0) {
+            // Boolean query doesn't has non-insignificant subqueries
+            return new Zend_Search_Lucene_Search_Query_Insignificant();
+        }
+        // Check if all non-insignificant subqueries are prohibited
+        $allProhibited = true;
+        foreach ($signs as $sign) {
+            if ($sign !== false) {
+                $allProhibited = false;
+                break;
+            }
+        }
+        if ($allProhibited) {
+            return new Zend_Search_Lucene_Search_Query_Insignificant();
+        }
+
+
         // Check for empty subqueries
         foreach ($subqueries as $id => $subquery) {
             if ($subquery instanceof Zend_Search_Lucene_Search_Query_Empty) {
@@ -180,6 +205,10 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
             }
         }
 
+        // Check, if reduced subqueries list is empty
+        if (count($subqueries) == 0) {
+            return new Zend_Search_Lucene_Search_Query_Empty();
+        }
 
         // Check if all non-empty subqueries are prohibited
         $allProhibited = true;
@@ -207,12 +236,6 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
             $optimizedQuery->setBoost($optimizedQuery->getBoost()*$this->getBoost());
 
             return $optimizedQuery;
-        }
-
-
-        // Check, if reduced subqueries list is empty
-        if (count($subqueries) == 0) {
-            return new Zend_Search_Lucene_Search_Query_Empty();
         }
 
 

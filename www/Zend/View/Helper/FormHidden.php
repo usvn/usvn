@@ -28,20 +28,20 @@ require_once 'Zend/View/Helper/FormElement.php';
 
 /**
  * Helper to generate a "hidden" element
- * 
+ *
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_FormHidden extends Zend_View_Helper_FormElement 
+class Zend_View_Helper_FormHidden extends Zend_View_Helper_FormElement
 {
     /**
      * Generates a 'hidden' element.
-     * 
+     *
      * @access public
-     * 
+     *
      * @param string|array $name If a string, the element name.  If an
      * array, all other parameters are ignored, and the array elements
      * are extracted in place of added parameters.

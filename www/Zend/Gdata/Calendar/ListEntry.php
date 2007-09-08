@@ -62,7 +62,7 @@ require_once 'Zend/Gdata/Extension/Where.php';
 
 /**
  * Represents a Calendar entry in the Calendar data API meta feed of a user's
- * calendars. 
+ * calendars.
  *
  * @category   Zend
  * @package    Zend_Gdata
@@ -78,7 +78,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
     protected $_selected = null;
     protected $_timezone = null;
     protected $_where = array();
-    
+
     public function __construct($element = null)
     {
         foreach (Zend_Gdata_Calendar::$namespaces as $nsPrefix => $nsUri) {
@@ -112,7 +112,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
         }
         return $element;
     }
-    
+
     protected function takeChildFromDOM($child)
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
@@ -153,7 +153,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
         }
     }
 
-    public function getAccessLevel() 
+    public function getAccessLevel()
     {
         return $this->_accessLevel;
     }
@@ -161,13 +161,13 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
     /**
      * @param Zend_Gdata_Calendar_Extension_AccessLevel $value
      * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
-     */    
-    public function setAccessLevel($value) 
+     */
+    public function setAccessLevel($value)
     {
         $this->_accessLevel = $value;
         return $this;
     }
-    public function getColor() 
+    public function getColor()
     {
         return $this->_color;
     }
@@ -175,14 +175,14 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
     /**
      * @param Zend_Gdata_Calendar_Extension_Color $value
      * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
-     */    
-    public function setColor($value) 
+     */
+    public function setColor($value)
     {
         $this->_color = $value;
         return $this;
     }
 
-    public function getHidden() 
+    public function getHidden()
     {
         return $this->_hidden;
     }
@@ -190,14 +190,14 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
     /**
      * @param Zend_Gdata_Calendar_Extension_Hidden $value
      * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
-     */    
-    public function setHidden($value) 
+     */
+    public function setHidden($value)
     {
         $this->_hidden = $value;
         return $this;
     }
 
-    public function getSelected() 
+    public function getSelected()
     {
         return $this->_selected;
     }
@@ -205,14 +205,14 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
     /**
      * @param Zend_Gdata_Calendar_Extension_Selected $value
      * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
-     */    
-    public function setSelected($value) 
+     */
+    public function setSelected($value)
     {
         $this->_selected = $value;
         return $this;
     }
 
-    public function getTimezone() 
+    public function getTimezone()
     {
         return $this->_timezone;
     }
@@ -220,14 +220,14 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
     /**
      * @param Zend_Gdata_Calendar_Extension_Timezone $value
      * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
-     */    
-    public function setTimezone($value) 
+     */
+    public function setTimezone($value)
     {
         $this->_timezone = $value;
         return $this;
     }
-    
-    public function getWhere() 
+
+    public function getWhere()
     {
         return $this->_where;
     }
@@ -236,7 +236,7 @@ class Zend_Gdata_Calendar_ListEntry extends Zend_Gdata_Entry
      * @param Zend_Gdata_Extension_Where $value
      * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
      */
-    public function setWhere($value) 
+    public function setWhere($value)
     {
         $this->_where = $value;
         return $this;

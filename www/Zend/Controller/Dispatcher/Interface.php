@@ -16,7 +16,7 @@
  * @subpackage Dispatcher
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_Controller_Request_Abstract
@@ -68,32 +68,32 @@ interface Zend_Controller_Dispatcher_Interface
 
     /**
      * Add or modify a parameter with which to instantiate an Action Controller
-     * 
-     * @param string $name 
-     * @param mixed $value 
+     *
+     * @param string $name
+     * @param mixed $value
      * @return Zend_Controller_Dispatcher_Interface
      */
     public function setParam($name, $value);
 
     /**
      * Set an array of a parameters to pass to the Action Controller constructor
-     * 
-     * @param array $params 
+     *
+     * @param array $params
      * @return Zend_Controller_Dispatcher_Interface
      */
     public function setParams(array $params);
 
     /**
      * Retrieve a single parameter from the controller parameter stack
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      * @return mixed
      */
     public function getParam($name);
 
     /**
      * Retrieve the parameters to pass to the Action Controller constructor
-     * 
+     *
      * @return array
      */
     public function getParams();
@@ -101,10 +101,10 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Clear the controller parameter stack
      *
-     * By default, clears all parameters. If a parameter name is given, clears 
-     * only that parameter; if an array of parameter names is provided, clears 
+     * By default, clears all parameters. If a parameter name is given, clears
+     * only that parameter; if an array of parameter names is provided, clears
      * each.
-     * 
+     *
      * @param null|string|array single key or array of keys for params to clear
      * @return Zend_Controller_Dispatcher_Interface
      */
@@ -112,23 +112,23 @@ interface Zend_Controller_Dispatcher_Interface
 
     /**
      * Set the response object to use, if any
-     * 
-     * @param Zend_Controller_Response_Abstract|null $response 
+     *
+     * @param Zend_Controller_Response_Abstract|null $response
      * @return void
      */
     public function setResponse(Zend_Controller_Response_Abstract $response = null);
 
     /**
      * Retrieve the response object, if any
-     * 
+     *
      * @return Zend_Controller_Response_Abstract|null
      */
     public function getResponse();
 
     /**
      * Add a controller directory to the controller directory stack
-     * 
-     * @param string $path 
+     *
+     * @param string $path
      * @param string $args
      * @return Zend_Controller_Dispatcher_Interface
      */
@@ -137,17 +137,17 @@ interface Zend_Controller_Dispatcher_Interface
     /**
      * Set the directory where controller files are stored
      *
-     * Specify a string or an array; if an array is specified, all paths will be 
+     * Specify a string or an array; if an array is specified, all paths will be
      * added.
-     * 
-     * @param string|array $dir 
+     *
+     * @param string|array $dir
      * @return Zend_Controller_Dispatcher_Interface
      */
     public function setControllerDirectory($path);
 
     /**
      * Return the currently set directory(ies) for controller file lookup
-     * 
+     *
      * @return array
      */
     public function getControllerDirectory();
@@ -164,8 +164,8 @@ interface Zend_Controller_Dispatcher_Interface
 
     /**
      * Whether or not a given module is valid
-     * 
-     * @param string $module 
+     *
+     * @param string $module
      * @return boolean
      */
     public function isValidModule($module);

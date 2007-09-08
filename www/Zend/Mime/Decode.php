@@ -119,7 +119,7 @@ class Zend_Mime_Decode
         $firstline = strtok($message, "\n");
         if (!preg_match('%^[^\s]+[^:]*:%', $firstline)) {
             $headers = array();
-	        // TODO: we're ignoring \r for now - is this function fast enough and is it safe to asume noone needs \r?
+            // TODO: we're ignoring \r for now - is this function fast enough and is it safe to asume noone needs \r?
             $body = str_replace(array("\r", "\n"), array('', $EOL), $message);
             return;
         }

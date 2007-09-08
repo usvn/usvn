@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_XmlRpc_Request
@@ -26,31 +26,31 @@ require_once 'Zend/XmlRpc/Request.php';
 /**
  * XmlRpc Request object -- Request via STDIN
  *
- * Extends {@link Zend_XmlRpc_Request} to accept a request via STDIN. Request is 
- * built at construction time using data from STDIN; if no data is available, the 
+ * Extends {@link Zend_XmlRpc_Request} to accept a request via STDIN. Request is
+ * built at construction time using data from STDIN; if no data is available, the
  * request is declared a fault.
  *
  * @category Zend
  * @package  Zend_XmlRpc
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Stdin.php 2810 2007-01-16 01:40:21Z bkarwin $
+ * @version $Id: Stdin.php 5750 2007-07-18 20:49:47Z thomas $
  */
 class Zend_XmlRpc_Request_Stdin extends Zend_XmlRpc_Request
 {
     /**
      * Raw XML as received via request
-     * @var string 
+     * @var string
      */
     protected $_xml;
 
     /**
      * Constructor
      *
-     * Attempts to read from php://stdin to get raw POST request; if an error 
-     * occurs in doing so, or if the XML is invalid, the request is declared a 
+     * Attempts to read from php://stdin to get raw POST request; if an error
+     * occurs in doing so, or if the XML is invalid, the request is declared a
      * fault.
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -74,7 +74,7 @@ class Zend_XmlRpc_Request_Stdin extends Zend_XmlRpc_Request
 
     /**
      * Retrieve the raw XML request
-     * 
+     *
      * @return string
      */
     public function getRawRequest()

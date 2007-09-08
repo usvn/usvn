@@ -40,14 +40,14 @@ class Zend_Gdata_Spreadsheets_SpreadsheetFeed extends Zend_Gdata_Feed
      * @var string
      */
     protected $_entryClassName = 'Zend_Gdata_Spreadsheets_SpreadsheetEntry';
-    
+
     /**
      * The classname for the feed.
      *
      * @var string
      */
     protected $_feedClassName = 'Zend_Gdata_Spreadsheets_SpreadsheetFeed';
- 
+
     /**
      * Constructs a new Zend_Gdata_Spreadsheets_SpreadsheetFeed object.
      * @param DOMElement $element (optional) The DOMElement on which to base this object.
@@ -58,6 +58,6 @@ class Zend_Gdata_Spreadsheets_SpreadsheetFeed extends Zend_Gdata_Feed
             $this->registerNamespace($nsPrefix, $nsUri);
         }
         parent::__construct($element);
-    } 
+    }
 
 }

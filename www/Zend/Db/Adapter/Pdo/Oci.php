@@ -49,6 +49,26 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
     protected $_pdoType = 'oci';
 
     /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'BINARY_DOUBLE'      => Zend_Db::FLOAT_TYPE,
+        'BINARY_FLOAT'       => Zend_Db::FLOAT_TYPE,
+        'NUMBER'             => Zend_Db::FLOAT_TYPE
+    );
+
+    /**
      * Creates a PDO DSN for the adapter from $this->_config settings.
      *
      * @return string
@@ -68,6 +88,11 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         }
         $tns .= $dsn['dbname'];
 
+        if (isset($dsn['charset']))
+        {
+            $tns .= ';charset=' . $dsn['charset'];
+        }       
+
         return $this->_pdoType . ':' . $tns;
     }
 
@@ -82,7 +107,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      */
     protected function _quote($value)
     {
-        if (is_numeric($value)) {
+        if (is_int($value) || is_float($value)) {
             return $value;
         }
         return "'" . addcslashes($value, "\000\n\r\\'\"\032") . "'";
@@ -254,7 +279,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      *
      * @param string $tableName   OPTIONAL Name of table.
      * @param string $primaryKey  OPTIONAL Name of primary key column.
-     * @return integer
+     * @return string
      * @throws Zend_Db_Adapter_Oracle_Exception
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
@@ -264,7 +289,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
             if ($primaryKey) {
                 $sequenceName .= $this->foldCase("_$primaryKey");
             }
-            $sequenceName .= $this->foldCase('_SEQ');
+            $sequenceName .= $this->foldCase('_seq');
             return $this->lastSequenceId($sequenceName);
         }
         return $this->_connection->lastInsertId($tableName);
@@ -293,7 +318,7 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         /**
          * Oracle does not implement the LIMIT clause as some RDBMS do.
          * We have to simulate it with subqueries and ROWNUM.
-         * Unfortunately because we use the column wildcard "*", 
+         * Unfortunately because we use the column wildcard "*",
          * this puts an extra column into the query result set.
          */
         $limit_sql = "SELECT z2.*

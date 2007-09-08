@@ -25,7 +25,7 @@
 require_once 'Zend/Gdata/Extension.php';
 
 /**
- * Data model for representing an atom:link element 
+ * Data model for representing an atom:link element
  *
  * @category   Zend
  * @package    Zend_Gdata
@@ -106,7 +106,7 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Href 
+     * @return Zend_Gdata_App_Extension_Href
      */
     public function getHref()
     {
@@ -114,17 +114,17 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Href $value 
+     * @param Zend_Gdata_App_Extension_Href $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setHref($value)
     {
         $this->_href = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Rel 
+     * @return Zend_Gdata_App_Extension_Rel
      */
     public function getRel()
     {
@@ -132,17 +132,17 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Rel $value 
+     * @param Zend_Gdata_App_Extension_Rel $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setRel($value)
     {
         $this->_rel = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Type 
+     * @return Zend_Gdata_App_Extension_Type
      */
     public function getType()
     {
@@ -150,17 +150,17 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Type $value 
+     * @param Zend_Gdata_App_Extension_Type $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setType($value)
     {
         $this->_type = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_HrefLang 
+     * @return Zend_Gdata_App_Extension_HrefLang
      */
     public function getHrefLang()
     {
@@ -168,17 +168,17 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_HrefLang $value 
+     * @param Zend_Gdata_App_Extension_HrefLang $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setHrefLang($value)
     {
         $this->_hrefLang = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Title 
+     * @return Zend_Gdata_App_Extension_Title
      */
     public function getTitle()
     {
@@ -186,17 +186,17 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Title $value 
+     * @param Zend_Gdata_App_Extension_Title $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setTitle($value)
     {
         $this->_title = $value;
-        return $this; 
+        return $this;
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Length 
+     * @return Zend_Gdata_App_Extension_Length
      */
     public function getLength()
     {
@@ -204,13 +204,13 @@ class Zend_Gdata_App_Extension_Link extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Length $value 
+     * @param Zend_Gdata_App_Extension_Length $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setLength($value)
     {
         $this->_length = $value;
-        return $this; 
+        return $this;
     }
 
 }

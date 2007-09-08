@@ -36,7 +36,7 @@ require_once 'Zend/Gdata/App/Extension.php';
 abstract class Zend_Gdata_App_Extension_Text extends Zend_Gdata_App_Extension
 {
 
-    protected $_rootElement = null; 
+    protected $_rootElement = null;
     protected $_type = 'text';
 
     public function __construct($text = null, $type = 'text')
@@ -67,7 +67,7 @@ abstract class Zend_Gdata_App_Extension_Text extends Zend_Gdata_App_Extension
     }
 
     /*
-     * @return Zend_Gdata_App_Extension_Type 
+     * @return Zend_Gdata_App_Extension_Type
      */
     public function getType()
     {

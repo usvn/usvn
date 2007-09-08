@@ -16,20 +16,20 @@
  * @package    Zend_Http
  * @subpackage Cookie
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com/)
- * @version    $Id: Cookie.php 4223 2007-03-24 10:20:34Z thomas $
+ * @version    $Id: Cookie.php 5771 2007-07-18 22:06:24Z thomas $
  * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
  */
 
 /**
- * Zend_Http_Cookie is a class describing an HTTP cookie and all it's parameters. 
- * 
- * Zend_Http_Cookie is a class describing an HTTP cookie and all it's parameters. The 
+ * Zend_Http_Cookie is a class describing an HTTP cookie and all it's parameters.
+ *
+ * Zend_Http_Cookie is a class describing an HTTP cookie and all it's parameters. The
  * class also enables validating whether the cookie should be sent to the server in
- * a specified scenario according to the request URI, the expiry time and whether 
+ * a specified scenario according to the request URI, the expiry time and whether
  * session cookies should be used or not. Generally speaking cookies should be
- * contained in a Cookiejar object, or instantiated manually and added to an HTTP 
+ * contained in a Cookiejar object, or instantiated manually and added to an HTTP
  * request.
- * 
+ *
  * See http://wp.netscape.com/newsref/std/cookie_spec.html for some specs.
  *
  * @category    Zend
@@ -37,7 +37,7 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com/)
  * @license     http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
  */
-class Zend_Http_Cookie 
+class Zend_Http_Cookie
 {
     /**
      * Cookie name
@@ -45,47 +45,47 @@ class Zend_Http_Cookie
      * @var string
      */
     protected $name;
-    
+
     /**
      * Cookie value
      *
      * @var string
      */
     protected $value;
-    
+
     /**
      * Cookie expiry date
      *
      * @var int
      */
     protected $expires;
-    
+
     /**
      * Cookie domain
      *
      * @var string
      */
     protected $domain;
-    
+
     /**
      * Cookie path
      *
      * @var string
      */
     protected $path;
-    
+
     /**
      * Whether the cookie is secure or not
      *
      * @var boolean
      */
     protected $secure;
-    
+
     /**
      * Cookie object constructor
-     * 
+     *
      * @todo Add validation of each one of the parameters (legal domain, etc.)
-     *  
+     *
      * @param string $name
      * @param string $value
      * @param int $expires
@@ -98,7 +98,7 @@ class Zend_Http_Cookie
         if (preg_match("/[=,; \t\r\n\013\014]/", $name))
             throw new Zend_Http_Exception("Cookie name cannot contain these characters: =,; \\t\\r\\n\\013\\014 ({$name})");
 
-        if (! $this->name = (string) $name) 
+        if (! $this->name = (string) $name)
             throw new Zend_Http_Exception('Cookies must have a name');
 
         if (! $this->domain = (string) $domain)
@@ -109,7 +109,7 @@ class Zend_Http_Cookie
         $this->path = ($path ? $path : '/');
         $this->secure = $secure;
     }
-    
+
     /**
      * Get Cookie name
      *
@@ -119,7 +119,7 @@ class Zend_Http_Cookie
     {
         return $this->name;
     }
-    
+
     /**
      * Get cookie value
      *
@@ -129,7 +129,7 @@ class Zend_Http_Cookie
     {
         return $this->value;
     }
-    
+
     /**
      * Get cookie domain
      *
@@ -139,9 +139,9 @@ class Zend_Http_Cookie
     {
         return $this->domain;
     }
-    
+
     /**
-     * Get the cookie path 
+     * Get the cookie path
      *
      * @return string
      */
@@ -149,7 +149,7 @@ class Zend_Http_Cookie
     {
         return $this->path;
     }
-    
+
     /**
      * Get the expiry time of the cookie, or null if no expiry time is set
      *
@@ -159,7 +159,7 @@ class Zend_Http_Cookie
     {
         return $this->expires;
     }
-    
+
     /**
      * Check whether the cookie should only be sent over secure connections
      *
@@ -169,10 +169,10 @@ class Zend_Http_Cookie
     {
         return $this->secure;
     }
-    
+
     /**
      * Check whether the cookie has expired
-     * 
+     *
      * Always returns false if the cookie is a session cookie (has no expiry time)
      *
      * @param int $now Timestamp to consider as "now"
@@ -187,7 +187,7 @@ class Zend_Http_Cookie
             return false;
         }
     }
-    
+
     /**
      * Check whether the cookie is a session cookie (has no expiry time set)
      *
@@ -197,7 +197,7 @@ class Zend_Http_Cookie
     {
         return ($this->expires === null);
     }
-    
+
     /**
      * Checks whether the cookie should be sent or not in a specific scenario
      *
@@ -211,29 +211,29 @@ class Zend_Http_Cookie
         if (is_string ($uri)) {
             $uri = Zend_Uri::factory($uri);
         }
-        
+
         // Make sure we have a valid Zend_Uri_Http object
         if (! ($uri->valid() && ($uri->getScheme() == 'http' || $uri->getScheme() =='https')))
             throw new Zend_Http_Exception('Passed URI is not a valid HTTP or HTTPS URI');
-        
+
         // Check that the cookie is secure (if required) and not expired
         if ($this->secure && $uri->getScheme() != 'https') return false;
         if ($this->isExpired($now)) return false;
         if ($this->isSessionCookie() && ! $matchSessionCookies) return false;
-        
+
         // Validate domain and path
         // Domain is validated using tail match, while path is validated using head match
         $domain_preg = preg_quote($this->getDomain(), "/");
         if (! preg_match("/{$domain_preg}$/", $uri->getHost())) return false;
         $path_preg = preg_quote($this->getPath(), "/");
         if (! preg_match("/^{$path_preg}/", $uri->getPath())) return false;
-        
+
         // If we didn't die until now, return true.
         return true;
     }
 
     /**
-     * Get the cookie as a string, suitable for sending as a "Cookie" header in an 
+     * Get the cookie as a string, suitable for sending as a "Cookie" header in an
      * HTTP request
      *
      * @return string
@@ -242,9 +242,9 @@ class Zend_Http_Cookie
     {
         return $this->name . '=' . urlencode($this->value) . ';';
     }
-    
+
     /**
-     * Generate a new Cookie object from a cookie string 
+     * Generate a new Cookie object from a cookie string
      * (for example the value of the Set-Cookie HTTP header)
      *
      * @param string $cookieStr
@@ -257,7 +257,7 @@ class Zend_Http_Cookie
         if (is_string($ref_uri)) {
             $ref_uri = Zend_Uri::factory($ref_uri);
         }
-        
+
         $name = '';
         $value = '';
         $expires = null;
@@ -265,22 +265,22 @@ class Zend_Http_Cookie
         $path = '';
         $secure = false;
         $parts = explode(';', $cookieStr);
-        
+
         // If first part does not include '=', fail
         if (strpos($parts[0], '=') === false) return false;
-        
+
         // Get the name and value of the cookie
         list($name, $value) = explode('=', trim(array_shift($parts)), 2);
         $name  = trim($name);
         $value = urldecode(trim($value));
-        
+
         // Set default domain and path
         if ($ref_uri instanceof Zend_Uri_Http) {
             $domain = $ref_uri->getHost();
             $path = $ref_uri->getPath();
             $path = substr($path, 0, strrpos($path, '/'));
         }
-        
+
         // Set other cookie parameters
         foreach ($parts as $part) {
             $part = trim($part);
@@ -288,7 +288,7 @@ class Zend_Http_Cookie
                 $secure = true;
                 continue;
             }
-            
+
             $keyValue = explode('=', $part, 2);
             if (count($keyValue) == 2) {
                 list($k, $v) = $keyValue;
@@ -307,7 +307,7 @@ class Zend_Http_Cookie
                 }
             }
         }
-        
+
         if ($name !== '') {
             return new Zend_Http_Cookie($name, $value, $domain, $expires, $path, $secure);
         } else {

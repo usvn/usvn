@@ -44,8 +44,8 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
      * @var string
      */
     protected $_username;
-    
-    
+
+
     /**
      * PLAIN password
      *
@@ -53,7 +53,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
      */
     protected $_password;
 
-    
+
     /**
      * Constructor.
      *
@@ -76,7 +76,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
         parent::__construct($host, $port, $config);
     }
 
-    
+
     /**
      * Perform PLAIN authentication with supplied credentials
      *
@@ -86,7 +86,7 @@ class Zend_Mail_Protocol_Smtp_Auth_Plain extends Zend_Mail_Protocol_Smtp
     {
         // Ensure AUTH has not already been initiated.
         parent::auth();
-        
+
         $this->_send('AUTH PLAIN');
         $this->_expect(334);
         $this->_send(base64_encode(chr(0) . $this->_username . chr(0) . $this->_password));

@@ -93,11 +93,11 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
     const SPREADSHEETS_FEED_URI = 'http://spreadsheets.google.com/feeds/spreadsheets';
     const SPREADSHEETS_POST_URI = 'http://spreadsheets.google.com/feeds/spreadsheets/private/full';
     const AUTH_SERVICE_NAME = 'wise';
-    
+
     public static $namespaces = array(
         'gs' => 'http://schemas.google.com/spreadsheets/2006',
         'gsx' => 'http://schemas.google.com/spreadsheets/2006/extended');
-    
+
     /**
      * Create Gdata_Spreadsheets object
      */
@@ -109,7 +109,7 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         $this->registerPackage('Zend_Gdata_Spreadsheets_Extension');
         $this->_server = 'spreadsheets.google.com';
     }
-    
+
     /**
      * Gets a spreadsheet feed.
      * @param string $location A DocumentQuery or a URI specifying the feed location.
@@ -120,7 +120,7 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         if ($location == null)
         {
             $uri = self::SPREADSHEETS_FEED_URI;
-        } 
+        }
         else if ($location instanceof Zend_Gdata_Spreadsheets_DocumentQuery)
         {
             if ($location->getDocumentType() == null)
@@ -132,11 +132,11 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         else
         {
             $uri = $location;
-        }    
-            
+        }
+
         return parent::getFeed($uri, 'Zend_Gdata_Spreadsheets_SpreadsheetFeed');
     }
-    
+
     /**
      * Gets a spreadsheet entry.
      * @param string $location A DocumentQuery or a URI specifying the entry location.
@@ -155,11 +155,11 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         else
         {
             $uri = $location;
-        }  
+        }
 
         return parent::getEntry($uri, 'Zend_Gdata_Spreadsheets_SpreadsheetEntry');
     }
-    
+
     /**
      * Gets a worksheet feed.
      * @param string $location A DocumentQuery or a URI specifying the feed location.
@@ -178,11 +178,11 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         else
         {
             $uri = $location;
-        }  
-        
+        }
+
         return parent::getFeed($uri, 'Zend_Gdata_Spreadsheets_WorksheetFeed');
     }
-    
+
     /**
      * Gets a worksheet entry.
      * @param string $location A DocumentQuery or a URI specifying the entry location.
@@ -201,11 +201,11 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         else
         {
             $uri = $location;
-        }  
-        
+        }
+
         return parent::getEntry($uri, 'Zend_Gdata_Spreadsheets_WorksheetEntry');
     }
-    
+
     /**
      * Gets a cell feed.
      * @param string $location A CellQuery or a URI specifying the feed location.
@@ -219,7 +219,7 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
             $uri = $location;
         return parent::getFeed($uri, 'Zend_Gdata_Spreadsheets_CellFeed');
     }
-    
+
     /**
      * Gets a cell entry.
      * @param string $location A CellQuery or a URI specifying the entry location.
@@ -231,10 +231,10 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
             $uri = $location->getQueryUrl();
         else
             $uri = $location;
-            
+
         return parent::getEntry($uri, 'Zend_Gdata_Spreadsheets_CellEntry');
     }
-    
+
     /**
      * Gets a list feed.
      * @param string $location A ListQuery or a URI specifying the feed location.
@@ -246,10 +246,10 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
             $uri = $location->getQueryUrl();
         else
             $uri = $location;
-        
+
         return parent::getFeed($uri, 'Zend_Gdata_Spreadsheets_ListFeed');
     }
-    
+
     /**
      * Gets a list entry.
      * @param string $location A ListQuery or a URI specifying the entry location.
@@ -261,10 +261,10 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
             $uri = $location->getQueryUrl();
         else
             $uri = $location;
-        
+
         return parent::getEntry($uri, 'Zend_Gdata_Spreadsheets_ListEntry');
     }
-    
+
     /**
      * Updates an existing cell.
      * @param int $row The row containing the cell to update
@@ -274,21 +274,21 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
      * @param string $wkshtId (optional) The worksheet to be updated
      * @return CellEntry The updated cell entry.
      */
-    public function updateCell($row, $col, $inputValue, $key, $wkshtId = 'default') 
+    public function updateCell($row, $col, $inputValue, $key, $wkshtId = 'default')
     {
         $cell = 'R'.$row.'C'.$col;
-        
+
         $query = new Zend_Gdata_Spreadsheets_CellQuery();
         $query->setSpreadsheetKey($key);
         $query->setWorksheetId($wkshtId);
         $query->setCellId($cell);
-        
+
         $entry = $this->getCellEntry($query);
         $entry->setCell(new Zend_Gdata_Spreadsheets_Extension_Cell(null, $row, $col, $inputValue));
         $response = $entry->save();
         return $response;
     }
-    
+
     /**
      * Inserts a new row with provided data.
      * @param array $rowData An array of column header to row data
@@ -307,17 +307,17 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
             $newCustomArr[] = $newCustom;
         }
         $newEntry->setCustom($newCustomArr);
-        
+
         $query = new Zend_Gdata_Spreadsheets_ListQuery();
         $query->setSpreadsheetKey($key);
         $query->setWorksheetId($wkshtId);
-        
+
         $feed = $this->getListFeed($query);
         $editLink = $feed->getLink('http://schemas.google.com/g/2005#post');
-        
+
         return $this->insertEntry($newEntry->saveXML(), $editLink->href, 'Zend_Gdata_Spreadsheets_ListEntry');
     }
-    
+
     /**
      * Updates an existing row with provided data.
      * @param ListEntry $entry The row entry to update
@@ -333,10 +333,10 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
             $newCustomArr[] = $newCustom;
         }
         $entry->setCustom($newCustomArr);
-        
+
         return $entry->save();
     }
-    
+
     /**
      * Deletes an existing row .
      * @param ListEntry $entry The row to delete
@@ -346,7 +346,7 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         $entry->delete();
     }
 }
-    
-    
-    
-    
+
+
+
+

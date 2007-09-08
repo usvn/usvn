@@ -55,16 +55,16 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
      * @param string $inputValue (optional) Input value attribute of the element.
      * @param string $numericValue (optional) Numeric value attribute of the element.
      */
-    public function __construct($text = null, $row = null, $col = null, $inputValue = null, $numericValue = null) 
+    public function __construct($text = null, $row = null, $col = null, $inputValue = null, $numericValue = null)
     {
         foreach (Zend_Gdata_Spreadsheets::$namespaces as $nsPrefix => $nsUri) {
             $this->registerNamespace($nsPrefix, $nsUri);
         }
         parent::__construct();
         $this->_text = $text;
-        $this->_row = $row; 
-        $this->_col = $col; 
-        $this->_inputValue = $inputValue; 
+        $this->_row = $row;
+        $this->_col = $col;
+        $this->_inputValue = $inputValue;
         $this->_numericValue = $numericValue;
     }
 
@@ -106,7 +106,7 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     {
         return $this->_row;
     }
-    
+
     /**
      * Gets the column attribute of the Cell element.
      * @return string Column of the Cell.
@@ -115,16 +115,16 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     {
         return $this->_col;
     }
-    
+
     /**
      * Gets the input value attribute of the Cell element.
      * @return string Input value of the Cell.
      */
-    public function getInputValue() 
+    public function getInputValue()
     {
         return $this->_inputValue;
     }
-    
+
     /**
      * Gets the numeric value attribute of the Cell element.
      * @return string Numeric value of the Cell.
@@ -133,37 +133,37 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     {
         return $this->_numericValue;
     }
-    
+
     /**
      * Sets the row attribute of the Cell element.
      * @param string $row New row of the Cell.
      */
-    public function setRow($row) 
-    { 
+    public function setRow($row)
+    {
         $this->_row = $row;
         return $this;
     }
-    
+
     /**
      * Sets the column attribute of the Cell element.
      * @param string $col New column of the Cell.
      */
-    public function setColumn($col) 
-    { 
+    public function setColumn($col)
+    {
         $this->_col = $col;
         return $this;
     }
-    
+
     /**
      * Sets the input value attribute of the Cell element.
      * @param string $inputValue New input value of the Cell.
      */
-    public function setInputValue($inputValue) 
-    { 
+    public function setInputValue($inputValue)
+    {
         $this->_inputValue = $inputValue;
         return $this;
     }
-    
+
     /**
      * Sets the numeric value attribute of the Cell element.
      * @param string $numericValue New numeric value of the Cell.
@@ -172,5 +172,5 @@ class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
     {
         $this->_numericValue = $numericValue;
     }
-    
+
 }

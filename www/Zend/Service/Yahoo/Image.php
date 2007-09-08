@@ -18,7 +18,7 @@
  * @subpackage Yahoo
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Image.php 4462 2007-04-11 04:10:16Z darby $
+ * @version    $Id: Image.php 5755 2007-07-18 21:03:35Z thomas $
  */
 
 
@@ -62,8 +62,8 @@ class Zend_Service_Yahoo_Image
      */
     public function __construct(DOMNode $dom, $namespace)
     {
-    	$xpath = new DOMXPath($dom->ownerDocument);
-    	$xpath->registerNamespace('yh', $namespace);
+        $xpath = new DOMXPath($dom->ownerDocument);
+        $xpath->registerNamespace('yh', $namespace);
         $this->Url = Zend_Uri::factory($xpath->query('./yh:Url/text()', $dom)->item(0)->data);
         $this->Height = (int) $xpath->query('./yh:Height/text()', $dom)->item(0)->data;
         $this->Width = (int) $xpath->query('./yh:Width/text()', $dom)->item(0)->data;

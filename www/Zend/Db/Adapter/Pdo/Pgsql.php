@@ -18,7 +18,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pgsql.php 5296 2007-06-13 23:20:37Z bkarwin $
+ * @version    $Id: Pgsql.php 5906 2007-07-28 02:58:20Z bkarwin $
  */
 
 
@@ -46,6 +46,32 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
      * @var string
      */
     protected $_pdoType = 'pgsql';
+
+    /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'INTEGER'            => Zend_Db::INT_TYPE,
+        'SERIAL'             => Zend_Db::INT_TYPE,
+        'SMALLINT'           => Zend_Db::INT_TYPE,
+        'BIGINT'             => Zend_Db::BIGINT_TYPE,
+        'BIGSERIAL'          => Zend_Db::BIGINT_TYPE,
+        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
+        'DOUBLE PRECISION'   => Zend_Db::FLOAT_TYPE,
+        'NUMERIC'            => Zend_Db::FLOAT_TYPE,
+        'REAL'               => Zend_Db::FLOAT_TYPE
+    );
 
     /**
      * Returns a list of the tables in the database.
@@ -227,7 +253,7 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function lastSequenceId($sequenceName)
     {
@@ -242,7 +268,7 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function nextSequenceId($sequenceName)
     {
@@ -263,7 +289,7 @@ class Zend_Db_Adapter_Pdo_Pgsql extends Zend_Db_Adapter_Pdo_Abstract
      *
      * @param string $tableName   OPTIONAL Name of table.
      * @param string $primaryKey  OPTIONAL Name of primary key column.
-     * @return integer
+     * @return string
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {

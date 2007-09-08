@@ -31,11 +31,11 @@ require_once 'Zend/XmlRpc/Exception.php';
 /**
  * XMLRPC Faults
  *
- * Container for XMLRPC faults, containing both a code and a message; 
- * additionally, has methods for determining if an XML response is an XMLRPC 
+ * Container for XMLRPC faults, containing both a code and a message;
+ * additionally, has methods for determining if an XML response is an XMLRPC
  * fault, as well as generating the XML for an XMLRPC fault response.
  *
- * To allow method chaining, you may only use the {@link getInstance()} factory 
+ * To allow method chaining, you may only use the {@link getInstance()} factory
  * to instantiate a Zend_XmlRpc_Server_Fault.
  *
  * @category   Zend
@@ -47,19 +47,19 @@ class Zend_XmlRpc_Fault
 {
     /**
      * Fault code
-     * @var int 
+     * @var int
      */
     protected $_code;
 
     /**
      * Fault character encoding
-     * @var string 
+     * @var string
      */
     protected $_encoding = 'UTF-8';
 
     /**
      * Fault message
-     * @var string 
+     * @var string
      */
     protected $_message;
 
@@ -103,7 +103,7 @@ class Zend_XmlRpc_Fault
 
     /**
      * Constructor
-     * 
+     *
      * @return Zend_XmlRpc_Fault
      */
     public function __construct($code = 404, $message = '')
@@ -121,8 +121,8 @@ class Zend_XmlRpc_Fault
 
     /**
      * Set the fault code
-     * 
-     * @param int $code 
+     *
+     * @param int $code
      * @return Zend_XmlRpc_Fault
      */
     public function setCode($code)
@@ -133,7 +133,7 @@ class Zend_XmlRpc_Fault
 
     /**
      * Return fault code
-     * 
+     *
      * @return int
      */
     public function getCode()
@@ -143,7 +143,7 @@ class Zend_XmlRpc_Fault
 
     /**
      * Retrieve fault message
-     * 
+     *
      * @param string
      * @return Zend_XmlRpc_Fault
      */
@@ -155,7 +155,7 @@ class Zend_XmlRpc_Fault
 
     /**
      * Retrieve fault message
-     * 
+     *
      * @return string
      */
     public function getMessage()
@@ -165,8 +165,8 @@ class Zend_XmlRpc_Fault
 
     /**
      * Set encoding to use in fault response
-     * 
-     * @param string $encoding 
+     *
+     * @param string $encoding
      * @return Zend_XmlRpc_Fault
      */
     public function setEncoding($encoding)
@@ -177,7 +177,7 @@ class Zend_XmlRpc_Fault
 
     /**
      * Retrieve current fault encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -187,11 +187,11 @@ class Zend_XmlRpc_Fault
 
     /**
      * Load an XMLRPC fault from XML
-     * 
-     * @param string $fault 
-     * @return boolean Returns true if successfully loaded fault response, false 
+     *
+     * @param string $fault
+     * @return boolean Returns true if successfully loaded fault response, false
      * if response was not a fault response
-     * @throws Zend_XmlRpc_Exception if no or faulty XML provided, or if fault 
+     * @throws Zend_XmlRpc_Exception if no or faulty XML provided, or if fault
      * response does not contain either code or message
      */
     public function loadXml($fault)
@@ -254,8 +254,8 @@ class Zend_XmlRpc_Fault
 
     /**
      * Determine if an XML response is an XMLRPC fault
-     * 
-     * @param string $xml 
+     *
+     * @param string $xml
      * @return boolean
      */
     public static function isFault($xml)
@@ -272,7 +272,7 @@ class Zend_XmlRpc_Fault
 
     /**
      * Serialize fault to XML
-     * 
+     *
      * @return string
      */
     public function saveXML()
@@ -297,7 +297,7 @@ class Zend_XmlRpc_Fault
 
     /**
      * Return XML fault response
-     * 
+     *
      * @return string
      */
     public function __toString()

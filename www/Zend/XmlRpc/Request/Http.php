@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_XmlRpc_Request
@@ -26,15 +26,15 @@ require_once 'Zend/XmlRpc/Request.php';
 /**
  * XmlRpc Request object -- Request via HTTP
  *
- * Extends {@link Zend_XmlRpc_Request} to accept a request via HTTP. Request is 
- * built at construction time using a raw POST; if no data is available, the 
+ * Extends {@link Zend_XmlRpc_Request} to accept a request via HTTP. Request is
+ * built at construction time using a raw POST; if no data is available, the
  * request is declared a fault.
  *
  * @category Zend
  * @package  Zend_XmlRpc
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Http.php 3833 2007-03-09 05:01:14Z matthew $
+ * @version $Id: Http.php 5750 2007-07-18 20:49:47Z thomas $
  */
 class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
 {
@@ -46,17 +46,17 @@ class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
 
     /**
      * Raw XML as received via request
-     * @var string 
+     * @var string
      */
     protected $_xml;
 
     /**
      * Constructor
      *
-     * Attempts to read from php://input to get raw POST request; if an error 
-     * occurs in doing so, or if the XML is invalid, the request is declared a 
+     * Attempts to read from php://input to get raw POST request; if an error
+     * occurs in doing so, or if the XML is invalid, the request is declared a
      * fault.
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -80,7 +80,7 @@ class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
 
     /**
      * Retrieve the raw XML request
-     * 
+     *
      * @return string
      */
     public function getRawRequest()
@@ -92,7 +92,7 @@ class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
      * Get headers
      *
      * Gets all headers as key => value pairs and returns them.
-     * 
+     *
      * @return array
      */
     public function getHeaders()
@@ -112,7 +112,7 @@ class Zend_XmlRpc_Request_Http extends Zend_XmlRpc_Request
 
     /**
      * Retrieve the full HTTP request, including headers and XML
-     * 
+     *
      * @return string
      */
     public function getFullRequest()

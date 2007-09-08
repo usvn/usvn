@@ -100,7 +100,7 @@ class Zend_Gdata_Query
     public function getQueryUrl()
     {
         if ($this->_url == null) {
-            $url = $this->_defaultFeedUri; 
+            $url = $this->_defaultFeedUri;
         } else {
             $url = $this->_url;
         }
@@ -116,7 +116,7 @@ class Zend_Gdata_Query
     public function setParam($name, $value)
     {
         $this->_params[$name] = $value;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -152,7 +152,7 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['max-results']);
         }
-        return $this; 
+        return $this;
     }
 
     /**
@@ -166,7 +166,7 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['q']);
         }
-        return $this; 
+        return $this;
     }
 
     /**
@@ -180,7 +180,7 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['start-index']);
         }
-        return $this; 
+        return $this;
     }
 
     /**
@@ -194,7 +194,7 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['updated-max']);
         }
-        return $this; 
+        return $this;
     }
 
     /**
@@ -208,7 +208,7 @@ class Zend_Gdata_Query
         } else {
             unset($this->_params['updated-min']);
         }
-        return $this; 
+        return $this;
     }
 
     /**
@@ -366,7 +366,7 @@ class Zend_Gdata_Query
         $method = 'get'.ucfirst($name);
         if (method_exists($this, $method)) {
             return call_user_func(array(&$this, $method));
-        } else { 
+        } else {
             require_once 'Zend/Gdata/App/Exception.php';
             throw new Zend_Gdata_App_Exception('Property ' . $name . '  does not exist');
         }

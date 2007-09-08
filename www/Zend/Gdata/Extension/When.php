@@ -46,7 +46,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     protected $_valueString = null;
     protected $_endTime = null;
 
-    public function __construct($startTime = null, $endTime = null, 
+    public function __construct($startTime = null, $endTime = null,
             $valueString = null, $reminders = null)
     {
         parent::__construct();
@@ -81,7 +81,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-            case $this->lookupNamespace('gd') . ':' . 'reminder'; 
+            case $this->lookupNamespace('gd') . ':' . 'reminder';
                 $reminder = new Zend_Gdata_Extension_Reminder();
                 $reminder->transferFromDOM($child);
                 $this->_reminders[] = $reminder;
@@ -109,7 +109,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
         }
     }
 
-    public function __toString() 
+    public function __toString()
     {
         if ($valueString)
             return $valueString;

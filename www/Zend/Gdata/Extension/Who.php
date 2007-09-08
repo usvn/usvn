@@ -35,7 +35,7 @@ require_once 'Zend/Gdata/Extension/AttendeeStatus.php';
 require_once 'Zend/Gdata/Extension/AttendeeType.php';
 
 /**
- * Data model class to represent a participant 
+ * Data model class to represent a participant
  *
  * @category   Zend
  * @package    Zend_Gdata
@@ -63,7 +63,7 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
      * @param string $entryLink URL pointing to an associated entry (Contact kind) describing this person.
      */
     public function __construct($email = null, $rel = null, $valueString = null,
-		$attendeeStatus = null, $attendeeType = null, $entryLink = null) 
+        $attendeeStatus = null, $attendeeType = null, $entryLink = null)
     {
         parent::__construct();
         $this->_email = $email;
@@ -75,13 +75,13 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
     }
 
     /**
-     * Retrieves a DOMElement which corresponds to this element and all 
+     * Retrieves a DOMElement which corresponds to this element and all
      * child properties.  This is used to build an entry back into a DOM
      * and eventually XML text for sending to the server upon updates, or
-     * for application storage/persistence.  
+     * for application storage/persistence.
      *
      * @param DOMDocument $doc The DOMDocument used to construct DOMElements
-     * @return DOMElement The DOMElement representing this element and all 
+     * @return DOMElement The DOMElement representing this element and all
      * child properties.
      */
     public function getDOM($doc = null)
@@ -110,7 +110,7 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
 
     /**
      * Given a DOMNode representing an attribute, tries to map the data into
-     * instance members.  If no mapping is defined, the name and value are 
+     * instance members.  If no mapping is defined, the name and value are
      * stored in an array.
      *
      * @param DOMNode $attribute The DOMNode attribute needed to be handled
@@ -164,11 +164,11 @@ class Zend_Gdata_Extension_Who extends Zend_Gdata_Extension
     }
 
     /**
-     * Retrieves a human redable string describing this attribute's value.
+     * Retrieves a human readable string describing this attribute's value.
      *
      * @return string The attribute value.
      */
-    public function __toString() 
+    public function __toString()
     {
         if ($this->_valueString != null) {
             return $this->_valueString;

@@ -25,7 +25,7 @@
 require_once 'Zend/Gdata/Extension.php';
 
 /**
- * Implements the gd:reminder element used to set/retrieve notifications 
+ * Implements the gd:reminder element used to set/retrieve notifications
  *
  * @category   Zend
  * @package    Zend_Gdata
@@ -42,11 +42,11 @@ class Zend_Gdata_Extension_Reminder extends Zend_Gdata_Extension
     protected $_hours = null;
     protected $_minutes = null;
 
-    public function __construct($absoluteTime = null, $method = null, $days = null, 
+    public function __construct($absoluteTime = null, $method = null, $days = null,
             $hours = null, $minutes = null)
     {
         parent::__construct();
-        $this->_absoluteTime = $absoluteTime; 
+        $this->_absoluteTime = $absoluteTime;
         $this->_method = $method;
         $this->_days = $days;
         $this->_hours = $hours;
@@ -97,8 +97,8 @@ class Zend_Gdata_Extension_Reminder extends Zend_Gdata_Extension
         }
     }
 
-    public function __toString() 
-    {   
+    public function __toString()
+    {
         $s;
         if ($absoluteTime)
             $s = "at" . $absoluteTime;

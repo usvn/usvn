@@ -42,63 +42,63 @@ require_once 'Zend/Mime.php';
 abstract class Zend_Mail_Transport_Abstract {
     /**
      * Mail body
-     * @var string 
+     * @var string
      * @access public
      */
     public $body = '';
 
     /**
      * MIME boundary
-     * @var string 
+     * @var string
      * @access public
      */
     public $boundary = '';
 
     /**
      * Mail header string
-     * @var string 
+     * @var string
      * @access public
      */
     public $header = '';
 
     /**
      * Array of message headers
-     * @var array 
+     * @var array
      * @access protected
      */
     protected $_headers = array();
 
     /**
      * Message is a multipart message
-     * @var boolean 
+     * @var boolean
      * @access protected
      */
     protected $_isMultipart = false;
 
     /**
      * Zend_Mail object
-     * @var false|Zend_Mail 
+     * @var false|Zend_Mail
      * @access protected
      */
     protected $_mail = false;
 
     /**
      * Array of message parts
-     * @var array 
+     * @var array
      * @access protected
      */
     protected $_parts = array();
 
     /**
      * Recipients string
-     * @var string 
+     * @var string
      * @access public
      */
     public $recipients = '';
 
     /**
      * EOL character string used by transport
-     * @var string 
+     * @var string
      * @access public
      */
     public $EOL = "\r\n";
@@ -155,10 +155,10 @@ abstract class Zend_Mail_Transport_Abstract {
 
     /**
      * Prepend header name to header value
-     * 
-     * @param string $item 
-     * @param string $key 
-     * @param string $prefix 
+     *
+     * @param string $item
+     * @param string $key
+     * @param string $prefix
      * @static
      * @access protected
      * @return void
@@ -172,8 +172,8 @@ abstract class Zend_Mail_Transport_Abstract {
      * Prepare header string for use in transport
      *
      * Prepares and generates {@link $header} based on the headers provided.
-     * 
-     * @param mixed $headers 
+     *
+     * @param mixed $headers
      * @access protected
      * @return void
      * @throws Zend_Mail_Transport_Exception if any header lines exceed 998
@@ -184,7 +184,7 @@ abstract class Zend_Mail_Transport_Abstract {
         if (!$this->_mail) {
             throw new Zend_Mail_Transport_Exception('Missing Zend_Mail object in _mail property');
         }
-        
+
         $this->header = '';
 
         foreach ($headers as $header => $content) {
@@ -216,7 +216,7 @@ abstract class Zend_Mail_Transport_Abstract {
      *
      * If both a text and HTML body are present, generates a
      * multipart/alternative Zend_Mime_Part containing the headers and contents
-     * of each. Otherwise, uses whichever of the text or HTML parts present. 
+     * of each. Otherwise, uses whichever of the text or HTML parts present.
      *
      * The content part is then prepended to the list of Zend_Mime_Parts for
      * this message.
@@ -225,8 +225,8 @@ abstract class Zend_Mail_Transport_Abstract {
      */
     protected function _buildBody()
     {
-        if (($text = $this->_mail->getBodyText()) 
-            && ($html = $this->_mail->getBodyHtml())) 
+        if (($text = $this->_mail->getBodyText())
+            && ($html = $this->_mail->getBodyHtml()))
         {
             // Generate unique boundary for multipart/alternative
             $mime = new Zend_Mime(null);
@@ -253,15 +253,15 @@ abstract class Zend_Mail_Transport_Abstract {
             $mp->boundary = $mime->boundary();
 
             $this->_isMultipart = true;
-            
+
             // Ensure first part contains text alternatives
             array_unshift($this->_parts, $mp);
 
             // Get headers
             $this->_headers = $this->_mail->getHeaders();
             return;
-        } 
-        
+        }
+
         // If not multipart, then get the body
         if (false !== ($body = $this->_mail->getBodyHtml())) {
             array_unshift($this->_parts, $body);
@@ -285,8 +285,8 @@ abstract class Zend_Mail_Transport_Abstract {
 
     /**
      * Send a mail using this transport
-     * 
-     * @param Zend_Mail $mail 
+     *
+     * @param Zend_Mail $mail
      * @access public
      * @return void
      * @throws Zend_Mail_Transport_Exception if mail is empty

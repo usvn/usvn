@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Measure
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Number.php 4120 2007-03-19 22:09:51Z thomas $
+ * @version    $Id: Number.php 5777 2007-07-18 22:22:40Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -262,8 +262,8 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
             $length = strlen( $input );
             for($X = 0; $X < $length; ++$X) {
                 $split[$X] = hexdec( $split[$X] );
-                $value = call_user_func(Zend_Locale_Math::$add, $value, 
-                            call_user_func(Zend_Locale_Math::$mul, $split[$X], 
+                $value = call_user_func(Zend_Locale_Math::$add, $value,
+                            call_user_func(Zend_Locale_Math::$mul, $split[$X],
                             call_user_func(Zend_Locale_Math::$pow, $this->_UNITS[$type][0], ($length - $X - 1))));
             }
         }
@@ -318,15 +318,15 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
             $romankey = array_keys( array_reverse(self::$_ROMAN) );
             while(call_user_func(Zend_Locale_Math::$comp, $value, 0) != 0) {
 
-                while ($value >= $romanval[$i]) { 
+                while ($value >= $romanval[$i]) {
                     $value    -= $romanval[$i];
-                    $newvalue .= $romankey[$i]; 
-                } 
-                $i++; 
+                    $newvalue .= $romankey[$i];
+                }
+                $i++;
 
             }
 
-            $newvalue = str_replace("/", "", preg_replace(array_values(self::$_ROMANCONVERT), array_keys(self::$_ROMANCONVERT), $newvalue)); 
+            $newvalue = str_replace("/", "", preg_replace(array_values(self::$_ROMANCONVERT), array_keys(self::$_ROMANCONVERT), $newvalue));
         }
 
         return $newvalue;

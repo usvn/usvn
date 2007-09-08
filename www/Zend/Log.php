@@ -16,7 +16,7 @@
  * @package    Zend_Log
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Log.php 5112 2007-06-04 23:28:58Z mike $
+ * @version    $Id: Log.php 5764 2007-07-18 21:59:22Z thomas $
  */
 
 /** Zend_Log_Filter_Priority */
@@ -27,8 +27,8 @@ require_once 'Zend/Log/Filter/Priority.php';
  * @package    Zend_Log
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Log.php 5112 2007-06-04 23:28:58Z mike $
- */ 
+ * @version    $Id: Log.php 5764 2007-07-18 21:59:22Z thomas $
+ */
 class Zend_Log
 {
     const EMERG   = 0;  // Emergency: system is unusable
@@ -172,7 +172,7 @@ class Zend_Log
      * Add a filter that will be applied before all log writers.
      * Before a message will be received by any of the writers, it
      * must be accepted by all filters added with this method.
-     * 
+     *
      * @param  Zend_Log_Filter_Interface  $filter
      * @return void
      */

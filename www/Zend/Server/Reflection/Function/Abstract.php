@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_Server_Reflection_Exception
@@ -39,21 +39,21 @@ require_once 'Zend/Server/Reflection/Parameter.php';
 require_once 'Zend/Server/Reflection/Prototype.php';
 
 /**
- * Function/Method Reflection 
+ * Function/Method Reflection
  *
- * Decorates a ReflectionFunction. Allows setting and retrieving an alternate 
- * 'service' name (i.e., the name to be used when calling via a service), 
- * setting and retrieving the description (originally set using the docblock 
- * contents), retrieving the callback and callback type, retrieving additional 
- * method invocation arguments, and retrieving the 
- * method {@link Zend_Server_Reflection_Prototype prototypes}. 
- * 
+ * Decorates a ReflectionFunction. Allows setting and retrieving an alternate
+ * 'service' name (i.e., the name to be used when calling via a service),
+ * setting and retrieving the description (originally set using the docblock
+ * contents), retrieving the callback and callback type, retrieving additional
+ * method invocation arguments, and retrieving the
+ * method {@link Zend_Server_Reflection_Prototype prototypes}.
+ *
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Reflection
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Abstract.php 3916 2007-03-14 11:42:22Z matthew $
+ * @version $Id: Abstract.php 5756 2007-07-18 21:07:42Z thomas $
  */
 abstract class Zend_Server_Reflection_Function_Abstract
 {
@@ -64,40 +64,40 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Additional arguments to pass to method on invocation
-     * @var array 
+     * @var array
      */
     protected $_argv = array();
 
     /**
-     * Used to store extra configuration for the method (typically done by the 
-     * server class, e.g., to indicate whether or not to instantiate a class). 
-     * Associative array; access is as properties via {@link __get()} and 
+     * Used to store extra configuration for the method (typically done by the
+     * server class, e.g., to indicate whether or not to instantiate a class).
+     * Associative array; access is as properties via {@link __get()} and
      * {@link __set()}
-     * @var array 
+     * @var array
      */
     protected $_config = array();
 
     /**
      * Declaring class (needed for when serialization occurs)
-     * @var string 
+     * @var string
      */
     protected $_class;
 
     /**
      * Function/method description
-     * @var string 
+     * @var string
      */
     protected $_description = '';
 
     /**
      * Namespace with which to prefix function/method name
-     * @var string 
+     * @var string
      */
     protected $_namespace;
 
     /**
      * Prototypes
-     * @var array 
+     * @var array
      */
     protected $_prototypes = array();
 
@@ -109,16 +109,16 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Constructor
-     * 
-     * @param ReflectionFunction $r 
+     *
+     * @param ReflectionFunction $r
      */
     public function __construct(Reflector $r, $namespace = null, $argv = array())
     {
-        // In PHP 5.1.x, ReflectionMethod extends ReflectionFunction. In 5.2.x, 
-        // both extend ReflectionFunctionAbstract. So, we can't do normal type 
-        // hinting in the prototype, but instead need to do some explicit 
+        // In PHP 5.1.x, ReflectionMethod extends ReflectionFunction. In 5.2.x,
+        // both extend ReflectionFunctionAbstract. So, we can't do normal type
+        // hinting in the prototype, but instead need to do some explicit
         // testing here.
-        if ((!$r instanceof ReflectionFunction) 
+        if ((!$r instanceof ReflectionFunction)
             && (!$r instanceof ReflectionMethod)) {
             throw new Zend_Server_Reflection_Exception('Invalid reflection class');
         }
@@ -146,12 +146,12 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Create signature node tree
      *
-     * Recursive method to build the signature node tree. Increments through 
-     * each array in {@link $_sigParams}, adding every value of the next level 
+     * Recursive method to build the signature node tree. Increments through
+     * each array in {@link $_sigParams}, adding every value of the next level
      * to the current value (unless the current value is null).
-     * 
-     * @param Zend_Server_Reflection_Node $parent 
-     * @param int $level 
+     *
+     * @param Zend_Server_Reflection_Node $parent
+     * @param int $level
      * @return void
      */
     protected function _addTree(Zend_Server_Reflection_Node $parent, $level = 0)
@@ -171,10 +171,10 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Build the signature tree
      *
-     * Builds a signature tree starting at the return values and descending 
-     * through each method argument. Returns an array of 
+     * Builds a signature tree starting at the return values and descending
+     * through each method argument. Returns an array of
      * {@link Zend_Server_Reflection_Node}s.
-     * 
+     *
      * @return array
      */
     protected function _buildTree()
@@ -192,9 +192,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Build method signatures
      *
-     * Builds method signatures using the array of return types and the array of 
+     * Builds method signatures using the array of return types and the array of
      * parameters types
-     * 
+     *
      * @param array $return Array of return types
      * @param string $returnDesc Return value description
      * @param array $params Array of arguments (each an array of types)
@@ -253,8 +253,8 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Use code reflection to create method signatures
      *
-     * Determines the method help/description text from the function DocBlock 
-     * comment. Determines method signatures using a combination of 
+     * Determines the method help/description text from the function DocBlock
+     * comment. Determines method signatures using a combination of
      * ReflectionFunction and parsing of DocBlock @param and @return values.
      *
      * @param ReflectionFunction $function
@@ -355,9 +355,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Proxy reflection calls
-     * 
-     * @param string $method 
-     * @param array $args 
+     *
+     * @param string $method
+     * @param array $args
      * @return mixed
      */
     public function __call($method, $args)
@@ -372,10 +372,10 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Retrieve configuration parameters
      *
-     * Values are retrieved by key from {@link $_config}. Returns null if no 
+     * Values are retrieved by key from {@link $_config}. Returns null if no
      * value found.
-     * 
-     * @param string $key 
+     *
+     * @param string $key
      * @return mixed
      */
     public function __get($key)
@@ -391,9 +391,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
      * Set configuration parameters
      *
      * Values are stored by $key in {@link $_config}.
-     * 
-     * @param string $key 
-     * @param mixed $value 
+     *
+     * @param string $key
+     * @param mixed $value
      * @return void
      */
     public function __set($key, $value)
@@ -403,7 +403,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Set method's namespace
-     * 
+     *
      * @param string $namespace
      * @return void
      */
@@ -423,7 +423,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Return method's namespace
-     * 
+     *
      * @return string
      */
     public function getNamespace()
@@ -433,8 +433,8 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Set the description
-     * 
-     * @param string $string 
+     *
+     * @param string $string
      * @return void
      */
     public function setDescription($string)
@@ -448,7 +448,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Retrieve the description
-     * 
+     *
      * @return void
      */
     public function getDescription()
@@ -457,9 +457,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
     }
 
     /**
-     * Retrieve all prototypes as array of 
+     * Retrieve all prototypes as array of
      * {@link Zend_Server_Reflection_Prototype Zend_Server_Reflection_Prototypes}
-     * 
+     *
      * @return array
      */
     public function getPrototypes()
@@ -469,7 +469,7 @@ abstract class Zend_Server_Reflection_Function_Abstract
 
     /**
      * Retrieve additional invocation arguments
-     * 
+     *
      * @return array
      */
     public function getInvokeArguments()
@@ -480,9 +480,9 @@ abstract class Zend_Server_Reflection_Function_Abstract
     /**
      * Wakeup from serialization
      *
-     * Reflection needs explicit instantiation to work correctly. Re-instantiate 
+     * Reflection needs explicit instantiation to work correctly. Re-instantiate
      * reflection object on wakeup.
-     * 
+     *
      * @return void
      */
     public function __wakeup()

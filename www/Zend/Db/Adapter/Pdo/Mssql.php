@@ -48,6 +48,33 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
     protected $_pdoType = 'mssql';
 
     /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'INT'                => Zend_Db::INT_TYPE,
+        'SMALLINT'           => Zend_Db::INT_TYPE,
+        'TINYINT'            => Zend_Db::INT_TYPE,
+        'BIGINT'             => Zend_Db::BIGINT_TYPE,
+        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
+        'FLOAT'              => Zend_Db::FLOAT_TYPE,
+        'MONEY'              => Zend_Db::FLOAT_TYPE,
+        'NUMERIC'            => Zend_Db::FLOAT_TYPE,
+        'REAL'               => Zend_Db::FLOAT_TYPE,
+        'SMALLMONEY'         => Zend_Db::FLOAT_TYPE
+    );
+
+    /**
      * Creates a PDO DSN for the adapter from $this->_config settings.
      *
      * @return string
@@ -278,7 +305,7 @@ class Zend_Db_Adapter_Pdo_Mssql extends Zend_Db_Adapter_Pdo_Abstract
      *
      * @param string $tableName   OPTIONAL Name of table.
      * @param string $primaryKey  OPTIONAL Name of primary key column.
-     * @return integer
+     * @return string
      * @throws Zend_Db_Adapter_Exception
      */
     public function lastInsertId($tableName = null, $primaryKey = null)

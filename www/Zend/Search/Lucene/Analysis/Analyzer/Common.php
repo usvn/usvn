@@ -68,7 +68,7 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer_Common extends Zend_Search_L
         foreach ($this->_filters as $filter) {
             $token = $filter->normalize($token);
 
-            // resulting token can be null if the filter removed it
+            // resulting token can be null if the filter removes it
             if (is_null($token)) {
                 return null;
             }

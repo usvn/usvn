@@ -78,7 +78,7 @@ class Zend_Gdata_App
     /**
      * Packages to search for classes when using magic __call method, in order.
      *
-     * @var array 
+     * @var array
      */
     protected $_registeredPackages = array(
             'Zend_Gdata_App_Extension',
@@ -109,7 +109,7 @@ class Zend_Gdata_App
      * @param string $name The name of the package (eg Zend_Gdata_App)
      * @return void
      */
-    public function registerPackage($name) 
+    public function registerPackage($name)
     {
         array_unshift($this->_registeredPackages, $name);
     }
@@ -141,7 +141,7 @@ class Zend_Gdata_App
     /**
 
     /**
-     * Get the Zend_Http_Client object used for communication 
+     * Get the Zend_Http_Client object used for communication
      *
      * @return Zend_Http_Client
      */
@@ -151,7 +151,7 @@ class Zend_Gdata_App
     }
 
     /**
-     * Set the Zend_Http_Client object used for communication 
+     * Set the Zend_Http_Client object used for communication
      *
      * @param Zend_Http_Client $client The client to use for communication
      * @throws Zend_Gdata_App_HttpException
@@ -173,7 +173,7 @@ class Zend_Gdata_App
             )
         );
         $this->_httpClient = $client;
-        Zend_Gdata::setStaticHttpClient($client); 
+        Zend_Gdata::setStaticHttpClient($client);
         return $this;
     }
 
@@ -243,10 +243,10 @@ class Zend_Gdata_App
     /**
      * Set the maximum number of redirects to follow during HTTP operations
      *
-     * @param int $maxRedirects Maximum number of redirects to follow 
+     * @param int $maxRedirects Maximum number of redirects to follow
      * @return void
      */
-    public static function setMaxRedirects($maxRedirects) 
+    public static function setMaxRedirects($maxRedirects)
     {
         self::$_maxRedirects = $maxRedirects;
     }
@@ -260,7 +260,7 @@ class Zend_Gdata_App
     {
         return self::$_maxRedirects;
     }
-    
+
     /**
      * Imports a feed located at $uri.
      *
@@ -325,11 +325,11 @@ class Zend_Gdata_App
      *
      * @param  string $filename
      * @param  string $className The class which is used as the return type
-     * @param  string $useIncludePath Whether the include_path should be searched 
+     * @param  string $useIncludePath Whether the include_path should be searched
      * @throws Zend_Gdata_App_Exception
      * @return Zend_Gdata_Feed
      */
-    public static function importFile($filename, 
+    public static function importFile($filename,
             $className='Zend_Gdata_App_Feed', $useIncludePath = false)
     {
         @ini_set('track_errors', 1);
@@ -389,7 +389,7 @@ class Zend_Gdata_App
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'You must specify the data to post as either a string or a child of Zend_Gdata_App_Entry');
-        } 
+        }
         if ($uri === null) {
             $uri = $this->_defaultPostUri;
         }
@@ -522,8 +522,8 @@ class Zend_Gdata_App
     /**
      * DELETE entry with client object
      *
-     * @param mixed $data The Zend_Gdata_App_Entry or URL to delete 
-     * @return void 
+     * @param mixed $data The Zend_Gdata_App_Entry or URL to delete
+     * @return void
      * @throws Zend_Gdata_App_Exception
      * @throws Zend_Gdata_App_HttpException
      * @throws Zend_Gdata_App_InvalidArgumentException
@@ -604,16 +604,16 @@ class Zend_Gdata_App
                     'You must specify the data to post as either a string or a child of Zend_Gdata_App_Entry');
         }
         $response = $this->post($rawData, $uri);
-        
+
         $returnEntry = new $className($response->getBody());
         $returnEntry->setHttpClient(self::getstaticHttpClient());
         return $returnEntry;
     }
 
     /**
-     * Update an entry 
+     * Update an entry
      *
-     * TODO Determine if App should call Entry to Update or the opposite.  
+     * TODO Determine if App should call Entry to Update or the opposite.
      * Suspecect opposite would mkae more sense.  Also, this possibly should
      * take an optional URL to override URL used in the entry, or if an
      * edit URI/ID is not present in the entry
@@ -625,7 +625,7 @@ class Zend_Gdata_App
     public function updateEntry($data, $uri =null, $className = null)
     {
         if ($className === null && $data instanceof Zend_Gdata_App_Entry) {
-            $className = get_class($data); 
+            $className = get_class($data);
         } elseif ($className === null) {
             $className = 'Zend_Gdata_App_Entry';
         }
@@ -638,7 +638,7 @@ class Zend_Gdata_App
     /**
      * Provides a magic factory method to instantiate new objects with
      * shorter syntax than would otherwise be required by the Zend Framework
-     * naming conventions.  For instance, to construct a new 
+     * naming conventions.  For instance, to construct a new
      * Zend_Gdata_Calendar_Extension_Color, a developer simply needs to do
      * $gCal->newColor().  For this magic constructor, packages are searched
      * in the same order as which they appear in the $_registeredPackages
@@ -648,7 +648,7 @@ class Zend_Gdata_App
      * @param array $args The arguments passed to the call
      * @throws Zend_Gdata_App_Exception
      */
-    public function __call($method, $args) 
+    public function __call($method, $args)
     {
         if (preg_match('/^new(\w+)/', $method, $matches)) {
             $class = $matches[1];
@@ -676,4 +676,33 @@ class Zend_Gdata_App
         }
     }
 
+    /**
+     * Retrieve all entries for a feed, iterating through pages as necessary.
+     * Be aware that calling this function on a large dataset will take a 
+     * significant amount of time to complete. In some cases this may cause 
+     * execution to timeout without proper precautions in place.
+     *
+     * @param $feed The feed to iterate through.
+     * @return mixed A new feed of the same type as the one originally 
+     *          passed in, containing all relevent entries.
+     */
+    public function retrieveAllEntriesForFeed ($feed) {
+        $feedClass = get_class($feed);
+        $reflectionObj = new ReflectionClass($feedClass);
+        $result = $reflectionObj->newInstance();
+        do {
+            foreach ($feed as $entry) {
+                $result->addEntry($entry);
+            }
+            
+            $next = $feed->getLink('next');
+            if ($next !== null) {
+                $feed = $this->getFeed($next->href, $feedClass);
+            } else {
+                $feed = null;
+            }
+        }
+        while ($feed != null);
+        return $result;
+    }
 }

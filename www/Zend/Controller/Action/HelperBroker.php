@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 
 /** Zend_Controller_Action_Exception */
@@ -43,24 +43,24 @@ class Zend_Controller_Action_HelperBroker
      * @var Zend_Controller_Action_Helper_Abstract[]
      */
     static protected $_helpers = array();
-    
+
     /**
      * $_paths - paths to Action_Helpers
      *
      * @var array
      */
     static protected $_paths = array(array(
-        'dir'    => 'Zend/Controller/Action/Helper/', 
+        'dir'    => 'Zend/Controller/Action/Helper/',
         'prefix' => 'Zend_Controller_Action_Helper_'
     ));
-    
+
     /**
      * $_actionController - ActionController reference
-     * 
+     *
      * @var Zend_Controller_Action
      */
     protected $_actionController;
-    
+
     /**
      * addHelper() - Add helper objects
      *
@@ -73,7 +73,7 @@ class Zend_Controller_Action_HelperBroker
         self::$_helpers[$helper_name] = $helper;
         return;
     }
-    
+
     /**
      * addPrefix() - Add repository of helpers by prefix
      *
@@ -86,10 +86,10 @@ class Zend_Controller_Action_HelperBroker
         self::addPath($path, $prefix);
         return;
     }
-    
+
     /**
      * resetHelpers()
-     * 
+     *
      * @return void
      */
     static public function resetHelpers()
@@ -97,7 +97,7 @@ class Zend_Controller_Action_HelperBroker
         self::$_helpers = array();
         return;
     }
-    
+
     /**
      * addPath() - Add path to repositories where Action_Helpers could be found.
      *
@@ -114,10 +114,10 @@ class Zend_Controller_Action_HelperBroker
 
         // make sure it ends in a PATH_SEPARATOR
         $prefix = rtrim($prefix, '_') . '_';
-        
+
         $info['dir']    = $path;
         $info['prefix'] = $prefix;
-        
+
         self::$_paths[] = $info;
         return;
     }
@@ -129,14 +129,14 @@ class Zend_Controller_Action_HelperBroker
      * @return void
      */
     public function __construct(Zend_Controller_Action $actionController)
-    {        
+    {
         $this->_actionController = $actionController;
         foreach (self::$_helpers as $helper) {
             $helper->setActionController($actionController);
             $helper->init();
         }
     }
-    
+
     /**
      * notifyPreDispatch() - called by action controller dispatch method
      *
@@ -148,7 +148,7 @@ class Zend_Controller_Action_HelperBroker
             $helper->preDispatch();
         }
     }
-    
+
     /**
      * notifyPostDispatch() - called by action controller dispatch method
      *
@@ -158,13 +158,13 @@ class Zend_Controller_Action_HelperBroker
     {
         foreach (self::$_helpers as $helper) {
             $helper->postDispatch();
-        }        
+        }
     }
 
     /**
      * Normalize helper name for lookups
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return string
      */
     protected static function _normalizeHelperName($name)
@@ -172,10 +172,10 @@ class Zend_Controller_Action_HelperBroker
         if (strpos($name, '_') !== false) {
             $name = str_replace(' ', '', ucwords(str_replace('_', ' ', $name)));
         }
-        
+
         return ucfirst($name);
     }
-    
+
     /**
      * getHelper() - get helper by name
      *
@@ -185,11 +185,11 @@ class Zend_Controller_Action_HelperBroker
     public function getHelper($name)
     {
         $name = self::_normalizeHelperName($name);
-        
+
         if (!array_key_exists($name, self::$_helpers)) {
             self::_loadHelper($name);
         }
-        
+
         $helper = self::$_helpers[$name];
 
         $initialize = false;
@@ -203,33 +203,33 @@ class Zend_Controller_Action_HelperBroker
             $helper->setActionController($this->_actionController)
                 ->init();
         }
-        
+
         return $helper;
     }
 
     /**
      * Retrieve or initialize a helper statically
      *
-     * Retrieves a helper object statically, loading on-demand if the helper 
+     * Retrieves a helper object statically, loading on-demand if the helper
      * does not already exist in the stack. Always returns a helper, unless
      * the helper class cannot be found.
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return Zend_Controller_Action_Helper_Abstract
      */
     public static function getStaticHelper($name)
     {
         $name = self::_normalizeHelperName($name);
-        
+
         if (!array_key_exists($name, self::$_helpers)) {
             self::_loadHelper($name);
         }
-        
+
         $helper = self::$_helpers[$name];
 
         return $helper;
     }
-    
+
     /**
      * getExistingHelper() - get helper by name
      *
@@ -237,7 +237,7 @@ class Zend_Controller_Action_HelperBroker
      * initialized with the broker (either via addHelper() or on-demand loading
      * via getHelper()).
      *
-     * Throws an exception if the referenced helper does not exist in the 
+     * Throws an exception if the referenced helper does not exist in the
      * stack; use {@link hasHelper()} to check if the helper is registered
      * prior to retrieving it.
      *
@@ -248,7 +248,7 @@ class Zend_Controller_Action_HelperBroker
     public static function getExistingHelper($name)
     {
         $name = self::_normalizeHelperName($name);
-        
+
         if (array_key_exists($name, self::$_helpers)) {
             return self::$_helpers[$name];
         }
@@ -258,7 +258,7 @@ class Zend_Controller_Action_HelperBroker
 
     /**
      * Return all registered helpers as helper => object pairs
-     * 
+     *
      * @return array
      */
     public static function getExistingHelpers()
@@ -268,8 +268,8 @@ class Zend_Controller_Action_HelperBroker
 
     /**
      * Is a particular helper loaded in the broker?
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return boolean
      */
     public static function hasHelper($name)
@@ -277,11 +277,11 @@ class Zend_Controller_Action_HelperBroker
         $name = self::_normalizeHelperName($name);
         return array_key_exists($name, self::$_helpers);
     }
-    
+
     /**
      * Remove a particular helper from the broker
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return boolean
      */
     public static function removeHelper($name)
@@ -304,41 +304,41 @@ class Zend_Controller_Action_HelperBroker
     protected static function _loadHelper($name)
     {
         $file = $name . '.php';
-        
+
         foreach (self::$_paths as $info) {
             $dir    = $info['dir'];
             $prefix = $info['prefix'];
 
             $class = $prefix . $name;
-                        
+
             if (class_exists($class, false)) {
                 $helper = new $class();
-                
+
                 if (!$helper instanceof Zend_Controller_Action_Helper_Abstract) {
                     throw new Zend_Controller_Action_Exception('Helper name ' . $name . ' -> class ' . $class . ' is not of type Zend_Controller_Action_Helper_Abstract');
                 }
-                
+
                 self::$_helpers[$helper->getName()] = $helper;
                 return;
-                
+
             } elseif (Zend_Loader::isReadable($dir . $file)) {
                 include_once $dir . $file;
-                
+
                 if (class_exists($class, false)) {
                     $helper = new $class();
                     if (!$helper instanceof Zend_Controller_Action_Helper_Abstract) {
                         throw new Zend_Controller_Action_Exception('Helper name ' . $name . ' -> class ' . $class . ' is not of type Zend_Controller_Action_Helper_Abstract');
                     }
-                    
+
                     self::$_helpers[$helper->getName()] = $helper;
                     return;
                 }
             }
         }
-        
+
         throw new Zend_Controller_Action_Exception('Action Helper by name ' . $name . ' not found.');
     }
-    
+
     /**
      * __call()
      *

@@ -188,24 +188,25 @@ class USVN_SVNUtils
     */
     public static function createSvn($path)
     {
-      $escape_path = escapeshellarg($path);
-      $message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnadminCommand("create $escape_path"), $return);
-      if ($return) {
-		throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
-      }
-      $tmpdir = USVN_DirectoryUtils::getTmpDirectory();
-      try {
-		mkdir($tmpdir . DIRECTORY_SEPARATOR . "trunk");
-		mkdir($tmpdir . DIRECTORY_SEPARATOR . "branches");
-		mkdir($tmpdir . DIRECTORY_SEPARATOR . "tags");
-		USVN_SVNUtils::_svnImport($path, $tmpdir);
-      }
-      catch (Exception $e) {
-		USVN_DirectoryUtils::removeDirectory($path);
+		$escape_path = escapeshellarg($path);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnadminCommand("create $escape_path"), $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
+		}
+		$tmpdir = USVN_DirectoryUtils::getTmpDirectory();
+		try {
+			mkdir($tmpdir . DIRECTORY_SEPARATOR . "trunk");
+			mkdir($tmpdir . DIRECTORY_SEPARATOR . "branches");
+			mkdir($tmpdir . DIRECTORY_SEPARATOR . "tags");
+			USVN_SVNUtils::_svnImport($path, $tmpdir);
+		}
+		catch (Exception $e) {
+			USVN_DirectoryUtils::removeDirectory($path);
+			USVN_DirectoryUtils::removeDirectory($tmpdir);
+			throw $e;
+		}
 		USVN_DirectoryUtils::removeDirectory($tmpdir);
-		throw $e;
-      }
-      USVN_DirectoryUtils::removeDirectory($tmpdir);
+		new USVN_InstallHooks($path);
     }
 
     /**

@@ -7,7 +7,7 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.8
- * @package usvn
+ * @package hooks
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
@@ -18,7 +18,7 @@
  */
 class USVN_InstallHooks
 {
-	private $hooks_without_stdin = array("post-commit",
+	private $hooks = array("post-commit",
 		"post-lock",
 		"post-revprop-change",
 		"post-unlock",
@@ -34,16 +34,18 @@ class USVN_InstallHooks
 	public function __construct($path)
 	{
 		$USVN_path = getcwd();
-		foreach ($this->hooks_without_stdin as $hook) {
-			file_put_contents($path . DIRECTORY_SEPARATOR . $hook,
+		foreach ($this->hooks as $hook) {
+			$file = $path . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR . $hook;
+			file_put_contents($file,
 <<<EOF
 #!/bin/sh
 cd $USVN_path
-php hooks/unix/$hook "\$@"
+php hooks/$hook.php "\$@"
 exit \$?
 
 EOF
 );
+			chmod($file, 0700);
 		}
 	}
 }

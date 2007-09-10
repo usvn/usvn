@@ -44,21 +44,22 @@ class USVN_InstallHooksTest extends USVN_Test_DB {
 	public function test_hooksInstallation()
 	{
 		$install = new USVN_InstallHooks('tests/mysvn');
-		$this->assertTrue(file_exists("tests/mysvn/post-commit"));
-		$this->assertTrue(file_exists("tests/mysvn/post-lock"));
-		$this->assertTrue(file_exists("tests/mysvn/post-revprop-change"));
-		$this->assertTrue(file_exists("tests/mysvn/post-unlock"));
-		$this->assertTrue(file_exists("tests/mysvn/pre-commit"));
-		$this->assertTrue(file_exists("tests/mysvn/pre-lock"));
-		$this->assertTrue(file_exists("tests/mysvn/pre-revprop-change"));
-		$this->assertTrue(file_exists("tests/mysvn/pre-unlock"));
-		$this->assertTrue(file_exists("tests/mysvn/start-commit"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/post-commit"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/post-lock"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/post-revprop-change"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/post-unlock"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/pre-commit"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/pre-lock"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/pre-revprop-change"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/pre-unlock"));
+		$this->assertTrue(file_exists("tests/mysvn/hooks/start-commit"));
+		$this->assertTrue(is_executable("tests/mysvn/hooks/start-commit"));
 		$this->assertEquals(
 			"#!/bin/sh\n" .
 			'cd ' . getcwd() . "\n" .
-			'php hooks/unix/start-commit "$@"' . "\n" .
+			'php hooks/start-commit.php "$@"' . "\n" .
 			'exit $?' . "\n"
-			, file_get_contents("tests/mysvn/start-commit"));
+			, file_get_contents("tests/mysvn/hooks/start-commit"));
 	}
 }
 

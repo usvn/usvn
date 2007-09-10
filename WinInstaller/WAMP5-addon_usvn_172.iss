@@ -1,7 +1,7 @@
 [Setup]
 AppName=USVN
 AppVerName=Userfriendly SVN
-OutputBaseFilename=USVN_06_add-on_172
+OutputBaseFilename=USVN_06_add-on_173
 AppPublisher=Userfriendly SVN
 AppPublisherURL=http://www.usvn.info
 AppSupportURL=http://www.usvn.info
@@ -23,7 +23,7 @@ AlwaysRestart=yes
 ;Name: "autostart"; Description: "Automatically launch WAMP5 on startup. If you check this option, Services will be installed as automatic. Otherwise, services will be installed as manual and will start and stop with the service manager."; GroupDescription: "Auto Start:" ;Flags: unchecked;
 
 [Files]
-Source: ".\Files\svn-1.4.3-setup.exe"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InstallSVN('{app}\USVN\svn-1.4.3-setup.exe')
+Source: ".\Files\svn-1.4.5-setup.exe"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InstallSVN('{app}\USVN\svn-1.4.5-setup.exe')
 Source: ".\Files\mod_authz_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs;
 Source: ".\Files\mod_dav_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigApache('{app}')
 Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;

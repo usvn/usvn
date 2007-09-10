@@ -12,7 +12,7 @@
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->formText("users_login", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion', 'users_login')")); ?>
+							<?php echo $this->formText("users_login", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion', 'users_login')", "onfocus" => "javascript:ajax_completion(1, 'completion', 'users_login', event)")); ?>
 						</td>
 						<td>
 							<?php echo $this->formSubmit("adduser", T_("Add")); ?>
@@ -50,7 +50,7 @@
 			<div>
 				<table>
 					<tr><td>
-						<?php echo $this->formText("groups_name", null, array("onkeyup" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion1', 'groups_name')")); ?>
+						<?php echo $this->formText("groups_name", null, array("onkeyup" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion1', 'groups_name')", "onfocus" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)")); ?>
 					</td><td>
 						<?php echo $this->formSubmit("addgroup", T_("Add")); ?>
 					</td></tr>
@@ -68,9 +68,7 @@
 					<?php echo $this->urlConfirm(array("action" => "deletegroup", "groups_id" => $group->id), $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")),
 					sprintf(T_("Do you really want to remove group %s from project %s?"), $group->name, $this->project->name));
 					 ?>
-					&nbsp;<a href="<?php echo $this->url(array("action" => "managegroup", "name" => $group->name)); ?>">
-						<?php echo $this->img("/CrystalClear/16x16/actions/edit.png", T_("Manage")); ?>
-					</a>
+					&nbsp;				
 				<?php endif; ?>
 				&nbsp;<?php echo $group->name; ?></li>
 		<?php endforeach; ?>

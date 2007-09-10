@@ -27,6 +27,7 @@ class CompletionController extends USVN_Controller
 		$table = "<table width=100%>";
 		$nb = 0;
 		echo "<files>\n";
+	
 		if ($_GET['idx'] == 1)
 		{
 			if (isset($_GET['grp']) && $_GET['grp'] != "")

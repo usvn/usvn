@@ -1,6 +1,32 @@
+<?php echo $this->completion(); ?>
+<?php echo $this->error($this); ?>
 <div class="usvn_info">
-	<h1><?php echo $this->group->name;?></h1>
-	<p>
-		<?php echo $this->group->description;?><br /><br />
-	</p>
+	
+	<h1><?php echo sprintf(T_("Managing group %s"), $this->group->name);?></h1>
+	<p><?php echo $this->group->description; ?></p>
+</div>
+<div class="usvn_info">
+	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => 'managegroup')); ?>" method="post">
+		<div>
+			<table>
+		<tr><td>
+			<?php echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'addlogin', event)", "autocomplete" => "off", 		"onkeyDown" => "javascript:geretouche(event, 'completion', 'addlogin')", "onfocus" => "javascript:ajax_completion(1, 'completion', 'addlogin', event)")); ?>
+		</td><td>
+			<?php echo $this->formSubmit("managegroup", T_("Add")); ?>
+		</td></tr>
+		<tr><td><div id="completion" class="_list_autocomplete_ajax" style="visibility:hidden"></div></td><td></td></tr>
+		</table>
+		</div>
+	</form>
+	<h1><?php echo T_("Affected Users");?></h1>
+	<ul>
+	<?php foreach ($this->group->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToGroups") as $user) :?>
+		<li>
+		<?php echo $this->urlConfirm(array("deleteid" => $user->id, "action" => 'managegroup'), $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")),
+			sprintf(T_("Do you really want to remove user %s from group %s?"), $user->login, $this->group->name));
+		?>
+
+		&nbsp;<?php echo $user->login; ?></li>
+	<?php endforeach; ?>
+	</ul>
 </div>

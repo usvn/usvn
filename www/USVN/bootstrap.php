@@ -27,7 +27,6 @@ require_once dirname(__FILE__) . '/autoload.php';
 date_default_timezone_set('UTC');
 error_reporting(E_ALL | E_STRICT);
 
-try {
 	/**
 	 * Load our ini conf file
 	 */
@@ -100,7 +99,3 @@ try {
 	$front->registerPlugin(new USVN_plugins_layout());
 
 	$front->dispatch();
-
-} catch (Exception $e) {
-	echo $e->getMessage();
-}

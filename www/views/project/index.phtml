@@ -68,9 +68,10 @@
 					<?php echo $this->urlConfirm(array("action" => "deletegroup", "groups_id" => $group->id), $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")),
 					sprintf(T_("Do you really want to remove group %s from project %s?"), $group->name, $this->project->name));
 					 ?>
-					&nbsp;				
+					&nbsp;
 				<?php endif; ?>
-				&nbsp;<?php echo $group->name; ?></li>
+				&nbsp;<a href="<?php echo $this->url(array("group" => $group->name), "group"); ?>"><?php echo $group->name; ?></a>
+			</li>
 		<?php endforeach; ?>
 	</ul>
 </div>

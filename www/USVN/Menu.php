@@ -70,6 +70,9 @@ class USVN_Menu
 		else if ($this->_request->getParam('area') == 'project') {
 			$menus = $menu->getProjectSubMenu($this->_request, $this->_identity);
 		}
+		else if ($this->_request->getParam('area') == 'group') {
+			$menus = $menu->getGroupSubMenu($this->_request, $this->_identity);
+		}
 		foreach ($menus as $m) {
 			array_push($this->_subMenu, $m);
 		}
@@ -111,6 +114,14 @@ class USVN_Menu
 					array(
 						"title" => $this->_request->getParam('project'),
 						"link"=> "project/{$this->_request->getParam('project')}",
+					)
+				);
+			}
+			else if ($this->_request->getParam('area') === "group") {
+				array_push($menu,
+					array(
+						"title" => $this->_request->getParam('group'),
+						"link"=> "group/{$this->_request->getParam('group')}",
 					)
 				);
 			}

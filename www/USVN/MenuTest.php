@@ -61,6 +61,19 @@ class menus_beta extends USVN_AbstractMenu
             );
     }
 
+	public function getGroupSubMenu()
+	{
+		 $group = $this->_request->getParam("group");
+            return array(
+                  array(
+                    "title" => "beta",
+                    "link"=> "group/" . $group . "/beta/",
+                    "controller" => "index",
+                    "action" => ""
+                )
+            );
+	}
+
     public function getAdminSubMenu()
 	{
 		 $project = $this->_request->getParam("project");
@@ -105,6 +118,19 @@ class menus_alpha extends USVN_AbstractMenu
                 )
             );
     }
+
+	public function getGroupSubMenu()
+	{
+		 $group = $this->_request->getParam("group");
+            return array(
+                  array(
+                    "title" => "alpha",
+                    "link"=> "group/" . $group . "/alpha/",
+                    "controller" => "index",
+                    "action" => ""
+                )
+            );
+	}
 
 	public function getAdminSubMenu()
 	{
@@ -167,6 +193,32 @@ class menus_alpha extends USVN_AbstractMenu
 			)
 			, $menuEntries);
 	}
+
+	public function test_getGroupSubMenu()
+	{
+		$request = new Zend_Controller_Request_Http();
+		$request->setParam('area', 'group');
+		$request->setParam('group', 'bidon');
+		$menu = new USVN_Menu($this->_menudir, $request, null);
+		$menuEntries = $menu->getSubMenu();
+		$this->assertContains(
+			array(
+                    "title" => "alpha",
+                    "link"=> "group/bidon/alpha/",
+                    "controller" => "index",
+                    "action" => ""
+			)
+			, $menuEntries);
+		$this->assertContains(
+			array(
+                    "title" => "beta",
+                    "link"=> "group/bidon/beta/",
+                    "controller" => "index",
+                    "action" => ""
+			)
+			, $menuEntries);
+	}
+
 
 	public function test_getAdminSubMenu()
 	{

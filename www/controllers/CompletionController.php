@@ -27,6 +27,7 @@ class CompletionController extends USVN_Controller
 		$table = "<table width=100%>";
 		$nb = 0;
 		echo "<files>\n";
+	
 		if ($_GET['idx'] == 1)
 		{
 			if (isset($_GET['grp']) && $_GET['grp'] != "")
@@ -36,10 +37,10 @@ class CompletionController extends USVN_Controller
 				$table_userstogroups = new USVN_Db_Table_UsersToGroups();
 				$res_usersspe = $table_userstogroups->findByGroupId($res_groups->groups_id);
 			}
-			else
+			else if (isset($_GET['prj']) && $_GET['prj'] != "")
 			{
 				$table_project = new USVN_Db_Table_Projects();
-				$res_project = $table_project->findByName($this->_request->getParam('project'));
+				$res_project = $table_project->findByName($_GET['prj']);
 				$table_userstoprojects = new USVN_Db_Table_UsersToProjects();
 				$res_usersspe = $table_userstoprojects->findByProjectId($res_project->projects_id);
 			}
@@ -64,7 +65,7 @@ class CompletionController extends USVN_Controller
 		if ($_GET['idx'] == 2)
 		{
 			$table_project = new USVN_Db_Table_Projects();
-			$res_project = $table_project->findByName($this->_request->getParam('project'));
+			$res_project = $table_project->findByName($_GET['prj']);
 			$table_groupstoprojects = new USVN_Db_Table_GroupsToProjects();
 			$res_groupstoprojects = $table_groupstoprojects->findByProjectId($res_project->projects_id);
 

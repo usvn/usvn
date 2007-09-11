@@ -98,8 +98,8 @@ class IndexControllerTest extends USVN_Test_Controller {
 		$this->user->addGroup($g2);
 		$this->runAction('index');
 		$this->assertEquals(2, count($this->controller->view->groups));
-		$this->assertContains('href="/group/index/group/Indochine">Indochine</a>', $this->getBody(), $this->getBody());
-		$this->assertContains('href="/group/index/group/Telephone">Telephone</a>', $this->getBody());
+		$this->assertContains('href="/group/Indochine">Indochine</a>', $this->getBody(), $this->getBody());
+		$this->assertContains('href="/group/Telephone">Telephone</a>', $this->getBody());
 	}
 }
 

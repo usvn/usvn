@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-06 14:09+0200\n"
-"PO-Revision-Date: 2007-07-05 16:27-0300\n"
+"PO-Revision-Date: 2007-09-14 11:49-0300\n"
 "Last-Translator: Esteban Cerutti <ecerutti@lifia.info.unlp.edu.ar>\n"
 "Language-Team: castellano <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -122,9 +122,8 @@ msgstr "Lenguaje por defecto"
 
 #: ../../../www//install/views/step2.html:32
 #: ../../../www//views/configadmin/index.phtml:27
-#, fuzzy
 msgid "Default timezone"
-msgstr "Plantilla por defecto"
+msgstr "Zona horaria por defecto"
 
 #: ../../../www//install/views/footer.html:3
 msgid "Copyright USVN"
@@ -147,10 +146,8 @@ msgid "Configure USVN"
 msgstr "Configurar USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
-msgstr ""
-"Configuraci&oacute;n general de USVN. Puede dejar los valores por defecto."
+msgid "Settings of general configuration of USVN. You can keep default settings."
+msgstr "Configuraci&oacute;n general de USVN. Puede dejar los valores por defecto."
 
 #: ../../../www//install/views/step4.html:12
 msgid "Page title"
@@ -170,8 +167,7 @@ msgstr "Archivo de contrase&ntilde;as de Subversion"
 
 #: ../../../www//install/views/step4.html:46
 msgid "Location where usvn will create password file."
-msgstr ""
-"Ubicaci&oacute;n donde usvn crear&aacute; el archivo de contrase&ntilde;as."
+msgstr "Ubicaci&oacute;n donde usvn crear&aacute; el archivo de contrase&ntilde;as."
 
 #: ../../../www//install/views/step4.html:60
 msgid "Subversion access file"
@@ -187,8 +183,7 @@ msgstr "Subversion url"
 
 #: ../../../www//install/views/step4.html:76
 msgid "The url used by users to checkout projects."
-msgstr ""
-"URL utilizada por los usuarios para realizar un checkout de los projectos."
+msgstr "URL utilizada por los usuarios para realizar un checkout de los projectos."
 
 #: ../../../www//install/views/step5.html:33
 msgid "Database installation"
@@ -348,9 +343,8 @@ msgid "Connect to USVN"
 msgstr "Conectarse a USVN"
 
 #: ../../../www//install/views/install_error.html:12
-#, fuzzy
 msgid "Force installation"
-msgstr "Instalaci&oacute;n de USVN"
+msgstr "Forzar la instalaci&oacute;n"
 
 #: ../../../www//install/Install.php:64
 msgid "Can't create database\n"
@@ -363,7 +357,7 @@ msgstr "No se puede conectar a la base de datos.\n"
 #: ../../../www//install/Install.php:86
 #, php-format
 msgid "Invalid adapter %s.\n"
-msgstr "El driver de base de datos %s es inv&aacute;lido.\n"
+msgstr "Adaptador %s inv&aacute;lido.\n"
 
 #: ../../../www//install/Install.php:96
 msgid "Can't load SQL file.\n"
@@ -379,9 +373,8 @@ msgid "Invalid language"
 msgstr "Lenguaje inv&aacute;lido"
 
 #: ../../../www//install/Install.php:166 ../../../www//USVN/Config.php:55
-#, fuzzy
 msgid "Invalid timezone"
-msgstr "Plantilla inv&aacute;lida"
+msgstr "Zona horaria inv&aacute;lida"
 
 #: ../../../www//install/Install.php:215
 #, fuzzy, php-format
@@ -415,8 +408,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN no puede ejecutarse en el modo seguro de PHP."
 
 #: ../../../www//install/Install.php:422
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 "Subversion no esta instalado en su sistema. Si usted se encuentra en Windows "
 "instale"
@@ -707,7 +699,7 @@ msgstr "El proyecto %s no existe."
 #: ../../../www//USVN/SVNLog.php:45
 #, php-format
 msgid "Can't get subversion repository logs: %s"
-msgstr "No su pudo obtener el repositorio subversion: %s"
+msgstr "No se pudo obtener los logs del repositorio subversion: %s"
 
 #: ../../../www//views/projectadmin/form.phtml:10
 msgid "Project's name empty, please fill it."
@@ -828,8 +820,7 @@ msgstr "Usuarios administradores"
 #: ../../../www//views/project/index.phtml:39
 #, php-format
 msgid "Do you really want to remove user %s as admin of project %s?"
-msgstr ""
-"Realmente desea borrar el usuario %s como administrador del proyecto %s?"
+msgstr "Realmente desea borrar el usuario %s como administrador del proyecto %s?"
 
 #: ../../../www//views/project/index.phtml:63
 #: ../../../www//views/useradmin/form.phtml:4
@@ -851,21 +842,19 @@ msgstr "&Uacute;ltimos cinco commits"
 
 #: ../../../www//views/project/index.phtml:84
 msgid "Revision"
-msgstr ""
+msgstr "Revisi&oacute;n"
 
 #: ../../../www//views/project/index.phtml:85
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: ../../../www//views/project/index.phtml:86
-#, fuzzy
 msgid "Date"
-msgstr "Base de datos"
+msgstr "Fecha"
 
 #: ../../../www//views/project/index.phtml:87
-#, fuzzy
 msgid "Message"
-msgstr "Administrar"
+msgstr "Mensaje"
 
 #: ../../../www//views/index/index.phtml:5
 msgid "Your projects"
@@ -951,5 +940,3 @@ msgstr "Logo"
 msgid "Save"
 msgstr "Guardar"
 
-#~ msgid "admin"
-#~ msgstr "admin"

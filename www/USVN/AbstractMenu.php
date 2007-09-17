@@ -67,6 +67,16 @@ abstract class USVN_AbstractMenu
 	}
 
 	/**
+	 * Get menu entries in group sub menu.
+	 *
+	 * @return array
+	 */
+	public function getGroupSubMenu()
+	{
+		return array();
+	}
+
+	/**
 	 * Get menu entries in sub sub menu.
 	 * By example Menu is Admin
 	  * Sub menu is User

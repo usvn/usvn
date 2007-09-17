@@ -52,7 +52,7 @@ class GroupController extends USVN_Controller
 	{
 		$this->view->group = $this->_group;
 	}
-	
+
 	public function managegroupAction()
 	{
 		$request = $this->getRequest();
@@ -64,9 +64,9 @@ class GroupController extends USVN_Controller
 
 		try {
 			$table = new USVN_Db_Table_Users();
-			if ($request->getParam('addlogin', "") != "") 
+			if ($request->getParam('addlogin', "") != "")
 			{
-			
+
 				$user = $table->fetchRow(array("users_login = ?" => $request->getParam('addlogin')));
 				if ($user === null) {
 					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('addlogin')));
@@ -81,9 +81,9 @@ class GroupController extends USVN_Controller
 				}
 				if ($group->hasUser($user))
 					$group->deleteUser($user);
-			}		
+			}
 			if (isset($user)) {
-				$this->_redirect("/group/index/group/{$group->name}/");
+				$this->_redirect("/group/{$group->name}/");
 			}
 		}
 		catch (Exception $e) {

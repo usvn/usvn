@@ -263,7 +263,7 @@ EOF;
 		if (@file_put_contents($htaccess_file, $content) === false) {
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
 		}
-		chmod($htaccess_file, 0644);
+		@chmod($htaccess_file, 0644);
 		if (php_sapi_name() != "cli") {
 			if ($https) {
 				$method = "https";

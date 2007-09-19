@@ -37,7 +37,10 @@ class GroupController extends USVN_Controller
 		$group = $this->getRequest()->getParam('group');
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array("groups_name = ?" => $group));
-
+		$this->view->user = $this->getRequest()->getParam('user');
+		//$identity = Zend_Auth::getInstance()->getIdentity();
+		//$table = new USVN_Db_Table_Users();
+		//$this->view->user = $user = $table->fetchRow(array("users_login = ?" => $identity['username']));
 		$this->_group = $group;
 	}
 
@@ -73,6 +76,8 @@ class GroupController extends USVN_Controller
 				}
 				if (!$group->hasUser($user))
 					$group->addUser($user);
+				else
+					$group->updateLeaderUser($user, 0);
 			}
 			if ($request->getParam('deleteid', 0) != 0) {
 				$user = $table->fetchRow(array("users_id = ?" => $request->getParam('deleteid')));
@@ -85,6 +90,52 @@ class GroupController extends USVN_Controller
 			if (isset($user)) {
 				$this->_redirect("/group/{$group->name}/");
 			}
+		}
+		catch (Exception $e) {
+			$this->view->message = $e->getMessage();
+		}
+
+	//	$this->view->project = $this->_project;
+		$this->view->group = $group;
+	}
+	
+	public function addleadergroupAction()
+	{
+		$request = $this->getRequest();
+		/* @var $request USVN_Controller_Request_Http */
+
+		$table = new USVN_Db_Table_Groups();
+		$group = $table->fetchRow(array("groups_name = ?" => $request->getParam('group')));
+		/* @var $group USVN_Db_Table_Row_Group */
+
+		try {
+			$table = new USVN_Db_Table_Users();
+			if ($request->getParam('ap', "") != "") 
+			{		
+				$user = $table->fetchRow(array("users_login = ?" => $request->getParam('ap')));
+				if ($user === null) {
+					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('ap')));
+				}
+				if (!$group->hasUser($user))
+				{
+					$group->addLeaderUser($user);
+				}
+				else
+				{
+					$group->updateLeaderUser($user, 1);
+				}
+			}
+			if ($request->getParam('deleteid', 0) != 0) {
+				$user = $table->fetchRow(array("users_id = ?" => $request->getParam('deleteid')));
+				if ($user === null) {
+					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('deleteid')));
+				}
+				if ($group->hasUser($user))
+					$group->deleteUser($user);
+			}		
+			/*if (isset($user)) {
+				$this->_redirect("/group/index/group/{$group->name}/");
+			}*/
 		}
 		catch (Exception $e) {
 			$this->view->message = $e->getMessage();

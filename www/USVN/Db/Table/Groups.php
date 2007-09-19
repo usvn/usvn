@@ -200,4 +200,66 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_name like ?", $match_group."%");
 		return $this->fetchAll($where, "groups_name");
 	}
+	
+	
+	
+	public function allLeader($group_id)
+	{		
+		// selection tool
+		$select = $this->_db->select();
+
+		// the FROM clause
+		$select->from($this->_name, $this->_cols);
+
+		// the JOIN clause
+		$users = self::$prefix . "users";
+		$users_to_groups = self::$prefix . "users_to_groups";
+		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
+
+		$select->where("$users_to_groups.is_leader = 1 and $users_to_groups.groups_id = ?", $group_id);
+
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+	}
+	
+	public function allNoLeader($group_id)
+	{		
+		// selection tool
+		$select = $this->_db->select();
+
+		// the FROM clause
+		$select->from($this->_name, $this->_cols);
+
+		// the JOIN clause
+		$users = self::$prefix . "users";
+		$users_to_groups = self::$prefix . "users_to_groups";
+		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
+
+		$select->where("$users_to_groups.is_leader = 0 and $users_to_groups.groups_id = ?", $group_id);
+
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+	}
 }

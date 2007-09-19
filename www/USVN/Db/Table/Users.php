@@ -173,4 +173,124 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		//$where .= $db->quoteInto(" and users_login != ?", $match_login);
 		return $this->fetchAll($where, "users_login");
 	}
+	
+	/**
+	 * Return all no leaders like login in group
+	 *
+	 * @param string
+	 * @param string
+	 * @return USVN_Db_Table_Row
+	 */
+	public function allLeader($group_id)
+	{
+		//$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+		//$where = $db->quoteInto("users_login like ?", $match_login."%");
+		//$where .= $db->quoteInto(" and users_login != ?", $match_login); where users_id groups_id is_leader
+		//return $this->fetchAll($where, "users_login");
+		
+		
+		// selection tool
+		$select = $this->_db->select();
+
+		// the FROM clause
+		$select->from($this->_name, $this->_cols);
+
+		// the JOIN clause
+		$users = self::$prefix . "users";
+		$users_to_groups = self::$prefix . "users_to_groups";
+		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
+		//$select->joinLeft($users, "$users.users_id = $users_to_groups.users_id");
+
+		$select->where("$users_to_groups.is_leader = 1 and $users_to_groups.groups_id = ?", $group_id);
+
+		//usvn_users_to_groups.is_leader
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+	}
+	
+	public function allNoLeader($group_id)
+	{		
+		// selection tool
+		$select = $this->_db->select();
+
+		// the FROM clause
+		$select->from($this->_name, $this->_cols);
+
+		// the JOIN clause
+		$users = self::$prefix . "users";
+		$users_to_groups = self::$prefix . "users_to_groups";
+		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
+
+		$select->where("$users_to_groups.is_leader = 0 and $users_to_groups.groups_id = ?", $group_id);
+
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+	}
+	
+	/**
+	 * Return all users like login which aren't in group
+	 *
+	 * @param string
+	 * @return USVN_Db_Table_Row
+	 */
+	public function allUsersInGroup($groups_id)
+	{
+//		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
+//		$where = $db->quoteInto("users_login like ? and ", $match_login."%");
+		//$where .= $db->quoteInto(" and users_login != ?", $match_login);
+//		return $this->fetchAll($where, "users_login");
+		
+		// selection tool
+		$select = $this->_db->select();
+
+		// the FROM clause
+		$select->from($this->_name, $this->_cols);
+
+		// the JOIN clause
+		$users = self::$prefix . "users";
+		$users_to_groups = self::$prefix . "users_to_groups";
+		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
+		//$select->joinLeft($users, "$users.users_id = $users_to_groups.users_id");
+
+		$select->where("$users_to_groups.groups_id = ?", $groups_id);
+
+		//usvn_users_to_groups.is_leader
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+	}
 }

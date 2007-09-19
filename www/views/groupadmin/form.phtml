@@ -21,7 +21,7 @@ function checkName() {
 	<fieldset>
 		<legend><?php echo T_("Group's information");?></legend>
 
-		<fieldset style="float: right;">
+		<!-- <fieldset style="float: right;">
 			<legend>
 				<?php echo T_("List Users"); ?>
 			</legend>
@@ -32,9 +32,9 @@ function checkName() {
 				 	echo 'selected="selected"';
 				 } ?>><?php echo $user->login ?></option>
 			<?php endforeach; ?>
-			</select>
-		</fieldset>
-
+			</select> 
+		</fieldset> -->
+		
 		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('groups_name', $this->group->name, array('maxlength' => 150)); ?>
 		</label>
@@ -42,8 +42,13 @@ function checkName() {
 		<label><?php echo T_("Description"); ?>:<br />
 			<?php echo $this->formTextarea('groups_description', $this->group->description, array('rows' => 8, 'cols' => 80)); ?>
 		</label>
-		<br />
+		<br/><br/>
+<?php
+	echo '<a href="' . $this->url(array('controller' => 'group', 'group' => $this->group->name), 'group') . '">'. T_("Managing group")." ".$this->group->name . '</a>';
+?>
+		<br /><br />
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
 	</fieldset>
 </form>
+
 <br />

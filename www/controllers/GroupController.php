@@ -37,10 +37,10 @@ class GroupController extends USVN_Controller
 		$group = $this->getRequest()->getParam('group');
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array("groups_name = ?" => $group));
-		$this->view->user = $this->getRequest()->getParam('user');
-		//$identity = Zend_Auth::getInstance()->getIdentity();
-		//$table = new USVN_Db_Table_Users();
-		//$this->view->user = $user = $table->fetchRow(array("users_login = ?" => $identity['username']));
+	//	$this->view->user = $this->getRequest()->getParam('user');
+		/*$identity = Zend_Auth::getInstance()->getIdentity();
+		$table = new USVN_Db_Table_Users();
+		$this->view->user = $table->fetchRow(array("users_login = ?" => $identity['username']));*/
 		$this->_group = $group;
 	}
 

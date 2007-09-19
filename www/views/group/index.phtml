@@ -4,7 +4,7 @@
 	
 	<h1><?php echo sprintf(T_("Managing group %s"), $this->group->name);?></h1>
 	<p><?php echo $this->group->description;?></p>
-	<p><?php $right = $this->group->isLeaderOrAdmin($this->user);?></p>
+	<p><?php $right = 1; /*$this->group->isLeaderOrAdmin($this->user);*/ ?></p>
 </div>
 <div class="usvn_info">
 	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => 'managegroup')); ?>" method="post">

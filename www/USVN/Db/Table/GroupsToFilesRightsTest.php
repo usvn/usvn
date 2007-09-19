@@ -93,8 +93,8 @@ class USVN_Db_Table_GroupsToFilesRightsTest extends USVN_Test_DB {
 				 						   'files_rights_is_writable' => false,
 			       	 					   'groups_id'	 			  => $this->_groupid1));
 		$res = $table_groupstofiles->findByIdRightsAndIdGroup($fileid, $this->_groupid1);
-		$this->assertEquals(true, $res->files_rights_is_readable);
-		$this->assertEquals(false, $res->files_rights_is_writable);
+		$this->assertEquals(true, (bool) $res->files_rights_is_readable);
+		$this->assertEquals(false, (bool) $res->files_rights_is_writable);
 		$res = $table_groupstofiles->findByIdRightsAndIdGroup($fileid, $this->_groupid2);
 		$this->assertNull($res);
     }

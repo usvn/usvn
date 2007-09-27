@@ -16,7 +16,7 @@
  * @package    Zend_Locale
  * @subpackage Data
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Data.php 4521 2007-04-17 09:41:35Z thomas $
+ * @version    $Id: Data.php 5775 2007-07-18 22:09:43Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -568,7 +568,7 @@ class Zend_Locale_Data
                 break;
 
             case 'scientificnumberformat':
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/scientificFormats/scientificFormatLength/scientificFormat/pattern',
                                '', 'default');
                 break;
@@ -579,25 +579,25 @@ class Zend_Locale_Data
                 break;
 
             case 'currencyformat':
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/currencyFormats/currencyFormatLength/currencyFormat/pattern',
                                '', 'default');
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/currencyFormats/currencySpacing/beforeCurrency/currencyMatch',
                                '', 'beforMatch');
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/currencyFormats/currencySpacing/beforeCurrency/surroundingMatch',
                                '', 'beforSurround');
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/currencyFormats/currencySpacing/beforeCurrency/insertBetween',
                                '', 'beforBetween');
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/currencyFormats/currencySpacing/afterCurrency/currencyMatch',
                                '', 'afterMatch');
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/currencyFormats/currencySpacing/afterCurrency/surroundingMatch',
                                '', 'afterSurround');
-                self::_getFile($locale, 
+                self::_getFile($locale,
                                '/ldml/numbers/currencyFormats/currencySpacing/afterCurrency/insertBetween',
                                '', 'afterBetween');
                 break;

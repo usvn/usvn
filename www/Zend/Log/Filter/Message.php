@@ -17,7 +17,7 @@
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 4389 2007-04-06 15:17:41Z mike $
+ * @version    $Id: Message.php 5764 2007-07-18 21:59:22Z thomas $
  */
 
 /** Zend_Log_Filter_Interface */
@@ -29,8 +29,8 @@ require_once 'Zend/Log/Filter/Interface.php';
  * @subpackage Filter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Message.php 4389 2007-04-06 15:17:41Z mike $
- */ 
+ * @version    $Id: Message.php 5764 2007-07-18 21:59:22Z thomas $
+ */
 class Zend_Log_Filter_Message implements Zend_Log_Filter_Interface
 {
     /**

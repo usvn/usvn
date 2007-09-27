@@ -18,7 +18,7 @@
  * @subpackage Adapter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5100 2007-06-04 19:02:22Z bkarwin $
+ * @version    $Id: Abstract.php 5906 2007-07-28 02:58:20Z bkarwin $
  */
 
 
@@ -99,6 +99,23 @@ abstract class Zend_Db_Adapter_Abstract
      * @access protected
      */
     protected $_autoQuoteIdentifiers = true;
+
+    /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE
+    );
 
     /**
      * Constructor.
@@ -259,9 +276,7 @@ abstract class Zend_Db_Adapter_Abstract
 
         // prepare and execute the statement with profiling
         $stmt = $this->prepare($sql);
-        $q = $this->_profiler->queryStart($sql);
         $stmt->execute($bind);
-        $this->_profiler->queryEnd($q);
 
         // return the results embedded in the prepared statement object
         $stmt->setFetchMode($this->_fetchMode);
@@ -541,6 +556,7 @@ abstract class Zend_Db_Adapter_Abstract
     {
         $stmt = $this->query($sql, $bind);
         $result = $stmt->fetchColumn(0);
+        $stmt->closeCursor();
         return $result;
     }
 
@@ -556,6 +572,7 @@ abstract class Zend_Db_Adapter_Abstract
     {
         $stmt = $this->query($sql, $bind);
         $result = $stmt->fetch($this->_fetchMode);
+        $stmt->closeCursor();
         return $result;
     }
 
@@ -567,6 +584,9 @@ abstract class Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
+        if (is_int($value) || is_float($value)) {
+            return $value;
+        }
         return "'" . addcslashes($value, "\000\n\r\\'\"\032") . "'";
     }
 
@@ -577,25 +597,48 @@ abstract class Zend_Db_Adapter_Abstract
      * and then returned as a comma-separated string.
      *
      * @param mixed $value The value to quote.
+     * @param mixed $type  OPTIONAL the SQL datatype name, or constant, or null.
      * @return mixed An SQL-safe quoted value (or string of separated values).
      */
-    public function quote($value)
+    public function quote($value, $type = null)
     {
         $this->_connect();
+
         if ($value instanceof Zend_Db_Expr) {
             return $value->__toString();
-        } else if (is_array($value)) {
+        }
+
+        if (is_array($value)) {
             foreach ($value as &$val) {
-                $val = $this->quote($val);
+                $val = $this->quote($val, $type);
             }
             return implode(', ', $value);
-        } else {
-            if (is_int($value) || is_float($value)) {
-                return $value;
-            } else {
-                return $this->_quote($value);
-            }
         }
+
+        if ($type !== null && array_key_exists($type = strtoupper($type), $this->_numericDataTypes)) {
+            switch ($this->_numericDataTypes[$type]) {
+                case Zend_Db::INT_TYPE: // 32-bit integer
+                    return (string) intval($value);
+                    break;
+                case Zend_Db::BIGINT_TYPE: // 64-bit integer
+                    if (preg_match('/^([1-9]\d*)/', (string) $value, $matches)) {
+                        return $matches[1];
+                    }
+                    if (preg_match('/^(0x[\dA-F]+)/i', (string) $value, $matches)) {
+                        return $matches[1];
+                    }
+                    if (preg_match('/^(0[0-7]*)/', (string) $value, $matches)) {
+                        return $matches[1];
+                    }
+                    break;
+                case Zend_Db::FLOAT_TYPE: // float or decimal
+                    return (string) floatval($value);
+                    break;
+            }
+            return '0';
+        }
+
+        return $this->_quote($value);
     }
 
     /**
@@ -611,13 +654,14 @@ abstract class Zend_Db_Adapter_Abstract
      * // $safe = "WHERE date < '2005-01-02'"
      * </code>
      *
-     * @param string $text The text with a placeholder.
-     * @param mixed $value The value to quote.
-     * @return mixed An SQL-safe quoted value placed into the orignal text.
+     * @param string $text  The text with a placeholder.
+     * @param mixed  $value The value to quote.
+     * @param string $type  OPTIONAL SQL datatype
+     * @return string An SQL-safe quoted value placed into the orignal text.
      */
-    public function quoteInto($text, $value)
+    public function quoteInto($text, $value, $type = null)
     {
-        return str_replace('?', $this->quote($value), $text);
+        return str_replace('?', $this->quote($value, $type), $text);
     }
 
     /**
@@ -745,7 +789,7 @@ abstract class Zend_Db_Adapter_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function lastSequenceId($sequenceName)
     {
@@ -758,7 +802,7 @@ abstract class Zend_Db_Adapter_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function nextSequenceId($sequenceName)
     {
@@ -864,7 +908,7 @@ abstract class Zend_Db_Adapter_Abstract
      *
      * @param string $tableName   OPTIONAL Name of table.
      * @param string $primaryKey  OPTIONAL Name of primary key column.
-     * @return integer
+     * @return string
      */
     abstract public function lastInsertId($tableName = null, $primaryKey = null);
 

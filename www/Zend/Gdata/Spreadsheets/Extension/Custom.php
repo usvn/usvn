@@ -49,7 +49,7 @@ class Zend_Gdata_Spreadsheets_Extension_Custom extends Zend_Gdata_Extension
      * @param string $column (optional) The column/tag name of the element.
      * @param string $value (optional) The text content of the element.
      */
-    public function __construct($column = null, $value = null) 
+    public function __construct($column = null, $value = null)
     {
         parent::__construct();
         $this->_text = $value;
@@ -64,7 +64,7 @@ class Zend_Gdata_Spreadsheets_Extension_Custom extends Zend_Gdata_Extension
         $element = parent::getDOM($doc);
         return $element;
     }
-    
+
     /**
      * Transfers each child and attribute into member variables.
      * This is called when XML is received over the wire and the data
@@ -87,7 +87,7 @@ class Zend_Gdata_Spreadsheets_Extension_Custom extends Zend_Gdata_Extension
         $this->_rootElement = $column;
         return $this;
     }
-    
+
     /**
      * Gets the column name of the element
      * @return string The column name.
@@ -96,5 +96,5 @@ class Zend_Gdata_Spreadsheets_Extension_Custom extends Zend_Gdata_Extension
     {
         return $this->_rootElement;
     }
-    
+
 }

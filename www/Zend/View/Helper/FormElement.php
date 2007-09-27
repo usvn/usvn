@@ -22,28 +22,28 @@
 
 /**
  * Base helper for form elements.  Extend this, don't use it on its own.
- * 
+ *
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_View_Helper_FormElement 
+abstract class Zend_View_Helper_FormElement
 {
     /**
      * @var Zend_View_Interface
      */
     public $view;
-    
+
     /**
      * Converts an associative array to a string of tag attributes.
-     * 
+     *
      * @access public
-     * 
-     * @param array $attribs From this array, each key-value pair is 
+     *
+     * @param array $attribs From this array, each key-value pair is
      * converted to an attribute name and value.
-     * 
+     *
      * @return string The XHTML for the attributes.
      */
     protected function _htmlAttribs($attribs)
@@ -59,27 +59,27 @@ abstract class Zend_View_Helper_FormElement
         }
         return $xhtml;
     }
-    
+
     /**
      * Converts parameter arguments to an element info array.
-     * 
+     *
      * E.g, formExample($name, $value, $attribs, $options, $listsep) is
      * the same thing as formExample(array('name' => ...)).
-     * 
+     *
      * Note that you cannot pass a 'disable' param; you need to pass
-     * it as an 'attribs' key.  
-     * 
+     * it as an 'attribs' key.
+     *
      * @access protected
-     * 
+     *
      * @return array An element info array with keys for name, value,
      * attribs, options, listsep, and disable.
      */
-    protected function _getInfo($name, $value = null, $attribs = null, 
+    protected function _getInfo($name, $value = null, $attribs = null,
         $options = null, $listsep = null)
     {
         // the baseline info.  note that $name serves a dual purpose;
         // if an array, it's an element info array that will override
-        // these baseline values.  as such, ignore it for the 'name' 
+        // these baseline values.  as such, ignore it for the 'name'
         // if it's an array.
         $info = array(
             'name'    => is_array($name) ? '' : $name,
@@ -90,7 +90,7 @@ abstract class Zend_View_Helper_FormElement
             'listsep' => $listsep,
             'disable' => false,
         );
-        
+
         // override with named args
         if (is_array($name)) {
             // only set keys that are already in info
@@ -100,15 +100,15 @@ abstract class Zend_View_Helper_FormElement
                 }
             }
         }
-        
+
         // force attribs to an array, per note from Orjan Persson.
         settype($info['attribs'], 'array');
-        
+
         // disable if readonly
         if (isset($info['attribs']['readonly']) &&
             $info['attribs']['readonly'] == 'readonly') {
         }
-        
+
         // normal disable, overrides readonly
         if (isset($info['attribs']['disable']) &&
             $info['attribs']['disable']) {
@@ -123,7 +123,7 @@ abstract class Zend_View_Helper_FormElement
         } elseif (!isset($info['attribs']['id']) && !empty($info['name'])) {
             $info['id'] = $info['name'];
         }
-         
+
         // remove attribs that might overwrite the other keys.
         // we do this LAST because we needed the other attribs
         // values earlier.
@@ -132,25 +132,25 @@ abstract class Zend_View_Helper_FormElement
                 unset($info['attribs'][$key]);
             }
         }
-       
+
         // done!
         return $info;
     }
-    
+
     /**
      * Creates a hidden element.
-     * 
+     *
      * We have this as a common method because other elements often
      * need hidden elements for their operation.
-     * 
+     *
      * @access protected
-     * 
+     *
      * @param $name The element name.
-     * 
+     *
      * @param $value The element value.
-     * 
+     *
      * @param $attribs Attributes for the element.
-     * 
+     *
      * @return string A hidden element.
      */
     protected function _hidden($name, $value = null, $attribs = null)
@@ -163,8 +163,8 @@ abstract class Zend_View_Helper_FormElement
 
     /**
      * Set the view object
-     * 
-     * @param Zend_View_Interface $view 
+     *
+     * @param Zend_View_Interface $view
      * @return void
      */
     public function setView(Zend_View_Interface $view)

@@ -20,7 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
- 
+
 /**
  * @package    Zend_Cache
  * @subpackage Backend
@@ -28,51 +28,51 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend
-{   
-   
+{
+
     // ------------------
     // --- Properties ---
     // ------------------
-    
+
     /**
      * Frontend or Core directives
-     * 
+     *
      * =====> (int) lifetime :
      * - Cache lifetime (in seconds)
      * - If null, the cache is valid forever
-     * 
+     *
      * =====> (int) logging :
      * - if set to true, a logging is activated throw Zend_Log
-     * 
+     *
      * @var array directives
      */
     protected $_directives = array(
         'lifetime' => 3600,
         'logging'  => false,
         'logger'   => null
-    );  
-    
+    );
+
     /**
      * Available options
-     * 
+     *
      * @var array available options
      */
     protected $_options = array();
-    
+
     /**
      * backward compatibility becase of ZF-879 and ZF-1172 (it will be removed in ZF 1.1)
      *
-     * @var array 
+     * @var array
      */
     protected $_backwardCompatibilityArray = array();
-    
+
     // ----------------------
     // --- Public methods ---
     // ----------------------
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param array $options associative array of options
      */
     public function __construct($options = array())
@@ -81,11 +81,11 @@ class Zend_Cache_Backend
         while (list($name, $value) = each($options)) {
             $this->setOption($name, $value);
         }
-    }  
-     
+    }
+
     /**
      * Set the frontend directives
-     * 
+     *
      * @param array $directives assoc of directives
      */
     public function setDirectives($directives)
@@ -94,7 +94,7 @@ class Zend_Cache_Backend
         while (list($name, $value) = each($directives)) {
             if (!is_string($name)) {
                 Zend_Cache::throwException("Incorrect option name : $name");
-            } 
+            }
             $name = strtolower($name);
             if (array_key_exists($name, $this->_directives)) {
                 $this->_directives[$name] = $value;
@@ -103,14 +103,14 @@ class Zend_Cache_Backend
         }
 
         $this->_loggerSanity();
-    } 
-    
+    }
+
     /**
      * Set an option
-     * 
+     *
      * @param string $name
      * @param mixed $value
-     */ 
+     */
     public function setOption($name, $value)
     {
         if (!is_string($name)) {
@@ -127,14 +127,14 @@ class Zend_Cache_Backend
             Zend_Cache::throwException("Incorrect option name : $name");
         }
         $this->_options[$name] = $value;
-    }   
-    
+    }
+
     /**
      * Get the life time
-     * 
+     *
      * if $specificLifetime is not false, the given specific life time is used
      * else, the global lifetime is used
-     * 
+     *
      * @return int cache life time
      */
     public function getLifetime($specificLifetime)
@@ -144,9 +144,19 @@ class Zend_Cache_Backend
         }
         return $specificLifetime;
     }
-    
+
     /**
-     * Return a system-wide tmp directory 
+     * Return true if the automatic cleaning is available for the backend
+     *
+     * @return boolean
+     */
+    public function isAutomaticCleaningAvailable()
+    {
+        return true;
+    }
+
+    /**
+     * Return a system-wide tmp directory
      *
      * @return string system-wide tmp directory
      */
@@ -220,5 +230,5 @@ class Zend_Cache_Backend
         $logger = $this->_directives['logger'];
         $logger->log($message, $priority);
     }
-    
+
 }

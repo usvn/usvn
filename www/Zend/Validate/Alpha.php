@@ -17,7 +17,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Alpha.php 5159 2007-06-07 18:23:05Z darby $
+ * @version    $Id: Alpha.php 5347 2007-06-15 19:30:56Z darby $
  */
 
 
@@ -46,6 +46,13 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
     const STRING_EMPTY = 'stringEmpty';
 
     /**
+     * Whether to allow white space characters; off by default
+     *
+     * @var boolean
+     */
+    public $allowWhiteSpace;
+
+    /**
      * Alphabetic filter used for validation
      *
      * @var Zend_Filter_Alpha
@@ -61,6 +68,17 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
         self::NOT_ALPHA    => "'%value%' has not only alphabetic characters",
         self::STRING_EMPTY => "'%value%' is an empty string"
     );
+
+    /**
+     * Sets default option values for this instance
+     *
+     * @param  boolean $allowWhiteSpace
+     * @return void
+     */
+    public function __construct($allowWhiteSpace = false)
+    {
+        $this->allowWhiteSpace = (boolean) $allowWhiteSpace;
+    }
 
     /**
      * Defined by Zend_Validate_Interface
@@ -88,6 +106,8 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
             require_once 'Zend/Filter/Alpha.php';
             self::$_filter = new Zend_Filter_Alpha();
         }
+
+        self::$_filter->allowWhiteSpace = $this->allowWhiteSpace;
 
         if ($valueString !== self::$_filter->filter($valueString)) {
             $this->_error(self::NOT_ALPHA);

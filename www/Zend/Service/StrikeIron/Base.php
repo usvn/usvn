@@ -24,14 +24,14 @@ require_once 'Zend/Service/StrikeIron/Exception.php';
 
 /** Zend_Service_StrikeIron_Decorator */
 require_once 'Zend/Service/StrikeIron/Decorator.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Service
  * @subpackage StrikeIron
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 class Zend_Service_StrikeIron_Base
 {
     /**
@@ -55,9 +55,17 @@ class Zend_Service_StrikeIron_Base
      * Class constructor
      *
      * @param array  $options  Key/value pair options
-     */     
+     */
     public function __construct($options = array())
     {
+        if (!extension_loaded('soap')) {
+            /**
+             * @see Zend_Service_StrikeIron_Exception
+             */
+            require_once 'Zend/Service/StrikeIron/Exception.php';
+            throw new Zend_Service_StrikeIron_Exception('SOAP extension is not enabled');
+        }
+
         $this->_options  = array_merge($this->_options, $options);
 
         $this->_initSoapHeaders();
@@ -80,9 +88,9 @@ class Zend_Service_StrikeIron_Base
 
         // make soap call, capturing the result and output headers
         try {
-            $result = $this->_options['client']->__soapCall($method, 
-                                                            $params, 
-                                                            $this->_options['options'], 
+            $result = $this->_options['client']->__soapCall($method,
+                                                            $params,
+                                                            $this->_options['options'],
                                                             $this->_options['headers'],
                                                             $this->_outputHeaders);
         } catch (Exception $e) {
@@ -90,7 +98,7 @@ class Zend_Service_StrikeIron_Base
             throw new Zend_Service_StrikeIron_Exception($message, $e->getCode());
         }
 
-        // transform/decorate the result and return it                                                 
+        // transform/decorate the result and return it
         $result = $this->_transformResult($result, $method, $params);
         return $result;
     }
@@ -105,9 +113,9 @@ class Zend_Service_StrikeIron_Base
         if (! isset($this->_options['options'])) {
             $this->_options['options'] = array();
         }
-        
+
         if (! isset($this->_options['client'])) {
-            $this->_options['client'] = new SoapClient($this->_options['wsdl'], 
+            $this->_options['client'] = new SoapClient($this->_options['wsdl'],
                                                        $this->_options['options']);
         }
     }
@@ -125,7 +133,7 @@ class Zend_Service_StrikeIron_Base
             if (! is_array($this->_options['headers'])) {
                 $this->_options['headers'] = array($this->_options['headers']);
             }
-            
+
             foreach ($this->_options['headers'] as $header) {
                 if (! $header instanceof SoapHeader) {
                     throw new Zend_Service_StrikeIron_Exception('Header must be instance of SoapHeader');
@@ -137,11 +145,11 @@ class Zend_Service_StrikeIron_Base
         } else {
             $this->_options['headers'] = array();
         }
-        
+
         // add default LicenseInfo header if a custom one was not supplied
         if (! $foundLicenseInfo) {
-            $this->_options['headers'][] = new SoapHeader('http://ws.strikeiron.com', 
-                            'LicenseInfo', 
+            $this->_options['headers'][] = new SoapHeader('http://ws.strikeiron.com',
+                            'LicenseInfo',
                             array('RegisteredUser' => array('UserID'   => $this->_options['username'],
                                                             'Password' => $this->_options['password'])));
         }
@@ -161,13 +169,13 @@ class Zend_Service_StrikeIron_Base
     {
         return array(ucfirst($method), $params);
     }
-    
+
     /**
      * Transform the result returned from a method before returning
      * it to the PHP caller.  This can be useful for transforming
-     * the SOAPClient returned result to be more PHP-like.  
+     * the SOAPClient returned result to be more PHP-like.
      *
-     * The $method name and $params passed to the method are provided to 
+     * The $method name and $params passed to the method are provided to
      * allow decisions to be made about how to transform the result based
      * on what was originally called.
      *
@@ -179,16 +187,16 @@ class Zend_Service_StrikeIron_Base
      */
     protected function _transformResult($result, $method, $params)
     {
-        $resultObjectName = "{$method}Result"; 
+        $resultObjectName = "{$method}Result";
         if (isset($result->$resultObjectName)) {
             $result = $result->$resultObjectName;
         }
         if (is_object($result)) {
             $result = new Zend_Service_StrikeIron_Decorator($result, $resultObjectName);
-        }        
+        }
         return $result;
     }
-    
+
     /**
      * Get the WSDL URL for this service.
      *
@@ -206,7 +214,7 @@ class Zend_Service_StrikeIron_Base
     {
         return $this->_options['client'];
     }
-    
+
     /**
      * Get the StrikeIron output headers returned with the last method response.
      *
@@ -216,7 +224,7 @@ class Zend_Service_StrikeIron_Base
     {
         return $this->_outputHeaders;
     }
-    
+
     /**
      * Get the StrikeIron subscription information for this service.
      * If any service method was recently called, the subscription info
@@ -242,7 +250,7 @@ class Zend_Service_StrikeIron_Base
             $msg = 'No SubscriptionInfo header found in last output headers';
             throw new Zend_Service_StrikeIron_Exception($msg);
         }
-        
+
         return $subscriptionInfo;
     }
 }

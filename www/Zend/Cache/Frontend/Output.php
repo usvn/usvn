@@ -19,8 +19,8 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
- 
+
+
 /**
  * Zend_Cache_Core
  */
@@ -35,18 +35,18 @@ require_once 'Zend/Cache/Core.php';
  */
 class Zend_Cache_Frontend_Output extends Zend_Cache_Core
 {
-                 
+
     /**
      * Constructor
-     * 
+     *
      * @param array $options associative array of options
      */
     public function __construct($options = array())
     {
         parent::__construct($options);
     }
-        
-        
+
+
     /**
      * Start the cache
      *
@@ -69,9 +69,9 @@ class Zend_Cache_Frontend_Output extends Zend_Cache_Core
 
     /**
      * Stop the cache
-     * 
+     *
      * @param array $tags tags array
-     * @param int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)    
+     * @param int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)
      */
     public function end($tags = array(), $specificLifetime = false)
     {
@@ -80,5 +80,5 @@ class Zend_Cache_Frontend_Output extends Zend_Cache_Core
         $this->save($data, null, $tags, $specificLifetime);
         echo($data);
     }
-             
+
 }

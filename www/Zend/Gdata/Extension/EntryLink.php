@@ -41,13 +41,13 @@ class Zend_Gdata_Extension_EntryLink extends Zend_Gdata_Extension
 {
 
     protected $_rootElement = 'entryLink';
-    protected $_href = null; 
-    protected $_readOnly = null; 
-    protected $_rel = null; 
-    protected $_entry = null; 
+    protected $_href = null;
+    protected $_readOnly = null;
+    protected $_rel = null;
+    protected $_entry = null;
 
-    public function __construct($href = null, $readOnly = null, 
-            $rel = null, $entry = null)
+    public function __construct($href = null, $rel = null,
+            $readOnly = null, $entry = null)
     {
         parent::__construct();
         $this->_href = $href;
@@ -78,7 +78,7 @@ class Zend_Gdata_Extension_EntryLink extends Zend_Gdata_Extension
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-            case $this->lookupNamespace('atom') . ':' . 'entry'; 
+            case $this->lookupNamespace('atom') . ':' . 'entry';
                 $entry = new Zend_Gdata_Entry();
                 $entry->transferFromDOM($child);
                 $this->_entry = $entry;
@@ -115,7 +115,7 @@ class Zend_Gdata_Extension_EntryLink extends Zend_Gdata_Extension
     }
 
     /**
-     * @return string 
+     * @return string
      */
     public function getHref()
     {

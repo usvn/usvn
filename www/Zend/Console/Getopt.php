@@ -104,7 +104,7 @@ require_once 'Zend/Console/Getopt/Exception.php';
  *        Set value of the option's parameter to the integer count of instances
  *        instead of a boolean.
  *        Enable with Zend_Console_Getopt::CONFIG_CUMULATIVE_FLAGS.
- *        Default is that the value is simply boolean true regardless of 
+ *        Default is that the value is simply boolean true regardless of
  *        how many instances of the flag appear.
  *
  * @todo: Handle flags that implicitly print usage message, e.g. --help

@@ -20,7 +20,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
- 
+
 /**
  * Zend_Cache_Backend_Interface
  */
@@ -38,39 +38,39 @@ require_once 'Zend/Cache/Backend.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Cache_Backend_APC extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
+class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
 {
 
     // ----------------------
     // --- Public methods ---
     // ----------------------
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param array $options associative array of options
      */
     public function __construct($options = array())
-    {      
+    {
         if (!extension_loaded('apc')) {
             Zend_Cache::throwException('The apc extension must be loaded for using this backend !');
         }
         parent::__construct($options);
-    }  
-           
+    }
+
     /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
-     * 
-     * WARNING $doNotTestCacheValidity=true is unsupported by the APC backend
-     * 
+     *
+     * WARNING $doNotTestCacheValidity=true is unsupported by the Apc backend
+     *
      * @param string $id cache id
      * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
      * @return string cached datas (or false)
      */
-    public function load($id, $doNotTestCacheValidity = false) 
+    public function load($id, $doNotTestCacheValidity = false)
     {
         if ($doNotTestCacheValidity) {
-            $this->_log("Zend_Cache_Backend_APC::load() : \$doNotTestCacheValidity=true is unsupported by the APC backend");
+            $this->_log("Zend_Cache_Backend_Apc::load() : \$doNotTestCacheValidity=true is unsupported by the Apc backend");
         }
         $tmp = apc_fetch($id);
         if (is_array($tmp)) {
@@ -78,10 +78,10 @@ class Zend_Cache_Backend_APC extends Zend_Cache_Backend implements Zend_Cache_Ba
         }
         return false;
     }
-    
+
     /**
      * Test if a cache is available or not (for the given id)
-     * 
+     *
      * @param string $id cache id
      * @return mixed false (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
@@ -93,11 +93,11 @@ class Zend_Cache_Backend_APC extends Zend_Cache_Backend implements Zend_Cache_Ba
         }
         return false;
     }
-    
+
     /**
      * Save some string datas into a cache record
      *
-     * Note : $data is always "string" (serialization is done by the 
+     * Note : $data is always "string" (serialization is done by the
      * core not by the backend)
      *
      * @param string $data datas to cache
@@ -111,51 +111,61 @@ class Zend_Cache_Backend_APC extends Zend_Cache_Backend implements Zend_Cache_Ba
         $lifetime = $this->getLifetime($specificLifetime);
         $result = apc_store($id, array($data, time()), $lifetime);
         if (count($tags) > 0) {
-            $this->_log("Zend_Cache_Backend_APC::save() : tags are unsupported by the APC backend");
+            $this->_log("Zend_Cache_Backend_Apc::save() : tags are unsupported by the Apc backend");
         }
-        return $result;       
+        return $result;
     }
-    
+
     /**
      * Remove a cache record
-     * 
+     *
      * @param string $id cache id
      * @return boolean true if no problem
      */
-    public function remove($id) 
+    public function remove($id)
     {
         return apc_delete($id);
     }
-    
+
     /**
      * Clean some cache records
      *
      * Available modes are :
      * 'all' (default)  => remove all cache entries ($tags is not used)
-     * 'old'            => remove too old cache entries ($tags is not used) 
-     * 'matchingTag'    => remove cache entries matching all given tags 
-     *                     ($tags can be an array of strings or a single string) 
+     * 'old'            => remove too old cache entries ($tags is not used)
+     * 'matchingTag'    => remove cache entries matching all given tags
+     *                     ($tags can be an array of strings or a single string)
      * 'notMatchingTag' => remove cache entries not matching one of the given tags
-     *                     ($tags can be an array of strings or a single string)    
-     * 
+     *                     ($tags can be an array of strings or a single string)
+     *
      * @param string $mode clean mode
      * @param tags array $tags array of tags
      * @return boolean true if no problem
      */
-    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array()) 
+    public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
         if ($mode==Zend_Cache::CLEANING_MODE_ALL) {
             return apc_clear_cache('user');
         }
         if ($mode==Zend_Cache::CLEANING_MODE_OLD) {
-            $this->_log("Zend_Cache_Backend_APC::clean() : CLEANING_MODE_OLD is unsupported by the APC backend");
+            $this->_log("Zend_Cache_Backend_Apc::clean() : CLEANING_MODE_OLD is unsupported by the Apc backend");
         }
         if ($mode==Zend_Cache::CLEANING_MODE_MATCHING_TAG) {
-            $this->_log("Zend_Cache_Backend_APC::clean() : tags are unsupported by the APC backend");
+            $this->_log("Zend_Cache_Backend_Apc::clean() : tags are unsupported by the Apc backend");
         }
         if ($mode==Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG) {
-            $this->_log("Zend_Cache_Backend_APC::clean() : tags are unsupported by the APC backend");
+            $this->_log("Zend_Cache_Backend_Apc::clean() : tags are unsupported by the Apc backend");
         }
     }
-        
+
+    /**
+     * Return true if the automatic cleaning is available for the backend
+     *
+     * @return boolean
+     */
+    public function isAutomaticCleaningAvailable()
+    {
+        return false;
+    }
+
 }

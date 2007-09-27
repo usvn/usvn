@@ -27,7 +27,7 @@ require_once 'Zend/View/Helper/FormElement.php';
 
 /**
  * Helper for ordered and unordered lists
- * 
+ *
  * @uses Zend_View_Helper_FormElement
  * @category   Zend
  * @package    Zend_View
@@ -40,7 +40,7 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
 
     /**
      * Generates a 'List' element.
-     * 
+     *
      * @param array   $items   Array with the elements of the list
      * @param boolean $ordered Specifies ordered/unordered list; default unordered
      * @param array   $attribs Attributes for the ol/ul tag.
@@ -54,7 +54,7 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
         }
 
         $list = '';
-        
+
         foreach ($items as $item) {
             if (!is_array($item)) {
                 $list .= '<li>' . $item . '</li>';
@@ -66,13 +66,13 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
                 }
             }
         }
-        
+
         if ($attribs) {
             $attribs = $this->_htmlAttribs($attribs);
         } else {
             $attribs = '';
         }
-        
+
         $tag = 'ul';
         if ($ordered) {
             $tag = 'ol';

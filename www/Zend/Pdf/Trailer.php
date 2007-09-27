@@ -21,9 +21,6 @@
 /** Zend_Pdf_Element_Dictionary */
 require_once 'Zend/Pdf/Element/Dictionary.php';
 
-/** Zend_Pdf_Element_Reference_Context */
-require_once 'Zend/Pdf/Element/Reference/Context.php';
-
 
 /**
  * PDF file trailer

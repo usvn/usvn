@@ -16,7 +16,7 @@
  * @package    Zend_Locale
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Math.php 4104 2007-03-18 17:57:13Z thomas $
+ * @version    $Id: Math.php 5775 2007-07-18 22:09:43Z thomas $
  */
 
 
@@ -34,7 +34,7 @@
 
 class Zend_Locale_Math
 {
-    // support unit testing without using bcmath functions 
+    // support unit testing without using bcmath functions
     public static $_bcmathDisabled = false;
 
     public static $add   = 'bcadd';
@@ -113,7 +113,7 @@ class Zend_Locale_Math
     /**
      * Normalizes an input to standard english notation
      * Fixes a problem of BCMath with setLocale which is PHP related
-     * 
+     *
      * @param   integer  $value  Value to normalize
      * @return  string           Normalized string without BCMath problems
      */

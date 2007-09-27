@@ -108,7 +108,7 @@ class Zend_XmlRpc_Client
     public function __construct($server, Zend_Http_Client $httpClient = null)
     {
         if ($httpClient === null) {
-			$this->_httpClient = new Zend_Http_Client();
+            $this->_httpClient = new Zend_Http_Client();
         } else {
             $this->_httpClient = $httpClient;
         }
@@ -131,26 +131,26 @@ class Zend_XmlRpc_Client
 
 
     /**
-	 * Gets the HTTP client object.
-	 *
-	 * @return Zend_Http_Client
-	 */
-	public function getHttpClient()
-	{
-		return $this->_httpClient;
-	}
-	
-	
-	/**
-	 * Sets the object used to introspect remote servers
-	 *
-	 * @param  Zend_XmlRpc_Client_ServerIntrospection
-	 * @return Zend_XmlRpc_Client_ServerIntrospection
-	 */
-	public function setIntrospector(Zend_XmlRpc_Client_ServerIntrospection $introspector)
-	{
-	    return $this->_introspector = $introspector;
-	}
+     * Gets the HTTP client object.
+     *
+     * @return Zend_Http_Client
+     */
+    public function getHttpClient()
+    {
+        return $this->_httpClient;
+    }
+
+
+    /**
+     * Sets the object used to introspect remote servers
+     *
+     * @param  Zend_XmlRpc_Client_ServerIntrospection
+     * @return Zend_XmlRpc_Client_ServerIntrospection
+     */
+    public function setIntrospector(Zend_XmlRpc_Client_ServerIntrospection $introspector)
+    {
+        return $this->_introspector = $introspector;
+    }
 
 
     /**
@@ -158,11 +158,11 @@ class Zend_XmlRpc_Client
      *
      * @return Zend_XmlRpc_Client_ServerIntrospection
      */
-	public function getIntrospector()
-	{
-	    return $this->_introspector;
-	}
-	
+    public function getIntrospector()
+    {
+        return $this->_introspector;
+    }
+
 
    /**
      * The request of the last method call
@@ -184,8 +184,8 @@ class Zend_XmlRpc_Client
     {
         return $this->_lastResponse;
     }
-    
-    
+
+
     /**
      * Returns a proxy object for more convenient method calls
      *
@@ -200,8 +200,8 @@ class Zend_XmlRpc_Client
         }
         return $this->_proxyCache[$namespace];
     }
-    
-    
+
+
     /**
      * Perform an XML-RPC request and return a response.
      *
@@ -238,14 +238,14 @@ class Zend_XmlRpc_Client
         if ($response === null) {
             $response = new Zend_XmlRpc_Response();
         }
-        $this->_lastResponse = $response;        
+        $this->_lastResponse = $response;
         $this->_lastResponse->loadXml($httpResponse->getBody());
     }
-    
+
 
     /**
      * Send an XML-RPC request to the service (for a specific method)
-     * 
+     *
      * @param string $method Name of the method we want to call
      * @param array $params Array of parameters for the method
      * @throws Zend_Http_Client_FaultException
@@ -253,7 +253,7 @@ class Zend_XmlRpc_Client
     public function call($method, $params=array())
     {
         $request = new Zend_XmlRpc_Request($method, $params);
-        
+
         $this->doRequest($request);
 
         if ($this->_lastResponse->isFault()) {
@@ -261,7 +261,7 @@ class Zend_XmlRpc_Client
             throw new Zend_XmlRpc_Client_FaultException($fault->getMessage(),
                                                         $fault->getCode());
         }
-        
+
         return $this->_lastResponse->getReturnValue();
-    }    
+    }
 }

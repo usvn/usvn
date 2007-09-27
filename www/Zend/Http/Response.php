@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Response
- * @version    $Id: Response.php 4261 2007-03-29 16:57:59Z shahar $
+ * @version    $Id: Response.php 5771 2007-07-18 22:06:24Z thomas $
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -24,10 +24,10 @@
 require_once 'Zend/Http/Exception.php';
 
 /**
- * Zend_Http_Response represents an HTTP 1.0 / 1.1 response message. It 
+ * Zend_Http_Response represents an HTTP 1.0 / 1.1 response message. It
  * includes easy access to all the response's different elemts, as well as some
- * convenience methods for parsing and validating HTTP responses. 
- * 
+ * convenience methods for parsing and validating HTTP responses.
+ *
  * @package    Zend_Http
  * @subpackage Response
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
@@ -35,17 +35,17 @@ require_once 'Zend/Http/Exception.php';
  */
 class Zend_Http_Response
 {
-	/**
-	 * List of all known HTTP response codes - used by responseCodeAsText() to
-	 * translate numeric codes to messages.
-	 *
-	 * @var array
-	 */
-	protected static $messages = array(
+    /**
+     * List of all known HTTP response codes - used by responseCodeAsText() to
+     * translate numeric codes to messages.
+     *
+     * @var array
+     */
+    protected static $messages = array(
         // Informational 1xx
         100 => 'Continue',
         101 => 'Switching Protocols',
-        
+
         // Success 2xx
         200 => 'OK',
         201 => 'Created',
@@ -54,7 +54,7 @@ class Zend_Http_Response
         204 => 'No Content',
         205 => 'Reset Content',
         206 => 'Partial Content',
-        
+
         // Redirection 3xx
         300 => 'Multiple Choices',
         301 => 'Moved Permanently',
@@ -64,7 +64,7 @@ class Zend_Http_Response
         305 => 'Use Proxy',
         // 306 is deprecated but reserved
         307 => 'Temporary Redirect',
-        
+
         // Client Error 4xx
         400 => 'Bad Request',
         401 => 'Unauthorized',
@@ -84,7 +84,7 @@ class Zend_Http_Response
         415 => 'Unsupported Media Type',
         416 => 'Requested Range Not Satisfiable',
         417 => 'Expectation Failed',
-        
+
         // Server Error 5xx
         500 => 'Internal Server Error',
         501 => 'Not Implemented',
@@ -94,7 +94,7 @@ class Zend_Http_Response
         505 => 'HTTP Version Not Supported',
         509 => 'Bandwidth Limit Exceeded'
     );
-	
+
     /**
      * The HTTP version (1.0, 1.1)
      *
@@ -110,7 +110,7 @@ class Zend_Http_Response
     protected $code;
 
     /**
-     * The HTTP response code as string 
+     * The HTTP response code as string
      * (e.g. 'Not Found' for 404 or 'Internal Server Error' for 500)
      *
      * @var string
@@ -133,14 +133,14 @@ class Zend_Http_Response
 
     /**
      * HTTP response constructor
-     * 
-     * In most cases, you would use Zend_Http_Response::fromString to parse an HTTP 
+     *
+     * In most cases, you would use Zend_Http_Response::fromString to parse an HTTP
      * response string and create a new Zend_Http_Response object.
-     * 
+     *
      * NOTE: The constructor no longer accepts nulls or empty values for the code and
-     * headers and will throw an exception if the passed values do not form a valid HTTP 
-     * responses. 
-     * 
+     * headers and will throw an exception if the passed values do not form a valid HTTP
+     * responses.
+     *
      * If no message is passed, the message will be guessed according to the response code.
      *
      * @param int $code Response code (200, 404, ...)
@@ -204,7 +204,7 @@ class Zend_Http_Response
 
     /**
      * Check whether the response in successful
-     * 
+     *
      * @return boolean
      */
     public function isSuccessful()
@@ -219,7 +219,7 @@ class Zend_Http_Response
 
     /**
      * Check whether the response is a redirection
-     * 
+     *
      * @return boolean
      */
     public function isRedirect()
@@ -234,14 +234,14 @@ class Zend_Http_Response
 
     /**
      * Get the response body as string
-     * 
-     * This method returns the body of the HTTP response (the content), as it 
+     *
+     * This method returns the body of the HTTP response (the content), as it
      * should be in it's readable version - that is, after decoding it (if it
      * was decoded), deflating it (if it was gzip compressed), etc.
-     * 
-     * If you want to get the raw body (as transfered on wire) use 
+     *
+     * If you want to get the raw body (as transfered on wire) use
      * $this->getRawBody() instead.
-     * 
+     *
      * @return string
      */
     public function getBody()
@@ -255,14 +255,14 @@ class Zend_Http_Response
             case 'chunked':
                 $body = self::decodeChunkedBody($this->body);
                 break;
-                
+
             // No transfer encoding, or unknown encoding extension:
             // return body as is
             default:
                 $body = $this->body;
                 break;
         }
-        
+
         // Decode any content-encoding (gzip or deflate) if needed
         switch (strtolower($this->getHeader('content-encoding'))) {
 
@@ -279,16 +279,16 @@ class Zend_Http_Response
             default:
                 break;
         }
-        
+
         return $body;
     }
 
     /**
      * Get the raw response body (as transfered "on wire") as string
-     * 
+     *
      * If the body is encoded (with Transfer-Encoding, not content-encoding -
-     * IE "chunked" body), gzip compressed, etc. it will not be decoded. 
-     * 
+     * IE "chunked" body), gzip compressed, etc. it will not be decoded.
+     *
      * @return string
      */
     public function getRawBody()
@@ -317,7 +317,7 @@ class Zend_Http_Response
     }
 
     /**
-     * Return a message describing the HTTP response code 
+     * Return a message describing the HTTP response code
      * (Eg. "OK", "Not Found", "Moved Permanently")
      *
      * @return string
@@ -400,11 +400,11 @@ class Zend_Http_Response
      *
      * Conforms to HTTP/1.1 as defined in RFC 2616 (except for 'Unknown')
      * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10 for reference
-     * 
+     *
      * @param int $code HTTP response code
-     * @param boolean $http11 Use HTTP version 1.1 
+     * @param boolean $http11 Use HTTP version 1.1
      * @return string
-     */ 
+     */
     public static function responseCodeAsText($code = null, $http11 = true)
     {
         $messages = self::$messages;
@@ -525,7 +525,7 @@ class Zend_Http_Response
     {
         list(, $body) = preg_split('/^\r?$/m', $response_str, 2);
         $body = ltrim($body);
-        
+
         return $body;
     }
 
@@ -550,20 +550,26 @@ class Zend_Http_Response
             $decBody .= substr($body, $cut, $length);
             $body = substr($body, $cut + $length + 2);
         }
-        
+
         return $decBody;
     }
-    
+
     /**
      * Decode a gzip encoded message (when Content-encoding = gzip)
      *
      * Currently requires PHP with zlib support
-     * 
+     *
      * @param string $body
      * @return string
      */
     public static function decodeGzip($body)
     {
+        if (! function_exists('gzinflate')) {
+            require_once 'Zend/Http/Exception.php';
+            throw new Zend_Http_Exception('Unable to decode gzipped response ' .
+                'body: perhaps the zlib extension is not loaded?');
+        }
+
         return gzinflate(substr($body, 10));
     }
 
@@ -571,12 +577,18 @@ class Zend_Http_Response
      * Decode a zlib deflated message (when Content-encoding = deflate)
      *
      * Currently requires PHP with zlib support
-     * 
+     *
      * @param string $body
      * @return string
      */
     public static function decodeDeflate($body)
     {
+        if (! function_exists('gzuncompress')) {
+            require_once 'Zend/Http/Exception.php';
+            throw new Zend_Http_Exception('Unable to decode deflated response ' .
+                'body: perhaps the zlib extension is not loaded?');
+        }
+
         return gzuncompress($body);
     }
 

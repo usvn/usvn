@@ -33,16 +33,16 @@ require_once 'Zend/Exception.php';
  */
 class Zend_Console_Getopt_Exception extends Zend_Exception
 {
-	protected $usage = '';
+    protected $usage = '';
 
-	public function __construct($message, $usage = '')
-	{
-		$this->usage = $usage;
-		parent::__construct($message);
-	}
+    public function __construct($message, $usage = '')
+    {
+        $this->usage = $usage;
+        parent::__construct($message);
+    }
 
-	public function getUsageMessage()
-	{
-		return $this->usage;
-	}
+    public function getUsageMessage()
+    {
+        return $this->usage;
+    }
 }

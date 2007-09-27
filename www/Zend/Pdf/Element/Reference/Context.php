@@ -19,8 +19,8 @@
  */
 
 
-/** Zend_Pdf_Parser */
-require_once 'Zend/Pdf/Parser.php';
+/** Zend_Pdf_StringParser */
+require_once 'Zend/Pdf/StringParser.php';
 
 /** Zend_Pdf_Element_Reference_Table */
 require_once 'Zend/Pdf/Element/Reference/Table.php';

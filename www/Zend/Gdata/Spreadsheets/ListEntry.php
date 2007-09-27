@@ -55,7 +55,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
         }
         parent::__construct($element);
     }
-    
+
     public function getDOM($doc = null)
     {
         $element = parent::getDOM($doc);
@@ -66,7 +66,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
         }
         return $element;
     }
-    
+
     protected function takeChildFromDOM($child)
     {
         switch ($child->namespaceURI) {
@@ -80,21 +80,21 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
             break;
         }
     }
-    
+
     /**
      * Gets the row elements contained by this list entry.
      * @return array The custom row elements in this list entry
      */
-    public function getCustom() 
+    public function getCustom()
     {
         return $this->_custom;
     }
-    
+
     /**
      * Sets the row elements contained by this list entry.
      * @param array $custom The custom row elements to be contained in this list entry
      */
-    public function setCustom($custom) 
+    public function setCustom($custom)
     {
         $this->_custom = $custom;
         return $this;

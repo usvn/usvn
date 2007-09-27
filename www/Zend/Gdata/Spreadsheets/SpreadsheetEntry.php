@@ -48,5 +48,5 @@ class Zend_Gdata_Spreadsheets_SpreadsheetEntry extends Zend_Gdata_Entry
         }
         parent::__construct($element);
     }
-  
+
 }

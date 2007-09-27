@@ -26,7 +26,7 @@ require_once 'Zend/Gdata/Extension.php';
 
 /**
  * Data model for gd:extendedProperty element, used by some GData
- * services to implement arbitrary name/value pair storage 
+ * services to implement arbitrary name/value pair storage
  *
  * @category   Zend
  * @package    Zend_Gdata
@@ -73,7 +73,7 @@ class Zend_Gdata_Extension_ExtendedProperty extends Zend_Gdata_Extension
         }
     }
 
-    public function __toString() 
+    public function __toString()
     {
         return $this->getName() . '=' . $this->getValue();
     }

@@ -37,14 +37,14 @@ require_once 'Zend/Gdata/App/FeedSourceParent.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent 
+class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
         implements Iterator, ArrayAccess
 {
 
     /**
      * The root xml element of this data element
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $_rootElement = 'feed';
 
@@ -86,11 +86,12 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Retrieves the DOM model representing this object and all children
      *
-     * @param 
+     * @param DOMDocument $doc
+     * @return DOMElement
      */
     public function getDOM($doc = null)
     {
-        $element = parent::getDOM($doc); 
+        $element = parent::getDOM($doc);
         foreach ($this->_entry as $entry) {
             $element->appendChild($entry->getDOM($element->ownerDocument));
         }
@@ -191,10 +192,20 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * @param array The array of Zend_Gdata_App_Entry elements
      * @return Zend_Gdata_App_Entry Provides a fluent interface
-     */ 
+     */
     public function setEntry($value)
     {
         $this->_entry = $value;
+        return $this;
+    }
+
+    /**
+     * @param Zend_Gdata_App_Entry An individual entry to add.
+     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     */
+    public function addEntry($value)
+    {
+        $this->_entry[] = $value;
         return $this;
     }
 

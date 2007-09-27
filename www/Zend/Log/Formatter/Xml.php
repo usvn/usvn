@@ -17,7 +17,7 @@
  * @subpackage Formatter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 4389 2007-04-06 15:17:41Z mike $
+ * @version    $Id: Xml.php 5764 2007-07-18 21:59:22Z thomas $
  */
 
 /** Zend_Log_Formatter_Interface */
@@ -29,8 +29,8 @@ require_once 'Zend/Log/Formatter/Interface.php';
  * @subpackage Formatter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Xml.php 4389 2007-04-06 15:17:41Z mike $
- */ 
+ * @version    $Id: Xml.php 5764 2007-07-18 21:59:22Z thomas $
+ */
 class Zend_Log_Formatter_Xml implements Zend_Log_Formatter_Interface
 {
     /**
@@ -69,18 +69,18 @@ class Zend_Log_Formatter_Xml implements Zend_Log_Formatter_Interface
             foreach ($this->_elementMap as $elementName => $fieldKey) {
                 $dataToInsert[$elementName] = $event[$fieldKey];
             }
-        }        
-        
+        }
+
         $dom = new DOMDocument();
         $elt = $dom->appendChild(new DOMElement($this->_rootElement));
 
         foreach ($dataToInsert as $key => $value) {
             $elt->appendChild(new DOMElement($key, $value));
         }
-        
+
         $xml = $dom->saveXML();
         $xml = preg_replace('/<\?xml version="1.0"( encoding="[^\"]*")?\?>\n/u', '', $xml);
-        
+
         return $xml . PHP_EOL;
     }
 

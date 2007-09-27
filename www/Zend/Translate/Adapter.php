@@ -159,6 +159,28 @@ abstract class Zend_Translate_Adapter {
 
 
     /**
+     * Returns all avaiable message ids from this adapter
+     *
+     * @return array
+     */
+    public function getMessageIds()
+    {
+        return array_keys($this->_translate);
+    }
+
+
+    /**
+     * Returns all avaiable translations from this adapter
+     *
+     * @return array
+     */
+    public function getMessages()
+    {
+        return $this->_translate;
+    }
+
+
+    /**
      * Is the wished language avaiable ?
      *
      * @param  string|Zend_Locale  $locale  Language to search for, identical with locale identifier,
@@ -230,20 +252,18 @@ abstract class Zend_Translate_Adapter {
             }
         }
 
-        if (array_key_exists($locale, $this->_translate)) {
-           if (array_key_exists($messageId, $this->_translate[$locale])) {
-                // return original translation
-                return $this->_translate[$locale][$messageId];
-           }
+        if ((array_key_exists($locale, $this->_translate)) and
+            (array_key_exists($messageId, $this->_translate[$locale]))) {
+            // return original translation
+            return $this->_translate[$locale][$messageId];
         } else if (strlen($locale) != 2) {
             // faster than creating a new locale and separate the leading part
             $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
 
-            if (array_key_exists($locale, $this->_translate)) {
-                if (array_key_exists($messageId, $this->_translate[$locale])) {
-                    // return regionless translation (en_US -> en)
-                    return $this->_translate[$locale][$messageId];
-                }
+            if ((array_key_exists($locale, $this->_translate)) and
+                (array_key_exists($messageId, $this->_translate[$locale]))) {
+                // return regionless translation (en_US -> en)
+                return $this->_translate[$locale][$messageId];
             }
         }
 
@@ -255,7 +275,7 @@ abstract class Zend_Translate_Adapter {
     /**
      * Checks if a string is translated within the source or not
      * returns boolean
-     * 
+     *
      * @param  string              $messageId  Translation string
      * @param  boolean             $original   OPTIONAL Allow translation only for original language
      *                                         when true, a translation for 'en_US' would give false when it can
@@ -279,20 +299,18 @@ abstract class Zend_Translate_Adapter {
             }
         }
 
-        if (array_key_exists($locale, $this->_translate)) {
-           if (array_key_exists($messageId, $this->_translate[$locale])) {
-                // return original translation
-                return true;
-           }
+        if ((array_key_exists($locale, $this->_translate)) and
+            (array_key_exists($messageId, $this->_translate[$locale]))) {
+            // return original translation
+            return true;
         } else if ((strlen($locale) != 2) and ($original === false)) {
             // faster than creating a new locale and separate the leading part
             $locale = substr($locale, 0, -strlen(strrchr($locale, '_')));
 
-            if (array_key_exists($locale, $this->_translate)) {
-                if (array_key_exists($messageId, $this->_translate[$locale])) {
-                    // return regionless translation (en_US -> en)
-                    return true;
-                }
+            if ((array_key_exists($locale, $this->_translate)) and
+                (array_key_exists($messageId, $this->_translate[$locale]))) {
+                // return regionless translation (en_US -> en)
+                return true;
             }
         }
 

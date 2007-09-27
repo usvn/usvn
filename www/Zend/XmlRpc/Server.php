@@ -64,7 +64,7 @@ require_once 'Zend/Server/Reflection.php';
 require_once 'Zend/Server/Reflection/Function/Abstract.php';
 
 /**
- * Specifically grab the Zend_Server_Reflection_Method for manually setting up 
+ * Specifically grab the Zend_Server_Reflection_Method for manually setting up
  * system.* methods and handling callbacks in {@link loadFunctions()}.
  */
 require_once 'Zend/Server/Reflection/Method.php';
@@ -116,7 +116,7 @@ class Zend_XmlRpc_Server
 {
     /**
      * Character encoding
-     * @var string 
+     * @var string
      */
     protected $_encoding = 'UTF-8';
 
@@ -128,19 +128,19 @@ class Zend_XmlRpc_Server
 
     /**
      * Request processed
-     * @var null|Zend_XmlRpc_Request 
+     * @var null|Zend_XmlRpc_Request
      */
     protected $_request = null;
 
     /**
      * Class to use for responses; defaults to {@link Zend_XmlRpc_Response_Http}
-     * @var string 
+     * @var string
      */
     protected $_responseClass = 'Zend_XmlRpc_Response_Http';
 
     /**
      * Dispatch table of name => method pairs
-     * @var array 
+     * @var array
      */
     protected $_table = array();
 
@@ -202,8 +202,8 @@ class Zend_XmlRpc_Server
 
     /**
      * Map PHP parameter types to XML-RPC types
-     * 
-     * @param Zend_Server_Reflection_Function_Abstract $method 
+     *
+     * @param Zend_Server_Reflection_Function_Abstract $method
      * @return void
      */
     protected function _fixTypes(Zend_Server_Reflection_Function_Abstract $method)
@@ -223,9 +223,9 @@ class Zend_XmlRpc_Server
     /**
      * Re/Build the dispatch table
      *
-     * The dispatch table consists of a an array of method name => 
+     * The dispatch table consists of a an array of method name =>
      * Zend_Server_Reflection_Function_Abstract pairs
-     * 
+     *
      * @return void
      */
     protected function _buildDispatchTable()
@@ -268,8 +268,8 @@ class Zend_XmlRpc_Server
 
     /**
      * Set encoding
-     * 
-     * @param string $encoding 
+     *
+     * @param string $encoding
      * @return Zend_XmlRpc_Server
      */
     public function setEncoding($encoding)
@@ -280,7 +280,7 @@ class Zend_XmlRpc_Server
 
     /**
      * Retrieve current encoding
-     * 
+     *
      * @return string
      */
     public function getEncoding()
@@ -291,12 +291,12 @@ class Zend_XmlRpc_Server
     /**
      * Attach a callback as an XMLRPC method
      *
-     * Attaches a callback as an XMLRPC method, prefixing the XMLRPC method name 
-     * with $namespace, if provided. Reflection is done on the callback's 
+     * Attaches a callback as an XMLRPC method, prefixing the XMLRPC method name
+     * with $namespace, if provided. Reflection is done on the callback's
      * docblock to create the methodHelp for the XMLRPC method.
      *
-     * Additional arguments to pass to the function at dispatch may be passed; 
-     * any arguments following the namespace will be aggregated and passed at 
+     * Additional arguments to pass to the function at dispatch may be passed;
+     * any arguments following the namespace will be aggregated and passed at
      * dispatch time.
      *
      * @param string|array $function Valid callback
@@ -304,7 +304,7 @@ class Zend_XmlRpc_Server
      * @return void
      * @throws Zend_XmlRpc_Server_Exception
      */
-    public function addFunction($function, $namespace = '') 
+    public function addFunction($function, $namespace = '')
     {
         if (!is_string($function) && !is_array($function)) {
             throw new Zend_XmlRpc_Server_Exception('Unable to attach function; invalid', 611);
@@ -330,10 +330,10 @@ class Zend_XmlRpc_Server
     /**
      * Load methods as returned from {@link getFunctions}
      *
-     * Typically, you will not use this method; it will be called using the 
+     * Typically, you will not use this method; it will be called using the
      * results pulled from {@link Zend_XmlRpc_Server_Cache::get()}.
-     * 
-     * @param array $array 
+     *
+     * @param array $array
      * @return void
      * @throws Zend_XmlRpc_Server_Exception on invalid input
      */
@@ -345,7 +345,7 @@ class Zend_XmlRpc_Server
 
         foreach ($array as $key => $value) {
             if (!$value instanceof Zend_Server_Reflection_Function_Abstract
-                && !$value instanceof Zend_Server_Reflection_Class) 
+                && !$value instanceof Zend_Server_Reflection_Class)
             {
                 throw new Zend_XmlRpc_Server_Exception('One or more method records are corrupt or otherwise unusable', 613);
             }
@@ -364,8 +364,8 @@ class Zend_XmlRpc_Server
 
     /**
      * Do nothing; persistence is handled via {@link Zend_XmlRpc_Server_Cache}
-     * 
-     * @param mixed $class 
+     *
+     * @param mixed $class
      * @return void
      */
     public function setPersistence($class = null)
@@ -375,15 +375,15 @@ class Zend_XmlRpc_Server
     /**
      * Attach class methods as XMLRPC method handlers
      *
-     * $class may be either a class name or an object. Reflection is done on the 
-     * class or object to determine the available public methods, and each is 
-     * attached to the server as an available method; if a $namespace has been 
+     * $class may be either a class name or an object. Reflection is done on the
+     * class or object to determine the available public methods, and each is
+     * attached to the server as an available method; if a $namespace has been
      * provided, that namespace is used to prefix the XMLRPC method names.
      *
-     * Any additional arguments beyond $namespace will be passed to a method at 
+     * Any additional arguments beyond $namespace will be passed to a method at
      * invocation.
      *
-     * @param string|object $class 
+     * @param string|object $class
      * @param string $namespace Optional
      * @param mixed $argv Optional arguments to pass to methods
      * @return void
@@ -409,8 +409,8 @@ class Zend_XmlRpc_Server
 
     /**
      * Set the request object
-     * 
-     * @param string|Zend_XmlRpc_Request $request 
+     *
+     * @param string|Zend_XmlRpc_Request $request
      * @return Zend_XmlRpc_Server
      * @throws Zend_XmlRpc_Server_Exception on invalid request class or object
      */
@@ -432,7 +432,7 @@ class Zend_XmlRpc_Server
 
     /**
      * Return currently registered request object
-     * 
+     *
      * @return null|Zend_XmlRpc_Request
      */
     public function getRequest()
@@ -442,9 +442,9 @@ class Zend_XmlRpc_Server
 
     /**
      * Raise an xmlrpc server fault
-     * 
-     * @param string|Exception $fault 
-     * @param int $code 
+     *
+     * @param string|Exception $fault
+     * @param int $code
      * @return Zend_XmlRpc_Server_Fault
      */
     public function fault($fault, $code = 404)
@@ -462,11 +462,11 @@ class Zend_XmlRpc_Server
      *
      * @param Zend_XmlRpc_Request $request
      * @return Zend_XmlRpc_Response
-     * @throws Zend_XmlRpcServer_Exception|Exception 
-     * Zend_XmlRpcServer_Exceptions are thrown for internal errors; otherwise, 
+     * @throws Zend_XmlRpcServer_Exception|Exception
+     * Zend_XmlRpcServer_Exceptions are thrown for internal errors; otherwise,
      * any other exception may be thrown by the callback
      */
-    protected function _handle(Zend_XmlRpc_Request $request) 
+    protected function _handle(Zend_XmlRpc_Request $request)
     {
         $method = $request->getMethod();
 
@@ -516,8 +516,8 @@ class Zend_XmlRpc_Server
             $class = $info->getDeclaringClass()->getName();
 
             if ('static' == $info->isStatic()) {
-                // for some reason, invokeArgs() does not work the same as 
-                // invoke(), and expects the first argument to be an object. 
+                // for some reason, invokeArgs() does not work the same as
+                // invoke(), and expects the first argument to be an object.
                 // So, using a callback if the method is static.
                 $return = call_user_func_array(array($class, $info->getName()), $params);
             } else {
@@ -544,7 +544,7 @@ class Zend_XmlRpc_Server
      * @param Zend_XmlRpc_Request $request Optional
      * @return Zend_XmlRpc_Response|Zend_XmlRpc_Fault
      */
-    public function handle(Zend_XmlRpc_Request $request = null) 
+    public function handle(Zend_XmlRpc_Request $request = null)
     {
         // Get request
         if ((null === $request) && (null === ($request = $this->getRequest()))) {
@@ -573,8 +573,8 @@ class Zend_XmlRpc_Server
 
     /**
      * Set the class to use for the response
-     * 
-     * @param string $class 
+     *
+     * @param string $class
      * @return boolean True if class was set, false if not
      */
     public function setResponseClass($class)
@@ -593,9 +593,9 @@ class Zend_XmlRpc_Server
     /**
      * Returns a list of registered methods
      *
-     * Returns an array of dispatchables (Zend_Server_Reflection_Function, 
+     * Returns an array of dispatchables (Zend_Server_Reflection_Function,
      * _Method, and _Class items).
-     * 
+     *
      * @return array
      */
     public function getFunctions()
@@ -603,7 +603,7 @@ class Zend_XmlRpc_Server
         $return = array();
         foreach ($this->_methods as $method) {
             if ($method instanceof Zend_Server_Reflection_Class
-                && ($method->system)) 
+                && ($method->system))
             {
                 continue;
             }
@@ -618,7 +618,7 @@ class Zend_XmlRpc_Server
      * List all available XMLRPC methods
      *
      * Returns an array of methods.
-     * 
+     *
      * @return array
      */
     public function listMethods()
@@ -628,7 +628,7 @@ class Zend_XmlRpc_Server
 
     /**
      * Display help message for an XMLRPC method
-     * 
+     *
      * @param string $method
      * @return string
      */
@@ -643,7 +643,7 @@ class Zend_XmlRpc_Server
 
     /**
      * Return a method signature
-     * 
+     *
      * @param string $method
      * @return array
      */
@@ -683,7 +683,7 @@ class Zend_XmlRpc_Server
      * @param array $methods
      * @return array
      */
-    public function multicall($methods) 
+    public function multicall($methods)
     {
         $responses = array();
         foreach ($methods as $method) {

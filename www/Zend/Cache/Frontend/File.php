@@ -19,8 +19,8 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
- 
+
+
 /**
  * Zend_Cache_Core
  */
@@ -35,30 +35,30 @@ require_once 'Zend/Cache/Core.php';
  */
 class Zend_Cache_Frontend_File extends Zend_Cache_Core
 {
-       
+
     /**
      * Available options
-     * 
+     *
      * ====> (string) master_file :
-     * - the complete path and name of the master file 
-     * - this option has to be set ! 
-     * 
+     * - the complete path and name of the master file
+     * - this option has to be set !
+     *
      * @var array available options
      */
     protected $_specificOptions = array(
         'master_file' => ''
-    ); 
-    
+    );
+
     /**
      * Master file mtime
-     * 
+     *
      * @var int
      */
     private $_masterFile_mtime = null;
-          
+
     /**
      * Constructor
-     * 
+     *
      * @param array $options associative array of options
      */
     public function __construct($options = array())
@@ -73,11 +73,11 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
         if (!($this->_masterFile_mtime = @filemtime($this->_specificOptions['master_file']))) {
             Zend_Cache::throwException('Unable to read master_file : '.$this->_specificOptions['master_file']);
         }
-    }    
-       
+    }
+
     /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
-     * 
+     *
      * @param string $id cache id
      * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
      * @param boolean $doNotUnserialize do not serialize (even if automatic_serialization is true) => for internal use
@@ -93,14 +93,14 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
         }
         return parent::load($id, true, $doNotUnserialize);
     }
-   
+
     /**
-     * Test if a cache is available for the given id 
+     * Test if a cache is available for the given id
      *
      * @param string $id cache id
      * @return boolean true is a cache is available, false else
-     */     
-    public function test($id) 
+     */
+    public function test($id)
     {
         $lastModified = parent::test($id);
         if ($lastModified) {
@@ -110,6 +110,6 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
         }
         return false;
     }
-                 
+
 }
 

@@ -43,14 +43,14 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
 {
 
     const SPREADSHEETS_FEED_URI = 'http://spreadsheets.google.com/feeds';
-    
+
     protected $_defaultFeedUri = self::SPREADSHEETS_FEED_URI;
     protected $_documentType;
     protected $_visibility = 'private';
     protected $_projection = 'full';
     protected $_spreadsheetKey = null;
     protected $_worksheetId = null;
-    
+
     /**
      * Constructs a new Zend_Gdata_Spreadsheets_DocumentQuery object.
      */
@@ -58,7 +58,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     {
         parent::__construct();
     }
-    
+
     /**
      * Sets the spreadsheet key for this query.
      * @param string $value
@@ -69,7 +69,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
         $this->_spreadsheetKey = $value;
         return $this;
     }
-    
+
     /**
      * Gets the spreadsheet key for this query.
      * @return string spreadsheet key
@@ -78,7 +78,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     {
         return $this->_spreadsheetKey;
     }
-    
+
     /**
      * Sets the worksheet id for this query.
      * @param string $value
@@ -89,7 +89,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
         $this->_worksheetId = $value;
         return $this;
     }
-    
+
     /**
      * Gets the worksheet id for this query.
      * @return string worksheet id
@@ -98,7 +98,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     {
         return $this->_worksheetId;
     }
-    
+
     /**
      * Sets the document type for this query.
      * @param string $value spreadsheets or worksheets
@@ -109,7 +109,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
         $this->_documentType = $value;
         return $this;
     }
-    
+
     /**
      * Gets the document type for this query.
      * @return string document type
@@ -118,7 +118,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     {
         return $this->_documentType;
     }
-    
+
     /**
      * Sets the projection for this query.
      * @param string $value
@@ -132,7 +132,6 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
 
     /**
      * Sets the visibility for this query.
-     * @return string visibility
      * @return Zend_Gdata_Spreadsheets_DocumentQuery Provides a fluent interface
      */
     public function setVisibility($value)
@@ -140,7 +139,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
         $this->_visibility = $value;
         return $this;
     }
-    
+
     /**
      * Gets the projection for this query.
      * @return string projection
@@ -149,7 +148,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     {
         return $this->_projection;
     }
-    
+
     /**
      * Gets the visibility for this query.
      * @return string visibility
@@ -158,7 +157,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     {
         return $this->_visibility;
     }
-    
+
     /**
      * Sets the title attribute for this query.
      * @param string $value
@@ -173,7 +172,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
         }
         return $this;
     }
-    
+
     /**
      * Sets the title-exact attribute for this query.
      * @param string $value
@@ -188,7 +187,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
         }
         return $this;
     }
-    
+
     /**
      * Gets the title attribute for this query.
      * @return string title
@@ -201,7 +200,7 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
             return null;
         }
     }
-    
+
     /**
      * Gets the title-exact attribute for this query.
      * @return string title-exact
@@ -214,27 +213,27 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
             return null;
         }
     }
-    
+
     private function appendVisibilityProjection()
     {
         $uri = '';
-        
+
         if ($this->_visibility != null) {
             $uri .= '/'.$this->_visibility;
         } else {
             throw new Zend_Gdata_App_Exception('A visibility must be provided for document queries.');
         }
-        
+
         if ($this->_projection != null) {
             $uri .= '/'.$this->_projection;
         } else {
             throw new Zend_Gdata_App_Exception('A projection must be provided for document queries.');
         }
-        
+
         return $uri;
     }
-    
-    
+
+
     /**
      * Gets the full query URL for this query.
      * @return string url
@@ -242,13 +241,13 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     public function getQueryUrl()
     {
         $uri = $this->_defaultFeedUri;
-    
+
         if ($this->_documentType != null) {
             $uri .= '/'.$this->_documentType;
         } else {
             throw new Zend_Gdata_App_Exception('A document type must be provided for document queries.');
         }
-    
+
         if ($this->_documentType == 'spreadsheets') {
             $uri .= $this->appendVisibilityProjection();
             if ($this->_spreadsheetKey != null) {
@@ -265,11 +264,11 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
                 $uri .= '/'.$this->_worksheetId;
             }
         }
-        
+
         $uri .= $this->getQueryString();
         return $uri;
     }
-    
+
     /**
      * Gets the attribute query string for this query.
      * @return string query string
@@ -278,5 +277,5 @@ class Zend_Gdata_Spreadsheets_DocumentQuery extends Zend_Gdata_Query
     {
         return parent::getQueryString();
     }
-    
+
 }

@@ -17,7 +17,7 @@
  * @subpackage Dispatcher
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /** Zend_Controller_Dispatcher_Interface */
 require_once 'Zend/Controller/Dispatcher/Interface.php';
@@ -65,9 +65,9 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     protected $_frontController;
 
     /**
-     * Array of invocation parameters to use when instantiating action 
+     * Array of invocation parameters to use when instantiating action
      * controllers
-     * @var array 
+     * @var array
      */
     protected $_invokeParams = array();
 
@@ -79,7 +79,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Response object to pass to action controllers, if any
-     * @var Zend_Controller_Response_Abstract|null 
+     * @var Zend_Controller_Response_Abstract|null
      */
     protected $_response = null;
 
@@ -91,7 +91,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Constructor
-     * 
+     *
      * @return void
      */
     public function __construct(array $params = array())
@@ -131,10 +131,10 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     /**
      * Verify delimiter
      *
-     * Verify a delimiter to use in controllers or actions. May be a single 
+     * Verify a delimiter to use in controllers or actions. May be a single
      * string or an array of strings.
-     * 
-     * @param string|array $spec 
+     *
+     * @param string|array $spec
      * @return array
      * @throws Zend_Controller_Dispatcher_Exception with invalid delimiters
      */
@@ -164,9 +164,9 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     }
 
     /**
-     * Retrieve the word delimiter character(s) used in 
+     * Retrieve the word delimiter character(s) used in
      * controller or action names
-     * 
+     *
      * @return array
      */
     public function getWordDelimiter()
@@ -177,10 +177,10 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     /**
      * Set word delimiter
      *
-     * Set the word delimiter to use in controllers and actions. May be a 
+     * Set the word delimiter to use in controllers and actions. May be a
      * single string or an array of strings.
-     * 
-     * @param string|array $spec 
+     *
+     * @param string|array $spec
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setWordDelimiter($spec)
@@ -192,9 +192,9 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     }
 
     /**
-     * Retrieve the path delimiter character(s) used in 
+     * Retrieve the path delimiter character(s) used in
      * controller names
-     * 
+     *
      * @return array
      */
     public function getPathDelimiter()
@@ -205,10 +205,10 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     /**
      * Set path delimiter
      *
-     * Set the path delimiter to use in controllers. May be a single string or 
+     * Set the path delimiter to use in controllers. May be a single string or
      * an array of strings.
-     * 
-     * @param string|array $spec 
+     *
+     * @param string|array $spec
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setPathDelimiter($spec)
@@ -223,12 +223,12 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
     }
 
     /**
-     * Formats a string from a URI into a PHP-friendly name.  
+     * Formats a string from a URI into a PHP-friendly name.
      *
-     * By default, replaces words separated by the word separator character(s) 
-     * with camelCaps. If $isAction is false, it also preserves replaces words 
-     * separated by the path separation character with an underscore, making 
-     * the following word Title cased. All non-alphanumeric characters are 
+     * By default, replaces words separated by the word separator character(s)
+     * with camelCaps. If $isAction is false, it also preserves replaces words
+     * separated by the path separation character with an underscore, making
+     * the following word Title cased. All non-alphanumeric characters are
      * removed.
      *
      * @param string $unformatted
@@ -255,7 +255,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Retrieve front controller instance
-     * 
+     *
      * @return Zend_Controller_Front
      */
     public function getFrontController()
@@ -270,8 +270,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Set front controller instance
-     * 
-     * @param Zend_Controller_Front $controller 
+     *
+     * @param Zend_Controller_Front $controller
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setFrontController(Zend_Controller_Front $controller)
@@ -282,9 +282,9 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Add or modify a parameter to use when instantiating an action controller
-     * 
+     *
      * @param string $name
-     * @param mixed $value 
+     * @param mixed $value
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setParam($name, $value)
@@ -296,8 +296,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Set parameters to pass to action controller constructors
-     * 
-     * @param array $params 
+     *
+     * @param array $params
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setParams(array $params)
@@ -308,8 +308,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Retrieve a single parameter from the controller parameter stack
-     * 
-     * @param string $name 
+     *
+     * @param string $name
      * @return mixed
      */
     public function getParam($name)
@@ -323,7 +323,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Retrieve action controller instantiation parameters
-     * 
+     *
      * @return array
      */
     public function getParams()
@@ -333,11 +333,11 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Clear the controller parameter stack
-     * 
-     * By default, clears all parameters. If a parameter name is given, clears 
-     * only that parameter; if an array of parameter names is provided, clears 
+     *
+     * By default, clears all parameters. If a parameter name is given, clears
+     * only that parameter; if an array of parameter names is provided, clears
      * each.
-     * 
+     *
      * @param null|string|array single key or array of keys for params to clear
      * @return Zend_Controller_Dispatcher_Abstract
      */
@@ -360,8 +360,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Set response object to pass to action controllers
-     * 
-     * @param Zend_Controller_Response_Abstract|null $response 
+     *
+     * @param Zend_Controller_Response_Abstract|null $response
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setResponse(Zend_Controller_Response_Abstract $response = null)
@@ -372,7 +372,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Return the registered response object
-     * 
+     *
      * @return Zend_Controller_Response_Abstract|null
      */
     public function getResponse()
@@ -382,8 +382,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Set the default controller (minus any formatting)
-     * 
-     * @param string $controller 
+     *
+     * @param string $controller
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setDefaultControllerName($controller)
@@ -394,7 +394,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Retrieve the default controller name (minus formatting)
-     * 
+     *
      * @return string
      */
     public function getDefaultControllerName()
@@ -404,8 +404,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Set the default action (minus any formatting)
-     * 
-     * @param string $action 
+     *
+     * @param string $action
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setDefaultAction($action)
@@ -416,7 +416,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Retrieve the default action name (minus formatting)
-     * 
+     *
      * @return string
      */
     public function getDefaultAction()
@@ -426,8 +426,8 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Set the default module
-     * 
-     * @param string $module 
+     *
+     * @param string $module
      * @return Zend_Controller_Dispatcher_Abstract
      */
     public function setDefaultModule($module)
@@ -438,7 +438,7 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
 
     /**
      * Retrieve the default module
-     * 
+     *
      * @return string
      */
     public function getDefaultModule()

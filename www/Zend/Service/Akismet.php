@@ -27,7 +27,7 @@ require_once 'Zend/Service/Exception.php';
 
 /**
  * Akismet REST service implementation
- * 
+ *
  * @uses       Zend_Service_Abstract
  * @category   Zend
  * @package    Zend_Service
@@ -69,7 +69,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Constructor
-     * 
+     *
      * @param string $apiKey Akismet API key
      * @param string $blog Blog URL
      * @return void
@@ -82,7 +82,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Retrieve blog URL
-     * 
+     *
      * @return string
      */
     public function getBlogUrl()
@@ -92,7 +92,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Set blog URL
-     * 
+     *
      * @param string $blogUrl
      * @return Zend_Service_Akismet
      * @throws Zend_Service_Exception if invalid URL provided
@@ -111,7 +111,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Retrieve API key
-     * 
+     *
      * @return string
      */
     public function getApiKey()
@@ -121,8 +121,8 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Set API key
-     * 
-     * @param string $apiKey 
+     *
+     * @param string $apiKey
      * @return Zend_Service_Akismet
      */
     public function setApiKey($apiKey)
@@ -133,7 +133,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Retrieve charset
-     * 
+     *
      * @return string
      */
     public function getCharset()
@@ -143,7 +143,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Set charset
-     * 
+     *
      * @param string $charset
      * @return Zend_Service_Akismet
      */
@@ -155,7 +155,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Retrieve TCP/IP port
-     * 
+     *
      * @return int
      */
     public function getPort()
@@ -165,8 +165,8 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Set TCP/IP port
-     * 
-     * @param int $port 
+     *
+     * @param int $port
      * @return Zend_Service_Akismet
      * @throws Zend_Service_Exception if non-integer value provided
      */
@@ -183,7 +183,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Retrieve User Agent string
-     * 
+     *
      * @return string
      */
     public function getUserAgent()
@@ -192,11 +192,11 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     }
 
     /**
-     * Set User Agent 
+     * Set User Agent
      *
      * Should be of form "Some user agent/version | Akismet/version"
-     * 
-     * @param string $userAgent 
+     *
+     * @param string $userAgent
      * @return Zend_Service_Akismet
      * @throws Zend_Service_Exception with invalid user agent string
      */
@@ -215,10 +215,10 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Post a request
-     * 
-     * @param string $host 
-     * @param string $path 
-     * @param array  $params 
+     *
+     * @param string $host
+     * @param string $path
+     * @param array  $params
      * @return mixed
      */
     protected function _post($host, $path, array $params)
@@ -242,7 +242,7 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Verify an API key
-     * 
+     *
      * @param string $key Optional; API key to verify
      * @param string $blog Optional; blog URL against which to verify key
      * @return boolean
@@ -267,9 +267,9 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
 
     /**
      * Perform an API call
-     * 
+     *
      * @param string $path
-     * @param array $params 
+     * @param array $params
      * @return Zend_Http_Response
      * @throws Zend_Service_Exception if missing user_ip or user_agent fields
      */
@@ -290,8 +290,8 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Check a comment for spam
      *
-     * Checks a comment to see if it is spam. $params should be an associative 
-     * array with one or more of the following keys (unless noted, all keys are 
+     * Checks a comment to see if it is spam. $params should be an associative
+     * array with one or more of the following keys (unless noted, all keys are
      * optional):
      * - blog: URL of the blog. If not provided, uses value returned by {@link getBlogUrl()}
      * - user_ip (required): IP address of comment submitter
@@ -304,12 +304,12 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
      * - comment_author_url: URL submitted with the content
      * - comment_content: actual content
      *
-     * Additionally, Akismet suggests returning the key/value pairs in the 
+     * Additionally, Akismet suggests returning the key/value pairs in the
      * $_SERVER array, and these may be included in the $params.
      *
      * This method implements the Akismet comment-check REST method.
-     * 
-     * @param array $params 
+     *
+     * @param array $params
      * @return boolean
      * @throws Zend_Service_Exception with invalid API key
      */
@@ -334,13 +334,13 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
     /**
      * Submit spam
      *
-     * Takes the same arguments as {@link isSpam()}. 
+     * Takes the same arguments as {@link isSpam()}.
      *
      * Submits known spam content to Akismet to help train it.
      *
      * This method implements Akismet's submit-spam REST method.
-     * 
-     * @param array $params 
+     *
+     * @param array $params
      * @return void
      * @throws Zend_Service_Exception with invalid API key
      */
@@ -359,17 +359,17 @@ class Zend_Service_Akismet extends Zend_Service_Abstract
      *
      * Takes the same arguments as {@link isSpam()}.
      *
-     * Submits a comment that has been falsely categorized as spam by Akismet 
-     * as a false positive, telling Akismet's filters not to filter such 
+     * Submits a comment that has been falsely categorized as spam by Akismet
+     * as a false positive, telling Akismet's filters not to filter such
      * comments as spam in the future.
      *
-     * Unlike {@link submitSpam()} and {@link isSpam()}, a valid API key is 
-     * never necessary; as a result, this method never throws an exception 
+     * Unlike {@link submitSpam()} and {@link isSpam()}, a valid API key is
+     * never necessary; as a result, this method never throws an exception
      * (unless an exception happens with the HTTP client layer).
      *
      * this method implements Akismet's submit-ham REST method.
-     * 
-     * @param array $params 
+     *
+     * @param array $params
      * @return void
      */
     public function submitHam($params)

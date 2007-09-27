@@ -17,6 +17,13 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
+
+/** Zend_Pdf_ElementFactory_Interface */
+require_once 'Zend/Pdf/ElementFactory/Interface.php';
+
+/** Zend_Pdf_ElementFactory_Proxy */
+require_once 'Zend/Pdf/ElementFactory/Proxy.php';
+
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
 
@@ -65,7 +72,7 @@ require_once 'Zend/Pdf/UpdateInfoContainer.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Pdf_ElementFactory
+class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
 {
     /**
      * List of the modified objects.
@@ -75,7 +82,7 @@ class Zend_Pdf_ElementFactory
      *
      * @var array
      */
-    private $_modifiedObjects;
+    private $_modifiedObjects = array();
 
     /**
      * List of the removed objects
@@ -84,7 +91,17 @@ class Zend_Pdf_ElementFactory
      *
      * @var array
      */
-    private $_removedObjects;
+    private $_removedObjects = array();
+
+    /**
+     * List of registered objects.
+     * Used for resources clean up when factory is destroyed.
+     *
+     * Array of Zend_Pdf_Element objects
+     *
+     * @var array
+     */
+    private $_registeredObjects = array();
 
     /**
      * PDF object counter.
@@ -97,11 +114,11 @@ class Zend_Pdf_ElementFactory
 
     /**
      * List of the attached object factories.
-     * Array of Zend_Pdf_ElementFactory objects
+     * Array of Zend_Pdf_ElementFactory_Interface objects
      *
      * @var array
      */
-    private $_attachedFactories;
+    private $_attachedFactories = array();
 
 
     /**
@@ -126,6 +143,7 @@ class Zend_Pdf_ElementFactory
      */
     private $_shiftCalculationCache = array();
 
+
     /**
      * Object constructor
      *
@@ -133,11 +151,47 @@ class Zend_Pdf_ElementFactory
      */
     public function __construct($objCount)
     {
-        $this->_modifiedObjects   = array();
-        $this->_removedObjects    = array();
-        $this->_attachedFactories = array();
         $this->_objectCount       = (int)$objCount;
         $this->_factoryId         = self::$_identity++;
+    }
+
+
+    /**
+     * Factory generator
+     *
+     * @param integer $objCount
+     * @return Zend_Pdf_ElementFactory_Interface
+     */
+    static public function createFactory($objCount)
+    {
+        return new Zend_Pdf_ElementFactory_Proxy(new Zend_Pdf_ElementFactory($objCount));
+    }
+
+    /**
+     * Close factory and clean-up resources
+     *
+     * @internal
+     */
+    public function close()
+    {
+        $this->_modifiedObjects   = null;
+        $this->_removedObjects    = null;
+        $this->_attachedFactories = null;
+
+        foreach ($this->_registeredObjects as $obj) {
+            $obj->cleanUp();
+        }
+        $this->_registeredObjects = null;
+    }
+
+    /**
+     * Get source factory object
+     *
+     * @return Zend_Pdf_ElementFactory
+     */
+    public function resolve()
+    {
+        return $this;
     }
 
     /**
@@ -180,9 +234,9 @@ class Zend_Pdf_ElementFactory
     /**
      * Attach factory to the current;
      *
-     * @param Zend_Pdf_ElementFactory $factory
+     * @param Zend_Pdf_ElementFactory_Interface $factory
      */
-    public function attach(Zend_Pdf_ElementFactory $factory)
+    public function attach(Zend_Pdf_ElementFactory_Interface $factory)
     {
         if ( $factory === $this || isset($this->_attachedFactories[$factory->getId()])) {
             /**
@@ -201,10 +255,11 @@ class Zend_Pdf_ElementFactory
     /**
      * Calculate object enumeration shift.
      *
-     * @param Zend_Pdf_ElementFactory $factory
+     * @internal
+     * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
      */
-    private function _calculateShift(Zend_Pdf_ElementFactory $factory)
+    public function calculateShift(Zend_Pdf_ElementFactory_Interface $factory)
     {
         if ($factory === $this) {
             return 0;
@@ -217,7 +272,7 @@ class Zend_Pdf_ElementFactory
         $shift = $this->_objectCount - 1;
 
         foreach ($this->_attachedFactories as $subFactory) {
-            $subFactoryShift = $subFactory->_calculateShift($factory);
+            $subFactoryShift = $subFactory->calculateShift($factory);
 
             if ($subFactoryShift != -1) {
                 // context found
@@ -235,13 +290,13 @@ class Zend_Pdf_ElementFactory
     /**
      * Retrive object enumeration shift.
      *
-     * @param Zend_Pdf_ElementFactory $factory
+     * @param Zend_Pdf_ElementFactory_Interface $factory
      * @return integer
      * @throws Zend_Pdf_Exception
      */
-    public function getEnumerationShift(Zend_Pdf_ElementFactory $factory)
+    public function getEnumerationShift(Zend_Pdf_ElementFactory_Interface $factory)
     {
-        if (($shift = $this->_calculateShift($factory)) == -1) {
+        if (($shift = $this->calculateShift($factory)) == -1) {
             throw new Zend_Pdf_Exception('Wrong object context');
         }
 
@@ -316,7 +371,7 @@ class Zend_Pdf_ElementFactory
      * Enumerate modified objects.
      * Returns array of Zend_Pdf_UpdateInfoContainer
      *
-     * @param Zend_Pdf_ElementFactory $rootFactory
+     * @param Zend_Pdf_ElementFactory_Interface $rootFactory
      * @return array
      */
     public function listModifiedObjects($rootFactory = null)
@@ -351,6 +406,17 @@ class Zend_Pdf_ElementFactory
         return $result;
     }
 
+    /**
+     * Register object in the factory
+     *
+     * It's used to clear "parent object" referencies when factory is closed and clean up resources
+     *
+     * @param Zend_Pdf_Element_Object $obj
+     */
+    public function registerObject($obj)
+    {
+        $this->_registeredObjects[] = $obj;
+    }
 
     /**
      * Check if PDF file was modified

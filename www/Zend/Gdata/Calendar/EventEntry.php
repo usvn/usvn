@@ -46,7 +46,7 @@ require_once 'Zend/Gdata/Calendar/Extension/Link.php';
 
 
 /**
- * Data model class for a Google Calendar Event Entry 
+ * Data model class for a Google Calendar Event Entry
  *
  * @category   Zend
  * @package    Zend_Gdata
@@ -77,24 +77,24 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
         }
         if ($this->_timezone != null) {
             $element->appendChild($this->_timezone->getDOM($element->ownerDocument));
-        }        
-        if ($this->quickadd != null) {
+        }
+        if ($this->_quickadd != null) {
             $element->appendChild($this->_quickadd->getDOM($element->ownerDocument));
         }
         return $element;
     }
-    
+
     protected function takeChildFromDOM($child)
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
-        
+
         switch ($absoluteNodeName) {
-            case $this->lookupNamespace('gCal') . ':' . 'sendEventNotifications'; 
+            case $this->lookupNamespace('gCal') . ':' . 'sendEventNotifications';
                 $sendEventNotifications = new Zend_Gdata_Calendar_Extension_SendEventNotifications();
                 $sendEventNotifications->transferFromDOM($child);
                 $this->_sendEventNotifications = $sendEventNotifications;
                 break;
-            case $this->lookupNamespace('gCal') . ':' . 'timezone'; 
+            case $this->lookupNamespace('gCal') . ':' . 'timezone';
                 $timezone = new Zend_Gdata_Calendar_Extension_Timezone();
                 $timezone->transferFromDOM($child);
                 $this->_timezone = $timezone;
@@ -115,18 +115,18 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
         }
     }
 
-    public function getSendEventNotifications() 
+    public function getSendEventNotifications()
     {
         return $this->_sendEventNotifications;
     }
 
-    public function setSendEventNotifications($value) 
+    public function setSendEventNotifications($value)
     {
         $this->_sendEventNotifications = $value;
         return $this;
     }
 
-    public function getTimezone() 
+    public function getTimezone()
     {
         return $this->_timezone;
     }
@@ -134,23 +134,23 @@ class Zend_Gdata_Calendar_EventEntry extends Zend_Gdata_Kind_EventEntry
     /**
      * @param Zend_Gdata_Calendar_Extension_Timezone $value
      * @return Zend_Gdata_Extension_EventEntry Provides a fluent interface
-     */    
-    public function setTimezone($value) 
+     */
+    public function setTimezone($value)
     {
         $this->_timezone = $value;
         return $this;
-    }    
+    }
 
-    public function getQuickAdd() 
+    public function getQuickAdd()
     {
         return $this->_quickadd;
     }
-    
+
     /**
      * @param Zend_Gdata_Calendar_Extension_QuickAdd $value
      * @return Zend_Gdata_Extension_ListEntry Provides a fluent interface
-     */    
-    public function setQuickAdd($value) 
+     */
+    public function setQuickAdd($value)
     {
         $this->_quickadd = $value;
         return $this;

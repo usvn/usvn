@@ -360,7 +360,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
             }
 
             if (!$nonNegativeEntryFound) {
-            	unset($conjuctions[$conjuctionId]);
+                unset($conjuctions[$conjuctionId]);
             }
         }
 
@@ -382,7 +382,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
         }
 
         if (count($subqueries) == 0) {
-            return new Zend_Search_Lucene_Search_Query_Empty();
+            return new Zend_Search_Lucene_Search_Query_Insignificant();
         }
 
         if (count($subqueries) == 1) {

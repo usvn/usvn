@@ -15,7 +15,7 @@
  * @package    Zend_Controller
  * @subpackage Router
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Module.php 5017 2007-05-27 15:01:58Z martel $
+ * @version    $Id: Module.php 5768 2007-07-18 22:01:35Z thomas $
  * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
  */
 
@@ -200,7 +200,7 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
         }
 
         $params += $this->_defaults;
-        
+
         $url = '';
 
         if ($this->_moduleValid || array_key_exists($this->_moduleKey, $data)) {
@@ -229,7 +229,7 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
             $url = '/' . $controller . $url;
         }
 
-        if (isset($module)) {        
+        if (isset($module)) {
             $url = '/' . $module . $url;
         }
 

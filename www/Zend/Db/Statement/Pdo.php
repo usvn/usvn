@@ -21,13 +21,13 @@
  */
 
 /**
- * @see Zend_Db_Statement_Interface
+ * @see Zend_Db_Statement
  */
-require_once 'Zend/Db/Statement/Interface.php';
+require_once 'Zend/Db/Statement.php';
 
 /**
  * Proxy class to wrap a PDOStatement object.
- * Matches the interface of PDOStatement.  All methods simply proxy to the 
+ * Matches the interface of PDOStatement.  All methods simply proxy to the
  * matching method in PDOStatement.  PDOExceptions thrown by PDOStatement
  * are re-thrown as Zend_Db_Statement_Exception.
  *
@@ -37,7 +37,7 @@ require_once 'Zend/Db/Statement/Interface.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Db_Statement_Pdo implements Zend_Db_Statement_Interface
+class Zend_Db_Statement_Pdo extends Zend_Db_Statement
 {
 
     /**
@@ -53,28 +53,13 @@ class Zend_Db_Statement_Pdo implements Zend_Db_Statement_Interface
     protected $_fetchMode = PDO::FETCH_ASSOC;
 
     /**
-     * Constructor for a statement.
-     *
-     * @param Zend_Db_Adapter_Abstract $adapter
-     * @param mixed $sql Either a string or Zend_Db_Select.
-     */
-    public function __construct($adapter, $sql)
-    {
-        $this->_adapter = $adapter;
-        if ($sql instanceof Zend_Db_Select) {
-            $sql = $sql->__toString();
-        }
-        $this->_prepSql($sql);
-    }
-
-    /**
      * Prepare a string SQL statement and create a statement object.
      *
      * @param string $sql
      * @return void
      * @throws Zend_Db_Statement_Exception
      */
-    protected function _prepSql($sql)
+    protected function _prepare($sql)
     {
         try {
             $this->_stmt = $this->_adapter->getConnection()->prepare($sql);
@@ -119,11 +104,8 @@ class Zend_Db_Statement_Pdo implements Zend_Db_Statement_Interface
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
-    public function bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
+    protected function _bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
     {
-        if (is_string($parameter) && $parameter[0] != ':') {
-            $parameter = ":$parameter";
-        }
         try {
             return $this->_stmt->bindParam($parameter, $variable, $type, $length, $options);
         } catch (PDOException $e) {
@@ -232,13 +214,13 @@ class Zend_Db_Statement_Pdo implements Zend_Db_Statement_Interface
      * @return bool
      * @throws Zend_Db_Statement_Exception
      */
-    public function execute(array $params = null)
+    public function _execute(array $params = null)
     {
         try {
-            if ($params === null) {
-                return $this->_stmt->execute();
-            } else {
+            if ($params !== null) {
                 return $this->_stmt->execute($params);
+            } else {
+                return $this->_stmt->execute();
             }
         } catch (PDOException $e) {
             require_once 'Zend/Db/Statement/Exception.php';
@@ -358,7 +340,7 @@ class Zend_Db_Statement_Pdo implements Zend_Db_Statement_Interface
     public function getColumnMeta($column)
     {
         try {
-            return $this->_stmt->getColumnMeta();
+            return $this->_stmt->getColumnMeta($column);
         } catch (PDOException $e) {
             require_once 'Zend/Db/Statement/Exception.php';
             throw new Zend_Db_Statement_Exception($e->getMessage());

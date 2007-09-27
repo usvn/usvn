@@ -17,7 +17,7 @@
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Stream.php 4560 2007-04-20 08:01:32Z mike $
+ * @version    $Id: Stream.php 5764 2007-07-18 21:59:22Z thomas $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -32,7 +32,7 @@ require_once 'Zend/Log/Formatter/Simple.php';
  * @subpackage Writer
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Stream.php 4560 2007-04-20 08:01:32Z mike $
+ * @version    $Id: Stream.php 5764 2007-07-18 21:59:22Z thomas $
  */
 class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
 {
@@ -54,11 +54,11 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
             if (get_resource_type($streamOrUrl) != 'stream') {
                 throw new Zend_Log_Exception('Resource is not a stream');
             }
-            
+
             if ($mode != 'a') {
                 throw new Zend_Log_Exception('Mode cannot be changed on existing streams');
             }
-            
+
             $this->_stream = $streamOrUrl;
         } else {
             if (! $this->_stream = @fopen($streamOrUrl, $mode, false)) {
@@ -91,10 +91,10 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
     protected function _write($event)
     {
         $line = $this->_formatter->format($event);
-        
+
         if (! @fwrite($this->_stream, $line)) {
             throw new Zend_Log_Exception("Unable to write to stream");
-        }        
+        }
     }
 
 }

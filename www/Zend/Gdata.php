@@ -27,8 +27,8 @@ require_once 'Zend/Gdata/App.php';
 /**
  * Provides functionality to interact with Google data APIs
  * Subclasses exist to implement service-specific features
- * 
- * As the Google data API protocol is based upon the Atom Publishing Protocol 
+ *
+ * As the Google data API protocol is based upon the Atom Publishing Protocol
  * (APP), GData functionality extends the appropriate Zend_Gdata_App classes
  *
  * @link http://code.google.com/apis/gdata/overview.html
@@ -58,7 +58,7 @@ class Zend_Gdata extends Zend_Gdata_App
     /**
      * Packages to search for classes when using magic __call method, in order.
      *
-     * @var array 
+     * @var array
      */
     protected $_registeredPackages = array(
             'Zend_Gdata_Kind',
@@ -68,9 +68,9 @@ class Zend_Gdata extends Zend_Gdata_App
             'Zend_Gdata_App');
 
     /**
-     * Namespaces used for GData data 
+     * Namespaces used for GData data
      *
-     * @var array 
+     * @var array
      */
     public static $namespaces = array(
         'openSearch' => 'http://a9.com/-/spec/opensearchrss/1.0/',
@@ -93,9 +93,9 @@ class Zend_Gdata extends Zend_Gdata_App
      * @param mixed $location The location as string or Zend_Gdata_Query
      * @param string $className The class type to use for returning the feed
      * @return Zend_Gdata_Feed
-     */     
+     */
     public function getFeed($location, $className='Zend_Gdata_Feed')
-    {   
+    {
         if (is_string($location)) {
             $uri = $location;
         } elseif ($location instanceof Zend_Gdata_Query) {
@@ -114,9 +114,9 @@ class Zend_Gdata extends Zend_Gdata_App
      *
      * @param mixed $location The location as string or Zend_Gdata_Query
      * @return Zend_Gdata_Feed
-     */     
+     */
     public function getEntry($location, $className='Zend_Gdata_Entry')
-    {   
+    {
         if (is_string($location)) {
             $uri = $location;
         } elseif ($location instanceof Zend_Gdata_Query) {

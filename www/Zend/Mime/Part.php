@@ -37,7 +37,7 @@ require_once 'Zend/Mime/Exception.php';
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mime_Part {
-    
+
     public $type = Zend_Mime::TYPE_OCTETSTREAM;
     public $encoding = Zend_Mime::ENCODING_8BIT;
     public $id;
@@ -79,11 +79,11 @@ class Zend_Mime_Part {
      *
      * @return bool
      */
-    public function isStream() 
+    public function isStream()
     {
       return $this->_isStream;
     }
-    
+
     /**
      * if this was created with a stream, return a filtered stream for
      * reading the content. very useful for large file attachments.
@@ -91,7 +91,7 @@ class Zend_Mime_Part {
      * @return stream
      * @throws Zend_Mime_Exception if not a stream or unable to append filter
      */
-    public function getEncodedStream() 
+    public function getEncodedStream()
     {
         if (!$this->_isStream) {
             throw new Zend_Mime_Exception('Attempt to get a stream from a string part');
@@ -129,9 +129,9 @@ class Zend_Mime_Part {
                 break;
             default:
         }
-        return $this->_content;   
+        return $this->_content;
     }
-    
+
     /**
      * Get the Content of the current Mime Part in the given encoding.
      *
@@ -148,7 +148,7 @@ class Zend_Mime_Part {
 
     /**
      * Create and return the array of headers for this MIME part
-     * 
+     *
      * @access public
      * @return array
      */
@@ -167,7 +167,7 @@ class Zend_Mime_Part {
         }
 
         $headers[] = array('Content-Type', $contentType);
-        
+
         if ($this->encoding) {
             $headers[] = array('Content-Transfer-Encoding', $this->encoding);
         }

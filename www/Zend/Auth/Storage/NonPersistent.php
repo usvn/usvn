@@ -30,8 +30,8 @@ require_once 'Zend/Auth/Storage/Interface.php';
 /**
  * Non-Persistent Auth Storage
  *
- * Since HTTP Authentication happens again on each request, this will always be 
- * re-populated. So there's no need to use sessions, this simple value class 
+ * Since HTTP Authentication happens again on each request, this will always be
+ * re-populated. So there's no need to use sessions, this simple value class
  * will hold the data for rest of the current request.
  *
  * @category   Zend
@@ -46,7 +46,7 @@ class Zend_Auth_Storage_NonPersistent implements Zend_Auth_Storage_Interface
      */
     protected $_data;
 
-    
+
     /**
      * Returns true if and only if storage is empty
      *

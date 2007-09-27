@@ -18,7 +18,7 @@
  * @subpackage Delicious
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Post.php 4523 2007-04-17 13:16:56Z ghacek $
+ * @version    $Id: Post.php 5384 2007-06-19 21:26:22Z darby $
  */
 
 
@@ -85,7 +85,9 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
 
         if ($values instanceof DOMElement) {
             $values = self::_parsePostNode($values);
-        } else if (!is_array($values)) {
+        }
+
+        if (!is_array($values) || !isset($values['url']) || !isset($values['title'])) {
             /**
              * @see Zend_Service_Delicious_Exception
              */
@@ -94,24 +96,17 @@ class Zend_Service_Delicious_Post extends Zend_Service_Delicious_SimplePost
                                                      . " 'title')");
         }
 
-        if (!isset($values['url']) || !isset($values['title'])) {
-            /**
-             * @see Zend_Service_Delicious_Exception
-             */
-            require_once 'Zend/Service/Delicious/Exception.php';
-            throw new Zend_Service_Exception("Second argument must be array with at least 2 keys ('url' and 'title')");
-        }
         if (isset($values['date']) && ! $values['date'] instanceof Zend_Date) {
             /**
              * @see Zend_Service_Delicious_Exception
              */
             require_once 'Zend/Service/Delicious/Exception.php';
-            throw new Zend_Service_Exception("Date has to be an instance of Zend_Date");
+            throw new Zend_Service_Delicious_Exception("Date has to be an instance of Zend_Date");
         }
 
         foreach (array('url', 'title', 'notes', 'others', 'tags', 'date', 'shared', 'hash') as $key) {
             if (isset($values[$key])) {
-                $this->{'_'.$key}  = $values[$key];
+                $this->{"_$key"}  = $values[$key];
             }
         }
     }

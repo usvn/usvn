@@ -52,24 +52,24 @@ abstract class Zend_Service_Abstract
      *
      * @param Zend_Http_Client $httpClient
      */
-	final public static function setHttpClient(Zend_Http_Client $httpClient)
-	{
-		self::$_httpClient = $httpClient;
-	}
+    final public static function setHttpClient(Zend_Http_Client $httpClient)
+    {
+        self::$_httpClient = $httpClient;
+    }
 
 
-	/**
-	 * Gets the HTTP client object.
-	 *
-	 * @return Zend_Http_Client
-	 */
-	final public static function getHttpClient()
-	{
-		if (!self::$_httpClient instanceof Zend_Http_Client) {
-			self::$_httpClient = new Zend_Http_Client();
-		}
+    /**
+     * Gets the HTTP client object.
+     *
+     * @return Zend_Http_Client
+     */
+    final public static function getHttpClient()
+    {
+        if (!self::$_httpClient instanceof Zend_Http_Client) {
+            self::$_httpClient = new Zend_Http_Client();
+        }
 
-		return self::$_httpClient;
-	}
+        return self::$_httpClient;
+    }
 }
 

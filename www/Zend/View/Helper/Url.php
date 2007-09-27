@@ -15,25 +15,25 @@
  * @package    Zend_View
  * @subpackage Helpers
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Url.php 4802 2007-05-15 17:03:58Z matthew $
+ * @version    $Id: Url.php 5751 2007-07-18 20:52:10Z thomas $
  * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
  */
 
 /**
  * Helper for making easy links and getting urls that depend on the routes and router
- * 
+ *
  * @package    Zend_View
  * @subpackage Helpers
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
  */
 class Zend_View_Helper_Url {
-    
+
     /**
      * Generates an url given the name of a route.
-     * 
+     *
      * @access public
-     * 
+     *
      * @param  array $urlOptions Options passed to the assemble method of the Route object.
      * @param  mixed $name The name of a Route to use. If null it will use the current Route
      * @param  bool $reset Whether or not to reset the route defaults with those provided
@@ -41,11 +41,11 @@ class Zend_View_Helper_Url {
      */
     public function url(array $urlOptions = array(), $name = null, $reset = false)
     {
-        
+
         $ctrl = Zend_Controller_Front::getInstance();
-        
+
         $router = $ctrl->getRouter();
-        
+
         if (empty($name)) {
             try {
                 $name = $router->getCurrentRouteName();
@@ -54,17 +54,17 @@ class Zend_View_Helper_Url {
                     $name = 'default';
                 }
             }
-        } 
+        }
 
         $route = $router->getRoute($name);
-        
+
         $request = $ctrl->getRequest();
-        
+
         $url = rtrim($request->getBaseUrl(), '/') . '/';
         $url .= $route->assemble($urlOptions, $reset);
-        
+
         return $url;
-        
+
     }
-    
+
 }

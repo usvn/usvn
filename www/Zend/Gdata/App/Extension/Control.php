@@ -70,7 +70,7 @@ class Zend_Gdata_App_Extension_Control extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @return Zend_Gdata_App_Extension_Draft 
+     * @return Zend_Gdata_App_Extension_Draft
      */
     public function getDraft()
     {
@@ -78,13 +78,13 @@ class Zend_Gdata_App_Extension_Control extends Zend_Gdata_App_Extension
     }
 
     /**
-     * @param Zend_Gdata_App_Extension_Draft $value 
+     * @param Zend_Gdata_App_Extension_Draft $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
     public function setDraft($value)
     {
         $this->_draft = $value;
-        return $this; 
+        return $this;
     }
 
 }

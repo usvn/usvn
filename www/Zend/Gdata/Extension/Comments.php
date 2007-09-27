@@ -41,8 +41,8 @@ class Zend_Gdata_Extension_Comments extends Zend_Gdata_Extension
 {
 
     protected $_rootElement = 'comments';
-    protected $_rel = null; 
-    protected $_feedLink = null; 
+    protected $_rel = null;
+    protected $_feedLink = null;
 
     public function __construct($rel = null, $feedLink = null)
     {
@@ -50,7 +50,7 @@ class Zend_Gdata_Extension_Comments extends Zend_Gdata_Extension
         $this->_rel = $rel;
         $this->_feedLink = $feedLink;
     }
-    
+
     public function getDOM($doc = null)
     {
         $element = parent::getDOM($doc);
@@ -67,7 +67,7 @@ class Zend_Gdata_Extension_Comments extends Zend_Gdata_Extension
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-            case $this->lookupNamespace('gd') . ':' . 'feedLink'; 
+            case $this->lookupNamespace('gd') . ':' . 'feedLink';
                 $feedLink = new Zend_Gdata_Extension_FeedLink();
                 $feedLink->transferFromDOM($child);
                 $this->_feedLink = $feedLink;

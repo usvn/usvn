@@ -53,7 +53,7 @@ abstract class Zend_Pdf_Resource
      * doesn't duplicate resource description each time then Resource is rendered
      * (referenced).
      *
-     * @var Zend_Pdf_ElementFactory
+     * @var Zend_Pdf_ElementFactory_Interface
      */
     protected $_objectFactory;
 
@@ -75,7 +75,7 @@ abstract class Zend_Pdf_Resource
     public function __construct($resource)
     {
         $this->_processedFacories = array();
-        $this->_objectFactory     = new Zend_Pdf_ElementFactory(1);
+        $this->_objectFactory     = Zend_Pdf_ElementFactory::createFactory(1);
         if ($resource instanceof Zend_Pdf_Element) {
             $this->_resource      = $this->_objectFactory->newObject($resource);
         } else {
@@ -92,6 +92,16 @@ abstract class Zend_Pdf_Resource
     public function getResource()
     {
         return $this->_resource;
+    }
+
+    /**
+     * Get factory.
+     *
+     * @return Zend_Pdf_ElementFactory_Interface
+     */
+    public function getFactory()
+    {
+        return $this->_objectFactory;
     }
 }
 

@@ -30,6 +30,9 @@ require_once 'Zend/Pdf/Element/Numeric.php';
 /** Zend_Pdf_Element_Name */
 require_once 'Zend/Pdf/Element/Name.php';
 
+/** Zend_Pdf_ElementFactory */
+require_once 'Zend/Pdf/ElementFactory.php';
+
 
 /**
  * PNG image
@@ -219,7 +222,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
 
                 $colorSpace = new Zend_Pdf_Element_Name('DeviceGray');
 
-                $decodingObjFactory = new Zend_Pdf_ElementFactory(1);
+                $decodingObjFactory = Zend_Pdf_ElementFactory::createFactory(1);
                 $decodingStream = $decodingObjFactory->newStreamObject($imageData);
                 $decodingStream->dictionary->Filter      = new Zend_Pdf_Element_Name('FlateDecode');
                 $decodingStream->dictionary->DecodeParms = new Zend_Pdf_Element_Dictionary();
@@ -252,7 +255,7 @@ class Zend_Pdf_Resource_Image_Png extends Zend_Pdf_Resource_Image
 
                 $colorSpace = new Zend_Pdf_Element_Name('DeviceRGB');
 
-                $decodingObjFactory = new Zend_Pdf_ElementFactory(1);
+                $decodingObjFactory = Zend_Pdf_ElementFactory::createFactory(1);
                 $decodingStream = $decodingObjFactory->newStreamObject($imageData);
                 $decodingStream->dictionary->Filter      = new Zend_Pdf_Element_Name('FlateDecode');
                 $decodingStream->dictionary->DecodeParms = new Zend_Pdf_Element_Dictionary();

@@ -46,23 +46,23 @@ require_once 'Zend/Server/Abstract.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Interface 
+class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Interface
 {
     /**
      * @var Zend_Server_Reflection
      */
     protected $_reflection = null;
-    
+
     /**
      * Class Constructor Args
      */
     protected $_args = array();
-    
+
     /**
      * @var array An array of Zend_Server_Reflect_Method
      */
     protected $_functions = array();
-    
+
     /**
      * @var array Array of headers to send
      */
@@ -78,7 +78,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
      * @var boolean Defaults to false
      */
     protected $_returnResponse = false;
-    
+
     /**
      * Constructor
      */
@@ -96,8 +96,8 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
      *
      * When 'return response' is true, {@link handle()} will not send output,
      * but will instead return the response from the dispatched function/method.
-     * 
-     * @param boolean $flag 
+     *
+     * @param boolean $flag
      * @return boolean|Zend_Rest_Server Returns Zend_Rest_Server when used to set the flag; returns boolean flag value otherwise.
      */
     public function returnResponse($flag = null)
@@ -128,38 +128,38 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
                     $request_keys = array_keys($request);
                     array_walk($request_keys, array(__CLASS__, "lowerCase"));
                     $request = array_combine($request_keys, $request);
-                    
+
                     $func_args = $this->_functions[$this->_method]->getParameters();
-                    
+
                     $calling_args = array();
                     foreach ($func_args as $arg) {
                         if (isset($request[strtolower($arg->getName())])) {
                             $calling_args[] = $request[strtolower($arg->getName())];
                         }
                     }
-                    
+
                     foreach ($request as $key => $value) {
                         if (substr($key, 0, 3) == 'arg') {
                             $key = str_replace('arg', '', $key);
                             $calling_args[$key]= $value;
                         }
                     }
-                    
+
                     if (count($calling_args) < count($func_args)) {
                         throw new Zend_Rest_Server_Exception('Invalid Method Call to ' . $this->_method . '. Requires ' . count($func_args) . ', ' . count($calling_args) . ' given.', 400);
                     }
-                    
+
                     if ($this->_functions[$this->_method] instanceof Zend_Server_Reflection_Method) {
                         // Get class
                         $class = $this->_functions[$this->_method]->getDeclaringClass()->getName();
-        
+
                         if ($this->_functions[$this->_method]->isStatic()) {
-                            // for some reason, invokeArgs() does not work the same as 
-                            // invoke(), and expects the first argument to be an object. 
+                            // for some reason, invokeArgs() does not work the same as
+                            // invoke(), and expects the first argument to be an object.
                             // So, using a callback if the method is static.
                             $result = call_user_func_array(array($class, $this->_functions[$this->_method]->getName()), $calling_args);
                         }
-        
+
                         // Object methods
                         try {
                             if ($this->_functions[$this->_method]->getDeclaringClass()->getConstructor()) {
@@ -171,7 +171,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
                             echo $e->getMessage();
                             throw new Zend_Rest_Server_Exception('Error instantiating class ' . $class . ' to invoke method ' . $this->_functions[$this->_method]->getName(), 500);
                         }
-                        
+
                         try {
                             $result = $this->_functions[$this->_method]->invokeArgs($object, $calling_args);
                         } catch (Exception $e) {
@@ -184,7 +184,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
                             $result = $this->fault($e);
                         }
                     }
-                    
+
                 } else {
                     $result = $this->fault("Unknown Method '$this->_method'.", 404);
                 }
@@ -220,7 +220,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
 
         return $response;
      }
-    
+
     /**
      * Implement Zend_Server_Interface::setClass()
      *
@@ -235,7 +235,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
             $this->_functions[$method->getName()] = $method;
         }
     }
-    
+
     /**
      * Handle an array or object result
      *
@@ -250,9 +250,9 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         } else {
             $class = false;
         }
-        
+
         $method = $function->getName();
-        
+
         $dom    = new DOMDocument('1.0', 'UTF-8');
         if ($class) {
             $root   = $dom->createElement($class);
@@ -265,7 +265,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         $root->setAttribute('generator', 'zend');
         $root->setAttribute('version', '1.0');
         $dom->appendChild($root);
-        
+
         $this->_structValue($struct, $dom, $method);
 
         $struct = (array) $struct;
@@ -282,23 +282,23 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
      *
      * Recursively iterates through an associative array or object's properties
      * to build XML response.
-     * 
-     * @param mixed $struct 
-     * @param DOMDocument $dom 
-     * @param DOMElement $parent 
+     *
+     * @param mixed $struct
+     * @param DOMDocument $dom
+     * @param DOMElement $parent
      * @return void
      */
     protected function _structValue($struct, DOMDocument $dom, DOMElement $parent)
     {
         $struct = (array) $struct;
-        
+
         foreach ($struct as $key => $value) {
             if ($value === false) {
                 $value = 0;
             } elseif ($value === true) {
                 $value = 1;
             }
-            
+
             if (ctype_digit((string) $key)) {
                 $key = 'key_' . $key;
             }
@@ -309,11 +309,11 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
             } else {
                 $element = $dom->createElement($key, $value);
             }
-                
+
             $parent->appendChild($element);
         }
     }
-    
+
     /**
      * Handle a single value
      *
@@ -328,9 +328,9 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         } else {
             $class = false;
         }
-        
+
         $method = $function->getName();
-        
+
         $dom = new DOMDocument('1.0', 'UTF-8');
         if ($class) {
             $xml = $dom->createElement($class);
@@ -343,13 +343,13 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         $xml->setAttribute('generator', 'zend');
         $xml->setAttribute('version', '1.0');
         $dom->appendChild($xml);
-        
+
         if ($value === false) {
             $value = 0;
         } elseif ($value === true) {
             $value = 1;
         }
-        
+
         if (isset($value)) {
             $methodNode->appendChild($dom->createElement('response', $value));
         } else {
@@ -360,7 +360,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
 
         return $dom->saveXML();
     }
-    
+
     /**
      * Implement Zend_Server_Interface::fault()
      *
@@ -379,19 +379,19 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         } else {
             $function = 'rest';
         }
-        
+
         if ($function instanceof Zend_Server_Reflection_Method) {
             $class = $function->getDeclaringClass()->getName();
         } else {
             $class = false;
         }
-        
+
         if ($function instanceof Zend_Server_Reflection_Function_Abstract) {
             $method = $function->getName();
         } else {
             $method = $function;
         }
-        
+
         $dom = new DOMDocument('1.0', 'UTF-8');
         if ($class) {
             $xml       = $dom->createElement($class);
@@ -404,10 +404,10 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         $xml->setAttribute('generator', 'zend');
         $xml->setAttribute('version', '1.0');
         $dom->appendChild($xml);
-        
+
         $xmlResponse = $dom->createElement('response');
         $xmlMethod->appendChild($xmlResponse);
-        
+
         if ($exception instanceof Exception) {
             $xmlResponse->appendChild($dom->createElement('message', $exception->getMessage()));
             $code = $exception->getCode();
@@ -416,10 +416,10 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         } else {
             $xmlResponse->appendChild($dom->createElement('message', 'Call to ' . $method . ' failed.'));
         }
-        
+
         $xmlMethod->appendChild($xmlResponse);
         $xmlMethod->appendChild($dom->createElement('status', 'failed'));
-        
+
         // Headers to send
         if (is_null($code) || (404 != $code))
         {
@@ -427,20 +427,20 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         } else {
             $this->_headers[] = 'HTTP/1.0 404 File Not Found';
         }
-        
+
         return $dom;
     }
 
     /**
      * Retrieve any HTTP extra headers set by the server
-     * 
+     *
      * @return array
      */
     public function getHeaders()
     {
         return $this->_headers;
     }
-    
+
     /**
      * Implement Zend_Server_Interface::addFunction()
      *
@@ -452,7 +452,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         if (!is_array($function)) {
             $function = (array) $function;
         }
-        
+
         foreach ($function as $func) {
             if (is_callable($func) && !in_array($func, self::$magic_methods)) {
                 $this->_functions[$func] = $this->_reflection->reflectFunction($func);
@@ -461,7 +461,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
             }
         }
     }
-    
+
     /**
      * Implement Zend_Server_Interface::getFunctions()
      *
@@ -471,7 +471,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
     {
         return $this->_functions;
     }
-    
+
     /**
      * Implement Zend_Server_Interface::loadFunctions()
      *
@@ -481,10 +481,10 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
     public function loadFunctions($functions)
     {
     }
-    
+
     /**
      * Implement Zend_Server_Interface::setPersistence()
-     * 
+     *
      * @todo Implement
      * @param int $mode
      */

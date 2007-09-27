@@ -57,6 +57,26 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
     );
 
     /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'BINARY_DOUBLE'      => Zend_Db::FLOAT_TYPE,
+        'BINARY_FLOAT'       => Zend_Db::FLOAT_TYPE,
+        'NUMBER'             => Zend_Db::FLOAT_TYPE,
+    );
+
+    /**
      * @var integer
      */
     protected $_execute_mode = OCI_COMMIT_ON_SUCCESS;
@@ -138,6 +158,9 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
+        if (is_int($value) || is_float($value)) {
+            return $value;
+        }
         $value = str_replace("'", "''", $value);
         return "'" . addcslashes($value, "\000\n\r\\\032") . "'";
     }
@@ -162,7 +185,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function lastSequenceId($sequenceName)
     {
@@ -178,7 +201,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function nextSequenceId($sequenceName)
     {
@@ -203,7 +226,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      *
      * @param string $tableName   OPTIONAL Name of table.
      * @param string $primaryKey  OPTIONAL Name of primary key column.
-     * @return integer
+     * @return string
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
@@ -272,9 +295,10 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
                 ON (CC.CONSTRAINT_NAME = C.CONSTRAINT_NAME AND CC.TABLE_NAME = C.TABLE_NAME AND C.CONSTRAINT_TYPE = 'P'))
               ON TC.TABLE_NAME = CC.TABLE_NAME AND TC.COLUMN_NAME = CC.COLUMN_NAME
             JOIN ALL_TABLES TB ON (TB.TABLE_NAME = TC.TABLE_NAME AND TB.OWNER = TC.OWNER)
-            WHERE TC.TABLE_NAME = ".$this->quote($tableName);
+            WHERE "
+            . $this->quoteInto('UPPER(TC.TABLE_NAME) = UPPER(?)', $tableName);
         if ($schemaName) {
-            $sql .= " AND TB.OWNER = ".$this->quote($schemaName);
+            $sql .= $this->quoteInto(' AND UPPER(TB.OWNER) = UPPER(?)', $schemaName);
         }
         $sql .= ' ORDER BY TC.COLUMN_ID';
 
@@ -309,10 +333,10 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
                  */
                 $identity = false;
             }
-            $desc[$row[$column_name]] = array(
-                'SCHEMA_NAME'      => $row[$owner],
-                'TABLE_NAME'       => $row[$table_name],
-                'COLUMN_NAME'      => $row[$column_name],
+            $desc[$this->foldCase($row[$column_name])] = array(
+                'SCHEMA_NAME'      => $this->foldCase($row[$owner]),
+                'TABLE_NAME'       => $this->foldCase($row[$table_name]),
+                'COLUMN_NAME'      => $this->foldCase($row[$column_name]),
                 'COLUMN_POSITION'  => $row[$column_id],
                 'DATA_TYPE'        => $row[$data_type],
                 'DEFAULT'          => $row[$data_default],
@@ -442,7 +466,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
         /**
          * Oracle does not implement the LIMIT clause as some RDBMS do.
          * We have to simulate it with subqueries and ROWNUM.
-         * Unfortunately because we use the column wildcard "*", 
+         * Unfortunately because we use the column wildcard "*",
          * this puts an extra column into the query result set.
          */
         $limit_sql = "SELECT z2.*
@@ -479,7 +503,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
     }
 
     /**
-     * @return
+     * @return int
      */
     public function _getExecuteMode()
     {

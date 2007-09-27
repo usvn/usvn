@@ -102,7 +102,7 @@ class Zend_Mail extends Zend_Mime_Message
 
     /**
      * Return-Path header
-     * @var string 
+     * @var string
      */
     protected $_returnPath = null;
 
@@ -170,7 +170,7 @@ class Zend_Mail extends Zend_Mime_Message
 
     /**
      * Return charset string
-     * 
+     *
      * @return string
      */
     public function getCharset()
@@ -182,7 +182,7 @@ class Zend_Mail extends Zend_Mime_Message
      * Set content type
      *
      * Should only be used for manually setting multipart content types.
-     * 
+     *
      * @param  string $type Content type
      * @return Zend_Mail Implements fluent interface
      * @throws Zend_Mail_Exception for types not supported by Zend_Mime
@@ -204,7 +204,7 @@ class Zend_Mail extends Zend_Mime_Message
 
     /**
      * Get content type of the message
-     * 
+     *
      * @return string
      */
     public function getType()
@@ -303,7 +303,7 @@ class Zend_Mail extends Zend_Mime_Message
 
     /**
      * Return Zend_Mime_Part representing body HTML
-     * 
+     *
      * @param  bool $htmlOnly Whether to return the body HTML only, or the MIME part; defaults to false, the MIME part
      * @return false|Zend_Mime_Part|string
      */
@@ -334,7 +334,7 @@ class Zend_Mail extends Zend_Mime_Message
     /**
      * Creates a Zend_Mime_Part attachment
      *
-     * Attachment is automatically added to the mail object after creation. The 
+     * Attachment is automatically added to the mail object after creation. The
      * attachment object is returned to allow for further manipulation.
      *
      * @param  string         $body
@@ -365,7 +365,7 @@ class Zend_Mail extends Zend_Mime_Message
 
     /**
      * Return a count of message parts
-     * 
+     *
      * @return void
      */
     public function getPartCount()
@@ -374,7 +374,7 @@ class Zend_Mail extends Zend_Mime_Message
     }
 
     /**
-     * Encode header fields 
+     * Encode header fields
      *
      * Encodes header content according to RFC1522 if it contains non-printable
      * characters.
@@ -531,8 +531,8 @@ class Zend_Mail extends Zend_Mime_Message
 
     /**
      * Sets the Return-Path header for an email
-     * 
-     * @param  string    $email 
+     *
+     * @param  string    $email
      * @return Zend_Mail Provides fluent interface
      * @throws Zend_Mail_Exception if set multiple times
      */
@@ -552,7 +552,7 @@ class Zend_Mail extends Zend_Mime_Message
      * Returns the current Return-Path address for the email
      *
      * If no Return-Path header is set, returns the value of {@link $_from}.
-     * 
+     *
      * @return string
      */
     public function getReturnPath()
@@ -614,7 +614,7 @@ class Zend_Mail extends Zend_Mime_Message
 
     /**
      * Return mail headers
-     * 
+     *
      * @return void
      */
     public function getHeaders()

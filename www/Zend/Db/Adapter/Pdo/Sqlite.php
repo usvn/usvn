@@ -49,6 +49,25 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
      protected $_pdoType = 'sqlite';
 
     /**
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
+     *
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
+     */
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'INTEGER'            => Zend_Db::BIGINT_TYPE,
+        'REAL'               => Zend_Db::FLOAT_TYPE
+    );
+
+    /**
      * Constructor.
      *
      * $config is an array of key/value pairs containing configuration
@@ -211,10 +230,10 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
                 $identity = (bool) ($row[$type] == 'INTEGER');
                 ++$p;
             }
-            $desc[$row[$name]] = array(
-                'SCHEMA_NAME'      => $schemaName,
-                'TABLE_NAME'       => $tableName,
-                'COLUMN_NAME'      => $row[$name],
+            $desc[$this->foldCase($row[$name])] = array(
+                'SCHEMA_NAME'      => $this->foldCase($schemaName),
+                'TABLE_NAME'       => $this->foldCase($tableName),
+                'COLUMN_NAME'      => $this->foldCase($row[$name]),
                 'COLUMN_POSITION'  => $row[$cid]+1,
                 'DATA_TYPE'        => $row[$type],
                 'DEFAULT'          => $row[$dflt_value],
@@ -232,20 +251,6 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
     }
 
     /**
-     * Quote a raw string.
-     *
-     * @param string $value     Raw string
-     * @return string           Quoted string
-     */
-    public function quote($value)
-    {
-		if (is_int($value) || is_float($value)) {
-			return parent::quote("$value");
-		}
-		return parent::quote($value);
-	}
-
-	/**
      * Adds an adapter-specific LIMIT clause to the SELECT statement.
      *
      * @param string $sql
@@ -271,6 +276,24 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
         }
 
         return $sql;
+    }
+
+    /**
+     * Safely quotes a value for an SQL statement.
+     *
+     * If an array is passed as the value, the array values are quoted
+     * and then returned as a comma-separated string.
+     *
+     * @param mixed $value The value to quote.
+     * @param mixed $type  OPTIONAL the SQL datatype name, or constant, or null.
+     * @return mixed An SQL-safe quoted value (or string of separated values).
+     */
+    public function quote($value, $type = null)
+    {
+        if (is_int($value) || is_float($value)) {
+            return parent::quote("$value", $type);
+        }
+        return parent::quote($value, $type);
     }
 
 }

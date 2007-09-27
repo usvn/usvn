@@ -28,45 +28,45 @@ require_once 'Zend/View/Helper/FormElement.php';
 
 /**
  * Helper to generate an "image" element
- * 
+ *
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement 
+class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement
 {
     /**
      * Generates an 'image' element.
-     * 
+     *
      * @access public
-     * 
+     *
      * @param string|array $name If a string, the element name.  If an
      * array, all other parameters are ignored, and the array elements
      * are extracted in place of added parameters.
-     * 
+     *
      * @param mixed $value The source ('src="..."') for the image.
-     * 
+     *
      * @param array $attribs Attributes for the element tag.
-     * 
+     *
      * @return string The element XHTML.
      */
     public function formImage($name, $value = null, $attribs = null)
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
-        
+
         // unset any 'src' attrib
         if (isset($attribs['src'])) {
             unset($attribs['src']);
         }
-        
+
         // unset any 'alt' attrib
         if (isset($attribs['alt'])) {
             unset($attribs['alt']);
         }
-        
+
         // build the element
         if ($disable) {
             // disabled, just an image tag
@@ -82,7 +82,7 @@ class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement
                    . ' src="' . $this->view->escape($value) . '"'
                    . $this->_htmlAttribs($attribs) . ' />';
         }
-        
+
         return $xhtml;
     }
 }

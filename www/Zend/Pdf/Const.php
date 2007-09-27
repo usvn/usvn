@@ -19,10 +19,10 @@
 
 
 /* This file previously contained constants for the PDF module as a whole. Those
- * constants have been moved to keep the constant definitions closer to the 
+ * constants have been moved to keep the constant definitions closer to the
  * actual classes that use them.
  *
- * To repair your code, you will need to perform the following global 
+ * To repair your code, you will need to perform the following global
  * search-and-replace operations:
  *
  *   Zend_Pdf_Const::PAGESIZE_                 -> Zend_Pdf_Page::SIZE_

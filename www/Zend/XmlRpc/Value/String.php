@@ -41,9 +41,9 @@ class Zend_XmlRpc_Value_String extends Zend_XmlRpc_Value_Scalar
     public function __construct($value)
     {
         $this->_type = self::XMLRPC_TYPE_STRING;
-        
+
         // Make sure this value is string and all XML characters are encoded
-        $this->_value = $this->_xml_entities($value);    
+        $this->_value = $this->_xml_entities($value);
     }
 
     /**

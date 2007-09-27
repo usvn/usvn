@@ -75,8 +75,12 @@ class Zend_Loader
                 $dirs = array($dirPath);
             } else {
                 foreach ($dirs as $key => $dir) {
-                    $dir = rtrim($dir, '\\/');
-                    $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
+                    if ($dir == '.') {
+                        $dirs[$key] = $dirPath;
+                    } else {
+                        $dir = rtrim($dir, '\\/');
+                        $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
+                    }
                 }
             }
             $file = basename($path) . '.php';
@@ -128,7 +132,7 @@ class Zend_Loader
         /**
          * Search for the file in each of the dirs named in $dirs.
          */
-        if (empty($dirs)) {
+        if (is_null($dirs)) {
             $dirs = array();
         } elseif (is_string($dirs))  {
             $dirs = explode(PATH_SEPARATOR, $dirs);
@@ -215,8 +219,8 @@ class Zend_Loader
      * <code>
      * spl_autoload_register(array('Zend_Loader', 'autoload'));
      * </code>
-     * 
-     * @param string $class 
+     *
+     * @param string $class
      * @return string|false Class name on success; false on failure
      */
     public static function autoload($class)
@@ -231,7 +235,7 @@ class Zend_Loader
 
     /**
      * Register {@link autoload()} with spl_autoload()
-     * 
+     *
      * @param string OPTIONAL $class
      * @return void
      * @throws Zend_Exception if spl_autoload() is not found
@@ -244,8 +248,9 @@ class Zend_Loader
             throw new Zend_Exception('spl_autoload does not exist in this PHP installation');
         }
 
+        self::loadClass($class);
         $methods = get_class_methods($class);
-        if (!in_array('autoload', $methods)) {
+        if (!in_array('autoload', (array) $methods)) {
             require_once 'Zend/Exception.php';
             throw new Zend_Exception("The class \"$class\" does not have an autoload() method");
         }

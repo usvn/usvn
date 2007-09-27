@@ -30,6 +30,11 @@ require_once 'Zend/Gdata/Extension.php';
 require_once 'Zend/Gdata/Feed.php';
 
 /**
+ * @see Zend_Gdata_When
+ */
+require_once 'Zend/Gdata/Extension/When.php';
+
+/**
  * Represents the gd:originalEvent element
  *
  * @category   Zend
@@ -41,14 +46,16 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
 {
 
     protected $_rootElement = 'originalEvent';
-    protected $_id = null; 
-    protected $_href = null; 
+    protected $_id = null;
+    protected $_href = null;
+    protected $_when = null;
 
-    public function __construct($id = null, $href = null)
+    public function __construct($id = null, $href = null, $when = null)
     {
         parent::__construct();
         $this->_id = $id;
         $this->_href = $href;
+        $this->_when = $when;
     }
 
     public function getDOM($doc = null)
@@ -59,6 +66,9 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
         }
         if ($this->_href != null) {
             $element->setAttribute('href', $this->_href);
+        }
+        if ($this->_when != null) {
+            $element->appendChild($this->_when->getDOM($element->ownerDocument));
         }
         return $element;
     }
@@ -74,6 +84,21 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
             break;
         default:
             parent::takeAttributeFromDOM($attribute);
+        }
+    }
+
+    protected function takeChildFromDOM($child)
+    {
+        $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
+        switch ($absoluteNodeName) {
+            case $this->lookupNamespace('gd') . ':' . 'when';
+                $when = new Zend_Gdata_Extension_When();
+                $when->transferFromDOM($child);
+                $this->_when = $when;
+                break;
+        default:
+            parent::takeChildFromDOM($child);
+            break;
         }
     }
 
@@ -98,5 +123,17 @@ class Zend_Gdata_Extension_OriginalEvent extends Zend_Gdata_Extension
         $this->_href = $value;
         return $this;
     }
+
+    public function getWhen()
+    {
+        return $this->_when;
+    }
+
+    public function setWhen($value)
+    {
+        $this->_when = $value;
+        return $this;
+    }
+
 
 }

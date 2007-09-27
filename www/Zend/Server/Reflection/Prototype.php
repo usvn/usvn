@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_Server_Reflection_Exception
@@ -37,21 +37,21 @@ require_once 'Zend/Server/Reflection/Parameter.php';
  * Method/Function prototypes
  *
  * Contains accessors for the return value and all method arguments.
- * 
+ *
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Reflection
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Prototype.php 2815 2007-01-16 01:42:33Z bkarwin $
+ * @version $Id: Prototype.php 5756 2007-07-18 21:07:42Z thomas $
  */
 class Zend_Server_Reflection_Prototype
 {
     /**
      * Constructor
-     * 
-     * @param Zend_Server_Reflection_ReturnValue $return 
-     * @param array $params 
+     *
+     * @param Zend_Server_Reflection_ReturnValue $return
+     * @param array $params
      * @return void
      */
     public function __construct(Zend_Server_Reflection_ReturnValue $return, $params = null)
@@ -75,7 +75,7 @@ class Zend_Server_Reflection_Prototype
 
     /**
      * Retrieve return type
-     * 
+     *
      * @return string
      */
     public function getReturnType()
@@ -85,7 +85,7 @@ class Zend_Server_Reflection_Prototype
 
     /**
      * Retrieve the return value object
-     * 
+     *
      * @access public
      * @return Zend_Server_Reflection_ReturnValue
      */
@@ -96,7 +96,7 @@ class Zend_Server_Reflection_Prototype
 
     /**
      * Retrieve method parameters
-     * 
+     *
      * @return array Array of {@link Zend_Server_Reflection_Parameter}s
      */
     public function getParameters()

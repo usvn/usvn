@@ -17,7 +17,7 @@
  * @package    Zend_Filter
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StripTags.php 4135 2007-03-20 12:46:11Z darby $
+ * @version    $Id: StripTags.php 5417 2007-06-22 19:24:07Z darby $
  */
 
 
@@ -35,6 +35,20 @@ require_once 'Zend/Filter/Interface.php';
  */
 class Zend_Filter_StripTags implements Zend_Filter_Interface
 {
+    /**
+     * Unique ID prefix used for allowing comments
+     */
+    const UNIQUE_ID_PREFIX = '__Zend_Filter_StripTags__';
+
+    /**
+     * Whether comments are allowed
+     *
+     * If false (the default), then comments are removed from the input string.
+     *
+     * @var boolean
+     */
+    public $commentsAllowed;
+
     /**
      * Array of allowed tags and allowed attributes for each allowed tag
      *
@@ -59,12 +73,14 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
      *
      * @param  array|string $tagsAllowed
      * @param  array|string $attributesAllowed
+     * @param  boolean      $allowComments
      * @return void
      */
-    public function __construct($tagsAllowed = null, $attributesAllowed = null)
+    public function __construct($tagsAllowed = null, $attributesAllowed = null, $commentsAllowed = false)
     {
         $this->setTagsAllowed($tagsAllowed);
         $this->setAttributesAllowed($attributesAllowed);
+        $this->commentsAllowed = (boolean) $commentsAllowed;
     }
 
     /**
@@ -164,11 +180,22 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
      */
     public function filter($value)
     {
+        $valueCopy = (string) $value;
+
+        // If comments are allowed, then replace them with unique identifiers
+        if ($this->commentsAllowed) {
+            preg_match_all('/<\!--.*?--\s*>/s' , (string) $valueCopy, $matches);
+            $comments = array_unique($matches[0]);
+            foreach ($comments as $k => $v) {
+                $valueCopy = str_replace($v, self::UNIQUE_ID_PREFIX . $k, $valueCopy);
+            }
+        }
+
         // Initialize accumulator for filtered data
         $dataFiltered = '';
         // Parse the input data iteratively as regular pre-tag text followed by a
         // tag; either may be empty strings
-        preg_match_all('/([^<]*)(<?[^>]*>?)/s', (string) $value, $matches);
+        preg_match_all('/([^<]*)(<?[^>]*>?)/', (string) $valueCopy, $matches);
         // Iterate over each set of matches
         foreach ($matches[1] as $index => $preTag) {
             // If the pre-tag text is non-empty, strip any ">" characters from it
@@ -185,6 +212,14 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
             // Add the filtered pre-tag text and filtered tag to the data buffer
             $dataFiltered .= $preTag . $tagFiltered;
         }
+
+        // If comments are allowed, then replace the unique identifiers with the corresponding comments
+        if ($this->commentsAllowed) {
+            foreach ($comments as $k => $v) {
+                $dataFiltered = str_replace(self::UNIQUE_ID_PREFIX . $k, $v, $dataFiltered);
+            }
+        }
+
         // Return the filtered data
         return $dataFiltered;
     }
@@ -202,9 +237,8 @@ class Zend_Filter_StripTags implements Zend_Filter_Interface
         // 2. a tag name (if available)
         // 3. a string of attributes (if available)
         // 4. an ending delimiter (if available)
-        $isMatch = preg_match('~(</?)(\w*)((/(?!>)|[^/>])*)(/?>)~s', $tag, $matches);
-        // If the tag does not match (because it has no ending delimiter), then
-        // strip the tag entirely
+        $isMatch = preg_match('~(</?)(\w*)((/(?!>)|[^/>])*)(/?>)~', $tag, $matches);
+        // If the tag does not match, then strip the tag entirely
         if (!$isMatch) {
             return '';
         }

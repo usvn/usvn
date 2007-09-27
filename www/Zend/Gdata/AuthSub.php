@@ -34,11 +34,11 @@ require_once 'Zend/Http/Client/Exception.php';
 require_once 'Zend/Version.php';
 
 /**
- * Wrapper around Zend_Http_Client to facilitate Google's "Account Authentication 
- * Proxy for Web-Based Applications". 
- * 
+ * Wrapper around Zend_Http_Client to facilitate Google's "Account Authentication
+ * Proxy for Web-Based Applications".
+ *
  * @see http://code.google.com/apis/accounts/AuthForWebApps.html
- * 
+ *
  * @category   Zend
  * @package    Zend_Gdata
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
@@ -46,28 +46,28 @@ require_once 'Zend/Version.php';
  */
 class Zend_Gdata_AuthSub
 {
-    
+
     const AUTHSUB_REQUEST_URI      = 'https://www.google.com/accounts/AuthSubRequest';
-    
+
     const AUTHSUB_SESSION_TOKEN_URI = 'https://www.google.com/accounts/AuthSubSessionToken';
-    
+
     const AUTHSUB_REVOKE_TOKEN_URI  = 'https://www.google.com/accounts/AuthSubRevokeToken';
-    
+
     const AUTHSUB_TOKEN_INFO_URI    = 'https://www.google.com/accounts/AuthSubTokenInfo';
 
      /**
       * Creates a URI to request a single-use AuthSub token.
       *
       * @param string $next (required) URL identifying the service to be accessed.
-      *  The resulting token will enable access to the specified service only. 
+      *  The resulting token will enable access to the specified service only.
       *  Some services may limit scope further, such as read-only access.
       * @param string $scope (required) URL identifying the service to be accessed.
-      *  The resulting token will enable access to the specified service only. 
+      *  The resulting token will enable access to the specified service only.
       * Some services may limit scope further, such as read-only access.
       * @param int $secure (optional) Boolean flag indicating whether the authentication
       *  transaction should issue a secure token (1) or a non-secure token (0). Secure tokens
       *  are available to registered applications only.
-      * @param int $session (optional) Boolean flag indicating whether the one-time-use 
+      * @param int $session (optional) Boolean flag indicating whether the one-time-use
       *  token may be exchanged for a session token (1) or not (0).
       */
      public static function getAuthSubTokenUri($next, $scope, $secure=0, $session=0)
@@ -77,9 +77,9 @@ class Zend_Gdata_AuthSub
              . '&secure=' . urlencode($secure)
              . '&session=' . urlencode($session);
          return self::AUTHSUB_REQUEST_URI.$querystring;
-     } 
-    
-    
+     }
+
+
     /**
      * Upgrades a single use token to a session token
      *

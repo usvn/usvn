@@ -74,19 +74,30 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * Execution mode
      *
      * @var int execution flag (DB2_AUTOCOMMIT_ON or DB2_AUTOCOMMIT_OFF)
-     * @access protected
      */
     protected $_execute_mode = DB2_AUTOCOMMIT_ON;
 
     /**
-     * Table name of the last accessed table for an insert operation
-     * This is a DB2-Adapter-specific member variable with the utmost
-     * probability you might not find it in other adapters...
+     * Keys are UPPERCASE SQL datatypes or the constants
+     * Zend_Db::INT_TYPE, Zend_Db::BIGINT_TYPE, or Zend_Db::FLOAT_TYPE.
      *
-     * @var string
-     * @access protected
+     * Values are:
+     * 0 = 32-bit integer
+     * 1 = 64-bit integer
+     * 2 = float or decimal
+     *
+     * @var array Associative array of datatypes to values 0, 1, or 2.
      */
-    protected $_lastInsertTable = null;
+    protected $_numericDataTypes = array(
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
+        Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'INTEGER'            => Zend_Db::INT_TYPE,
+        'SMALLINT'           => Zend_Db::INT_TYPE,
+        'BIGINT'             => Zend_Db::BIGINT_TYPE,
+        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
+        'NUMERIC'            => Zend_Db::FLOAT_TYPE
+    );
 
     /**
      * Creates a connection resource.
@@ -230,15 +241,16 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      */
     protected function _quote($value)
     {
+        if (is_int($value) || is_float($value)) {
+            return $value;
+        }
         /**
-         * Some releases of the IBM DB2 extension appear
-         * to be missing the db2_escape_string() method.
-         * The method was added in ibm_db2.c revision 1.53
-         * according to cvs.php.net.  But the function is
-         * not present in my build of PHP 5.2.1.
+         * Use db2_escape_string() if it is present in the IBM DB2 extension.
+         * But some supported versions of PHP do not include this function,
+         * so fall back to default quoting in the parent class.
          */
         if (function_exists('db2_escape_string')) {
-            return db2_escape_string($value);
+            return "'" . db2_escape_string($value) . "'";
         }
         return parent::_quote($value);
     }
@@ -319,9 +331,10 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
               ON (c.tabschema = k.tabschema
                 AND c.tabname = k.tabname
                 AND c.colname = k.colname)
-            WHERE c.tabname = ".$this->quote($tableName);
+            WHERE "
+            . $this->quoteInto('UPPER(c.tabname) = UPPER(?)', $tableName);
         if ($schemaName) {
-            $sql .= " AND c.tabschema = ".$this->quote($schemaName);
+            $sql .= $this->quoteInto(' AND UPPER(c.tabschema) = UPPER(?)', $schemaName);
         }
         $sql .= " ORDER BY c.colno";
 
@@ -364,12 +377,11 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
                 $identity = true;
             }
 
-
             // only colname needs to be case adjusted
             $desc[$this->foldCase($row[$colname])] = array(
-                'SCHEMA_NAME'      => $row[$tabschema],
-                'TABLE_NAME'       => $row[$tabname],
-                'COLUMN_NAME'      => $row[$colname],
+                'SCHEMA_NAME'      => $this->foldCase($row[$tabschema]),
+                'TABLE_NAME'       => $this->foldCase($row[$tabname]),
+                'COLUMN_NAME'      => $this->foldCase($row[$colname]),
                 'COLUMN_POSITION'  => $row[$colno]+1,
                 'DATA_TYPE'        => $row[$typename],
                 'DEFAULT'          => $row[$default],
@@ -393,14 +405,14 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function lastSequenceId($sequenceName)
     {
         $this->_connect();
         $sql = 'SELECT PREVVAL FOR '.$this->quoteIdentifier($sequenceName, true).' AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->fetchOne($sql);
-        return $value;
+        return (string) $value;
     }
 
     /**
@@ -409,14 +421,14 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      * (e.g. Oracle, PostgreSQL, DB2).  Other RDBMS brands return null.
      *
      * @param string $sequenceName
-     * @return integer
+     * @return string
      */
     public function nextSequenceId($sequenceName)
     {
         $this->_connect();
         $sql = 'SELECT NEXTVAL FOR '.$this->quoteIdentifier($sequenceName, true).' AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->fetchOne($sql);
-        return $value;
+        return (string) $value;
     }
 
     /**
@@ -434,7 +446,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
      *
      * @param string $tableName OPTIONAL
      * @param string $primaryKey OPTIONAL
-     * @return integer
+     * @return string
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
@@ -451,7 +463,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
 
         $sql = 'SELECT IDENTITY_VAL_LOCAL() AS VAL FROM SYSIBM.SYSDUMMY1';
         $value = $this->fetchOne($sql);
-        return $value;
+        return (string) $value;
     }
 
     /**

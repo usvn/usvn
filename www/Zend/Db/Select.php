@@ -18,7 +18,7 @@
  * @subpackage Select
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Select.php 5100 2007-06-04 19:02:22Z bkarwin $
+ * @version    $Id: Select.php 5802 2007-07-20 23:41:18Z bkarwin $
  */
 
 
@@ -117,10 +117,6 @@ class Zend_Db_Select
     /**
      * Converts this object to an SQL SELECT string.
      *
-     * @todo use $this->_adapter->quoteColumns() for non-PDO adapters
-     * @todo use $this->_adapter->quoteTableNames() for non-PDO adapters
-     * @todo use prepared queries for PDO adapters instead of constructing all the SQL ourselves
-     *           like in Adapter/Abstract.php.html:query()
      * @return string This object as a SELECT string.
      */
     public function __toString()
@@ -140,16 +136,16 @@ class Zend_Db_Select
         foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
             list($correlationName, $column, $alias) = $columnEntry;
             if ($column instanceof Zend_Db_Expr) {
-                $columns[] = $this->_adapter->quoteColumnAs($column, $alias);
+                $columns[] = $this->_adapter->quoteColumnAs($column, $alias, true);
             } else {
                 if ($column == '*') {
                     $column = new Zend_Db_Expr('*');
                     $alias = null;
                 }
                 if (empty($correlationName)) {
-                    $columns[] = $this->_adapter->quoteColumnAs($column, $alias);
+                    $columns[] = $this->_adapter->quoteColumnAs($column, $alias, true);
                 } else {
-                    $columns[] = $this->_adapter->quoteColumnAs(array($correlationName, $column), $alias);
+                    $columns[] = $this->_adapter->quoteColumnAs(array($correlationName, $column), $alias, true);
                 }
             }
         }
@@ -166,7 +162,7 @@ class Zend_Db_Select
                         $tmp .= $this->_adapter->quoteIdentifier($table['schema'], true) . '.';
                     }
                     // First table is named alone ignoring join information
-                    $tmp .= $this->_adapter->quoteTableAs($table['tableName'], $correlationName);
+                    $tmp .= $this->_adapter->quoteTableAs($table['tableName'], $correlationName, true);
                 } else {
                     // Subsequent tables may have joins
                     if (! empty($table['joinType'])) {
@@ -176,7 +172,7 @@ class Zend_Db_Select
                     if (null !== $table['schema']) {
                         $tmp .= $this->_adapter->quoteIdentifier($table['schema'], true) . '.';
                     }
-                    $tmp .= $this->_adapter->quoteTableAs($table['tableName'], $correlationName);
+                    $tmp .= $this->_adapter->quoteTableAs($table['tableName'], $correlationName, true);
                     if (! empty($table['joinCondition'])) {
                         $tmp .= ' ON ' . $table['joinCondition'];
                     }
@@ -322,8 +318,12 @@ class Zend_Db_Select
      */
     protected function _join($type, $name, $cond, $cols, $schema = null)
     {
-        if (!in_array($type, array(self::INNER_JOIN, self::LEFT_JOIN,
-            self::RIGHT_JOIN, self::FULL_JOIN, self::CROSS_JOIN, self::NATURAL_JOIN))) {
+        $joinTypes = array(self::INNER_JOIN, self::LEFT_JOIN, self::RIGHT_JOIN, self::FULL_JOIN, self::CROSS_JOIN, self::NATURAL_JOIN);
+        if (!in_array($type, $joinTypes)) {
+            /**
+             * @see Zend_Db_Select_Exception
+             */
+            require_once 'Zend/Db/Select/Exception.php';
             throw new Zend_Db_Select_Exception("Invalid join type '$type'");
         }
 
@@ -361,6 +361,10 @@ class Zend_Db_Select
 
         if (!empty($correlationName)) {
             if (array_key_exists($correlationName, $this->_parts[self::FROM])) {
+                /**
+                 * @see Zend_Db_Select_Exception
+                 */
+                require_once 'Zend/Db/Select/Exception.php';
                 throw new Zend_Db_Select_Exception("You cannot define a correlation name '$correlationName' more than once");
             }
 
@@ -413,7 +417,7 @@ class Zend_Db_Select
      */
     public function join($name, $cond, $cols = '*', $schema = null)
     {
-        return $this->joinInner($name, $cond, $cols);
+        return $this->joinInner($name, $cond, $cols, $schema);
     }
 
     /**
@@ -806,6 +810,10 @@ class Zend_Db_Select
     {
         $part = strtolower($part);
         if (!array_key_exists($part, $this->_parts)) {
+            /**
+             * @see Zend_Db_Select_Exception
+             */
+            require_once 'Zend/Db/Select/Exception.php';
             throw new Zend_Db_Select_Exception("Invalid Select part '$part'");
         }
         return $this->_parts[ $part ];

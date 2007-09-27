@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_Server_Reflection_Exception
@@ -35,29 +35,29 @@ require_once 'Zend/Server/Reflection/Class.php';
 
 /**
  * Reflection for determining method signatures to use with server classes
- * 
+ *
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Reflection
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Reflection.php 2815 2007-01-16 01:42:33Z bkarwin $
+ * @version $Id: Reflection.php 5756 2007-07-18 21:07:42Z thomas $
  */
 class Zend_Server_Reflection
 {
     /**
      * Perform class reflection to create dispatch signatures
      *
-     * Creates a {@link Zend_Server_Reflection_Class} object for the class or 
+     * Creates a {@link Zend_Server_Reflection_Class} object for the class or
      * object provided.
      *
-     * If extra arguments should be passed to dispatchable methods, these may 
+     * If extra arguments should be passed to dispatchable methods, these may
      * be provided as an array to $argv.
-     * 
+     *
      * @param string|object $class Class name or object
      * @param null|array $argv Optional arguments to be used during the method call
-     * @param string $namespace Optional namespace with which to prefix the 
-     * method name (used for the signature key). Primarily to avoid collisions, 
+     * @param string $namespace Optional namespace with which to prefix the
+     * method name (used for the signature key). Primarily to avoid collisions,
      * also for XmlRpc namespacing
      * @return Zend_Server_Reflection_Class
      * @throws Zend_Server_Reflection_Exception
@@ -82,18 +82,18 @@ class Zend_Server_Reflection
     /**
      * Perform function reflection to create dispatch signatures
      *
-     * Creates dispatch prototypes for a function. It returns a 
+     * Creates dispatch prototypes for a function. It returns a
      * {@link Zend_Server_Reflection_Function} object.
      *
-     * If extra arguments should be passed to the dispatchable function, these 
+     * If extra arguments should be passed to the dispatchable function, these
      * may be provided as an array to $argv.
-     * 
+     *
      * @param string $function Function name
      * @param null|array $argv Optional arguments to be used during the method call
-     * @param string $namespace Optional namespace with which to prefix the 
-     * function name (used for the signature key). Primarily to avoid 
+     * @param string $namespace Optional namespace with which to prefix the
+     * function name (used for the signature key). Primarily to avoid
      * collisions, also for XmlRpc namespacing
-     * @return Zend_Server_Reflection_Function 
+     * @return Zend_Server_Reflection_Function
      * @throws Zend_Server_Reflection_Exception
      */
     public static function reflectFunction($function, $argv = false, $namespace = '')

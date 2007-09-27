@@ -17,7 +17,7 @@
  * @package    Zend_Validate
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EmailAddress.php 4974 2007-05-25 21:11:56Z bkarwin $
+ * @version    $Id: EmailAddress.php 5794 2007-07-20 14:24:19Z darby $
  */
 
 
@@ -56,9 +56,9 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         self::INVALID            => "'%value%' is not a valid email address in the basic format local-part@hostname",
         self::INVALID_HOSTNAME   => "'%hostname%' is not a valid hostname for email address '%value%'",
         self::INVALID_MX_RECORD  => "'%hostname%' does not appear to have a valid MX record for the email address '%value%'",
-        self::DOT_ATOM           => "'%localpart%' not matched against dot-atom format",
-        self::QUOTED_STRING      => "'%localpart%' not matched against quoted-string format",
-        self::INVALID_LOCAL_PART => "'%localpart%' is not a valid local part for email address '%value%'"
+        self::DOT_ATOM           => "'%localPart%' not matched against dot-atom format",
+        self::QUOTED_STRING      => "'%localPart%' not matched against quoted-string format",
+        self::INVALID_LOCAL_PART => "'%localPart%' is not a valid local part for email address '%value%'"
     );
 
     /**
@@ -198,9 +198,9 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
                 }
             } else {
                 /**
-                  * MX checks are not supported by this system
-                  * @see Zend_Validate_Exception
-                  */
+                 * MX checks are not supported by this system
+                 * @see Zend_Validate_Exception
+                 */
                 require_once 'Zend/Validate/Exception.php';
                 throw new Zend_Validate_Exception('Internal error: MX checking not available on this system');
             }
@@ -216,11 +216,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         if (preg_match('/^[' . $atext . ']+(\x2e+[' . $atext . ']+)*$/', $this->_localPart)) {
             $localResult = true;
         } else {
-            $this->_error(self::DOT_ATOM);
-        }
-
-        // If not matched, try quoted string format
-        if (!$localResult) {
+            // Try quoted string format
 
             // Quoted-string characters are: DQUOTE *([FWS] qtext/quoted-pair) [FWS] DQUOTE
             // qtext: Non white space controls, and the rest of the US-ASCII characters not
@@ -231,12 +227,10 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
             if (preg_match('/^\x22([' . $ws . $qtext . '])*[$ws]?\x22$/', $this->_localPart)) {
                 $localResult = true;
             } else {
+                $this->_error(self::DOT_ATOM);
                 $this->_error(self::QUOTED_STRING);
+                $this->_error(self::INVALID_LOCAL_PART);
             }
-        }
-
-        if (!$localResult) {
-            $this->_error(self::INVALID_LOCAL_PART);
         }
 
         // If both parts valid, return true

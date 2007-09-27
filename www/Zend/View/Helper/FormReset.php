@@ -35,38 +35,38 @@ require_once 'Zend/View/Helper/FormElement.php';
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_FormReset extends Zend_View_Helper_FormElement 
+class Zend_View_Helper_FormReset extends Zend_View_Helper_FormElement
 {
     /**
      * Generates a 'reset' button.
-     * 
+     *
      * @access public
-     * 
+     *
      * @param string|array $name If a string, the element name.  If an
      * array, all other parameters are ignored, and the array elements
      * are extracted in place of added parameters.
-     * 
+     *
      * @param mixed $value The element value.
-     * 
+     *
      * @param array $attribs Attributes for the element tag.
-     * 
+     *
      * @return string The element XHTML.
      */
     public function formReset($name = '', $value = 'Reset', $attribs = null)
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
-        
+
         // always enabled
         $xhtml = '<input type="reset"'
                . ' name="' . $this->view->escape($name) . '"'
                . ' id="' . $this->view->escape($id) . '"';
-        
+
         // add a value if one is given
         if (! empty($value)) {
             $xhtml .= ' value="' . $this->view->escape($value) . '"';
         }
-        
+
         // add attributes, close, and return
         $xhtml .= $this->_htmlAttribs($attribs) . ' />';
         return $xhtml;

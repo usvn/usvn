@@ -39,7 +39,7 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
 {
     /**
      * Subject
-     * @var string 
+     * @var string
      * @access public
      */
     public $subject = null;
@@ -51,11 +51,11 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
      * @var string
      */
     public $parameters;
-    
+
 
     /**
      * EOL character string
-     * @var string 
+     * @var string
      * @access public
      */
     public $EOL = PHP_EOL;
@@ -82,12 +82,21 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
      */
     public function _sendMail()
     {
-        if (!mail(
-                $this->recipients, 
-                $this->_mail->getSubject(), 
-                $this->body, 
+        if ($this->parameters === null) {
+            $result = mail(
+                $this->recipients,
+                $this->_mail->getSubject(),
+                $this->body,
+                $this->header);
+        } else {
+            $result = mail(
+                $this->recipients,
+                $this->_mail->getSubject(),
+                $this->body,
                 $this->header,
-                $this->parameters)) 
+                $this->parameters);
+        }
+        if (!$result)
         {
             throw new Zend_Mail_Transport_Exception('Unable to send mail');
         }
@@ -100,9 +109,9 @@ class Zend_Mail_Transport_Sendmail extends Zend_Mail_Transport_Abstract
      * mail() uses its $to and $subject arguments to set the To: and Subject:
      * headers, respectively. This method strips those out as a sanity check to
      * prevent duplicate header entries.
-     * 
+     *
      * @access protected
-     * @param array $headers 
+     * @param array $headers
      * @return void
      */
     protected function _prepareHeaders($headers)

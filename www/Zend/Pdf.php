@@ -40,9 +40,6 @@ require_once 'Zend/Pdf/Parser.php';
 /** Zend_Pdf_Trailer */
 require_once 'Zend/Pdf/Trailer.php';
 
-/** Zend_Pdf_Trailer_Keeper */
-require_once 'Zend/Pdf/Trailer/Keeper.php';
-
 /** Zend_Pdf_Trailer_Generator */
 require_once 'Zend/Pdf/Trailer/Generator.php';
 
@@ -158,7 +155,7 @@ class Zend_Pdf
     /**
      * PDF objects factory.
      *
-     * @var Zend_Pdf_ElementFactory
+     * @var Zend_Pdf_ElementFactory_Interface
      */
     private $_objFactory = null;
 
@@ -169,6 +166,13 @@ class Zend_Pdf
      */
     private static $_memoryManager = null;
 
+    /**
+     * Pdf file parser.
+     * It's not used, but has to be destroyed only with Zend_Pdf object
+     *
+     * @var Zend_Pdf_Parser
+     */
+    private $_parser;
 
     /**
      * Request used memory manager
@@ -260,11 +264,11 @@ class Zend_Pdf
      */
     public function __construct($source = null, $revision = null, $load = false)
     {
-        $this->_objFactory = new Zend_Pdf_ElementFactory(1);
+        $this->_objFactory = Zend_Pdf_ElementFactory::createFactory(1);
 
         if ($source !== null) {
-            $parser  = new Zend_Pdf_Parser($source, $this->_objFactory, $load);
-            $this->_trailer = $parser->getTrailer();
+            $this->_parser  = new Zend_Pdf_Parser($source, $this->_objFactory, $load);
+            $this->_trailer = $this->_parser->getTrailer();
             if ($revision !== null) {
                 $this->rollback($revision);
             } else {

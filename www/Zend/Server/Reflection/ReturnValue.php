@@ -16,7 +16,7 @@
  * @package    Zend_Controller
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 
 /**
  * Zend_Server_Reflection_Exception
@@ -24,34 +24,34 @@
 require_once 'Zend/Server/Reflection/Exception.php';
 
 /**
- * Return value reflection 
+ * Return value reflection
  *
  * Stores the return value type and description
- * 
+ *
  * @category   Zend
  * @package    Zend_Server
  * @subpackage Reflection
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: ReturnValue.php 2815 2007-01-16 01:42:33Z bkarwin $
+ * @version $Id: ReturnValue.php 5756 2007-07-18 21:07:42Z thomas $
  */
 class Zend_Server_Reflection_ReturnValue
 {
     /**
      * Return value type
-     * @var string 
+     * @var string
      */
     protected $_type;
 
     /**
      * Return value description
-     * @var string 
+     * @var string
      */
     protected $_description;
 
     /**
      * Constructor
-     * 
+     *
      * @param string $type Return value type
      * @param string $description Return value type
      */
@@ -63,7 +63,7 @@ class Zend_Server_Reflection_ReturnValue
 
     /**
      * Retrieve parameter type
-     * 
+     *
      * @return string
      */
     public function getType()
@@ -73,7 +73,7 @@ class Zend_Server_Reflection_ReturnValue
 
     /**
      * Set parameter type
-     * 
+     *
      * @param string|null $type
      * @return void
      */
@@ -88,7 +88,7 @@ class Zend_Server_Reflection_ReturnValue
 
     /**
      * Retrieve parameter description
-     * 
+     *
      * @return string
      */
     public function getDescription()
@@ -98,7 +98,7 @@ class Zend_Server_Reflection_ReturnValue
 
     /**
      * Set parameter description
-     * 
+     *
      * @param string|null $description
      * @return void
      */

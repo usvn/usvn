@@ -37,11 +37,11 @@ class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
 {
 
     /**
-     * Set the value of a dateTime.iso8601 native type 
+     * Set the value of a dateTime.iso8601 native type
      *
      * The value is in iso8601 format, minus any timezone information or dashes
      *
-     * @param mixed $value Integer of the unix timestamp or any string that can be parsed 
+     * @param mixed $value Integer of the unix timestamp or any string that can be parsed
      *                     to a unix timestamp using the PHP strtotime() function
      */
     public function __construct($value)
@@ -54,7 +54,7 @@ class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
         } else {
             $value = strtotime($value);
             if ($value === false || $value == -1) { // cannot convert the value to a timestamp
-                throw new Zend_Xml_Rpc_Value_Exception('Cannot convert given value \''. $value .'\' to a timestamp');
+                throw new Zend_XmlRpc_Value_Exception('Cannot convert given value \''. $value .'\' to a timestamp');
             }
         }
         $value = date('c', $value); // Convert the timestamp to iso8601 format
@@ -67,7 +67,7 @@ class Zend_XmlRpc_Value_DateTime extends Zend_XmlRpc_Value_Scalar
     }
 
     /**
-     * Return the value of this object as iso8601 dateTime value 
+     * Return the value of this object as iso8601 dateTime value
      *
      * @return int As a Unix timestamp
      */

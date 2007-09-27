@@ -18,54 +18,8 @@
  * @subpackage Simpy
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simpy.php 4571 2007-04-22 18:23:49Z elazar $
+ * @version    $Id: Simpy.php 5393 2007-06-20 21:16:06Z darby $
  */
-
-
-/**
- * @see Zend_Uri
- */
-require_once 'Zend/Uri.php';
-
-/**
- * @see Zend_Service_Rest
- */
-require_once 'Zend/Rest/Client.php';
-
-/**
- * @see Zend_Service_Exception
- */
-require_once 'Zend/Service/Exception.php';
-
-/**
- * @see Zend_Service_Simpy_LinkQuery
- */
-require_once 'Zend/Service/Simpy/LinkQuery.php';
-
-/**
- * @see Zend_Service_Simpy_LinkSet
- */
-require_once 'Zend/Service/Simpy/LinkSet.php';
-
-/**
- * @see Zend_Service_Simpy_NoteSet
- */
-require_once 'Zend/Service/Simpy/NoteSet.php';
-
-/**
- * @see Zend_Service_Simpy_TagSet
- */
-require_once 'Zend/Service/Simpy/TagSet.php';
-
-/**
- * @see Zend_Service_Simpy_WatchlistSet
- */
-require_once 'Zend/Service/Simpy/WatchlistSet.php';
-
-/**
- * @see Zend_Service_Simpy_Watchlist
- */
-require_once 'Zend/Service/Simpy/Watchlist.php';
 
 
 /**
@@ -100,9 +54,13 @@ class Zend_Service_Simpy
      */
     public function __construct($username, $password)
     {
+        /**
+         * @see Zend_Service_Rest
+         */
+        require_once 'Zend/Rest/Client.php';
         $this->_rest = new Zend_Rest_Client($this->_baseUri);
-        $http = $this->_rest->getHttpClient();
-        $http->setAuth($username, $password);
+        $this->_rest->getHttpClient()
+            ->setAuth($username, $password);
     }
 
     /**
@@ -134,6 +92,10 @@ class Zend_Service_Simpy
                 if ($code != 0) {
                     $list = $xpath->query('/status/message');
                     $message = $list->item(0)->nodeValue;
+                    /**
+                     * @see Zend_Service_Exception
+                     */
+                    require_once 'Zend/Service/Exception.php';
                     throw new Zend_Service_Exception($message, $code);
                 }
             }
@@ -141,6 +103,10 @@ class Zend_Service_Simpy
             return $doc;
         }
 
+        /**
+         * @see Zend_Service_Exception
+         */
+        require_once 'Zend/Service/Exception.php';
         throw new Zend_Service_Exception('HTTP ' . $response->getStatus());
     }
 
@@ -160,6 +126,11 @@ class Zend_Service_Simpy
         );
 
         $doc = $this->_makeRequest('GetTags', $query);
+
+        /**
+         * @see Zend_Service_Simpy_TagSet
+         */
+        require_once 'Zend/Service/Simpy/TagSet.php';
         return new Zend_Service_Simpy_TagSet($doc);
     }
 
@@ -269,6 +240,10 @@ class Zend_Service_Simpy
             $doc = $this->_makeRequest('GetLinks');
         }
 
+        /**
+         * @see Zend_Service_Simpy_LinkSet
+         */
+        require_once 'Zend/Service/Simpy/LinkSet.php';
         return new Zend_Service_Simpy_LinkSet($doc);
     }
 
@@ -278,8 +253,8 @@ class Zend_Service_Simpy
      * @param  string $title       Title of the page to save
      * @param  string $href        URL of the page to save
      * @param  int    $accessType  ACCESSTYPE_PUBLIC or ACCESSTYPE_PRIVATE
-     * @param  mixed  $tags        String containing a comma-separated list of 
-     *                             tags or array of strings containing tags 
+     * @param  mixed  $tags        String containing a comma-separated list of
+     *                             tags or array of strings containing tags
      *                             (optional)
      * @param  string $urlNickname Alternative custom title (optional)
      * @param  string $note        Free text note (optional)
@@ -288,8 +263,7 @@ class Zend_Service_Simpy
      * @see    http://www.simpy.com/doc/api/rest/SaveLink
      * @return Zend_Service_Simpy Provides a fluent interface
      */
-    public function saveLink($title, $href, $accessType, $tags = null,
-        $urlNickname = null, $note = null)
+    public function saveLink($title, $href, $accessType, $tags = null, $urlNickname = null, $note = null)
     {
         if (is_array($tags)) {
             $tags = implode(',', $tags);
@@ -337,6 +311,11 @@ class Zend_Service_Simpy
     public function getWatchlists()
     {
         $doc = $this->_makeRequest('GetWatchlists');
+
+        /**
+         * @see Zend_Service_Simpy_WatchlistSet
+         */
+        require_once 'Zend/Service/Simpy/WatchlistSet.php';
         return new Zend_Service_Simpy_WatchlistSet($doc);
     }
 
@@ -354,6 +333,11 @@ class Zend_Service_Simpy
         );
 
         $doc = $this->_makeRequest('GetWatchlist', $query);
+
+        /**
+         * @see Zend_Service_Simpy_Watchlist
+         */
+        require_once 'Zend/Service/Simpy/Watchlist.php';
         return new Zend_Service_Simpy_Watchlist($doc->documentElement);
     }
 
@@ -377,6 +361,11 @@ class Zend_Service_Simpy
         );
 
         $doc = $this->_makeRequest('GetNotes', $query);
+
+        /**
+         * @see Zend_Service_Simpy_NoteSet
+         */
+        require_once 'Zend/Service/Simpy/NoteSet.php';
         return new Zend_Service_Simpy_NoteSet($doc);
     }
 
@@ -384,17 +373,16 @@ class Zend_Service_Simpy
      * Saves a note.
      *
      * @param  string $title       Title of the note
-     * @param  mixed  $tags        String containing a comma-separated list of 
-     *                             tags or array of strings containing tags 
+     * @param  mixed  $tags        String containing a comma-separated list of
+     *                             tags or array of strings containing tags
      *                             (optional)
      * @param  string $description Free-text note (optional)
-     * @param  int    $noteId      Unique identifier for an existing note to 
+     * @param  int    $noteId      Unique identifier for an existing note to
      *                             update (optional)
      * @see    http://www.simpy.com/doc/api/rest/SaveNote
      * @return Zend_Service_Simpy Provides a fluent interface
      */
-    public function saveNote($title, $tags = null, $description = null, 
-        $noteId = null)
+    public function saveNote($title, $tags = null, $description = null, $noteId = null)
     {
         if (is_array($tags)) {
             $tags = implode(',', $tags);

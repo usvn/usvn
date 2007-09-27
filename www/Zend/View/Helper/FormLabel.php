@@ -24,18 +24,18 @@ require_once 'Zend/View/Helper/FormElement.php';
 
 /**
  * Form label helper
- * 
+ *
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement 
+class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
 {
     /**
      * Generates a 'label' element.
-     * 
+     *
      * @param  string $name The form element name for which the label is being generated
      * @param  string $value The label text
      * @param  array $attribs Form element attributes (used to determine if disabled)
@@ -45,7 +45,7 @@ class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
-        
+
         // build the element
         if ($disable) {
             // disabled; do nothing
@@ -53,9 +53,10 @@ class Zend_View_Helper_FormLabel extends Zend_View_Helper_FormElement
             // enabled; display label
             $xhtml = '<label'
                    . ' for="' . $this->view->escape($name) . '"'
+                   . $this->_htmlAttribs($attribs)
                    . '>' . $this->view->escape($value) . '</label>';
         }
-        
+
         return $xhtml;
     }
 }

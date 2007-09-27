@@ -145,7 +145,7 @@ abstract class Zend_XmlRpc_Value
 
     /**
      * Return DOMElement representation of object
-     * 
+     *
      * @return DOMElement
      */
     public function getAsDOM()
@@ -366,12 +366,12 @@ abstract class Zend_XmlRpc_Value
         return $xmlrpc_val;
     }
 
-    
+
     private function _setXML($xml)
     {
         $this->_as_xml = $xml;
     }
-    
+
 }
 
 

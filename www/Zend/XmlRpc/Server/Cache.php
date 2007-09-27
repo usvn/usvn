@@ -25,7 +25,7 @@ require_once 'Zend/XmlRpc/Server.php';
 
 /**
  * Zend_XmlRpc_Server_Cache: cache Zend_XmlRpc_Server dispatch tables
- * 
+ *
  * @category Zend
  * @package  Zend_XmlRpc
  * @subpackage Server
@@ -37,7 +37,7 @@ class Zend_XmlRpc_Server_Cache
     /**
      * Cache a file containing the dispatch list.
      *
-     * Serializes the XMLRPC server callbacks array and stores the information 
+     * Serializes the XMLRPC server callbacks array and stores the information
      * in $filename.
      *
      * Returns false on any error (typically, inability to write to file), true
@@ -47,7 +47,7 @@ class Zend_XmlRpc_Server_Cache
      * @param Zend_XmlRpc_Server $server
      * @return bool
      */
-    public static function save($filename, Zend_XmlRpc_Server $server) 
+    public static function save($filename, Zend_XmlRpc_Server $server)
     {
         if (!is_string($filename)
             || (!file_exists($filename) && !is_writable(dirname($filename))))
@@ -77,7 +77,7 @@ class Zend_XmlRpc_Server_Cache
      * Unserializes a stored dispatch table from $filename. Returns false if it
      * fails in any way, true on success.
      *
-     * Useful to prevent needing to build the dispatch list on each XMLRPC 
+     * Useful to prevent needing to build the dispatch list on each XMLRPC
      * request. Sample usage:
      *
      * <code>
@@ -102,11 +102,11 @@ class Zend_XmlRpc_Server_Cache
      * @param Zend_XmlRpc_Server $server
      * @return bool
      */
-    public static function get($filename, Zend_XmlRpc_Server $server) 
+    public static function get($filename, Zend_XmlRpc_Server $server)
     {
-        if (!is_string($filename) 
-            || !file_exists($filename) 
-            || !is_readable($filename)) 
+        if (!is_string($filename)
+            || !file_exists($filename)
+            || !is_readable($filename))
         {
             return false;
         }
@@ -124,8 +124,8 @@ class Zend_XmlRpc_Server_Cache
 
     /**
      * Remove a cache file
-     * 
-     * @param string $filename 
+     *
+     * @param string $filename
      * @return boolean
      */
     public static function delete($filename)

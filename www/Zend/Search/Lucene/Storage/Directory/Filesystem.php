@@ -224,9 +224,12 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
      * @param string $from
      * @param string $to
      * @return void
+     * @throws Zend_Search_Lucene_Exception
      */
     public function renameFile($from, $to)
     {
+        global $php_errormsg;
+
         if (isset($this->_fileHandlers[$from])) {
             $this->_fileHandlers[$from]->close();
         }
@@ -238,10 +241,23 @@ class Zend_Search_Lucene_Storage_Directory_Filesystem extends Zend_Search_Lucene
         unset($this->_fileHandlers[$to]);
 
         if (file_exists($this->_dirPath . '/' . $to)) {
-            unlink($this->_dirPath . '/' . $to);
+            if (!unlink($this->_dirPath . '/' . $to)) {
+                throw new Zend_Search_Lucene_Exception('Delete operation failed');
+            }
         }
 
-        return @rename($this->_dirPath . '/' . $from, $this->_dirPath . '/' . $to);
+        $trackErrors = ini_get('track_errors');
+        ini_set('track_errors', '1');
+
+        $success = @rename($this->_dirPath . '/' . $from, $this->_dirPath . '/' . $to);
+        if (!$success) {
+            ini_set('track_errors', $trackErrors);
+            throw new Zend_Search_Lucene_Exception($php_errormsg);
+        }
+
+        ini_set('track_errors', $trackErrors);
+
+        return $success;
     }
 
 

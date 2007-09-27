@@ -39,8 +39,14 @@ class Zend_Gdata_App_Util
      */
     public static function formatTimestamp($timestamp)
     {
+        $rfc3339 = '/^(\d{4})\-?(\d{2})\-?(\d{2})((T|t)(\d{2})\:?(\d{2})' .
+                   '\:?(\d{2})(\.\d{1,})?((Z|z)|([\+\-])(\d{2})\:?(\d{2})))?$/';
+
         if (ctype_digit($timestamp)) {
-            return date('Y-m-d\TH:i:s', $timestamp);
+            return gmdate('Y-m-d\TH:i:sP', $timestamp);
+        } elseif (preg_match($rfc3339, $timestamp) > 0) {
+            // timestamp is already properly formatted
+            return $timestamp;
         } else {
             $ts = strtotime($timestamp);
             if ($ts === false) {
@@ -48,7 +54,7 @@ class Zend_Gdata_App_Util
                 throw new Zend_Gdata_App_InvalidArgumentException("Invalid timestamp: $timestamp.");
             }
             return date('Y-m-d\TH:i:s', $ts);
-        } 
+        }
     }
 
 }

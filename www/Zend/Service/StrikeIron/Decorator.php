@@ -18,7 +18,7 @@
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
+
 /**
  * Decorates a StrikeIron response object returned by the SOAP extension
  * to provide more a PHP-like interface.
@@ -36,13 +36,13 @@ class Zend_Service_StrikeIron_Decorator
      * @var null|string
      */
     protected $_name = null;
-    
+
     /**
      * Object to decorate
      * @var object
      */
     protected $_object = null;
-    
+
     /**
      * Class constructor
      *
@@ -54,10 +54,10 @@ class Zend_Service_StrikeIron_Decorator
         $this->_object = $object;
         $this->_name   = $name;
     }
-    
+
     /**
      * Proxy property access to the decorated object, inflecting
-     * the property name and decorating any child objects returned.  
+     * the property name and decorating any child objects returned.
      * If the property is not found in the decorated object, return
      * NULL as a convenience feature to avoid notices.
      *
@@ -71,14 +71,14 @@ class Zend_Service_StrikeIron_Decorator
         if (! isset($this->_object->$property)) {
             $property = $this->_inflect($property);
         }
-        
+
         if (isset($this->_object->$property)) {
             $result = $this->_object->$property;
             $result = $this->_decorate($result);
         }
         return $result;
     }
-    
+
     /**
      * Proxy method calls to the decorated object.  This will only
      * be used when the SOAPClient returns a custom PHP object via
@@ -91,23 +91,23 @@ class Zend_Service_StrikeIron_Decorator
     {
         return call_user_func_array(array($this->_object, $method), $args);
     }
-    
+
     /**
      * Inflect a property name from PHP-style to the result object's
      * style.  The default implementation here only inflects the case
      * of the first letter, e.g. from "fooBar" to "FooBar".
-     * 
+     *
      * @param  string $property  Property name to inflect
      * @return string            Inflected property name
      */
     protected function _inflect($property)
     {
-        return ucfirst($property);        
+        return ucfirst($property);
     }
 
     /**
      * Decorate a value returned by the result object.  The default
-     * implementation here only decorates child objects.  
+     * implementation here only decorates child objects.
      *
      * @param  mixed  $result  Value to decorate
      * @return mixed           Decorated result
@@ -122,15 +122,15 @@ class Zend_Service_StrikeIron_Decorator
 
     /**
      * Return the object being decorated
-     * 
+     *
      * @return object
      */
     public function getDecoratedObject()
     {
         return $this->_object;
     }
-    
-    /** 
+
+    /**
      * Return the name of the object being decorated
      *
      * @return null|string

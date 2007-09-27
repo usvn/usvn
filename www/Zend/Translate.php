@@ -22,9 +22,6 @@
 /** Zend_Translate_Exception */
 require_once 'Zend/Translate/Exception.php';
 
-/** Zend_Locale */
-require_once 'Zend/Locale.php';
-
 
 /**
  * @category   Zend
@@ -36,9 +33,10 @@ class Zend_Translate {
     /**
      * Adapter names constants
      */
-    const AN_GETTEXT = 'gettext';
     const AN_ARRAY   = 'array';
     const AN_CSV     = 'csv';
+    const AN_GETTEXT = 'gettext';
+    const AN_QT      = 'qt';
     const AN_TMX     = 'tmx';
     const AN_XLIFF   = 'xliff';
 
@@ -82,27 +80,31 @@ class Zend_Translate {
                 require_once('Zend/Translate/Adapter/Array.php');
                 $this->_adapter = new Zend_Translate_Adapter_Array($data, $locale, $options);
                 break;
+            case 'csv':
+                /** Zend_Translate_Adapter_Csv */
+                require_once('Zend/Translate/Adapter/Csv.php');
+                $this->_adapter = new Zend_Translate_Adapter_Csv($data, $locale, $options);
+                break;
             case 'gettext':
                 /** Zend_Translate_Adapter_Gettext */
                 require_once('Zend/Translate/Adapter/Gettext.php');
                 $this->_adapter = new Zend_Translate_Adapter_Gettext($data, $locale, $options);
+                break;
+            case 'qt':
+                /** Zend_Translate_Adapter_Qt */
+                require_once('Zend/Translate/Adapter/Qt.php');
+                $this->_adapter = new Zend_Translate_Adapter_Qt($data, $locale, $options);
                 break;
             case 'tmx':
                 /** Zend_Translate_Adapter_Tmx */
                 require_once('Zend/Translate/Adapter/Tmx.php');
                 $this->_adapter = new Zend_Translate_Adapter_Tmx($data, $locale, $options);
                 break;
-            case 'csv':
-                /** Zend_Translate_Adapter_Csv */
-                require_once('Zend/Translate/Adapter/Csv.php');
-                $this->_adapter = new Zend_Translate_Adapter_Csv($data, $locale, $options);
-                break;
             case 'xliff':
                 /** Zend_Translate_Adapter_Xliff */
                 require_once('Zend/Translate/Adapter/Xliff.php');
                 $this->_adapter = new Zend_Translate_Adapter_Xliff($data, $locale, $options);
                 break;
-            case 'qt':
             case 'sql':
             case 'tbx':
             case 'xmltm':
@@ -217,7 +219,7 @@ class Zend_Translate {
     /**
      * Checks if a given string can be translated
      * returns boolean
-     * 
+     *
      * @param  string              $messageId  Translation string
      * @param  boolean             $original   OPTIONAL Allow translation only for original language
      *                                         when true, a translation for 'en_US' would give false when it can
@@ -229,5 +231,27 @@ class Zend_Translate {
     public function isTranslated($messageId, $original = false, $locale = null)
     {
         return $this->_adapter->isTranslated($messageId, $original, $locale);
+    }
+
+
+    /**
+     * Returns all actual known message ids as array
+     *
+     * @return array
+     */
+    public function getMessageIds()
+    {
+        return $this->_adapter->getMessageIds();
+    }
+
+
+    /**
+     * Returns all known messages with  ids
+     *
+     * @return array
+     */
+    public function getMessages()
+    {
+        return $this->_adapter->getMessages();
     }
 }

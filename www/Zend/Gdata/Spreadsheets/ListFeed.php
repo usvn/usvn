@@ -40,14 +40,14 @@ class Zend_Gdata_Spreadsheets_ListFeed extends Zend_Gdata_Feed
      * @var string
      */
     protected $_entryClassName = 'Zend_Gdata_Spreadsheets_ListEntry';
-  
+
     /**
      * The classname for the feed.
      *
      * @var string
      */
     protected $_feedClassName = 'Zend_Gdata_Spreadsheets_ListFeed';
- 
+
     /**
      * Constructs a new Zend_Gdata_Spreadsheets_ListFeed object.
      * @param DOMElement $element An existing XML element on which to base this new object.
@@ -58,6 +58,6 @@ class Zend_Gdata_Spreadsheets_ListFeed extends Zend_Gdata_Feed
             $this->registerNamespace($nsPrefix, $nsUri);
         }
         parent::__construct($element);
-    } 
+    }
 
 }

@@ -20,11 +20,15 @@ class USVN_View_Helper_Completion {
     /**
     * @param Id input for dump user
     */
-    public function Completion()
+    public function Completion($type, $variable)
     {
 	    $front = Zend_Controller_Front::getInstance();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
-        $grp = isset($view->group) ? $view->group->name : "";
+		$grp = $project_name = "";
+		if ($type == 1)
+			$project_name = $variable;
+		else
+        	$grp = $variable;
 		return <<<EOF
 		<script type="text/javascript">
 		login = 0;
@@ -45,7 +49,8 @@ function ajax_completion(idx, divcompletion, nameInput, evenement)
         	xhr = new ActiveXObject("Microsoft.XMLHTTP");
     	xhr.onreadystatechange = function() { alert_ajax_completion(xhr, divcompletion); };
 		var t = "{$grp}";
-		xhr.open("GET", "{$view->url(array('controller' => 'completion', 'action' => 'completion?txt="+ login + "&idx=" + idx + "&input=" + nameInput + "&grp=" + t + "', 'name' => null), "default", true)}", true);
+		var p = "{$project_name}";
+		xhr.open("GET", "{$view->url(array('controller' => 'completion', 'action' => 'completion?txt="+ login + "&idx=" + idx + "&input=" + nameInput + "&grp=" + t + "&prj=" + p + "', 'name' => null), "default", true)}", true);
 		xhr.send(null);
 	}
 }
@@ -75,7 +80,7 @@ function dumpInput(name, nameinput, divcompletion)
 function geretouche(evenement, divcompletion, nameInput)
 {
 	var touche = window.event ? evenement.keyCode : evenement.which;
-	if (nameInput == "users_login" || nameInput == "addlogin")
+	if (nameInput == "users_login" || nameInput == "addlogin" || nameInput == "ap")
 		type = "user";
 	else
 		type = "grp";

@@ -16,7 +16,7 @@
  *
  * $Id$
  */
-class USVN_View_Helper_HomeLink {
+class USVN_View_Helper_HomeLinkGroup {
     /**
      * Generates home link
      *
@@ -26,11 +26,11 @@ class USVN_View_Helper_HomeLink {
      *
      * @return string HTML link: <a href="test">Test</a>.
      */
-    public function homeLink($name)
+    public function homeLinkGroup($name)
     {
         $front = Zend_Controller_Front::getInstance();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
-        $url = $view->url(array('controller' => 'project', 'action' => null, 'project' => $name), 'project', true);
+        $url = $view->url(array('controller' => 'group', 'action' => null, 'group' => $name), 'group', true);
         $img = $view->img("CrystalClear/16x16/actions/gohome.png", T_("Home"));
         return <<< EOF
         <a href="{$url}">

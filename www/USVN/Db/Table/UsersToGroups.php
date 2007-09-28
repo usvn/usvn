@@ -88,4 +88,12 @@ class USVN_Db_Table_UsersToGroups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_id = ?", $id);
 		return $this->fetchAll($where);
 	}
+	
+	public function noleaderFindByGroupId($id)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter */
+		$where = $db->quoteInto("groups_id = ? and is_leader = 0", $id);
+		return $this->fetchAll($where);
+	}
 }

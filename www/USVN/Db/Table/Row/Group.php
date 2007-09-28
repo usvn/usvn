@@ -20,6 +20,99 @@
 class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 {
 	/**
+	* Add an leader user to a group
+	*
+	* @param mixed User
+	*/
+	public function addLeaderUser($user)
+	{
+		if (is_object($user)) {
+			$user_id = $user->id;
+		} elseif (is_numeric($user)) {
+			$user_id = intval($user);
+		}
+		if ($this->id && $user_id) {
+			$user_groups = new USVN_Db_Table_UsersToGroups();
+			$user_groups->insert(
+				array(
+					"groups_id" => $this->id,
+					"users_id" 	=> $user_id,
+					"is_leader" => 1,
+				)
+			);
+		}
+	}
+	
+	/**
+	* Update leader user to a group
+	*
+	* @param mixed User
+	*/
+	public function updateLeaderUser($user, $type)
+	{
+			// selection tool
+		/*$select = $this->db->select();
+
+		// the FROM clause
+		$select->from($this->_name, $this->_cols);
+
+		// the JOIN clause
+		$users = self::$prefix . "users";
+		$users_to_groups = self::$prefix . "users_to_groups";
+		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
+
+		$select->where("$users_to_groups.users_id = ?", $user->users_id);
+
+        // return the results
+        $stmt = $this->_db->query($select);
+        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data->is_leader = 1;
+		$data->save();
+
+		$users = new USVN_Db_Table_Users();
+		$users->getAdapter()->beginTransaction();
+		foreach (array_keys($this->_users_password) as $user) {
+			$data['users_login'] = $user;
+			$data['users_password'] = $this->_users_password[$user];
+			$where = $users->getAdapter()->quoteInto('users_login = ?', $user);
+			$user_row = $users->fetchRow($where);
+			try  {
+				if ($user_row === null) {
+					$users->insert($data);
+				}
+				else {
+					$users->update($data, $where);
+				}
+			}
+			catch (Exception $e) {
+				$users->getAdapter()->rollBack();
+				throw new USVN_Exception(T_("Can't add users %s. Import cancel."), $user);
+			}
+		}
+		$users->getAdapter()->commit();*/
+		
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$where = $user_groups->getAdapter()->quoteInto('users_id = ?', $user->users_id);
+		$user_groups->update(
+				array(
+					"groups_id" => $this->id,
+					"users_id" 	=> $user->users_id,
+					"is_leader" => $type,
+				), $where);
+	/*	$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->_rowClass,
+			'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+		}*/
+	}
+
+	/**
 	* Add an user to a group
 	*
 	* @param mixed User
@@ -258,5 +351,42 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 			)
 		);
 		return $res;
+	}
+	
+	public function allLeader($group_id, $type)
+	{		
+		$user_groups = new USVN_Db_Table_UsersToGroups();
+		$links = $user_groups->fetchAll(array('groups_id = ?' => $group_id, 'is_leader = ?' => $type));
+		if (count($links) === 0) {
+			return array();
+		}
+		$users = new USVN_Db_Table_Users();
+		$leaders = array();
+		foreach ($links  as $link) {
+			array_push($leaders, $link->users_id);
+		}
+		return $users->find($leaders);
+	}
+	
+	public function isLeaderOrAdmin($user)
+	{	
+		if ($user)
+		{
+			$user_groups = new USVN_Db_Table_UsersToGroups();
+			$res = $user_groups->fetchRow(
+				array(
+					"groups_id = ?" => $this->id,
+					"users_id = ?" 	=> $user->id
+				)
+			);
+			if ($res)
+			{
+				if ($res->is_leader == 1)
+					return 1;
+			}
+			if ($user->is_admin == 1)
+				return 1;
+			return 0;
+		}
 	}
 }

@@ -108,6 +108,7 @@ class USVN_Test_Controller extends USVN_Test_DB {
 	{
 		$this->request->setControllerName($this->controller_name);
 		$this->request->setActionName($action);
+		$this->request->setParam('action', $action);
 		$this->request->setDispatched(true);
 		require_once 'www/controllers/' . $this->controller_class . '.php';
 		$this->controller = new $this->controller_class($this->request, $this->response);

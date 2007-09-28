@@ -87,6 +87,56 @@ class CompletionController extends USVN_Controller
 				}
 			}
 		}
+		if ($_GET['idx'] == 3) // add leader to group
+		{
+		
+			$table_users = new USVN_Db_Table_Users();
+			$res_users = $table_users->allUsersLike($_GET['txt']);
+			$table_groups = new USVN_Db_Table_Groups();
+			$res_groups = $table_groups->findByGroupsName($_GET['grp']);
+			$res_usersspe = $table_users->allLeader($res_groups->groups_id);
+			foreach ($res_users as $user)
+			{
+				$find = false;
+				foreach($res_usersspe as $tmpuser)
+				{
+					if ($tmpuser->users_id == $user->users_id)
+						$find = true;
+				}
+				if ($find == false)
+				{
+					$table .= "<tr id='user".$nb."' class='comp'>";
+					$table .= "<td align=left onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['input']."\"".", \"completionleader\")'>";
+					$table .= "<label id='luser".$nb."'>".$user->users_login."</label>";
+					$table .= "</td></tr>";
+					$nb++;
+				}
+			}
+		}
+		if ($_GET['idx'] == 4) // add affected user
+		{
+			$table_groups = new USVN_Db_Table_Groups();
+			$res_groups = $table_groups->findByGroupsName($_GET['grp']);
+			$table_userstogroups = new USVN_Db_Table_UsersToGroups();
+			$res_usersspe = $table_userstogroups->noleaderFindByGroupId($res_groups->groups_id);
+			$table_users = new USVN_Db_Table_Users();
+			$res_users = $table_users->allUsersLike($_GET['txt']);
+			foreach ($res_users as $user)
+			{
+				$find = false;
+				foreach($res_usersspe as $tmpuser)
+					if ($tmpuser->users_id == $user->users_id)
+						$find = true;
+				if ($find == false)
+				{
+					$table .= "<tr id='user".$nb."' class='comp'>";
+					$table .= "<td align=left onclick='javascript:dumpInput("."\"".$user->users_login."\"".","."\"".$_GET['input']."\"".", \"completion\")'>";
+					$table .= "<label id='luser".$nb."'>".$user->users_login."</label>";
+					$table .= "</td></tr>";
+					$nb++;
+				}
+			}
+		}
 		$table .= "</table>";
 		echo "<nbcomp>".$nb."</nbcomp>\n";
 		echo "<tableau><![CDATA[".$table."]]></tableau>\n";

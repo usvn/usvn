@@ -31,6 +31,7 @@ require_once 'www/USVN/autoload.php';
 class GroupControllerTest extends USVN_Test_Controller {
 	protected $controller_name = "group";
 	protected $controller_class = "GroupController";
+	private $groups;
 
     /**
      * Runs the test methods of this class.
@@ -48,15 +49,15 @@ class GroupControllerTest extends USVN_Test_Controller {
 	protected function setUp()
 	{
 		parent::setUp();
-		$groups = new USVN_Db_Table_Groups();
-		$g1 = $groups->insert(
+		$this->groups = new USVN_Db_Table_Groups();
+		$g1 = $this->groups->insert(
 			array(
 				"groups_id" => 42,
 				"groups_name" => "Telephone",
 				"groups_description" => "test"
 			)
 		);
-		$g2 = $groups->insert(
+		$g2 = $this->groups->insert(
 			array(
 				"groups_id" => 43,
 				"groups_name" => "Indochine",
@@ -65,8 +66,33 @@ class GroupControllerTest extends USVN_Test_Controller {
 		);
 	}
 
-	public function test_DisplayGroup()
+	public function test_DisplayGroupNotAdminNotGroupMember()
 	{
+		try {
+			$this->request->setParam('group', 'Indochine');
+			$this->runAction('index');
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
+
+
+	public function test_DisplayGroupAdmin()
+	{
+		$authAdapter = new USVN_Auth_Adapter_Db('god', 'ingodwetrust');
+		Zend_Auth::getInstance()->authenticate($authAdapter);
+
+		$this->request->setParam('group', 'Indochine');
+		$this->runAction('index');
+		$this->assertContains('Indochine', $this->getBody());
+		$this->assertContains('Bob morane', $this->getBody());
+	}
+
+	public function test_DisplayGroupGroupMember()
+	{
+		$this->groups->find(43)->current()->addUser($this->user);
 		$this->request->setParam('group', 'Indochine');
 		$this->runAction('index');
 		$this->assertContains('Indochine', $this->getBody());

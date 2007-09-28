@@ -65,6 +65,14 @@ class USVN_CryptTest extends PHPUnit_Framework_TestCase {
        	$crypt = USVN_Crypt::_cryptApr1MD5("bidulmachinsuperlong");
     	$this->assertEquals($crypt, USVN_Crypt::_cryptApr1MD5("bidulmachinsuperlong", $crypt));
 	}
+
+	public function test_genMD5Salt()
+	{
+		$salt = USVN_Crypt::_genMD5Salt();
+		$this->assertEquals(12, strlen($salt));
+		$this->assertEquals(substr($salt, 0, 3), '$1$');
+		$this->assertEquals($salt[11], '$');
+	}
 }
 
 // Call USVN_CryptTest::main() if this source file is executed directly.

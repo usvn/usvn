@@ -25,8 +25,11 @@ class USVN_Crypt
 	 */
 	static public function crypt($password)
 	{
-		if (0 === strpos(PHP_OS, 'WIN')) {
+		if (0 === strpos(PHP_OS, 'WIN')) { //Crypt doesn't exist on Windows
 			return USVN_Crypt::_cryptApr1MD5($password);
+		}
+		if (CRYPT_BLOWFISH == 1) { // Blowfish is not support by libc on Linux
+			return crypt($password, USVN_Crypt::_genMD5Salt());
 		}
 		return crypt($password);
 	}
@@ -96,5 +99,16 @@ class USVN_Crypt
 		return "$"."apr1"."$".$salt."$".$tmp;
 	}
 
+	/**
+	* Generate an MD5 salt for crypt function
+	*
+	* @return string Salt
+	*/
+	static public function _genMD5Salt()
+	{
+		$salt='';
+		while(strlen($salt) <  8) $salt.=chr(rand(64,126));
+		return '$1$'. $salt . '$';
+	}
 }
 ?>

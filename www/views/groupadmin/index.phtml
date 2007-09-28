@@ -19,6 +19,7 @@ if (count($this->groups)) {
 			<td><a href="{$editurl}">{$group->name}</a></td>
 			<td><a href="{$editurl}">{$group->description}</a></td>
 			<td>
+				{$this->homeLinkGroup($group->name)}
                 {$this->editLink('name', $group->name)}
                 {$this->deleteLink('name', $group->name, $deletetext)}
             </td>

@@ -1,4 +1,4 @@
-<?php echo $this->error($this); ?>
+ <?php echo $this->error($this); ?> 
 <script type="text/javascript">
 <!--
 function checkName() {
@@ -18,23 +18,8 @@ function checkName() {
 -->
 </script>
 <form id="group" class="usvn_form" method="post" action="<?php echo $this->url ?>">
-	<fieldset>
+<fieldset>
 		<legend><?php echo T_("Group's information");?></legend>
-
-		<!-- <fieldset style="float: right;">
-			<legend>
-				<?php echo T_("List Users"); ?>
-			</legend>
-			<select multiple="multiple" name="users[]">
-			<?php foreach ($this->users as $user) : ?>
-				<option value="<?php echo $user->id; ?>" <?php
-				if ($this->group->hasUser($user)) {
-				 	echo 'selected="selected"';
-				 } ?>><?php echo $user->login ?></option>
-			<?php endforeach; ?>
-			</select> 
-		</fieldset> -->
-		
 		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo $this->formText('groups_name', $this->group->name, array('maxlength' => 150)); ?>
 		</label>
@@ -43,12 +28,12 @@ function checkName() {
 			<?php echo $this->formTextarea('groups_description', $this->group->description, array('rows' => 8, 'cols' => 80)); ?>
 		</label>
 		<br/><br/>
-<?php
-	echo '<a href="' . $this->url(array('controller' => 'group', 'group' => $this->group->name), 'group') . '">'. T_("Managing group")." ".$this->group->name . '</a>';
-?>
+		<?php
+		if ($this->url != "/USVN/www/admin/group/create")
+			echo '<a href="' . $this->url(array('controller' => 'group', 'group' => $this->group->name), 'group') . '">'. T_("Managing group")." ".$this->group->name . '</a>';
+		?>
 		<br /><br />
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
-	</fieldset>
+</fieldset>
 </form>
-
 <br />

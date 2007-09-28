@@ -42,7 +42,7 @@ class GroupController extends USVN_Controller
 		$table = new USVN_Db_Table_Users();
 		$this->view->user = $table->fetchRow(array("users_login = ?" => $identity['username']));
 		$this->_group = $group;
-		if (!$group->hasUser($this->view->user))
+		if ($this->_group->isLeaderOrAdmin($this->view->user) != 1) //!$group->hasUser($this->view->user) && $this->view->user->is_admin != 1)
 			throw new USVN_Exception(sprintf(T_("Vous n'avez pas le droit d'acceder a cette page")));
 	}
 

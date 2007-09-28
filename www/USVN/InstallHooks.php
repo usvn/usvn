@@ -33,7 +33,7 @@ class USVN_InstallHooks
 <<<EOF
 #!/bin/sh
 cd $USVN_path
-php hooks/$hook.php "\$@"
+php hooks-cmd/$hook.php "\$@"
 exit \$?
 
 EOF

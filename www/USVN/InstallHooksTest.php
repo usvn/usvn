@@ -57,7 +57,7 @@ class USVN_InstallHooksTest extends USVN_Test_DB {
 		$this->assertEquals(
 			"#!/bin/sh\n" .
 			'cd ' . getcwd() . DIRECTORY_SEPARATOR . "www\n" .
-			'php hooks/start-commit.php "$@"' . "\n" .
+			'php hooks-cmd/start-commit.php "$@"' . "\n" .
 			'exit $?' . "\n"
 			, file_get_contents("tests/mysvn/hooks/start-commit"));
 	}

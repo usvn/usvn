@@ -65,8 +65,24 @@ class GroupControllerTest extends USVN_Test_Controller {
 		);
 	}
 
-	public function test_DisplayGroup()
+	public function test_DisplayGroupNotAdminNotGroupMember()
 	{
+		try {
+			$this->request->setParam('group', 'Indochine');
+			$this->runAction('index');
+		}
+		catch (USVN_Exception $e) {
+			return;
+		}
+		$this->fail();
+	}
+
+
+	public function test_DisplayGroupAdmin()
+	{
+		$authAdapter = new USVN_Auth_Adapter_Db('god', 'ingodwetrust');
+		Zend_Auth::getInstance()->authenticate($authAdapter);
+
 		$this->request->setParam('group', 'Indochine');
 		$this->runAction('index');
 		$this->assertContains('Indochine', $this->getBody());

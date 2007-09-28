@@ -18,23 +18,16 @@
  */
 class USVN_InstallHooks
 {
-	private $hooks = array("post-commit",
-		"post-lock",
-		"post-revprop-change",
-		"post-unlock",
-		"pre-commit",
-		"pre-lock",
-		"pre-revprop-change",
-		"pre-unlock",
-		"start-commit");
-
 	/**
 	* @string Repository path
 	*/
 	public function __construct($path)
 	{
 		$USVN_path = getcwd();
-		foreach ($this->hooks as $hook) {
+		if (!file_exists($USVN_path . 'hooks/start-commit.php')) { //Usefull only for test because test are run outside of www
+			$USVN_path .= DIRECTORY_SEPARATOR . 'www';
+		}
+		foreach (USVN_SVNUtils::$hooks as $hook) {
 			$file = $path . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR . $hook;
 			file_put_contents($file,
 <<<EOF

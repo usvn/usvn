@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for hook
+ * Call each hook during subversion operations
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -18,8 +18,21 @@
  * $Id$
  */
 
-abstract class USVN_AbstractHook
+ class USVN_CallHooks
  {
+	private $_hooks = array();
+
+ 	/**
+	 * @param string Path of hook directory
+	 */
+	public function __construct($hook_path)
+	{
+		//At this time hooks are hardcode
+		include_once($hook_path . DIRECTORY_SEPARATOR ."NotifByMail");
+		$hook = new NotifByMail();
+		array_push($this->_hooks, $hook);
+	}
+
 	/**
 	* Post commit hook
 	*
@@ -28,5 +41,8 @@ abstract class USVN_AbstractHook
 	*/
 	public function postCommit($repos , $rev)
 	{
+		foreach ($this->$_hooks as $hook) {
+			$hook->postCommit($repos, $rev);
+		}
 	}
  }

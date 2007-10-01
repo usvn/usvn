@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for hook
+ * Send an email after each commit
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -18,9 +18,9 @@
  * $Id$
  */
 
-abstract class USVN_AbstractHook
+ class HookNotifByMail extends USVN_AbstractHook
  {
-	/**
+ 	/**
 	* Post commit hook
 	*
 	* @string the path to this repository
@@ -28,5 +28,11 @@ abstract class USVN_AbstractHook
 	*/
 	public function postCommit($repos , $rev)
 	{
+		$mail = new Zend_Mail();
+		$mail->setSubject("Commit $rev");
+		$mail->addTo('noplay@localhost', 'Some Recipient');
+		$mail->setFrom('nobody@usvn.info', 'No body');
+		$mail->setBodyText("Commit $rev");
+		$mail->send();
 	}
  }

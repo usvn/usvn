@@ -40,7 +40,6 @@ class USVN_Project
 		$table = new USVN_Db_Table_Projects();
 		$project = $table->createRow($data);
 		$project->save();
-
 		if ($create_group) {
 			$groups = new USVN_Db_Table_Groups();
 			$group = $groups->createRow();

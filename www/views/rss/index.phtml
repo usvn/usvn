@@ -1,0 +1,28 @@
+<?php echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"; ?>
+<rss version="2.0">
+<channel>
+<title>
+<?php echo "Project : ".$this->project->projects_name ?>
+</title>
+<?php 
+if ($this->project->projects_description)
+	echo "<description>".$this->project->projects_description."</description>";
+?>
+<?php
+$i = 1;
+foreach (array_keys($this->log) as $revision)
+{
+	$commit = $this->log[$revision];
+	echo "<item>";
+	echo "<title>Commit ".$i."</title>";
+	echo "<guid isPermaLink='true'>myguid".$i."</guid>";
+	echo "<description><![CDATA[".T_("Revision")." : {$revision}<br />".T_("Author")." : {$commit['author']}<br />".T_("Date")." : ";
+	echo date("Y-m-d",  $commit["date"])." ". date("H:i", $commit["date"])."<br />".T_("Message")." : ".nl2br($commit['msg'])."<br />]]></description>";
+	echo "</item>";
+	$i++;
+}
+?>
+</channel>
+</rss>
+
+

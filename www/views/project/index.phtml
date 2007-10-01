@@ -76,7 +76,9 @@
 	</ul>
 </div>
 <div class="usvn_info">
-	<h1><?php echo T_("Last five commit") ?></h1>
+	<h1><?php echo T_("Last five commit");
+	echo "<link rel='alternate' type='application/rss+xml' href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."' />";
+	 ?></h1>
 	<table id="commits" class="sortable">
 		<thead>
 			<tr>

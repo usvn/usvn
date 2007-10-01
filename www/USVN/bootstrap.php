@@ -32,7 +32,7 @@ error_reporting(E_ALL | E_STRICT);
 /**
  * Load our ini conf file
  */
-//try {
+try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 	if (!isset($config->version)) {
 		header("Location: install");
@@ -42,11 +42,11 @@ error_reporting(E_ALL | E_STRICT);
 		header("Location: {$config->url->base}/update/{$config->version}/");
 		exit(0);
 	}
-/*}
+}
 catch (Exception $e) {
 	header("Location: install");
 	exit(0);
-}*/
+}
 
 date_default_timezone_set($config->timezone);
 

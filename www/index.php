@@ -17,16 +17,42 @@
  * $Id$
  */
 
-define('USVN_DIRECTORY', dirname(__FILE__) . '/USVN');
-define('USVN_LIBRARY_DIRECTORY', dirname(__FILE__) . '/library');
-define('USVN_LOCALE_DIRECTORY', dirname(__FILE__) . '/locale');
+require_once 'USVN/bootstrap.php';
 define('USVN_MEDIAS_DIRECTORY', dirname(__FILE__) . '/medias');
-define('USVN_CONFIG_FILE', dirname(__FILE__) . '/config.ini');
-define('USVN_CONFIG_SECTION', 'general');
 define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
 define('USVN_CONTROLLERS_DIR', dirname(__FILE__) . '/controllers/');
 define('USVN_VIEWS_DIR', dirname(__FILE__) . '/views/');
 define('USVN_MENUS_DIR', dirname(__FILE__) . '/menus/');
 define('USVN_HELPERS_DIR', dirname(__FILE__) . '/helpers/');
 
-require_once USVN_DIRECTORY . '/bootstrap.php';
+
+$routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);
+
+/**
+ * Configure template
+ */
+USVN_Template::initTemplate($config->template->name, USVN_MEDIAS_DIRECTORY);
+
+/**
+ * Get back the front controller and initialize some values
+ */
+$front = Zend_Controller_Front::getInstance();
+$front->setRequest(new USVN_Controller_Request_Http());
+
+$front->throwExceptions(true);
+
+$front->setBaseUrl($config->url->base);
+
+/**
+ * Initialize router
+ */
+$router = new Zend_Controller_Router_Rewrite();
+$router->addConfig($routes_config, 'routes');
+
+$front->setRouter($router);
+
+$front->setControllerDirectory(USVN_CONTROLLERS_DIR);
+
+$front->registerPlugin(new USVN_plugins_layout());
+
+$front->dispatch();

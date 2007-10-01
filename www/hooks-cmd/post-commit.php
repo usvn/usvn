@@ -16,3 +16,9 @@
  *
  * $Id$
  */
+
+require_once 'USVN/bootstrap.php';
+
+$call = new USVN_CallHooks(USVN_HOOKS_DIRECTORY);
+$call->postCommit($argv[1], $argv[2]);
+exit(0);

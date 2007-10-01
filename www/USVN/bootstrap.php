@@ -20,6 +20,7 @@
  */
 
 define('USVN_DIRECTORY', dirname(__FILE__));
+define('USVN_HOOKS_DIRECTORY', dirname(__FILE__) . '/../hooks');
 define('USVN_CONFIG_FILE', dirname(__FILE__) . '/../config.ini');
 define('USVN_CONFIG_SECTION', 'general');
 define('USVN_LOCALE_DIRECTORY', dirname(__FILE__) . '/../locale');
@@ -32,7 +33,7 @@ error_reporting(E_ALL | E_STRICT);
 /**
  * Load our ini conf file
  */
-//try {
+try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 	if (!isset($config->version)) {
 		header("Location: install");
@@ -42,11 +43,11 @@ error_reporting(E_ALL | E_STRICT);
 		header("Location: {$config->url->base}/update/{$config->version}/");
 		exit(0);
 	}
-/*}
+}
 catch (Exception $e) {
 	header("Location: install");
 	exit(0);
-}*/
+}
 
 date_default_timezone_set($config->timezone);
 

@@ -28,8 +28,8 @@
 	public function __construct($hook_path)
 	{
 		//At this time hooks are hardcode
-		include_once($hook_path . DIRECTORY_SEPARATOR ."NotifByMail");
-		$hook = new NotifByMail();
+		include_once($hook_path . DIRECTORY_SEPARATOR ."NotifByMail.php");
+		$hook = new HookNotifByMail();
 		array_push($this->_hooks, $hook);
 	}
 
@@ -41,7 +41,7 @@
 	*/
 	public function postCommit($repos , $rev)
 	{
-		foreach ($this->$_hooks as $hook) {
+		foreach ($this->_hooks as $hook) {
 			$hook->postCommit($repos, $rev);
 		}
 	}

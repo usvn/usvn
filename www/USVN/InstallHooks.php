@@ -24,7 +24,7 @@ class USVN_InstallHooks
 	public function __construct($path)
 	{
 		$USVN_path = getcwd();
-		if (!file_exists($USVN_path . 'hooks/start-commit.php')) { //Usefull only for test because test are run outside of www
+		if (!file_exists($USVN_path . DIRECTORY_SEPARATOR . 'hooks-cmd/start-commit.php')) { //Usefull only for test because test are run outside of www
 			$USVN_path .= DIRECTORY_SEPARATOR . 'www';
 		}
 		foreach (USVN_SVNUtils::$hooks as $hook) {

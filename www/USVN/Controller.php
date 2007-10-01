@@ -75,13 +75,13 @@ class USVN_Controller extends Zend_Controller_Action {
 		$this->view->assign('action', $request->getParam('action'));
 
 		$identity = Zend_Auth::getInstance()->getIdentity();
-		if ($identity === null && $controller != "login") {
+		if ($identity === null && $controller != "login" && $controller != "rss") {
 			$this->_redirect("/login/");
 		}
 
 		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
-		if ($user === null && $controller != "login") {
+		if ($user === null && $controller != "login"  && $controller != "rss") {
 			$this->_redirect("/logout/");
 		}
 		$request->setParam('user', $user);

@@ -1,10 +1,10 @@
-<?php echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>"; ?>
+<?php echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>"; ?>
 <rss version="2.0">
 <channel>
 <title>
 <?php echo "Project : ".$this->project->projects_name ?>
 </title>
-<?php 
+<?php
 if ($this->project->projects_description)
 	echo "<description>".$this->project->projects_description."</description>";
 ?>

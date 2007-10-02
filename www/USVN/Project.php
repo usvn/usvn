@@ -52,17 +52,10 @@ class USVN_Project
 			$project->addGroup($group);
 
 			$files_rights = new USVN_Db_Table_FilesRights();
-			$file_rights = $files_rights->createRow();
-			$file_rights->projects_id = $project->id;
-			$file_rights->path = "/";
-			$file_rights->save();
+			$files_rights = $files_rights->findByPath($project->id, "/");
 
 			$groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
-			$group_to_file_rights = $groups_to_files_rights->createRow(array(
-				"groups_id" => $group->id,
-				"files_rights_id" => $file_rights->id,
-				"files_rights_path" => "/"
-				));
+			$group_to_file_rights = $groups_to_files_rights->findByIdRightsAndIdGroup($files_rights->id, $group->id);
 			$group_to_file_rights->files_rights_is_readable = true;
 			$group_to_file_rights->files_rights_is_writable = true;
 			$group_to_file_rights->save();

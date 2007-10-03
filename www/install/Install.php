@@ -175,12 +175,19 @@ class Install
 	static public function installLocale($config_file)
 	{
 		$config = Install::_loadConfig($config_file);
-		if (PHP_OS == "Linux") {
-			$config->system = array("locale" => "en_US.utf8");
-		} else {
+		if (0 === strpos(PHP_OS, 'WIN')) {
 			$config->system = array("locale" => 'en_US.UTF-8');
+			$config->save();
 		}
-		$config->save();
+		exec("locale -a", $locales);
+		foreach ($locales as $locale) {
+			if (preg_match("/utf-?8/i", $locale)) {
+				$config->system = array("locale" => $locale);
+				$config->save();
+				return ;
+			}
+		}
+		throw new USVN_Exception(T_("Invalide locale\nPlease, install UTF-8 locale."));
 	}
 
 	/**

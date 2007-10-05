@@ -181,6 +181,16 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->assertEquals(count($this->project->getUsersGroupMembers()), 1);
 		$this->groups->find(43)->current()->addUser($this->users->find(42)->current());
 		$this->assertEquals(count($this->project->getUsersGroupMembers()), 1);
+		$this->groups->find(43)->current()->addUser($this->users->find(43)->current());
+		$this->assertEquals(count($this->project->getUsersGroupMembers()), 2);
+
+		$projectTable = new USVN_Db_Table_Projects();
+		$project = $projectTable->fetchNew();
+		$project->projects_name = 'testNoplay';
+		$project->projects_start_date = '2007-04-01 15:29:57';
+		$project->save();
+		$project->addGroup($this->groups->find(42)->current());
+		$this->assertEquals(count($this->project->getUsersGroupMembers()), 2);
 	}
 
 	public function testAddUser()

@@ -74,9 +74,9 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
 		if (PHP_OS == "Linux") {
-			$this->assertEquals("en_US.utf8", $config->system->locale);
+			$this->assertContains(".utf8", $config->system->locale);
 		} else {
-			$this->assertEquals('en_US.UTF-8', $config->system->locale);
+			$this->assertContains('.UTF-8', $config->system->locale);
 		}
 	}
 

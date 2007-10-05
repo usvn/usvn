@@ -125,7 +125,6 @@ class USVN_SVNUtils
 		return explode(".", $version);
 	}
 
-
 	/**
 	* It's for use with testunit. This method simulate svnadmin create $path
 	*
@@ -269,5 +268,18 @@ class USVN_SVNUtils
 			return "\"file:///".$path."\"";
 		}
 		return escapeshellarg('file://' . realpath($path));
+	}
+
+	/**
+	* Return project name from a repository name
+	*
+	* @return string
+	*/
+	public static function getProjectName($repository)
+	{
+		$config = Zend_Registry::get('config');
+		$repository = realpath($repository);
+		$dir = realpath($config->subversion->path);
+		return preg_replace('#^' . $dir . '[/\\\\]?#', '', $repository);
 	}
 }

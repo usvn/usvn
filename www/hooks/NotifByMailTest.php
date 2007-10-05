@@ -94,7 +94,6 @@ class NotifByMailTest extends USVN_Test_DB {
 
 
 		$this->sendmail = new FakeSendMail();
-		//USVN_ConsoleUtils::runCmd(USVN_SVNUtils::svnadminCommand("create " . escapeshellarg($this->repos)));
 		USVN_Project::createProject(array('projects_name'  => $this->project), "test", true, false, false);
 		USVN_DirectoryUtils::removeDirectory($this->repos . DIRECTORY_SEPARATOR . 'hooks');
 		USVN_SVNUtils::checkoutSvn($this->repos, $this->co);

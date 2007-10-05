@@ -171,6 +171,18 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->assertTrue($this->project->groupIsMember($group));
 	}
 
+	public function testgetUsersGroupMembers()
+	{
+		$this->project->addGroup($this->groups->find(42)->current());
+		$this->project->addGroup($this->groups->find(43)->current());
+		$this->assertEquals(count($this->project->getUsersGroupMembers()), 0);
+		$this->groups->find(42)->current()->addUser($this->users->find(42)->current());
+		$this->groups->find(44)->current()->addUser($this->users->find(44)->current());
+		$this->assertEquals(count($this->project->getUsersGroupMembers()), 1);
+		$this->groups->find(43)->current()->addUser($this->users->find(42)->current());
+		$this->assertEquals(count($this->project->getUsersGroupMembers()), 1);
+	}
+
 	public function testAddUser()
 	{
 		$this->project->addUser($this->groups->find(42)->current());

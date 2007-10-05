@@ -85,6 +85,36 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		return true;
 	}
 
+	/**
+	* Return all users where are member of a group attach to the project
+	*
+	* @return USVN_Db_Table_Rowset_User
+	*/
+	public function getUsersGroupMembers()
+	{
+		$db = $this->getTable()->getAdapter();
+
+		$groups_to_projects = USVN_Db_Table_GroupsToProjects::$prefix . "groups_to_projects";
+		$users_to_groups = USVN_Db_Table_UsersToGroups::$prefix . "users_to_groups";
+		$users = USVN_Db_Table_Users::$prefix . "users";
+
+		$select = $db->select()
+			->from(array('u' => $users), '*')
+			->join(array("ug" => $users_to_groups), "ug.users_id = u.users_id", array())
+			->join(array("gp" => $groups_to_projects), "gp.groups_id = ug.groups_id", array())
+			->where("gp.projects_id = ?", $this->id)
+			->group("u.users_id");
+
+		$stmt = $db->query($select);
+		$data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+		$data  = array(
+			'table'    => $this,
+			'data'     => $data,
+			'rowClass' => $this->getTable()->getRowClass(),
+			'stored'   => true
+		);
+		return new USVN_Db_Table_Rowset_User($data);
+	}
 
 	/**
 	 * Add a user to a project

@@ -280,6 +280,6 @@ class USVN_SVNUtils
 		$config = Zend_Registry::get('config');
 		$repository = realpath($repository);
 		$dir = realpath($config->subversion->path);
-		return preg_replace('#^' . $dir . '[/\\\\]?#', '', $repository);
+		return preg_replace('#^' . $dir . '[/\\\\]svn[/\\\\]?#', '', $repository);
 	}
 }

@@ -63,7 +63,7 @@ class FakeSendMail extends Zend_Mail_Transport_Sendmail
  */
 class NotifByMailTest extends USVN_Test_DB {
 	private $project = "testrepos";
-	private $repos = "tests/tmp/svn/testrepos";
+	private $repos;
 	private $co = "tests/checkout";
 	private $sendmail;
 
@@ -83,6 +83,9 @@ class NotifByMailTest extends USVN_Test_DB {
 	public function setUp()
 	{
 		parent::setUp();
+		$config = Zend_Registry::get('config');
+		$this->repos = $config->subversion->path . DIRECTORY_SEPARATOR . "svn";
+
 		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchNew();
 		$user->setFromArray(array('users_login' 	=> 'test',
@@ -95,8 +98,8 @@ class NotifByMailTest extends USVN_Test_DB {
 
 		$this->sendmail = new FakeSendMail();
 		USVN_Project::createProject(array('projects_name'  => $this->project), "test", true, false, false);
-		USVN_DirectoryUtils::removeDirectory($this->repos . DIRECTORY_SEPARATOR . 'hooks');
-		USVN_SVNUtils::checkoutSvn($this->repos, $this->co);
+		USVN_DirectoryUtils::removeDirectory($this->repos . DIRECTORY_SEPARATOR . $this->project . DIRECTORY_SEPARATOR . 'hooks');
+		USVN_SVNUtils::checkoutSvn($this->repos . DIRECTORY_SEPARATOR . $this->project, $this->co);
 		$path = getcwd();
 		chdir($this->co);
 		mkdir('testdir');
@@ -110,9 +113,9 @@ class NotifByMailTest extends USVN_Test_DB {
 	public function testpostCommit()
 	{
 		$h = new HookNotifByMail();
-		$h->postCommit($this->repos, 1);
-		$this->assertEquals('Commit 1', $this->sendmail->getSubject());
-		$this->assertEquals('Commit 1', $this->sendmail->getBodyText());
+		$h->postCommit($this->repos . DIRECTORY_SEPARATOR  . $this->project, 1);
+		$this->assertEquals("[{$this->project}] Revision 1", $this->sendmail->getSubject());
+		$this->assertEquals("Project: {$this->project}=0ARevision: 1=0A", $this->sendmail->getBodyText());
 		$this->assertEquals('nobody@usvn.info', $this->sendmail->getFrom());
 		$this->assertEquals(array('noplay@localhost'), $this->sendmail->getTo());
 	}

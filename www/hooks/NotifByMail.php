@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Send an email after each commit
  *
@@ -28,11 +28,12 @@
 	*/
 	public function postCommit($repos , $rev)
 	{
+		$project_name = USVN_SVNUtils::getProjectName($repos);
 		$mail = new Zend_Mail();
-		$mail->setSubject("Commit $rev");
+		$mail->setSubject("[$project_name] " . T_("Revision") . " $rev");
 		$mail->addTo('noplay@localhost', 'Some Recipient');
 		$mail->setFrom('nobody@usvn.info', 'No body');
-		$mail->setBodyText("Commit $rev");
+		$mail->setBodyText(T_("Project") .": $project_name\n" . T_("Revision") . ": $rev\n");
 		$mail->send();
 	}
  }

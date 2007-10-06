@@ -64,7 +64,7 @@ class BrowserajaxController extends USVN_Controller
 	*/
 	private function getListFile($path)
 	{
-		$SVN = new USVN_SVN($this->_request->getParam('project'));
+		$SVN = new USVN_SVN(str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('project')));
 		$tab = $SVN->listFile($path);
 		$txthtml = $this->getTopLink($path) . "
 <br />
@@ -119,7 +119,7 @@ class BrowserajaxController extends USVN_Controller
 	{
 		$text = "";
 		$table_project = new USVN_Db_Table_Projects();
-		$res_project = $table_project->findByName($this->_request->getParam('project'));
+		$res_project = $table_project->findByName(str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('project')));
 
 		$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
 
@@ -173,7 +173,7 @@ class BrowserajaxController extends USVN_Controller
 		try
 		{
 			$table_project = new USVN_Db_Table_Projects();
-			$res_project = $table_project->findByName($this->_request->getParam('project'));
+			$res_project = $table_project->findByName(str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('project')));
 			$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
 
 			$user = $this->getRequest()->getParam('user');

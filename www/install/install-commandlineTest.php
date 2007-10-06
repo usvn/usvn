@@ -106,7 +106,7 @@ database.adapterName = "PDO_SQLITE"
 database.prefix = "usvn_"
 database.options.dbname = "../tests/usvn.db"
 		');
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php ../tests/config.ini ../tests/htaccess admin testtest", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php ../tests/config.ini ../tests/htaccess admin testtest", $return);
 		$this->assertEquals(0, $return, $message);
 		echo $message;
 		$config = new USVN_Config_Ini('../tests/config.ini', 'general');

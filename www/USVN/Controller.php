@@ -70,7 +70,7 @@ class USVN_Controller extends Zend_Controller_Action {
 			throw new Zend_Controller_Exception("Controller's views directory not found. Controller is $controller.");
 		}
 		$this->view->setScriptPath($dir);
-		$this->view->assign('project', $request->getParam('project'));
+		$this->view->assign('project', str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $request->getParam('project')));
 		$this->view->assign('controller', $request->getParam('controller'));
 		$this->view->assign('action', $request->getParam('action'));
 

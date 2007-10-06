@@ -74,7 +74,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		if (empty($name) || preg_match('/^\s+$/', $name)) {
 			throw new USVN_Exception(T_('The group\'s name is empty.'));
 		}
-		if (!preg_match('/\w+/', $name)) {
+		if (!preg_match('/^[0-9a-zA-Z_\-\\\\\/]+$/', $name)) {
 			throw new USVN_Exception(T_('The group\'s name is invalid.'));
 		}
 	}
@@ -200,11 +200,11 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_name like ?", $match_group."%");
 		return $this->fetchAll($where, "groups_name");
 	}
-	
-	
-	
+
+
+
 	public function allLeader($group_id)
-	{		
+	{
 		// selection tool
 		$select = $this->_db->select();
 
@@ -232,9 +232,9 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		Zend_Loader::loadClass($this->_rowsetClass);
 		return new $this->_rowsetClass($data);
 	}
-	
+
 	public function allNoLeader($group_id)
-	{		
+	{
 		// selection tool
 		$select = $this->_db->select();
 

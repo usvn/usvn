@@ -1,12 +1,13 @@
 [Setup]
 AppName=USVN
 AppVerName=Userfriendly SVN
-OutputBaseFilename=USVN_06_add-on_173
+OutputBaseFilename=USVN_07_add-on_173
 AppPublisher=Userfriendly SVN
 AppPublisherURL=http://www.usvn.info
 AppSupportURL=http://www.usvn.info
 AppUpdatesURL=http://www.usvn.info
 DefaultDirName=c:\wamp
+
 ;DisableDirPage=yes
 DefaultGroupName=WampServer
 LicenseFile=.\Files\Licence_CeCILL_V2-en.txt
@@ -36,11 +37,14 @@ Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recur
 Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
 Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
 Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InfoBox('{app}\USVN\')
+
 [Code]
 var
   ResultCode: Integer;
   batfile: String;
-  
+  URL: TInputQueryWizardPage;
+  URLstring: String;
+
 procedure InstallSVN(FileName: String);
 begin
   if Exec(ExpandConstant(FileName), '', '', SW_SHOW,
@@ -82,6 +86,9 @@ begin
   StringChangeEx(SrcContent4, '	AuthUserFile c:/usvn/', '	AuthUserFile "' + FileName2 + '/USVN/files/htpasswd"', True);
   StringChangeEx(SrcContent4, '	AuthzSVNAccessFile c:/usvn/', '	AuthzSVNAccessFile "' + FileName2 + '/USVN/files/authz"', True);
   
+//  URLstring := URL.Values[0];
+//  StringChangeEx(SrcContent4, '<Location /svn/>', '<Location "' + URLstring + '">', True);
+  
   DeleteFile (FileName + '\Apache2\conf\alias\usvn.conf');
   SaveStringToFile(FileName + '\Apache2\conf\alias\usvn.conf',SrcContent4, false);
 
@@ -120,6 +127,19 @@ begin
   CreateDir(FileName2 + '/USVN/files/svn/');
 end;
 
+procedure InitializeWizard;
+
+begin
+  { Create the pages }
+
+  URL := CreateInputQueryPage(wpWelcome,
+    'Personal Information', 'Default USVN URL?',
+    'Please specify the USVN URL (ex: /USVN/)');
+  URL.Add('URL:', False);
+  URLstring := URL.Values[0];
+
+end;
+
 procedure InfoBox(FileName: String);
 var FileName2: String;
 var ErrorCode: Integer;
@@ -130,6 +150,8 @@ begin
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
   ShellExec('open', FileName2 + '/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
+
+
 end;
 
 [Run]

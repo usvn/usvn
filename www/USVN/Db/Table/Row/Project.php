@@ -202,7 +202,10 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		if (empty($name) || preg_match('/^\s+$/', $name)) {
 			throw new USVN_Exception(T_("The project's name is empty."));
 		}
-		if (!preg_match('/^[0-9a-zA-Z_\-]+$/', $name)) {
+		if (!get_magic_quotes_gpc()) {
+			$name = addslashes($name);
+		}
+		if (!preg_match('/^[0-9a-zA-Z_\-\\\\\/]+$/', $name)) {
 			throw new USVN_Exception(T_("The project's name is invalid."));
 		}
 	}
@@ -223,7 +226,22 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			. DIRECTORY_SEPARATOR
 			. $this->_data['projects_name'];
 		if (!USVN_SVNUtils::isSVNRepository($path)) {
-			USVN_SVNUtils::createSVN($path);
+			$directories = explode(DIRECTORY_SEPARATOR, $path);
+			$tmp_path = '';
+			foreach ($directories as $directory) {
+				$tmp_path .= $directory . DIRECTORY_SEPARATOR;
+				if (USVN_SVNUtils::isSVNRepository($tmp_path)) {
+					$tmp_path = '';
+					break;
+				}
+			}
+			if ($tmp_path === $path . DIRECTORY_SEPARATOR) {
+				@mkdir($path, 0700, true);
+				USVN_SVNUtils::createSVN($path);
+			} else {
+				$message = "One of these repository's subfolders is a subversion repository.";
+				throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
+			}
 		}
 	}
 

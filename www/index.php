@@ -24,6 +24,7 @@ define('USVN_CONTROLLERS_DIR', dirname(__FILE__) . '/controllers/');
 define('USVN_VIEWS_DIR', dirname(__FILE__) . '/views/');
 define('USVN_MENUS_DIR', dirname(__FILE__) . '/menus/');
 define('USVN_HELPERS_DIR', dirname(__FILE__) . '/helpers/');
+define('USVN_URL_SEP', ':');
 
 
 $routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTION);

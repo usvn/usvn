@@ -36,7 +36,11 @@ Source: ".\Files\USVN\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recurs
 Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigHtAcess('{app}')
 Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
 Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
-Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InfoBox('{app}\USVN\')
+Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: InfoBox('{app}\USVN\')
+
+[Icons]
+Name: "{group}\USVN"; Filename: "{app}\USVN\info.txt";
+
 
 [Code]
 var
@@ -146,6 +150,32 @@ begin
   CreateDir(FileName2 + '/USVN/files/svn/');
 end;
 
+
+function URI_NextButtonClick(Sender: TWizardPage): Boolean;
+var
+    Page: TInputQueryWizardPage;
+    tmp1: String;
+    tmp2: String;
+    i: Integer;
+begin
+    Result := True;
+    Page := TInputQueryWizardPage(Sender);
+//    MsgBox('Hello.', mbInformation, MB_OK);
+    tmp1 := Copy(URL.Values[0], 0, 1);
+    tmp2 := Copy(URL.Values[0], Length(URL.Values[0]), 1);
+    i:= CompareStr(tmp1, '/');
+    if i <> 0 then begin
+      Result := False;
+    end;
+    i:= CompareStr(tmp2, '/');
+    if i <> 0 then begin
+      Result := False;
+    end;
+    if Result = False then begin
+      MsgBox('URI incorrect (exemple : /USVN/)', mbCriticalError, MB_OK);
+    end;
+end;
+
 procedure InitializeWizard;
 var i: Integer;
 begin
@@ -154,6 +184,7 @@ begin
   URL := CreateInputQueryPage(wpWelcome,
     'Personal Information', 'Default USVN URL?',
     'Please specify the USVN URL (ex: /USVN/)');
+  URL.OnNextButtonClick := @URI_NextButtonClick;
   URL.Add('URL:', False);
   URLstring := URL.Values[0];
 //  i:= Length(URLstring);

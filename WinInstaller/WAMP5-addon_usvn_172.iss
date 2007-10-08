@@ -33,7 +33,7 @@ Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreve
 Source: ".\Files\usvn.conf"; DestDir: "{app}\Apache2\conf\alias\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigAlias('{app}')
 Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
 Source: ".\Files\USVN\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
-Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigHtAcess('{app}')
 Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
 Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
 Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InfoBox('{app}\USVN\')
@@ -71,15 +71,19 @@ begin
 end;
 
 procedure ConfigAlias(FileName: String);
-var SrcContent4: String;
-var FileName2: String;
-
+  var SrcContent4: String;
+  var FileName2: String;
+  var URI: String;
+  var i: Integer;
 begin
   FileName:= ExpandConstant(FileName);
   FileName2:= FileName;
+  URI:= URL.Values[0];
+  i := Length(URI);
+  Delete(URI, i, 1);
   StringChange (FileName2, '\','/');
   LoadStringFromFile (FileName + '\Apache2\conf\alias\usvn.conf', SrcContent4);
-  StringChangeEx(SrcContent4, 'Alias /usvn "c:/usvn/"', 'Alias /usvn' + ' "' + FileName2 + '/USVN/"', True);
+  StringChangeEx(SrcContent4, 'Alias /usvn "c:/usvn/"', 'Alias '+ URI + ' "' + FileName2 + '/USVN/"', True);
   StringChangeEx(SrcContent4, '<Directory "c:/usvn/">', '<Directory "' + FileName2 + '/USVN/">', True);
   
   StringChangeEx(SrcContent4, '	SVNParentPath c:/usvn/', '	SVNParentPath "' + FileName2 + '/USVN/files/svn"', True);
@@ -87,7 +91,7 @@ begin
   StringChangeEx(SrcContent4, '	AuthzSVNAccessFile c:/usvn/', '	AuthzSVNAccessFile "' + FileName2 + '/USVN/files/authz"', True);
   
 //  URLstring := URL.Values[0];
-//  StringChangeEx(SrcContent4, '<Location /svn/>', '<Location "' + URLstring + '">', True);
+//  StringChangeEx(SrcContent4, '<Location /svn/>', '<Location "' + URL.Values[0] + '">', True);
   
   DeleteFile (FileName + '\Apache2\conf\alias\usvn.conf');
   SaveStringToFile(FileName + '\Apache2\conf\alias\usvn.conf',SrcContent4, false);
@@ -109,12 +113,27 @@ begin
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
   LoadStringFromFile (FileName + '\USVN\config.ini', SrcContent4);
+  StringChangeEx(SrcContent4, 'url.base = "/usvn"', 'url.base = "' + URL.Values[0] + '"', True);
   StringChangeEx(SrcContent4, 'subversion.path = ""', 'subversion.path = "' + FileName2 + '/USVN/files/"', True);
   StringChangeEx(SrcContent4, 'database.options.dbname = ""', 'database.options.dbname = "' + FileName2 + '/USVN/files/usvn.db"', True);
   DeleteFile (FileName + '\USVN\config.ini');
   SaveStringToFile(FileName + '\USVN\config.ini', SrcContent4, false);
 end;
 
+
+procedure ConfigHtAcess(FileName: String);
+var SrcContent4: String;
+var FileName2: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+  FileName2:= FileName;
+  StringChange (FileName2, '\','/');
+  LoadStringFromFile (FileName + '\USVN\.htaccess', SrcContent4);
+  StringChangeEx(SrcContent4, 'RewriteBase /usvn/', 'RewriteBase ' + URL.Values[0], True);
+  DeleteFile (FileName + '\USVN\.htaccess');
+  SaveStringToFile(FileName + '\USVN\.htaccess', SrcContent4, false);
+end;
 
 procedure ConfigDB(FileName: String);
 var SrcContent4: String;
@@ -128,7 +147,7 @@ begin
 end;
 
 procedure InitializeWizard;
-
+var i: Integer;
 begin
   { Create the pages }
 
@@ -137,6 +156,8 @@ begin
     'Please specify the USVN URL (ex: /USVN/)');
   URL.Add('URL:', False);
   URLstring := URL.Values[0];
+//  i:= Length(URLstring);
+//  URLstring[i];
 
 end;
 
@@ -150,7 +171,6 @@ begin
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
   ShellExec('open', FileName2 + '/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
-
 
 end;
 

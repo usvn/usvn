@@ -34,9 +34,9 @@ class GroupController extends USVN_Controller
 	{
 		parent::preDispatch();
 
-		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('group'));
+		$group = $this->getRequest()->getParam('group');
 		$table = new USVN_Db_Table_Groups();
-		$group = $table->fetchRow(array("groups_name = ?" => $group_name));
+		$group = $table->fetchRow(array("groups_name = ?" => $group));
 	//	$this->view->user = $this->getRequest()->getParam('user');
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		$table = new USVN_Db_Table_Users();
@@ -66,7 +66,7 @@ class GroupController extends USVN_Controller
 		/* @var $request USVN_Controller_Request_Http */
 
 		$table = new USVN_Db_Table_Groups();
-		$group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $request->getParam('group'))));
+		$group = $table->fetchRow(array("groups_name = ?" => $request->getParam('group')));
 		/* @var $group USVN_Db_Table_Row_Group */
 
 		try {
@@ -105,7 +105,7 @@ class GroupController extends USVN_Controller
 		else
 			throw new USVN_Exception(sprintf(T_("Vous n'avez pas le droit d'acceder a cette fonctionalite")));
 	}
-
+	
 	public function addleadergroupAction()
 	{
 		if ($this->_group->isLeaderOrAdmin($this->view->user) == 1)
@@ -114,13 +114,13 @@ class GroupController extends USVN_Controller
 		/* @var $request USVN_Controller_Request_Http */
 
 		$table = new USVN_Db_Table_Groups();
-		$group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $request->getParam('group'))));
+		$group = $table->fetchRow(array("groups_name = ?" => $request->getParam('group')));
 		/* @var $group USVN_Db_Table_Row_Group */
 
 		try {
 			$table = new USVN_Db_Table_Users();
-			if ($request->getParam('ap', "") != "")
-			{
+			if ($request->getParam('ap', "") != "") 
+			{		
 				$user = $table->fetchRow(array("users_login = ?" => $request->getParam('ap')));
 				if ($user === null) {
 					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('ap')));
@@ -141,7 +141,7 @@ class GroupController extends USVN_Controller
 				}
 				if ($group->hasUser($user))
 					$group->deleteUser($user);
-			}
+			}		
 			/*if (isset($user)) {
 				$this->_redirect("/group/index/group/{$group->name}/");
 			}*/

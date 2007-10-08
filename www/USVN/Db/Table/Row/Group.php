@@ -50,48 +50,6 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	*/
 	public function updateLeaderUser($user, $type)
 	{
-			// selection tool
-		/*$select = $this->db->select();
-
-		// the FROM clause
-		$select->from($this->_name, $this->_cols);
-
-		// the JOIN clause
-		$users = self::$prefix . "users";
-		$users_to_groups = self::$prefix . "users_to_groups";
-		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
-
-		$select->where("$users_to_groups.users_id = ?", $user->users_id);
-
-        // return the results
-        $stmt = $this->_db->query($select);
-        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
-
-		$data->is_leader = 1;
-		$data->save();
-
-		$users = new USVN_Db_Table_Users();
-		$users->getAdapter()->beginTransaction();
-		foreach (array_keys($this->_users_password) as $user) {
-			$data['users_login'] = $user;
-			$data['users_password'] = $this->_users_password[$user];
-			$where = $users->getAdapter()->quoteInto('users_login = ?', $user);
-			$user_row = $users->fetchRow($where);
-			try  {
-				if ($user_row === null) {
-					$users->insert($data);
-				}
-				else {
-					$users->update($data, $where);
-				}
-			}
-			catch (Exception $e) {
-				$users->getAdapter()->rollBack();
-				throw new USVN_Exception(T_("Can't add users %s. Import cancel."), $user);
-			}
-		}
-		$users->getAdapter()->commit();*/
-
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$where = $user_groups->getAdapter()->quoteInto('users_id = ?', $user->users_id);
 		$user_groups->update(
@@ -100,16 +58,6 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 					"users_id" 	=> $user->users_id,
 					"is_leader" => $type,
 				), $where);
-	/*	$data  = array(
-			'table'    => $this,
-			'data'     => $data,
-			'rowClass' => $this->_rowClass,
-			'stored'   => true
-		);
-
-		Zend_Loader::loadClass($this->_rowsetClass);
-		return new $this->_rowsetClass($data);
-		}*/
 	}
 
 	/**

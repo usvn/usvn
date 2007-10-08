@@ -23,7 +23,6 @@ define('USVN_DIRECTORY', dirname(__FILE__));
 define('USVN_CONFIG_FILE', dirname(__FILE__) . '/../config.ini');
 define('USVN_CONFIG_SECTION', 'general');
 define('USVN_LOCALE_DIRECTORY', dirname(__FILE__) . '/../locale');
-define('USVN_URL_SEP', ':');
 
 
 require_once dirname(__FILE__) . '/autoload.php';

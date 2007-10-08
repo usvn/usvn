@@ -75,7 +75,7 @@ class ProjectadminController extends AdminadminController
 		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 
 		$table = new USVN_Db_Table_Projects();
-		$this->view->project = $table->fetchRow(array('projects_name = ?' => str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
+		$this->view->project = $table->fetchRow(array('projects_name = ?' => $this->getRequest()->getParam('name')));
 
 		$table = new USVN_Db_Table_UsersToProjects();
 		$UserToProject = $table->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $this->view->project->projects_id));
@@ -95,7 +95,7 @@ class ProjectadminController extends AdminadminController
 			$this->_redirect("/admin/project/new");
 		}
 		$table = new USVN_Db_Table_Projects();
-		$project = $table->fetchRow(array("projects_name = ?" => str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
+		$project = $table->fetchRow(array("projects_name = ?" => $this->getRequest()->getParam('name')));
 		if ($project === null) {
 			$this->_redirect("/admin/project/");
 		}
@@ -125,7 +125,7 @@ class ProjectadminController extends AdminadminController
 
 	public function deleteAction()
 	{
-		USVN_Project::deleteProject(str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name')));
+		USVN_Project::deleteProject($this->getRequest()->getParam('name'));
 		$this->_redirect("/admin/project/");
 	}
 }

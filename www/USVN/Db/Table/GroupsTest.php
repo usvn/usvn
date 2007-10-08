@@ -87,21 +87,6 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$this->fail();
 	}
 
-	    public function testInsertGroupInvalidName2()
-	{
-		$table = new USVN_Db_Table_Groups();
-		$obj = $table->fetchNew();
-		$obj->setFromArray(array('groups_name' => "test:bad"));
-		try {
-			$id = $obj->save();
-		}
-		catch (USVN_Exception $e) {
-			$this->assertContains("group's name is invalid", $e->getMessage());
-			return;
-		}
-		$this->fail();
-	}
-
     public function testInsertGroupOk()
 	{
 		$table = new USVN_Db_Table_Groups();

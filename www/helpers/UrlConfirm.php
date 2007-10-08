@@ -16,7 +16,7 @@
  *
  * $Id$
  */
-class USVN_View_Helper_UrlConfirm extends USVN_View_Helper_Url {
+class USVN_View_Helper_UrlConfirm extends Zend_View_Helper_Url {
     /**
      * Generates an url given the name of a route.
      *

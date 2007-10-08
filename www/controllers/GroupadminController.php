@@ -79,11 +79,10 @@ class GroupadminController extends AdminadminController
 
 	public function editAction()
 	{
-		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
 		$table = new USVN_Db_Table_Groups();
-		$this->view->group = $table->fetchRow(array('groups_name = ?' => $group_name));
+		$this->view->group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
 		if ($this->view->group === null) {
-			throw new USVN_Exception(T_("Invalid group %s."), $group_name);
+			throw new USVN_Exception(T_("Invalid group %s."), $this->getRequest()->getParam('name'));
 		}
 		$table = new USVN_Db_Table_Users();
 		$this->view->users = $table->fetchAll(null, "users_login");
@@ -95,11 +94,10 @@ class GroupadminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/group/");
 		}
-		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
 		$table = new USVN_Db_Table_Groups();
-		$group = $table->fetchRow(array("groups_name = ?" => $group_name));
+		$group = $table->fetchRow(array("groups_name = ?" => $this->getRequest()->getParam('name')));
 		if ($group === null) {
-			throw new USVN_Exception(T_("Invalid group %s."), $group_name);
+			throw new USVN_Exception(T_("Invalid group %s."), $this->getRequest()->getParam('name'));
 		}
 		$group->setFromArray($data);
 		try {
@@ -124,10 +122,9 @@ class GroupadminController extends AdminadminController
 	public function deleteAction()
 	{
 		$table = new USVN_Db_Table_Groups();
-		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
-		$group = $table->fetchRow(array('groups_name = ?' => $group_name));
+		$group = $table->fetchRow(array('groups_name = ?' => $this->getRequest()->getParam('name')));
 		if ($group === null) {
-			throw new USVN_Exception(T_("Invalid group %s."), $group_name);
+			throw new USVN_Exception(T_("Invalid group %s."), $this->getRequest()->getParam('name'));
 		}
 		$group->delete();
 		$this->_redirect("/admin/group/");

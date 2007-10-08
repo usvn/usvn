@@ -27,9 +27,11 @@ function checkName() {
 		<label><?php echo T_("Description"); ?>:<br />
 			<?php echo $this->formTextarea('groups_description', $this->group->description, array('rows' => 8, 'cols' => 80)); ?>
 		</label>
-		<br/>
+		<br/><br/>
 		<?php
-		if ($this->action != "new" && !$this->error($this))
+		var_dump('####');
+		var_dump($this->action);
+		if ($this->action != "new")
 			echo '<a href="' . $this->url(array('controller' => 'group', 'group' => $this->group->name), 'group') . '">'. T_("Managing group")." ".$this->group->name . '</a>';
 		?>
 		<br /><br />

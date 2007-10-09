@@ -334,7 +334,7 @@ EOF;
 	static public function installEnd($config_file)
 	{
 		$config = Install::_loadConfig($config_file);
-		$config->version = "0.6.4";
+		$config->version = "0.6.5";
 		$config->save();
 	}
 

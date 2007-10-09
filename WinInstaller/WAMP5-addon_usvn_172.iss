@@ -1,12 +1,13 @@
 [Setup]
 AppName=USVN
 AppVerName=Userfriendly SVN
-OutputBaseFilename=USVN_06_add-on_173
+OutputBaseFilename=USVN_07_add-on_173
 AppPublisher=Userfriendly SVN
 AppPublisherURL=http://www.usvn.info
 AppSupportURL=http://www.usvn.info
 AppUpdatesURL=http://www.usvn.info
 DefaultDirName=c:\wamp
+
 ;DisableDirPage=yes
 DefaultGroupName=WampServer
 LicenseFile=.\Files\Licence_CeCILL_V2-en.txt
@@ -32,15 +33,22 @@ Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreve
 Source: ".\Files\usvn.conf"; DestDir: "{app}\Apache2\conf\alias\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigAlias('{app}')
 Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
 Source: ".\Files\USVN\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
-Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigHtAcess('{app}')
 Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
 Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
-Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InfoBox('{app}\USVN\')
+Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: InfoBox('{app}\USVN\')
+
+[Icons]
+Name: "{group}\USVN"; Filename: "{app}\USVN\info.txt";
+
+
 [Code]
 var
   ResultCode: Integer;
   batfile: String;
-  
+  URL: TInputQueryWizardPage;
+  URLstring: String;
+
 procedure InstallSVN(FileName: String);
 begin
   if Exec(ExpandConstant(FileName), '', '', SW_SHOW,
@@ -67,20 +75,27 @@ begin
 end;
 
 procedure ConfigAlias(FileName: String);
-var SrcContent4: String;
-var FileName2: String;
-
+  var SrcContent4: String;
+  var FileName2: String;
+  var URI: String;
+  var i: Integer;
 begin
   FileName:= ExpandConstant(FileName);
   FileName2:= FileName;
+  URI:= URL.Values[0];
+  i := Length(URI);
+  Delete(URI, i, 1);
   StringChange (FileName2, '\','/');
   LoadStringFromFile (FileName + '\Apache2\conf\alias\usvn.conf', SrcContent4);
-  StringChangeEx(SrcContent4, 'Alias /usvn "c:/usvn/"', 'Alias /usvn' + ' "' + FileName2 + '/USVN/"', True);
+  StringChangeEx(SrcContent4, 'Alias /usvn "c:/usvn/"', 'Alias '+ URI + ' "' + FileName2 + '/USVN/"', True);
   StringChangeEx(SrcContent4, '<Directory "c:/usvn/">', '<Directory "' + FileName2 + '/USVN/">', True);
   
   StringChangeEx(SrcContent4, '	SVNParentPath c:/usvn/', '	SVNParentPath "' + FileName2 + '/USVN/files/svn"', True);
   StringChangeEx(SrcContent4, '	AuthUserFile c:/usvn/', '	AuthUserFile "' + FileName2 + '/USVN/files/htpasswd"', True);
   StringChangeEx(SrcContent4, '	AuthzSVNAccessFile c:/usvn/', '	AuthzSVNAccessFile "' + FileName2 + '/USVN/files/authz"', True);
+  
+//  URLstring := URL.Values[0];
+//  StringChangeEx(SrcContent4, '<Location /svn/>', '<Location "' + URL.Values[0] + '">', True);
   
   DeleteFile (FileName + '\Apache2\conf\alias\usvn.conf');
   SaveStringToFile(FileName + '\Apache2\conf\alias\usvn.conf',SrcContent4, false);
@@ -102,12 +117,27 @@ begin
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
   LoadStringFromFile (FileName + '\USVN\config.ini', SrcContent4);
+  StringChangeEx(SrcContent4, 'url.base = "/usvn"', 'url.base = "' + URL.Values[0] + '"', True);
   StringChangeEx(SrcContent4, 'subversion.path = ""', 'subversion.path = "' + FileName2 + '/USVN/files/"', True);
   StringChangeEx(SrcContent4, 'database.options.dbname = ""', 'database.options.dbname = "' + FileName2 + '/USVN/files/usvn.db"', True);
   DeleteFile (FileName + '\USVN\config.ini');
   SaveStringToFile(FileName + '\USVN\config.ini', SrcContent4, false);
 end;
 
+
+procedure ConfigHtAcess(FileName: String);
+var SrcContent4: String;
+var FileName2: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+  FileName2:= FileName;
+  StringChange (FileName2, '\','/');
+  LoadStringFromFile (FileName + '\USVN\.htaccess', SrcContent4);
+  StringChangeEx(SrcContent4, 'RewriteBase /usvn/', 'RewriteBase ' + URL.Values[0], True);
+  DeleteFile (FileName + '\USVN\.htaccess');
+  SaveStringToFile(FileName + '\USVN\.htaccess', SrcContent4, false);
+end;
 
 procedure ConfigDB(FileName: String);
 var SrcContent4: String;
@@ -120,6 +150,48 @@ begin
   CreateDir(FileName2 + '/USVN/files/svn/');
 end;
 
+
+function URI_NextButtonClick(Sender: TWizardPage): Boolean;
+var
+    Page: TInputQueryWizardPage;
+    tmp1: String;
+    tmp2: String;
+    i: Integer;
+begin
+    Result := True;
+    Page := TInputQueryWizardPage(Sender);
+//    MsgBox('Hello.', mbInformation, MB_OK);
+    tmp1 := Copy(URL.Values[0], 0, 1);
+    tmp2 := Copy(URL.Values[0], Length(URL.Values[0]), 1);
+    i:= CompareStr(tmp1, '/');
+    if i <> 0 then begin
+      Result := False;
+    end;
+    i:= CompareStr(tmp2, '/');
+    if i <> 0 then begin
+      Result := False;
+    end;
+    if Result = False then begin
+      MsgBox('URI incorrect (exemple : /USVN/)', mbCriticalError, MB_OK);
+    end;
+end;
+
+procedure InitializeWizard;
+var i: Integer;
+begin
+  { Create the pages }
+
+  URL := CreateInputQueryPage(wpWelcome,
+    'Personal Information', 'Default USVN URL?',
+    'Please specify the USVN URL (ex: /USVN/)');
+  URL.OnNextButtonClick := @URI_NextButtonClick;
+  URL.Add('URL:', False);
+  URLstring := URL.Values[0];
+//  i:= Length(URLstring);
+//  URLstring[i];
+
+end;
+
 procedure InfoBox(FileName: String);
 var FileName2: String;
 var ErrorCode: Integer;
@@ -130,6 +202,7 @@ begin
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
   ShellExec('open', FileName2 + '/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
+
 end;
 
 [Run]

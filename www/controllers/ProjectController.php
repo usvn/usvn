@@ -41,7 +41,7 @@ class ProjectController extends USVN_Controller
 	{
 		parent::preDispatch();
 
-		$project = $this->getRequest()->getParam('project');
+		$project = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('project'));
 		$table = new USVN_Db_Table_Projects();
 		$project = $table->fetchRow(array("projects_name = ?" => $project));
 		/* @var $project USVN_Db_Table_Row_Project */

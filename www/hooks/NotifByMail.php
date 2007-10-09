@@ -29,11 +29,18 @@
 	public function postCommit($repos , $rev)
 	{
 		$project_name = USVN_SVNUtils::getProjectName($repos);
+		$projects = new USVN_Db_Table_Projects();
+		$project = $projects->findByName($project_name);
+		$users = $project->getUsersGroupMembers();
 		$mail = new Zend_Mail();
 		$mail->setSubject("[$project_name] " . T_("Revision") . " $rev");
-		$mail->addTo('noplay@localhost', 'Some Recipient');
 		$mail->setFrom('nobody@usvn.info', 'No body');
 		$mail->setBodyText(T_("Project") .": $project_name\n" . T_("Revision") . ": $rev\n");
+		foreach ($users as $user) {
+			if (strlen($user->users_email) != 0) {
+				$mail->addTo($user->users_email, $user->users_firstname . ' ' . $user->users_lastname);
+			}
+		}
 		$mail->send();
 	}
  }

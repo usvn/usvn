@@ -87,17 +87,50 @@ class NotifByMailTest extends USVN_Test_DB {
 		$this->repos = $config->subversion->path . DIRECTORY_SEPARATOR . "svn";
 
 		$table = new USVN_Db_Table_Users();
-		$user = $table->fetchNew();
-		$user->setFromArray(array('users_login' 	=> 'test',
+		$user1 = $table->fetchNew();
+		$user1->setFromArray(array('users_login' 	=> 'test',
 																'users_password' 	=> 'password',
 																'users_firstname' 	=> 'firstname',
 																'users_lastname' 	=> 'lastname',
 																'users_email' 		=> 'email@email.fr'));
-		$user->save();
+		$user1->save();
+		$user2 = $table->fetchNew();
+		$user2->setFromArray(array('users_login' 	=> 'test2',
+																'users_password' 	=> 'password',
+																'users_firstname' 	=> 'firstname',
+																'users_lastname' 	=> 'lastname',
+																'users_email' 		=> 'email2@email.fr'));
+		$user2->save();
+		$user3 = $table->fetchNew();
+		$user3->setFromArray(array('users_login' 	=> 'test3',
+																'users_password' 	=> 'password',
+																'users_firstname' 	=> 'firstname',
+																'users_lastname' 	=> 'lastname',
+																'users_email' 		=> ''));
+		$user3->save();
 
 
-		$this->sendmail = new FakeSendMail();
+		$this->groups = new USVN_Db_Table_Groups();
+		$this->groups->insert(
+			array(
+				"groups_id" => 42,
+				"groups_name" => "test",
+				"groups_description" => "test"
+			)
+		);
+		$group = $this->groups->find(42)->current();
+		$group->addUser($user1);
+		$group->addUser($user2);
+		$group->addUser($user3);
+
 		USVN_Project::createProject(array('projects_name'  => $this->project), "test", true, false, false);
+
+
+		$projects = new USVN_Db_Table_Projects();
+		$project = $projects->findByName($this->project);
+		$project->addGroup($group);
+
+
 		USVN_DirectoryUtils::removeDirectory($this->repos . DIRECTORY_SEPARATOR . $this->project . DIRECTORY_SEPARATOR . 'hooks');
 		USVN_SVNUtils::checkoutSvn($this->repos . DIRECTORY_SEPARATOR . $this->project, $this->co);
 		$path = getcwd();
@@ -107,6 +140,7 @@ class NotifByMailTest extends USVN_Test_DB {
 		`svn commit --non-interactive -m Test`;
 		chdir($path);
 
+		$this->sendmail = new FakeSendMail();
 		Zend_Mail::setDefaultTransport($this->sendmail);
 	}
 
@@ -117,7 +151,8 @@ class NotifByMailTest extends USVN_Test_DB {
 		$this->assertEquals("[{$this->project}] Revision 1", $this->sendmail->getSubject());
 		$this->assertEquals("Project: {$this->project}=0ARevision: 1=0A", $this->sendmail->getBodyText());
 		$this->assertEquals('nobody@usvn.info', $this->sendmail->getFrom());
-		$this->assertEquals(array('noplay@localhost'), $this->sendmail->getTo());
+		$this->assertEquals(2, count($this->sendmail->getTo()));
+		$this->assertEquals(array('email@email.fr', 'email2@email.fr'), $this->sendmail->getTo());
 	}
 }
 

@@ -181,6 +181,7 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->assertEquals(count($this->project->getUsersGroupMembers()), 1);
 		$this->groups->find(43)->current()->addUser($this->users->find(42)->current());
 		$this->assertEquals(count($this->project->getUsersGroupMembers()), 1);
+		$this->assertEquals($this->project->getUsersGroupMembers()->current()->users_login, "test");
 		$this->groups->find(43)->current()->addUser($this->users->find(43)->current());
 		$this->assertEquals(count($this->project->getUsersGroupMembers()), 2);
 

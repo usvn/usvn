@@ -108,7 +108,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		$stmt = $db->query($select);
 		$data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 		$data  = array(
-			'table'    => $this,
+			'table'    => $this->getTable(),
 			'data'     => $data,
 			'rowClass' => $this->getTable()->getRowClass(),
 			'stored'   => true

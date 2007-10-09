@@ -110,30 +110,26 @@ class UseradminController extends AdminadminController
 
 	public function updateAction()
 	{
-		try {
-			$data = $this->getUserData($_POST);
-		}
-		catch (Exception $e) {
-			$this->view->user = USVN_User::create($_POST, false, false)->getRowObject();
-			$this->view->message = $e->getMessage();
-			$table = new USVN_Db_Table_Groups();
-			$this->view->groups = $table->fetchAll(null, 'groups_name');
-			$this->render('new');
-			return ;
-		}
-
+		$data = $this->getUserData($_POST);
 		if (empty($data)) {
 			$this->_redirect("/admin/user/new");
 		}
 		$user = null; /* some ugly hack of variable scope... */
 		try {
-			$user = USVN_User::update($this->getRequest()->getParam('login'),
+			$table = new USVN_Db_Table_Users();
+			$login = $this->getRequest()->getParam('login');
+			$user = $table->fetchRow(array("users_login = ?" => $login));
+			if ($user === null) {
+				throw new USVN_Exception(sprintf(T_("User %s does not exist."), $login));
+			}
+			$user->setFromArray($data);
+			$u = USVN_User::update($user,
 										$data,
 										isset($_POST['groups']) ? $_POST['groups'] : null);
-			$user->save();
+			$u->save();
 			$this->_redirect("/admin/user/");
 		}
-		catch (Exception $e) {
+		catch (USVN_Exception $e) {
 			$this->view->user = $user;
 			$this->view->message = $e->getMessage();
 			$table = new USVN_Db_Table_Groups();

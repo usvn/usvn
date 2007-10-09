@@ -178,7 +178,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 
 	public function testInsertProjectBadSubversionPath()
 	{
-		$configArray = array('subversion' => array('path' => "tests/bad"));
+		$configArray = array('subversion' => array('path' => "/dev/null"));
 		$config = new Zend_Config($configArray);
 		Zend_Registry::set('config', $config);
 		$table = new USVN_Db_Table_Projects();

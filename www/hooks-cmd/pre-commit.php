@@ -16,3 +16,15 @@
  *
  * $Id$
  */
+
+ require_once 'USVN/bootstrap.php';
+
+$call = new USVN_CallHooks(USVN_HOOKS_DIRECTORY);
+$ret = $call->preCommit($argv[1], $argv[2]);
+if ($ret === 0) {
+	exit(0);
+}
+else {
+	USVN_ConsoleUtils::writeOnStdError($ret);
+	exit(1);
+}

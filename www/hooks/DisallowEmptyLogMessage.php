@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 /**
- * Base class for hook
+ * Send an email after each commit
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -18,18 +18,8 @@
  * $Id$
  */
 
-abstract class USVN_AbstractHook
+ class DisallowEmptyLogMessage extends USVN_AbstractHook
  {
-	/**
-	* Post commit hook
-	*
-	* @string the path to this repository
-	* @int the number of the revision just committed
-	*/
-	public function postCommit($repos , $rev)
-	{
-	}
-
 	/**
 	* Pre commit hook
 	*
@@ -37,8 +27,13 @@ abstract class USVN_AbstractHook
 	* @string subversion transaction
 	* @return string|0 Return 0 if no problem else return error message
 	*/
-	public function preCommit($repos, $transaction)
+	public function preCommit($repos , $txn)
 	{
+		$message = USVN_SVNUtils::svnLookTransaction("log", $repos, $txn);
+		$message = trim($message);
+		if (strlen($message) == 0) {
+			return T_("Empty log messages are allowed.");
+		}
 		return 0;
 	}
  }

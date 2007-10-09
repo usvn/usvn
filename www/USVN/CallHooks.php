@@ -31,6 +31,9 @@
 		include_once($hook_path . DIRECTORY_SEPARATOR ."NotifByMail.php");
 		$hook = new HookNotifByMail();
 		array_push($this->_hooks, $hook);
+		include_once($hook_path . DIRECTORY_SEPARATOR ."DisallowEmptyLogMessage.php");
+		$hook = new DisallowEmptyLogMessage();
+		array_push($this->_hooks, $hook);
 	}
 
 	/**
@@ -45,4 +48,22 @@
 			$hook->postCommit($repos, $rev);
 		}
 	}
- }
+
+	/**
+	* Pre commit hook
+	*
+	* @string the path to this repository
+	* @string subversion transaction
+	* @return string|0 Return 0 if no problem else return error message
+	*/
+	public function preCommit($repos, $transaction)
+	{
+		foreach ($this->_hooks as $hook) {
+			$return = $hook->preCommit($repos, $transaction);
+			if ($return !== 0) {
+				return $return;
+			}
+		}
+		return 0;
+	}
+}

@@ -72,7 +72,7 @@ class USVN_SVNUtils
 		$command = escapeshellarg($command);
 		$transaction = escapeshellarg($transaction);
 		$repository = escapeshellarg($repository);
-		return USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("$command -t $transaction $repository"), $return);
+		return USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnlookCommand("$command -t $transaction $repository"), $return);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class USVN_SVNUtils
 		$command = escapeshellarg($command);
 		$revision = escapeshellarg($revision);
 		$repository = escapeshellarg($repository);
-		return USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("$command -r $revision $repository"), $return);
+		return USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnlookCommand("$command -r $revision $repository"), $return);
 	}
 
 	/**
@@ -149,6 +149,17 @@ class USVN_SVNUtils
 	{
 		return "svn --config-dir /USVN/fake $cmd";
 	}
+
+	/**
+	* Get the command svnlook
+	*
+	* @param string Parameters
+	*/
+	public static function svnlookCommand($cmd)
+	{
+		return "svnlook $cmd";
+	}
+
 
 	/**
 	* Get the command svnadmin

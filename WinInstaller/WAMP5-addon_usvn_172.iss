@@ -25,20 +25,23 @@ AlwaysRestart=yes
 
 [Files]
 Source: ".\Files\svn-1.4.5-setup.exe"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InstallSVN('{app}\USVN\svn-1.4.5-setup.exe')
-Source: ".\Files\mod_authz_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs;
-Source: ".\Files\mod_dav_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigApache('{app}')
-Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
-Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\mod_authz_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs;
+Source: ".\Files\mod_dav_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs; AfterInstall: ConfigApache('{app}')
+Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs;
+Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs;
 
 Source: ".\Files\usvn.conf"; DestDir: "{app}\Apache2\conf\alias\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigAlias('{app}')
-Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
 Source: ".\Files\USVN\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
 Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigHtAcess('{app}')
-Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
+Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
 Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
-Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: InfoBox('{app}\USVN\')
+Source: ".\Files\update.html"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
+Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: InfoBox('{app}')
+;Source: ".\Files\Welcome.html"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: WelcomeHTML('{app}\USVN\')
 
 [Icons]
+;Name: "{group}\USVN"; Filename: "{app}\USVN\Welcome.html";
 Name: "{group}\USVN"; Filename: "{app}\USVN\info.txt";
 
 
@@ -157,6 +160,7 @@ var
     tmp1: String;
     tmp2: String;
     i: Integer;
+
 begin
     Result := True;
     Page := TInputQueryWizardPage(Sender);
@@ -192,23 +196,88 @@ begin
 
 end;
 
+
+//procedure WelcomeHTML(FileName: String);
+//var FileName2: String;
+//var SrcContent4: String;
+//begin
+//  FileName:= ExpandConstant(FileName);
+//  FileName2:= FileName;
+//  StringChange (FileName2, '\','/');
+//  LoadStringFromFile (FileName + '\Welcome.html', SrcContent4);
+//  StringChangeEx(SrcContent4, 'URL=http://localhost/USVN/"', 'URL=http://localhost/' + URL.Values[0] + '"', True);
+//  DeleteFile (FileName + '\USVN\Welcome.html');
+//  SaveStringToFile(FileName + '\USVN\Welcome.html', SrcContent4, false);
+
+//end;
+
+function IsAUpdate(FileName: String): Boolean;
+
+var FileName2: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+  Result := FileExists(FileName + '\USVN\config.ini');
+
+end;
+
+function GetUSVNVersion(FileName: String): String;
+var FileName2: String;
+var SrcContent4: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+//  FileName2:= FileName;
+  LoadStringFromFile (FileName + '\USVN\version.ini', SrcContent4);
+  Result := SrcContent4;
+end;
+
+//procedure USVNUpdate(FileName: String);
+//var Res: Boolean;
+//var Version: String;
+//begin
+//  FileName:= ExpandConstant(FileName);
+//  Res := IsAUpdate(FileName);
+//  if Res = True then begin
+//    FileCopy(FileName + 'USVN\files\usvn.db', FileName + 'USVN\files\usvn.db_bak', False);
+//  end;
+//end;
+
+
 procedure InfoBox(FileName: String);
 var FileName2: String;
 var ErrorCode: Integer;
-
+var SrcContent4: String;
+var Res: Boolean;
+var Version: String;
 begin
 
   FileName:= ExpandConstant(FileName);
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
-  ShellExec('open', FileName2 + '/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
+  LoadStringFromFile (FileName + '\USVN\info.txt', SrcContent4);
+  StringChangeEx(SrcContent4, 'USVN url : http://localhost/usvn/', 'USVN url : http://localhost' + URL.Values[0], True);
+  DeleteFile (FileName + '\USVN\info.txt');
+  SaveStringToFile(FileName + '\USVN\info.txt', SrcContent4, false);
+  Res := IsAUpdate(FileName);
+
+  if Res = True then begin
+    //Update
+    Version := GetUSVNVersion(FileName);
+    LoadStringFromFile (FileName + '\USVN\update.html', SrcContent4);
+    StringChangeEx(SrcContent4, 'URL=http://localhost/USVN/', 'USVN url : http://localhost' + URL.Values[0] + 'update/' + Version + '/', True);
+    DeleteFile (FileName + '\USVN\update.html');
+    SaveStringToFile(FileName + '\USVN\update.html', SrcContent4, false);
+
+    ShellExec('open', FileName2 + '/USVN/update.html', '', '', SW_SHOW, ewNoWait, ErrorCode)
+  end
+  else begin
+   //First Installation
+    ShellExec('open', FileName2 + '/USVN/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
+  end;
 
 end;
 
 
-function IsAUpdate(): Boolean;
-begin
-
-end;
 [Run]
 ;Filename: "{app}\USVN\svn-1.4.3-setup.exe"; Description: "Launch SVN installation now"; Flags:shellexec postinstall skipifsilent runhidden

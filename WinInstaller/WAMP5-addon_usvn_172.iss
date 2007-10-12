@@ -7,9 +7,9 @@ AppPublisherURL=http://www.usvn.info
 AppSupportURL=http://www.usvn.info
 AppUpdatesURL=http://www.usvn.info
 DefaultDirName=c:\wamp
-
+DefaultGroupName=USVN
 ;DisableDirPage=yes
-DefaultGroupName=WampServer
+
 LicenseFile=.\Files\Licence_CeCILL_V2-en.txt
 SourceDir=.\
 
@@ -205,5 +205,10 @@ begin
 
 end;
 
+
+function IsAUpdate(): Boolean;
+begin
+
+end;
 [Run]
 ;Filename: "{app}\USVN\svn-1.4.3-setup.exe"; Description: "Launch SVN installation now"; Flags:shellexec postinstall skipifsilent runhidden

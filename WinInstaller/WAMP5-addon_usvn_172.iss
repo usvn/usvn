@@ -25,10 +25,10 @@ AlwaysRestart=yes
 
 [Files]
 Source: ".\Files\svn-1.4.5-setup.exe"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs deleteafterinstall;AfterInstall: InstallSVN('{app}\USVN\svn-1.4.5-setup.exe')
-Source: ".\Files\mod_authz_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs;
-Source: ".\Files\mod_dav_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs; AfterInstall: ConfigApache('{app}')
-Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs;
-Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs;
+Source: ".\Files\mod_authz_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\mod_dav_svn.so"; DestDir: "{app}\Apache2\modules\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigApache('{app}')
+Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
 
 Source: ".\Files\usvn.conf"; DestDir: "{app}\Apache2\conf\alias\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigAlias('{app}')
 Source: ".\Files\USVN\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
@@ -265,7 +265,7 @@ begin
     //Update
     Version := GetUSVNVersion(FileName);
     LoadStringFromFile (FileName + '\USVN\update.html', SrcContent4);
-    StringChangeEx(SrcContent4, 'URL=http://localhost/USVN/', 'USVN url : http://localhost' + URL.Values[0] + 'update/' + Version + '/', True);
+    StringChangeEx(SrcContent4, 'URL=http://localhost/USVN/', 'URL=http://localhost' + URL.Values[0] + 'update/' + Version + '/', True);
     DeleteFile (FileName + '\USVN\update.html');
     SaveStringToFile(FileName + '\USVN\update.html', SrcContent4, false);
 

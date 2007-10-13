@@ -48,7 +48,7 @@ class TimelineController extends USVN_Controller
 	public function indexAction()
 	{
 		$project = $this->getRequest()->getParam('project');
-				$table = new USVN_Db_Table_Projects();
+		$table = new USVN_Db_Table_Projects();
 		$project = $table->fetchRow(array("projects_name = ?" => $project));
 		/* @var $project USVN_Db_Table_Row_Project */
 		if ($project === null) {
@@ -56,6 +56,24 @@ class TimelineController extends USVN_Controller
 		}
 		$this->_project = $project;
 		
+		
+		//get the identity of the user
+		$identity = Zend_Auth::getInstance()->getIdentity();
+
+		$user_table = new USVN_Db_Table_Users();
+		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
+
+		$table = new USVN_Db_Table_Projects();
+		$this->view->project = $table->fetchRow(array('projects_name = ?' => $project->name));
+
+		$table = new USVN_Db_Table_UsersToProjects();
+		$UserToProject = $table->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $this->view->project->projects_id));
+		
+		if ($UserToProject == null) {
+			$this->render("accesdenied");
+			return;
+		}
+
 		$this->view->project = $this->_project;
 		$SVN = new USVN_SVN($this->_project->name);
 		$this->view->log = $SVN->log(100);
@@ -69,15 +87,22 @@ class TimelineController extends USVN_Controller
 		/* @var $project USVN_Db_Table_Row_Project */
 		if ($project === null) {
 			$this->_redirect("/");
+		}		
+			$this->_project = $project;
+			$this->view->project = $this->_project;
+			$SVN = new USVN_SVN($this->_project->name);
+		try {
+			$number_start = $project = $this->getRequest()->getParam('number_start');
+			$number_end = $project = $this->getRequest()->getParam('number_end');
+			$number_end = $this->ConvertDate($number_end);
+			$number_start = $this->ConvertDate($number_start);
+			$this->view->log = $SVN->log(100, $number_start, $number_end);
+			$this->render("index");
 		}
-		$this->_project = $project;
-		$this->view->project = $this->_project;
-		$SVN = new USVN_SVN($this->_project->name);
-		$number_start = $project = $this->getRequest()->getParam('number_start');
-		$number_end = $project = $this->getRequest()->getParam('number_end');
-		$number_end = $this->ConvertDate($number_end);
-		$number_start = $this->ConvertDate($number_start);		
-		$this->view->log = $SVN->log(100, $number_start, $number_end);
-		$this->render("index");
-}
+		catch(USVN_Exception $e) {
+			$this->view->message = "No such revision found";
+			$this->view->log = $SVN->log(100);
+			$this->render("index");
+		}
+	}	
 }

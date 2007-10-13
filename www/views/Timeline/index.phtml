@@ -1,10 +1,8 @@
-<div class="usvn_info">
-<h1><?php echo T_("Enter your choice");?> </h1>
+ <?php echo $this->error($this); ?>
+ <div class="usvn_info">
+<h1><?php echo T_("Enter your number of revision or your date");?> </h1>
 	<form style="float: left; text-align: left;" action="<?php echo $this->url(array("action" => "LastHundredRequest")); ?>" method="post">
 			<div>
-			<p> <?php echo T_("This page gives you the possibility to display the last hundred commits or to reseach information about other commits. In effect, 
-			you can enter different revision's number or date in order to displya those line."); echo '<br>'; 
-			echo T_("You can enter 2 revision's number or a number and a date ect.."); echo '<br>'?></p> 
 				<table>
 					<tr>
 						<td>

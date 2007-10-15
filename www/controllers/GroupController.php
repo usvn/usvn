@@ -148,6 +148,6 @@ class GroupController extends USVN_Controller
 		$this->view->group = $group;
 		}
 		else
-			throw new USVN_Exception(sprintf(T_("Vous n'avez pas le droit d'acceder a cette fonctionalite")));
+			throw new USVN_Exception(sprintf(T_("Access denied")));
 	}
 }

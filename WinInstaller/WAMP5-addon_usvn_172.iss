@@ -39,7 +39,7 @@ Source: ".\Files\update.html"; DestDir: "{app}\USVN\"; Flags:  ignoreversion rec
 Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
 Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: InfoBox('{app}')
 ;Source: ".\Files\Welcome.html"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: WelcomeHTML('{app}\USVN\')
-
+Source: ".\Files\version.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs;
 [Icons]
 ;Name: "{group}\USVN"; Filename: "{app}\USVN\Welcome.html";
 Name: "{group}\USVN"; Filename: "{app}\USVN\info.txt";
@@ -217,7 +217,7 @@ var FileName2: String;
 
 begin
   FileName:= ExpandConstant(FileName);
-  Result := FileExists(FileName + '\USVN\config.ini');
+  Result := FileExists(FileName + '\USVN\version.ini');
 
 end;
 
@@ -268,7 +268,7 @@ begin
     StringChangeEx(SrcContent4, 'URL=http://localhost/USVN/', 'URL=http://localhost' + URL.Values[0] + 'update/' + Version + '/', True);
     DeleteFile (FileName + '\USVN\update.html');
     SaveStringToFile(FileName + '\USVN\update.html', SrcContent4, false);
-
+    MsgBox('Please Launch wamp to update USVN.', mbInformation, MB_OK);
     ShellExec('open', FileName2 + '/USVN/update.html', '', '', SW_SHOW, ewNoWait, ErrorCode)
   end
   else begin

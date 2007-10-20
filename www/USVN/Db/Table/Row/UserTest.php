@@ -124,6 +124,22 @@ class USVN_Db_Table_Row_UserTest extends USVN_Test_DB {
 		$this->user->addGroup($group);
 		$this->assertTrue($this->user->isInGroup($group));
 	}
+
+	public function testGetAllGroupsFor()
+	{
+		$this->user->addGroup($this->groups->find(42)->current());
+		$this->user->addGroup($this->groups->find(43)->current());
+
+		$table = new USVN_Db_Table_Projects();
+		$proj = $table->createRow(array("projects_name" => "proj"));
+		$proj->save();
+		$proj->addGroup($this->groups->find(42)->current());
+
+		$groups_name = $this->user->getAllGroupsFor("proj");
+		$groups_object = $this->user->getAllGroupsFor($proj);
+
+		$this->assertEquals($groups_name, $groups_object, "USVN_Db_Table_Row_User::getAllGroupsFor() must act the same way with a string or an object");
+	}
 }
 
 // Call USVN_Db_Table_Row_GroupTest::main() if this source file is executed directly.

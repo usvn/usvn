@@ -94,6 +94,24 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	}
 
 	/**
+	 * Get all groups associated with $project for this user
+	 *
+	 * Project can be the project name as a string or a project row.
+	 *
+	 * @param string|USVN_Db_Table_Row_Project $project
+	 * @return Zend_Db_Table_Rowset
+	 */
+	public function getAllGroupsFor($project)
+	{
+		if (! is_object($project)) {
+			$projects = new USVN_Db_Table_Projects();
+			$project = $projects->findByName($project);
+		}
+		$groups = new USVN_Db_Table_Groups();
+		return $groups->fetchAllForUserAndProject($this, $project);
+	}
+
+	/**
 	 * Check if the login is valid or not
 	 *
 	 * @throws USVN_Exception

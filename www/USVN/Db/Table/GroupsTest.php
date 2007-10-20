@@ -142,46 +142,28 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 
 	public function testFindUserInGroup()
 	{
-		$user = new USVN_Db_Table_Users();
-		$user->insert(
-			array(
-				"users_id" => 2,
-				"users_login" => "test",
-				"users_password" => USVN_Crypt::crypt("test")
-			)
-		);
-		$user->insert(
-			array(
-				"users_id" => 3,
-				"users_login" => "babar",
-				"users_password" => USVN_Crypt::crypt("test")
-			)
-		);
-		$user->insert(
-			array(
-				"users_id" => 4,
-				"users_login" => "john",
-				"users_password" => USVN_Crypt::crypt("test")
-			)
-		);
+		$test = $this->_generateUser("test");
+		$babar = $this->_generateUser("babar");
+		$john = $this->_generateUser("john");
 
-		$group_table = new USVN_Db_Table_Groups();
-		$group_table->insert(array("groups_id" => 2, "groups_name" => "toto"));
+		$group = $this->_generateGroup("toto");
 
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$user_groups->insert(
 			array(
-				"groups_id" => 2,
-				"users_id" => 2
+				"groups_id" => $group->id,
+				"users_id" => $test->id
 			)
 		);
 		$user_groups->insert(
 			array(
-				"groups_id" => 2,
-				"users_id" => 3
+				"groups_id" => $group->id,
+				"users_id" => $babar->id
 			)
 		);
-		$group = $group_table->find(2)->current();
+
+		$group_table = new USVN_Db_Table_Groups();
+		$group = $group_table->find($test->id)->current();
 		$users = $group->findManyToManyRowset('USVN_Db_Table_Users', 'USVN_Db_Table_UsersToGroups');
 		$res = array();
 		foreach ($users as $user) {
@@ -190,6 +172,118 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$this->assertContains("test", $res);
 		$this->assertContains("babar", $res);
 		$this->assertNotContains("john", $res);
+	}
+
+	function testFetchAllForUserAndProject()
+	{
+		$group1 = $this->_generateGroup("group1");
+		$group2 = $this->_generateGroup("group2");
+		$group3 = $this->_generateGroup("group3");
+		$group4 = $this->_generateGroup("group4");
+
+		$user1 = $this->_generateUser("user1");
+		$user1->addGroup($group1);
+		$user1->addGroup($group2);
+		$user1->addGroup($group4);
+
+		$user2 = $this->_generateUser("user2");
+		$user2->addGroup($group1);
+		$user2->addGroup($group3);
+		$user2->addGroup($group4);
+
+		$proj1 = $this->_generateProject("proj1");
+		$proj1->addGroup($group1);
+		$proj1->addGroup($group3);
+
+		$proj2 = $this->_generateProject("proj2");
+		$proj2->addGroup($group2);
+		$proj2->addGroup($group4);
+
+		$table = new USVN_Db_Table_Groups();
+		$groups = $table->fetchAllForUserAndProject($user1, $proj1);
+		$res = array();
+		foreach ($groups as $group) {
+			array_push($res, $group->name);
+		}
+		$this->assertContains("group1", $res);
+		$this->assertNotContains("group2", $res);
+		$this->assertNotContains("group3", $res);
+		$this->assertNotContains("group4", $res);
+
+		$groups = $table->fetchAllForUserAndProject($user1, $proj2);
+		$res = array();
+		foreach ($groups as $group) {
+			array_push($res, $group->name);
+		}
+		$this->assertContains("group2", $res);
+		$this->assertContains("group4", $res);
+		$this->assertNotContains("group1", $res);
+		$this->assertNotContains("group3", $res);
+
+		$groups = $table->fetchAllForUserAndProject($user2, $proj1);
+		$res = array();
+		foreach ($groups as $group) {
+			array_push($res, $group->name);
+		}
+		$this->assertContains("group1", $res);
+		$this->assertContains("group3", $res);
+		$this->assertNotContains("group2", $res);
+		$this->assertNotContains("group4", $res);
+
+		$groups = $table->fetchAllForUserAndProject($user2, $proj2);
+		$res = array();
+		foreach ($groups as $group) {
+			array_push($res, $group->name);
+		}
+		$this->assertContains("group4", $res);
+		$this->assertNotContains("group1", $res);
+		$this->assertNotContains("group2", $res);
+		$this->assertNotContains("group3", $res);
+	}
+
+	/**
+	 * Generate and save a group
+	 *
+	 * @param string $name
+	 * @return USVN_Db_Table_Row_Group
+	 */
+	protected function _generateGroup($name)
+	{
+		$table = new USVN_Db_Table_Groups();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('groups_name' => $name));
+		$obj->save();
+		return $obj;
+	}
+
+	/**
+	 * Generate and save a user
+	 *
+	 * @param string $name
+	 * @return USVN_Db_Table_Row_User
+	 */
+	protected function _generateUser($name)
+	{
+		$table = new USVN_Db_Table_Users();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('users_login' => $name, "users_password" => USVN_Crypt::crypt("test")));
+		$obj->save();
+		return $obj;
+	}
+
+	/**
+	 * Generate and save a project
+	 *
+	 * @param string $name
+	 * @return USVN_Db_Table_Row_Project
+	 */
+	protected function _generateProject($name)
+	{
+		$table = new USVN_Db_Table_Projects();
+		$obj = $table->fetchNew();
+		$obj->setFromArray(array('projects_name' => $name));
+		$obj->save();
+		return $obj;
 	}
 }
 

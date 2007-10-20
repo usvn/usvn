@@ -165,7 +165,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		Zend_Loader::loadClass($this->_rowsetClass);
 		return new $this->_rowsetClass($data);
 	}
-	
+
 	/**
 	 * Return the groups by groups_id
 	 *
@@ -179,7 +179,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_id = ?", $id);
 		return $this->fetchRow($where, "groups_id");
 	}
-	
+
 	/**
 	 * Return the groups by groups_name
 	 *
@@ -193,7 +193,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$where = $db->quoteInto("groups_name = ?", $name);
 		return $this->fetchRow($where, "groups_name");
 	}
-	
+
 	/**
 	 * Return all groups like group name
 	 *
@@ -206,5 +206,40 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		/* @var $db Zend_Db_Adapter_Pdo_Mysql */
 		$where = $db->quoteInto("groups_name like ?", $match_group."%");
 		return $this->fetchAll($where, "groups_name");
+	}
+
+	/**
+	 * Get all groups for a specific user associated with a project.
+	 *
+	 * @param USVN_Db_Table_Row_User $user
+	 * @param USVN_Db_Table_Row_Project $project
+	 * @return Zend_Db_Table_Rowset
+	 */
+	public function fetchAllForUserAndProject($user, $project)
+	{
+		$select = $this->getAdapter()->select();
+		/* @var $select Zend_Db_Select */
+
+		$select->from(self::$prefix . "groups as g");
+		$select->join(self::$prefix . "groups_to_projects as g2p", "g2p.groups_id = g.groups_id", array());
+		$select->join(self::$prefix . "users_to_groups as u2g",    "u2g.groups_id = g.groups_id", array());
+
+		$select->where("u2g.users_id = ?",    $user->id);
+		$select->where("g2p.projects_id = ?", $project->id);
+
+		// return the results
+		$stmt = $this->_db->query($select);
+		$data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+		'table'    => $this,
+		'data'     => $data,
+		'rowClass' => $this->_rowClass,
+		'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+
 	}
 }

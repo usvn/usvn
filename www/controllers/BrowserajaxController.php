@@ -22,6 +22,10 @@ class BrowserajaxController extends USVN_Controller
 
 	public function RightManagementAction()
 	{
+		if ($_GET['name'] == 'nop') {
+			$_GET['name'] = "/";
+		}
+
 		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		echo "<files>\n";
 		if (isset($_GET['pg']) && $_GET['pg'] == 1) {
@@ -29,11 +33,7 @@ class BrowserajaxController extends USVN_Controller
 		} else if (isset($_GET['pg']) && $_GET['pg'] == 2) {
 			$this->updateOrInsertRights();
 		} else {
-			if ($_GET['name'] == 'nop') {
-				$this->getListFile("/");
-			} else {
-				$this->getListFile($_GET['name']);
-			}
+			$this->getListFile($_GET['name']);
 		}
 		echo "</files>";
 	}
@@ -66,49 +66,72 @@ class BrowserajaxController extends USVN_Controller
 	{
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
-		$txthtml = $this->getTopLink($path) . "
-<br />
-<table class=\"usvn_table\">
-    <thead>
-        <tr>
-            <th>" . T_('Name') . "</th>
-            <th>" . T_('Action') . "</th>
-        </tr>
-    </thead>
-    <tbody>
-";
-		if ($path != "/" && $path != "//") {
-			if (dirname($path) == "\\") {
-				$pathbefore = "/";
-			} else {
-				$pathbefore = dirname($path) . "/";
+
+		ob_start();
+		echo $this->getTopLink($path);
+		echo "<br />";
+
+		$user = $this->getRequest()->getParam('user');
+		/* @var $user USVN_Db_Table_Row_User */
+		$table = new USVN_Db_Table_Projects();
+		$project = $table->findByName($this->getRequest()->getParam('project'));
+
+		$read = false;
+		$acces_rights = new USVN_FilesAccessRights($project->id);
+		$groups = $user->getAllGroupsFor($project);
+		foreach ($groups as $group) {
+			$access = $acces_rights->findByPath($group->id, $path);
+			if ($access['read']) {
+				$read = true;
+				break;
 			}
-			$txthtml .= "<tr><td>" .$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
-			$txthtml .= "<a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 		}
-		foreach ($tab as &$tabl) {
-			$txthtml .= "<tr>";
-            $dir = false;
-			if ($tabl['isDirectory'] == 1) {
-                $dir = true;
-				$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
-            }
-			else{
-				$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
-            }
-			$txthtml .= "<td>".$tabl['isDirectory'];
-			if ($dir) {
-				$txthtml .= "<a href='javascript:ajax(3, "."\"".$tabl['path']."\"".");'>".$tabl['name']."</a></td>";
-			} else {
-				$txthtml .= "<a>".$tabl['name']."</a></td>";
+
+		if (!$read && ($user->is_admin || $project->userIsAdmin($user))) {
+			$read = true;
+		}
+
+		if ($read) {
+			echo '<table class="usvn_table">';
+			echo '<thead>';
+			echo '<tr><th>', T_('Name'), '</th><th>', T_('Action'), '</th></tr>';
+			echo '</thead>';
+			echo '<tbody>';
+			if ($path != "/" && $path != "//") {
+				if (dirname($path) == "\\") {
+					$pathbefore = "/";
+				} else {
+					$pathbefore = dirname($path) . "/";
+				}
+				echo "<tr><td>" .$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
+				echo "<a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 			}
-			$txthtml .= "<td><a href='javascript:ajax(1, "."\"".$tabl['path']."\"".");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
+			foreach ($tab as &$tabl) {
+				echo "<tr>";
+				$dir = false;
+				if ($tabl['isDirectory'] == 1) {
+					$dir = true;
+					$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
+				}
+				else{
+					$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
+				}
+				echo "<td>{$tabl['isDirectory']}";
+				if ($dir) {
+					echo "<a href='javascript:ajax(3, \"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
+				} else {
+					echo "<a>{$tabl['name']}</a></td>";
+				}
+				echo "<td><a href='javascript:ajax(1, \"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
+			}
+			echo "</tbody></table>";
+		} else {
+			echo T_("You don't have read access to this folder");
 		}
-        $txthtml .= "
-            </tbody>
-</table>
-";
-		echo "<txthtml><![CDATA[".$txthtml."]]></txthtml>\n";
+		$txthtml = ob_get_clean();
+		echo "<txthtml><![CDATA[";
+		echo $txthtml;
+		echo "]]></txthtml>\n";
 		$this->view->browser = $tab;
 	}
 

@@ -69,7 +69,7 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	 * Return the project by his name
 	 *
 	 * @param string $name
-	 * @return USVN_Db_Table_Row
+	 * @return USVN_Db_Table_Row_Project
 	 */
 	public function findByName($name)
 	{

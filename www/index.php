@@ -34,26 +34,66 @@ $routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTIO
  */
 USVN_Template::initTemplate($config->template->name, USVN_MEDIAS_DIRECTORY);
 
-/**
- * Get back the front controller and initialize some values
- */
-$front = Zend_Controller_Front::getInstance();
-$front->setRequest(new USVN_Controller_Request_Http());
+try {
+	/**
+	 * Get back the front controller and initialize some values
+	 */
+	$front = Zend_Controller_Front::getInstance();
+	$front->setRequest(new USVN_Controller_Request_Http());
 
-$front->throwExceptions(true);
+	$front->throwExceptions(true);
 
-$front->setBaseUrl($config->url->base);
+	$front->setBaseUrl($config->url->base);
 
-/**
- * Initialize router
- */
-$router = new Zend_Controller_Router_Rewrite();
-$router->addConfig($routes_config, 'routes');
+	/**
+	 * Initialize router
+	 */
+	$router = new Zend_Controller_Router_Rewrite();
+	$router->addConfig($routes_config, 'routes');
 
-$front->setRouter($router);
+	$front->setRouter($router);
 
-$front->setControllerDirectory(USVN_CONTROLLERS_DIR);
+	$front->setControllerDirectory(USVN_CONTROLLERS_DIR);
 
-$front->registerPlugin(new USVN_plugins_layout());
+	$front->registerPlugin(new USVN_plugins_layout());
 
-$front->dispatch();
+	$front->dispatch();
+}
+catch (Exception $e)
+{
+	try {
+
+		/**
+		 * Get back the front controller and initialize some values
+		 */
+		Zend_Controller_Front::getInstance()->resetInstance();
+		$front = Zend_Controller_Front::getInstance();
+		$request = new USVN_Controller_Request_Http();
+
+		$front->setRequest($request);
+
+		$front->throwExceptions(true);
+
+		$front->setBaseUrl($config->url->base);
+		$request->setBasePath($config->url->base);
+		$request->setBaseUrl($config->url->base);
+		$request->setRequestUri($config->url->base . "/404/");
+
+		/**
+		 * Initialize router
+		 */
+		$router = new Zend_Controller_Router_Rewrite();
+		$router->addConfig($routes_config, 'routes');
+
+		$front->setRouter($router);
+
+		$front->setControllerDirectory(USVN_CONTROLLERS_DIR);
+
+		$front->registerPlugin(new USVN_plugins_layout());
+
+		$front->dispatch();
+	}
+	catch (Exception $e) {
+		echo $e->getMessage();
+	}
+}

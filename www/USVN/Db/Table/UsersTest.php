@@ -304,10 +304,10 @@ class USVN_Db_Table_UsersTest extends USVN_Test_DB {
 
 	public function testUserUpdateHtpasswdBadPath()
 	{
-		$configArray = array('subversion' => array('passwd' => 'titi/'));
+		$configArray = array('subversion' => array('passwd' => 'titi/toto'));
 		$config = new Zend_Config($configArray);
 		Zend_Registry::set('config', $config);
-		try	{
+		try {
 			$table = new USVN_Db_Table_Users();
 			$table->updateHtpasswd();
 		}

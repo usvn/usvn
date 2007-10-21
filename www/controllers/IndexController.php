@@ -26,4 +26,8 @@ class IndexController extends USVN_Controller {
 		$projects = new USVN_Db_Table_Projects();
 		$this->view->projects = $projects->fetchAllAssignedTo($this->getRequest()->getParam('user'));
 	}
+
+	public function errorAction()
+	{
+	}
 }

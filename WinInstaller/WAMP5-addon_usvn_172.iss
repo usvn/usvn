@@ -1,7 +1,7 @@
 [Setup]
 AppName=USVN
 AppVerName=Userfriendly SVN
-OutputBaseFilename=USVN_07_add-on_173
+OutputBaseFilename=USVN_065_add-on_173
 AppPublisher=Userfriendly SVN
 AppPublisherURL=http://www.usvn.info
 AppSupportURL=http://www.usvn.info
@@ -260,7 +260,12 @@ begin
   DeleteFile (FileName + '\USVN\info.txt');
   SaveStringToFile(FileName + '\USVN\info.txt', SrcContent4, false);
   Res := IsAUpdate(FileName);
-
+  if Res = True then begin
+    Version := GetUSVNVersion(FileName);
+    if Version = '0.6.5' then begin
+      Res := false;
+    end;
+  end;
   if Res = True then begin
     //Update
     Version := GetUSVNVersion(FileName);

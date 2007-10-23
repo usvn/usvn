@@ -178,6 +178,7 @@ class Install
 		if (0 === strpos(PHP_OS, 'WIN')) {
 			$config->system = array("locale" => 'en_US.UTF-8');
 			$config->save();
+			return;
 		}
 		exec("locale -a", $locales);
 		foreach ($locales as $locale) {

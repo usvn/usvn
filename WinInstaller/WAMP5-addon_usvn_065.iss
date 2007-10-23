@@ -122,6 +122,8 @@ begin
   LoadStringFromFile (FileName + '\USVN\config.ini', SrcContent4);
   StringChangeEx(SrcContent4, 'url.base = "/usvn"', 'url.base = "' + URL.Values[0] + '"', True);
   StringChangeEx(SrcContent4, 'subversion.path = ""', 'subversion.path = "' + FileName2 + '/USVN/files/"', True);
+  StringChangeEx(SrcContent4, 'subversion.passwd = ""', 'subversion.passwd = "' + FileName2 + '/USVN/files/htpasswd"', True);
+  StringChangeEx(SrcContent4, 'subversion.authz = ""', 'subversion.authz = "' + FileName2 + '/USVN/files/authz"', True);
   StringChangeEx(SrcContent4, 'database.options.dbname = ""', 'database.options.dbname = "' + FileName2 + '/USVN/files/usvn.db"', True);
   DeleteFile (FileName + '\USVN\config.ini');
   SaveStringToFile(FileName + '\USVN\config.ini', SrcContent4, false);

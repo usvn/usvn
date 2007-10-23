@@ -72,13 +72,13 @@ class InstallCommandLine_Test extends PHPUnit_Framework_TestCase {
 
 	public function testNoEnoughArgument()
 	{
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php test", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php test test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php test test", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php test test test test test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php test test test test test", $return);
 		$this->assertEquals(1, $return, $message);
 	}
 
@@ -106,7 +106,7 @@ database.adapterName = "PDO_SQLITE"
 database.prefix = "usvn_"
 database.options.dbname = "../tests/usvn.db"
 		');
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php ../tests/config.ini ../tests/htaccess admin testtest", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php ../tests/config.ini ../tests/htaccess admin testtest", $return);
 		$this->assertEquals(0, $return, $message);
 		echo $message;
 		$config = new USVN_Config_Ini('../tests/config.ini', 'general');

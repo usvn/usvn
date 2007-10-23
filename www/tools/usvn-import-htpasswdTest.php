@@ -72,23 +72,23 @@ class importHtpasswdCommandLine_Test extends USVN_Test_DB {
 
 	public function testNoEnoughArgument()
 	{
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("tools/usvn-import-htpasswd.php", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-htpasswd.php", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("tools/usvn-import-htpasswd.php test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-htpasswd.php test", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("tools/usvn-import-htpasswd.php test test test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-htpasswd.php test test test", $return);
 		$this->assertEquals(1, $return, $message);
 	}
 
 	public function testbadHtpasswdFile()
 	{
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("tools/usvn-import-htpasswd.php ../tests/config-db.ini ../tests/htpasswd", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-htpasswd.php ../tests/config-db.ini ../tests/htpasswd", $return);
 		$this->assertEquals(1, $return, $message);
 	}
 
 	public function testbadConfigFile()
 	{
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("tools/usvn-import-htpasswd.php fake.ini ../tests/fake", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-htpasswd.php fake.ini ../tests/fake", $return);
 		$this->assertEquals(1, $return, $message);
 	}
 

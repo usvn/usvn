@@ -140,6 +140,8 @@ database.options.dbname = "../tests/usvn.db"
 		$user = $user_table->fetchRow(array('users_login = ?' => 'admin'));
 		$this->assertEquals(1, $user->is_admin);
 		$this->assertTrue(USVN_Crypt::checkPassword("testtest", $user->password));
+		
+		$db->closeConnection();
 	}
 
 	public function testAlreadyInstall()
@@ -163,8 +165,6 @@ version = "0.6.3"
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php ../tests/config.ini ../tests/htaccess admin testtest", $return);
 		$this->assertEquals(1, $return, $message);
 	}
-
-
 }
 
 // Call InstallCommandLine_Test::main() if this source file is executed directly.

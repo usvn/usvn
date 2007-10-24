@@ -202,7 +202,7 @@ class Install
 	*/
 	static public function installSubversion($config_file, $path, $passwd, $authz, $url)
 	{
-		if (substr($path, -1) != DIRECTORY_SEPARATOR) {
+		if (substr($path, -1) != DIRECTORY_SEPARATOR && substr($path, -1) != '/') {
 			$path .= DIRECTORY_SEPARATOR;
 		}
 		if (substr($url, -1) != '/') {

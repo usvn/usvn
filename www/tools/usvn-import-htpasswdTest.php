@@ -95,7 +95,7 @@ class importHtpasswdCommandLine_Test extends USVN_Test_DB {
 	public function testImportHtpasswd()
 	{
 		file_put_contents('../tests/htpasswd', "noplay:BD3ZmTBhHmWJs\nstem:1YApoa5EK/WFs");
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("tools/usvn-import-htpasswd.php ../tests/config-db.ini ../tests/htpasswd", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-htpasswd.php ../tests/config-db.ini ../tests/htpasswd", $return);
 		$this->assertEquals(0, $return, $message);
 		echo $message;
 		chdir($this->_path); //Else SQLite doesn't work

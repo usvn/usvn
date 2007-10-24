@@ -250,15 +250,16 @@ class USVN_SVNUtils
         }
         return $res;
 	}
-	
+		
 	/**
 	 * This code work only for directory
+	 * Directory separator need to be / 
 	 */
 	private static function getCannocialPath($path)
 	{
 		$origpath = $path;
-		$path = preg_replace('#' . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR .'+#', DIRECTORY_SEPARATOR, $path);
-		$list_path = preg_split('#' . DIRECTORY_SEPARATOR . '#', $path, -1, PREG_SPLIT_NO_EMPTY);
+		$path = preg_replace('#//+#', '/', $path);
+		$list_path = preg_split('#/#', $path, -1, PREG_SPLIT_NO_EMPTY);
 		$i = 0;
 		while (isset($list_path[$i])) {
 			if ($list_path[$i] == '..') {
@@ -282,7 +283,7 @@ class USVN_SVNUtils
 		$first = true;
 		foreach ($list_path as $path) {
 			if (!$first) {
-				$newpath .= DIRECTORY_SEPARATOR;
+				$newpath .= '/';
 			}
 			else {
 				$first = false;
@@ -292,7 +293,7 @@ class USVN_SVNUtils
 		if ($origpath[0] == '/') {
 			return '/' . $newpath;
 		}
-		return getcwd() . DIRECTORY_SEPARATOR . $newpath;
+		return getcwd() . '/' . $newpath;
 	}
 
 	/**
@@ -305,11 +306,14 @@ class USVN_SVNUtils
 	{
 		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
 			$newpath = realpath($path);
-			if ($newpath !== FALSE) {
+			if ($newpath === FALSE) {
+				$path = str_replace('//', '/', str_replace('\\', '/', $path));
+				$path = USVN_SVNUtils::getCannocialPath($path);
+			}
+			else {
 				$path = $newpath;
 			}
-			$path = str_replace('//', '/', str_replace('\\', '/', $path));
-			return "\"file:///" . $path . "\"";
+			return "\"file:///" . str_replace('\\', '/', $path) . "\"";
 		}
 		$newpath = realpath($path);
 		if ($newpath === FALSE) {

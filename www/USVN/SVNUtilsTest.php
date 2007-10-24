@@ -191,10 +191,15 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 
 	public function test_getRepositoryPath()
 	{
-		$this->assertEquals("'file:///tata/tutu'", USVN_SVNUtils::getRepositoryPath("//.././tata/tutu"));
-		$this->assertEquals("'file://" . getcwd() . "/tata/tutu'", USVN_SVNUtils::getRepositoryPath("./tata/tutu"));
-		$this->assertEquals("'file:///tutu'", USVN_SVNUtils::getRepositoryPath("//tata/../tutu"));
-		$this->assertEquals("'file:///'", USVN_SVNUtils::getRepositoryPath("//.."));
+		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
+			$this->assertEquals('"file:///' . str_replace('\\', '/', getcwd()) . '/tata/tutu"', USVN_SVNUtils::getRepositoryPath("./tata/tutu"));
+		}
+		else {
+			$this->assertEquals("'file:///tata/tutu'", USVN_SVNUtils::getRepositoryPath("//.././tata/tutu"));
+			$this->assertEquals("'file://" . getcwd() . "/tata/tutu'", USVN_SVNUtils::getRepositoryPath("./tata/tutu"));
+			$this->assertEquals("'file:///tutu'", USVN_SVNUtils::getRepositoryPath("//tata/../tutu"));
+			$this->assertEquals("'file:///'", USVN_SVNUtils::getRepositoryPath("//.."));
+		}
 	}
 }
 

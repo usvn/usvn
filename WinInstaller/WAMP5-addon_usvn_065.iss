@@ -181,6 +181,16 @@ begin
     if Result = False then begin
       MsgBox('URI incorrect (exemple : /usvn/)', mbCriticalError, MB_OK);
     end;
+    i:=Length(URL.Values[1]);
+    if i = 0 then begin
+      Result := False;
+      MsgBox('Your login must have at least 1 caractere.', mbCriticalError, MB_OK);
+    end;
+    i:=Length(URL.Values[2]);
+    if i < 8 then begin
+      Result := False;
+      MsgBox('Your password must have at least 8 caracteres.', mbCriticalError, MB_OK);
+    end;
 end;
 
 procedure InitializeWizard;

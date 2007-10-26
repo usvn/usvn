@@ -284,7 +284,7 @@ begin
   StringChangeEx(SrcContent4, 'php', 'php install/install-commandline.php config.ini .htaccess ' + URL.Values[1] + ' ' + URL.Values[2], True);
   DeleteFile (FileName + '\USVN\install.bat');
   SaveStringToFile(FileName + '\USVN\install.bat', SrcContent4, false);
-  ShellExec('open', FileName2 + '/USVN/install.bat', '', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode)
+  ShellExec('open', FileName2 + '/USVN/install.bat', '', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode)
 end;
 [Run]
 ;Filename: "{app}\USVN\svn-1.4.3-setup.exe"; Description: "Launch SVN installation now"; Flags:shellexec postinstall skipifsilent runhidden

@@ -167,6 +167,23 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		}
 	}
 
+	public function test_listSvnSpecialCharDirectory()
+	{
+		if (!(substr(php_uname(), 0, 7) == "Windows")) {
+			USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+			USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
+			$path = getcwd();
+			chdir('tests/tmp/out');
+			mkdir('trunk/c++');
+			`svn add trunk/c++`;
+			`svn commit --non-interactive -m Test`;
+			chdir($path);
+			$res = USVN_SVNUtils::listSvn('tests/tmp/svn directory', '/trunk');
+			$this->assertEquals(1, count($res));
+			$this->assertContains(array("name" => "c++", "isDirectory" => true, "path" => "/trunk/c++/"), $res);
+		}
+	}
+	
 	public function test_listSvnBadDir()
 	{
 		try {

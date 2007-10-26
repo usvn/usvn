@@ -25,7 +25,6 @@ class BrowserajaxController extends USVN_Controller
 		if ($_GET['name'] == 'nop') {
 			$_GET['name'] = "/";
 		}
-
 		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		echo "<files>\n";
 		if (isset($_GET['pg']) && $_GET['pg'] == 1) {
@@ -65,8 +64,8 @@ class BrowserajaxController extends USVN_Controller
 	private function getListFile($path)
 	{
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
+		throw new USVN_Exception("TEST");
 		$tab = $SVN->listFile($path);
-
 		ob_start();
 		echo $this->getTopLink($path);
 		echo "<br />";

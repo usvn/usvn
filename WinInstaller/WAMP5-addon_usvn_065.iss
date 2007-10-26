@@ -267,7 +267,7 @@ var FileName2: String;
 var ErrorCode: Integer;
 var SrcContent4: String;
 var Res: Boolean;
-var Version: String;
+
 begin
 
   FileName:= ExpandConstant(FileName);
@@ -287,13 +287,33 @@ procedure ConfigInstallBAT(FileName: String);
 var FileName2: String;
 var ErrorCode: Integer;
 var SrcContent4: String;
+var Version: String;
+var Res: Boolean;
+
 begin
   FileName:= ExpandConstant(FileName);
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
+
   LoadStringFromFile (FileName + '\USVN\install.bat', SrcContent4);
-  StringChangeEx(SrcContent4, 'cd', 'cd ' + FileName + '\USVN\', True);
-  StringChangeEx(SrcContent4, 'php', 'php install/install-commandline.php config.ini .htaccess ' + URL.Values[1] + ' ' + URL.Values[2], True);
+
+  Res := IsAUpdate(FileName);
+  if Res = True then begin
+    Version := GetUSVNVersion(FileName);
+    if Version = '0.6.5' then begin
+      exit;
+    end;
+  end;
+  if Res = True then begin
+  //Upgrade
+  StringChangeEx(SrcContent4, 'cd', 'cd ' + FileName + '\USVN\update\' + Version + '\', True);
+  StringChangeEx(SrcContent4, 'php', 'php index.php', True);
+  end
+  else begin
+   //First Installation
+    StringChangeEx(SrcContent4, 'cd', 'cd ' + FileName + '\USVN\', True);
+    StringChangeEx(SrcContent4, 'php', 'php install/install-commandline.php config.ini .htaccess ' + URL.Values[1] + ' ' + URL.Values[2], True);
+  end;
   DeleteFile (FileName + '\USVN\install.bat');
   SaveStringToFile(FileName + '\USVN\install.bat', SrcContent4, false);
   ShellExec('open', FileName2 + '/USVN/install.bat', '', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode)

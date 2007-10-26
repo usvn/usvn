@@ -275,6 +275,8 @@ begin
   StringChange (FileName2, '\','/');
   LoadStringFromFile (FileName + '\USVN\info.txt', SrcContent4);
   StringChangeEx(SrcContent4, 'USVN url : http://localhost/usvn/', 'USVN url : http://localhost' + URL.Values[0], True);
+  StringChangeEx(SrcContent4, 'login :', 'login : ' + URL.Values[1], True);
+  StringChangeEx(SrcContent4, 'password :', 'password : ' + URL.Values[2], True);
   DeleteFile (FileName + '\USVN\info.txt');
   SaveStringToFile(FileName + '\USVN\info.txt', SrcContent4, false);
   ShellExec('open', FileName2 + '/USVN/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)

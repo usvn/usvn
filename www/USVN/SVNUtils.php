@@ -250,6 +250,50 @@ class USVN_SVNUtils
         }
         return $res;
 	}
+	
+	/**
+	 * This code work only for directory
+	 */
+	private static function getCannocialPath($path)
+	{
+		$origpath = $path;
+		$path = preg_replace('#' . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR .'+#', DIRECTORY_SEPARATOR, $path);
+		$list_path = preg_split('#' . DIRECTORY_SEPARATOR . '#', $path, -1, PREG_SPLIT_NO_EMPTY);
+		$i = 0;
+		while (isset($list_path[$i])) {
+			if ($list_path[$i] == '..') {
+				unset($list_path[$i]);
+				if ($i > 0) {
+					unset($list_path[$i - 1]);
+				}
+				$list_path = array_values($list_path);
+				$i = 0;
+			}
+			elseif ($list_path[$i] == '.') {
+				unset($list_path[$i]);
+				$list_path = array_values($list_path);
+				$i = 0;
+			}
+			else {
+				$i++;
+			}
+		}
+		$newpath = '';
+		$first = true;
+		foreach ($list_path as $path) {
+			if (!$first) {
+				$newpath .= DIRECTORY_SEPARATOR;
+			}
+			else {
+				$first = false;
+			}
+			$newpath .= $path; 
+		}
+		if ($origpath[0] == '/') {
+			return '/' . $newpath;
+		}
+		return getcwd() . DIRECTORY_SEPARATOR . $newpath;
+	}
 
 	/**
 	 * Return clean version of a Subversion repository path betwenn ' and with file:// before
@@ -265,8 +309,12 @@ class USVN_SVNUtils
 				$path = $newpath;
 			}
 			$path = str_replace('//', '/', str_replace('\\', '/', $path));
-			return "\"file:///".$path."\"";
+			return "\"file:///" . $path . "\"";
 		}
-		return escapeshellarg('file://' . realpath($path));
+		$newpath = realpath($path);
+		if ($newpath === FALSE) {
+			$newpath = USVN_SVNUtils::getCannocialPath($path);
+		}
+		return escapeshellarg('file://' . $newpath);
 	}
 }

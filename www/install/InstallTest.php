@@ -107,8 +107,9 @@ class InstallTest extends USVN_Test_Test {
 	{
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             mkdir('tests/tmp2');
-            Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2', 'http://test.com');
+            Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2', "tests\\\\htpasswd", "tests\\\\authz", 'http://test.com');
             $this->assertTrue(file_exists("tests/tmp2/config.ini"));
+            $this->assertTrue(file_exists("tests/authz"));
             $config = new Zend_Config_Ini("tests/tmp2/config.ini", "general");
             $this->assertEquals("tests\\tmp2\\", $config->subversion->path);
         }
@@ -232,7 +233,7 @@ subversion.authz=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "a
 subversion.passwd=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 site.title=USVN
 		");
-		$this->assertEquals(
+		$test = 
 "<Location /dev/usvn/>
 	ErrorDocument 404 default
 	DAV svn
@@ -244,8 +245,9 @@ site.title=USVN
 	AuthUserFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
 </Location>
-",
-		Install::getApacheConfig("tests/tmp/config.ini"));
+";
+		$test = str_replace("\r", "", $test);
+		$this->assertEquals($test, Install::getApacheConfig("tests/tmp/config.ini"));
 	}
 
 	public function testGetApacheConfigWithSSL()
@@ -257,7 +259,7 @@ subversion.authz=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "a
 subversion.passwd=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 site.title=USVN
 		");
-		$this->assertEquals(
+		$test =
 "<Location /dev/usvn/>
 	ErrorDocument 404 default
 	DAV svn
@@ -270,8 +272,9 @@ site.title=USVN
 	AuthUserFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
 </Location>
-",
-		Install::getApacheConfig("tests/tmp/config.ini"));
+";
+		$test = str_replace("\r", "", $test);
+		$this->assertEquals($test, Install::getApacheConfig("tests/tmp/config.ini"));
 	}
 
 	public function testcheckSystem()

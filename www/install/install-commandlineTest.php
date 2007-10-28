@@ -72,13 +72,13 @@ class InstallCommandLine_Test extends PHPUnit_Framework_TestCase {
 
 	public function testNoEnoughArgument()
 	{
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php test", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php test test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php test test", $return);
 		$this->assertEquals(1, $return, $message);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("install/install-commandline.php test test test test test", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php install/install-commandline.php test test test test test", $return);
 		$this->assertEquals(1, $return, $message);
 	}
 

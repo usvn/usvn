@@ -57,6 +57,7 @@ function get_ajax(index)
 
 function dumpRights(file)
 {
+	file = encodeURIComponent(file);
 	var groupe = get_groupe(); 
 	var xhr = get_ajax(1);
 	xhr.open("GET",
@@ -74,6 +75,7 @@ function dumpRights(file)
 
 function updateOrInsertRights(file)
 {
+	file = encodeURIComponent(file);
 	var groupe = get_groupe(); 
 	var xhr = get_ajax(2);
 	var text = get_groupe_text();
@@ -89,7 +91,8 @@ function updateOrInsertRights(file)
 
 function getListFile(file)
 {
-	xhr = get_ajax(3);
+	file = encodeURIComponent(file);
+	var xhr = get_ajax(3);
 	xhr.open("GET",
 		"<?php
 			echo $this->url(

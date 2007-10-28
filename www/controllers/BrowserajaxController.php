@@ -64,7 +64,6 @@ class BrowserajaxController extends USVN_Controller
 	private function getListFile($path)
 	{
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
-		throw new USVN_Exception("TEST");
 		$tab = $SVN->listFile($path);
 		ob_start();
 		echo $this->getTopLink($path);
@@ -117,7 +116,7 @@ class BrowserajaxController extends USVN_Controller
 				}
 				echo "<td>{$tabl['isDirectory']}";
 				if ($dir) {
-					echo "<a href='javascript:ajax(3, \"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
+					echo "<a href='javascript:ajax(3, \"" . urlencode($tabl['path']) . "\");'>{$tabl['name']}</a></td>";
 				} else {
 					echo "<a>{$tabl['name']}</a></td>";
 				}

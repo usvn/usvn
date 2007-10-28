@@ -101,12 +101,10 @@ try {
 
 	$front->dispatch();
 
-} catch (Exception $e) {
+}
+catch (Zend_Controller_Dispatcher_Exception $e) {
 	try {
 
-		/**
-		 * Get back the front controller and initialize some values
-		 */
 		Zend_Controller_Front::getInstance()->resetInstance();
 		$front = Zend_Controller_Front::getInstance();
 		$request = new USVN_Controller_Request_Http();
@@ -120,9 +118,6 @@ try {
 		$request->setBaseUrl($config->url->base);
 		$request->setRequestUri($config->url->base . "/404/");
 
-		/**
-		 * Initialize router
-		 */
 		$router = new Zend_Controller_Router_Rewrite();
 		$router->addConfig($routes_config, 'routes');
 

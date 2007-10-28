@@ -29,4 +29,9 @@ define('USVN_VIEWS_DIR', dirname(__FILE__) . '/views/');
 define('USVN_MENUS_DIR', dirname(__FILE__) . '/menus/');
 define('USVN_HELPERS_DIR', dirname(__FILE__) . '/helpers/');
 
-require_once USVN_DIRECTORY . '/bootstrap.php';
+try {
+	require_once USVN_DIRECTORY . '/bootstrap.php';
+}
+catch (Exception $e) {
+	echo $e->getMessage() . '<br/><br/>Stacktrace:<br />' . nl2br($e->getTraceAsString());
+}

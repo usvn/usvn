@@ -59,7 +59,7 @@ try {
 
 	$front->dispatch();
 }
-catch (Exception $e)
+catch (Zend_Controller_Dispatcher_Exception $e)
 {
 	try {
 
@@ -96,4 +96,7 @@ catch (Exception $e)
 	catch (Exception $e) {
 		echo $e->getMessage();
 	}
+}
+catch (Exception $e) {
+	echo $e->getMessage() . '<br/><br/>Stacktrace:<br />' . nl2br($e->getTraceAsString());
 }

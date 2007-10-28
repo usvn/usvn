@@ -18,25 +18,24 @@
  */
 class BrowserajaxController extends USVN_Controller
 {
-    protected $_mimetype = 'text/xml';
+	protected $_mimetype = 'text/xml';
 
-	public function RightManagementAction()
+	public function preDispatch()
 	{
+		parent::preDispatch();
 		if ($_GET['name'] == 'nop') {
 			$_GET['name'] = "/";
 		}
 		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		echo "<files>\n";
-		if (isset($_GET['pg']) && $_GET['pg'] == 1) {
-			$this->dumpRights();
-		} else if (isset($_GET['pg']) && $_GET['pg'] == 2) {
-			$this->updateOrInsertRights();
-		} else {
-			$this->getListFile($_GET['name']);
-		}
-		echo "</files>";
 	}
-
+	
+	public function postDispatch()
+	{
+		echo "</files>";
+		parent::postDispatch();
+	}
+	
 	private function getTopLink($path)
 	{
 		$str = "<h2>";
@@ -49,7 +48,7 @@ class BrowserajaxController extends USVN_Controller
 		}
 		$list = array_reverse($list);
 		foreach ($list as $path) {
-			$str .= '<a href=\'javascript:ajax(3, "' . $path . '");\'>' . basename($path) . '</a>&nbsp;/&nbsp;';
+			$str .= '<a href=\'javascript:ajax(3, "' . urlencode($path) . '");\'>' . basename($path) . '</a>&nbsp;/&nbsp;';
 		}
 		$str .= "</h2>";
 		$str .= "<h3><a href='javascript:ajax(1, \"{$path}\");'>";
@@ -59,10 +58,11 @@ class BrowserajaxController extends USVN_Controller
 	}
 
 	/**
-	* Get list files of subversion directory.
-	*/
-	private function getListFile($path)
+	 * Get list files of subversion directory.
+	 */
+	public function GetListFileAction()
 	{
+		$path = $_GET['name'];
 		$SVN = new USVN_SVN($this->_request->getParam('project'));
 		$tab = $SVN->listFile($path);
 		ob_start();
@@ -105,6 +105,7 @@ class BrowserajaxController extends USVN_Controller
 				echo "<a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
+				$tabl['path'] = urlencode($tabl['path']);
 				echo "<tr>";
 				$dir = false;
 				if ($tabl['isDirectory'] == 1) {
@@ -116,7 +117,7 @@ class BrowserajaxController extends USVN_Controller
 				}
 				echo "<td>{$tabl['isDirectory']}";
 				if ($dir) {
-					echo "<a href='javascript:ajax(3, \"" . urlencode($tabl['path']) . "\");'>{$tabl['name']}</a></td>";
+					echo "<a href='javascript:ajax(3, \"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
 				} else {
 					echo "<a>{$tabl['name']}</a></td>";
 				}
@@ -134,9 +135,9 @@ class BrowserajaxController extends USVN_Controller
 	}
 
 	/**
-	* If files exist dump rights
-	*/
-	private function dumpRights()
+	 * If files exist dump rights
+	 */
+	public function DumpRightsAction()
 	{
 		$text = "";
 		$table_project = new USVN_Db_Table_Projects();
@@ -162,13 +163,13 @@ class BrowserajaxController extends USVN_Controller
 			$grp_name = $res_groups->groups_name;
 			$text .= "<tr><td weight=10%><label id=Lb".$i.">".$grp_name."</label></td>";
 			if ($access['read'] == 1)
-				$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
+			$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' checked onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
 			else
-				$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
+			$text .= "<td width=3% align=center><input id='checkRead".$grp_name."' type='checkbox' onclick='javascript:fctRead("."\"".$grp_name."\"".");' $disabled/></td>";
 			if ($access['write'] == 1)
-				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
+			$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' checked onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
 			else
-				$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
+			$text .= "<td width=3% align=center><input id='checkWrite".$grp_name."' type='checkbox' onclick='javascript:fctWrite("."\"".$grp_name."\"".");' $disabled/></td></tr>";
 			$i++;
 		}
 		$text .= "</table>";
@@ -180,9 +181,9 @@ class BrowserajaxController extends USVN_Controller
 	}
 
 	/**
-	* If files exist update rights if not insert rights
-	*/
-	private function updateOrInsertRights()
+	 * If files exist update rights if not insert rights
+	 */
+	public function UpdateOrInsertRightsAction()
 	{
 		try
 		{
@@ -205,10 +206,10 @@ class BrowserajaxController extends USVN_Controller
 				$table_group = new USVN_Db_Table_Groups();
 				$res_groups = $table_group->findByGroupsName($group);
 				$acces_rights->setRightByPath(
-					$res_groups->groups_id,
-					$_GET['name'],
-					($tabrights[$j] == 'true' ? true : false),
-					($tabrights[$j + 1] == 'true' ? true : false)
+				$res_groups->groups_id,
+				$_GET['name'],
+				($tabrights[$j] == 'true' ? true : false),
+				($tabrights[$j + 1] == 'true' ? true : false)
 				);
 				$j += 2;
 			}

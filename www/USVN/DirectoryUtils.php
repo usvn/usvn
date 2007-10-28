@@ -90,4 +90,25 @@ class USVN_DirectoryUtils
 		mkdir($path);
 		return $path;
 	}
+	
+	/**
+	 * Return true if path === / on Unix or path == C: or D: or ... on Windows
+	 * 
+	 * @param Path
+	 * @return boolean
+	 */
+	static public function isRootDirectory($path)
+	{
+		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
+			if (!preg_match('#[A-Z]:([\\\\/]+).+#', $path)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return $path === '/';
+		}
+	}
 }

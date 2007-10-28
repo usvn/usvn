@@ -39,7 +39,7 @@ class BrowserajaxController extends USVN_Controller
 	private function getTopLink($path)
 	{
 		$str = "<h2>";
-		$str .= '<a href=\'javascript:ajax(3, "/");\'>root</a>&nbsp;/&nbsp;';
+		$str .= '<a href=\'javascript:getListFile("/");\'>root</a>&nbsp;/&nbsp;';
 		$list = array();
 		$path = preg_replace("#/+#", '/', $path);
 		while ($path != '/' && $path != '\\') {
@@ -48,10 +48,10 @@ class BrowserajaxController extends USVN_Controller
 		}
 		$list = array_reverse($list);
 		foreach ($list as $path) {
-			$str .= '<a href=\'javascript:ajax(3, "' . urlencode($path) . '");\'>' . basename($path) . '</a>&nbsp;/&nbsp;';
+			$str .= '<a href=\'javascript:getListFile("' . urlencode($path) . '");\'>' . basename($path) . '</a>&nbsp;/&nbsp;';
 		}
 		$str .= "</h2>";
-		$str .= "<h3><a href='javascript:ajax(1, \"{$path}\");'>";
+		$str .= "<h3><a href='javascript:dumpRights(\"{$path}\");'>";
 		$str .= sprintf(T_("Apply rights on %s"), $path);
 		$str .= "</a></h3>";
 		return $str;
@@ -102,7 +102,7 @@ class BrowserajaxController extends USVN_Controller
 					$pathbefore = dirname($path) . "/";
 				}
 				echo "<tr><td>" .$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
-				echo "<a href='javascript:ajax(3, " . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
+				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
 				$tabl['path'] = urlencode($tabl['path']);
@@ -117,11 +117,11 @@ class BrowserajaxController extends USVN_Controller
 				}
 				echo "<td>{$tabl['isDirectory']}";
 				if ($dir) {
-					echo "<a href='javascript:ajax(3, \"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
+					echo "<a href='javascript:getListFile(\"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
 				} else {
 					echo "<a>{$tabl['name']}</a></td>";
 				}
-				echo "<td><a href='javascript:ajax(1, \"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
+				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 			}
 			echo "</tbody></table>";
 		} else {
@@ -173,7 +173,7 @@ class BrowserajaxController extends USVN_Controller
 			$i++;
 		}
 		$text .= "</table>";
-		$text .= "<br /><table><tr><td><input type='button' value='Ok' onclick=\"javascript:ajax(2, '" . $_GET['name'] . "');\" $disabled/></td><td>";
+		$text .= "<br /><table><tr><td><input type='button' value='Ok' onclick=\"javascript:updateOrInsertRights('" . $_GET['name'] . "');\" $disabled/></td><td>";
 		$text .= "<input type='button' value='Cancel' onclick='javascript:cancel();'/></td></tr></table><label id='labelError'></label>";
 		echo "<basename>".basename($_GET['name'])."</basename>";
 		echo "<nbgroup>".$i."</nbgroup>\n";

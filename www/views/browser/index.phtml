@@ -22,33 +22,82 @@ function cancel()
 	document.getElementById('bulle').style.visibility = 'hidden';
 }
 
-function ajax(index, id)
+function get_groupe()
+{
+	var groupe = "";
+	for (i = 0; i < items_nbgroup; i++)
+	{
+		var grp = document.getElementById('Lb' + i).innerHTML;
+		groupe += grp + ",";
+	}
+	return groupe;
+}
+
+function get_groupe_text()
+{
+	var text = "";
+	for (i = 0; i < items_nbgroup; i++)
+	{
+		var grp = document.getElementById('Lb' + i).innerHTML;
+		text += document.getElementById('checkRead' + grp).checked + "," + document.getElementById('checkWrite' + grp).checked + ",";
+	}
+	return text;
+}
+
+function get_ajax(index)
 {
     var xhr=null;
     if (window.XMLHttpRequest)
         xhr = new XMLHttpRequest();
     else if (window.ActiveXObject)
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    xhr.onreadystatechange = function() { alert_ajax(xhr, index, id); };
-	var text = "";
-	var groupe = "";
-	for (i = 0; i < items_nbgroup; i++)
-	{
-		var grp = document.getElementById('Lb' + i).innerHTML;
-		text += document.getElementById('checkRead' + grp).checked + "," + document.getElementById('checkWrite' + grp).checked + ",";
-		groupe += grp + ",";
-	}
-	if (index == 1)
-	{
-		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'DumpRights?name="+ id + "&group="+ groupe.substring(0, groupe.length - 1) +"')); ?>", true);
-	}
-	if (index == 2)
-	{
-		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'UpdateOrInsertRights?name="+ id +"&rights="+ text.substring(0, text.length - 1) +
-		"&group="+ groupe.substring(0, groupe.length - 1) +"')); ?>", true);
-    }
-	if (index == 3)
-		xhr.open("GET", "<?php echo $this->url(array('controller' => 'browserajax', 'action' => 'GetListFile?name="+ id + "')); ?>", true);
+    xhr.onreadystatechange = function() { alert_ajax(xhr, index); };
+	return xhr;
+}
+
+function dumpRights(file)
+{
+	var groupe = get_groupe(); 
+	var xhr = get_ajax(1);
+	xhr.open("GET",
+		"<?php
+			echo $this->url(
+				array(
+					'controller' => 'browserajax',
+					'action' => 'DumpRights?name="+ file + "&group="+ groupe.substring(0, groupe.length - 1) +"'
+				)
+			);
+		?>",
+				true);
+	xhr.send(null);
+}
+
+function updateOrInsertRights(file)
+{
+	var groupe = get_groupe(); 
+	var xhr = get_ajax(2);
+	var text = get_groupe_text();
+	xhr.open("GET",
+		"<?php echo $this->url(
+			array(
+				'controller' => 'browserajax',
+				'action' => 'UpdateOrInsertRights?name="+ file +"&rights="+ text.substring(0, text.length - 1) +
+							"&group="+ groupe.substring(0, groupe.length - 1) +"'
+			)); ?>", true);
+	xhr.send(null);
+}
+
+function getListFile(file)
+{
+	xhr = get_ajax(3);
+	xhr.open("GET",
+		"<?php
+			echo $this->url(
+				array(
+					'controller' => 'browserajax',
+					'action' => 'GetListFile?name="+ file + "'
+				)
+			); ?>", true);
 	xhr.send(null);
 }
 
@@ -64,7 +113,7 @@ function fctRead(group)
 		document.getElementById('checkRead'+group).checked = true;
 }
 
-function alert_ajax(xhr, index, id)
+function alert_ajax(xhr, index)
 {
 	var docXML = xhr.responseXML;
 	if (docXML)
@@ -112,6 +161,6 @@ function alert_ajax(xhr, index, id)
 <script type="text/javascript">
 <!--
 register_position();
-ajax(3, 'nop');
+getListFile('nop');
 -->
 </script>

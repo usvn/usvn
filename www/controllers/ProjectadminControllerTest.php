@@ -114,6 +114,12 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$this->fail($this->getBody());
 	}
 
+	private function get_created_group()
+	{
+		$groups = new USVN_Db_Table_Groups();
+		return $groups->fetchRow(array('groups_name = ?' => 'Test'));
+	}
+
 	public function test_create()
 	{
 		$_POST["creategroup"] = 0;
@@ -121,6 +127,7 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$_POST["admin"] = 0;
 		$project = $this->create_project();
 		$this->assertFalse($project->userIsAdmin('god'));
+		$this->assertNull($this->get_created_group());
 	}
 
 	public function test_createUserIsAdmin()
@@ -130,6 +137,31 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$_POST["admin"] = 1;
 		$project = $this->create_project();
 		$this->assertTrue($project->userIsAdmin('god'));
+		$this->assertNull($this->get_created_group());
+	}
+
+	public function test_createGroupe()
+	{
+		$_POST["creategroup"] = 1;
+		$_POST["addmetogroup"] = 0;
+		$_POST["admin"] = 0;
+		$project = $this->create_project();
+		$this->assertFalse($project->userIsAdmin('god'));
+		$group = $this->get_created_group();
+		$this->assertNotNull($group);
+		$this->assertFalse($group->userIsGroupLeader($this->admin_user));
+	}
+
+	public function test_createGroupeWithLeader()
+	{
+		$_POST["creategroup"] = 1;
+		$_POST["addmetogroup"] = 1;
+		$_POST["admin"] = 0;
+		$project = $this->create_project();
+		$this->assertFalse($project->userIsAdmin('god'));
+		$group = $this->get_created_group();
+		$this->assertNotNull($group);
+		//$this->assertTrue($group->userIsGroupLeader($this->admin_user));
 	}
 
 	public function test_delete()

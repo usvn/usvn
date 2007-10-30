@@ -21,6 +21,8 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
+define('USVN_URL_SEP', ':');
+
 abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
     private $_path;
 

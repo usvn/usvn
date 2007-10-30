@@ -95,6 +95,43 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$this->runAction('new');
 	}
 
+	private function create_project()
+	{
+		$_POST["projects_name"] = 'Test';
+		$_POST["projects_description"] = 'A test project';
+		try {
+			$this->runAction('create');
+		}
+		catch (USVN_Test_Exception_Redirect $e) {
+			$projects = new USVN_Db_Table_Projects();
+			$project = $projects->fetchRow(array('projects_name = ?' => 'Test'));
+			$this->assertNotNull($project);
+			$this->assertEquals($project->description, 'A test project');
+			$this->assertEquals($project->name, 'Test');
+			$this->assertEquals($e->url, '/admin/project/');
+			return $project;
+		}
+		$this->fail($this->getBody());
+	}
+
+	public function test_create()
+	{
+		$_POST["creategroup"] = 0;
+		$_POST["addmetogroup"] = 0;
+		$_POST["admin"] = 0;
+		$project = $this->create_project();
+		$this->assertFalse($project->userIsAdmin('god'));
+	}
+
+	public function test_createUserIsAdmin()
+	{
+		$_POST["creategroup"] = 0;
+		$_POST["addmetogroup"] = 0;
+		$_POST["admin"] = 1;
+		$project = $this->create_project();
+		$this->assertTrue($project->userIsAdmin('god'));
+	}
+
 	public function test_delete()
 	{
 		$projects = new USVN_Db_Table_Projects();

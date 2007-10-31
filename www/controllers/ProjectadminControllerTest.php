@@ -128,6 +128,24 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$project = $this->create_project();
 		$this->assertFalse($project->userIsAdmin('god'));
 		$this->assertNull($this->get_created_group());
+		$this->assertEquals(
+			array(
+				array(
+					'name' => 'branches',
+					'isDirectory' => true,
+					'path' => '/branches/'
+				),
+				array(
+					'name' => 'tags',
+					'isDirectory' => true,
+					'path' => '/tags/'
+				),
+				array(
+					'name' => 'trunk',
+					'isDirectory' => true,
+					'path' => '/trunk/'
+				)
+			), USVN_SVNUtils::listSVN(Zend_Registry::get('config')->subversion->path . '/svn/Test', '/'));
 	}
 
 	public function test_createUserIsAdmin()
@@ -149,6 +167,8 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$this->assertFalse($project->userIsAdmin('god'));
 		$group = $this->get_created_group();
 		$this->assertNotNull($group);
+		$this->assertEquals('Test', $group->name);
+		$this->assertEquals("Autocreated group for project Test", $group->description);
 		$this->assertFalse($group->userIsGroupLeader($this->admin_user));
 	}
 
@@ -161,7 +181,7 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$this->assertFalse($project->userIsAdmin('god'));
 		$group = $this->get_created_group();
 		$this->assertNotNull($group);
-		//$this->assertTrue($group->userIsGroupLeader($this->admin_user));
+		$this->assertTrue($group->userIsGroupLeader($this->admin_user));
 	}
 
 	public function test_delete()

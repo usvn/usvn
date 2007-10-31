@@ -63,6 +63,7 @@ class USVN_Project
 
 		if ($create_group && $add_user_to_group) {
 			$group->addUser($user);
+			$group->promoteUser($user);
 		}
 		if ($create_admin) {
 			$project->addUser($user);

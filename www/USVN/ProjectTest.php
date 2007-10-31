@@ -79,6 +79,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
 
 		$this->assertTrue($group->userIsMember($this->_user), "L'utilisateur n'est pas membre du groupe " . $group->name);
+		$this->assertTrue($group->userIsGroupLeader($this->_user), "User is not leader of group " . $group->name);
 		$this->assertTrue($project->userIsAdmin($this->_user));
 	}
 
@@ -145,8 +146,26 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$table = new USVN_Db_Table_Groups();
 		$this->assertFalse($table->isAGroup('InsertProjectOk'), "Le groupe est cree alors qu'il ne doit pas");
 		$this->assertFalse($project->userIsAdmin($this->_user));
-	}
 
+		$this->assertEquals(
+			array(
+				array(
+					'name' => 'branches',
+					'isDirectory' => true,
+					'path' => '/branches/'
+				),
+				array(
+					'name' => 'tags',
+					'isDirectory' => true,
+					'path' => '/tags/'
+				),
+				array(
+					'name' => 'trunk',
+					'isDirectory' => true,
+					'path' => '/trunk/'
+				)
+			), USVN_SVNUtils::listSVN(Zend_Registry::get('config')->subversion->path . '/svn/InsertProjectOk', '/'));
+	}
 
 	public function testCreateProjectWithGroupWithInvalidAdmin()
 	{

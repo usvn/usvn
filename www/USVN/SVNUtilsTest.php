@@ -91,13 +91,19 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
 		$this->assertTrue(file_exists('tests/tmp/svn directory'));
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));
+	}
+
+	public function test_createStandardDirectories()
+	{
+		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+		USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
 		USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
 		$this->assertTrue(file_exists('tests/tmp/out'));
 		$this->assertTrue(file_exists('tests/tmp/out/trunk'));
 		$this->assertTrue(file_exists('tests/tmp/out/branches'));
 		$this->assertTrue(file_exists('tests/tmp/out/tags'));
 	}
-
+	
 	public function test_createSvnFR()
 	{
 		putenv("LANG=C");
@@ -105,11 +111,6 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
 		$this->assertTrue(file_exists('tests/tmp/svn directory'));
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));
-		USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
-		$this->assertTrue(file_exists('tests/tmp/out'));
-		$this->assertTrue(file_exists('tests/tmp/out/trunk'));
-		$this->assertTrue(file_exists('tests/tmp/out/branches'));
-		$this->assertTrue(file_exists('tests/tmp/out/tags'));
 	}
 
 	public function test_createSvnBadDir()
@@ -146,6 +147,7 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
 			USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+			USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
 			USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
 			$path = getcwd();
 			chdir('tests/tmp/out');
@@ -171,6 +173,7 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
 			USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+			USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
 			USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
 			$path = getcwd();
 			chdir('tests/tmp/out');

@@ -50,7 +50,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$project->save();
 
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
-		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
 	}
 
 	public function testInsertProjectWithMultiDirectoryOk()
@@ -61,7 +60,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$project->save();
 
 		$this->assertTrue($table->isAProject('test/ok/InsertProjectOk'), "Le projet n'est pas cree");
-		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/test/ok/InsertProjectOk'), "Le repository n'est pas cree");
 	}
 
 	public function testInsertUserToProjects()
@@ -108,29 +106,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
 	}
-
-	public function testInsertProjectOkSubDirectorySVNAlreadyExist()
-	{
-		USVN_SVNUtils::createSVN('tests/tmp/'
-		. DIRECTORY_SEPARATOR
-		. 'svn'
-		. DIRECTORY_SEPARATOR
-		. 'InsertProjectOk');
-
-		$new_project = 'InsertProjectOk' . DIRECTORY_SEPARATOR . 'OtherProject';
-		$table = new USVN_Db_Table_Projects();
-		$project = $table->fetchNew();
-		$project->setFromArray(array('projects_name' => $new_project,  'projects_start_date' => '1984-12-03 00:00:00'));
-		try {
-			$project->save();
-		}
-		catch (USVN_Exception $e) {
-			$this->assertContains("Can't create subversion repository", $e->getMessage());
-			return;
-		}
-		$this->fail("Il n'y a pas eu d'exception pour la creation d'un projet dans une mauvaise arborescence...");
-	}
-
+	
 	public function testInsertProjectNoName()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -176,26 +152,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->fail("Il n'y a pas eu d'exception pour un mauvais nom...");
 	}
 
-	public function testInsertProjectBadSubversionPath()
-	{
-		mkdir('tests/tmp/norights');
-		chmod('tests/tmp/norights', 0000);
-		$configArray = array('subversion' => array('path' => 'tests/tmp/norights'));
-		$config = new Zend_Config($configArray);
-		Zend_Registry::set('config', $config);
-		$table = new USVN_Db_Table_Projects();
-		$obj = $table->fetchNew();
-		$obj->setFromArray(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'));
-		try {
-			$obj->save();
-		}
-		catch (USVN_Exception $e) {
-			$this->assertFalse($table->isAProject('InsertProjectOk'), "Le project existe toujours alors que la creation du repository a echouee");
-			return;
-		}
-		$this->fail();
-	}
-
 	public function testUpdateProject()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -221,12 +177,10 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$obj->save();
 
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas correctement cree");
-		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas correctement cree");
 
 		$obj->delete();
 
 		$this->assertFalse($table->isAProject('InsertProjectOk'), "Le projet n'est pas supprime");
-		$this->assertFalse(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas supprime");
 	}
 
 	public function testfetchAllAssignedTo()

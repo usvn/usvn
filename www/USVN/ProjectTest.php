@@ -52,6 +52,12 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$this->_user->save();
 	}
 
+	public function testCreateProjectWithMultiDirectoryOk()
+	{
+		$project = USVN_Project::createProject(array('projects_name' => 'ok/InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/ok/InsertProjectOk'), "Le repository n'est pas cree");
+	}
+	
 	public function testCreateProjectWithGroupWithAdmin()
 	{
 		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
@@ -179,7 +185,27 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		}
 		$this->fail();
 	}
-
+	
+	public function testCreateProjectSubDirectorySVNAlreadyExist()
+	{
+		USVN_SVNUtils::createSVN('tests/tmp/'
+		. DIRECTORY_SEPARATOR
+		. 'svn'
+		. DIRECTORY_SEPARATOR
+		. 'InsertProjectOk');
+		$new_project = 'InsertProjectOk' . DIRECTORY_SEPARATOR . 'OtherProject';
+		
+		try {
+			USVN_Project::createProject(array('projects_name' => $new_project,  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+		}
+		catch (USVN_Exception $e) {
+			$this->assertContains("Can't create subversion repository", $e->getMessage());
+			return;
+		}
+		$this->fail("Il n'y a pas eu d'exception pour la creation d'un projet dans une mauvaise arborescence...");
+	}
+	
+	
 	public function testDeleteProject()
 	{
 		USVN_Project::createProject(array('projects_name' => 'InsertProjectOK',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
@@ -192,6 +218,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$this->assertFalse($table_groups->isAGroup('InsertProjectOk'),"Le groupe n'est pas supprime");
 	}
 
+	
 }
 
 // Call USVN_ProjectsTest::main() if this source file is executed directly.

@@ -19,6 +19,36 @@
  */
 class USVN_Project
 {
+	static private function createProjectSVN($project_name)
+	{
+		$config = Zend_Registry::get('config');
+		$path = $config->subversion->path
+			. DIRECTORY_SEPARATOR
+			. 'svn'
+			. DIRECTORY_SEPARATOR
+			. $project_name;
+		if (!USVN_SVNUtils::isSVNRepository($path)) {
+			$directories = explode(DIRECTORY_SEPARATOR, $path);
+			$tmp_path = '';
+			foreach ($directories as $directory) {
+				$tmp_path .= $directory . DIRECTORY_SEPARATOR;
+				if (USVN_SVNUtils::isSVNRepository($tmp_path)) {
+					$tmp_path = '';
+					break;
+				}
+			}
+			if ($tmp_path === $path . DIRECTORY_SEPARATOR) {
+				@mkdir($path, 0700, true);
+				USVN_SVNUtils::createSVN($path);
+				USVN_SVNUtils::createStandardDirectories($path);
+			} else {
+				$message = "One of these repository's subfolders is a subversion repository.";
+				throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
+			}
+		}		
+	}
+	
+	
 	/**
 	* Create a project
 	*
@@ -37,37 +67,47 @@ class USVN_Project
 		if ($user === null) {
 			throw new USVN_Exception(T_('Login %s not found'), $login);
 		}
-
-		$table = new USVN_Db_Table_Projects();
-		$project = $table->createRow($data);
-		$project->save();
-
-		if ($create_group) {
-			$groups = new USVN_Db_Table_Groups();
-			$group = $groups->createRow();
-			$group->description = sprintf(T_("Autocreated group for project %s"), $data['projects_name']);
-			$group->name = $data['projects_name'];
-			$group->save();
-
-			$project->addGroup($group);
-
-			$files_rights = new USVN_Db_Table_FilesRights();
-			$files_rights = $files_rights->findByPath($project->id, "/");
-
-			$groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
-			$group_to_file_rights = $groups_to_files_rights->findByIdRightsAndIdGroup($files_rights->id, $group->id);
-			$group_to_file_rights->files_rights_is_readable = true;
-			$group_to_file_rights->files_rights_is_writable = true;
-			$group_to_file_rights->save();
+		
+		try {
+			$table = new USVN_Db_Table_Projects();
+			$table->getAdapter()->beginTransaction();
+			$project = $table->createRow($data);
+			$project->save();
+	
+			USVN_Project::createProjectSVN($data['projects_name']);
+			
+			if ($create_group) {
+				$groups = new USVN_Db_Table_Groups();
+				$group = $groups->createRow();
+				$group->description = sprintf(T_("Autocreated group for project %s"), $data['projects_name']);
+				$group->name = $data['projects_name'];
+				$group->save();
+	
+				$project->addGroup($group);
+	
+				$files_rights = new USVN_Db_Table_FilesRights();
+				$files_rights = $files_rights->findByPath($project->id, "/");
+	
+				$groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
+				$group_to_file_rights = $groups_to_files_rights->findByIdRightsAndIdGroup($files_rights->id, $group->id);
+				$group_to_file_rights->files_rights_is_readable = true;
+				$group_to_file_rights->files_rights_is_writable = true;
+				$group_to_file_rights->save();
+			}
+	
+			if ($create_group && $add_user_to_group) {
+				$group->addUser($user);
+				$group->promoteUser($user);
+			}
+			if ($create_admin) {
+				$project->addUser($user);
+			}
 		}
-
-		if ($create_group && $add_user_to_group) {
-			$group->addUser($user);
-			$group->promoteUser($user);
+		catch (Exception $e) {
+			$table->getAdapter()->rollBack();
+			throw $e;
 		}
-		if ($create_admin) {
-			$project->addUser($user);
-		}
+		$table->getAdapter()->commit();
 		return $project;
 	}
 
@@ -85,5 +125,12 @@ class USVN_Project
 		if ($group !== null) {
 			$group->delete();
 		}
+		
+		USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path
+		. DIRECTORY_SEPARATOR
+		. 'svn'
+		. DIRECTORY_SEPARATOR
+		. $project_name);
+		
 	}
 }

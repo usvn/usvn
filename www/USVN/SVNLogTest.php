@@ -56,6 +56,7 @@ class USVN_SVNLogTest extends USVN_Test_Test {
 		putenv('HOME=tests/fakehome');
 		$this->_saveHOME = getenv("HOME");
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+		USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
         USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
 		file_put_contents('tests/tmp/svn directory/hooks/pre-revprop-change.bat', "exit\n");
 		file_put_contents('tests/tmp/svn directory/hooks/pre-revprop-change', "#!/bin/sh\nexit 0");

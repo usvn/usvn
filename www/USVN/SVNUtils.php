@@ -193,6 +193,18 @@ class USVN_SVNUtils
       if ($return) {
 		throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
       }
+    }
+
+    /**
+    * Create standard svn directories
+    * /trunk
+    * /tags
+    * /branches
+    *
+    * @param string Path to create subversion
+    */
+    public static function createStandardDirectories($path)
+    {
       $tmpdir = USVN_DirectoryUtils::getTmpDirectory();
       try {
 		mkdir($tmpdir . DIRECTORY_SEPARATOR . "trunk");
@@ -207,7 +219,7 @@ class USVN_SVNUtils
       }
       USVN_DirectoryUtils::removeDirectory($tmpdir);
     }
-
+    
     /**
     * Checkout SVN repository into filesystem
     * @param string Path to subversion repository

@@ -219,30 +219,6 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 	protected function _insert()
 	{
 		$this->checkProjectName($this->_data['projects_name']);
-		$config = Zend_Registry::get('config');
-		$path = $config->subversion->path
-			. DIRECTORY_SEPARATOR
-			. 'svn'
-			. DIRECTORY_SEPARATOR
-			. $this->_data['projects_name'];
-		if (!USVN_SVNUtils::isSVNRepository($path)) {
-			$directories = explode(DIRECTORY_SEPARATOR, $path);
-			$tmp_path = '';
-			foreach ($directories as $directory) {
-				$tmp_path .= $directory . DIRECTORY_SEPARATOR;
-				if (USVN_SVNUtils::isSVNRepository($tmp_path)) {
-					$tmp_path = '';
-					break;
-				}
-			}
-			if ($tmp_path === $path . DIRECTORY_SEPARATOR) {
-				@mkdir($path, 0700, true);
-				USVN_SVNUtils::createSVN($path);
-			} else {
-				$message = "One of these repository's subfolders is a subversion repository.";
-				throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
-			}
-		}
 	}
 
 	/**
@@ -256,20 +232,5 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 		if ($this->_cleanData['projects_name'] != $this->_data['projects_name']) {
 			throw new USVN_Exception(T_("You can't rename a project."));
 		}
-	}
-
-	/**
-     * Allows pre-delete logic to be applied to row.
-     * Subclasses may override this method.
-     *
-     * @return void
-     */
-	protected function _postDelete()
-	{
-		USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path
-		. DIRECTORY_SEPARATOR
-		. 'svn'
-		. DIRECTORY_SEPARATOR
-		. $this->_data['projects_name']);
 	}
 }

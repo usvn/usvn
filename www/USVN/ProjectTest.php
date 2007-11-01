@@ -54,13 +54,13 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 
 	public function testCreateProjectWithMultiDirectoryOk()
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'ok/InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+		$project = USVN_Project::createProject(array('projects_name' => 'ok/InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, false);
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/ok/InsertProjectOk'), "Le repository n'est pas cree");
 	}
 	
 	public function testCreateProjectWithGroupWithAdmin()
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, false);
 
 		$table = new USVN_Db_Table_Projects();
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
@@ -91,7 +91,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 
 	public function testCreateProjectWithGroupButNotGroupMemberWithAdmin()
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, false, true);
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, false, true, true);
 
 		$table = new USVN_Db_Table_Projects();
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
@@ -117,7 +117,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 
 	public function testCreateProjectWithGroupWithoutAdmin()
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, false);
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, false, true);
 
 		$table = new USVN_Db_Table_Projects();
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
@@ -143,7 +143,22 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 
 	public function testCreateProjectWithoutGroupWithoutAdmin()
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", false, false, false);
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", false, false, false, false);
+
+		$table = new USVN_Db_Table_Projects();
+		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
+		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
+
+		$table = new USVN_Db_Table_Groups();
+		$this->assertFalse($table->isAGroup('InsertProjectOk'), "Le groupe est cree alors qu'il ne doit pas");
+		$this->assertFalse($project->userIsAdmin($this->_user));
+
+		$this->assertEquals(0, count(USVN_SVNUtils::listSVN(Zend_Registry::get('config')->subversion->path . '/svn/InsertProjectOk', '/')));
+	}
+
+	public function testCreateProjectWithoutGroupWithoutAdminButWithSvnDirectories()
+	{
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", false, false, false, true);
 
 		$table = new USVN_Db_Table_Projects();
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
@@ -170,13 +185,14 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 					'isDirectory' => true,
 					'path' => '/trunk/'
 				)
-			), USVN_SVNUtils::listSVN(Zend_Registry::get('config')->subversion->path . '/svn/InsertProjectOk', '/'));
+			), USVN_SVNUtils::listSVN(Zend_Registry::get('config')->subversion->path . '/svn/InsertProjectOk', '/'));		
 	}
-
+	
+	
 	public function testCreateProjectWithGroupWithInvalidAdmin()
 	{
 		try {
-			USVN_Project::createProject(array('projects_name' => 'InsertProjectBAD',  'projects_start_date' => '1984-12-03 00:00:00'), "fake", true, true, true);
+			USVN_Project::createProject(array('projects_name' => 'InsertProjectBAD',  'projects_start_date' => '1984-12-03 00:00:00'), "fake", true, true, true, true);
 		}
 		catch (USVN_Exception $e){
 			$table = new USVN_Db_Table_Projects();
@@ -196,7 +212,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$new_project = 'InsertProjectOk' . DIRECTORY_SEPARATOR . 'OtherProject';
 		
 		try {
-			USVN_Project::createProject(array('projects_name' => $new_project,  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+			USVN_Project::createProject(array('projects_name' => $new_project,  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, false);
 		}
 		catch (USVN_Exception $e) {
 			$this->assertContains("Can't create subversion repository", $e->getMessage());
@@ -208,7 +224,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 	
 	public function testDeleteProject()
 	{
-		USVN_Project::createProject(array('projects_name' => 'InsertProjectOK',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+		USVN_Project::createProject(array('projects_name' => 'InsertProjectOK',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, false);
 
 		USVN_Project::deleteProject('InsertProjectOK');
 

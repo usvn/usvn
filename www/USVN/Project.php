@@ -19,7 +19,13 @@
  */
 class USVN_Project
 {
-	static private function createProjectSVN($project_name)
+	/**
+	 * Create SVN repositories
+	 * 
+	 * @param string Project name
+	 * @param bool Create standard directories (/trunk, /tags, /branches)
+	 */
+	static private function createProjectSVN($project_name, $create_dir)
 	{
 		$config = Zend_Registry::get('config');
 		$path = $config->subversion->path
@@ -40,7 +46,9 @@ class USVN_Project
 			if ($tmp_path === $path . DIRECTORY_SEPARATOR) {
 				@mkdir($path, 0700, true);
 				USVN_SVNUtils::createSVN($path);
-				USVN_SVNUtils::createStandardDirectories($path);
+				if ($create_dir) {
+					USVN_SVNUtils::createStandardDirectories($path);
+				}
 			} else {
 				$message = "One of these repository's subfolders is a subversion repository.";
 				throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
@@ -57,9 +65,10 @@ class USVN_Project
 	* @param bool Create a group for the project
 	* @param bool Add user into group
 	* @param bool Add user as admin for the project
+	* @param bool Create SVN standard directories
 	* @return USVN_Db_Table_Row_Project
 	*/
-	static public function createProject(array $data, $login, $create_group, $add_user_to_group, $create_admin)
+	static public function createProject(array $data, $login, $create_group, $add_user_to_group, $create_admin, $create_svn_directories)
 	{
 		//We need check if admin exist before create project because we can't go back
 		$user_table = new USVN_Db_Table_Users();
@@ -74,7 +83,7 @@ class USVN_Project
 			$project = $table->createRow($data);
 			$project->save();
 	
-			USVN_Project::createProjectSVN($data['projects_name']);
+			USVN_Project::createProjectSVN($data['projects_name'], $create_svn_directories);
 			
 			if ($create_group) {
 				$groups = new USVN_Db_Table_Groups();

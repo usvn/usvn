@@ -31,7 +31,7 @@ class Bugs_395_Test extends USVN_Test_DB {
 
     public function testCreateProjectAndDeleteProjectGroup()
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, true);
 
 		$table = new USVN_Db_Table_Groups();
 		$this->assertTrue($table->isAGroup('InsertProjectOk'), "Le groupe n'est pas cree");

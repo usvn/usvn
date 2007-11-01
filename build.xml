@@ -1,4 +1,4 @@
-r<?xml version="1.0"?>
+<?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
   <property name="license" value="CECILL" override="true" />
   <property name="version" value="0.6.0" override="true" />

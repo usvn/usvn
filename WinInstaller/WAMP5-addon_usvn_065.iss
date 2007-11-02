@@ -204,7 +204,7 @@ begin
   URL.OnNextButtonClick := @URI_NextButtonClick;
   URL.Add('URL:', False);
   URL.Add('Login:', False);
-  URL.Add('Password:', False);
+  URL.Add('Password:', True);
   URL.Values[0] := '/usvn/';
   URL.Values[1] := 'admin';
 

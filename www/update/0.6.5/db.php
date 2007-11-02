@@ -20,12 +20,11 @@ function connection ($config)
 
 
 function Sqlite_queries($db)
-{	
-	
-	$db->query("ALTER TABLE usvn_users_to_groups RENAME AS temp");
-	$db->query("UPDATE set is_leader = 0 WHERE is_leader IS NULL");
-	$db->query("CREATE TABLE usvn_users_to_groups AS SELECT * FROM temp");
-	$db->query("DROP TABLE temp");
+{		
+	$db->query("ALTER TABLE usvn_users_to_groups RENAME TO tmp");
+	$db->query("UPDATE tmp set is_leader = 0 WHERE is_leader IS NULL");
+	$db->query("CREATE TABLE usvn_users_to_groups AS SELECT * FROM tmp");
+	$db->query("DROP TABLE tmp");
 	$db->closeConnection();
 }
 

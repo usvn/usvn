@@ -31,10 +31,12 @@ function checkName() {
 		<br />
         <?php
         if ($this->action == 'new' || $this->action == 'create') {
-        	echo '<label>' . T_('Create group for project:') . $this->formCheckbox('creategroup', 1) . '</label><br />';
-        	echo '<label>' . T_('Add me to project group:') . $this->formCheckbox('addmetogroup', 1) . '</label><br />';
-        	echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 1) . '</label><br />';
-        	echo '<label>' . T_('Create SVN standard directories (/trunk, /branches and /tags):') . $this->formCheckbox('createsvndir', 1) . '</label><br />';
+        	echo '<table>';
+        	echo '<tr><td><label for="creategroup">' . T_('Create group for project:') . '</label></td><td>'. $this->formCheckbox('creategroup', 1) . '</td></tr>';
+        	echo '<tr><td><label for="addmetogroup">' . T_('Add me to project group:') . '</label></td><td>'. $this->formCheckbox('addmetogroup', 1) . '</td></tr>';
+        	echo '<tr><td><label for="admin">' . T_('Add me as admin of the project:') . '</label></td><td>'. $this->formCheckbox('admin', 1) . '</td></tr>';
+        	echo '<tr><td><label for="createsvndir">' . T_('Create SVN standard directories (/trunk, /branches and /tags):') . '</label></td><td>'. $this->formCheckbox('createsvndir', 1) . '</td></tr>';
+        	echo '</table>';
         } else if ($this->action == 'edit') {
         	if ($this->AdminProject != 1) {
         		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin">';

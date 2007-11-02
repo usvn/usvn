@@ -125,6 +125,19 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$_POST["creategroup"] = 0;
 		$_POST["addmetogroup"] = 0;
 		$_POST["admin"] = 0;
+		$_POST['createsvndir'] = 0;
+		$project = $this->create_project();
+		$this->assertFalse($project->userIsAdmin('god'));
+		$this->assertNull($this->get_created_group());
+		$this->assertEquals(0, count(USVN_SVNUtils::listSVN(Zend_Registry::get('config')->subversion->path . '/svn/Test', '/')));
+	}
+
+	public function test_createWithSVNDirectories()
+	{
+		$_POST["creategroup"] = 0;
+		$_POST["addmetogroup"] = 0;
+		$_POST["admin"] = 0;
+		$_POST['createsvndir'] = 1;
 		$project = $this->create_project();
 		$this->assertFalse($project->userIsAdmin('god'));
 		$this->assertNull($this->get_created_group());
@@ -147,12 +160,14 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 				)
 			), USVN_SVNUtils::listSVN(Zend_Registry::get('config')->subversion->path . '/svn/Test', '/'));
 	}
-
+	
+	
 	public function test_createUserIsAdmin()
 	{
 		$_POST["creategroup"] = 0;
 		$_POST["addmetogroup"] = 0;
 		$_POST["admin"] = 1;
+		$_POST['createsvndir'] = 1;
 		$project = $this->create_project();
 		$this->assertTrue($project->userIsAdmin('god'));
 		$this->assertNull($this->get_created_group());
@@ -163,6 +178,7 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$_POST["creategroup"] = 1;
 		$_POST["addmetogroup"] = 0;
 		$_POST["admin"] = 0;
+		$_POST['createsvndir'] = 1;
 		$project = $this->create_project();
 		$this->assertFalse($project->userIsAdmin('god'));
 		$group = $this->get_created_group();
@@ -177,6 +193,7 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		$_POST["creategroup"] = 1;
 		$_POST["addmetogroup"] = 1;
 		$_POST["admin"] = 0;
+		$_POST['createsvndir'] = 1;
 		$project = $this->create_project();
 		$this->assertFalse($project->userIsAdmin('god'));
 		$group = $this->get_created_group();
@@ -209,7 +226,6 @@ class ProjectadminControllerTest extends USVN_Test_AdminController {
 		}
 		$this->fail();
 	}
-
 }
 
 // Call GroupControllerTest::main() if this source file is executed directly.

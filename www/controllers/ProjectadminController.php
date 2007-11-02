@@ -54,7 +54,7 @@ class ProjectadminController extends AdminadminController
 		}
 		try {
 			$identity = Zend_Auth::getInstance()->getIdentity();
-			USVN_Project::createProject($data, $identity['username'], $_POST['creategroup'], $_POST['addmetogroup'], $_POST['admin'], true);
+			USVN_Project::createProject($data, $identity['username'], $_POST['creategroup'], $_POST['addmetogroup'], $_POST['admin'], $_POST['createsvndir']);
 			$this->_redirect("/admin/project/");
 		}
 		catch (USVN_Exception $e) {

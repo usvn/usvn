@@ -34,6 +34,7 @@ function checkName() {
         	echo '<label>' . T_('Create group for project:') . $this->formCheckbox('creategroup', 1) . '</label><br />';
         	echo '<label>' . T_('Add me to project group:') . $this->formCheckbox('addmetogroup', 1) . '</label><br />';
         	echo '<label>' . T_('Add me as admin of the project:') . $this->formCheckbox('admin', 1) . '</label><br />';
+        	echo '<label>' . T_('Create SVN standard directories (/trunk, /branches and /tags):') . $this->formCheckbox('createsvndir', 1) . '</label><br />';
         } else if ($this->action == 'edit') {
         	if ($this->AdminProject != 1) {
         		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin">';

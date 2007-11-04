@@ -132,8 +132,8 @@ if (count($paths)) {
 
 if (count($results)) {
 	foreach ($results as $result) {
-		$name = str_replace($config->subversion->path . 'svn/', '', $result);
-		USVN_Project::createProject(array('projects_name' => $name), $options['login'], $options['creategroup'], $options['addmetogroup'], $options['admin']);
+		$name = str_replace($config->subversion->path . 'svn' . DIRECTORY_SEPARATOR, '', $result);
+		USVN_Project::createProject(array('projects_name' => $name), $options['login'], $options['creategroup'], $options['addmetogroup'], $options['admin'], 0);
 		print "$result imported\n";
 	}
 }

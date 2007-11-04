@@ -76,7 +76,7 @@ Zend_Registry::set('config', $config);
  */
 $results = array();
 $paths = array();
-$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [login] path1 path2 path3 [...]\n";
+$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] path1 path2 path3 [...]\n";
 if (count($argv) == 1) {
 	die($usage);
 }
@@ -86,7 +86,8 @@ $options = array('recursive' => false,
 					'login' => 0,
 					'creategroup' => 0,
 					'addmetogroup' => 0,
-					'admin' => 0);
+					'admin' => 0,
+					'noimport' => 0);
 
 foreach ($argv as $arg) {
 	switch ($arg) {
@@ -105,9 +106,14 @@ foreach ($argv as $arg) {
 		case '--admin':
 			$options['admin'] = 1;
 			break;
+		case '--noimport':
+			$options['noimport'] = 1;
+			break;
 		default:
 			if (is_dir($arg)) {
 				$paths[] = $arg;
+			} elseif (preg_match('/^--/', $arg)) {
+				die ("'$arg' option unknown\n");
 			} elseif ($arg != $argv[0] && preg_match('/\w+/', $arg)) {
 				$options['login'] = $arg;
 			} else {
@@ -133,8 +139,12 @@ if (count($paths)) {
 if (count($results)) {
 	foreach ($results as $result) {
 		$name = str_replace($config->subversion->path . 'svn' . DIRECTORY_SEPARATOR, '', $result);
-		USVN_Project::createProject(array('projects_name' => $name), $options['login'], $options['creategroup'], $options['addmetogroup'], $options['admin'], 0);
-		print "$result imported\n";
+		if (!$options['noimport']) {
+			USVN_Project::createProject(array('projects_name' => $name), $options['login'], $options['creategroup'], $options['addmetogroup'], $options['admin'], 0);
+			print "'$name' imported\n";
+		} else {
+			print "'$name' ready to import\n";
+		}
 	}
 }
 

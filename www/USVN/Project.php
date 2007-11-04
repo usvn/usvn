@@ -21,7 +21,7 @@ class USVN_Project
 {
 	/**
 	 * Create SVN repositories
-	 * 
+	 *
 	 * @param string Project name
 	 * @param bool Create standard directories (/trunk, /tags, /branches)
 	 */
@@ -29,10 +29,10 @@ class USVN_Project
 	{
 		$config = Zend_Registry::get('config');
 		$path = $config->subversion->path
-			. DIRECTORY_SEPARATOR
-			. 'svn'
-			. DIRECTORY_SEPARATOR
-			. $project_name;
+		. DIRECTORY_SEPARATOR
+		. 'svn'
+		. DIRECTORY_SEPARATOR
+		. $project_name;
 		if (!USVN_SVNUtils::isSVNRepository($path)) {
 			$directories = explode(DIRECTORY_SEPARATOR, $path);
 			$tmp_path = '';
@@ -53,21 +53,35 @@ class USVN_Project
 				$message = "One of these repository's subfolders is a subversion repository.";
 				throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
 			}
-		}		
+		}
 	}
-	
-	
+
+	static private function ApplyFileRights($project, $group, $create_svn_directories)
+	{
+		$acces_rights = new USVN_FilesAccessRights($project->projects_id);
+		
+		
+		if ($create_svn_directories) {
+			$acces_rights->setRightByPath($group->groups_id, '/', true, false);
+			$acces_rights->setRightByPath($group->groups_id, '/branches', true, true);
+			$acces_rights->setRightByPath($group->groups_id, '/trunk', true, true);
+		}
+		else {
+			$acces_rights->setRightByPath($group->groups_id, '/', true, true);
+		}
+	}
+
 	/**
-	* Create a project
-	*
-	* @param array Fields data
-	* @param string The creating user
-	* @param bool Create a group for the project
-	* @param bool Add user into group
-	* @param bool Add user as admin for the project
-	* @param bool Create SVN standard directories
-	* @return USVN_Db_Table_Row_Project
-	*/
+	 * Create a project
+	 *
+	 * @param array Fields data
+	 * @param string The creating user
+	 * @param bool Create a group for the project
+	 * @param bool Add user into group
+	 * @param bool Add user as admin for the project
+	 * @param bool Create SVN standard directories
+	 * @return USVN_Db_Table_Row_Project
+	 */
 	static public function createProject(array $data, $login, $create_group, $add_user_to_group, $create_admin, $create_svn_directories)
 	{
 		//We need check if admin exist before create project because we can't go back
@@ -76,34 +90,27 @@ class USVN_Project
 		if ($user === null) {
 			throw new USVN_Exception(T_('Login %s not found'), $login);
 		}
-		
+
 		try {
 			$table = new USVN_Db_Table_Projects();
 			$table->getAdapter()->beginTransaction();
 			$project = $table->createRow($data);
 			$project->save();
-	
+
 			USVN_Project::createProjectSVN($data['projects_name'], $create_svn_directories);
-			
+				
 			if ($create_group) {
 				$groups = new USVN_Db_Table_Groups();
 				$group = $groups->createRow();
 				$group->description = sprintf(T_("Autocreated group for project %s"), $data['projects_name']);
 				$group->name = $data['projects_name'];
 				$group->save();
-	
+
 				$project->addGroup($group);
-	
-				$files_rights = new USVN_Db_Table_FilesRights();
-				$files_rights = $files_rights->findByPath($project->id, "/");
-	
-				$groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
-				$group_to_file_rights = $groups_to_files_rights->findByIdRightsAndIdGroup($files_rights->id, $group->id);
-				$group_to_file_rights->files_rights_is_readable = true;
-				$group_to_file_rights->files_rights_is_writable = true;
-				$group_to_file_rights->save();
+
+				USVN_Project::ApplyFileRights($project, $group, $create_svn_directories);
 			}
-	
+
 			if ($create_group && $add_user_to_group) {
 				$group->addUser($user);
 				$group->promoteUser($user);
@@ -134,12 +141,12 @@ class USVN_Project
 		if ($group !== null) {
 			$group->delete();
 		}
-		
+
 		USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path
 		. DIRECTORY_SEPARATOR
 		. 'svn'
 		. DIRECTORY_SEPARATOR
 		. $project_name);
-		
+
 	}
 }

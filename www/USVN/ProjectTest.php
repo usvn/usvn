@@ -58,10 +58,8 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/ok/InsertProjectOk'), "Le repository n'est pas cree");
 	}
 	
-	public function testCreateProjectWithGroupWithAdmin()
+	private function CheckCreateProjectWithGroupWithAdmin($project)
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, false);
-
 		$table = new USVN_Db_Table_Projects();
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
@@ -74,21 +72,55 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$groupstoprojects = $table->fetchRow(array("projects_id = ?" => $project->id, "groups_id = ?" => $group->id));
 		$this->assertNotNull($groupstoprojects);
 
-		$table = new USVN_Db_Table_FilesRights();
-		$right = $table->fetchRow(array("files_rights_path = ?" => "/", "projects_id = ?" => $project->id));
-		$this->assertNotNull($right, "La ligne pour les droits sur / n'a pas ete trouvee");
-
-		$table = new USVN_Db_Table_GroupsToFilesRights();
-		$rights = $table->fetchRow(array("files_rights_id = ?" => $right->id, "groups_id = ?" => $group->id));
-		$this->assertNotNull($rights, "La ligne pour les droits du groupe n'a pas ete trouvee");
-		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas la lecture");
-		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
-
 		$this->assertTrue($group->userIsMember($this->_user), "L'utilisateur n'est pas membre du groupe " . $group->name);
 		$this->assertTrue($group->userIsGroupLeader($this->_user), "User is not leader of group " . $group->name);
 		$this->assertTrue($project->userIsAdmin($this->_user));
+		
+		return ($group);
+	}
+	
+	public function testCreateProjectWithGroupWithAdmin()
+	{
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, false);
+
+		$group = $this->CheckCreateProjectWithGroupWithAdmin($project);
+
+		$table = new USVN_Db_Table_FilesRights();
+		$right = $table->fetchRow(array("files_rights_path = ?" => "/", "projects_id = ?" => $project->id));
+		$this->assertNotNull($right, "Rights on / not found");
+
+		$table = new USVN_Db_Table_GroupsToFilesRights();
+		$rights = $table->fetchRow(array("files_rights_id = ?" => $right->id, "groups_id = ?" => $group->id));
+		$this->assertNotNull($rights, "Groups righst not found");
+		$this->assertEquals(1, $rights->files_rights_is_readable, "Group can't read /");
+		$this->assertEquals(1, $rights->files_rights_is_writable, "Group can't write /");
+
 	}
 
+	private function checkRightPathForGroup($group, $project, $path, $read, $write)
+	{
+		$table_groups_rights = new USVN_Db_Table_GroupsToFilesRights();
+		$table_rights = new USVN_Db_Table_FilesRights();
+		
+		$right = $table_rights->fetchRow(array("files_rights_path = ?" => $path, "projects_id = ?" => $project->id));
+		$this->assertNotNull($right, "Rights on $path not found");
+		$rights = $table_groups_rights->fetchRow(array("files_rights_id = ?" => $right->id, "groups_id = ?" => $group->id));
+		$this->assertNotNull($rights, "Groups rights not found on $path");
+		$this->assertEquals((bool)$read, (bool)$rights->files_rights_is_readable, "Error read for $path is not $read but " . $rights->files_rights_is_readable);
+		$this->assertEquals((bool)$write, (bool)$rights->files_rights_is_writable, "Error write for $path is not $write but " . $rights->files_rights_is_writable);
+	}
+	
+	public function testCreateProjectWithGroupWithAdminWithStdDir()
+	{
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, true);
+
+		$group = $this->CheckCreateProjectWithGroupWithAdmin($project);
+		$this->checkRightPathForGroup($group, $project, '/', 1, 0);
+		$this->checkRightPathForGroup($group, $project, '/branches', 1, 1);
+		$this->checkRightPathForGroup($group, $project, '/trunk', 1, 1);
+	}
+	
+	
 	public function testCreateProjectWithGroupButNotGroupMemberWithAdmin()
 	{
 		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, false, true, true);

@@ -209,7 +209,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$group2->addUser($user1);
 		$group2->addUser($user2);
 
-		$project1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false, true);
+		$project1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false, false);
 		$file = file_get_contents(Zend_Registry::get('config')->subversion->authz);
 		$this->assertEquals($this->_start . "group1 = user1, user2, user3\ngroup2 = user1, user2\nproject1 = \n\n\n# Project project1\n[project1:/]\n@project1 = rw\n\n", $file);
 	}
@@ -374,7 +374,7 @@ class USVN_AuthzTest extends USVN_Test_DB {
 		$table = new USVN_Db_Table_Projects();
 		$ret = array();
 		for ($i = 1; $i <= $n; $i++) {
-			$ret[$i - 1] = USVN_Project::createProject(array('projects_name'  => "project{$i}"), "test", true, false, false, true);
+			$ret[$i - 1] = USVN_Project::createProject(array('projects_name'  => "project{$i}"), "test", true, false, false, false);
 		}
 		return $ret;
 	}

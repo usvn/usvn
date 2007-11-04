@@ -136,16 +136,9 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     	$this->assertTrue($rights['read']);
     	$this->assertTrue($rights['write']);
 
-    	$fileid = $table_files->insert(array(
-    		'projects_id'		=> $this->_projectid1,
-			'files_rights_path' => '/trunk'
-		));
-		$table_groupstofiles->insert(array(
-			'files_rights_id' 		  => $fileid,
-		   'files_rights_is_readable' => true,
-		   'files_rights_is_writable' => false,
-		   'groups_id'	 			  => $this->_groupid1
-		));
+		$file_rights1->setRightByPath($this->_groupid1, '/trunk', true, false);
+		
+		
 		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk/test/tutu/titi');
     	$this->assertTrue($rights['read']);
     	$this->assertFalse($rights['write']);

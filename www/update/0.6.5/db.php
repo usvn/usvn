@@ -20,7 +20,7 @@ function connection ($config)
 
 
 function Sqlite_queries($db)
-{		
+{
 	$db->query("ALTER TABLE usvn_users_to_groups RENAME TO tmp");
 	$db->query("UPDATE tmp set is_leader = 0 WHERE is_leader IS NULL");
 	$db->query("CREATE TABLE usvn_users_to_groups AS SELECT * FROM tmp");
@@ -44,6 +44,6 @@ if (file_exists($Fnm)) {
 		Sqlite_queries($db);
 	}
 	else {
-		$Mysql_queries($db);
+		Mysql_queries($db);
 	}
 }

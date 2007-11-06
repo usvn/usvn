@@ -78,6 +78,7 @@ class USVN_FilesAccessRights
 	*/
 	public function setRightByPath($group_id, $path, $read, $write, $recursive = false)
 	{
+		$path = preg_replace('#[/]{2,}#', '/', $path);
 		if (strlen($path) == 0 || $path{0} !== '/') {
 			throw new USVN_Exception(T_("Invalid path %s."), $path);
 		}

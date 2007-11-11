@@ -192,6 +192,20 @@ class Install
 	}
 
 	/**
+	 * This method will save into config file if user allow check for
+	 * update.
+	 *
+	 * @param string Path to the USVN config file
+	 * @param bool True if user allow collect of informations
+	 */
+	static public function installCheckForUpdate($config_file, $check)
+	{
+		$config = Install::_loadConfig($config_file);
+		$config->checkforupdate = $check;
+		$config->save();
+	}
+
+	/**
 	* This method will add subversion path
 	*
 	* @param string Path to the USVN config file

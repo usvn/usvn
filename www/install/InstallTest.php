@@ -68,6 +68,14 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals("Europe/Paris", $config->timezone);
 	}
 
+	public function testInstallCheckForUpdate()
+	{
+		Install::installCheckForUpdate("tests/tmp/config.ini", true);
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertTrue((bool)$config->checkforupdate);
+	}
+
 	public function testInstallLocale()
 	{
 		Install::installLocale("tests/tmp/config.ini");
@@ -233,7 +241,7 @@ subversion.authz=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "a
 subversion.passwd=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 site.title=USVN
 		");
-		$test = 
+		$test =
 "<Location /dev/usvn/>
 	ErrorDocument 404 default
 	DAV svn

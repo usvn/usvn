@@ -155,6 +155,22 @@ class USVN_Db_Table_GroupsTest extends USVN_Test_DB {
 		$this->assertTrue($table->isAGroup('UpdateGroupOk'));
     }
 
+	public function testDeleteAffectedGroup()
+	{
+		$table = new USVN_Db_Table_GroupsToProjects();
+		$project = $this->_generateProject("project");
+		$this->assertEquals(0, count($table->findByProjectId($project->id)));
+		$group1 = $this->_generateGroup("group1");
+		$group2 = $this->_generateGroup("group2");
+		$project->addGroup($group1);
+		$project->addGroup($group2);
+		$this->assertEquals(2, count($table->findByProjectId($project->id)));
+		$group1->delete();
+		$this->assertEquals(1, count($table->findByProjectId($project->id)));
+		$group2->delete();
+		$this->assertEquals(0, count($table->findByProjectId($project->id)));
+	}
+
 	public function testFindUserInGroup()
 	{
 		$test = $this->_generateUser("test");

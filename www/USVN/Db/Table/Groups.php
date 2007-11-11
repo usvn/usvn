@@ -58,7 +58,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups");
+	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups", "USVN_Db_Table_GroupsToFilesRights", "USVN_Db_Table_GroupsToProjects");
 
 	/**
 	 * Excepted entries

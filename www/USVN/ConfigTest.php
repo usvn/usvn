@@ -73,6 +73,13 @@ version = \"0.84\"
 		$this->assertEquals('Europe/Paris', $config->timezone);
     }
 
+    public function testSetCheckForUpdate()
+	{
+		USVN_Config::setCheckForUpdate(true);
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$this->assertEquals(1, $config->checkforupdate);
+    }
+
     public function testUnset()
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);

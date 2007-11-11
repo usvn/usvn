@@ -56,6 +56,12 @@ class USVN_Config
 		}
 	}
 
+	/**
+	* Change style of USVN
+	*
+	* @param string template name
+	* @throw USVN_Exception
+	*/
 	static public function setTemplate($template)
 	{
 		if (in_array($template, USVN_Template::listTemplate())) {
@@ -65,6 +71,18 @@ class USVN_Config
 		} else {
 			throw new USVN_Exception(T_("Invalid template"));
 		}
+	}
+
+	/**
+	* Allow check of update or not
+	*
+	* @param bool
+	*/
+	static public function setCheckForUpdate($check)
+	{
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$config->checkforupdate = $check;
+		$config->save();
 	}
 
 	/**

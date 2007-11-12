@@ -260,6 +260,8 @@ class USVN_SVNUtils
                 }
             }
         }
+        $sortfunc = create_function('$a,$b', 'return (strcasecmp($a["name"], $b["name"]));');
+        usort($res, $sortfunc);
         return $res;
 	}
 		

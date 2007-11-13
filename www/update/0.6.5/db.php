@@ -81,4 +81,12 @@ if (file_exists($Fnm)) {
 	else {
 		Mysql_queries($db);
 	}
+	Zend_Registry::set('config', $config);
+	$user = new USVN_Db_Table_Users();
+	$res = $user->fetchAll();
+	foreach($res as $u)
+	{
+		$u->secret_id = md5(time().mt_rand());		
+		$u->save();
+	}
 }

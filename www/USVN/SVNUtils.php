@@ -353,8 +353,18 @@ class USVN_SVNUtils
 	public static function getProjectName($repository)
 	{
 		$config = Zend_Registry::get('config');
-		$repository = realpath($repository);
-		$dir = realpath($config->subversion->path);
-		return preg_replace('#^' . $dir . '[/\\\\]svn[/\\\\]?#', '', $repository);
+
+		$newrepository = realpath($repository);
+		if ($newrepository === FALSE) {
+			$newrepository = str_replace('//', '/', str_replace('\\', '/', $repository));
+			$newrepository = USVN_SVNUtils::getCannocialPath($newrepository);
+		}
+		$newdir = realpath($config->subversion->path);
+		if ($newdir === FALSE) {
+			$newdir = str_replace('//', '/', str_replace('\\', '/', $config->subversion->path));
+			$newdir = USVN_SVNUtils::getCannocialPath($newdir);
+		}
+
+		return preg_replace('#^' . $newdir . '[/\\\\]svn[/\\\\]?#', '', $newrepository);
 	}
 }

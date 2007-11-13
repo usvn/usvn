@@ -269,7 +269,9 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		$config = Zend_Registry::get('config');
 		$this->assertEquals('test', USVN_SVNUtils::getProjectName($config->subversion->path . DIRECTORY_SEPARATOR . 'svn/test'));
 		$this->assertEquals('test/toto', USVN_SVNUtils::getProjectName($config->subversion->path . DIRECTORY_SEPARATOR . 'svn/test/toto'));
-		$this->assertEquals('test\\toto', USVN_SVNUtils::getProjectName($config->subversion->path . DIRECTORY_SEPARATOR . 'svn\\test\\toto'));
+		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
+			$this->assertEquals('test\\toto', USVN_SVNUtils::getProjectName($config->subversion->path . DIRECTORY_SEPARATOR . 'svn\\test\\toto'));
+		}
 	}
 }
 

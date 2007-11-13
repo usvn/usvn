@@ -94,6 +94,19 @@ img {border: 0;}
 	padding-bottom: 10px;
 }
 
+.usvn_update {
+	font-weight: bold;
+	background-color: #45d959;
+	border : solid 1px #00CF00;
+	background-image: url(<?php echo $this->images_directory ;?>/CrystalClear/32x32/actions/stop.png);
+	background-position: 10px;
+	background-repeat: no-repeat;
+	padding-left: 60px;
+	vertical-align: middle;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
 #usvn_logged {
 	color: #5F5F5F;
 }

@@ -42,6 +42,7 @@ class AdminadminController extends USVN_Controller
 	public function indexAction()
 	{
 		$this->view->config = Zend_Registry::get('config');
+		$this->view->available_version = USVN_Update::getUSVNAvailableVersion();
 		parent::indexAction();
 	}
 }

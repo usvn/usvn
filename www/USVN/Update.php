@@ -31,4 +31,19 @@ class USVN_Update
 		}
 		return true;
 	}
+	
+	/**
+	 * Return available version on http://www.usvn.info
+	 * 
+	 * @return string
+	 */
+	static public function getUSVNAvailableVersion()
+	{
+		$config = Zend_Registry::get('config');
+		$version = @file_get_contents($config->subversion->path . DIRECTORY_SEPARATOR . ".usvn-version");
+		if ($version === false) {
+			return $config->version;
+		}
+		return $version;
+	}
 }

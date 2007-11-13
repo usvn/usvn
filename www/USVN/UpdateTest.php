@@ -54,6 +54,14 @@ class USVN_UpdateTest extends USVN_Test_Test {
     	$config->update = array("lastcheckforupdate" => time() - 10);	
     	$this->assertFalse(USVN_Update::itsCheckForUpdateTime());
     }
+    
+    public function test_getUSVNAvailableVersion()
+    {
+    	$config = Zend_Registry::get('config');
+    	$this->assertEquals($config->version, USVN_Update::getUSVNAvailableVersion());
+    	file_put_contents($config->subversion->path . DIRECTORY_SEPARATOR . ".usvn-version", "0.8.4");
+    	$this->assertEquals("0.8.4", USVN_Update::getUSVNAvailableVersion());
+    }
 }
 
 // Call USVN_UpdateTest::main() if this source file is executed directly.

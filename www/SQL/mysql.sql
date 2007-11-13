@@ -80,6 +80,7 @@ create table usvn_users
    users_firstname                varchar(100),
    users_email                    varchar(150),
    users_is_admin                 bool						not null,
+   users_secret_id		  varchar(32)			not null,	
    CONSTRAINT USERS_LOGIN_UNQ UNIQUE (users_login),
    primary key (users_id)
 )

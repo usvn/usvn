@@ -50,8 +50,34 @@ class RssController extends USVN_Controller
 			$this->_redirect("/");
 		}
 		$this->_project = $project;
+		$table = new USVN_Db_Table_Users();
+		$user = $table->findBySecret($_GET['secret']);
+		if ($user)
+		{
+			$groups = $user->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_UsersToGroups");
+			$find = false;
+			foreach ($groups as $group) {
+			if ($project->groupIsMember($group)) {
+				$find = true;
+				break;
+				}
+			}
+			if (!$find && !$this->isAdmin()) {
+				$this->_redirect("/");
+			}
+		}
+		else
+			$this->_redirect("/");
 	}
 
+	protected function isAdmin()
+	{
+		if (!isset($this->view->isAdmin)) {
+			$user = $this->getRequest()->getParam('user');
+			$this->view->isAdmin = $this->_project->userIsAdmin($user) || $user->is_admin;
+		}
+		return $this->view->isAdmin;
+	}
 
 	public function indexAction()
 	{

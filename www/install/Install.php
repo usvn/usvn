@@ -337,6 +337,7 @@ EOF;
 		$user->lastname = $lastname;
 		$user->email = $email;
 		$user->is_admin = true;
+		$user->secret_id = md5(time().mt_rand());
 		$user->save();
 	}
 

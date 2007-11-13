@@ -77,10 +77,10 @@
 </div>
 <div class="usvn_info">
 	<h1><?php echo T_("Last five commit");
-	echo "<link rel='alternate' type='application/rss+xml' href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."' />";
+	echo "<link rel='alternate' type='application/rss+xml' href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."' />";
 	$navigateur = $_SERVER['HTTP_USER_AGENT'];
 	if (strstr($navigateur, "MSIE"))
-		echo "  <a href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."'>".$this->img('rss.png', T_('Rss'))."</a>";
+		echo "  <a href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."'>".$this->img('rss.png', T_('Rss'))."</a>";
 	 ?></h1>
 	<table id="commits" class="sortable">
 		<thead>

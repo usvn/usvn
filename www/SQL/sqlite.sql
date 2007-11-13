@@ -19,7 +19,7 @@ CREATE TABLE usvn_projects ( projects_name varchar(255) not null, projects_start
 CREATE UNIQUE INDEX usvn_projects_projects_name ON usvn_projects(projects_name);
 
 
-CREATE TABLE usvn_users ( users_login varchar(255) not null, users_password varchar(64) not null, users_lastname varchar(100), users_firstname varchar(100), users_email varchar(150), users_is_admin bool not null, users_id integer primary key autoincrement );
+CREATE TABLE usvn_users ( users_login varchar(255) not null, users_password varchar(64) not null, users_lastname varchar(100), users_firstname varchar(100), users_email varchar(150), users_is_admin bool not null, users_id integer primary key autoincrement, users_secret_id varchar(32));
 CREATE UNIQUE INDEX usvn_users_users_login ON usvn_users(users_login);
 
 

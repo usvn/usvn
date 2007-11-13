@@ -49,6 +49,7 @@ function Sqlite_queries($db)
 	   users_firstname varchar(100),
 	   users_email varchar(150),
 	   users_is_admin bool not null,
+	   users_secret_id varchar(32),
 	   CONSTRAINT USERS_LOGIN_UNQ UNIQUE (users_login),
 	   primary key (users_id)
 	)");
@@ -65,6 +66,7 @@ function Mysql_queries ($db)
 	$db->query("ALTER TABLE usvn_groups_to_files MODIFY (files_rights_is_readable bool not null)");
 	$db->query("ALTER TABLE usvn_groupd_to_files MODIFY (files_rightd_is_writable bool not null)");
 	$db->query("ALTER TABLE usvn_users MODIFY (users_is_admin bool not null)");
+	$db->query("ALTER TABLE usvn_users ADD users_secret_id VARCHAR( 32 ) NOT NULL");
 	$db>closeConnection();
 }
 

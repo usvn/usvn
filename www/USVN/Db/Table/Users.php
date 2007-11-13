@@ -80,6 +80,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		if (!isset($data['users_is_admin'])) {
 			$data['users_is_admin'] = false;
 		}
+		$data['users_secret_id'] = md5(time().mt_rand());
 		$res = parent::insert($data);
 		$this->updateHtpasswd();
 		return $res;
@@ -157,6 +158,20 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		return $this->fetchRow($where, "users_login");
 	}
 
+	
+	/**
+	 * Return the user by his secret
+	 *
+	 * @param string $secret
+	 * @return USVN_Db_Table_Row
+	 */
+	public function findBySecret($secret)
+	{
+		$db = $this->getAdapter();
+		/* @var $db Zend_Db_Adapter */
+		$where = $db->quoteInto("users_secret_id = ?", $secret);
+		return $this->fetchRow($where, "users_secret_id");
+	}
 
 
 	/**

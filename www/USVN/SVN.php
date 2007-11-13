@@ -55,8 +55,8 @@ class USVN_SVN
 	*
 	* Date are unix timestamp
 	*/
-	public function log($limit = 0)
+	public function log($limit = 0, $start = 0, $end = 0)
 	{
-		return USVN_SVNLog::log($this->_repository, $limit);
+		return USVN_SVNLog::log($this->_repository, $limit, $start, $end);
 	}
 }

@@ -70,22 +70,17 @@ class USVN_User
 	/**
 	 * Update an existing user
 	 *
-	 * @param string $login
+	 * @param USVN_Db_Table_User $login
 	 * @param array $data
 	 * @param array|null $groups
 	 * @return USVN_User
 	 */
-	static public function update($login, $data, $groups = null)
+	static public function update($user, $data, $groups = null)
 	{
-		$user = new USVN_User();
-		$table = new USVN_Db_Table_Users();
-		$user->user = $table->fetchRow(array("users_login = ?" => $login));
-		if ($user->user === null) {
-			throw new USVN_Exception(sprintf(T_("User %s does not exist."), $login));
-		}
-		$user->user->setFromArray($data);
-		$user->groups = $groups;
-		return $user;
+		$u = new USVN_User();
+		$u->user = $user;
+		$u->groups = $groups;
+		return $u;
 	}
 
 	/**

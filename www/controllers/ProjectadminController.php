@@ -54,10 +54,10 @@ class ProjectadminController extends AdminadminController
 		}
 		try {
 			$identity = Zend_Auth::getInstance()->getIdentity();
-			USVN_Project::createProject($data, $identity['username'], $_POST['creategroup'], $_POST['addmetogroup'], $_POST['admin']);
+			USVN_Project::createProject($data, $identity['username'], $_POST['creategroup'], $_POST['addmetogroup'], $_POST['admin'], $_POST['createsvndir']);
 			$this->_redirect("/admin/project/");
 		}
-		catch (Exception $e) {
+		catch (USVN_Exception $e) {
 			$this->view->message = nl2br($e->getMessage());
 			$this->newAction();
 			$this->view->project->setFromArray($data);
@@ -67,7 +67,6 @@ class ProjectadminController extends AdminadminController
 
 	public function editAction()
 	{
-
 		//rechercher projet + users
 		$identity = Zend_Auth::getInstance()->getIdentity();
 

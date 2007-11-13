@@ -107,12 +107,22 @@ class UseradminController extends AdminadminController
 	public function updateAction()
 	{
 		$data = $this->getUserData($_POST);
+		if (empty($data)) {
+			$this->_redirect("/admin/user/new");
+		}
 		$user = null; /* some ugly hack of variable scope... */
 		try {
-			$user = USVN_User::update($this->getRequest()->getParam('login'),
+			$table = new USVN_Db_Table_Users();
+			$login = $this->getRequest()->getParam('login');
+			$user = $table->fetchRow(array("users_login = ?" => $login));
+			if ($user === null) {
+				throw new USVN_Exception(sprintf(T_("User %s does not exist."), $login));
+			}
+			$user->setFromArray($data);
+			$u = USVN_User::update($user,
 										$data,
 										isset($_POST['groups']) ? $_POST['groups'] : null);
-			$user->save();
+			$u->save();
 			$this->_redirect("/admin/user/");
 		}
 		catch (USVN_Exception $e) {

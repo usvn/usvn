@@ -32,7 +32,8 @@ class USVN_Config
 			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 			$config->translation->locale = $language;
 			$config->save();
-		} else {
+		} 
+		else {
 			throw new USVN_Exception(T_("Invalid language"));
 		}
 	}
@@ -56,21 +57,39 @@ class USVN_Config
 		}
 	}
 
+	/**
+	* Change style of USVN
+	*
+	* @param string template name
+	* @throw USVN_Exception
+	*/
 	static public function setTemplate($template)
 	{
 		if (in_array($template, USVN_Template::listTemplate())) {
 			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 			$config->template->name = $template;
 			$config->save();
-		} else {
+		}
+		else {
 			throw new USVN_Exception(T_("Invalid template"));
 		}
 	}
 
 	/**
+	* Allow check of update or not
+	*
+	* @param bool
+	*/
+	static public function setCheckForUpdate($check)
+	{
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$config->update = array("checkforupdate" => $check, "lastcheckforupdate" => 0);
+		$config->save();
+	}
+
+	/**
 	 * Set information about the Website
 	 *
-	 * @todo Check if the file exists or launch an exception
 	 * @throw USVN_Exception
 	 * @param array $datas
 	 */

@@ -31,7 +31,7 @@ class Bugs_409_Test extends USVN_Test_DB {
 
     public function testCreateProjectAndDeleteProjectAdminUser()
 	{
-		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true);
+		$project = USVN_Project::createProject(array('projects_name' => 'InsertProjectOk',  'projects_start_date' => '1984-12-03 00:00:00'), "test", true, true, true, true);
 
 		$table = new USVN_Db_Table_UsersToProjects();
 		$groupstoprojects = $table->fetchRow(array("projects_id = ?" => $project->id, "users_id = ?" => $this->_user->id));

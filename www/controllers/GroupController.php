@@ -37,7 +37,6 @@ class GroupController extends USVN_Controller
 		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('group'));
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array("groups_name = ?" => $group_name));
-	//	$this->view->user = $this->getRequest()->getParam('user');
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		$table = new USVN_Db_Table_Users();
 		$this->view->user = $table->fetchRow(array("users_login = ?" => $identity['username']));
@@ -99,7 +98,6 @@ class GroupController extends USVN_Controller
 			$this->view->message = $e->getMessage();
 		}
 
-	//	$this->view->project = $this->_project;
 		$this->view->group = $group;
 		}
 		else
@@ -142,18 +140,14 @@ class GroupController extends USVN_Controller
 				if ($group->hasUser($user))
 					$group->deleteUser($user);
 			}
-			/*if (isset($user)) {
-				$this->_redirect("/group/index/group/{$group->name}/");
-			}*/
 		}
 		catch (Exception $e) {
 			$this->view->message = $e->getMessage();
 		}
 
-	//	$this->view->project = $this->_project;
 		$this->view->group = $group;
 		}
 		else
-			throw new USVN_Exception(sprintf(T_("Vous n'avez pas le droit d'acceder a cette fonctionalite")));
+			throw new USVN_Exception(sprintf(T_("Access denied")));
 	}
 }

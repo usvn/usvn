@@ -31,4 +31,8 @@ class IndexController extends USVN_Controller {
 		$user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 		$this->view->groups = $user->listGroups();
 	}
+
+	public function errorAction()
+	{
+	}
 }

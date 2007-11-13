@@ -58,7 +58,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables  = array("USVN_Db_Table_UsersToGroups");
+	protected $_dependentTables = array("USVN_Db_Table_UsersToGroups", "USVN_Db_Table_GroupsToFilesRights", "USVN_Db_Table_GroupsToProjects");
 
 	/**
 	 * Check if the group's name is valid or not
@@ -122,10 +122,10 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 	}
 
 	/**
-     * Fetches all groups and joins with users
-     *
-     * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode.
-     */
+	 * Fetches all groups and joins with users
+	 *
+	 * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode.
+	 */
 	public function fetchAllAndUsers()
 	{
 		// selection tool
@@ -144,9 +144,9 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		$select->order("groups_name");
 		$select->order("users_login");
 
-        // return the results
-        $stmt = $this->_db->query($select);
-        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+		// return the results
+		$stmt = $this->_db->query($select);
+		$data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 
 		$data  = array(
 			'table'    => $this,
@@ -201,8 +201,6 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		return $this->fetchAll($where, "groups_name");
 	}
 
-
-
 	public function allLeader($group_id)
 	{
 		// selection tool
@@ -218,9 +216,9 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 
 		$select->where("$users_to_groups.is_leader = 1 and $users_to_groups.groups_id = ?", $group_id);
 
-        // return the results
-        $stmt = $this->_db->query($select);
-        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+		// return the results
+		$stmt = $this->_db->query($select);
+		$data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
 
 		$data  = array(
 			'table'    => $this,
@@ -261,5 +259,40 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 
 		Zend_Loader::loadClass($this->_rowsetClass);
 		return new $this->_rowsetClass($data);
+	}
+
+	/**
+	 * Get all groups for a specific user associated with a project.
+	 *
+	 * @param USVN_Db_Table_Row_User $user
+	 * @param USVN_Db_Table_Row_Project $project
+	 * @return Zend_Db_Table_Rowset
+	 */
+	public function fetchAllForUserAndProject($user, $project)
+	{
+		$select = $this->getAdapter()->select();
+		/* @var $select Zend_Db_Select */
+
+		$select->from(self::$prefix . "groups as g");
+		$select->join(self::$prefix . "groups_to_projects as g2p", "g2p.groups_id = g.groups_id", array());
+		$select->join(self::$prefix . "users_to_groups as u2g",    "u2g.groups_id = g.groups_id", array());
+
+		$select->where("u2g.users_id = ?",    $user->id);
+		$select->where("g2p.projects_id = ?", $project->id);
+
+		// return the results
+		$stmt = $this->_db->query($select);
+		$data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
+
+		$data  = array(
+		'table'    => $this,
+		'data'     => $data,
+		'rowClass' => $this->_rowClass,
+		'stored'   => true
+		);
+
+		Zend_Loader::loadClass($this->_rowsetClass);
+		return new $this->_rowsetClass($data);
+
 	}
 }

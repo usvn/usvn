@@ -56,7 +56,9 @@ class USVN_SVNLogTest extends USVN_Test_Test {
 		putenv('HOME=tests/fakehome');
 		$this->_saveHOME = getenv("HOME");
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+		USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
         USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
+		file_put_contents('tests/tmp/svn directory/hooks/pre-revprop-change.bat', "@ECHO OFF\r\n");
 		file_put_contents('tests/tmp/svn directory/hooks/pre-revprop-change', "#!/bin/sh\nexit 0");
 		chmod('tests/tmp/svn directory/hooks/pre-revprop-change', 0700);
         $path = getcwd();
@@ -69,7 +71,7 @@ class USVN_SVNLogTest extends USVN_Test_Test {
         touch('trunk/testfile2');
         `svn add trunk/testfile2`;
         `svn commit --non-interactive --username tutu -m Test2`;
-		`svn propset svn:date --revprop -r3 '1984-12-03T01:02:03.218987Z' .`;
+		`svn propset svn:date --revprop -r3 "1984-12-03T01:02:03.218987Z" .`;
         chdir($path);
     }
 
@@ -78,7 +80,6 @@ class USVN_SVNLogTest extends USVN_Test_Test {
 		putenv('HOME=' . $this->_saveHOME);
 		parent::tearDown();
 	}
-
 
 	public function test_log()
 	{

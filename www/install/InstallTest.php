@@ -68,6 +68,15 @@ class InstallTest extends USVN_Test_Test {
 		$this->assertEquals("Europe/Paris", $config->timezone);
 	}
 
+	public function testInstallCheckForUpdate()
+	{
+		Install::installCheckForUpdate("tests/tmp/config.ini", true);
+		$this->assertTrue(file_exists("tests/tmp/config.ini"));
+		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
+		$this->assertTrue((bool)$config->update->checkforupdate);
+		$this->assertEquals(0, $config->update->lastcheckforupdate);
+	}
+
 	public function testInstallLocale()
 	{
 		Install::installLocale("tests/tmp/config.ini");
@@ -107,8 +116,9 @@ class InstallTest extends USVN_Test_Test {
 	{
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             mkdir('tests/tmp2');
-            Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2', 'http://test.com');
+            Install::installSubversion("tests/tmp2/config.ini", 'tests\\\\tmp2', "tests\\\\htpasswd", "tests\\\\authz", 'http://test.com');
             $this->assertTrue(file_exists("tests/tmp2/config.ini"));
+            $this->assertTrue(file_exists("tests/authz"));
             $config = new Zend_Config_Ini("tests/tmp2/config.ini", "general");
             $this->assertEquals("tests\\tmp2\\", $config->subversion->path);
         }
@@ -182,7 +192,7 @@ class InstallTest extends USVN_Test_Test {
 	{
 		Install::installEnd("tests/tmp/config.ini");
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertEquals("0.6.4", $config->version);
+		$this->assertEquals("0.7", $config->version);
 	}
 
 	public function testInstallPossibleNoConfigFile()
@@ -232,7 +242,7 @@ subversion.authz=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "a
 subversion.passwd=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 site.title=USVN
 		");
-		$this->assertEquals(
+		$test =
 "<Location /dev/usvn/>
 	ErrorDocument 404 default
 	DAV svn
@@ -244,8 +254,9 @@ site.title=USVN
 	AuthUserFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
 </Location>
-",
-		Install::getApacheConfig("tests/tmp/config.ini"));
+";
+		$test = str_replace("\r", "", $test);
+		$this->assertEquals($test, Install::getApacheConfig("tests/tmp/config.ini"));
 	}
 
 	public function testGetApacheConfigWithSSL()
@@ -257,7 +268,7 @@ subversion.authz=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "a
 subversion.passwd=tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 site.title=USVN
 		");
-		$this->assertEquals(
+		$test =
 "<Location /dev/usvn/>
 	ErrorDocument 404 default
 	DAV svn
@@ -270,8 +281,9 @@ site.title=USVN
 	AuthUserFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "htpasswd
 	AuthzSVNAccessFile tests" . DIRECTORY_SEPARATOR . "tmp" . DIRECTORY_SEPARATOR . "authz
 </Location>
-",
-		Install::getApacheConfig("tests/tmp/config.ini"));
+";
+		$test = str_replace("\r", "", $test);
+		$this->assertEquals($test, Install::getApacheConfig("tests/tmp/config.ini"));
 	}
 
 	public function testcheckSystem()

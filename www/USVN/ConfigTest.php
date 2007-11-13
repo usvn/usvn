@@ -56,6 +56,7 @@ class USVN_ConfigTest extends USVN_Test_Test {
 		[general]
 translation.locale = \"en_US\"
 version = \"0.84\"
+update.checkforupdate = \"1\";
 		");
 	}
 
@@ -72,6 +73,14 @@ version = \"0.84\"
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$this->assertEquals('Europe/Paris', $config->timezone);
     }
+
+    public function testSetCheckForUpdate()
+	{
+		USVN_Config::setCheckForUpdate(true);
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$this->assertEquals(1, $config->update->checkforupdate);
+		$this->assertEquals(0, $config->update->lastcheckforupdate);
+	}
 
     public function testUnset()
 	{

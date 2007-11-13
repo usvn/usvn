@@ -91,13 +91,19 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
 		$this->assertTrue(file_exists('tests/tmp/svn directory'));
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));
+	}
+
+	public function test_createStandardDirectories()
+	{
+		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+		USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
 		USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
 		$this->assertTrue(file_exists('tests/tmp/out'));
 		$this->assertTrue(file_exists('tests/tmp/out/trunk'));
 		$this->assertTrue(file_exists('tests/tmp/out/branches'));
 		$this->assertTrue(file_exists('tests/tmp/out/tags'));
 	}
-
+	
 	public function test_createSvnFR()
 	{
 		putenv("LANG=C");
@@ -105,11 +111,6 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
 		$this->assertTrue(file_exists('tests/tmp/svn directory'));
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));
-		USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
-		$this->assertTrue(file_exists('tests/tmp/out'));
-		$this->assertTrue(file_exists('tests/tmp/out/trunk'));
-		$this->assertTrue(file_exists('tests/tmp/out/branches'));
-		$this->assertTrue(file_exists('tests/tmp/out/tags'));
 	}
 
 	public function test_createSvnBadDir()
@@ -146,6 +147,7 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 	{
 		if (!(substr(php_uname(), 0, 7) == "Windows")) {
 			USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+			USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
 			USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
 			$path = getcwd();
 			chdir('tests/tmp/out');
@@ -164,6 +166,66 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 			$this->assertEquals(2, count($res));
 			$this->assertContains(array("name" => "testdir", "isDirectory" => true, "path" => "/trunk/testdir/"), $res);
 			$this->assertContains(array("name" => "testfile", "isDirectory" => false, "path" => "/trunk/testfile"), $res);
+		}
+	}
+
+	public function test_listSvnSpecialCharDirectory()
+	{
+		if (!(substr(php_uname(), 0, 7) == "Windows")) {
+			USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+			USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
+			USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
+			$path = getcwd();
+			chdir('tests/tmp/out');
+			mkdir('trunk/c++');
+			`svn add trunk/c++`;
+			`svn commit --non-interactive -m Test`;
+			chdir($path);
+			$res = USVN_SVNUtils::listSvn('tests/tmp/svn directory', '/trunk');
+			$this->assertEquals(1, count($res));
+			$this->assertContains(array("name" => "c++", "isDirectory" => true, "path" => "/trunk/c++/"), $res);
+		}
+	}
+
+	public function test_listSvnOrdAlpha()
+	{
+		if (!(substr(php_uname(), 0, 7) == "Windows")) {
+			USVN_SVNUtils::createSvn('tests/tmp/svn directory');
+			USVN_SVNUtils::createStandardDirectories('tests/tmp/svn directory');
+			USVN_SVNUtils::checkoutSvn('tests/tmp/svn directory', 'tests/tmp/out');
+			$path = getcwd();
+			chdir('tests/tmp/out');
+			mkdir('trunk/a');
+			`svn add trunk/a`;
+			mkdir('trunk/b');
+			`svn add trunk/b`;
+			mkdir('trunk/A');
+			`svn add trunk/A`;
+			mkdir('trunk/B');
+			`svn add trunk/B`;		
+			`svn commit --non-interactive -m Test`;
+			chdir($path);
+			$res = USVN_SVNUtils::listSvn('tests/tmp/svn directory', '/trunk');
+			$this->assertEquals(4, count($res));
+			$this->assertEquals(
+				array(
+					array(
+						"name" => "a",
+						"isDirectory" => true,
+						"path" => "/trunk/a/"),
+					array(
+						"name" => "A",
+						"isDirectory" => true,
+						"path" => "/trunk/A/"),
+					array(
+						"name" => "b",
+						"isDirectory" => true,
+						"path" => "/trunk/b/"),
+					array(
+						"name" => "B",
+						"isDirectory" => true,
+						"path" => "/trunk/B/")
+				), $res);
 		}
 	}
 
@@ -191,8 +253,15 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 
 	public function test_getRepositoryPath()
 	{
-		$this->assertEquals("'file:///tata/tutu'", USVN_SVNUtils::getRepositoryPath("//../tata/tutu"), "premier");
-		$this->assertEquals("'file:///'", USVN_SVNUtils::getRepositoryPath("//.."), "deuxieme");
+		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
+			$this->assertEquals('"file:///' . str_replace('\\', '/', getcwd()) . '/tata/tutu"', USVN_SVNUtils::getRepositoryPath("./tata/tutu"));
+		}
+		else {
+			$this->assertEquals("'file:///tata/tutu'", USVN_SVNUtils::getRepositoryPath("//.././tata/tutu"));
+			$this->assertEquals("'file://" . getcwd() . "/tata/tutu'", USVN_SVNUtils::getRepositoryPath("./tata/tutu"));
+			$this->assertEquals("'file:///tutu'", USVN_SVNUtils::getRepositoryPath("//tata/../tutu"));
+			$this->assertEquals("'file:///'", USVN_SVNUtils::getRepositoryPath("//.."));
+		}
 	}
 
 	public function test_getProjectName()

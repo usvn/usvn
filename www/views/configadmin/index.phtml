@@ -49,9 +49,27 @@
 						foreach (USVN_Template::listTemplate() as $template) {
 							if ($template == USVN_Template::getTemplate()) {
 								echo "<option selected=\"selected\">$template</option>";
-							} else {
+							}
+							else {
 								echo "<option>$template</option>";
 							}
+						}
+					?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><label><?php echo T_("Check for update");?>:</label></td>
+			<td>
+				<select name="checkforupdate">
+					<?php
+						if ($this->config->update->checkforupdate) {
+							echo '<option value="1" selected>' . T_("Yes"). '</option>';
+							echo '<option value="0">' . T_("No"). '</option>';
+						}
+						else {
+							echo '<option value="1">' . T_("Yes"). '</option>';
+							echo '<option value="0" selected>' . T_("No"). '</option>';
 						}
 					?>
 				</select>

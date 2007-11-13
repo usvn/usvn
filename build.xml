@@ -93,17 +93,6 @@
 	</target>
 
     <target name="test">
-		<if>
-			<not>
-				<available file="config.ini.save" />
-			</not>
-			<then>
-				<php function="copy">
-					<param value="www/config.ini" />
-					<param value="config.ini.save" />
-				</php>
-			</then>
-		</if>
         <mkdir dir="tests" />
         <mkdir dir="tests/tmp" />
 
@@ -127,13 +116,6 @@
             <formatter type="xml" todir="${report_test_dir}" outfile="logfile.xml" />
             <formatter type="plain" todir="${report_test_dir}" outfile="logfile.txt" />
         </phpunit>
-	    <php function="copy">
-			<param value="config.ini.save"/>
-			<param value="www/config.ini"/>
-		</php>
-	    <php function="unlink">
-			<param value="config.ini.save"/>
-		</php>
         <phpunitreport infile="${report_test_dir}/logfile.xml" styledir="phing" format="frames" todir="${report_test_dir}" />
         <fail if="unit_test_failure" message="Unit tests failed!!!" />
 	</target>
@@ -142,14 +124,6 @@
     <delete dir="${docdir}" />
     <mkdir dir="${docdir}" />
     <exec command="phpdoc -c phpDocumentor.ini"/>
-  </target>
-
-  <target name="reset">
-    <exec command="php scripts/reset.php"/>
-  </target>
-
-  <target name="clear">
-    <exec command="php scripts/clear.php"/>
   </target>
 
   <target name="lint">

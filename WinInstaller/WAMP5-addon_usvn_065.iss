@@ -1,15 +1,15 @@
 [Setup]
 AppName=USVN
 AppVerName=Userfriendly SVN
-OutputBaseFilename=USVN_07_add-on_173
+OutputBaseFilename=USVN_065_wamp_add-on
 AppPublisher=Userfriendly SVN
 AppPublisherURL=http://www.usvn.info
 AppSupportURL=http://www.usvn.info
 AppUpdatesURL=http://www.usvn.info
 DefaultDirName=c:\wamp
-
+DefaultGroupName=USVN
 ;DisableDirPage=yes
-DefaultGroupName=WampServer
+
 LicenseFile=.\Files\Licence_CeCILL_V2-en.txt
 SourceDir=.\
 
@@ -31,14 +31,18 @@ Source: ".\Files\libdb44.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignorevers
 Source: ".\Files\intl3_svn.dll"; DestDir: "{app}\Apache2\bin\"; Flags:  ignoreversion recursesubdirs;
 
 Source: ".\Files\usvn.conf"; DestDir: "{app}\Apache2\conf\alias\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigAlias('{app}')
-Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
 Source: ".\Files\USVN\*.*"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs ; AfterInstall: ConfigAlias('{app}')
-Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigHtAcess('{app}')
-Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
-Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
-Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: InfoBox('{app}\USVN\')
-
+;Source: ".\Files\.htaccess"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigHtAcess('{app}')
+;Source: ".\Files\usvn.db"; DestDir: "{app}\USVN\files\"; Flags:  onlyifdoesntexist ignoreversion recursesubdirs; AfterInstall: ConfigDB('{app}')
+;Source: ".\Files\htpasswd"; DestDir: "{app}\USVN\files\"; Flags:  ignoreversion recursesubdirs;
+;Source: ".\Files\update.html"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs;
+Source: ".\Files\config.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigConfig('{app}')
+Source: ".\Files\install.bat"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs; AfterInstall: ConfigInstallBAT('{app}')
+Source: ".\Files\info.txt"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: InfoBox('{app}')
+;Source: ".\Files\Welcome.html"; DestDir: "{app}\USVN\"; Flags: isreadme ignoreversion recursesubdirs ;AfterInstall: WelcomeHTML('{app}\USVN\')
+Source: ".\Files\version.ini"; DestDir: "{app}\USVN\"; Flags:  ignoreversion recursesubdirs;
 [Icons]
+;Name: "{group}\USVN"; Filename: "{app}\USVN\Welcome.html";
 Name: "{group}\USVN"; Filename: "{app}\USVN\info.txt";
 
 
@@ -119,6 +123,8 @@ begin
   LoadStringFromFile (FileName + '\USVN\config.ini', SrcContent4);
   StringChangeEx(SrcContent4, 'url.base = "/usvn"', 'url.base = "' + URL.Values[0] + '"', True);
   StringChangeEx(SrcContent4, 'subversion.path = ""', 'subversion.path = "' + FileName2 + '/USVN/files/"', True);
+  StringChangeEx(SrcContent4, 'subversion.passwd = ""', 'subversion.passwd = "' + FileName2 + '/USVN/files/htpasswd"', True);
+  StringChangeEx(SrcContent4, 'subversion.authz = ""', 'subversion.authz = "' + FileName2 + '/USVN/files/authz"', True);
   StringChangeEx(SrcContent4, 'database.options.dbname = ""', 'database.options.dbname = "' + FileName2 + '/USVN/files/usvn.db"', True);
   DeleteFile (FileName + '\USVN\config.ini');
   SaveStringToFile(FileName + '\USVN\config.ini', SrcContent4, false);
@@ -157,6 +163,7 @@ var
     tmp1: String;
     tmp2: String;
     i: Integer;
+
 begin
     Result := True;
     Page := TInputQueryWizardPage(Sender);
@@ -172,7 +179,17 @@ begin
       Result := False;
     end;
     if Result = False then begin
-      MsgBox('URI incorrect (exemple : /USVN/)', mbCriticalError, MB_OK);
+      MsgBox('URI incorrect (exemple : /usvn/)', mbCriticalError, MB_OK);
+    end;
+    i:=Length(URL.Values[1]);
+    if i = 0 then begin
+      Result := False;
+      MsgBox('Your login must have at least 1 caractere.', mbCriticalError, MB_OK);
+    end;
+    i:=Length(URL.Values[2]);
+    if i < 8 then begin
+      Result := False;
+      MsgBox('Your password must have at least 8 caracteres.', mbCriticalError, MB_OK);
     end;
 end;
 
@@ -183,27 +200,123 @@ begin
 
   URL := CreateInputQueryPage(wpWelcome,
     'Personal Information', 'Default USVN URL?',
-    'Please specify the USVN URL (ex: /USVN/)');
+    'Please specify the USVN URL (ex: /usvn/)');
   URL.OnNextButtonClick := @URI_NextButtonClick;
   URL.Add('URL:', False);
+  URL.Add('Login:', False);
+  URL.Add('Password:', True);
+  URL.Values[0] := '/usvn/';
+  URL.Values[1] := 'admin';
+
   URLstring := URL.Values[0];
 //  i:= Length(URLstring);
 //  URLstring[i];
 
 end;
 
+
+//procedure WelcomeHTML(FileName: String);
+//var FileName2: String;
+//var SrcContent4: String;
+//begin
+//  FileName:= ExpandConstant(FileName);
+//  FileName2:= FileName;
+//  StringChange (FileName2, '\','/');
+//  LoadStringFromFile (FileName + '\Welcome.html', SrcContent4);
+//  StringChangeEx(SrcContent4, 'URL=http://localhost/USVN/"', 'URL=http://localhost/' + URL.Values[0] + '"', True);
+//  DeleteFile (FileName + '\USVN\Welcome.html');
+//  SaveStringToFile(FileName + '\USVN\Welcome.html', SrcContent4, false);
+
+//end;
+
+function IsAUpdate(FileName: String): Boolean;
+
+var FileName2: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+  Result := FileExists(FileName + '\USVN\version.ini');
+
+end;
+
+function GetUSVNVersion(FileName: String): String;
+var FileName2: String;
+var SrcContent4: String;
+
+begin
+  FileName:= ExpandConstant(FileName);
+//  FileName2:= FileName;
+  LoadStringFromFile (FileName + '\USVN\version.ini', SrcContent4);
+  Result := SrcContent4;
+end;
+
+//procedure USVNUpdate(FileName: String);
+//var Res: Boolean;
+//var Version: String;
+//begin
+//  FileName:= ExpandConstant(FileName);
+//  Res := IsAUpdate(FileName);
+//  if Res = True then begin
+//    FileCopy(FileName + 'USVN\files\usvn.db', FileName + 'USVN\files\usvn.db_bak', False);
+//  end;
+//end;
+
+
 procedure InfoBox(FileName: String);
 var FileName2: String;
 var ErrorCode: Integer;
+var SrcContent4: String;
+var Res: Boolean;
 
 begin
 
   FileName:= ExpandConstant(FileName);
   FileName2:= FileName;
   StringChange (FileName2, '\','/');
-  ShellExec('open', FileName2 + '/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
+  LoadStringFromFile (FileName + '\USVN\info.txt', SrcContent4);
+  StringChangeEx(SrcContent4, 'USVN url : http://localhost/usvn/', 'USVN url : http://localhost' + URL.Values[0], True);
+  StringChangeEx(SrcContent4, 'login :', 'login : ' + URL.Values[1], True);
+  StringChangeEx(SrcContent4, 'password :', 'password : ' + URL.Values[2], True);
+  DeleteFile (FileName + '\USVN\info.txt');
+  SaveStringToFile(FileName + '\USVN\info.txt', SrcContent4, false);
+  ShellExec('open', FileName2 + '/USVN/info.txt', '', '', SW_SHOW, ewNoWait, ErrorCode)
 
 end;
 
+procedure ConfigInstallBAT(FileName: String);
+var FileName2: String;
+var ErrorCode: Integer;
+var SrcContent4: String;
+var Version: String;
+var Res: Boolean;
+
+begin
+  FileName:= ExpandConstant(FileName);
+  FileName2:= FileName;
+  StringChange (FileName2, '\','/');
+
+  LoadStringFromFile (FileName + '\USVN\install.bat', SrcContent4);
+
+  Res := IsAUpdate(FileName);
+  if Res = True then begin
+    Version := GetUSVNVersion(FileName);
+    if Version = '0.6.5' then begin
+      exit;
+    end;
+  end;
+  if Res = True then begin
+  //Upgrade
+  StringChangeEx(SrcContent4, 'cd', 'cd ' + FileName + '\USVN\update\' + Version + '\', True);
+  StringChangeEx(SrcContent4, 'php', 'php index.php', True);
+  end
+  else begin
+   //First Installation
+    StringChangeEx(SrcContent4, 'cd', 'cd ' + FileName + '\USVN\', True);
+    StringChangeEx(SrcContent4, 'php', 'php install/install-commandline.php config.ini .htaccess ' + URL.Values[1] + ' ' + URL.Values[2], True);
+  end;
+  DeleteFile (FileName + '\USVN\install.bat');
+  SaveStringToFile(FileName + '\USVN\install.bat', SrcContent4, false);
+  ShellExec('open', FileName2 + '/USVN/install.bat', '', '', SW_HIDE, ewWaitUntilTerminated, ErrorCode)
+end;
 [Run]
 ;Filename: "{app}\USVN\svn-1.4.3-setup.exe"; Description: "Launch SVN installation now"; Flags:shellexec postinstall skipifsilent runhidden

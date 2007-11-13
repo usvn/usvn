@@ -143,6 +143,10 @@ function installationOperation($step)
 
 		case 7:
 			Install::installAdmin(CONFIG_FILE, $_POST['login'], $_POST['password'], $_POST['firstname'], $_POST['lastname'], $_POST['email']);
+		break;
+
+		case 8:
+			Install::installCheckForUpdate(CONFIG_FILE, $_POST['update']);
 			Install::installEnd(CONFIG_FILE);
 			$GLOBALS['apacheConfig'] = Install::getApacheConfig(CONFIG_FILE);
 		break;
@@ -152,7 +156,7 @@ function installationOperation($step)
 function installationStep($step)
 {
 	$language = $GLOBALS['language'];
-	if ($step >= 1 && $step <= 7) {
+	if ($step >= 1 && $step <= 8) {
 		include "views/step$step.html";
 	}
 }

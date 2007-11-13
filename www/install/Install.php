@@ -178,6 +178,7 @@ class Install
 		if (0 === strpos(PHP_OS, 'WIN')) {
 			$config->system = array("locale" => 'en_US.UTF-8');
 			$config->save();
+			return;
 		}
 		exec("locale -a", $locales);
 		foreach ($locales as $locale) {
@@ -191,6 +192,20 @@ class Install
 	}
 
 	/**
+	 * This method will save into config file if user allow check for
+	 * update.
+	 *
+	 * @param string Path to the USVN config file
+	 * @param bool True if user allow collect of informations
+	 */
+	static public function installCheckForUpdate($config_file, $check)
+	{
+		$config = Install::_loadConfig($config_file);
+		$config->update = array("checkforupdate" => $check, "lastcheckforupdate" => 0);
+		$config->save();
+	}
+
+	/**
 	* This method will add subversion path
 	*
 	* @param string Path to the USVN config file
@@ -201,7 +216,7 @@ class Install
 	*/
 	static public function installSubversion($config_file, $path, $passwd, $authz, $url)
 	{
-		if (substr($path, -1) != DIRECTORY_SEPARATOR) {
+		if (substr($path, -1) != DIRECTORY_SEPARATOR && substr($path, -1) != '/') {
 			$path .= DIRECTORY_SEPARATOR;
 		}
 		if (substr($url, -1) != '/') {
@@ -334,7 +349,7 @@ EOF;
 	static public function installEnd($config_file)
 	{
 		$config = Install::_loadConfig($config_file);
-		$config->version = "0.6.4";
+		$config->version = "0.7";
 		$config->save();
 	}
 

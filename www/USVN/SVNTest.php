@@ -55,6 +55,8 @@ class USVN_SVNTest extends USVN_Test_DB {
 
 	public function test_listFile()
 	{
+		USVN_SVNUtils::createSVN('tests/tmp/svn/test');
+		USVN_SVNUtils::createStandardDirectories('tests/tmp/svn/test');
         USVN_SVNUtils::checkoutSvn('tests/tmp/svn/test', 'tests/tmp/out');
         $path = getcwd();
         chdir('tests/tmp/out');

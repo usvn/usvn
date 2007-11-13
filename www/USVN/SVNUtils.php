@@ -198,27 +198,37 @@ class USVN_SVNUtils
     */
     public static function createSvn($path)
     {
-		$escape_path = escapeshellarg($path);
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnadminCommand("create $escape_path"), $return);
-		if ($return) {
-			throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
-		}
-		$tmpdir = USVN_DirectoryUtils::getTmpDirectory();
-		try {
-			mkdir($tmpdir . DIRECTORY_SEPARATOR . "trunk");
-			mkdir($tmpdir . DIRECTORY_SEPARATOR . "branches");
-			mkdir($tmpdir . DIRECTORY_SEPARATOR . "tags");
-			USVN_SVNUtils::_svnImport($path, $tmpdir);
-		}
-		catch (Exception $e) {
-			USVN_DirectoryUtils::removeDirectory($path);
-			USVN_DirectoryUtils::removeDirectory($tmpdir);
-			throw $e;
-		}
-		USVN_DirectoryUtils::removeDirectory($tmpdir);
-		new USVN_InstallHooks($path);
+      $escape_path = escapeshellarg($path);
+      $message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnadminCommand("create $escape_path"), $return);
+      if ($return) {
+		throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
+      }
     }
 
+    /**
+    * Create standard svn directories
+    * /trunk
+    * /tags
+    * /branches
+    *
+    * @param string Path to create subversion
+    */
+    public static function createStandardDirectories($path)
+    {
+      $tmpdir = USVN_DirectoryUtils::getTmpDirectory();
+      try {
+		mkdir($tmpdir . DIRECTORY_SEPARATOR . "trunk");
+		mkdir($tmpdir . DIRECTORY_SEPARATOR . "branches");
+		mkdir($tmpdir . DIRECTORY_SEPARATOR . "tags");
+		USVN_SVNUtils::_svnImport($path, $tmpdir);
+      }
+      catch (Exception $e) {
+		USVN_DirectoryUtils::removeDirectory($path);
+		USVN_DirectoryUtils::removeDirectory($tmpdir);
+		new USVN_InstallHooks($path);
+	}
+    }
+    
     /**
     * Checkout SVN repository into filesystem
     * @param string Path to subversion repository
@@ -259,7 +269,54 @@ class USVN_SVNUtils
                 }
             }
         }
+        $sortfunc = create_function('$a,$b', 'return (strcasecmp($a["name"], $b["name"]));');
+        usort($res, $sortfunc);
         return $res;
+	}
+		
+	/**
+	 * This code work only for directory
+	 * Directory separator need to be / 
+	 */
+	private static function getCannocialPath($path)
+	{
+		$origpath = $path;
+		$path = preg_replace('#//+#', '/', $path);
+		$list_path = preg_split('#/#', $path, -1, PREG_SPLIT_NO_EMPTY);
+		$i = 0;
+		while (isset($list_path[$i])) {
+			if ($list_path[$i] == '..') {
+				unset($list_path[$i]);
+				if ($i > 0) {
+					unset($list_path[$i - 1]);
+				}
+				$list_path = array_values($list_path);
+				$i = 0;
+			}
+			elseif ($list_path[$i] == '.') {
+				unset($list_path[$i]);
+				$list_path = array_values($list_path);
+				$i = 0;
+			}
+			else {
+				$i++;
+			}
+		}
+		$newpath = '';
+		$first = true;
+		foreach ($list_path as $path) {
+			if (!$first) {
+				$newpath .= '/';
+			}
+			else {
+				$first = false;
+			}
+			$newpath .= $path; 
+		}
+		if ($origpath[0] == '/') {
+			return '/' . $newpath;
+		}
+		return getcwd() . '/' . $newpath;
 	}
 
 	/**
@@ -272,13 +329,20 @@ class USVN_SVNUtils
 	{
 		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
 			$newpath = realpath($path);
-			if ($newpath !== FALSE) {
+			if ($newpath === FALSE) {
+				$path = str_replace('//', '/', str_replace('\\', '/', $path));
+				$path = USVN_SVNUtils::getCannocialPath($path);
+			}
+			else {
 				$path = $newpath;
 			}
-			$path = str_replace('//', '/', str_replace('\\', '/', $path));
-			return "\"file:///".$path."\"";
+			return "\"file:///" . str_replace('\\', '/', $path) . "\"";
 		}
-		return escapeshellarg('file://' . realpath($path));
+		$newpath = realpath($path);
+		if ($newpath === FALSE) {
+			$newpath = USVN_SVNUtils::getCannocialPath($path);
+		}
+		return escapeshellarg('file://' . $newpath);
 	}
 
 	/**

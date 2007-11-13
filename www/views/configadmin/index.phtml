@@ -63,7 +63,7 @@
 			<td>
 				<select name="checkforupdate">
 					<?php
-						if ($this->config->checkforupdate) {
+						if ($this->config->update->checkforupdate) {
 							echo '<option value="1" selected>' . T_("Yes"). '</option>';
 							echo '<option value="0">' . T_("No"). '</option>';
 						}

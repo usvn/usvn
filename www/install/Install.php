@@ -201,7 +201,7 @@ class Install
 	static public function installCheckForUpdate($config_file, $check)
 	{
 		$config = Install::_loadConfig($config_file);
-		$config->checkforupdate = $check;
+		$config->update = array("checkforupdate" => $check, "lastcheckforupdate" => 0);
 		$config->save();
 	}
 

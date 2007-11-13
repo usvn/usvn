@@ -73,7 +73,8 @@ class InstallTest extends USVN_Test_Test {
 		Install::installCheckForUpdate("tests/tmp/config.ini", true);
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");
-		$this->assertTrue((bool)$config->checkforupdate);
+		$this->assertTrue((bool)$config->update->checkforupdate);
+		$this->assertEquals(0, $config->update->lastcheckforupdate);
 	}
 
 	public function testInstallLocale()

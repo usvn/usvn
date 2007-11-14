@@ -168,6 +168,7 @@ begin
     Result := True;
     Page := TInputQueryWizardPage(Sender);
 //    MsgBox('Hello.', mbInformation, MB_OK);
+    URL.Values[0] := AnsiLowercase(URL.Values[0]);
     tmp1 := Copy(URL.Values[0], 0, 1);
     tmp2 := Copy(URL.Values[0], Length(URL.Values[0]), 1);
     i:= CompareStr(tmp1, '/');
@@ -181,6 +182,7 @@ begin
     if Result = False then begin
       MsgBox('URI incorrect (exemple : /usvn/)', mbCriticalError, MB_OK);
     end;
+    
     i:=Length(URL.Values[1]);
     if i = 0 then begin
       Result := False;

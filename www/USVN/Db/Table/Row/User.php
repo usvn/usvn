@@ -129,7 +129,7 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 			throw new USVN_Exception(T_('Login empty.'));
 		}
 		if (!preg_match('/\w+/', $login)) {
-			throw new USVN_Exception(T_('Login invalid.'));
+			throw new USVN_Exception(T_('Login invalid. The login must only include alpha-caracters.'));
 		}
 	}
 

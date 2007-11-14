@@ -206,7 +206,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$name = addslashes($name);
 		}
 		if (!preg_match('/^[0-9a-zA-Z_\-\\\\\/]+$/', $name)) {
-			throw new USVN_Exception(T_("The project's name is invalid."));
+			throw new USVN_Exception(T_("The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."));
 		}
 	}
 

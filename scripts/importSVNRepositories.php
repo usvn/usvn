@@ -28,7 +28,6 @@ include_once('../www/USVN/autoload.php');
  * @return array
  */
 function lookAfterSVNRepositoriesToImport($path, $options = array()) {
-	$path = realpath($path);
 	$results = array();
 	if (is_dir($path) && USVN_SVNUtils::isSVNRepository($path)) {
 		if (isset($options['verbose']) && $options['verbose'] == true) {
@@ -130,9 +129,15 @@ foreach ($argv as $arg) {
  */
 if (count($paths)) {
 	foreach ($paths as $path) {
-		$results = array_merge($results, lookAfterSVNRepositoriesToImport($path, $options));
+		$path = realpath($path);
+		if (strncmp($path, $config->subversion->path, strlen($config->subversion->path))) {
+			print "Can't import this directory: '$path'. Please move it into your subversion's path.\n";
+		} else {
+			$results = array_merge($results, lookAfterSVNRepositoriesToImport($path, $options));
+		}
 	}
 } else {
+	print "No valid path selected.\n";
 	die($usage);
 }
 

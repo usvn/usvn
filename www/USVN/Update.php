@@ -46,4 +46,33 @@ class USVN_Update
 		}
 		return $version;
 	}
+	
+	static public function updateUSVNAvailableVersionNumber()
+	{
+	}
+	
+	static public function getInformationsAboutSystem()
+	{
+		$config = Zend_Registry::get('config');
+		$xml = new SimpleXMLElement("<informations></informations>");
+		$os = $xml->addChild('host');
+		$os->addChild('os', PHP_OS);
+		$os->addChild('uname', php_uname());
+		$subversion = $xml->addChild('subversion');
+		$subversion->addChild('version', implode(".", USVN_SVNUtils::getSvnVersion()));
+		$usvn = $xml->addChild('usvn');
+		$usvn->addChild('version', $config->version);
+		$usvn->addChild('translation', $config->translation->locale);
+		$usvn->addChild('databaseadapter', $config->database->adapterName);
+		$php = $xml->addChild('php');
+		$php->addChild('version', phpversion());
+		$ini = $php->addChild('ini');
+		foreach(ini_get_all() as $var => $value) {
+			$ini->addChild($var, htmlspecialchars((string)$value['local_value']));
+		}
+		foreach (get_loaded_extensions() as $ext) {
+			$php->addChild('extension', $ext);
+		}
+		return $xml->asXml();
+	}
 }

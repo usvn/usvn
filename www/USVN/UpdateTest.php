@@ -62,6 +62,27 @@ class USVN_UpdateTest extends USVN_Test_Test {
     	file_put_contents($config->subversion->path . DIRECTORY_SEPARATOR . ".usvn-version", "0.8.4");
     	$this->assertEquals("0.8.4", USVN_Update::getUSVNAvailableVersion());
     }
+    
+    public function test_getInformationsAboutSystem()
+    {
+    	$config = Zend_Registry::get('config');
+    	$config->database = array("adapterName" => "mysql");
+    	$informations = USVN_Update::getInformationsAboutSystem();
+    	$xml = new SimpleXMLElement($informations);
+    	$this->assertEquals(phpversion(), (string)$xml->php->version);
+    	$this->assertEquals(PHP_OS, (string)$xml->host->os);
+    	$this->assertEquals(php_uname(), (string)$xml->host->uname);
+    	$this->assertEquals(implode(".", USVN_SVNUtils::getSvnVersion()), (string)$xml->subversion->version);
+    	$this->assertEquals("en_US", (string)$xml->usvn->translation);
+    	$this->assertEquals("mysql", (string)$xml->usvn->databaseadapter);
+    	$this->assertEquals("", (string)$xml->php->ini->register_globals);
+    	foreach ($xml->php->extension as $e) {
+    		if ($e == "pdo_sqlite") {
+    			return;
+    		}
+    	}
+    	$this->fail("pdo_sdqlite extension not found");
+    }
 }
 
 // Call USVN_UpdateTest::main() if this source file is executed directly.

@@ -95,7 +95,7 @@ class USVN_SVNUtils
 	/**
 	* Return minor version of svn client
 	*
-	* @return array  (ex: for svn version 1.3.3 array(1, 3, 3))
+	* @return int (ex for svn 1.3.4 return 3)
 	*/
 	public static function getSvnMinorVersion()
 	{

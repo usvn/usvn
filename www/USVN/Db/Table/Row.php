@@ -27,7 +27,7 @@ class USVN_Db_Table_Row extends Zend_Db_Table_Row_Abstract {
 	public function __get($key)
 	{
 		$under = $this->_checkKey($key);
-		return $this->_data[$under];
+		return stripslashes($this->_data[$under]);
 	}
 
 	/**

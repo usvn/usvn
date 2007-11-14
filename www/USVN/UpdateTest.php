@@ -44,6 +44,13 @@ class USVN_UpdateTest extends USVN_Test_Test {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
     
+    protected function setUp()
+    {
+    	parent::setUp();
+		$config = Zend_Registry::get('config');
+		$config->database = array("adapterName" => "mysql");
+    }
+    
     public function test_itsCheckForUpdateTime()
     {
     	$config = Zend_Registry::get('config');
@@ -66,7 +73,6 @@ class USVN_UpdateTest extends USVN_Test_Test {
     public function test_getInformationsAboutSystem()
     {
     	$config = Zend_Registry::get('config');
-    	$config->database = array("adapterName" => "mysql");
     	$informations = USVN_Update::getInformationsAboutSystem();
     	$xml = new SimpleXMLElement($informations);
     	$this->assertEquals(phpversion(), (string)$xml->php->version);
@@ -82,6 +88,12 @@ class USVN_UpdateTest extends USVN_Test_Test {
     		}
     	}
     	$this->fail("pdo_sdqlite extension not found");
+    }
+    
+    public function test_updateUSVNAvailableVersionNumber()
+    {
+    	USVN_Update::updateUSVNAvailableVersionNumber();
+    	$this->assertEquals("0.7", USVN_Update::getUSVNAvailableVersion());
     }
 }
 

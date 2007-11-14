@@ -19,6 +19,15 @@
 class USVN_Update
 {
 	/**
+	 * @return string Path where available version number is stored
+	 */
+	static private function getVersionFilePath()
+	{
+		$config = Zend_Registry::get('config');
+		return ($config->subversion->path . DIRECTORY_SEPARATOR . ".usvn-version");
+	}
+	
+	/**
 	 * @return bool True if we need to check update
 	 */
 	static public function itsCheckForUpdateTime()
@@ -40,17 +49,37 @@ class USVN_Update
 	static public function getUSVNAvailableVersion()
 	{
 		$config = Zend_Registry::get('config');
-		$version = @file_get_contents($config->subversion->path . DIRECTORY_SEPARATOR . ".usvn-version");
+		$version = @file_get_contents(USVN_Update::getVersionFilePath());
 		if ($version === false) {
 			return $config->version;
 		}
 		return $version;
 	}
 	
+	/**
+	 * Update file with USVN version number
+	 */
 	static public function updateUSVNAvailableVersionNumber()
 	{
+		if (USVN_Update::itsCheckForUpdateTime()) {
+			$config = Zend_Registry::get('config');
+			$config->update = array("lastcheckforupdate" => time());
+			$client = new Zend_Http_Client('http://iceage.usvn.info/update/' . $config->version, array(
+    					'maxredirects' => 0,
+    					'timeout'      => 30));
+        	$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
+			$response = $client->request('POST');
+			if ($response->getStatus() == 200) {
+				file_put_contents(USVN_Update::getVersionFilePath(), $response->getBody());
+			}
+		}
 	}
 	
+	/**
+	 * Return informations about the system into a XML string.
+	 * 
+	 * @return string XML 
+	 */
 	static public function getInformationsAboutSystem()
 	{
 		$config = Zend_Registry::get('config');

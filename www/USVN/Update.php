@@ -57,6 +57,28 @@ class USVN_Update
 	}
 	
 	/**
+	 * Set proxy configuration information for check update.
+	 * Get proxy from HTTP_HOST environnement variable.
+	 * 
+	 * Only http://USER:PASSWORD@PROXY_SERVER:PORT is supported.  
+	 */
+	static private function setProxyForUpdate($config)
+	{
+		$env = getenv("HTTP_PROXY");
+		if ($env !== false) {
+			$res = array();
+			if (preg_match("#http://([^:]+):([^@]+)@([^:]+):([0-9]+)#", $env, $res)) {
+				$config['adapter'] = 'Zend_Http_Client_Adapter_Proxy';
+				$config['proxy_host'] = $res[3];  
+				$config['proxy_port'] = $res[4];  
+				$config['proxy_user'] = $res[1];  
+				$config['proxy_pass'] = $res[2];  
+			}
+		}
+		return $config;
+	}
+	
+	/**
 	 * Update file with USVN version number
 	 */
 	static public function updateUSVNAvailableVersionNumber()
@@ -64,11 +86,19 @@ class USVN_Update
 		if (USVN_Update::itsCheckForUpdateTime()) {
 			$config = Zend_Registry::get('config');
 			$config->update = array("lastcheckforupdate" => time());
-			$client = new Zend_Http_Client('http://iceage.usvn.info/update/' . $config->version, array(
-    					'maxredirects' => 0,
-    					'timeout'      => 30));
+			$url = 'http://usvn.info/';
+			$http_conf = USVN_Update::setProxyForUpdate(array('maxredirects' => 0, 'timeout' => 30));
+			if (defined("PHPUnit_MAIN_METHOD")) {
+				$url = 'http://iceage.usvn.info/';
+			}
+			$client = new Zend_Http_Client("$url/update/" . $config->version, $http_conf);
         	$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
-			$response = $client->request('POST');
+			try {
+        		$response = $client->request('POST');
+			}
+			catch (Exception $e) { // Ugly but we don't want to display error if usvn.info is not available
+				return;
+			}
 			if ($response->getStatus() == 200) {
 				file_put_contents(USVN_Update::getVersionFilePath(), $response->getBody());
 			}

@@ -29,7 +29,7 @@ USVN_Translation::initTranslation('en_US', '../../locale');
 
 try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
-	$config->version = "0.7";
+	$config->version = "0.7 RC1";
 	include dirname(__FILE__) . '/db.php';
 	$config->save();
 }

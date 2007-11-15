@@ -86,6 +86,7 @@ class USVN_Update
 		if (USVN_Update::itsCheckForUpdateTime()) {
 			$config = Zend_Registry::get('config');
 			$config->update = array("lastcheckforupdate" => time());
+			$config->save();
 			$url = 'http://usvn.info/';
 			$http_conf = USVN_Update::setProxyForUpdate(array('maxredirects' => 0, 'timeout' => 30));
 			if (defined("PHPUnit_MAIN_METHOD")) {

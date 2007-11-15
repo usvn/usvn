@@ -19,7 +19,7 @@
 
 // Call SystemreportControllerTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "SystemadminControllerTest::main");
+    define("PHPUnit_MAIN_METHOD", "SystemreportxmladminControllerTest::main");
 }
 
 require_once "PHPUnit/Framework/TestCase.php";
@@ -27,7 +27,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 require_once 'www/USVN/autoload.php';
 
-class SystemadminControllerTest extends USVN_Test_AdminController {
+class SystemreportxmladminControllerTest extends USVN_Test_AdminController {
 	protected $controller_name = "systemreportxmladmin";
 	protected $controller_class = "SystemreportxmladminController";
 
@@ -40,7 +40,7 @@ class SystemadminControllerTest extends USVN_Test_AdminController {
     public static function main() {
         require_once "PHPUnit/TextUI/TestRunner.php";
 
-        $suite  = new PHPUnit_Framework_TestSuite("SystemadminControllerTest");
+        $suite  = new PHPUnit_Framework_TestSuite("SystemreportxmladminControllerTest");
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
     
@@ -60,7 +60,7 @@ class SystemadminControllerTest extends USVN_Test_AdminController {
 }
 
 // Call SystemreportControllerTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "SystemadminControllerTest::main") {
+if (PHPUnit_MAIN_METHOD == "SystemadminreportxmlControllerTest::main") {
     SystemadminControllerTest::main();
 }
 ?>

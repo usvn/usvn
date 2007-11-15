@@ -42,7 +42,7 @@ class GroupController extends USVN_Controller
 		$this->view->user = $table->fetchRow(array("users_login = ?" => $identity['username']));
 		$this->_group = $group;
 		if (!$group->hasUser($this->view->user) && $this->view->user->is_admin != 1)
-			throw new USVN_Exception(sprintf(T_("Vous n'avez pas le droit d'acceder a cette page")));
+			throw new USVN_Exception(T_("Access denied."));
 	}
 
 	/**
@@ -101,7 +101,7 @@ class GroupController extends USVN_Controller
 		$this->view->group = $group;
 		}
 		else
-			throw new USVN_Exception(sprintf(T_("Vous n'avez pas le droit d'acceder a cette fonctionalite")));
+			throw new USVN_Exception(T_("Access denied."));
 	}
 
 	public function addleadergroupAction()
@@ -148,6 +148,6 @@ class GroupController extends USVN_Controller
 		$this->view->group = $group;
 		}
 		else
-			throw new USVN_Exception(sprintf(T_("Access denied")));
+			throw new USVN_Exception(sprintf(T_("Access denied.")));
 	}
 }

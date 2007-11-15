@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-15 15:59+0100\n"
+"POT-Creation-Date: 2007-11-15 16:13+0100\n"
 "PO-Revision-Date: 2007-09-14 11:49-0300\n"
 "Last-Translator: Esteban Cerutti <ecerutti@lifia.info.unlp.edu.ar>\n"
 "Language-Team: castellano <es@li.org>\n"
@@ -15,7 +15,10 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../../../www//controllers/GroupController.php:45
-msgid "Vous n'avez pas le droit d'acceder a cette page"
+#: ../../../www//controllers/GroupController.php:104
+#: ../../../www//controllers/GroupController.php:151
+#: ../../../www//views/Timeline/accesdenied.phtml:1
+msgid "Access denied."
 msgstr ""
 
 #: ../../../www//controllers/GroupController.php:78
@@ -25,15 +28,6 @@ msgstr ""
 #, php-format
 msgid "Unknown user %s"
 msgstr "Usuario %s desconocido"
-
-#: ../../../www//controllers/GroupController.php:104
-msgid "Vous n'avez pas le droit d'acceder a cette fonctionalite"
-msgstr ""
-
-#: ../../../www//controllers/GroupController.php:151
-#: ../../../www//views/Timeline/accesdenied.phtml:1
-msgid "Access denied"
-msgstr ""
 
 #: ../../../www//controllers/GroupadminController.php:61
 #, php-format
@@ -362,7 +356,7 @@ msgid "Message"
 msgstr "Mensaje"
 
 #: ../../../www//views/Timeline/index.phtml:3
-msgid "Enter your number of revision or your date"
+msgid "Enter your number of revision or date"
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:15
@@ -499,7 +493,7 @@ msgstr "USVN versi&oacute;n:"
 #: ../../../www//views/adminadmin/index.phtml:7
 #, php-format
 msgid ""
-"Your version of USVN is  out of date. A new version %s is available on\n"
+"Your version of USVN is out of date. A new version %s is available on\n"
 "\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
 msgstr ""
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-15 16:13+0100\n"
-"PO-Revision-Date: 2007-11-15 16:25+0100\n"
+"POT-Creation-Date: 2007-11-15 16:53+0100\n"
+"PO-Revision-Date: 2007-11-15 16:53+0100\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -377,7 +377,8 @@ msgstr "Bienvenue sur USVN"
 
 #: ../../../www//views/login/login.phtml:5
 msgid "Please enter your login and your password to connect to USVN."
-msgstr "Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
+msgstr ""
+"Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
 
 #: ../../../www//views/login/login.phtml:11
 msgid "Authentification"
@@ -476,7 +477,7 @@ msgstr "Mes groupes"
 
 #: ../../../www//views/index/index.phtml:30
 msgid "You are not assign to a group."
-msgstr "Vous n'êtes pas assigné à un groupe"
+msgstr "Vous n'êtes pas assigné à un groupe."
 
 #: ../../../www//views/adminadmin/index.phtml:2
 msgid "Administration"
@@ -491,7 +492,9 @@ msgstr "Version de USVN: "
 msgid ""
 "Your version of USVN is out of date. A new version %s is available on\n"
 "\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
-msgstr "Une version %s de USVN est disponible sur <a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
+msgstr ""
+"Une version %s de USVN est disponible sur <a href=\"http://www.usvn.info"
+"\">http://www.usvn.info</a>."
 
 #: ../../../www//views/adminadmin/index.phtml:21
 #: ../../../www//views/projectadmin/index.phtml:2
@@ -553,7 +556,8 @@ msgstr "Ajoutez moi comme administrateur du projet:"
 
 #: ../../../www//views/projectadmin/form.phtml:38
 msgid "Create SVN standard directories (/trunk, /branches and /tags):"
-msgstr "Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
+msgstr ""
+"Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
 
 #: ../../../www//views/projectadmin/index.phtml:16
 #, php-format
@@ -626,7 +630,8 @@ msgid "Configure USVN"
 msgstr "Configurer USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid "Settings of general configuration of USVN. You can keep default settings."
+msgid ""
+"Settings of general configuration of USVN. You can keep default settings."
 msgstr "Configuration de USVN. Vous pouvez garder les réglages par défaut."
 
 #: ../../../www//install/views/step4.html:12
@@ -702,17 +707,17 @@ msgid ""
 "</p>\n"
 msgstr ""
 "\n"
-"<p>Lors des vérifications de mises à jour, USVN enverra des informations"
-"concernant votre installation.</p>\n"
+"<p>Lors des vérifications de mises à jour, USVN enverra des "
+"informationsconcernant votre installation.</p>\n"
 "<p>\n"
-"Ces informations ne sont collectées qu'à des fins de statistiques pour"
-"nous permettre de mieux connaitre les plateformes sur lesquelles USVN"
-"est installé."
+"Ces informations ne sont collectées qu'à des fins de statistiques pournous "
+"permettre de mieux connaitre les plateformes sur lesquelles USVNest installé."
 "</p>\n"
 "<p>\n"
 "Voici la liste des informations que nous souhaitons collecter:\n"
 "<ul>\n"
-"<li>l'adresse IP (afin obtenir des statistiques de diffusion de USVN dans le monde)</li>\n"
+"<li>l'adresse IP (afin obtenir des statistiques de diffusion de USVN dans le "
+"monde)</li>\n"
 "<li>La version de PHP</li>\n"
 "<li>La version de Subversion</li>\n"
 "<li>La version de USVN</li>\n"
@@ -722,13 +727,14 @@ msgstr ""
 "</ul>\n"
 "</p>\n"
 "<p>\n"
-"If you do not want this information to be collected, you juste have to\n"
-"disable the update notification.\n"
-"</p>\n"
+"Si vous ne souhaitez pas que ces informations soit collectées, vouspourrez "
+"désactiver la notification des mises à jour.</p>\n"
 
 #: ../../../www//install/views/step7.html:33
 msgid "Allow check update and send statistics informations"
-msgstr "Autoriser la vérification des mises à jour et l'envoi d'informations à des fins de statistiques"
+msgstr ""
+"Autoriser la vérification des mises à jour et l'envoi d'informations à des "
+"fins de statistiques"
 
 #: ../../../www//install/views/step7.html:38
 msgid "Don't check update"
@@ -882,7 +888,8 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN ne peut pas être utilisé avec le safe mode de PHP."
 
 #: ../../../www//install/Install.php:445
-msgid "Subversion is not install on your system. If you are under Windows install "
+msgid ""
+"Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 "Subversion n'est pas installé sur votre système. Si vous êtes sous Windows "
 "installez "
@@ -1036,7 +1043,8 @@ msgstr "L'utilisateur ne pas être crée. Un groupe a déjà le même nom."
 #: ../../../www//USVN/DirectoryUtils.php:31
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr "Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
+msgstr ""
+"Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
 
 #: ../../../www//USVN/DirectoryUtils.php:46
 #, php-format
@@ -1071,7 +1079,9 @@ msgstr "Le nom du projet est vide."
 msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
-msgstr "Le nom du projet est invalide. Un nom de projet ne peut contenir que des caractères alpha-numérique et les '-' ou '_'."
+msgstr ""
+"Le nom du projet est invalide. Un nom de projet ne peut contenir que des "
+"caractères alpha-numérique et les '-' ou '_'."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:233
 msgid "You can't rename a project."
@@ -1081,7 +1091,9 @@ msgstr "Vous ne pouvez pas renommer un projet."
 msgid ""
 "Login invalid.  The login can only include alpha-numeric characters and '-' "
 "or '_'."
-msgstr "Le login est invalide. Un login ne peut contenir que des caractères alpha-numérique et les '-' ou '_'."
+msgstr ""
+"Le login est invalide. Un login ne peut contenir que des caractères alpha-"
+"numérique et les '-' ou '_'."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
 msgid "Invalid email address."
@@ -1112,7 +1124,9 @@ msgstr "Le nom du groupe est vide."
 msgid ""
 "The group's name is invalid. The group's name can only include alpha-numeric "
 "characters and '-' or '_'."
-msgstr "Le nom du groupe est invalide. Un nom de groupe ne peut contenir que des caractères alpha-numérique et les '-' ou '_'."
+msgstr ""
+"Le nom du groupe est invalide. Un nom de groupe ne peut contenir que des "
+"caractères alpha-numérique et les '-' ou '_'."
 
 #: ../../../www//USVN/Db/Utils.php:46
 #, php-format
@@ -1142,4 +1156,3 @@ msgstr "Créer un groupe"
 #: ../../../www//menus/timeline.php:32
 msgid "Timeline"
 msgstr "Chronologie"
-

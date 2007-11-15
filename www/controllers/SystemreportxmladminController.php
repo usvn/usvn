@@ -19,11 +19,7 @@
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminadminController.php';
 
-class SystemreportadminController extends AdminadminController
+class SystemreportxmladminController extends AdminadminController
 {
-	public function indexAction()
-	{
-		$this->view->config = Zend_Registry::get('config');
-		$this->view->subversionversion = implode('.', USVN_SVNUtils::getSvnVersion());
-	}
+	protected $_mimetype = 'text/xml';
 }

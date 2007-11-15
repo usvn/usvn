@@ -1,0 +1,16 @@
+<h1><?php echo T_("System report");?></h1>
+<table>
+	<tr><td><?php echo T_("PHP version:");?></td><td><?php echo phpversion();?></td></tr>
+	<tr><td><?php echo T_("USVN version:");?></td><td><?php echo $this->config->version;?></td></tr>
+	<tr><td><?php echo T_("Translation:");?></td><td><?php echo $this->config->translation->locale;?></td></tr>
+	<tr><td><?php echo T_("Database:");?></td><td><?php echo $this->config->database->adapterName;?></td></tr>
+	<tr><td><?php echo T_("Subversion version:");?></td><td><?php echo $this->subversionversion;?></td></tr>
+	<tr><td><?php echo T_("OS:");?></td><td><?php echo PHP_OS;?></td></tr>
+</table>
+<a href="<?php echo $this->config->url->base . '/admin/systemreportxml';?>"><?php echo T_("Get full report"); ?></a>
+<h2><?php echo T_("PHP extensions")?></h2>
+<ul>
+<?php foreach (get_loaded_extensions() as $ext) { ?>
+	<li><?php echo $ext; ?></li>
+<?php } ?>
+</ul>

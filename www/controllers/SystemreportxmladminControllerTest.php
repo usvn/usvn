@@ -28,8 +28,8 @@ require_once "PHPUnit/Framework/TestSuite.php";
 require_once 'www/USVN/autoload.php';
 
 class SystemadminControllerTest extends USVN_Test_AdminController {
-	protected $controller_name = "systemreportadmin";
-	protected $controller_class = "SystemreportadminController";
+	protected $controller_name = "systemreportxmladmin";
+	protected $controller_class = "SystemreportxmladminController";
 
     /**
      * Runs the test methods of this class.
@@ -44,9 +44,18 @@ class SystemadminControllerTest extends USVN_Test_AdminController {
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
     
+	protected function setUp()
+    {
+    	parent::setUp();
+		$config = Zend_Registry::get('config');
+		$config->database = array("adapterName" => "mysql");
+    }
+    
+    
 	public function test_index()
 	{
 		$this->runAction('index');
+		$this->assertContains('<informations>', $this->getBody());
 	}
 }
 

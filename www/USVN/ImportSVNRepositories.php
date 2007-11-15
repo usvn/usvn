@@ -96,6 +96,9 @@ class USVN_ImportSVNRepositories
 				if (is_string($p) && $this->canBeImported($p)) {
 					$name = strlen($options['name']) ? $options['name'] :
 							str_replace($config->subversion->path . 'svn' . DIRECTORY_SEPARATOR, '', $p);
+					$name = str_replace('\\', '/', $name);
+					$name = str_replace('//', '/', $name);
+					$name = trim($name, '/');
 					$this->_repos[] = array('name' => $name, 'path' => $p, 'options' => $options);
 				}
 			}

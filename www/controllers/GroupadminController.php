@@ -79,7 +79,7 @@ class GroupadminController extends AdminadminController
 
 	public function editAction()
 	{
-		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
+		$group_name = str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'));
 		$table = new USVN_Db_Table_Groups();
 		$this->view->group = $table->fetchRow(array('groups_name = ?' => $group_name));
 		if ($this->view->group === null) {
@@ -95,7 +95,7 @@ class GroupadminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/group/");
 		}
-		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
+		$group_name = str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'));
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array("groups_name = ?" => $group_name));
 		if ($group === null) {
@@ -124,7 +124,7 @@ class GroupadminController extends AdminadminController
 	public function deleteAction()
 	{
 		$table = new USVN_Db_Table_Groups();
-		$group_name = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
+		$group_name = str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'));
 		$group = $table->fetchRow(array('groups_name = ?' => $group_name));
 		if ($group === null) {
 			throw new USVN_Exception(T_("Invalid group %s."), $group_name);

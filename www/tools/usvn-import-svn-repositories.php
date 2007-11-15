@@ -119,8 +119,8 @@ if (!count($repos)) {
 /**
  * Now we can import (if there is no option 'noimport') our SVN Repositories into USVN
  */
+$svnImport->addSVNRepositoriesToImport($repos, $options);
 if (!$options['noimport']) {
-	$svnImport->addSVNRepositoriesToImport($repos, $options);
 	$results = $svnImport->importSVNRepositories();
 	print "SVN repositories imported:\n".implode("\n", $repos);
 } else {

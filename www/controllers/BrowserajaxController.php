@@ -29,13 +29,13 @@ class BrowserajaxController extends USVN_Controller
 		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 		echo "<files>\n";
 	}
-	
+
 	public function postDispatch()
 	{
 		echo "</files>";
 		parent::postDispatch();
 	}
-	
+
 	private function getTopLink($path)
 	{
 		$str = "<h2>";
@@ -63,7 +63,7 @@ class BrowserajaxController extends USVN_Controller
 	public function GetListFileAction()
 	{
 		$path = $_GET['name'];
-		$SVN = new USVN_SVN(str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('project')));
+		$SVN = new USVN_SVN(str_replace(USVN_URL_SEP, '/', $this->_request->getParam('project')));
 		$tab = $SVN->listFile($path);
 		ob_start();
 		echo $this->getTopLink($path);
@@ -141,7 +141,7 @@ class BrowserajaxController extends USVN_Controller
 	{
 		$text = "";
 		$table_project = new USVN_Db_Table_Projects();
-		$res_project = $table_project->findByName(str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('project')));
+		$res_project = $table_project->findByName(str_replace(USVN_URL_SEP, '/', $this->_request->getParam('project')));
 
 		$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
 
@@ -195,7 +195,7 @@ class BrowserajaxController extends USVN_Controller
 		try
 		{
 			$table_project = new USVN_Db_Table_Projects();
-			$res_project = $table_project->findByName(str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('project')));
+			$res_project = $table_project->findByName(str_replace(USVN_URL_SEP, '/', $this->_request->getParam('project')));
 			$acces_rights = new USVN_FilesAccessRights($res_project->projects_id);
 
 			$user = $this->getRequest()->getParam('user');

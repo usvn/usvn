@@ -24,7 +24,7 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-define('CONFIG_FILE', 'tests/config.ini');
+define('CONFIG_FILE', 'tests/test.ini');
 require_once 'www/USVN/autoload.php';
 
 
@@ -100,7 +100,7 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 		$path = '../tests/tmp/svn/testSVN';
 		USVN_SVNUtils::createSvn($path);
 
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --addmetogroup --admin --creategroup --verbose $path", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php ../tests/test.ini --addmetogroup --admin --creategroup --verbose $path", $return);
 		$this->assertEquals(0, $return, $message);
 	}
 
@@ -119,7 +119,7 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 	}*/
 }
 
-// Call importHtpasswdCommandLine_Test::main() if this source file is executed directly.
+// Call importSvnRepositories_Test::main() if this source file is executed directly.
 if (PHPUnit_MAIN_METHOD == "importSvnRepositories_Test::main") {
     importSvnRepositories_Test::main();
 }

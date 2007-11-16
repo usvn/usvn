@@ -21,32 +21,13 @@
 require_once('USVN/autoload.php');
 
 /**
- * Initialize some configurations details
- */
-try {
-	$config = new USVN_Config_Ini("config.ini", "general");
-	Zend_Registry::set('config', $config);
-
-	USVN_Translation::initTranslation($config->translation->locale, "locale");
-	date_default_timezone_set($config->timezone);
-
-	$db = Zend_Db::factory($config->database->adapterName, $config->database->options->toArray());
-	USVN_Db_Table::$prefix = $config->database->prefix;
-	Zend_Db_Table::setDefaultAdapter($db);
-
-	Zend_Registry::set('config', $config);
-}
-catch (Exception $e) {
-	echo $e->getMessage() . "\n";
-	exit(1);
-}
-/**
  * Get options and directories paths to check
  */
 $results = array();
 $repos = array();
 $paths = array();
-$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] path1 path2 path3 [...]\n";
+$configFile = '';
+$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] [config-file] path1 path2 path3 [...]\n";
 if (count($argv) == 1) {
 	print($usage);
 	exit(1);
@@ -81,6 +62,9 @@ foreach ($argv as $arg) {
 			$options['noimport'] = 1;
 			break;
 		default:
+			if (is_file($arg)) {
+				$configFile = $arg;
+			}
 			if (is_dir($arg)) {
 				$paths[] = $arg;
 			} elseif (preg_match('/^--/', $arg)) {
@@ -96,6 +80,31 @@ foreach ($argv as $arg) {
 			}
 			break;
 	}
+}
+
+/**
+ * Initialize some configurations details
+ */
+try {
+	$configFile = !empty($configFile) ? $configFile : 'config.ini';
+	$config = new USVN_Config_Ini($configFile, "general");
+	if ($options['verbose']) {
+		print "Config file loaded: $configFile\n";
+	}
+	Zend_Registry::set('config', $config);
+
+	USVN_Translation::initTranslation($config->translation->locale, "locale");
+	date_default_timezone_set($config->timezone);
+
+	$db = Zend_Db::factory($config->database->adapterName, $config->database->options->toArray());
+	USVN_Db_Table::$prefix = $config->database->prefix;
+	Zend_Db_Table::setDefaultAdapter($db);
+
+	Zend_Registry::set('config', $config);
+}
+catch (Exception $e) {
+	echo $e->getMessage() . "\n";
+	exit(1);
 }
 
 /**

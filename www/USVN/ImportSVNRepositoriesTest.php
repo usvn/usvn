@@ -50,10 +50,53 @@ class USVN_ImportRepositoriesTest extends USVN_Test_DB {
 		parent::tearDown();
 	}
 
-	public function testOne()
+	public function testCanBeImportedBadNotDir()
 	{
 	}
 
+	public function testCanBeImportedBadNotSVNRepo()
+	{
+	}
+
+	public function testCanBeImportedBadNotInclude()
+	{
+	}
+
+	public function testCanBeImportedOk()
+	{
+	}
+
+	public function testLookAfterSVNRepositoriesToImportNoResult()
+	{
+	}
+
+	public function testLookAfterSVNRepositoriesToImportListOk()
+	{
+	}
+
+	public function testLookAfterSVNRepositoriesToImportRecursiveListOk()
+	{
+	}
+
+	public function testAddSVNRepositoriesToImportBadPath()
+	{
+	}
+
+	public function testAddSVNRepositoriesToImportOnePathOk()
+	{
+	}
+
+	public function testAddSVNRepositoriesToImportListPathsOk()
+	{
+	}
+
+	public function testImportSVNRepositoriesNoResult()
+	{
+	}
+
+	public function testImportSVNRepositoriesOk()
+	{
+	}
 }
 
 // Call USVN_ImportHtpasswdTest::main() if this source file is executed directly.

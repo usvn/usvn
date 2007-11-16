@@ -18,16 +18,16 @@
  * $Id: usvn-import-svn-repositories.php 632 2007-10-17 15:51:08Z dolean_j $
  */
 
-include_once('../USVN/autoload.php');
+require_once('USVN/autoload.php');
 
 /**
  * Initialize some configurations details
  */
 try {
-	$config = new USVN_Config_Ini("../config.ini", "general");
+	$config = new USVN_Config_Ini("config.ini", "general");
 	Zend_Registry::set('config', $config);
 
-	USVN_Translation::initTranslation($config->translation->locale, "../locale");
+	USVN_Translation::initTranslation($config->translation->locale, "locale");
 	date_default_timezone_set($config->timezone);
 
 	$db = Zend_Db::factory($config->database->adapterName, $config->database->options->toArray());
@@ -48,7 +48,8 @@ $repos = array();
 $paths = array();
 $usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] path1 path2 path3 [...]\n";
 if (count($argv) == 1) {
-	die($usage);
+	print($usage);
+	exit(1);
 }
 
 $options = array('recursive' => false,
@@ -83,12 +84,14 @@ foreach ($argv as $arg) {
 			if (is_dir($arg)) {
 				$paths[] = $arg;
 			} elseif (preg_match('/^--/', $arg)) {
-				die ("'$arg' option unknown\n");
+				print("'$arg' option unknown\n");
+				exit(1);
 			} elseif ($arg != $argv[0] && preg_match('/\w+/', $arg)) {
 				$options['login'] = $arg;
 			} else {
 				if ($arg != $argv[0]) {
-					die ($usage);
+					print($usage);
+					exit(1);
 				}
 			}
 			break;
@@ -113,7 +116,8 @@ foreach ($paths as $path) {
 
 //if we don't have any repository to import then die
 if (!count($repos)) {
-	die($usage);
+	print($usage);
+	exit(1);
 }
 
 /**

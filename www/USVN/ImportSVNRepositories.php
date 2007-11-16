@@ -29,17 +29,25 @@ class USVN_ImportSVNRepositories
 	 * @throws USVN_Exception
 	 * @return bool
 	 */
-	static public function canBeImported($path)
+	static public function canBeImported($path, $options = array('verbose' => false))
 	{
 		if (!is_string($path)) {
 			throw new USVN_Exception(T_('%s must be a string: %s'), '$path');
 		}
 		$config = Zend_Registry::get('config');
 		$path = realpath($path);
-		if (is_dir($path) && USVN_SVNUtils::isSVNRepository($path)) {
-			if (!strncmp($path, $config->subversion->path, strlen($config->subversion->path))) {
+		if (!strncmp($path, $config->subversion->path, strlen($config->subversion->path))) {
+			if (is_dir($path) && USVN_SVNUtils::isSVNRepository($path)) {
 				return true;
+			} elseif (isset($options['verbose']) && $options['verbose'] == true) {
+				if (!is_dir($path)) {
+					print "'$path' is not a directory.\n";
+				} elseif (!USVN_SVNUtils::isSVNRepository($path)) {
+					print "'$path' is not a SVN repository\n";
+				}
 			}
+		} elseif (isset($options['verbose']) && $options['verbose'] == true) {
+			print "'$path' is not in subversion's path ({$config->subversion->path}).\n";
 		}
 		return false;
 	}
@@ -55,13 +63,13 @@ class USVN_ImportSVNRepositories
 	 */
 	static public function lookAfterSVNRepositoriesToImport($path, $options = array()) {
 		$results = array();
-		if (USVN_ImportSVNRepositories::canBeImported($path)) {
+		if (USVN_ImportSVNRepositories::canBeImported($path, $options)) {
 			return (array($path));
 		}
 		$folders = USVN_DirectoryUtils::listDirectory($path);
 		foreach ($folders as $folder) {
 			$current_path = $path . DIRECTORY_SEPARATOR . $folder;
-			if (USVN_ImportSVNRepositories::canBeImported($current_path)) {
+			if (USVN_ImportSVNRepositories::canBeImported($current_path, $options)) {
 				$results[] = $current_path;
 			} else {
 				if (isset($options['recursive']) && $options['recursive'] == true) {
@@ -82,6 +90,7 @@ class USVN_ImportSVNRepositories
 	 * 									$options['creategroup'] = true|false,
 	 * 									$options['addmetogroup'] = true|false,
 	 * 									$options['admin'] = true|false)
+	 * @return array
 	 */
 	public function addSVNRepositoriesToImport($path, $options = array('login' => 0,
 																		'name' => '',
@@ -93,7 +102,8 @@ class USVN_ImportSVNRepositories
 		$config = Zend_Registry::get('config');
 		if (is_array($path)) {
 			foreach ($path as $p) {
-				if (is_string($p) && $this->canBeImported($p)) {
+				$p = realpath($p);
+				if (is_string($p) && $this->canBeImported($p, $options)) {
 					$name = strlen($options['name']) ? $options['name'] :
 							str_replace($config->subversion->path . 'svn' . DIRECTORY_SEPARATOR, '', $p);
 					$name = str_replace('\\', '/', $name);
@@ -102,9 +112,10 @@ class USVN_ImportSVNRepositories
 					$this->_repos[] = array('name' => $name, 'path' => $p, 'options' => $options);
 				}
 			}
-		} elseif (is_string($path) && $this->canBeImported($path)) {
+		} elseif (is_string($path) && $this->canBeImported($path, $options)) {
 			$this->addSVNRepositoriesToImport(array($path), $options);
 		}
+		return $this->_repos;
 	}
 
 	/**

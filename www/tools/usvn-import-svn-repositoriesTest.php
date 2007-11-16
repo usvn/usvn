@@ -18,12 +18,13 @@
  */
 
 if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "importHtpasswdCommandLine_Test::main");
+    define("PHPUnit_MAIN_METHOD", "importSvnRepositories_Test::main");
 }
 
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
+define('CONFIG_FILE', 'tests/config.ini');
 require_once 'www/USVN/autoload.php';
 
 
@@ -61,7 +62,6 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 		chdir($this->_path);
 		chdir('www');
 		USVN_Translation::initTranslation('en_US', 'locale');
-		chmod("tools/usvn-import-svn-repositories.php", 0700);
 	}
 
 	public function tearDown()
@@ -70,9 +70,53 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 		parent::tearDown();
 	}
 
-	public function testOne()
+	public function testNoEnoughArgument()
 	{
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php", $return);
+		$this->assertEquals(1, $return, $message);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php test", $return);
+		$this->assertEquals(1, $return, $message);
 	}
+
+	public function testBadOptions()
+	{
+		$path = '../tests/tmp/svn/testSVN';
+		USVN_SVNUtils::createSvn($path);
+
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --test $path", $return);
+		$this->assertEquals(1, $return, $message);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --verbosee $path", $return);
+		$this->assertEquals(1, $return, $message);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --addmetoagroup $path", $return);
+		$this->assertEquals(1, $return, $message);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --noimporte $path", $return);
+		$this->assertEquals(1, $return, $message);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --recurse $path", $return);
+		$this->assertEquals(1, $return, $message);
+	}
+
+	/*public function testImportOk()
+	{
+		$path = '../tests/tmp/svn/testSVN';
+		USVN_SVNUtils::createSvn($path);
+
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --addmetogroup --admin --creategroup --verbose $path", $return);
+		$this->assertEquals(0, $return, $message);
+	}
+
+	public function testRecursiveImportOk()
+	{
+		$path = '../tests/tmp/svn/recurse/';
+		@mkdir($path);
+		USVN_SVNUtils::createSvn($path.'/test1');
+		USVN_SVNUtils::createSvn($path.'/test2');
+		@mkdir($path.'/dir');
+		USVN_SVNUtils::createSvn($path.'/dir/test3');
+		USVN_SVNUtils::createSvn($path.'/dir/test4');
+
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php --addmetogroup --admin --creategroup --recursive test $path", $return);
+		$this->assertEquals(0, $return, $message);
+	}*/
 }
 
 // Call importHtpasswdCommandLine_Test::main() if this source file is executed directly.

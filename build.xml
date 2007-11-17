@@ -1,10 +1,8 @@
 <?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
-  <property name="docdir" value="apidocs" override="true" />
   <property name="testdir" value="tests" override="true" />
   <property name="report_test_dir" value="test-report" override="true" />
   <property name="wamp_dir" value="WinInstaller/Files/USVN" override="true" />
-
 
  <!-- File set -->
   <fileset id="testfile" dir=".">
@@ -38,15 +36,12 @@
     <phingcall target="lint" />
     <phingcall target="translation-compilation" />
     <phingcall target="test" />
-    <phingcall target="doc" />
   </target>
 
     <target name="release">
         <echo msg="Release USVN ${version}" />
         <phingcall target="lint" />
         <phingcall target="test-all" />
-        <phingcall target="doc" />
-        <phingcall target="tar" />
     </target>
 
     <target name="release-wamp">
@@ -55,9 +50,7 @@
     </target>
 
     <target name="clean">
-        <delete dir="${docdir}" />
         <delete dir="${report_test_dir}" />
-        <delete dir="${archive_dir}" />
         <delete dir="tests" />
         <delete>
             <fileset dir=".">
@@ -113,12 +106,6 @@
         <phpunitreport infile="${report_test_dir}/logfile.xml" styledir="phing" format="frames" todir="${report_test_dir}" />
         <fail if="unit_test_failure" message="Unit tests failed!!!" />
 	</target>
-
-  <target name="doc">
-    <delete dir="${docdir}" />
-    <mkdir dir="${docdir}" />
-    <exec command="phpdoc -c phpDocumentor.ini"/>
-  </target>
 
   <target name="lint">
     <phplint>

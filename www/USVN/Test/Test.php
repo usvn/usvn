@@ -37,9 +37,9 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
 		mkdir("tests/tmp");
 		mkdir("tests/tmp/svn");
 		file_put_contents('tests/test.ini', '[general]
-subversion.path = "tests/tmp"
-subversion.passwd = "tests/tmp/htpasswd"
-subversion.authz = "tests/tmp/authz"
+subversion.path = "' . getcwd() . '/tests/tmp/"
+subversion.passwd = "' . getcwd() . '/tests/tmp/htpasswd"
+subversion.authz = "' . getcwd() . '/tests/tmp/authz"
 version = "0.8.4"
 translation.locale = "en_US"
 ');

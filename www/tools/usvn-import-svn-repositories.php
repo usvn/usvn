@@ -62,7 +62,7 @@ foreach ($argv as $arg) {
 			$options['noimport'] = 1;
 			break;
 		default:
-			if (is_file($arg)) {
+			if (is_file($arg) && $arg != $argv[0]) {
 				$configFile = $arg;
 			}
 			if (is_dir($arg)) {

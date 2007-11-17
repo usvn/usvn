@@ -90,7 +90,7 @@ class USVN_DirectoryUtilsTest extends USVN_Test_Test {
 		$path = USVN_DirectoryUtils::getTmpDirectory();
 		$this->assertTrue(touch($path. "/test"));
 	}
-	
+
 	public function test_isRootDirectory()
 	{
 		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
@@ -102,6 +102,10 @@ class USVN_DirectoryUtilsTest extends USVN_Test_Test {
 			$this->assertFalse(USVN_DirectoryUtils::isRootDirectory('/home'));
 			$this->assertTrue(USVN_DirectoryUtils::isRootDirectory('/'));
 		}
+	}
+
+	public function test_firstDirectoryIsInclude()
+	{
 	}
 }
 

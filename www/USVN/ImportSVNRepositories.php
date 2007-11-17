@@ -36,7 +36,7 @@ class USVN_ImportSVNRepositories
 		}
 		$config = Zend_Registry::get('config');
 		$path = realpath($path);
-		if (!strncmp($path, $config->subversion->path, strlen($config->subversion->path))) {
+		if (USVN_DirectoryUtils::firstDirectoryIsInclude($path, $config->subversion->path)) {
 			if (is_dir($path) && USVN_SVNUtils::isSVNRepository($path)) {
 				return true;
 			} elseif (isset($options['verbose']) && $options['verbose'] == true) {
@@ -104,11 +104,19 @@ class USVN_ImportSVNRepositories
 			foreach ($path as $p) {
 				$p = realpath($p);
 				if (is_string($p) && $this->canBeImported($p, $options)) {
-					$name = strlen($options['name']) ? $options['name'] :
-							str_replace($config->subversion->path . 'svn' . DIRECTORY_SEPARATOR, '', $p);
-					$name = str_replace('\\', '/', $name);
-					$name = str_replace('//', '/', $name);
+					$svnPath = str_replace('\\', '/', $config->subversion->path . 'svn/');
+					$p = str_replace('\\', '/', $p);
+					$p = str_replace('//', '/', $p);
+					$name = isset($options['name']) && !empty($options['name']) ? $options['name'] :
+							str_replace($svnPath, '', $p);
 					$name = trim($name, '/');
+					if (isset($options['verbose']) && $options['verbose'] == true) {
+						print "Project's name for '$p' will be '$name'\n";
+					}
+					$options['description'] = isset($options['description']) ? $options['description'] : '';
+					$options['creategroup'] = isset($options['creategroup']) ? $options['creategroup'] : false;
+					$options['addmetogroup'] = isset($options['addmetogroup']) ? $options['addmetogroup'] : false;
+					$options['admin'] = isset($options['admin']) ? $options['admin'] : false;
 					$this->_repos[] = array('name' => $name, 'path' => $p, 'options' => $options);
 				}
 			}
@@ -129,12 +137,12 @@ class USVN_ImportSVNRepositories
 		if (count($this->_repos)) {
 			foreach ($this->_repos as $k => $repo) {
 				$project = USVN_Project::createProject(array('projects_name' => $repo['name'],
-																		'projects_description' => $repo['description']),
-																		$repo['options']['login'],
-																		$repo['options']['creategroup'],
-																		$repo['options']['addmetogroup'],
-																		$repo['options']['admin'],
-																		0);//0, we don't want to create branch's, trunk's and tag's directory
+																'projects_description' => $repo['options']['description']),
+														$repo['options']['login'],
+														$repo['options']['creategroup'],
+														$repo['options']['addmetogroup'],
+														$repo['options']['admin'],
+														0);//0, we don't want to create branch's, trunk's and tag's directory
 				//no need to check if the project have been created, an exception will be throw in this case
 				$this->_repos_imported[] = $project;
 				unset($this->_repos[$k]);

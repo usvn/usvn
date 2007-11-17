@@ -29,15 +29,15 @@ class USVN_Test_DB extends USVN_Test_Test {
     protected function setUp() {
 		parent::setUp();
 		$params = array ('host'     => 'localhost',
-			 'username' => 'usvn-test',
-			 'password' => 'usvn-test',
-			 'dbname'   => 'usvn-test');
+			 				'username' => 'usvn-test',
+			 				'password' => 'usvn-test',
+			 				'dbname'   => 'usvn-test');
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
 			$this->clean();
 			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'tests/usvn.db', 'usvn_', 'PDO_SQLITE', false);
 			$params['dbname'] = "tests/usvn.db";
 			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
-			file_put_contents('tests/config-db.ini', '[general]
+			file_put_contents('tests/test.ini', '
 database.adapterName = "PDO_SQLITE"
 database.prefix = "usvn_"
 database.options.host = "localhost"
@@ -45,13 +45,13 @@ database.options.username = "usvn-test"
 database.options.password = "usvn-test"
 database.options.dbname = "' . getcwd() . '/tests/usvn.db"
 subversion.passwd = "' . getcwd() . '/tests/htpasswd"
-');
+', FILE_APPEND);
 		}
 		else {
 			$this->db = Zend_Db::factory(getenv('DB'), $params);
 			$this->clean();
 			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', getenv('DB'), false);
-			file_put_contents('tests/config-db.ini', '[general]
+			file_put_contents('tests/test.ini', '
 database.adapterName = "' . getenv('DB') . '"
 database.prefix = "usvn_"
 database.options.host = "localhost"
@@ -59,10 +59,12 @@ database.options.username = "usvn-test"
 database.options.password = "usvn-test"
 database.options.dbname = "usvn-test"
 subversion.passwd = "' . getcwd() . '/tests/htpasswd"
-');
+', FILE_APPEND);
 		}
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Table::$prefix = "usvn_";
+		$config = new USVN_Config_Ini('tests/test.ini', 'general');
+		Zend_Registry::set('config', $config);
     }
 
 	private function clean()

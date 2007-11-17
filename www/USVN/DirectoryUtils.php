@@ -31,7 +31,11 @@ class USVN_DirectoryUtils
                 throw new USVN_Exception(T_("Can't delete directory %s. Permission denied."), $path);
             }
             try {
-                $dh = opendir($path);
+            	if (is_dir($path)) {
+                	$dh = opendir($path);
+            	} else {
+            		return;
+            	}
             }
             catch(Exception $e) {
                 return;
@@ -90,10 +94,10 @@ class USVN_DirectoryUtils
 		mkdir($path);
 		return $path;
 	}
-	
+
 	/**
 	 * Return true if path === / on Unix or path == C: or D: or ... on Windows
-	 * 
+	 *
 	 * @param Path
 	 * @return boolean
 	 */
@@ -110,5 +114,24 @@ class USVN_DirectoryUtils
 		else {
 			return $path === '/';
 		}
+	}
+
+	/**
+	 * Return true if the first path is include into the other path
+	 *
+	 * @param string $path1
+	 * @param string $path2
+	 * @return boolean
+	 */
+	static public function firstDirectoryIsInclude($path1, $path2)
+	{
+		$tmp1 = realpath($path1);
+		$tmp2 = realpath($path2);
+		$tmp1 = str_replace('\\', '/', $tmp1);
+		$tmp2 = str_replace('\\', '/', $tmp2);
+		if (!strncmp($tmp1, $tmp2, strlen($tmp2))) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -64,6 +64,7 @@ foreach ($argv as $arg) {
 		default:
 			if (is_file($arg) && $arg != $argv[0]) {
 				$configFile = $arg;
+				break;
 			}
 			if (is_dir($arg)) {
 				$paths[] = $arg;

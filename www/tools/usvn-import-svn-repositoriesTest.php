@@ -24,8 +24,6 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-define('CONFIG_FILE', 'tests/test.ini');
-
 require_once 'www/USVN/autoload.php';
 
 class importSvnRepositories_Test extends USVN_Test_DB {
@@ -61,10 +59,6 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 		parent::setUp();
 		chdir($this->_path);
 		chdir('www');
-		USVN_Translation::initTranslation('en_US', 'locale');
-		$this->db->closeConnection();
-		$config = Zend_Registry::get('config');
-		$config->database = array("adapterName" => "mysql");
 	}
 
 	public function tearDown()
@@ -101,12 +95,14 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 		USVN_DirectoryUtils::removeDirectory($path);
 	}
 
-	/*public function testImportOk()
+	public function testImportOk()
 	{
 		$path = '../tests/tmp/svn/test/';
 		mkdir($path);
 		USVN_SVNUtils::createSvn($path.'testSVN');
 
+		$tmp_path = getcwd();
+		chdir($this->_path);
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'user_test',
@@ -115,6 +111,7 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$obj->save();
+		chdir($tmp_path);
 
 		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php ../tests/test.ini --addmetogroup --admin --creategroup --verbose user_test $path", $return);
 		$this->assertEquals(0, $return, $message);
@@ -133,6 +130,8 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 		USVN_SVNUtils::createSvn($path.'/dir/test3');
 		USVN_SVNUtils::createSvn($path.'/dir/test4');
 
+		$tmp_path = getcwd();
+		chdir($this->_path);
 		$table = new USVN_Db_Table_Users();
 		$obj = $table->fetchNew();
 		$obj->setFromArray(array('users_login' 			=> 'user_test',
@@ -141,12 +140,13 @@ class importSvnRepositories_Test extends USVN_Test_DB {
 									'users_lastname' 	=> 'lastname',
 									'users_email' 		=> 'email@email.fr'));
 		$obj->save();
+		chdir($tmp_path);
 
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php ../tests/test.ini --addmetogroup --admin --creategroup --recursive user_test $path", $return);
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage("php tools/usvn-import-svn-repositories.php ../tests/test.ini --addmetogroup --admin --creategroup --recursive --verbose user_test $path", $return);
 		$this->assertEquals(0, $return, $message);
 
 		USVN_DirectoryUtils::removeDirectory($path);
-	}*/
+	}
 }
 
 // Call importSvnRepositories_Test::main() if this source file is executed directly.

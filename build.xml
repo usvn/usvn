@@ -1,13 +1,8 @@
 <?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
-  <property name="license" value="CECILL" override="true" />
-  <property name="version" value="0.6.0" override="true" />
-  <property name="status" value="beta" override="true" />
   <property name="docdir" value="apidocs" override="true" />
   <property name="testdir" value="tests" override="true" />
   <property name="report_test_dir" value="test-report" override="true" />
-  <property name="cover_report_dir" value="cover-report" override="true" />
-  <property name="archive_dir" value="archive" override="true" />
   <property name="wamp_dir" value="WinInstaller/Files/USVN" override="true" />
 
 
@@ -39,7 +34,7 @@
 
 <!-- Target -->
   <target name="all">
-    <echo msg="Build USVN ${version} ${status}" />
+    <echo msg="Build USVN" />
     <phingcall target="lint" />
     <phingcall target="translation-compilation" />
     <phingcall target="test" />
@@ -62,7 +57,6 @@
     <target name="clean">
         <delete dir="${docdir}" />
         <delete dir="${report_test_dir}" />
-        <delete dir="${cover_report_dir}" />
         <delete dir="${archive_dir}" />
         <delete dir="tests" />
         <delete>
@@ -149,26 +143,6 @@
     <taskdef name="gettext-findstr" classname="phing.tasks.FindStrGetTextTask" />
     <gettext-findstr localedirectory="www/locale/" scandirectory="www/"/>
 </target>
-
-<!-- Archives -->
-  <target name="tar">
-    <mkdir dir="${archive_dir}" />
-    <delete file="${archive_dir}/usvn-${version}.tgz" />
-    <delete file="${archive_dir}/usvn-${version}.tgz.md5" />
-    <delete file="${archive_dir}/usvn-doc-${version}.tgz" />
-    <tar destfile="${archive_dir}/usvn-${version}.tgz" compression="gzip">
-        <fileset refid="projectfile" />
-    </tar>
-    <php function="md5_file" returnProperty="md5file">
-        <param value="${archive_dir}/usvn-${version}.tgz"/>
-    </php>
-    <echo msg="${md5file}" file="${archive_dir}/usvn-${version}.tgz.md5"/>
-    <tar destfile="${archive_dir}/usvn-doc-${version}.tgz" compression="gzip">
-      <fileset id="docfile" dir="${docdir}">
-        <include name="**" />
-      </fileset>
-    </tar>
-  </target>
 
 <!-- Wamp -->
   <target name="wamp">

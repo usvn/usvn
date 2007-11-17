@@ -1,23 +1,21 @@
 <?php
 /**
- * Import users from an htpasswd file to USVN
+ * Generate image tag with correct path
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
  * @since 0.5
- * @package admin
- * @subpackage user
+ * @package helper
  *
  * This software has been written at EPITECH <http://www.epitech.net>
  * EPITECH, European Institute of Technology, Paris - FRANCE -
  * This project has been realised as part of
  * end of studies project.
  *
- * $Id: ImportHtpasswdTest.php 493 2007-05-18 18:29:36Z duponc_j $
+ * $Id$
  */
-
 // Call USVN_View_Helper_ImgTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
     define("PHPUnit_MAIN_METHOD", "USVN_View_Helper_ImgTest::main");
@@ -49,9 +47,9 @@ class USVN_View_Helper_ImgTest extends USVN_Test_Test {
 
     public function testImg()
     {
-        $helper = new USVN_View_Helper_Img();
-         $ctrl = Zend_Controller_Front::getInstance();
-         $ctrl->setBaseUrl('~/noplay/usvn');
+		$helper = new USVN_View_Helper_Img();
+		$ctrl = Zend_Controller_Front::getInstance();
+		$ctrl->setBaseUrl('~/noplay/usvn');
         $this->assertEquals($helper->img('test.png', 'Test'), '<img src="~/noplay/usvn/medias/default/images/test.png" alt="Test" />');
     }
 }
@@ -60,4 +58,3 @@ class USVN_View_Helper_ImgTest extends USVN_Test_Test {
 if (PHPUnit_MAIN_METHOD == "USVN_View_Helper_ImgTest::main") {
     USVN_View_Helper_ImgTest::main();
 }
-?>

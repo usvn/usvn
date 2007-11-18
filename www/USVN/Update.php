@@ -87,18 +87,18 @@ class USVN_Update
 			$config = Zend_Registry::get('config');
 			$config->update = array("lastcheckforupdate" => time());
 			$config->save();
-			$url = 'http://usvn.info/';
+			$url = 'http://www.usvn.info';
 			$http_conf = USVN_Update::setProxyForUpdate(array('maxredirects' => 0, 'timeout' => 30));
 			if (defined("PHPUnit_MAIN_METHOD")) {
-				$url = 'http://iceage.usvn.info/';
+				$url = 'http://iceage.usvn.info';
 			}
-			$client = new Zend_Http_Client("$url/update/" . $config->version, $http_conf);
+			$client = new Zend_Http_Client("$url/update/" . urlencode($config->version), $http_conf);
         	$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
 			try {
         		$response = $client->request('POST');
 			}
 			catch (Exception $e) { // Ugly but we don't want to display error if usvn.info is not available
-				return;
+				//return;
 			}
 			if ($response->getStatus() == 200) {
 				file_put_contents(USVN_Update::getVersionFilePath(), $response->getBody());
@@ -132,6 +132,12 @@ class USVN_Update
 		}
 		foreach (get_loaded_extensions() as $ext) {
 			$php->addChild('extension', $ext);
+		}
+		$apache = $xml->addChild('host');
+		if (function_exists("apache_get_modules")) {
+			foreach (apache_get_modules() as $ext) {
+				$apache->addChild("module", $ext);
+			}
 		}
 		return $xml->asXml();
 	}

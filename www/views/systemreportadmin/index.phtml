@@ -14,3 +14,11 @@
 	<li><?php echo $ext; ?></li>
 <?php } ?>
 </ul>
+<?php if (function_exists("apache_get_modules")) { ?>
+	<h2><?php echo T_("Apache modules")?></h2>
+	<ul>
+	<?php foreach (apache_get_modules() as $ext) { ?>
+		<li><?php echo $ext; ?></li>
+	<?php } ?>
+	</ul>
+<?php }  ?>

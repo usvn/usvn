@@ -2,7 +2,7 @@
 <div class="usvn_info">
 	<h1><?php echo $this->project->name;?></h1>
 	<p><?php echo $this->project->description;?><br /><br />
-<?php echo sprintf(T_("Checkout URL : %s"), Zend_Registry::get('config')->subversion->url . $this->project->name . "/trunk/"); ?>
+<?php echo sprintf(T_("Checkout URL : %s"), $this->subversion_url);?>
 </p>
 </div>
 <div class="usvn_info">
@@ -78,8 +78,7 @@
 <div class="usvn_info">
 	<h1><?php echo T_("Last five commit");
 	echo "<link rel='alternate' type='application/rss+xml' href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."' />";
-	$navigateur = $_SERVER['HTTP_USER_AGENT'];
-	if (strstr($navigateur, "MSIE"))
+	if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
 		echo "  <a href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."'>".$this->img('rss.png', T_('Rss'))."</a>";
 	 ?></h1>
 	<table id="commits" class="sortable">

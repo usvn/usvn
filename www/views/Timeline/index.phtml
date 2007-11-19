@@ -7,9 +7,9 @@
 					<tr>
 						<td>
 					<a href="#" class="usvn_tooltips">
-						<?php echo T_("Your revison or date revision start ");?>
+						<?php echo T_("Start revision or date revision");?>
 						<span>
-							<?php echo T_("You can list 100 revision since your revision or date. The date format is : DD/MM/YYYY"); ?>
+							<?php echo T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"); ?>
 						</span>
 					</a>:
 					<?php
@@ -18,9 +18,9 @@
 					?>
 			 		
 					<a href="#" class="usvn_tooltips">
-						<?php echo T_("Your revison  or date revision end ");?>
+						<?php echo T_("End revision or date revision");?>
 						<span>
-							<?php echo T_("This is optional. You can put your date/revision only if you need a listing between date/revision "); ?>
+							<?php echo T_("This is optional.The listing is made between start revision/date and this one."); ?>
 						</span>
 					</a>:
 					<?php echo $this->formText("number_end"); ?>
@@ -29,13 +29,7 @@
 							<?php echo $this->formSubmit("LastHundredRequest", T_("Search")); ?>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							
-						</td>
-						<td>
-						</td>
-					</tr>
+
 				</table>
 			</div>
 		</form>		

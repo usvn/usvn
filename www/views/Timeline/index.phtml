@@ -1,30 +1,41 @@
  <?php echo $this->error($this); ?>
  <div class="usvn_info">
 <h1><?php echo T_("Enter your number of revision or date");?> </h1> <br>
-	<form style="float: left; text-align: left;" action="<?php echo $this->url(array("action" => "LastHundredRequest")); ?>" method="post">
+	<form action="<?php echo $this->url(array("action" => "LastHundredRequest")); ?>" method="post">
 			<div>
 				<table>
 					<tr>
 						<td>
-					<a href="#" class="usvn_tooltips">
-						<?php echo T_("Start revision or date revision");?>
-						<span>
-							<?php echo T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"); ?>
-						</span>
-					</a>:
-					<?php
-						 echo $this->formText("number_start"); 
-						 echo '<br>';
-					?>
-			 		
-					<a href="#" class="usvn_tooltips">
-						<?php echo T_("End revision or date revision");?>
-						<span>
-							<?php echo T_("This is optional.The listing is made between start revision/date and this one."); ?>
-						</span>
-					</a>:
-					<?php echo $this->formText("number_end"); ?>
+							<a href="#" class="usvn_tooltips">
+								<?php echo T_("Start revision or date revision"); ?>
+								<span>
+									<?php echo T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"); ?>
+								</span>
+							</a>:
 						</td>
+
+						<td>
+							<?php
+								 echo $this->formText("number_start"); 
+						     	 echo '<br>';
+							?>
+			 			</td>
+			 		</tr>
+			 		
+			 		<tr>
+				 		<td>
+						<a href="#" class="usvn_tooltips">
+							<?php echo T_("End revision or date revision");?>
+							<span>
+								<?php echo T_("This is optional.The listing is made between start revision/date and this one."); ?>
+							</span>
+						</a>:
+						</td>
+						<td>
+							<?php echo $this->formText("number_end"); ?>
+						</td>
+					</tr>
+					<tr>
 						<td>
 							<?php echo $this->formSubmit("LastHundredRequest", T_("Search")); ?>
 						</td>

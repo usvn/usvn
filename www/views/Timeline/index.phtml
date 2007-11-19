@@ -1,15 +1,29 @@
  <?php echo $this->error($this); ?>
  <div class="usvn_info">
-<h1><?php echo T_("Enter your number of revision or date");?> </h1>
+<h1><?php echo T_("Enter your number of revision or date");?> </h1> <br>
 	<form style="float: left; text-align: left;" action="<?php echo $this->url(array("action" => "LastHundredRequest")); ?>" method="post">
 			<div>
 				<table>
 					<tr>
 						<td>
-							<?php					
-							 echo $this->formText("number_start"); 
-							 echo '<br>';
-							 echo $this->formText("number_end"); ?>
+					<a href="#" class="usvn_tooltips">
+						<?php echo T_("Your revison or date revision start ");?>
+						<span>
+							<?php echo T_("You can list 100 revision since your revision or date. The date format is : DD/MM/YYYY"); ?>
+						</span>
+					</a>:
+					<?php
+						 echo $this->formText("number_start"); 
+						 echo '<br>';
+					?>
+			 		
+					<a href="#" class="usvn_tooltips">
+						<?php echo T_("Your revison  or date revision end ");?>
+						<span>
+							<?php echo T_("This is optional. You can put your date/revision only if you need a listing between date/revision "); ?>
+						</span>
+					</a>:
+					<?php echo $this->formText("number_end"); ?>
 						</td>
 						<td>
 							<?php echo $this->formSubmit("LastHundredRequest", T_("Search")); ?>

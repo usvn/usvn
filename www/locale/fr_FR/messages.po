@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-15 16:53+0100\n"
-"PO-Revision-Date: 2007-11-15 16:53+0100\n"
+"POT-Creation-Date: 2007-11-19 15:19+0100\n"
+"PO-Revision-Date: 2007-11-19 16:09+0100\n"
 "Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -270,13 +270,11 @@ msgstr "non"
 msgid "Do you really want to delete user %s?"
 msgstr "Voulez vous vraiment supprimer l'utilisateur %s?"
 
-#: ../../../www//views/project/managegroup.phtml:4
-#: ../../../www//views/group/index.phtml:5
+#: ../../../www//views/project/index.phtml:5
 #, php-format
-msgid "Managing group %s"
-msgstr "Gestion du groupe %s"
+msgid "Checkout URL : %s"
+msgstr "Url du Subversion: %s"
 
-#: ../../../www//views/project/managegroup.phtml:14
 #: ../../../www//views/project/index.phtml:18
 #: ../../../www//views/project/index.phtml:55
 #: ../../../www//views/group/index.phtml:17
@@ -284,12 +282,10 @@ msgstr "Gestion du groupe %s"
 msgid "Add"
 msgstr "Ajouter"
 
-#: ../../../www//views/project/managegroup.phtml:20
-#: ../../../www//views/group/index.phtml:52
-msgid "Affected Users"
-msgstr "Utilisateurs affectés"
+#: ../../../www//views/project/index.phtml:33
+msgid "Admins users"
+msgstr "Administrateurs "
 
-#: ../../../www//views/project/managegroup.phtml:24
 #: ../../../www//views/project/index.phtml:38
 #: ../../../www//views/project/index.phtml:68
 #: ../../../www//views/group/index.phtml:29
@@ -297,22 +293,6 @@ msgstr "Utilisateurs affectés"
 #: ../../../www//helpers/DeleteLink.php:35
 msgid "Delete"
 msgstr "Supprimer"
-
-#: ../../../www//views/project/managegroup.phtml:25
-#: ../../../www//views/group/index.phtml:30
-#: ../../../www//views/group/index.phtml:58
-#, php-format
-msgid "Do you really want to remove user %s from group %s?"
-msgstr "Voulez vous vraiment supprimer l'utilisateur %s du groupe %s?"
-
-#: ../../../www//views/project/index.phtml:5
-#, php-format
-msgid "Checkout URL : %s"
-msgstr "Url du Subversion: %s"
-
-#: ../../../www//views/project/index.phtml:33
-msgid "Admins users"
-msgstr "Administrateurs "
 
 #: ../../../www//views/project/index.phtml:39
 #, php-format
@@ -330,43 +310,106 @@ msgstr "Voulez vous vraiment supprimer le groupe %s du projet %s?"
 msgid "Last five commit"
 msgstr "Les cinq derniers commits"
 
-#: ../../../www//views/project/index.phtml:83
+#: ../../../www//views/project/index.phtml:82
 msgid "Rss"
 msgstr ""
 
-#: ../../../www//views/project/index.phtml:88
-#: ../../../www//views/Timeline/index.phtml:35
+#: ../../../www//views/project/index.phtml:87
+#: ../../../www//views/Timeline/index.phtml:54
 #: ../../../www//views/rss/index.phtml:19
 msgid "Revision"
 msgstr "Version"
 
-#: ../../../www//views/project/index.phtml:89
-#: ../../../www//views/Timeline/index.phtml:36
+#: ../../../www//views/project/index.phtml:88
+#: ../../../www//views/Timeline/index.phtml:55
 #: ../../../www//views/rss/index.phtml:19
 msgid "Author"
 msgstr "Auteur"
 
-#: ../../../www//views/project/index.phtml:90
-#: ../../../www//views/Timeline/index.phtml:37
+#: ../../../www//views/project/index.phtml:89
+#: ../../../www//views/Timeline/index.phtml:56
 #: ../../../www//views/rss/index.phtml:19
 msgid "Date"
 msgstr "Date"
 
-#: ../../../www//views/project/index.phtml:91
-#: ../../../www//views/Timeline/index.phtml:38
+#: ../../../www//views/project/index.phtml:90
+#: ../../../www//views/Timeline/index.phtml:57
 #: ../../../www//views/rss/index.phtml:20
 msgid "Message"
 msgstr "Message"
 
-#: ../../../www//views/Timeline/index.phtml:3
-msgid "Enter your number of revision or date"
-msgstr "Entrez le numéro de révision ou la date."
+#: ../../../www//views/systemreportadmin/index.phtml:1
+#: ../../../www//menus/systemreportadmin.php:33
+msgid "System report"
+msgstr "Informations système"
 
-#: ../../../www//views/Timeline/index.phtml:15
+#: ../../../www//views/systemreportadmin/index.phtml:3
+msgid "PHP version:"
+msgstr "Version de PHP: "
+
+#: ../../../www//views/systemreportadmin/index.phtml:4
+#, fuzzy
+msgid "USVN version:"
+msgstr "Version de USVN: "
+
+#: ../../../www//views/systemreportadmin/index.phtml:5
+msgid "Translation:"
+msgstr "Traduction:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:6
+msgid "Database:"
+msgstr "Base de donnée:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:7
+msgid "Subversion version:"
+msgstr "Version de subversion:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:8
+msgid "OS:"
+msgstr "Système d'exploitation:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:10
+msgid "Get full report"
+msgstr "Afficher un rapport complet"
+
+#: ../../../www//views/systemreportadmin/index.phtml:11
+msgid "PHP extensions"
+msgstr "Extension de PHP"
+
+#: ../../../www//views/systemreportadmin/index.phtml:18
+msgid "Apache modules"
+msgstr "Module d'Apache"
+
+#: ../../../www//views/Timeline/index.phtml:3
+#: ../../../www//menus/timeline.php:32
+msgid "Timeline"
+msgstr "Chronologie"
+
+#: ../../../www//views/Timeline/index.phtml:10
+msgid "Start revision or date revision"
+msgstr "Version de départ ou date"
+
+#: ../../../www//views/Timeline/index.phtml:12
+msgid ""
+"You can list 100 revisions since your revision or date. The date format is : "
+"DD/MM/YYYY"
+msgstr "Vous pouvez afficher 100 version depuis une version donnée ou une date. Le format de date est DD/MM/YYYY."
+
+#: ../../../www//views/Timeline/index.phtml:28
+msgid "End revision or date revision"
+msgstr "Version final ou date de fin"
+
+#: ../../../www//views/Timeline/index.phtml:30
+msgid ""
+"This is optional.The listing is made between start revision/date and this "
+"one."
+msgstr "Ceci est optionnel. La liste des versions commence à la première version/date jusqua celle si."
+
+#: ../../../www//views/Timeline/index.phtml:40
 msgid "Search"
 msgstr "Rechercher"
 
-#: ../../../www//views/Timeline/index.phtml:31
+#: ../../../www//views/Timeline/index.phtml:50
 msgid "Last hundred commit"
 msgstr "Les cent derniers commits"
 
@@ -377,8 +420,7 @@ msgstr "Bienvenue sur USVN"
 
 #: ../../../www//views/login/login.phtml:5
 msgid "Please enter your login and your password to connect to USVN."
-msgstr ""
-"Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
+msgstr "Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
 
 #: ../../../www//views/login/login.phtml:11
 msgid "Authentification"
@@ -392,9 +434,24 @@ msgstr "Droit d'accès pour"
 msgid "Files list"
 msgstr "Liste des fichiers"
 
+#: ../../../www//views/group/index.phtml:5
+#, php-format
+msgid "Managing group %s"
+msgstr "Gestion du groupe %s"
+
 #: ../../../www//views/group/index.phtml:24
 msgid "Leader Users"
 msgstr "Chefs de groupe"
+
+#: ../../../www//views/group/index.phtml:30
+#: ../../../www//views/group/index.phtml:58
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "Voulez vous vraiment supprimer l'utilisateur %s du groupe %s?"
+
+#: ../../../www//views/group/index.phtml:52
+msgid "Affected Users"
+msgstr "Utilisateurs affectés"
 
 #: ../../../www//views/configadmin/index.phtml:2
 #: ../../../www//views/adminadmin/index.phtml:15
@@ -556,8 +613,7 @@ msgstr "Ajoutez moi comme administrateur du projet:"
 
 #: ../../../www//views/projectadmin/form.phtml:38
 msgid "Create SVN standard directories (/trunk, /branches and /tags):"
-msgstr ""
-"Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
+msgstr "Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
 
 #: ../../../www//views/projectadmin/index.phtml:16
 #, php-format
@@ -630,8 +686,7 @@ msgid "Configure USVN"
 msgstr "Configurer USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
+msgid "Settings of general configuration of USVN. You can keep default settings."
 msgstr "Configuration de USVN. Vous pouvez garder les réglages par défaut."
 
 #: ../../../www//install/views/step4.html:12
@@ -888,8 +943,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN ne peut pas être utilisé avec le safe mode de PHP."
 
 #: ../../../www//install/Install.php:445
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 "Subversion n'est pas installé sur votre système. Si vous êtes sous Windows "
 "installez "
@@ -1016,6 +1070,11 @@ msgstr "Mot de passe incorrect"
 msgid "Invalid project name %s."
 msgstr "%s est un nom de projet invalide."
 
+#: ../../../www//USVN/ImportSVNRepositories.php:35
+#, php-format
+msgid "%s must be a string: %s"
+msgstr ""
+
 #: ../../../www//USVN/FilesAccessRights.php:42
 #: ../../../www//USVN/FilesAccessRights.php:83
 #, php-format
@@ -1043,20 +1102,19 @@ msgstr "L'utilisateur ne pas être crée. Un groupe a déjà le même nom."
 #: ../../../www//USVN/DirectoryUtils.php:31
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr ""
-"Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
+msgstr "Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
 
-#: ../../../www//USVN/DirectoryUtils.php:46
+#: ../../../www//USVN/DirectoryUtils.php:50
 #, php-format
 msgid "Can't delete file %s."
 msgstr "Impossible de supprimer le fichier %s."
 
-#: ../../../www//USVN/DirectoryUtils.php:54
+#: ../../../www//USVN/DirectoryUtils.php:58
 #, php-format
 msgid "Can't delete directory %s."
 msgstr "Impossible de supprimer le dossier %s."
 
-#: ../../../www//USVN/DirectoryUtils.php:71
+#: ../../../www//USVN/DirectoryUtils.php:75
 #, php-format
 msgid "Can't read directory %s."
 msgstr "Impossible de lire le dossier %s."
@@ -1153,6 +1211,3 @@ msgstr "Navigateur de fichier"
 msgid "Add new group"
 msgstr "Créer un groupe"
 
-#: ../../../www//menus/timeline.php:32
-msgid "Timeline"
-msgstr "Chronologie"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-15 16:53+0100\n"
+"POT-Creation-Date: 2007-11-19 15:19+0100\n"
 "PO-Revision-Date: 2007-09-19 11:50+0100\n"
 "Last-Translator: Alois Bělaška <alois.belaska@monetplus.cz>\n"
 "Language-Team: cs <alois.belaska@monetplus.cz>\n"
@@ -266,13 +266,11 @@ msgstr "ne"
 msgid "Do you really want to delete user %s?"
 msgstr "Opravdu si přejete odebrat uživatele %s?"
 
-#: ../../../www//views/project/managegroup.phtml:4
-#: ../../../www//views/group/index.phtml:5
+#: ../../../www//views/project/index.phtml:5
 #, php-format
-msgid "Managing group %s"
-msgstr "Správa skupiny %s"
+msgid "Checkout URL : %s"
+msgstr "Checkout URL : %s"
 
-#: ../../../www//views/project/managegroup.phtml:14
 #: ../../../www//views/project/index.phtml:18
 #: ../../../www//views/project/index.phtml:55
 #: ../../../www//views/group/index.phtml:17
@@ -280,12 +278,10 @@ msgstr "Správa skupiny %s"
 msgid "Add"
 msgstr "Přidat"
 
-#: ../../../www//views/project/managegroup.phtml:20
-#: ../../../www//views/group/index.phtml:52
-msgid "Affected Users"
-msgstr "Ovlivnění uživatelé"
+#: ../../../www//views/project/index.phtml:33
+msgid "Admins users"
+msgstr "Administrátoři"
 
-#: ../../../www//views/project/managegroup.phtml:24
 #: ../../../www//views/project/index.phtml:38
 #: ../../../www//views/project/index.phtml:68
 #: ../../../www//views/group/index.phtml:29
@@ -293,22 +289,6 @@ msgstr "Ovlivnění uživatelé"
 #: ../../../www//helpers/DeleteLink.php:35
 msgid "Delete"
 msgstr "Smazat"
-
-#: ../../../www//views/project/managegroup.phtml:25
-#: ../../../www//views/group/index.phtml:30
-#: ../../../www//views/group/index.phtml:58
-#, php-format
-msgid "Do you really want to remove user %s from group %s?"
-msgstr "Opravdu si přejete odebrat uživatele %s ze skupiny %s?"
-
-#: ../../../www//views/project/index.phtml:5
-#, php-format
-msgid "Checkout URL : %s"
-msgstr "Checkout URL : %s"
-
-#: ../../../www//views/project/index.phtml:33
-msgid "Admins users"
-msgstr "Administrátoři"
 
 #: ../../../www//views/project/index.phtml:39
 #, php-format
@@ -326,43 +306,112 @@ msgstr "Opravdu si přejete odebrat skupinu %s z projektu %s?"
 msgid "Last five commit"
 msgstr "Posledních 5 commitů"
 
-#: ../../../www//views/project/index.phtml:83
+#: ../../../www//views/project/index.phtml:82
 msgid "Rss"
 msgstr ""
 
-#: ../../../www//views/project/index.phtml:88
-#: ../../../www//views/Timeline/index.phtml:35
+#: ../../../www//views/project/index.phtml:87
+#: ../../../www//views/Timeline/index.phtml:54
 #: ../../../www//views/rss/index.phtml:19
 msgid "Revision"
 msgstr "Revize"
 
-#: ../../../www//views/project/index.phtml:89
-#: ../../../www//views/Timeline/index.phtml:36
+#: ../../../www//views/project/index.phtml:88
+#: ../../../www//views/Timeline/index.phtml:55
 #: ../../../www//views/rss/index.phtml:19
 msgid "Author"
 msgstr "Autor"
 
-#: ../../../www//views/project/index.phtml:90
-#: ../../../www//views/Timeline/index.phtml:37
+#: ../../../www//views/project/index.phtml:89
+#: ../../../www//views/Timeline/index.phtml:56
 #: ../../../www//views/rss/index.phtml:19
 msgid "Date"
 msgstr "Datum"
 
-#: ../../../www//views/project/index.phtml:91
-#: ../../../www//views/Timeline/index.phtml:38
+#: ../../../www//views/project/index.phtml:90
+#: ../../../www//views/Timeline/index.phtml:57
 #: ../../../www//views/rss/index.phtml:20
 msgid "Message"
 msgstr "Zpráva"
 
-#: ../../../www//views/Timeline/index.phtml:3
-msgid "Enter your number of revision or date"
+#: ../../../www//views/systemreportadmin/index.phtml:1
+#: ../../../www//menus/systemreportadmin.php:33
+#, fuzzy
+msgid "System report"
+msgstr "Systém"
+
+#: ../../../www//views/systemreportadmin/index.phtml:3
+#, fuzzy
+msgid "PHP version:"
+msgstr "USVN verze:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:4
+#, fuzzy
+msgid "USVN version:"
+msgstr "USVN verze:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:5
+#, fuzzy
+msgid "Translation:"
+msgstr "Vynucená instalace"
+
+#: ../../../www//views/systemreportadmin/index.phtml:6
+#, fuzzy
+msgid "Database:"
+msgstr "Databáze"
+
+#: ../../../www//views/systemreportadmin/index.phtml:7
+#, fuzzy
+msgid "Subversion version:"
+msgstr "Subversion repozitář"
+
+#: ../../../www//views/systemreportadmin/index.phtml:8
+msgid "OS:"
 msgstr ""
 
-#: ../../../www//views/Timeline/index.phtml:15
+#: ../../../www//views/systemreportadmin/index.phtml:10
+msgid "Get full report"
+msgstr ""
+
+#: ../../../www//views/systemreportadmin/index.phtml:11
+msgid "PHP extensions"
+msgstr ""
+
+#: ../../../www//views/systemreportadmin/index.phtml:18
+msgid "Apache modules"
+msgstr ""
+
+#: ../../../www//views/Timeline/index.phtml:3
+#: ../../../www//menus/timeline.php:32
+#, fuzzy
+msgid "Timeline"
+msgstr "Titulek"
+
+#: ../../../www//views/Timeline/index.phtml:10
+msgid "Start revision or date revision"
+msgstr ""
+
+#: ../../../www//views/Timeline/index.phtml:12
+msgid ""
+"You can list 100 revisions since your revision or date. The date format is : "
+"DD/MM/YYYY"
+msgstr ""
+
+#: ../../../www//views/Timeline/index.phtml:28
+msgid "End revision or date revision"
+msgstr ""
+
+#: ../../../www//views/Timeline/index.phtml:30
+msgid ""
+"This is optional.The listing is made between start revision/date and this "
+"one."
+msgstr ""
+
+#: ../../../www//views/Timeline/index.phtml:40
 msgid "Search"
 msgstr ""
 
-#: ../../../www//views/Timeline/index.phtml:31
+#: ../../../www//views/Timeline/index.phtml:50
 #, fuzzy
 msgid "Last hundred commit"
 msgstr "Posledních 5 commitů"
@@ -388,10 +437,25 @@ msgstr "Přístupové práva pro"
 msgid "Files list"
 msgstr "Seznam souborů"
 
+#: ../../../www//views/group/index.phtml:5
+#, php-format
+msgid "Managing group %s"
+msgstr "Správa skupiny %s"
+
 #: ../../../www//views/group/index.phtml:24
 #, fuzzy
 msgid "Leader Users"
 msgstr "Seznam uživatelů"
+
+#: ../../../www//views/group/index.phtml:30
+#: ../../../www//views/group/index.phtml:58
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "Opravdu si přejete odebrat uživatele %s ze skupiny %s?"
+
+#: ../../../www//views/group/index.phtml:52
+msgid "Affected Users"
+msgstr "Ovlivnění uživatelé"
 
 #: ../../../www//views/configadmin/index.phtml:2
 #: ../../../www//views/adminadmin/index.phtml:15
@@ -979,6 +1043,11 @@ msgstr "Nesprávné heslo"
 msgid "Invalid project name %s."
 msgstr "Špatné jméno projektu %s."
 
+#: ../../../www//USVN/ImportSVNRepositories.php:35
+#, php-format
+msgid "%s must be a string: %s"
+msgstr ""
+
 #: ../../../www//USVN/FilesAccessRights.php:42
 #: ../../../www//USVN/FilesAccessRights.php:83
 #, php-format
@@ -1009,17 +1078,17 @@ msgstr ""
 msgid "Can't delete directory %s. Permission denied."
 msgstr "Nelze smazat adresář %s. Přístup odepřen."
 
-#: ../../../www//USVN/DirectoryUtils.php:46
+#: ../../../www//USVN/DirectoryUtils.php:50
 #, php-format
 msgid "Can't delete file %s."
 msgstr "Nelze smazat soubor %s."
 
-#: ../../../www//USVN/DirectoryUtils.php:54
+#: ../../../www//USVN/DirectoryUtils.php:58
 #, php-format
 msgid "Can't delete directory %s."
 msgstr "Nelze smazat adresář %s."
 
-#: ../../../www//USVN/DirectoryUtils.php:71
+#: ../../../www//USVN/DirectoryUtils.php:75
 #, php-format
 msgid "Can't read directory %s."
 msgstr "Nelze číst adresář %s."
@@ -1109,11 +1178,6 @@ msgstr "Prohlížeč"
 #: ../../../www//menus/groupadmin.php:51
 msgid "Add new group"
 msgstr "Přidat novou skupinu"
-
-#: ../../../www//menus/timeline.php:32
-#, fuzzy
-msgid "Timeline"
-msgstr "Titulek"
 
 #~ msgid "The group's name is invalid."
 #~ msgstr "Jméno skupiny je špatné."

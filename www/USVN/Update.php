@@ -26,7 +26,7 @@ class USVN_Update
 		$config = Zend_Registry::get('config');
 		return ($config->subversion->path . DIRECTORY_SEPARATOR . ".usvn-version");
 	}
-	
+
 	/**
 	 * @return bool True if we need to check update
 	 */
@@ -40,10 +40,10 @@ class USVN_Update
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Return available version on http://www.usvn.info
-	 * 
+	 *
 	 * @return string
 	 */
 	static public function getUSVNAvailableVersion()
@@ -55,12 +55,12 @@ class USVN_Update
 		}
 		return $version;
 	}
-	
+
 	/**
 	 * Set proxy configuration information for check update.
 	 * Get proxy from HTTP_HOST environnement variable.
-	 * 
-	 * Only http://USER:PASSWORD@PROXY_SERVER:PORT is supported.  
+	 *
+	 * Only http://USER:PASSWORD@PROXY_SERVER:PORT is supported.
 	 */
 	static private function setProxyForUpdate($config)
 	{
@@ -69,15 +69,15 @@ class USVN_Update
 			$res = array();
 			if (preg_match("#http://([^:]+):([^@]+)@([^:]+):([0-9]+)#", $env, $res)) {
 				$config['adapter'] = 'Zend_Http_Client_Adapter_Proxy';
-				$config['proxy_host'] = $res[3];  
-				$config['proxy_port'] = $res[4];  
-				$config['proxy_user'] = $res[1];  
-				$config['proxy_pass'] = $res[2];  
+				$config['proxy_host'] = $res[3];
+				$config['proxy_port'] = $res[4];
+				$config['proxy_user'] = $res[1];
+				$config['proxy_pass'] = $res[2];
 			}
 		}
 		return $config;
 	}
-	
+
 	/**
 	 * Update file with USVN version number
 	 */
@@ -98,18 +98,18 @@ class USVN_Update
         		$response = $client->request('POST');
 			}
 			catch (Exception $e) { // Ugly but we don't want to display error if usvn.info is not available
-				//return;
+				return;
 			}
 			if ($response->getStatus() == 200) {
 				file_put_contents(USVN_Update::getVersionFilePath(), $response->getBody());
 			}
 		}
 	}
-	
+
 	/**
 	 * Return informations about the system into a XML string.
-	 * 
-	 * @return string XML 
+	 *
+	 * @return string XML
 	 */
 	static public function getInformationsAboutSystem()
 	{

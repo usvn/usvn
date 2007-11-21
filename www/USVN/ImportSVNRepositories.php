@@ -100,13 +100,12 @@ class USVN_ImportSVNRepositories
 																		'admin' => false))
 	{
 		$config = Zend_Registry::get('config');
+		$svnPath = str_replace('\\', '/', realpath($config->subversion->path));
 		if (is_array($path)) {
 			foreach ($path as $p) {
 				$p = realpath($p);
 				if (is_string($p) && $this->canBeImported($p, $options)) {
-					$svnPath = str_replace('\\', '/', $config->subversion->path . 'svn/');
-					$p = str_replace('\\', '/', $p);
-					$p = str_replace('//', '/', $p);
+					$p = str_replace('//', '/', str_replace('\\', '/', $p));
 					$name = isset($options['name']) && !empty($options['name']) ? $options['name'] :
 							str_replace($svnPath, '', $p);
 					$name = trim($name, '/');

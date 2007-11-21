@@ -35,7 +35,7 @@ function Sqlite_queries($db)
 	   files_rights_is_readable bool not null, files_rights_is_writable  bool not null,
 	   primary key (files_rights_id, groups_id)
 	)");
-	$db->query("INSERT INTO usvn_groups_to_files select * from tmp");
+	$db->query("INSERT INTO usvn_groups_to_files_rights select files_rights_id, groups_id, files_rights_is_readable, files_rights_is_writable from tmp");
 	$db->query("DROP TABLE tmp");
 
 
@@ -53,7 +53,8 @@ function Sqlite_queries($db)
 	   CONSTRAINT USERS_LOGIN_UNQ UNIQUE (users_login),
 	   primary key (users_id)
 	)");
-	$db->query("INSERT INTO usvn_users select * from tmp");
+	$db->query("UPDATE tmp set users_is_admin = 0 WHERE users_is_admin IS NULL");
+	$db->query("INSERT INTO usvn_users (users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id) SELECT users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id FROM tmp");
 	$db->query("DROP TABLE tmp");
 	$db->closeConnection();
 }

@@ -65,7 +65,7 @@ function Mysql_queries ($db)
 	$db->query("UPDATE usvn_users_to_groups set is_leader = 0 WHERE is_leader IS NULL");
 	$db->query("ALTER TABLE usvn_users_to_groups MODIFY (is_leader bool not null)");
 	$db->query("ALTER TABLE usvn_groups_to_files MODIFY (files_rights_is_readable bool not null)");
-	$db->query("ALTER TABLE usvn_groupd_to_files MODIFY (files_rightd_is_writable bool not null)");
+	$db->query("ALTER TABLE usvn_groups_to_files MODIFY (files_rights_is_writable bool not null)");
 	$db->query("ALTER TABLE usvn_users MODIFY (users_is_admin bool not null)");
 	$db->query("ALTER TABLE usvn_users ADD users_secret_id VARCHAR( 32 ) NOT NULL");
 	$db>closeConnection();

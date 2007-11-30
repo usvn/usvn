@@ -11,19 +11,19 @@ msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-11-19 15:19+0100\n"
-"PO-Revision-Date: 2007-09-10 02:26+0000\n"
+"PO-Revision-Date: 2007-11-30 13:21+0000\n"
 "Last-Translator:  <>\n"
 "Language-Team: Chinese/Simplified <contact@usvn.info>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../../../www//controllers/GroupController.php:45
 #: ../../../www//controllers/GroupController.php:104
 #: ../../../www//controllers/GroupController.php:151
 #: ../../../www//views/Timeline/accesdenied.phtml:1
 msgid "Access denied."
-msgstr ""
+msgstr "访问被禁止."
 
 #: ../../../www//controllers/GroupController.php:78
 #: ../../../www//controllers/GroupController.php:88
@@ -41,13 +41,13 @@ msgstr "用户组 %s 已经存在"
 #: ../../../www//controllers/GroupadminController.php:86
 #: ../../../www//controllers/GroupadminController.php:102
 #: ../../../www//controllers/GroupadminController.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid group %s."
-msgstr "无效的路径 %s."
+msgstr "无效的用户组 %s."
 
 #: ../../../www//controllers/UseradminController.php:35
 msgid "Missing fields."
-msgstr ""
+msgstr "缺少项."
 
 #: ../../../www//controllers/UseradminController.php:46
 #: ../../../www//controllers/ProfileController.php:42
@@ -56,9 +56,9 @@ msgstr "密码不一致."
 
 #: ../../../www//controllers/UseradminController.php:101
 #: ../../../www//controllers/UseradminController.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid user %s."
-msgstr "无效的适配器 (adapter) %s \n"
+msgstr "无效的用户 %s "
 
 #: ../../../www//controllers/UseradminController.php:119
 #, php-format
@@ -66,9 +66,8 @@ msgid "User %s does not exist."
 msgstr "用户 %s 不存在"
 
 #: ../../../www//controllers/UseradminController.php:145
-#, fuzzy
 msgid "You can't delete yourself."
-msgstr "无法删除目录 %s."
+msgstr "您不能删除自己."
 
 #: ../../../www//controllers/BrowserajaxController.php:55
 #, php-format
@@ -106,7 +105,7 @@ msgstr "权限"
 
 #: ../../../www//controllers/BrowserajaxController.php:128
 msgid "You don't have read access to this folder"
-msgstr ""
+msgstr "您没有这个目录的读取权限"
 
 #: ../../../www//controllers/BrowserajaxController.php:152
 msgid "Group"
@@ -122,7 +121,7 @@ msgstr "写"
 
 #: ../../../www//controllers/BrowserajaxController.php:152
 msgid "Recursive"
-msgstr ""
+msgstr "递归的(所有子目录和文件)"
 
 #: ../../../www//controllers/ProfileController.php:38
 msgid "Wrong password"
@@ -310,7 +309,7 @@ msgstr "最近 5 次提交"
 
 #: ../../../www//views/project/index.phtml:82
 msgid "Rss"
-msgstr ""
+msgstr "RSS"
 
 #: ../../../www//views/project/index.phtml:87
 #: ../../../www//views/Timeline/index.phtml:54
@@ -338,85 +337,79 @@ msgstr "消息"
 
 #: ../../../www//views/systemreportadmin/index.phtml:1
 #: ../../../www//menus/systemreportadmin.php:33
-#, fuzzy
 msgid "System report"
-msgstr "系统"
+msgstr "系统报告"
 
 #: ../../../www//views/systemreportadmin/index.phtml:3
-#, fuzzy
 msgid "PHP version:"
-msgstr "USVN 版本 :"
+msgstr "PHP 版本 :"
 
 #: ../../../www//views/systemreportadmin/index.phtml:4
-#, fuzzy
 msgid "USVN version:"
 msgstr "USVN 版本 :"
 
 #: ../../../www//views/systemreportadmin/index.phtml:5
-#, fuzzy
 msgid "Translation:"
-msgstr "强制安装"
+msgstr "翻译"
 
 #: ../../../www//views/systemreportadmin/index.phtml:6
-#, fuzzy
 msgid "Database:"
-msgstr "数据库"
+msgstr "数据库:"
 
 #: ../../../www//views/systemreportadmin/index.phtml:7
-#, fuzzy
 msgid "Subversion version:"
-msgstr "Subversion 仓库"
+msgstr "Subversion 版本"
 
 #: ../../../www//views/systemreportadmin/index.phtml:8
 msgid "OS:"
-msgstr ""
+msgstr "操作系统:"
 
 #: ../../../www//views/systemreportadmin/index.phtml:10
 msgid "Get full report"
-msgstr ""
+msgstr "取得完整报告"
 
 #: ../../../www//views/systemreportadmin/index.phtml:11
 msgid "PHP extensions"
-msgstr ""
+msgstr "PHP 扩展"
 
 #: ../../../www//views/systemreportadmin/index.phtml:18
 msgid "Apache modules"
-msgstr ""
+msgstr "Apache 模块"
 
 #: ../../../www//views/Timeline/index.phtml:3
 #: ../../../www//menus/timeline.php:32
-#, fuzzy
 msgid "Timeline"
-msgstr "标题"
+msgstr "时间线"
 
 #: ../../../www//views/Timeline/index.phtml:10
 msgid "Start revision or date revision"
-msgstr ""
+msgstr "开始的修订或日期"
 
 #: ../../../www//views/Timeline/index.phtml:12
 msgid ""
 "You can list 100 revisions since your revision or date. The date format is : "
 "DD/MM/YYYY"
 msgstr ""
+"您能显示从您选定的修订或日期开始的 100 个修订. 日期的格式是: "
+"DD/MM/YYYY(日/月/年)"
 
 #: ../../../www//views/Timeline/index.phtml:28
 msgid "End revision or date revision"
-msgstr ""
+msgstr "结束的修订或日期"
 
 #: ../../../www//views/Timeline/index.phtml:30
 msgid ""
 "This is optional.The listing is made between start revision/date and this "
 "one."
-msgstr ""
+msgstr "这是可选的. 这个列表显示 开始修订/日期 和本项之间的提交."
 
 #: ../../../www//views/Timeline/index.phtml:40
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: ../../../www//views/Timeline/index.phtml:50
-#, fuzzy
 msgid "Last hundred commit"
-msgstr "最近 5 次提交"
+msgstr "最近 100 次提交"
 
 #: ../../../www//views/login/login.phtml:2
 #: ../../../www//USVN/TranslationTest.php:63
@@ -445,9 +438,8 @@ msgid "Managing group %s"
 msgstr "管理用户组 : %s"
 
 #: ../../../www//views/group/index.phtml:24
-#, fuzzy
 msgid "Leader Users"
-msgstr "用户列表"
+msgstr "用户组负责人"
 
 #: ../../../www//views/group/index.phtml:30
 #: ../../../www//views/group/index.phtml:58
@@ -485,18 +477,17 @@ msgstr "默认模板"
 
 #: ../../../www//views/configadmin/index.phtml:62
 msgid "Check for update"
-msgstr ""
+msgstr "检查更新"
 
 #: ../../../www//views/configadmin/index.phtml:67
 #: ../../../www//views/configadmin/index.phtml:71
-#, fuzzy
 msgid "Yes"
 msgstr "是"
 
 #: ../../../www//views/configadmin/index.phtml:68
 #: ../../../www//views/configadmin/index.phtml:72
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: ../../../www//views/configadmin/index.phtml:81
 msgid "Site's information"
@@ -519,9 +510,8 @@ msgid "Save"
 msgstr "保存"
 
 #: ../../../www//views/index/error.phtml:2
-#, fuzzy
 msgid "This page doesn't exist."
-msgstr "用户 %s 不存在"
+msgstr "此页不存在."
 
 #: ../../../www//views/index/index.phtml:2 ../../../www//USVN/Menu.php:106
 #: ../../../www//USVN/plugins/layout.php:81
@@ -537,13 +527,12 @@ msgid "You don't have any project."
 msgstr "您没有任何项目"
 
 #: ../../../www//views/index/index.phtml:20
-#, fuzzy
 msgid "Your groups"
-msgstr "您的项目"
+msgstr "您的用户组"
 
 #: ../../../www//views/index/index.phtml:30
 msgid "You are not assign to a group."
-msgstr ""
+msgstr "您没有被分配到一个用户组."
 
 #: ../../../www//views/adminadmin/index.phtml:2
 msgid "Administration"
@@ -559,6 +548,8 @@ msgid ""
 "Your version of USVN is out of date. A new version %s is available on\n"
 "\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
 msgstr ""
+"您的 USVN 版本旧了, 有新版本 %s 在\n"
+"\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
 
 #: ../../../www//views/adminadmin/index.phtml:21
 #: ../../../www//views/projectadmin/index.phtml:2
@@ -588,9 +579,8 @@ msgid "Description"
 msgstr "描述"
 
 #: ../../../www//views/groupadmin/form.phtml:33
-#, fuzzy
 msgid "Managing group"
-msgstr "管理用户组 : %s"
+msgstr "管理用户组"
 
 #: ../../../www//views/groupadmin/index.phtml:16
 #, php-format
@@ -621,7 +611,7 @@ msgstr "添加我为此项目的管理员"
 
 #: ../../../www//views/projectadmin/form.phtml:38
 msgid "Create SVN standard directories (/trunk, /branches and /tags):"
-msgstr ""
+msgstr "创建 SVN 标准目录 (/trunk, /branches, /tags):"
 
 #: ../../../www//views/projectadmin/index.phtml:16
 #, php-format
@@ -740,7 +730,7 @@ msgstr "USVN 安装"
 
 #: ../../../www//install/views/step7.html:2
 msgid "Check for new version"
-msgstr ""
+msgstr "检查新版本"
 
 #: ../../../www//install/views/step7.html:6
 msgid ""
@@ -768,14 +758,35 @@ msgid ""
 "disable the update notification.\n"
 "</p>\n"
 msgstr ""
+"\n"
+"<p>在检查更新的过程中, USVN 会发送关于您安装的信息.</p>\n"
+"<p>\n"
+"这些信息仅仅为了统计目的收集, \n"
+"这可以让我们更加了解 USVN 被安装到了哪些平台. \n"
+"</p>\n"
+"<p>\n"
+"下面是我们要收集的信息:\n"
+"<ul>\n"
+"<li>IP (为了获得 USVN 的地理位置统计)</li>\n"
+"<li>PHP 版本</li>\n"
+"<li>SVN 版本</li>\n"
+"<li>USVN 版本</li>\n"
+"<li>phpinfo() 的内容</li>\n"
+"<li>所使用的数据库驱动</li>\n"
+"<li>所使用的翻译语言</li>\n"
+"</ul>\n"
+"</p>\n"
+"<p>\n"
+"如果您不想这些信息被收集, 您只需要禁止更新提示即可.\n"
+"</p>\n"
 
 #: ../../../www//install/views/step7.html:33
 msgid "Allow check update and send statistics informations"
-msgstr ""
+msgstr "检查更新并发送统计信息"
 
 #: ../../../www//install/views/step7.html:38
 msgid "Don't check update"
-msgstr ""
+msgstr "不要检查更新"
 
 #: ../../../www//install/views/footer.html:3
 msgid "Copyright USVN"
@@ -888,6 +899,8 @@ msgid ""
 "Invalide locale\n"
 "Please, install UTF-8 locale."
 msgstr ""
+"无效的本地环境(locale)\n"
+"请安装 UTF-8 的本地环境(locale)."
 
 #: ../../../www//install/Install.php:237
 #, php-format
@@ -1046,7 +1059,7 @@ msgstr "无效的项目名 %s."
 #: ../../../www//USVN/ImportSVNRepositories.php:35
 #, php-format
 msgid "%s must be a string: %s"
-msgstr ""
+msgstr "%s 必须是字符串: %s"
 
 #: ../../../www//USVN/FilesAccessRights.php:42
 #: ../../../www//USVN/FilesAccessRights.php:83
@@ -1111,6 +1124,7 @@ msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
 msgstr ""
+"项目名无效. 项目名只能包含字母, 数字, '-', '_'"
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:233
 msgid "You can't rename a project."
@@ -1121,6 +1135,7 @@ msgid ""
 "Login invalid.  The login can only include alpha-numeric characters and '-' "
 "or '_'."
 msgstr ""
+"登录名无效. 登录名只能包含字母, 数字, '-', '_'"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
 msgid "Invalid email address."
@@ -1136,7 +1151,7 @@ msgstr "登录名 %s 已经存在"
 #: ../../../www//USVN/Db/Table/Row/Group.php:230
 #, php-format
 msgid "User %s is not member of group %s"
-msgstr ""
+msgstr "用户 %s 不是用户组 %s 的成员"
 
 #: ../../../www//USVN/Db/Table/Users.php:127
 #, php-format
@@ -1152,6 +1167,7 @@ msgid ""
 "The group's name is invalid. The group's name can only include alpha-numeric "
 "characters and '-' or '_'."
 msgstr ""
+"用户组名无效. 用户组名只能包含字母, 数字, '-', '_'"
 
 #: ../../../www//USVN/Db/Utils.php:46
 #, php-format

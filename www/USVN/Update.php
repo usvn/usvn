@@ -19,15 +19,6 @@
 class USVN_Update
 {
 	/**
-	 * @return string Path where available version number is stored
-	 */
-	static private function getVersionFilePath()
-	{
-		$config = Zend_Registry::get('config');
-		return ($config->subversion->path . DIRECTORY_SEPARATOR . ".usvn-version");
-	}
-
-	/**
 	 * @return bool True if we need to check update
 	 */
 	static public function itsCheckForUpdateTime()
@@ -49,11 +40,10 @@ class USVN_Update
 	static public function getUSVNAvailableVersion()
 	{
 		$config = Zend_Registry::get('config');
-		$version = @file_get_contents(USVN_Update::getVersionFilePath());
-		if ($version === false) {
+        if (!isset($config->update->availableversion)) {
 			return $config->version;
 		}
-		return $version;
+		return $config->update->availableversion;
 	}
 
 	/**
@@ -101,7 +91,8 @@ class USVN_Update
 				return;
 			}
 			if ($response->getStatus() == 200) {
-				file_put_contents(USVN_Update::getVersionFilePath(), $response->getBody());
+                $config->update->availableversion = $response->getBody();
+                $config->save();
 			}
 		}
 	}

@@ -31,11 +31,24 @@ function Sqlite_queries($db)
 	$db->query("ALTER TABLE usvn_groups_to_files_rights RENAME TO tmp");
 	$db->query("create table usvn_groups_to_files_rights
 	(
-	   files_rights_id int not null,  groups_id int not null,
-	   files_rights_is_readable bool not null, files_rights_is_writable  bool not null,
+	   files_rights_id int not null,
+	   groups_id int not null,
+	   files_rights_is_readable bool not null,
+	   files_rights_is_writable  bool not null,
 	   primary key (files_rights_id, groups_id)
 	)");
 	$db->query("INSERT INTO usvn_groups_to_files_rights select files_rights_id, groups_id, files_rights_is_readable, files_rights_is_writable from tmp");
+	$db->query("DROP TABLE tmp");
+
+	$db->query("ALTER TABLE usvn_groups_to_projects RENAME TO tmp");
+	$db->query("CREATE TABLE usvn_groups_to_projects
+	(
+		groups_id integer not null,
+		projects_id integer not null,
+		constraint fk_usvn_groups_to_projects foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict,
+		constraint fk_usvn_groups_to_projects2 foreign key (projects_id) references usvn_projects (projects_id) on delete restrict on update restrict
+	);");
+	$db->query("INSERT INTO usvn_groups_to_projects select groups_id, projects_id from tmp");
 	$db->query("DROP TABLE tmp");
 
 

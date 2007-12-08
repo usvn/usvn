@@ -26,12 +26,12 @@ function Sqlite_queries($db)
 	$db->query("CREATE TABLE usvn_users_to_groups(users_id int not null, groups_id int not null, is_leader bool not null, primary key (users_id, groups_id))");
 	$db->query("INSERT INTO usvn_users_to_groups select * from tmp");
 	$db->query("DROP TABLE tmp");
-	
-	
+
+
 	$db->query("ALTER TABLE usvn_groups_to_files_rights RENAME TO tmp");
 	$db->query("create table usvn_groups_to_files_rights
 	(
-	   files_rights_id int not null,  groups_id int not null, 
+	   files_rights_id int not null,  groups_id int not null,
 	   files_rights_is_readable bool not null, files_rights_is_writable  bool not null,
 	   primary key (files_rights_id, groups_id)
 	)");
@@ -56,38 +56,39 @@ function Sqlite_queries($db)
 	$db->query("UPDATE tmp set users_is_admin = 0 WHERE users_is_admin IS NULL");
 	$db->query("INSERT INTO usvn_users (users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id) SELECT users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id FROM tmp");
 	$db->query("DROP TABLE tmp");
-	$db->closeConnection();
 }
 
 
 function Mysql_queries ($db)
 {
 	$db->query("UPDATE usvn_users_to_groups set is_leader = 0 WHERE is_leader IS NULL");
-	$db->query("ALTER TABLE usvn_users_to_groups MODIFY (is_leader bool not null)");
-	$db->query("ALTER TABLE usvn_groups_to_files MODIFY (files_rights_is_readable bool not null)");
-	$db->query("ALTER TABLE usvn_groups_to_files MODIFY (files_rights_is_writable bool not null)");
-	$db->query("ALTER TABLE usvn_users MODIFY (users_is_admin bool not null)");
+	$db->query("ALTER TABLE usvn_users_to_groups MODIFY is_leader bool not null");
+	$db->query("ALTER TABLE usvn_groups_to_files_rights MODIFY files_rights_is_readable bool not null");
+	$db->query("ALTER TABLE usvn_groups_to_files_rights MODIFY files_rights_is_writable bool not null");
+	$db->query("ALTER TABLE usvn_users MODIFY users_is_admin bool not null");
 	$db->query("ALTER TABLE usvn_users ADD users_secret_id VARCHAR( 32 ) NOT NULL");
-	$db>closeConnection();
 }
 
-
-$db = connection($config);
-$Fnm = "../../config.ini";
-$tableau = file($Fnm);
-if (file_exists($Fnm)) {
-	if ($config->database->adapterName == "PDO_SQLITE") {
-		Sqlite_queries($db);
+function upgrade_sql($config)
+{
+	$db = connection($config);
+	$Fnm = "../../config.ini";
+	$tableau = file($Fnm);
+	if (file_exists($Fnm)) {
+		if ($config->database->adapterName == "PDO_SQLITE") {
+			Sqlite_queries($db);
+		}
+		else {
+			Mysql_queries($db);
+		}
+		Zend_Registry::set('config', $config);
+		$user = new USVN_Db_Table_Users();
+		$res = $user->fetchAll();
+		foreach($res as $u)
+		{
+			$u->secret_id = md5(time().mt_rand());
+			$u->save();
+		}
 	}
-	else {
-		Mysql_queries($db);
-	}
-	Zend_Registry::set('config', $config);
-	$user = new USVN_Db_Table_Users();
-	$res = $user->fetchAll();
-	foreach($res as $u)
-	{
-		$u->secret_id = md5(time().mt_rand());		
-		$u->save();
-	}
+	$db>closeConnection();
 }

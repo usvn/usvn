@@ -32,6 +32,7 @@ if (isset($_POST['update'])) {
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 		$config->version = "0.7 RC1";
 		include dirname(__FILE__) . '/db.php';
+		upgrade_sql($config);
 		$config->update = array("checkforupdate" => $_POST['update'], "lastcheckforupdate" => 0);
 		$config->save();
 	}
@@ -40,7 +41,7 @@ if (isset($_POST['update'])) {
 		echo $e->getMessage();
 		exit(1);
 	}
-	
+
 	header("Location: ../../");
 }
 else {

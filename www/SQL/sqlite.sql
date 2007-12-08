@@ -19,7 +19,8 @@ CREATE TABLE usvn_groups_to_files_rights
 	(
 		files_rights_is_readable bool not null,
 		files_rights_is_writable bool not null,
-		files_rights_id, groups_id integer,
+		files_rights_id,
+		groups_id integer,
 		constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id) references usvn_files_rights (files_rights_id) on delete restrict on update restrict,
 		constraint fk_usvn_groups_to_files_rights2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
 	);

@@ -52,11 +52,11 @@ class Install
 				$tmp_params = $params;
 				$tmp_params['dbname'] = "mysql";
 				$db = Zend_Db::factory($adapter, $tmp_params);
-				$cnx = $db->getConnection();
 				if ($adapter == 'PDO_MYSQL') {
 					$db->query("CREATE DATABASE `{$database}`;");
 				} else {
 					/* @var $cnx mysqli */
+					$cnx = $db->getConnection();
 					$cnx->query("CREATE DATABASE `{$database}`;");
 				}
 				$db->closeConnection();

@@ -33,7 +33,7 @@ class USVN_Test_DB extends USVN_Test_Test {
 			 				'password' => 'usvn-test',
 			 				'dbname'   => 'usvn-test');
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
-			$this->clean();
+			$this->_clean();
 			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'tests/usvn.db', 'usvn_', 'PDO_SQLITE', false);
 			$params['dbname'] = "tests/usvn.db";
 			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
@@ -49,7 +49,7 @@ subversion.passwd = "' . getcwd() . '/tests/htpasswd"
 		}
 		else {
 			$this->db = Zend_Db::factory(getenv('DB'), $params);
-			$this->clean();
+			$this->_clean();
 			Install::installDb('tests/db.ini', dirname(__FILE__) . '/../../SQL/', 'localhost', 'usvn-test', 'usvn-test', 'usvn-test', 'usvn_', getenv('DB'), false);
 			file_put_contents('tests/test.ini', '
 database.adapterName = "' . getenv('DB') . '"
@@ -67,11 +67,11 @@ subversion.passwd = "' . getcwd() . '/tests/htpasswd"
 		Zend_Registry::set('config', $config);
     }
 
-	private function clean()
+	protected function _clean()
 	{
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
-			if (file_exists("usvn-test")) {
-				@unlink("usvn-test");
+			if (file_exists("tests/usvn.db")) {
+				@unlink("tests/usvn.db");
 			}
 		}
 		else {
@@ -80,7 +80,7 @@ subversion.passwd = "' . getcwd() . '/tests/htpasswd"
 	}
 
     protected function tearDown() {
-        $this->clean();
+        $this->_clean();
         $this->db->closeConnection();
         $this->db = null;
 		parent::tearDown();

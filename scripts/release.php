@@ -43,6 +43,7 @@ chdir("/tmp/usvn$version");
 `svn export https://svn.usvn.info/usvn/tags/$version/www usvn`;
 chdir("usvn");
 USVN_DirectoryUtils::removeDirectory("bugs");
+USVN_DirectoryUtils::removeDirectory("tests");
 USVN_DirectoryUtils::removeDirectory("USVN/Test");
 removeTest('.');
 chdir('..');

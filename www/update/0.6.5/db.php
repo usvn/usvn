@@ -1,6 +1,4 @@
 <?php
-
-
 function connection ($config)
 {
 	try {
@@ -17,13 +15,17 @@ function connection ($config)
 	return $db;
 }
 
-
-
 function Sqlite_queries($db)
 {
 	$db->query("ALTER TABLE usvn_users_to_groups RENAME TO tmp");
 	$db->query("UPDATE tmp set is_leader = 0 WHERE is_leader IS NULL");
-	$db->query("CREATE TABLE usvn_users_to_groups(users_id int not null, groups_id int not null, is_leader bool not null, primary key (users_id, groups_id))");
+	$db->query("CREATE TABLE usvn_users_to_groups
+		(
+			users_id integer not null,
+			groups_id integer not null,
+			is_leader bool not null,
+			primary key (users_id, groups_id)
+		)");
 	$db->query("INSERT INTO usvn_users_to_groups select * from tmp");
 	$db->query("DROP TABLE tmp");
 
@@ -31,8 +33,8 @@ function Sqlite_queries($db)
 	$db->query("ALTER TABLE usvn_groups_to_files_rights RENAME TO tmp");
 	$db->query("create table usvn_groups_to_files_rights
 	(
-	   files_rights_id int not null,
-	   groups_id int not null,
+	   files_rights_id integer not null,
+	   groups_id integer not null,
 	   files_rights_is_readable bool not null,
 	   files_rights_is_writable  bool not null,
 	   primary key (files_rights_id, groups_id)
@@ -51,12 +53,23 @@ function Sqlite_queries($db)
 	$db->query("INSERT INTO usvn_groups_to_projects select groups_id, projects_id from tmp");
 	$db->query("DROP TABLE tmp");
 
+	$db->query("ALTER TABLE usvn_files_rights RENAME TO tmp");
+	$db->query("CREATE TABLE usvn_files_rights
+	(
+		projects_id integer not null,
+		files_rights_path text,
+		files_rights_id integer primary key autoincrement,
+		constraint fk_to_belong foreign key (projects_id) references usvn_projects (projects_id) on delete restrict on update restrict
+	);");
+	$db->query("INSERT INTO usvn_files_rights select projects_id,files_rights_path,files_rights_id from tmp");
+	$db->query("DROP TABLE tmp");
 
 	$db->query("ALTER TABLE usvn_users RENAME TO tmp");
 	$db->query("
 	Create table usvn_users
 	(
-	   users_id int not null, users_login varchar(255) not null,
+	   users_id integer not null,
+	   users_login varchar(255) not null,
 	   users_password varchar(64) not null,
 	   users_lastname varchar(100),
 	   users_firstname varchar(100),

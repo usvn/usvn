@@ -1,6 +1,6 @@
 CREATE TABLE usvn_files_rights
 	(
-		projects_id int not null,
+		projects_id integer not null,
 		files_rights_path text,
 		files_rights_id integer primary key autoincrement,
 		constraint fk_to_belong foreign key (projects_id) references usvn_projects (projects_id) on delete restrict on update restrict
@@ -19,7 +19,7 @@ CREATE TABLE usvn_groups_to_files_rights
 	(
 		files_rights_is_readable bool not null,
 		files_rights_is_writable bool not null,
-		files_rights_id int not null,
+		files_rights_id integer not null,
 		groups_id integer not null,
 		constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id) references usvn_files_rights (files_rights_id) on delete restrict on update restrict,
 		constraint fk_usvn_groups_to_files_rights2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
@@ -38,7 +38,7 @@ CREATE TABLE usvn_projects
 		projects_name varchar(255) not null,
 		projects_start_date datetime not null,
 		projects_description varchar(1000),
-		projects_id INTEGER PRIMARY KEY AUTOINCREMENT
+		projects_id integer primary key autoincrement
 	);
 CREATE UNIQUE INDEX usvn_projects_projects_name ON usvn_projects(projects_name);
 

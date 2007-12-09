@@ -28,7 +28,7 @@ function Sqlite_queries($db)
 		constraint fk_usvn_users_to_groups2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
 	);
 	");
-	$db->query("INSERT INTO usvn_users_to_groups select * from tmp");
+	$db->query("INSERT INTO usvn_users_to_groups select users_id,groups_id,is_leader from tmp");
 	$db->query("DROP TABLE tmp");
 
 

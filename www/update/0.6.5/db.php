@@ -20,12 +20,14 @@ function Sqlite_queries($db)
 	$db->query("ALTER TABLE usvn_users_to_groups RENAME TO tmp");
 	$db->query("UPDATE tmp set is_leader = 0 WHERE is_leader IS NULL");
 	$db->query("CREATE TABLE usvn_users_to_groups
-		(
-			users_id integer not null,
-			groups_id integer not null,
-			is_leader bool not null,
-			primary key (users_id, groups_id)
-		)");
+	(
+		users_id integer not null,
+		groups_id integer not null,
+		is_leader bool not null,
+		constraint fk_usvn_users_to_groups foreign key (users_id) references usvn_users (users_id) on delete restrict on update restrict,
+		constraint fk_usvn_users_to_groups2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
+	);
+	");
 	$db->query("INSERT INTO usvn_users_to_groups select * from tmp");
 	$db->query("DROP TABLE tmp");
 
@@ -37,7 +39,8 @@ function Sqlite_queries($db)
 	   groups_id integer not null,
 	   files_rights_is_readable bool not null,
 	   files_rights_is_writable  bool not null,
-	   primary key (files_rights_id, groups_id)
+		constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id) references usvn_files_rights (files_rights_id) on delete restrict on update restrict,
+		constraint fk_usvn_groups_to_files_rights2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
 	)");
 	$db->query("INSERT INTO usvn_groups_to_files_rights select files_rights_id, groups_id, files_rights_is_readable, files_rights_is_writable from tmp");
 	$db->query("DROP TABLE tmp");
@@ -66,21 +69,34 @@ function Sqlite_queries($db)
 
 	$db->query("ALTER TABLE usvn_users RENAME TO tmp");
 	$db->query("
-	Create table usvn_users
-	(
-	   users_id integer not null,
-	   users_login varchar(255) not null,
-	   users_password varchar(64) not null,
-	   users_lastname varchar(100),
-	   users_firstname varchar(100),
-	   users_email varchar(150),
-	   users_is_admin bool not null,
-	   users_secret_id varchar(32),
-	   CONSTRAINT USERS_LOGIN_UNQ UNIQUE (users_login),
-	   primary key (users_id)
-	)");
+		CREATE TABLE usvn_users
+			(
+				users_login varchar(255) not null,
+				users_password varchar(64) not null,
+				users_lastname varchar(100),
+				users_firstname varchar(100),
+				users_email varchar(150),
+				users_is_admin bool not null,
+				users_id integer primary key autoincrement not null,
+				users_secret_id varchar(32)
+			);
+	");
 	$db->query("UPDATE tmp set users_is_admin = 0 WHERE users_is_admin IS NULL");
 	$db->query("INSERT INTO usvn_users (users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id) SELECT users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id FROM tmp");
+	$db->query("DROP TABLE tmp");
+
+	$db->query("ALTER TABLE usvn_projects RENAME TO tmp");
+	$db->query("
+	CREATE TABLE usvn_projects
+	(
+		projects_name varchar(255) not null,
+		projects_start_date datetime not null,
+		projects_description varchar(1000),
+		projects_id integer primary key autoincrement
+	);");
+	$db->query("
+		INSERT INTO usvn_projects (projects_name, projects_start_date, projects_description, projects_id)
+		SELECT projects_name, projects_start_date, projects_description, projects_id FROM tmp");
 	$db->query("DROP TABLE tmp");
 }
 

@@ -94,7 +94,7 @@ class USVN_UpdateTest extends USVN_Test_Test {
 	public function test_updateUSVNAvailableVersionNumber()
 	{
 		USVN_Update::updateUSVNAvailableVersionNumber();
-		$this->assertEquals("0.7 RC3", USVN_Update::getUSVNAvailableVersion());
+		$this->assertEquals("0.7 RC4", USVN_Update::getUSVNAvailableVersion());
 		$config = Zend_Registry::get('config');
 		$this->assertNotEquals(0, $config->update->lastcheckforupdate);
 	}

@@ -37,6 +37,7 @@ class USVN_Db_Table_GroupsToFilesRightsTest extends USVN_Test_DB {
 	private $_projectid1;
 	private $_projectid2;
 	private $_groupid1;
+	private $_groupid2;
 
     /**
      * Runs the test methods of this class.

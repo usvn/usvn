@@ -61,44 +61,44 @@ class GroupController extends USVN_Controller
 	{
 		if ($this->_group->isLeaderOrAdmin($this->view->user) == 1)
 		{
-		$request = $this->getRequest();
-		/* @var $request USVN_Controller_Request_Http */
+            $request = $this->getRequest();
+            /* @var $request USVN_Controller_Request_Http */
 
-		$table = new USVN_Db_Table_Groups();
-		$group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, '/', $request->getParam('group'))));
-		/* @var $group USVN_Db_Table_Row_Group */
+            $table = new USVN_Db_Table_Groups();
+            $group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, '/', $request->getParam('group'))));
+            /* @var $group USVN_Db_Table_Row_Group */
 
-		try {
-			$table = new USVN_Db_Table_Users();
-			if ($request->getParam('addlogin', "") != "")
-			{
+            try {
+                $table = new USVN_Db_Table_Users();
+                if ($request->getParam('addlogin', "") != "")
+                {
 
-				$user = $table->fetchRow(array("users_login = ?" => $request->getParam('addlogin')));
-				if ($user === null) {
-					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('addlogin')));
-				}
-				if (!$group->hasUser($user))
-					$group->addUser($user);
-				else
-					$group->updateLeaderUser($user, 0);
-			}
-			if ($request->getParam('deleteid', 0) != 0) {
-				$user = $table->fetchRow(array("users_id = ?" => $request->getParam('deleteid')));
-				if ($user === null) {
-					throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('deleteid')));
-				}
-				if ($group->hasUser($user))
-					$group->deleteUser($user);
-			}
-			if (isset($user)) {
-				$this->_redirect("/group/{$group->name}/");
-			}
-		}
-		catch (Exception $e) {
-			$this->view->message = $e->getMessage();
-		}
+                    $user = $table->fetchRow(array("users_login = ?" => $request->getParam('addlogin')));
+                    if ($user === null) {
+                        throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('addlogin')));
+                    }
+                    if (!$group->hasUser($user))
+                        $group->addUser($user);
+                    else
+                        $group->updateLeaderUser($user, 0);
+                }
+                if ($request->getParam('deleteid', 0) != 0) {
+                    $user = $table->fetchRow(array("users_id = ?" => $request->getParam('deleteid')));
+                    if ($user === null) {
+                        throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('deleteid')));
+                    }
+                    if ($group->hasUser($user))
+                        $group->deleteUser($user);
+                }
+                if (isset($user)) {
+                    $this->_redirect("/group/{$group->name}/");
+                }
+            }
+            catch (Exception $e) {
+                $this->view->message = $e->getMessage();
+            }
 
-		$this->view->group = $group;
+            $this->view->group = $group;
 		}
 		else
 			throw new USVN_Exception(T_("Access denied."));

@@ -158,7 +158,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		return $this->fetchRow($where, "users_login");
 	}
 
-	
+
 	/**
 	 * Return the user by his secret
 	 *
@@ -188,7 +188,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		//$where .= $db->quoteInto(" and users_login != ?", $match_login);
 		return $this->fetchAll($where, "users_login");
 	}
-	
+
 	/**
 	 * Return all no leaders like login in group
 	 *
@@ -203,8 +203,8 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		//$where = $db->quoteInto("users_login like ?", $match_login."%");
 		//$where .= $db->quoteInto(" and users_login != ?", $match_login); where users_id groups_id is_leader
 		//return $this->fetchAll($where, "users_login");
-		
-		
+
+
 		// selection tool
 		$select = $this->_db->select();
 
@@ -234,37 +234,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		Zend_Loader::loadClass($this->_rowsetClass);
 		return new $this->_rowsetClass($data);
 	}
-	
-	public function allNoLeader($group_id)
-	{		
-		// selection tool
-		$select = $this->_db->select();
 
-		// the FROM clause
-		$select->from($this->_name, $this->_cols);
-
-		// the JOIN clause
-		$users = self::$prefix . "users";
-		$users_to_groups = self::$prefix . "users_to_groups";
-		$select->joinLeft($users_to_groups, "$users_to_groups.users_id = $users.users_id",  array());
-
-		$select->where("$users_to_groups.is_leader = 0 and $users_to_groups.groups_id = ?", $group_id);
-
-        // return the results
-        $stmt = $this->_db->query($select);
-        $data = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
-
-		$data  = array(
-			'table'    => $this,
-			'data'     => $data,
-			'rowClass' => $this->_rowClass,
-			'stored'   => true
-		);
-
-		Zend_Loader::loadClass($this->_rowsetClass);
-		return new $this->_rowsetClass($data);
-	}
-	
 	/**
 	 * Return all users like login which aren't in group
 	 *
@@ -278,7 +248,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 //		$where = $db->quoteInto("users_login like ? and ", $match_login."%");
 		//$where .= $db->quoteInto(" and users_login != ?", $match_login);
 //		return $this->fetchAll($where, "users_login");
-		
+
 		// selection tool
 		$select = $this->_db->select();
 

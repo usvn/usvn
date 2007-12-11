@@ -1,7 +1,7 @@
 <?php echo $this->completion(2, $this->group->name); ?>
 <?php echo $this->error($this); ?>
 <div class="usvn_info">
-	
+
 	<h1><?php echo sprintf(T_("Managing group %s"), $this->group->name);?></h1>
 	<p><?php echo $this->group->description;?></p>
 	<p><?php $right = $this->group->isLeaderOrAdmin($this->user); ?></p>
@@ -23,7 +23,7 @@
 	</form>
 	<h1><?php echo T_("Leader Users");?></h1>
 	<ul>
-	<?php foreach ($this->group->allLeader($this->group->groups_id, 1) as $user) :?>
+	<?php foreach ($this->group->allLeader($this->group->groups_id, true) as $user) :?>
 		<li>
 		<?php if ($right == 1) {
 		 echo $this->urlConfirm(array("deleteid" => $user->id, "action" => 'managegroup'), $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")),
@@ -31,7 +31,7 @@
 		?>
 
 		&nbsp;<?php echo $user->login; ?></li>
-	<?php endforeach; ?> 
+	<?php endforeach; ?>
 	</ul>
 	</div>
 	<div class="usvn_info">
@@ -39,7 +39,7 @@
 		<div>
 			<table>
 		<tr><td>
-			<?php if ($right == 1) { 
+			<?php if ($right == 1) {
 			echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion(4, 'completion', 'addlogin', event)", "autocomplete" => "off", 		"onkeyDown" => "javascript:geretouche(event, 'completion', 'addlogin')", "onfocus" => "javascript:ajax_completion(4, 'completion', 'addlogin', event)")); ?>
 		</td><td>
 			<?php echo $this->formSubmit("managegroup", T_("Add")); ?>
@@ -51,7 +51,7 @@
 	</form>
 	<h1><?php echo T_("Affected Users");?></h1>
 	<ul>
-	<?php foreach ($this->group->allLeader($this->group->groups_id, 0) as $user) :?>
+	<?php foreach ($this->group->allLeader($this->group->groups_id, false) as $user) :?>
 		<li>
 		<?php if ($right == 1) {
 			echo $this->urlConfirm(array("deleteid" => $user->id, "action" => 'managegroup'), $this->img("/CrystalClear/16x16/actions/editdelete.png", T_("Delete")),

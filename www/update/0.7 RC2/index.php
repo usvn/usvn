@@ -30,6 +30,7 @@ USVN_Translation::initTranslation('en_US', '../../locale');
 try {
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 	$config->version = "0.7 RC3";
+    $config->update->lastcheckforupdate = 0;
 	$config->save();
 }
 catch (Exception $e) {

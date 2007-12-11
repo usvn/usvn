@@ -182,16 +182,6 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 		return $this->getGroupMembersByIsLeader(true);
 	}
 
-	/**
-	* Return list of users who are not group leaders
-	*
-	* @return USVN_Db_Table_Rowset_Users
-	*/
-	public function getNormalUsers()
-	{
-		return $this->getGroupMembersByIsLeader(false);
-	}
-
 	private function getGroupMembersByIsLeader($is_leader)
 	{
 		$user_groups = new USVN_Db_Table_UsersToGroups();

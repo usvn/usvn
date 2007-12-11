@@ -40,7 +40,7 @@ class USVN_Update
 	static public function getUSVNAvailableVersion()
 	{
 		$config = Zend_Registry::get('config');
-        if (!isset($config->update->availableversion)) {
+		if (!isset($config->update->availableversion)) {
 			return $config->version;
 		}
 		return $config->update->availableversion;
@@ -83,16 +83,16 @@ class USVN_Update
 				$url = 'http://iceage.usvn.info';
 			}
 			$client = new Zend_Http_Client("$url/update/" . urlencode($config->version), $http_conf);
-        	$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
+			$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
 			try {
-        		$response = $client->request('POST');
+				$response = $client->request('POST');
 			}
 			catch (Exception $e) { // Ugly but we don't want to display error if usvn.info is not available
 				return;
 			}
 			if ($response->getStatus() == 200) {
-                $config->update->availableversion = $response->getBody();
-                $config->save();
+				$config->update->availableversion = $response->getBody();
+				$config->save();
 			}
 		}
 	}

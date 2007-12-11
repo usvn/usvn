@@ -105,7 +105,7 @@ class BrowserajaxController extends USVN_Controller
 				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
-				$tabl['path'] = urlencode($tabl['path']);
+				$tabl['path'] = rawurlencode($tabl['path']);
 				echo "<tr>";
 				$dir = false;
 				if ($tabl['isDirectory'] == 1) {

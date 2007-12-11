@@ -219,7 +219,7 @@ class USVN_SVNUtils
       }
       USVN_DirectoryUtils::removeDirectory($tmpdir);
     }
-    
+
     /**
     * Checkout SVN repository into filesystem
     * @param string Path to subversion repository
@@ -244,30 +244,29 @@ class USVN_SVNUtils
 	*/
 	public static function listSvn($repository, $path)
 	{
-        $escape_path = USVN_SVNUtils::getRepositoryPath($repository) . '/' . $path;
-		$message = USVN_ConsoleUtils::runCmdCaptureMessage(USVN_SVNUtils::svnCommand("ls $escape_path"), $return);
+        $escape_path = USVN_SVNUtils::getRepositoryPath($repository . '/' . $path);
+		$lists = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe(USVN_SVNUtils::svnCommand("ls --xml $escape_path"), $return);
 		if ($return) {
-			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $message);
+			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $lists);
 		}
         $res = array();
-        foreach (preg_split("/[\r]?\n/", $message) as $file) {
-            if (strlen($file)) {
-                if (substr($file, -1, 1) == '/') {
-                    array_push($res, array("name" => substr($file, 0, strlen($file) - 1), "isDirectory" => true, "path" => str_replace('//', '/', $path . "/" . $file)));
-                }
-                else {
-                    array_push($res, array("name" => $file, "isDirectory" => false, "path" => str_replace('//', '/', $path . "/" . $file)));
-                }
+        $xml = new SimpleXMLElement($lists);
+        foreach ($xml->list->entry as $list) {
+            if ($list['kind'] == 'file') {
+                array_push($res, array("name" => (string)$list->name, "isDirectory" => false, "path" => str_replace('//', '/', $path . "/" . $list->name)));
+            }
+            else {
+                array_push($res, array("name" => (string)$list->name, "isDirectory" => true, "path" => str_replace('//', '/', $path . "/" . $list->name  . '/')));
             }
         }
         $sortfunc = create_function('$a,$b', 'return (strcasecmp($a["name"], $b["name"]));');
         usort($res, $sortfunc);
         return $res;
 	}
-		
+
 	/**
 	 * This code work only for directory
-	 * Directory separator need to be / 
+	 * Directory separator need to be /
 	 */
 	private static function getCannocialPath($path)
 	{
@@ -302,7 +301,7 @@ class USVN_SVNUtils
 			else {
 				$first = false;
 			}
-			$newpath .= $path; 
+			$newpath .= $path;
 		}
 		if ($origpath[0] == '/') {
 			return '/' . $newpath;

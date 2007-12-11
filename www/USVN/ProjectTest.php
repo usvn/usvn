@@ -72,7 +72,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$groupstoprojects = $table->fetchRow(array("projects_id = ?" => $project->id, "groups_id = ?" => $group->id));
 		$this->assertNotNull($groupstoprojects);
 
-		$this->assertTrue($group->userIsMember($this->_user), "L'utilisateur n'est pas membre du groupe " . $group->name);
+		$this->assertTrue($group->hasUser($this->_user), "L'utilisateur n'est pas membre du groupe " . $group->name);
 		$this->assertTrue($group->userIsGroupLeader($this->_user), "User is not leader of group " . $group->name);
 		$this->assertTrue($project->userIsAdmin($this->_user));
 
@@ -143,7 +143,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas la lecture");
 		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
 
-		$this->assertFalse($group->userIsMember($this->_user), "L'utilisateur est membre du groupe " . $group->name);
+		$this->assertFalse($group->hasUser($this->_user), "L'utilisateur est membre du groupe " . $group->name);
 		$this->assertTrue($project->userIsAdmin($this->_user));
 	}
 
@@ -169,7 +169,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas la lecture");
 		$this->assertEquals(1, $rights->files_rights_is_readable, "Le groupe n'a pas l'ecriture");
 
-		$this->assertTrue($group->userIsMember($this->_user));
+		$this->assertTrue($group->hasUser($this->_user));
 		$this->assertFalse($project->userIsAdmin($this->_user));
 	}
 

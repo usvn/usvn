@@ -106,7 +106,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertTrue($table->isAProject('InsertProjectOk'), "Le projet n'est pas cree");
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn/InsertProjectOk'), "Le repository n'est pas cree");
 	}
-	
+
 	public function testInsertProjectNoName()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -309,7 +309,7 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 	{
 		$users = array('stem', 'noplay', 'crivis_s', 'duponc_j', 'dolean_j', 'billar_m', 'attal_m', 'joanic_g', 'guyoll_o');
 		foreach ($users as $user) {
-			${$user} = $this->createUser($user);
+			${$user} = $this->createUser($user, "password");
 		}
 
 		/* @var $stem USVN_Db_Table_Row_User */
@@ -360,13 +360,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(count($projects), count($table->fetchAllAssignedTo($stem)));
 	}
 
-	private function createGroup($name)
-	{
-		$table = new USVN_Db_Table_Groups();
-		$group = $table->createRow(array("groups_name" => $name));
-		$group->save();
-		return $group;
-	}
 	private function createProject($name)
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -374,18 +367,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$project->save();
 		return $project;
 	}
-	private function createUser($name)
-	{
-		$table_user = new USVN_Db_Table_Users();
-		$user = $table_user->createRow(array('users_login' 		=> $name,
-		'users_password' 	=> 'password',
-		'users_firstname' 	=> 'firstname',
-		'users_lastname' 	=> 'lastname',
-		'users_email' 		=> 'email@email.fr'));
-		$user->save();
-		return $user;
-	}
-
 }
 
 // Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.

@@ -91,6 +91,55 @@ subversion.passwd = "' . getcwd() . '/tests/htpasswd"
             $this->db->closeConnection();
         }
     }
+
+	/**
+	 * Create and save a group
+	 *
+	 * @return USVN_Db_Table_Row_Group
+	 */
+    public function createGroup($name)
+    {
+		$table = new USVN_Db_Table_Groups();
+		try {
+			$group = $table->createRow(
+				array(
+					"groups_name"        => "$name",
+					"groups_description" => "$name's description"
+				)
+			);
+			$group->save();
+			return $group;
+		}
+		catch (Exception $e) {
+			$this->fail($name . " : " . $e->getMessage());
+		}
+    }
+
+	/**
+	 * Create and save a user
+	 *
+	 * @return USVN_Db_Table_Row_User
+	 */
+    public function createUser($login, $password)
+    {
+		$table = new USVN_Db_Table_Users();
+		try {
+			$user = $table->insert(
+				array(
+					"users_login"       => $login,
+					"users_password"    => USVN_Crypt::crypt($password),
+					'users_firstname' 	=> 'firstname',
+					'users_lastname' 	=> 'lastname',
+					'users_email' 		=> 'email@email.fr',
+				)
+			);
+			$user = $table->find($user)->current();
+			return $user;
+		}
+		catch (Exception $e) {
+			$this->fail($login . " : " . $e->getMessage());
+		}
+    }
 }
 
 ?>

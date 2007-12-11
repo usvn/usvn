@@ -125,7 +125,7 @@ class GroupController extends USVN_Controller
 				}
 				if (!$group->hasUser($user))
 				{
-					$group->addLeaderUser($user);
+					$group->addUser($user, true);
 				}
 				else
 				{

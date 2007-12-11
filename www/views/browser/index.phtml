@@ -39,7 +39,7 @@ function get_groupe_text()
 	for (i = 0; i < items_nbgroup; i++)
 	{
 		var grp = document.getElementById('Lb' + i).innerHTML;
-		text += document.getElementById('checkRead' + grp).checked + "," + document.getElementById('checkWrite' + grp).checked + ",";
+		text += document.getElementById('checkRead' + grp).checked + "," + document.getElementById('checkWrite' + grp).checked + "," + document.getElementById('recursive' + grp).checked + ",";
 	}
 	return text;
 }
@@ -58,7 +58,7 @@ function get_ajax(index)
 function dumpRights(file)
 {
 	file = encodeURIComponent(file);
-	var groupe = get_groupe(); 
+	var groupe = get_groupe();
 	var xhr = get_ajax(1);
 	xhr.open("GET",
 		"<?php
@@ -76,7 +76,7 @@ function dumpRights(file)
 function updateOrInsertRights(file)
 {
 	file = encodeURIComponent(file);
-	var groupe = get_groupe(); 
+	var groupe = get_groupe();
 	var xhr = get_ajax(2);
 	var text = get_groupe_text();
 	xhr.open("GET",

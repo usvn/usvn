@@ -132,5 +132,5 @@ function upgrade_sql($config)
 			$u->save();
 		}
 	}
-	$db>closeConnection();
+	$db->closeConnection();
 }

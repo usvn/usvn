@@ -84,6 +84,30 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 		$this->assertNotContains("john", $res);
 	}
 
+	public function testDeleteUser()
+	{
+		$groups = new USVN_Db_Table_Groups();
+		$group1 = $groups->createRow(array("groups_name" => "group1"));
+		$group2 = $groups->createRow(array("groups_name" => "group2"));
+		/* @var $group1 USVN_Db_Table_Row_Group */
+		/* @var $group2 USVN_Db_Table_Row_Group */
+		$group1->save();
+		$group2->save();
+
+		$group1->addUser($this->users->find(2)->current());
+		$group2->addUser($this->users->find(2)->current());
+		$this->assertTrue($group1->userIsMember($this->users->find(2)->current()));
+		$this->assertTrue($group2->userIsMember($this->users->find(2)->current()));
+
+		$group2->deleteUser($this->users->find(2)->current());
+		$this->assertTrue($group1->userIsMember($this->users->find(2)->current()));
+		$this->assertFalse($group2->userIsMember($this->users->find(2)->current()));
+
+		$group1->deleteUser($this->users->find(2)->current());
+		$this->assertFalse($group1->userIsMember($this->users->find(2)->current()));
+		$this->assertFalse($group2->userIsMember($this->users->find(2)->current()));
+	}
+
 	public function testUserIsMember()
 	{
 		$user = $this->users->find(2)->current();

@@ -99,6 +99,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 		if ($user_id) {
 			$user_groups = new USVN_Db_Table_UsersToGroups();
 			$where = $user_groups->getAdapter()->quoteInto('users_id = ?', $user_id);
+			$where .= $user_groups->getAdapter()->quoteInto(" AND groups_id = ?", $this->id);
 			$user_groups->delete($where);
 		}
 	}

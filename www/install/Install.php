@@ -350,7 +350,7 @@ EOF;
 	static public function installEnd($config_file)
 	{
 		$config = Install::_loadConfig($config_file);
-		$config->version = "0.7 RC2";
+		$config->version = "0.7 RC3";
 		$config->save();
 	}
 

@@ -142,22 +142,6 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	}
 
 	/**
-	* Demote user as group leader. User need to be already members of group.
-	*
-	* @param USVN_Db_Table_User
-	* @throw USVN_Exception
-	*/
-	public function demoteUser($user)
-	{
-		$link = $this->getLinkUsersToGroups($user);
-		if ($link === null) {
-			throw new USVN_Exception(T_("User %s is not member of group %s"), $user->login, $this->name);
-		}
-		$link->is_leader = false;
-		$link->save();
-	}
-
-	/**
 	* Check if an user is in the group and is group leader;
 	*
 	* @param USVN_Db_Table_Row_User User

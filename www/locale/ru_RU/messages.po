@@ -1,7 +1,7 @@
 # translation of messages.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# AKR (Arzumanyan Karen Raphaelovich) <akr.rka@gmail.com>, 2007.
 #
 msgid ""
 msgstr ""
@@ -342,7 +342,7 @@ msgstr "Соединиться с USVN"
 
 #: ../../../www//install/views/install_error.html:12
 msgid "Force installation"
-msgstr "Force installation"
+msgstr "Принудительная инсталяция"
 
 #: ../../../www//install/Install.php:64
 msgid "Can't create database\n"
@@ -601,7 +601,7 @@ msgstr "Не удалось прочитать каталог %s."
 
 #: ../../../www//USVN/SVNUtils.php:174
 msgid "Commit by USVN"
-msgstr "Commit by USVN"
+msgstr "Передайте в USVN"
 
 #: ../../../www//USVN/SVNUtils.php:177
 #, php-format

@@ -51,6 +51,7 @@ require_once 'www/USVN/autoload.php';
 class USVN_UpgradeTest extends USVN_Test_DB {
 	private $struct_after_install;
 	private $struct_after_upgrade;
+    private $params;
 
 	public static function main() {
 		require_once "PHPUnit/TextUI/TestRunner.php";
@@ -62,34 +63,51 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 	protected function setUp()
 	{
 		parent::setUp();
-		$params = array ('host'     => 'localhost',
+		$this->params = array ('host'     => 'localhost',
 			 				'username' => 'usvn-test',
 			 				'password' => 'usvn-test',
 			 				'dbname'   => 'usvn-test');
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
-			$params['dbname'] = "tests/usvn.db";
-			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
+			$this->params['dbname'] = "tests/usvn.db";
+			$this->db = Zend_Db::factory('PDO_SQLITE', $this->params);
 		}
 		else {
-			$this->db = Zend_Db::factory(getenv('DB'), $params);
+			$this->db = Zend_Db::factory(getenv('DB'), $this->params);
 		}
 		$this->struct_after_install = new USVN_Database_struct($this->db);
+		$this->reconnect();
+		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
+			USVN_Db_Utils::loadFile($this->db, "www/SQL/0.6/sqlite.sql");
+		}
+		else {
+			USVN_Db_Utils::loadFile($this->db, "www/SQL/0.6/mysql.sql");
+		}
+	}
+
+    private function reconnect()
+    {
 		$this->_clean();
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
 			$this->db->closeConnection();
 			$this->db = null;
-			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
-			USVN_Db_Utils::loadFile($this->db, "www/SQL/0.6/sqlite.sql");
+			$this->db = Zend_Db::factory('PDO_SQLITE', $this->params);
+		}
+		else {
+			$this->db = Zend_Db::factory(getenv('DB'), $this->params);
+		}
+    }
+
+    private function run_upgrade()
+    {
+		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
 			Sqlite_queries($this->db);
 			Sqlite_queries_07RC3($this->db);
 		}
 		else {
-			$this->db = Zend_Db::factory(getenv('DB'), $params);
-			USVN_Db_Utils::loadFile($this->db, "www/SQL/0.6/mysql.sql");
 			Mysql_queries($this->db);
 		}
 		$this->struct_after_upgrade = new USVN_Database_struct($this->db);
-	}
+    }
 
 	private function checkField($field_install, $field_upgrade, $table)
 	{
@@ -104,6 +122,7 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 
 	public function testUpgrade()
 	{
+        $this->run_upgrade();
 		$this->assertEquals($this->struct_after_install->list_tables, $this->struct_after_upgrade->list_tables, "Upgrade doesn't create all tables");
 		foreach ($this->struct_after_install->list_tables as $table) {
 			foreach (array_keys($this->struct_after_install->tables_info[$table]) as $field) {
@@ -112,6 +131,20 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 				}
 		}
 	}
+
+    public function testDuplicateInUsvnUsersToGroups()
+    {
+        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,0);");
+        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,0);");
+        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (2,1,0);");
+        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,1);");
+        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,2,0);");
+        $this->run_upgrade();
+        $table = new USVN_Db_Table_UsersToGroups();
+        $this->assertEquals(2, count($table->fetchAll("groups_id = 1")));
+        $this->assertEquals(1, count($table->fetchAll("groups_id = 2")));
+        $this->assertEquals(2, count($table->fetchAll("users_id = 1")));
+    }
 }
 
 // Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.

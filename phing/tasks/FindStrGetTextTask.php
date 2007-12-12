@@ -88,7 +88,7 @@ class FindStrGetTextTask extends Task {
 		rename("messages.po", "old.po");
 		$command = "xgettext  --language=PHP --keyword=T_ --keyword=T_ngettext";
 		foreach ($files as $file) {
-			$command .= " ../../../$file";
+			$command .= " " . escapeshellarg("../../../$file");
 		}
 		exec($command);
 		$messagepo = file_get_contents("messages.po");

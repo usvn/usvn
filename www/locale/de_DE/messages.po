@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-08 10:57+0100\n"
+"POT-Creation-Date: 2007-12-12 10:26+0100\n"
 "PO-Revision-Date: 2007-11-28 02:00+0100\n"
 "Last-Translator: cx_one <cx_one@yahoo.com>\n"
 "Language-Team: de <cx_one@yahoo.com>\n"
@@ -206,8 +206,7 @@ msgstr "Das Projekt %s existiert nicht."
 msgid "Invalid project name %s."
 msgstr "ungültiger Projektname %s."
 
-#: ../../../www//USVN/Db/Table/Row/Group.php:214
-#: ../../../www//USVN/Db/Table/Row/Group.php:230
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
 #, php-format
 msgid "User %s is not member of group %s"
 msgstr ""
@@ -218,17 +217,17 @@ msgstr ""
 msgid "Invalid group %s for project %s."
 msgstr "ungültige Gruppe %s für das Projekt %s."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:203
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
 msgstr "Der Projektname ist leer."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:209
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:233
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
 msgstr "Sie können ein Projekt nicht umbenennen."
 

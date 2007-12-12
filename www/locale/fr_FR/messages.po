@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-08 10:57+0100\n"
+"POT-Creation-Date: 2007-12-12 10:26+0100\n"
 "PO-Revision-Date: 2007-12-11 11:55+0100\n"
 "Last-Translator: Julien Duponchelle\n"
 "Language-Team: \n"
@@ -174,7 +174,8 @@ msgstr "Déconnexion"
 #: ../../../www//USVN/DirectoryUtils.php:31
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr "Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
+msgstr ""
+"Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
 
 #: ../../../www//USVN/DirectoryUtils.php:50
 #, php-format
@@ -211,8 +212,7 @@ msgstr "Le projet %s n'existe pas."
 msgid "Invalid project name %s."
 msgstr "%s est un nom de projet invalide."
 
-#: ../../../www//USVN/Db/Table/Row/Group.php:214
-#: ../../../www//USVN/Db/Table/Row/Group.php:230
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
 #, php-format
 msgid "User %s is not member of group %s"
 msgstr "L'utilisateur %s n'est pas un membre du groupe %s"
@@ -223,11 +223,11 @@ msgstr "L'utilisateur %s n'est pas un membre du groupe %s"
 msgid "Invalid group %s for project %s."
 msgstr "Le groupe %s est invalide pour le projet %s."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:203
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
 msgstr "Le nom du projet est vide."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:209
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
@@ -235,7 +235,7 @@ msgstr ""
 "Le nom du projet est invalide. Un nom de projet ne peut contenir que des "
 "caractères alpha-numérique et les '-' ou '_'."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:233
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
 msgstr "Vous ne pouvez pas renommer un projet."
 
@@ -582,7 +582,8 @@ msgstr "Ajoutez moi comme administrateur du projet:"
 
 #: ../../../www//views/projectadmin/form.phtml:38
 msgid "Create SVN standard directories (/trunk, /branches and /tags):"
-msgstr "Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
+msgstr ""
+"Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
 
 #: ../../../www//views/browser/index.phtml:133
 msgid "Acces rights for"
@@ -611,7 +612,8 @@ msgstr "Gestion du groupe"
 
 #: ../../../www//views/login/login.phtml:5
 msgid "Please enter your login and your password to connect to USVN."
-msgstr "Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
+msgstr ""
+"Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
 
 #: ../../../www//views/login/login.phtml:11
 msgid "Authentification"
@@ -933,7 +935,8 @@ msgid "Configure USVN"
 msgstr "Configurer USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid "Settings of general configuration of USVN. You can keep default settings."
+msgid ""
+"Settings of general configuration of USVN. You can keep default settings."
 msgstr "Configuration de USVN. Vous pouvez garder les réglages par défaut."
 
 #: ../../../www//install/views/step4.html:12
@@ -1182,7 +1185,8 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN ne peut pas être utilisé avec le safe mode de PHP."
 
 #: ../../../www//install/Install.php:445
-msgid "Subversion is not install on your system. If you are under Windows install "
+msgid ""
+"Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 "Subversion n'est pas installé sur votre système. Si vous êtes sous Windows "
 "installez "
@@ -1214,4 +1218,3 @@ msgstr "Editer"
 #: ../../../www//helpers/HomeLink.php:34
 msgid "Home"
 msgstr "Page d'accueil"
-

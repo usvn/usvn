@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-08 10:57+0100\n"
+"POT-Creation-Date: 2007-12-12 10:26+0100\n"
 "PO-Revision-Date: 2007-11-27 19:32-0300\n"
 "Last-Translator: Esteban Cerutti <ecerutti@lifia.info.unlp.edu.ar>\n"
 "Language-Team: castellano <en@li.org>\n"
@@ -208,8 +208,7 @@ msgstr "El proyecto %s no existe."
 msgid "Invalid project name %s."
 msgstr "El nombre de proyecto %s es inv&aacute;lido."
 
-#: ../../../www//USVN/Db/Table/Row/Group.php:214
-#: ../../../www//USVN/Db/Table/Row/Group.php:230
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
 #, php-format
 msgid "User %s is not member of group %s"
 msgstr "El usuario %s no es miembro del grupo %s"
@@ -220,11 +219,11 @@ msgstr "El usuario %s no es miembro del grupo %s"
 msgid "Invalid group %s for project %s."
 msgstr "El grupo %s para el proyecto %s es inv&aacute;lido."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:203
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
 msgstr "El nombre del proyecto esta vac&iacute;o."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:209
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
@@ -232,7 +231,7 @@ msgstr ""
 "El nombre del proyecto es inva&aaacute;lido. Un nombre de proyecto solo "
 "puede contener caracteres alfa-num&eacute;ricos y '-' o '_'."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:233
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
 msgstr "No puede renombrar el proyecto."
 

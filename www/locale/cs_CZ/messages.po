@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-08 10:57+0100\n"
+"POT-Creation-Date: 2007-12-12 10:26+0100\n"
 "PO-Revision-Date: 2007-09-19 11:50+0100\n"
 "Last-Translator: Alois Bělaška <alois.belaska@monetplus.cz>\n"
 "Language-Team: cs <alois.belaska@monetplus.cz>\n"
@@ -209,8 +209,7 @@ msgstr "Projekt %s neexistuje."
 msgid "Invalid project name %s."
 msgstr "Špatné jméno projektu %s."
 
-#: ../../../www//USVN/Db/Table/Row/Group.php:214
-#: ../../../www//USVN/Db/Table/Row/Group.php:230
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
 #, php-format
 msgid "User %s is not member of group %s"
 msgstr "Uživatel %s není členem skupiny %s"
@@ -221,17 +220,17 @@ msgstr "Uživatel %s není členem skupiny %s"
 msgid "Invalid group %s for project %s."
 msgstr "Špatná skupina %s pro projekt %s."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:203
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
 msgstr "Jméno projektu je prázdné."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:209
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
 msgstr ""
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:233
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
 msgstr "Nemůžete přejmenovat projekt."
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-08 10:57+0100\n"
+"POT-Creation-Date: 2007-12-12 10:26+0100\n"
 "PO-Revision-Date: 2007-11-30 13:21+0000\n"
 "Last-Translator:  <>\n"
 "Language-Team: Chinese/Simplified <contact@usvn.info>\n"
@@ -212,8 +212,7 @@ msgstr "项目 %s 不存在."
 msgid "Invalid project name %s."
 msgstr "无效的项目名 %s."
 
-#: ../../../www//USVN/Db/Table/Row/Group.php:214
-#: ../../../www//USVN/Db/Table/Row/Group.php:230
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
 #, php-format
 msgid "User %s is not member of group %s"
 msgstr "用户 %s 不是用户组 %s 的成员"
@@ -224,17 +223,17 @@ msgstr "用户 %s 不是用户组 %s 的成员"
 msgid "Invalid group %s for project %s."
 msgstr "无效的用户组 %s (对于项目 %s)."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:203
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
 msgstr "项目名是空的."
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:209
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
 msgstr "项目名无效. 项目名只能包含字母, 数字, '-', '_'"
 
-#: ../../../www//USVN/Db/Table/Row/Project.php:233
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
 msgstr "您不能更改项目名称."
 

@@ -32,7 +32,7 @@ try {
 	$config->version = "0.7 RC4";
     $config->update->lastcheckforupdate = 0;
     include dirname(__FILE__) . '/db.php';
-    upgrade_sql($config);
+    upgrade_sql_07RC3($config);
 	$config->save();
 }
 catch (Exception $e) {

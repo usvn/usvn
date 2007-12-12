@@ -18,6 +18,7 @@
  */
 
 include 'www/update/0.6.5/db.php';
+include 'www/update/0.7 RC3/db.php';
 
 // Call USVN_Auth_Adapter_DbTest::main() if this source file is executed directly.
 if (!defined("PHPUnit_MAIN_METHOD")) {
@@ -80,6 +81,7 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 			$this->db = Zend_Db::factory('PDO_SQLITE', $params);
 			USVN_Db_Utils::loadFile($this->db, "www/SQL/0.6/sqlite.sql");
 			Sqlite_queries($this->db);
+			Sqlite_queries_07RC3($this->db);
 		}
 		else {
 			$this->db = Zend_Db::factory(getenv('DB'), $params);

@@ -1,5 +1,5 @@
 <?php
-function connection ($config)
+function connection_07RC3($config)
 {
 	try {
 		Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));
@@ -15,7 +15,7 @@ function connection ($config)
 	return $db;
 }
 
-function Sqlite_queries($db)
+function Sqlite_queries_07RC3($db)
 {
 	$db->query("CREATE UNIQUE INDEX users_to_groups ON usvn_users_to_groups(users_id, groups_id);");
 
@@ -37,9 +37,9 @@ function Sqlite_queries($db)
 }
 
 
-function upgrade_sql($config)
+function upgrade_sql_07RC3($config)
 {
-	$db = connection($config);
+	$db = connection_07RC3($config);
 	$Fnm = "../../config.ini";
 	$tableau = file($Fnm);
 	if (file_exists($Fnm)) {

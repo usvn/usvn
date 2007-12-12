@@ -44,7 +44,7 @@ function upgrade_sql_07RC3($config)
 	$tableau = file($Fnm);
 	if (file_exists($Fnm)) {
 		if ($config->database->adapterName == "PDO_SQLITE") {
-			Sqlite_queries($db);
+			Sqlite_queries_07RC3($db);
 		}
 	}
 	$db->closeConnection();

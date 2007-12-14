@@ -134,11 +134,21 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 
     public function testDuplicateInUsvnUsersToGroups()
     {
-        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,0);");
-        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,0);");
-        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (2,1,0);");
-        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,1);");
-        $this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,2,0);");
+		$this->db->query("INSERT INTO usvn_users (users_id, users_login) VALUES (1,'noplay');");
+		$this->db->query("INSERT INTO usvn_users (users_id, users_login) VALUES (2,'stem');");
+		$this->db->query("INSERT INTO usvn_groups (groups_id, groups_name) VALUES (1,'epitech');");
+		$this->db->query("INSERT INTO usvn_groups (groups_id, groups_name) VALUES (2,'etna');");
+
+		$this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,0);");
+		try {
+			$this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,0);");
+		}
+		catch (Exception $e) {
+			return;
+		}
+		$this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (2,1,0);");
+		$this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,1,1);");
+		$this->db->query("INSERT INTO usvn_users_to_groups (users_id, groups_id, is_leader) VALUES (1,2,0);");
         $this->run_upgrade();
         $table = new USVN_Db_Table_UsersToGroups();
         $this->assertEquals(2, count($table->fetchAll("groups_id = 1")));

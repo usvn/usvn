@@ -42,7 +42,12 @@ function get_functions($file)
 	}
 }
 
-$path = "www";
+if (!isset($argv[1])) {
+	echo "dead-code.php path";
+	exit (1);
+}
+
+$path = $argv[1];
 do
 {
 	$files = glob($path . "/*.ph*");

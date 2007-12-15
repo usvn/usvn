@@ -56,7 +56,7 @@ msgstr "Добавить новую группу"
 #: ../../../www//views/systemreportadmin/index.phtml:1
 #, fuzzy
 msgid "System report"
-msgstr "Система"
+msgstr "Отчёт системы"
 
 #: ../../../www//menus/useradmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:33

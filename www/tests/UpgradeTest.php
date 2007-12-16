@@ -134,8 +134,8 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 
     public function testDuplicateInUsvnUsersToGroups()
     {
-		$this->db->query("INSERT INTO usvn_users (users_id, users_login) VALUES (1,'noplay');");
-		$this->db->query("INSERT INTO usvn_users (users_id, users_login) VALUES (2,'stem');");
+		$this->db->query("INSERT INTO usvn_users (users_id, users_login, users_password) VALUES (1,'noplay', 'xxx');");
+		$this->db->query("INSERT INTO usvn_users (users_id, users_login, users_password) VALUES (2,'stem', 'xxx');");
 		$this->db->query("INSERT INTO usvn_groups (groups_id, groups_name) VALUES (1,'epitech');");
 		$this->db->query("INSERT INTO usvn_groups (groups_id, groups_name) VALUES (2,'etna');");
 

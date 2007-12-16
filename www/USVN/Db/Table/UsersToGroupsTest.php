@@ -51,9 +51,9 @@ class USVN_Db_Table_UsersToGroupsTest extends USVN_Test_DB {
 
     public function test_noleaderFindByGroupId()
     {
-		$this->db->query("INSERT INTO usvn_users (users_id, users_login) VALUES (1,'noplay');");
-		$this->db->query("INSERT INTO usvn_users (users_id, users_login) VALUES (2,'stem');");
-		$this->db->query("INSERT INTO usvn_users (users_id, users_login) VALUES (3,'eozine');");
+		$this->db->query("INSERT INTO usvn_users (users_id, users_login, users_password, users_is_admin) VALUES (1,'noplay', 'xxx', 0);");
+		$this->db->query("INSERT INTO usvn_users (users_id, users_login, users_password, users_is_admin) VALUES (2,'stem', 'xxx', 0);");
+		$this->db->query("INSERT INTO usvn_users (users_id, users_login, users_password, users_is_admin) VALUES (3,'eozine', 'xxx', 0);");
 		$this->db->query("INSERT INTO usvn_groups (groups_id, groups_name) VALUES (1,'epitech');");
 		$this->db->query("INSERT INTO usvn_groups (groups_id, groups_name) VALUES (2,'etna');");
 

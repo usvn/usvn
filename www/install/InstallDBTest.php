@@ -173,7 +173,7 @@ class InstallDbTest extends USVN_Test_Test {
 
 		$this->db = Zend_Db::factory($this->_driver, $params);
 		try {
-			if ($this->_driver == 'PDO_PGSQL') {
+			if ($this->_driver == 'PDO_PGSQL' || $this->_driver == 'ORACLE') {
 				$this->db->getConnection()->query("DROP DATABASE \"usvn-root\"");
 			}
 			else if ($this->_driver == 'PDO_MYSQL' || $this->_driver == 'MYSQLI') {

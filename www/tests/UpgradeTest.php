@@ -79,7 +79,7 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
 			USVN_Db_Utils::loadFile($this->db, "www/SQL/0.6/sqlite.sql");
 		}
-		else {
+		else if (getenv('DB') == "PDO_MYSQL" || getenv('DB') === "MYSQLI") {
 			USVN_Db_Utils::loadFile($this->db, "www/SQL/0.6/mysql.sql");
 		}
 	}
@@ -103,7 +103,7 @@ class USVN_UpgradeTest extends USVN_Test_DB {
 			Sqlite_queries($this->db);
 			Sqlite_queries_07RC3($this->db);
 		}
-		else {
+		else if (getenv('DB') == "PDO_MYSQL" || getenv('DB') === "MYSQLI") {
 			Mysql_queries($this->db);
 		}
 		$this->struct_after_upgrade = new USVN_Database_struct($this->db);

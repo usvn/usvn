@@ -47,14 +47,23 @@ class Install
 		'password' => $password,
 		'dbname'   => $database);
 
-		if ($createdb && ($adapter == 'PDO_MYSQL' || $adapter == 'MYSQLI')) {
+		if ($createdb && ($adapter == 'PDO_MYSQL' || $adapter == 'MYSQLI' || $adapter == 'PDO_PGSQL')) {
 			try {
 				$tmp_params = $params;
-				$tmp_params['dbname'] = "mysql";
+				if ($adapter == 'PDO_MYSQL' || $adapter == 'MYSQLI') {
+					$tmp_params['dbname'] = "mysql";
+				}
+				else if ($adapter == 'PDO_PGSQL') {
+					$tmp_params['dbname'] = "postgres";
+				}
 				$db = Zend_Db::factory($adapter, $tmp_params);
 				if ($adapter == 'PDO_MYSQL') {
 					$db->query("CREATE DATABASE `{$database}`;");
-				} else {
+				}
+				else if ($adapter == 'PDO_PGSQL') {
+					$db->query("CREATE DATABASE \"{$database}\";");
+				}
+				else if ($adapter == 'MYSQLI'){
 					/* @var $cnx mysqli */
 					$cnx = $db->getConnection();
 					$cnx->query("CREATE DATABASE `{$database}`;");
@@ -79,6 +88,9 @@ class Install
 			if ($adapter == "PDO_MYSQL" || $adapter == "MYSQLI") {
 				USVN_Db_Utils::loadFile($db, $path_sql . "/mysql.sql");
 			}
+			else if ($adapter == "PDO_PGSQL") {
+				USVN_Db_Utils::loadFile($db, $path_sql . "/postgresql.sql");
+            }
 			else if ($adapter == "PDO_SQLITE") {
 				USVN_Db_Utils::loadFile($db, $path_sql . "/sqlite.sql");
 			}

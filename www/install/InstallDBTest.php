@@ -62,19 +62,11 @@ class InstallDbTest extends USVN_Test_Test {
 			$this->markTestSkipped("Bad database");
 		}
 		$this->_driver = getenv('DB');
-
 		$params = array ('host' => 'localhost',
-		'username' => 'usvn-root',
-		'password' => 'usvn-root',
+		'username' => 'usvn-test',
+		'password' => 'usvn-test',
 		'dbname'   => 'usvn-test');
-
-
 		$this->db = Zend_Db::factory($this->_driver, $params);
-		try {
-			$this->db->getConnection()->query("DROP DATABASE `usvn-root`");
-		}
-		catch (Exception $e) {
-		}
 
 		Zend_Db_Table::setDefaultAdapter($this->db);
 		USVN_Db_Utils::deleteAllTables($this->db);
@@ -173,6 +165,24 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestConfigFileWithNewDb() {
+		$params = array ('host' => 'localhost',
+		'username' => 'usvn-root',
+		'password' => 'usvn-root',
+		'dbname'   => 'usvn-test');
+
+
+		$this->db = Zend_Db::factory($this->_driver, $params);
+		try {
+			if ($this->_driver == 'PDO_PGSQL') {
+				$this->db->getConnection()->query("DROP DATABASE \"usvn-root\"");
+			}
+			else if ($this->_driver == 'PDO_MYSQL' || $this->_driver == 'MYSQLI') {
+				$this->db->getConnection()->query("DROP DATABASE `usvn-root`");
+			}
+		}
+		catch (Exception $e) {
+		}
+
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-root", "usvn-root", "usvn-root", "usvn_", $this->_driver, true);
 		$this->assertTrue(file_exists("tests/tmp/config.ini"));
 		$config = new Zend_Config_Ini("tests/tmp/config.ini", "general");

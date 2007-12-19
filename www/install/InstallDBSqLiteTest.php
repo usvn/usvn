@@ -74,8 +74,6 @@ class InstallDbSqLiteTest extends USVN_Test_Test {
 		'dbname'   => 'usvn-test');
 		$this->db = Zend_Db::factory('PDO_SQLITE', $params);
 		Zend_Db_Table::setDefaultAdapter($this->db);
-		//USVN_Db_Utils::deleteAllTables($this->db);
-		//$this->db->closeConnection();
 	}
 	public function tearDown() {
 		$this->clean();

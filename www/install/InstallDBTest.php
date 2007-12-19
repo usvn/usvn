@@ -134,7 +134,7 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestLoadDb() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "", "usvn-test", "usvn-test", "usvn-test", "usvn_", $this->_driver, false);
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "usvn-test", "usvn-test", "usvn-test", "usvn-test", "usvn_", $this->_driver, false);
 		$list_tables =  $this->db->listTables();
 		$this->assertTrue(in_array('usvn_users', $list_tables), "usvn_users does not exist");
 		$this->assertTrue(in_array('usvn_groups', $list_tables), "usvn_groups does not exist");

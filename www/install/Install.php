@@ -47,7 +47,7 @@ class Install
 		'password' => $password,
 		'dbname'   => $database);
 
-		if ($createdb && ($adapter == 'PDO_MYSQL' || $adapter == 'MYSQLI' || $adapter == 'PDO_PGSQL' || $adapter == 'ORACLE')) {
+		if ($createdb && ($adapter == 'PDO_MYSQL' || $adapter == 'MYSQLI' || $adapter == 'PDO_PGSQL' || $adapter == 'ORACLE'  || $adapter == 'PDO_OCI')) {
 			try {
 				$tmp_params = $params;
 				if ($adapter == 'PDO_MYSQL' || $adapter == 'MYSQLI') {
@@ -56,7 +56,7 @@ class Install
 				else if ($adapter == 'PDO_PGSQL') {
 					$tmp_params['dbname'] = "postgres";
 				}
-				else if ($adapter == 'ORACLE') {
+				else if ($adapter == 'ORACLE' || $adapter == 'PDO_OCI') {
 					$tmp_params['dbname'] = "oracle";
 				}
 				$db = Zend_Db::factory($adapter, $tmp_params);
@@ -66,7 +66,7 @@ class Install
 				else if ($adapter == 'PDO_PGSQL') {
 					$db->query("CREATE DATABASE \"{$database}\";");
 				}
-				else if ($adapter == 'ORACLE') {
+				else if ($adapter == 'ORACLE' || $adapter == 'PDO_OCI') {
 					$db->query("CREATE TABLESPACE \"{$database}\" DATAFILE '{$database}' size 100M;");
 				}
 				else if ($adapter == 'MYSQLI'){
@@ -97,7 +97,7 @@ class Install
 			else if ($adapter == "PDO_PGSQL") {
 				USVN_Db_Utils::loadFile($db, $path_sql . "/postgresql.sql");
             }
-			else if ($adapter == "ORACLE") {
+			else if ($adapter == "ORACLE" || $adapter == 'PDO_OCI') {
 				USVN_Db_Utils::loadFile($db, $path_sql . "/oracle.sql");
             }
 			else if ($adapter == "PDO_SQLITE") {

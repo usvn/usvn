@@ -33,7 +33,7 @@ class USVN_Db_Utils
 			throw new USVN_Exception(T_("Can't open file %s."), $path);
 		}
 		$query = preg_replace("/--[^\n]*\n/", "", $query);
-		$tab = explode(";", $query);
+		$tab = preg_split("/;[ \t]*[\r]?\n/", $query);
 		foreach($tab as $ligne) {
 			$ligne = trim($ligne, " \n\t\r");
 			$ligne = rtrim($ligne, " \n\t\r");
@@ -43,7 +43,9 @@ class USVN_Db_Utils
 					$db->query($ligne);
 				}
 				catch (Exception $e) {
-					throw new USVN_Exception(T_("Can't load file %s at:\n%s"), $path, $ligne);
+					if (!preg_match("/DROP (TABLE|TRIGGER).*/", $ligne)) {
+						throw new USVN_Exception(T_("Can't load file %s at:\n%s\n\nError: %s\n"), $path, $ligne, $e->getMessage());
+					}
 				}
 			}
 		}

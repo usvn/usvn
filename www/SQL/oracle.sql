@@ -1,3 +1,16 @@
+DROP TABLE usvn_users_to_projects;
+DROP TABLE usvn_users_to_groups;
+DROP TABLE usvn_users;
+DROP TABLE usvn_groups_to_projects;
+DROP TABLE usvn_groups_to_files_rights;
+DROP TABLE usvn_groups;
+DROP TABLE usvn_files_rights;
+DROP TABLE usvn_projects;
+
+/**************** */
+DROP TRIGGER trigger_usvn_projects;
+DROP SEQUENCE seq_usvn_projects;
+
 CREATE TABLE usvn_projects
 	(
 		projects_id integer PRIMARY KEY,
@@ -8,12 +21,18 @@ CREATE TABLE usvn_projects
 CREATE UNIQUE INDEX usvn_projects_projects_name ON usvn_projects(projects_name);
 
 CREATE SEQUENCE seq_usvn_projects MINVALUE 0 INCREMENT BY 1;
-CREATE TRIGGER trigger_usvn_projects
-BEFORE INSERT ON usvn_projects
-FOR EACH ROW
-BEGIN
-	SELECT seq_usvn_projects.nextval into :new.projects_id FROM dual;
-END;
+
+-- CREATE TRIGGER trigger_usvn_projects
+-- BEFORE INSERT ON usvn_projects
+-- FOR EACH ROW
+-- BEGIN
+-- 	SELECT seq_usvn_projects.nextval into :new.projects_id FROM dual;END;
+
+/**************************/
+
+DROP TRIGGER trigger_usvn_file_rights;
+DROP SEQUENCE seq_usvn_file_rights;
+
 
 CREATE TABLE usvn_files_rights
 	(
@@ -24,12 +43,17 @@ CREATE TABLE usvn_files_rights
 	);
 
 CREATE SEQUENCE seq_usvn_file_rights MINVALUE 0 INCREMENT BY 1;
-CREATE TRIGGER trigger_usvn_file_rights
-BEFORE INSERT ON usvn_files_rights
-FOR EACH ROW
-BEGIN
-	SELECT seq_usvn_file_rights.nextval into :new.files_rights_id FROM dual;
-END;
+
+-- CREATE TRIGGER trigger_usvn_file_rights
+-- BEFORE INSERT ON usvn_files_rights
+-- FOR EACH ROW
+-- BEGIN
+-- 	SELECT seq_usvn_file_rights.nextval into :new.files_rights_id FROM dual;END;
+
+/**************************/
+
+DROP TRIGGER trigger_usvn_groups;
+DROP SEQUENCE seq_usvn_groups;
 
 CREATE TABLE usvn_groups
 	(
@@ -40,12 +64,13 @@ CREATE TABLE usvn_groups
 CREATE UNIQUE INDEX usvn_groups_groups_name ON usvn_groups(groups_name);
 
 CREATE SEQUENCE seq_usvn_groups MINVALUE 0 INCREMENT BY 1;
-CREATE TRIGGER trigger_usvn_groups
-BEFORE INSERT ON usvn_groups
-FOR EACH ROW
-BEGIN
-	SELECT seq_usvn_groups.nextval into :new.groups_id FROM dual;
-END;
+-- CREATE TRIGGER trigger_usvn_groups
+-- BEFORE INSERT ON usvn_groups
+-- FOR EACH ROW
+-- BEGIN
+--	SELECT seq_usvn_groups.nextval into :new.groups_id FROM dual;END;
+
+/**************************/
 
 
 CREATE TABLE usvn_groups_to_files_rights
@@ -58,6 +83,9 @@ CREATE TABLE usvn_groups_to_files_rights
 		constraint fk_usvn_groups_to_filesrights2 foreign key (groups_id) references usvn_groups (groups_id)
 	);
 
+/**************************/
+
+
 CREATE TABLE usvn_groups_to_projects
 	(
 		groups_id integer not null,
@@ -66,6 +94,10 @@ CREATE TABLE usvn_groups_to_projects
 		constraint fk_usvn_groups_to_projects2 foreign key (projects_id) references usvn_projects (projects_id)
 	);
 
+/**************************/
+
+DROP TRIGGER trigger_usvn_users
+DROP SEQUENCE seq_usvn_users;
 
 CREATE TABLE usvn_users
 	(
@@ -82,13 +114,13 @@ CREATE UNIQUE INDEX usvn_users_users_login ON usvn_users(users_login);
 
 
 CREATE SEQUENCE seq_usvn_users MINVALUE 0 INCREMENT BY 1;
-CREATE TRIGGER trigger_usvn_usets
-BEFORE INSERT ON usvn_users
-FOR EACH ROW
-BEGIN
-	SELECT seq_usvn_users.nextval into :new.users_id FROM dual;
-END;
+-- CREATE TRIGGER trigger_usvn_users
+-- BEFORE INSERT ON usvn_users
+-- FOR EACH ROW
+-- BEGIN
+--	SELECT seq_usvn_users.nextval into :new.users_id FROM dual;END;
 
+/**************************/
 
 CREATE TABLE usvn_users_to_groups
 	(
@@ -99,6 +131,8 @@ CREATE TABLE usvn_users_to_groups
 		constraint fk_usvn_users_to_groups2 foreign key (groups_id) references usvn_groups (groups_id)
 	);
 CREATE UNIQUE INDEX users_to_groups ON usvn_users_to_groups(users_id, groups_id);
+
+/**************************/
 
 CREATE TABLE usvn_users_to_projects
 	(

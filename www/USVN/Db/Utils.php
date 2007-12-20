@@ -80,7 +80,6 @@ class USVN_Db_Utils
             while (count($todelete)) {
                 $table = array_shift($todelete);
                 try {
-					var_dump('Drop $');
                     $db->query("DROP TABLE $table");
                 }
                 catch (Exception $e) {

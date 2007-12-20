@@ -134,7 +134,7 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestLoadDb() {
-		Install::installDb("tests/tmp/config.ini", "www/SQL", "usvn-test", "usvn-test", "usvn-test", "usvn-test", "usvn_", $this->_driver, false);
+		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "usvn_", $this->_driver, false);
 		$list_tables =  $this->db->listTables();
 		$this->assertTrue(in_array('usvn_users', $list_tables), "usvn_users does not exist");
 		$this->assertTrue(in_array('usvn_groups', $list_tables), "usvn_groups does not exist");
@@ -144,12 +144,14 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestLoadDbOtherPrefixe() {
+		USVN_Db_Utils::deleteAllTablesPrefixed($this->db, 'fake_');
 		Install::installDb("tests/tmp/config.ini", "www/SQL", "localhost", "usvn-test", "usvn-test", "usvn-test", "fake_", $this->_driver, false);
 		$list_tables =  $this->db->listTables();
 		$this->assertFalse(in_array('usvn_users', $list_tables), "usvn_users exists");
 		$this->assertFalse(in_array('usvn_groups', $list_tables), "usvn_groups exists");
 		$this->assertTrue(in_array('fake_users', $list_tables), "usvn_users does not exist");
 		$this->assertTrue(in_array('fake_groups', $list_tables), "fake_groups does not exist");
+		USVN_Db_Utils::deleteAllTablesPrefixed($this->db, 'fake_');
 	}
 
 	public function testInstallDbTestConfigFile() {
@@ -165,6 +167,9 @@ class InstallDbTest extends USVN_Test_Test {
 	}
 
 	public function testInstallDbTestConfigFileWithNewDb() {
+		if (getenv('DB') == 'ORACLE' || getenv('DB') == 'PDO_OCI') {
+			$this->markTestSkipped("Don't test with oracle");
+		}
 		$params = array ('host' => 'localhost',
 		'username' => 'usvn-root',
 		'password' => 'usvn-root',

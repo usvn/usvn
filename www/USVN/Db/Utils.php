@@ -43,7 +43,7 @@ class USVN_Db_Utils
 					$db->query($ligne);
 				}
 				catch (Exception $e) {
-					if (!preg_match("/DROP (TABLE|TRIGGER).*/", $ligne)) {
+					if (!preg_match("/DROP .*/", $ligne)) {
 						throw new USVN_Exception(T_("Can't load file %s at:\n%s\n\nError: %s\n"), $path, $ligne, $e->getMessage());
 					}
 				}

@@ -602,7 +602,7 @@ msgstr "Gruppe %s verwalten"
 msgid "Please enter your login and your password to connect to USVN."
 msgstr ""
 "Bitte geben Sie Ihren Benutzernamen und Passwort ein um sich mit USVN zu "
-"verbinden."
+"verbinden. "
 
 #: ../../../www//views/login/login.phtml:11
 msgid "Authentification"

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+d<?xml version="1.0"?>
 <project name="USVN" basedir="." default="all">
   <property name="testdir" value="tests" override="true" />
   <property name="report_test_dir" value="test-report" override="true" />
@@ -8,7 +8,6 @@
   <fileset id="testfile" dir=".">
 		<include name="**/*Test.php" />
 		<exclude name="www/Zend/**"/>
-        <exclude name="${docdir}/**" />
         <exclude name="${report_test_dir}/**" />
         <exclude name="${testdir}/**" />
         <exclude name="**/.svn/**" />
@@ -112,7 +111,6 @@
         <fileset dir=".">
             <include name="**/*.php"/>
             <include name="**/*.html"/>
-            <exclude name="${docdir}/**" />
             <exclude name="${report_test_dir}/**" />
             <exclude name="**/Zend/**" />
         </fileset>

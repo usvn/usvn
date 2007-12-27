@@ -129,6 +129,11 @@
     <gettext-findstr localedirectory="www/locale/" scandirectory="www/"/>
 </target>
 
+<target name="translation-status">
+    <taskdef name="gettext-status" classname="phing.tasks.TranslationStatusGetTextTask" />
+    <gettext-status localedirectory="www/locale/"/>
+</target>
+
 <!-- Wamp -->
   <target name="wamp">
     <delete file="${wamp_dir)" />

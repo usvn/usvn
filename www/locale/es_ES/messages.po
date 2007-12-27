@@ -511,7 +511,6 @@ msgid "PHP version:"
 msgstr "PHP versi&oacute;n:"
 
 #: ../../../www//views/systemreportadmin/index.phtml:4
-#, fuzzy
 msgid "USVN version:"
 msgstr "USVN versi&oacute;n:"
 
@@ -1213,6 +1212,5 @@ msgstr "Editar"
 
 #: ../../../www//helpers/HomeLinkGroup.php:34
 #: ../../../www//helpers/HomeLink.php:34
-#, fuzzy
 msgid "Home"
 msgstr "P&aacute;gina principal"

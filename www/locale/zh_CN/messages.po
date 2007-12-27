@@ -2,10 +2,8 @@
 # Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # root <(null)>, 2007.
-# , fuzzy
-# root <(null)>, 2007.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"

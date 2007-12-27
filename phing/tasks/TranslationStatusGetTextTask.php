@@ -73,9 +73,9 @@ class TranslationStatusGetTextTask extends Task {
                 $status = $this->getStatus($src);
 				$status['lang'] = $lang;
 				$elem = $xml->addChild('translation');
-				$elem->fuzzy = $status['fuzzy'];
-				$elem->strings = $status['strings'];
-				$elem->lang = $status['lang'];
+				$elem->addAttribute('fuzzy', $status['fuzzy']);
+				$elem->addAttribute('strings', $status['strings']);
+				$elem->addAttribute('lang', $status['lang']);
                 $this->log("Translation status of $lang Strings: " . $status['strings'] . " Fuzzy: " . $status['fuzzy'], PROJECT_MSG_INFO);
             }
         }

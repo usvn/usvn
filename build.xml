@@ -135,6 +135,7 @@
     <taskdef name="gettext-status" classname="phing.tasks.TranslationStatusGetTextTask" />
 	<mkdir dir="${report_translation_dir}" />
     <gettext-status localedirectory="www/locale/"  xmloutput="${report_translation_dir}/output.xml"/>
+	<xslt file="${report_translation_dir}/output.xml" tofile="${report_translation_dir}/index.html" style="phing/translation-status.xsl" overwrite="true"/>
 </target>
 
 <!-- Wamp -->

@@ -514,7 +514,6 @@ msgid "PHP version:"
 msgstr "Version de PHP: "
 
 #: ../../../www//views/systemreportadmin/index.phtml:4
-#, fuzzy
 msgid "USVN version:"
 msgstr "Version de USVN: "
 

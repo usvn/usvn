@@ -27,6 +27,7 @@ class TranslationStatusGetTextTask extends Task {
 
     protected $localedirectory = "locale"; // directory where translation are save
     protected $file = "messages"; //  translation file
+    protected $xmloutput = "translation-status.xml"; // xml status file
 
     /**
     *
@@ -39,6 +40,15 @@ class TranslationStatusGetTextTask extends Task {
 
     /**
     *
+    * @param string file name output xml file of translation status
+    */
+	function setXmloutput($value)
+	{
+		$this->xmloutput = $value;
+	}
+
+	/**
+    *
     * @param string file name for translations. By default it's messages
     */
 	function setFile($value)
@@ -50,6 +60,7 @@ class TranslationStatusGetTextTask extends Task {
      * The main entry point method.
      */
     public function main() {
+		$xml = new SimpleXMLElement("<?xml version='1.0'?><translations></translations>");
        if (!$dh = opendir($this->localedirectory)) {
         	throw new BuildException('Locale directory is not valid');
        }
@@ -60,10 +71,16 @@ class TranslationStatusGetTextTask extends Task {
                     throw new BuildException("File $src doesn't exist.");
                 }
                 $status = $this->getStatus($src);
+				$status['lang'] = $lang;
+				$elem = $xml->addChild('translation');
+				$elem->fuzzy = $status['fuzzy'];
+				$elem->strings = $status['strings'];
+				$elem->lang = $status['lang'];
                 $this->log("Translation status of $lang Strings: " . $status['strings'] . " Fuzzy: " . $status['fuzzy'], PROJECT_MSG_INFO);
             }
         }
         closedir($dh);
+		file_put_contents($this->xmloutput, $xml->asXML());
     }
 
 	/**

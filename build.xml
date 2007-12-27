@@ -2,6 +2,7 @@
 <project name="USVN" basedir="." default="all">
   <property name="testdir" value="tests" override="true" />
   <property name="report_test_dir" value="test-report" override="true" />
+  <property name="report_translation_dir" value="translation-report" override="true" />
   <property name="wamp_dir" value="WinInstaller/Files/USVN" override="true" />
 
  <!-- File set -->
@@ -50,6 +51,7 @@
 
     <target name="clean">
         <delete dir="${report_test_dir}" />
+        <delete dir="${report_translation_dir}" />
         <delete dir="tests" />
         <delete>
             <fileset dir=".">
@@ -131,7 +133,8 @@
 
 <target name="translation-status">
     <taskdef name="gettext-status" classname="phing.tasks.TranslationStatusGetTextTask" />
-    <gettext-status localedirectory="www/locale/"/>
+	<mkdir dir="${report_translation_dir}" />
+    <gettext-status localedirectory="www/locale/"  xmloutput="${report_translation_dir}/output.xml"/>
 </target>
 
 <!-- Wamp -->

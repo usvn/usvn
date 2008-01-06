@@ -109,7 +109,7 @@ class Install
 		}
 		catch (Exception $e) {
 			try {
-				USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
+				USVN_Db_Utils::deleteAllTables($db, $prefix);
 			}
 			catch (Exception $e2) {
 			}
@@ -139,7 +139,7 @@ class Install
 			$config->save();
 		}
 		catch (Exception $e) {
-			USVN_Db_Utils::deleteAllTablesPrefixed($db, $prefix);
+			USVN_Db_Utils::deleteAllTables($db, $prefix);
 			$db->closeConnection();
 			throw new USVN_Exception(T_("Can't write config file %s.\n") ." ". $e->getMessage(),  $config_file);
 		}

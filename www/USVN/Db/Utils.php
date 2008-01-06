@@ -52,18 +52,6 @@ class USVN_Db_Utils
 	}
 
 	/**
-	 * Delete all tables from the database.
-	 *
-	 *  Warning this code can do an infinity loop in case of problems.
-	 *
-	 *  @param Zend_Db_Adapter_Abstract Connection to Database
-	 */
-	static public function deleteAllTables($db)
-	{
-		self::deleteAllTablesPrefixed($db, 'usvn_');
-	}
-
-	/**
 	 * Delete all tables from the database matching a prefix.
 	 *
 	 *  Warning this code can do an infinity loop in case of problems.
@@ -71,21 +59,21 @@ class USVN_Db_Utils
 	 *  @param Zend_Db_Adapter_Abstract Connection to Database
 	 *  @param string table prefix
 	 */
-	static public function deleteAllTablesPrefixed($db, $prefix)
+	static public function deleteAllTables($db, $prefix = 'usvn_')
 	{
 		$fnc = create_function('$var', "return !strcmp(substr(\$var, 0, strlen('$prefix')), '$prefix');");
-        $list = $db->listTables();
-        if (count($list)) {
-            $todelete = array_filter($list, $fnc);
-            while (count($todelete)) {
-                $table = array_shift($todelete);
-                try {
-                    $db->query("DROP TABLE $table");
-                }
-                catch (Exception $e) {
-                    array_push($todelete, $table);
-                }
-            }
-        }
+		$list = $db->listTables();
+		if (count($list)) {
+		    $todelete = array_filter($list, $fnc);
+		    while (count($todelete)) {
+			$table = array_shift($todelete);
+			try {
+			    $db->query("DROP TABLE $table");
+			}
+			catch (Exception $e) {
+			    array_push($todelete, $table);
+			}
+		    }
+		}
 	}
 }

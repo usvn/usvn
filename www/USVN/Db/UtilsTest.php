@@ -52,6 +52,7 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 		'username' => 'usvn-test',
 		'password' => 'usvn-test',
 		'dbname'   => 'usvn-test');
+		USVN_Translation::initTranslation('en_US', 'www/locale');
 
 		if (getenv('DB') != "PDO_MYSQL") {
 			$this->markTestSkipped("Test only with PDO_MYSQL");
@@ -116,16 +117,17 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 		groups_id
 	);
 
-	alter table usvn_to_belong add constraint fk_to_belong foreign key (users_id)
+	alter table usvn_to_belong add constraint fk_usvn_to_belong foreign key (users_id)
 	references usvn_users (users_id) on delete restrict on update restrict;
 
-	alter table usvn_to_belong add constraint fk_to_belong2 foreign key (groups_id)
+	alter table usvn_to_belong add constraint fk_usvn_to_belong2 foreign key (groups_id)
 	references usvn_groups (groups_id) on delete restrict on update restrict;
 	");
 	}
 
 	protected function tearDown() {
 		USVN_Db_Utils::deleteAllTables($this->db);
+		USVN_Db_Utils::deleteAllTables($this->db, 'fake_');
 		unlink($this->testfile);
 	}
 

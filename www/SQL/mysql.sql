@@ -124,7 +124,7 @@ create index usvn_users_to_projects2_fk on usvn_users_to_projects
    users_id
 );
 
-alter table usvn_files_rights add constraint fk_to_belong foreign key (projects_id)
+alter table usvn_files_rights add constraint fk_usvn_file_rights foreign key (projects_id)
       references usvn_projects (projects_id) on delete restrict on update restrict;
 
 alter table usvn_groups_to_files_rights add constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id)

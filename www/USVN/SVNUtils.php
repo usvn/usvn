@@ -306,7 +306,12 @@ class USVN_SVNUtils
 		if ($origpath[0] == '/') {
 			return '/' . $newpath;
 		}
-		return $newpath;
+		if(strtoupper(substr(PHP_OS, 0,3)) == 'WIN' ) {
+			return $newpath;
+		}
+		else {
+			return getcwd() . '/' . $newpath;
+		}
 	}
 
 	/**

@@ -306,7 +306,7 @@ class USVN_SVNUtils
 		if ($origpath[0] == '/') {
 			return '/' . $newpath;
 		}
-		return getcwd() . '/' . $newpath;
+		return $newpath;
 	}
 
 	/**

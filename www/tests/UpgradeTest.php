@@ -100,11 +100,11 @@ class USVN_UpgradeTest extends USVN_Test_DB {
     private function run_upgrade()
     {
 		if (getenv('DB') == "PDO_SQLITE" || getenv('DB') === false) {
-			Sqlite_queries($this->db);
-			Sqlite_queries_07RC3($this->db);
+			Sqlite_queries("usvn_", $this->db);
+			Sqlite_queries_07RC3("usvn_", $this->db);
 		}
 		else if (getenv('DB') == "PDO_MYSQL" || getenv('DB') === "MYSQLI") {
-			Mysql_queries($this->db);
+			Mysql_queries("usvn_", $this->db);
 		}
 		$this->struct_after_upgrade = new USVN_Database_struct($this->db);
     }

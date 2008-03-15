@@ -15,61 +15,61 @@ function connection ($config)
 	return $db;
 }
 
-function Sqlite_queries($db)
+function Sqlite_queries($prefix, $db)
 {
-	$db->query("ALTER TABLE usvn_users_to_groups RENAME TO tmp");
+	$db->query("ALTER TABLE " . $prefix . "users_to_groups RENAME TO tmp");
 	$db->query("UPDATE tmp set is_leader = 0 WHERE is_leader IS NULL");
-	$db->query("CREATE TABLE usvn_users_to_groups
+	$db->query("CREATE TABLE " . $prefix . "users_to_groups
 	(
 		users_id integer not null,
 		groups_id integer not null,
 		is_leader bool not null,
-		constraint fk_usvn_users_to_groups foreign key (users_id) references usvn_users (users_id) on delete restrict on update restrict,
-		constraint fk_usvn_users_to_groups2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
+		constraint fk_" . $prefix . "users_to_groups foreign key (users_id) references " . $prefix . "users (users_id) on delete restrict on update restrict,
+		constraint fk_" . $prefix . "users_to_groups2 foreign key (groups_id) references " . $prefix . "groups (groups_id) on delete restrict on update restrict
 	);
 	");
-	$db->query("INSERT INTO usvn_users_to_groups select users_id,groups_id,is_leader from tmp");
+	$db->query("INSERT INTO " . $prefix . "users_to_groups select users_id,groups_id,is_leader from tmp");
 	$db->query("DROP TABLE tmp");
 
 
-	$db->query("ALTER TABLE usvn_groups_to_files_rights RENAME TO tmp");
-	$db->query("create table usvn_groups_to_files_rights
+	$db->query("ALTER TABLE " . $prefix . "groups_to_files_rights RENAME TO tmp");
+	$db->query("create table " . $prefix . "groups_to_files_rights
 	(
 	   files_rights_id integer not null,
 	   groups_id integer not null,
 	   files_rights_is_readable bool not null,
 	   files_rights_is_writable  bool not null,
-		constraint fk_usvn_groups_to_files_rights foreign key (files_rights_id) references usvn_files_rights (files_rights_id) on delete restrict on update restrict,
-		constraint fk_usvn_groups_to_files_rights2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
+		constraint fk_" . $prefix . "groups_to_files_rights foreign key (files_rights_id) references " . $prefix . "files_rights (files_rights_id) on delete restrict on update restrict,
+		constraint fk_" . $prefix . "groups_to_files_rights2 foreign key (groups_id) references " . $prefix . "groups (groups_id) on delete restrict on update restrict
 	)");
-	$db->query("INSERT INTO usvn_groups_to_files_rights select files_rights_id, groups_id, files_rights_is_readable, files_rights_is_writable from tmp");
+	$db->query("INSERT INTO " . $prefix . "groups_to_files_rights select files_rights_id, groups_id, files_rights_is_readable, files_rights_is_writable from tmp");
 	$db->query("DROP TABLE tmp");
 
-	$db->query("ALTER TABLE usvn_groups_to_projects RENAME TO tmp");
-	$db->query("CREATE TABLE usvn_groups_to_projects
+	$db->query("ALTER TABLE " . $prefix . "groups_to_projects RENAME TO tmp");
+	$db->query("CREATE TABLE " . $prefix . "groups_to_projects
 	(
 		groups_id integer not null,
 		projects_id integer not null,
-		constraint fk_usvn_groups_to_projects foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict,
-		constraint fk_usvn_groups_to_projects2 foreign key (projects_id) references usvn_projects (projects_id) on delete restrict on update restrict
+		constraint fk_" . $prefix . "groups_to_projects foreign key (groups_id) references " . $prefix . "groups (groups_id) on delete restrict on update restrict,
+		constraint fk_" . $prefix . "groups_to_projects2 foreign key (projects_id) references " . $prefix . "projects (projects_id) on delete restrict on update restrict
 	);");
-	$db->query("INSERT INTO usvn_groups_to_projects select groups_id, projects_id from tmp");
+	$db->query("INSERT INTO " . $prefix . "groups_to_projects select groups_id, projects_id from tmp");
 	$db->query("DROP TABLE tmp");
 
-	$db->query("ALTER TABLE usvn_files_rights RENAME TO tmp");
-	$db->query("CREATE TABLE usvn_files_rights
+	$db->query("ALTER TABLE " . $prefix . "files_rights RENAME TO tmp");
+	$db->query("CREATE TABLE " . $prefix . "files_rights
 	(
 		projects_id integer not null,
 		files_rights_path text,
 		files_rights_id integer primary key autoincrement,
-		constraint fk_to_belong foreign key (projects_id) references usvn_projects (projects_id) on delete restrict on update restrict
+		constraint fk_to_belong foreign key (projects_id) references " . $prefix . "projects (projects_id) on delete restrict on update restrict
 	);");
-	$db->query("INSERT INTO usvn_files_rights select projects_id,files_rights_path,files_rights_id from tmp");
+	$db->query("INSERT INTO " . $prefix . "files_rights select projects_id,files_rights_path,files_rights_id from tmp");
 	$db->query("DROP TABLE tmp");
 
-	$db->query("ALTER TABLE usvn_users RENAME TO tmp");
+	$db->query("ALTER TABLE " . $prefix . "users RENAME TO tmp");
 	$db->query("
-		CREATE TABLE usvn_users
+		CREATE TABLE " . $prefix . "users
 			(
 				users_login varchar(255) not null,
 				users_password varchar(64) not null,
@@ -82,12 +82,12 @@ function Sqlite_queries($db)
 			);
 	");
 	$db->query("UPDATE tmp set users_is_admin = 0 WHERE users_is_admin IS NULL");
-	$db->query("INSERT INTO usvn_users (users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id) SELECT users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id FROM tmp");
+	$db->query("INSERT INTO " . $prefix . "users (users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id) SELECT users_login, users_password, users_lastname, users_firstname, users_email, users_is_admin, users_id FROM tmp");
 	$db->query("DROP TABLE tmp");
 
-	$db->query("ALTER TABLE usvn_projects RENAME TO tmp");
+	$db->query("ALTER TABLE " . $prefix . "projects RENAME TO tmp");
 	$db->query("
-	CREATE TABLE usvn_projects
+	CREATE TABLE " . $prefix . "projects
 	(
 		projects_name varchar(255) not null,
 		projects_start_date datetime not null,
@@ -95,20 +95,20 @@ function Sqlite_queries($db)
 		projects_id integer primary key autoincrement
 	);");
 	$db->query("
-		INSERT INTO usvn_projects (projects_name, projects_start_date, projects_description, projects_id)
+		INSERT INTO " . $prefix . "projects (projects_name, projects_start_date, projects_description, projects_id)
 		SELECT projects_name, projects_start_date, projects_description, projects_id FROM tmp");
 	$db->query("DROP TABLE tmp");
 }
 
 
-function Mysql_queries ($db)
+function Mysql_queries ($prefix, $db)
 {
-	$db->query("UPDATE usvn_users_to_groups set is_leader = 0 WHERE is_leader IS NULL");
-	$db->query("ALTER TABLE usvn_users_to_groups MODIFY is_leader bool not null");
-	$db->query("ALTER TABLE usvn_groups_to_files_rights MODIFY files_rights_is_readable bool not null");
-	$db->query("ALTER TABLE usvn_groups_to_files_rights MODIFY files_rights_is_writable bool not null");
-	$db->query("ALTER TABLE usvn_users MODIFY users_is_admin bool not null");
-	$db->query("ALTER TABLE usvn_users ADD users_secret_id VARCHAR( 32 ) NOT NULL");
+	$db->query("UPDATE " . $prefix . "users_to_groups set is_leader = 0 WHERE is_leader IS NULL");
+	$db->query("ALTER TABLE " . $prefix . "users_to_groups MODIFY is_leader bool not null");
+	$db->query("ALTER TABLE " . $prefix . "groups_to_files_rights MODIFY files_rights_is_readable bool not null");
+	$db->query("ALTER TABLE " . $prefix . "groups_to_files_rights MODIFY files_rights_is_writable bool not null");
+	$db->query("ALTER TABLE " . $prefix . "users MODIFY users_is_admin bool not null");
+	$db->query("ALTER TABLE " . $prefix . "users ADD users_secret_id VARCHAR( 32 ) NOT NULL");
 }
 
 function upgrade_sql($config)
@@ -118,10 +118,10 @@ function upgrade_sql($config)
 	$tableau = file($Fnm);
 	if (file_exists($Fnm)) {
 		if ($config->database->adapterName == "PDO_SQLITE") {
-			Sqlite_queries($db);
+			Sqlite_queries($config->database->prefix, $db);
 		}
 		else {
-			Mysql_queries($db);
+			Mysql_queries($config->database->prefix, $db);
 		}
 		Zend_Registry::set('config', $config);
 		$user = new USVN_Db_Table_Users();

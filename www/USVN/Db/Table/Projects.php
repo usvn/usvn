@@ -232,9 +232,9 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		$select->order("projects_name");
 
 		// return the results
-		$stmt = $this->_db->query($select);
-		$data2 = $stmt->fetchAll(Zend_Db::FETCH_ASSOC);
-
+		$stmt2 = $this->_db->query($select);
+		$data2 = $stmt2->fetchAll(Zend_Db::FETCH_ASSOC);
+		
 		//merge results
 		$merged_data = array_merge($data, $data2);
 

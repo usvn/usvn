@@ -155,7 +155,14 @@ class UseradminController extends AdminadminController
 
 	public function importFileAction()
 	{
-		new USVN_ImportHtpasswd($_FILES['file']['tmp_name']);
+		try {
+			new USVN_ImportHtpasswd($_FILES['file']['tmp_name']);
+		}
+		catch (USVN_Exception $e) {
+			$this->view->message = $e->getMessage();
+			$this->render('import');
+			return;
+		}	
 		$this->_redirect('/admin/user');
 	}
 }

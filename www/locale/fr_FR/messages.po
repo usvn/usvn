@@ -2,16 +2,16 @@
 # Copyright (C) 2007 USVN Team
 # This file is distributed under the Cecill licence (http://cecill.info)
 #
-# Julien Duponchelle <julien@duponchelle.info>, 2007.
+# Julien Duponchelle <julien@duponchelle.info>, 2007, 2008.
 # Translator:
 msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2007-12-11 11:55+0100\n"
-"Last-Translator: Julien Duponchelle\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2008-06-01 20:02+0200\n"
+"Last-Translator: Julien Duponchelle <julien@duponchelle.info>\n"
+"Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -157,7 +157,7 @@ msgstr "Impossible d'ouvrir le fichier %s."
 
 #: ../../../www//USVN/Menu.php:97
 msgid "Sign in"
-msgstr "Connection"
+msgstr "Connexion"
 
 #: ../../../www//USVN/Menu.php:130
 msgid "Edit my profile"
@@ -174,8 +174,7 @@ msgstr "Déconnexion"
 #: ../../../www//USVN/DirectoryUtils.php:31
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr ""
-"Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
+msgstr "Impossible de supprimer le dossier %s. Vous n'avez pas les permissions."
 
 #: ../../../www//USVN/DirectoryUtils.php:50
 #, php-format
@@ -581,8 +580,7 @@ msgstr "Ajoutez moi comme administrateur du projet:"
 
 #: ../../../www//views/projectadmin/form.phtml:38
 msgid "Create SVN standard directories (/trunk, /branches and /tags):"
-msgstr ""
-"Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
+msgstr "Créer les répertoires standards de Subversion  (/trunk, /branches et /tags):"
 
 #: ../../../www//views/browser/index.phtml:133
 msgid "Acces rights for"
@@ -611,8 +609,7 @@ msgstr "Gestion du groupe"
 
 #: ../../../www//views/login/login.phtml:5
 msgid "Please enter your login and your password to connect to USVN."
-msgstr ""
-"Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
+msgstr "Entrez votre identifiant et votre mot de passe pour vous connecter à USVN."
 
 #: ../../../www//views/login/login.phtml:11
 msgid "Authentification"
@@ -934,8 +931,7 @@ msgid "Configure USVN"
 msgstr "Configurer USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
+msgid "Settings of general configuration of USVN. You can keep default settings."
 msgstr "Configuration de USVN. Vous pouvez garder les réglages par défaut."
 
 #: ../../../www//install/views/step4.html:12
@@ -1004,7 +1000,7 @@ msgstr ""
 
 #: ../../../www//install/views/step8.html:18
 msgid "Connect to USVN"
-msgstr "Connection à USVN"
+msgstr "Connexion à USVN"
 
 #: ../../../www//install/views/head.html:201
 msgid "USVN installation"
@@ -1184,8 +1180,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN ne peut pas être utilisé avec le safe mode de PHP."
 
 #: ../../../www//install/Install.php:445
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 "Subversion n'est pas installé sur votre système. Si vous êtes sous Windows "
 "installez "
@@ -1217,3 +1212,4 @@ msgstr "Editer"
 #: ../../../www//helpers/HomeLink.php:34
 msgid "Home"
 msgstr "Page d'accueil"
+

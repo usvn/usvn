@@ -134,14 +134,16 @@ class USVN_FilesAccessRights
 			$filesRightsId[] = $filesRights->id;
 		}
 
-		$table = new USVN_Db_Table_GroupsToFilesRights();
-		$where  = $table->getAdapter()->quoteInto("files_rights_id IN (?) ", $filesRightsId);
-		$where .= $table->getAdapter()->quoteInto("and groups_id = ? ", $group_id);
-		$table->delete($where);
-
-		$where  = $table->getAdapter()->quoteInto("files_rights_id IN (?) ", $filesRightsId);
-		if (count($table->fetchAll($where)) == 0) {
-			$tableFilesRights->delete($whereFilesRights);
+		if (count($filesRightsId) > 0) { 
+			$table = new USVN_Db_Table_GroupsToFilesRights();
+			$where  = $table->getAdapter()->quoteInto("files_rights_id IN (?) ", $filesRightsId);
+			$where .= $table->getAdapter()->quoteInto("and groups_id = ? ", $group_id);
+			$table->delete($where);
+	
+			$where  = $table->getAdapter()->quoteInto("files_rights_id IN (?) ", $filesRightsId);
+			if (count($table->fetchAll($where)) == 0) {
+				$tableFilesRights->delete($whereFilesRights);
+			}
 		}
 	}
 }

@@ -50,29 +50,30 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 
     public function setUp()
     {
-    	parent::setUp();
+	parent::setUp();
 
-		$table = new USVN_Db_Table_Users();
-		$this->_user = $table->fetchNew();
-		$this->_user->setFromArray(array('users_login' 	=> 'test',
-																'users_password' 	=> 'password',
-																'users_firstname' 	=> 'firstname',
-																'users_lastname' 	=> 'lastname',
-																'users_email' 		=> 'email@email.fr'));
-		$this->_user->save();
+	$table = new USVN_Db_Table_Users();
+	$this->_user = $table->fetchNew();
+	$this->_user->setFromArray(array(
+		'users_login' 	=> 'test',
+		'users_password' 	=> 'password',
+		'users_firstname' 	=> 'firstname',
+		'users_lastname' 	=> 'lastname',
+		'users_email' 		=> 'email@email.fr'));
+	$this->_user->save();
 
-		$this->_projectid1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false, true)->id;
-		$this->_projectid2 = USVN_Project::createProject(array('projects_name'  => "project2"), "test", true, false, false, true)->id;
+	$this->_projectid1 = USVN_Project::createProject(array('projects_name'  => "project1"), "test", true, false, false, true)->id;
+	$this->_projectid2 = USVN_Project::createProject(array('projects_name'  => "project2"), "test", true, false, false, true)->id;
 
-		$group_table = new USVN_Db_Table_Groups();
-		$group = $group_table->fetchNew();
-		$group->setFromArray(array("groups_name" => "toto"));
-		$this->_groupid1 = $group->save();
+	$group_table = new USVN_Db_Table_Groups();
+	$group = $group_table->fetchNew();
+	$group->setFromArray(array("groups_name" => "toto"));
+	$this->_groupid1 = $group->save();
 
-		$group_table = new USVN_Db_Table_Groups();
-		$group = $group_table->fetchNew();
-		$group->setFromArray(array("groups_name" => "titi"));
-		$this->_groupid2 = $group->save();
+	$group_table = new USVN_Db_Table_Groups();
+	$group = $group_table->fetchNew();
+	$group->setFromArray(array("groups_name" => "titi"));
+	$this->_groupid2 = $group->save();
     }
 
     public function test_findByPath()
@@ -158,7 +159,7 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     	$this->assertTrue($rights['write']);
     }
 
-    public function test_findByPathInheritsTowGroups()
+    public function test_findByPathInheritsTwoGroups()
     {
     	$file_right = new USVN_FilesAccessRights($this->_projectid1);
     	$file_right->setRightByPath($this->_groupid1, "/", true, true);
@@ -203,7 +204,7 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     	$this->assertTrue($rights['write']);
     }
 
-    public function test_findByPathTowGroupsNoRightsOnSlash()
+    public function test_findByPathTwoGroupsNoRightsOnSlash()
     {
     	$file_right = new USVN_FilesAccessRights($this->_projectid1);
     	$file_right->setRightByPath($this->_groupid1, "/tags", true, false);
@@ -231,8 +232,8 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
     	$this->assertFalse($rights['write']);
     }
 
-    public function test_findByPathError()
-    {
+	public function test_findByPathError()
+	{
     	$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
 		try {
 			$rights = $file_rights1->findByPath($this->_groupid1, '');
@@ -247,29 +248,40 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 	{
 		$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
 		$file_rights1->setRightByPath($this->_groupid1, '/trunk', true, false, false);
-    	$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
-    	$this->assertTrue($rights['read']);
-    	$this->assertFalse($rights['write']);
+		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
+		$this->assertTrue($rights['read']);
+		$this->assertFalse($rights['write']);
 
 		$file_rights1->setRightByPath($this->_groupid2, '/trunk', true, true, false);
-    	$rights = $file_rights1->findByPath($this->_groupid2, '/trunk');
-    	$this->assertTrue($rights['read']);
-    	$this->assertTrue($rights['write']);
+		$rights = $file_rights1->findByPath($this->_groupid2, '/trunk');
+		$this->assertTrue($rights['read']);
+		$this->assertTrue($rights['write']);
 
 		$file_rights1->setRightByPath($this->_groupid1, '/trunk', true, true, false);
-    	$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
-    	$this->assertTrue($rights['read']);
-    	$this->assertTrue($rights['write']);
+		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
+		$this->assertTrue($rights['read']);
+		$this->assertTrue($rights['write']);
+	}
 
-    	$file_rights1->setRightByPath($this->_groupid1, '/', true, false, true);
-    	$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
-    	$this->assertTrue($rights['read']);
-    	$this->assertFalse($rights['write']);
+	public function test_setRightByPathRecursive()
+	{
+		$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
+		$file_rights1->setRightByPath($this->_groupid1, '/', true, false, true);
+		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk');
+		$this->assertTrue($rights['read']);
+		$this->assertFalse($rights['write']);
 
-	   	$file_rights1->setRightByPath($this->_groupid2, '/', true, false, true);
-    	$rights = $file_rights1->findByPath($this->_groupid2, '/trunk');
-    	$this->assertTrue($rights['read']);
-    	$this->assertFalse($rights['write']);
+		$file_rights1->setRightByPath($this->_groupid2, '/', true, false, true);
+		$rights = $file_rights1->findByPath($this->_groupid2, '/trunk');
+		$this->assertTrue($rights['read']);
+		$this->assertFalse($rights['write']);
+
+		// Test for bug #668
+		$file_rights1 = new USVN_FilesAccessRights($this->_projectid1);
+		$file_rights1->setRightByPath($this->_groupid1, '/trunk/test', true, false, true);
+		$rights = $file_rights1->findByPath($this->_groupid1, '/trunk/test');
+		$this->assertTrue($rights['read']);
+		$this->assertFalse($rights['write']);
 	}
 
 	public function test_setRightByPathDoubleSlash()
@@ -278,14 +290,14 @@ class USVN_FilesAccesRightsTest extends USVN_Test_DB {
 		$file_rights1->setRightByPath($this->_groupid2, '/trunk/', true, true);
 		$file_rights1->setRightByPath($this->_groupid2, '//trunk/', false, false);
 		$rights = $file_rights1->findByPath($this->_groupid2, '/trunk');
-    	$this->assertFalse($rights['read']);
-    	$this->assertFalse($rights['write']);
+		$this->assertFalse($rights['read']);
+		$this->assertFalse($rights['write']);
 
-    	$file_rights1->setRightByPath($this->_groupid2, '/test/toto/', true, true);
+		$file_rights1->setRightByPath($this->_groupid2, '/test/toto/', true, true);
 		$file_rights1->setRightByPath($this->_groupid2, '//test/toto', false, false);
 		$rights = $file_rights1->findByPath($this->_groupid2, '/test/toto');
-    	$this->assertFalse($rights['read']);
-    	$this->assertFalse($rights['write']);
+		$this->assertFalse($rights['read']);
+		$this->assertFalse($rights['write']);
 	}
 }
 

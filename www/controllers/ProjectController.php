@@ -53,6 +53,7 @@ class ProjectController extends USVN_Controller
 		$this->view->isAdmin = $this->isAdmin();
 
 		$user = $this->getRequest()->getParam('user');
+		$this->view->user = $user;
 		$this->view->secret_id = $user->secret_id;
 		/* @var $user USVN_Db_Table_Row_User */
 		$groups = $user->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_UsersToGroups");

@@ -68,14 +68,9 @@ class GroupControllerTest extends USVN_Test_Controller {
 
 	public function test_DisplayGroupNotAdminNotGroupMember()
 	{
-		try {
-			$this->request->setParam('group', 'Indochine');
-			$this->runAction('index');
-		}
-		catch (USVN_Exception $e) {
-			return;
-		}
-		$this->fail();
+		$this->request->setParam('group', 'Indochine');
+		$this->runAction('index');
+		$this->assertContains(T_("Access denied."), $this->getBody());
 	}
 
 

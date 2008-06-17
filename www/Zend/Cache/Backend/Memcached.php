@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,42 +14,45 @@
  *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Backend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Backend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 
 /**
- * Zend_Cache_Backend_Interface
+ * @see Zend_Cache_Backend_Interface
  */
 require_once 'Zend/Cache/Backend/Interface.php';
 
 /**
- * Zend_Cache_Backend
+ * @see Zend_Cache_Backend
  */
 require_once 'Zend/Cache/Backend.php';
 
 
 /**
  * @package    Zend_Cache
- * @subpackage Backend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Backend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
 {
-
-    // -----------------
-    // --- Constants ---
-    // -----------------
+    /**
+     * Default Host IP Address or DNS
+     */
     const DEFAULT_HOST       = '127.0.0.1';
-    const DEFAULT_PORT       = 11211;
-    const DEFAULT_PERSISTENT = true;
 
-    // ------------------
-    // --- Properties ---
-    // ------------------
+    /**
+     * Default port
+     */
+    const DEFAULT_PORT       = 11211;
+
+    /**
+     * Persistent
+     */
+    const DEFAULT_PERSISTENT = true;
 
     /**
      * Available options
@@ -82,15 +84,12 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      */
     private $_memcache = null;
 
-
-    // ----------------------
-    // --- Public methods ---
-    // ----------------------
-
     /**
      * Constructor
      *
      * @param array $options associative array of options
+     * @throws Zend_Cache_Exception
+     * @return void
      */
     public function __construct($options = array())
     {
@@ -121,9 +120,9 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
     /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
-     * @param string $id cache id
-     * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
-     * @return string cached datas (or false)
+     * @param  string  $id                     Cache id
+     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @return string|false cached datas
      */
     public function load($id, $doNotTestCacheValidity = false)
     {
@@ -141,8 +140,8 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
     /**
      * Test if a cache is available or not (for the given id)
      *
-     * @param string $id cache id
-     * @return mixed false (a cache is not available) or "last modified" timestamp (int) of the available cache record
+     * @param  string $id Cache id
+     * @return mixed|false (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
     public function test($id)
     {
@@ -159,11 +158,11 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * Note : $data is always "string" (serialization is done by the
      * core not by the backend)
      *
-     * @param string $data datas to cache
-     * @param string $id cache id
-     * @param array $tags array of strings, the cache record will be tagged by each string entry
-     * @param int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @return boolean true if no problem
+     * @param  string $data             Datas to cache
+     * @param  string $id               Cache id
+     * @param  array  $tags             Array of strings, the cache record will be tagged by each string entry
+     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return boolean True if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
@@ -183,8 +182,8 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
     /**
      * Remove a cache record
      *
-     * @param string $id cache id
-     * @return boolean true if no problem
+     * @param  string $id Cache id
+     * @return boolean True if no problem
      */
     public function remove($id)
     {
@@ -202,9 +201,9 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * 'notMatchingTag' => remove cache entries not matching one of the given tags
      *                     ($tags can be an array of strings or a single string)
      *
-     * @param string $mode clean mode
-     * @param tags array $tags array of tags
-     * @return boolean true if no problem
+     * @param  string $mode Clean mode
+     * @param  array  $tags Array of tags
+     * @return boolean True if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {

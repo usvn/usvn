@@ -33,7 +33,7 @@
 		</label>
 		<select name="timezone" id="timezone">
 			<?php
-				$timezones = Zend_Locale_Data::getContent("en", "timezonestandard");
+				$timezones = Zend_Locale_Data::getList("en", "WindowsToTimezone");
 				ksort($timezones);
 				foreach ($timezones as $timezone => $display) {
 					$selected = "";

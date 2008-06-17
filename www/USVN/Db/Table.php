@@ -92,12 +92,15 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
 	/**
 	 * Returns table information.
 	 *
+	 * @param  $key The specific info part to return OPTIONAL
 	 * @return array
 	 */
-	public function info()
+	public function info($key = null)
 	{
-		$info = parent::info();
-		$info = array_merge($info, array("fieldPrefix" => $this->_fieldPrefix));
+		$info = parent::info($key);
+		if ($key === null) {
+			$info = array_merge($info, array("fieldPrefix" => $this->_fieldPrefix));
+		}
 		return $info;
 	}
 

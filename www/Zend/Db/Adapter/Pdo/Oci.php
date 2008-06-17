@@ -15,19 +15,17 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Oci.php 9136 2008-04-04 13:58:29Z thomas $
  */
 
+
 /**
- * Zend_Db_Adapter_Pdo
+ * @see Zend_Db_Adapter_Pdo_Abstract
  */
 require_once 'Zend/Db/Adapter/Pdo/Abstract.php';
 
-/**
- * Zend_Db_Adapter_Exception
- */
-require_once 'Zend/Db/Adapter/Exception.php';
 
 /**
  * Class for connecting to Oracle databases and performing common operations.
@@ -35,7 +33,7 @@ require_once 'Zend/Db/Adapter/Exception.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
@@ -78,20 +76,22 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
         // baseline of DSN parts
         $dsn = $this->_config;
 
-        $tns = 'dbname=';
+        $tns = 'dbname=(DESCRIPTION=';
         if (isset($dsn['host'])) {
-            $tns .= '//' . $dsn['host'];
+            $tns .= '(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=' . $dsn['host'] . ')';
             if (isset($dsn['port'])) {
-                $tns .= ':' . $dsn['port'];
+                $tns .= '(PORT=' . $dsn['port'] . ')';
+            } else {
+                $tns .= '(PORT=1521)';
             }
-            $tns .= '/';
+            $tns .= '))';
         }
-        $tns .= $dsn['dbname'];
+        $tns .= '(CONNECT_DATA=(SID=' . $dsn['dbname'] . ')))';
 
         if (isset($dsn['charset']))
         {
             $tns .= ';charset=' . $dsn['charset'];
-        }       
+        }
 
         return $this->_pdoType . ':' . $tns;
     }
@@ -301,17 +301,22 @@ class Zend_Db_Adapter_Pdo_Oci extends Zend_Db_Adapter_Pdo_Abstract
      * @param string $sql
      * @param integer $count
      * @param integer $offset
+     * @throws Zend_Db_Adapter_Exception
      * @return string
      */
     public function limit($sql, $count, $offset = 0)
     {
         $count = intval($count);
         if ($count <= 0) {
+            /** @see Zend_Db_Adapter_Exception */
+            require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument count=$count is not valid");
         }
 
         $offset = intval($offset);
         if ($offset < 0) {
+            /** @see Zend_Db_Adapter_Exception */
+            require_once 'Zend/Db/Adapter/Exception.php';
             throw new Zend_Db_Adapter_Exception("LIMIT argument offset=$offset is not valid");
         }
 

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,9 +24,6 @@ require_once 'Zend/Loader.php';
 
 /** Zend_Controller_Action_HelperBroker */
 require_once 'Zend/Controller/Action/HelperBroker.php';
-
-/** Zend_Controller_Action_Helper_ViewRenderer */
-require_once 'Zend/Controller/Action/Helper/ViewRenderer.php';
 
 /** Zend_Controller_Exception */
 require_once 'Zend/Controller/Exception.php';
@@ -43,16 +40,13 @@ require_once 'Zend/Controller/Router/Interface.php';
 /** Zend_Controller_Dispatcher_Interface */
 require_once 'Zend/Controller/Dispatcher/Interface.php';
 
-/** Zend_Controller_Plugin_ErrorHandler */
-require_once 'Zend/Controller/Plugin/ErrorHandler.php';
-
 /** Zend_Controller_Response_Abstract */
 require_once 'Zend/Controller/Response/Abstract.php';
 
 /**
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Front
@@ -147,9 +141,18 @@ class Zend_Controller_Front
      *
      * @return void
      */
-    private function __construct()
+    protected function __construct()
     {
         $this->_plugins = new Zend_Controller_Plugin_Broker();
+    }
+
+    /**
+     * Enforce singleton; disallow cloning 
+     * 
+     * @return void
+     */
+    private function __clone()
+    {
     }
 
     /**
@@ -200,10 +203,6 @@ class Zend_Controller_Front
                     break;
             }
         }
-
-        if (!Zend_Controller_Action_HelperBroker::hasHelper('viewRenderer')) {
-            Zend_Controller_Action_HelperBroker::addHelper(new Zend_Controller_Action_Helper_ViewRenderer());
-        }
     }
 
     /**
@@ -231,25 +230,20 @@ class Zend_Controller_Front
      * to the directory specified.
      *
      * @param string $directory
-     * @param string $module Optional argument; module with which to associate directory. If none provided, assumes 'defualt'
+     * @param string $module Optional argument; module with which to associate directory. If none provided, assumes 'default'
      * @return Zend_Controller_Front
      * @throws Zend_Controller_Exception if directory not found or readable
      */
     public function addControllerDirectory($directory, $module = null)
     {
-        if (empty($module) || is_numeric($module) || !is_string($module)) {
-            $module = $this->getDispatcher()->getDefaultModule();
-        }
-
-        $this->_controllerDir[$module] = rtrim((string) $directory, '/\\');
-
+        $this->getDispatcher()->addControllerDirectory($directory, $module);
         return $this;
     }
 
     /**
      * Set controller directory
      *
-     * Stores controller directory to pass to dispatcher. May be an array of
+     * Stores controller directory(ies) in dispatcher. May be an array of
      * directories or a string containing a single directory.
      *
      * @param string|array $directory Path to Zend_Controller_Action controller
@@ -259,18 +253,7 @@ class Zend_Controller_Front
      */
     public function setControllerDirectory($directory, $module = null)
     {
-        $this->_controllerDir = array();
-
-        if (is_string($directory)) {
-            $this->addControllerDirectory($directory, $module);
-        } elseif (is_array($directory)) {
-            foreach ((array) $directory as $module => $path) {
-                $this->addControllerDirectory($path, $module);
-            }
-        } else {
-            throw new Zend_Controller_Exception('Controller directory spec must be either a string or an array');
-        }
-
+        $this->getDispatcher()->setControllerDirectory($directory, $module);
         return $this;
     }
 
@@ -287,16 +270,18 @@ class Zend_Controller_Front
      */
     public function getControllerDirectory($name = null)
     {
-        if (null === $name) {
-            return $this->_controllerDir;
-        }
+        return $this->getDispatcher()->getControllerDirectory($name);
+    }
 
-        $name = (string) $name;
-        if (isset($this->_controllerDir[$name])) {
-            return $this->_controllerDir[$name];
-        }
-
-        return null;
+    /**
+     * Remove a controller directory by module name 
+     * 
+     * @param  string $module 
+     * @return bool
+     */
+    public function removeControllerDirectory($module)
+    {
+        return $this->getDispatcher()->removeControllerDirectory($module);
     }
 
     /**
@@ -311,7 +296,11 @@ class Zend_Controller_Front
      */
     public function addModuleDirectory($path)
     {
-        $dir = new DirectoryIterator($path);
+        try{
+            $dir = new DirectoryIterator($path);
+        }catch(Exception $e){
+            throw new Zend_Controller_Exception("Directory $path not readable");
+        }
         foreach ($dir as $file) {
             if ($file->isDot() || !$file->isDir()) {
                 continue;
@@ -492,7 +481,7 @@ class Zend_Controller_Front
      *
      * Instantiates a Zend_Controller_Router_Rewrite object if no router currently set.
      *
-     * @return null|Zend_Controller_Router_Interface
+     * @return Zend_Controller_Router_Interface
      */
     public function getRouter()
     {
@@ -532,6 +521,10 @@ class Zend_Controller_Front
 
         $this->_baseUrl = $base;
 
+        if ((null !== ($request = $this->getRequest())) && (method_exists($request, 'setBaseUrl'))) {
+            $request->setBaseUrl($base);
+        }
+
         return $this;
     }
 
@@ -542,6 +535,11 @@ class Zend_Controller_Front
      */
     public function getBaseUrl()
     {
+        $request = $this->getRequest();
+        if ((null !== $request) && method_exists($request, 'getBaseUrl')) {
+            return $request->getBaseUrl();
+        }
+
         return $this->_baseUrl;
     }
 
@@ -749,22 +747,25 @@ class Zend_Controller_Front
     }
 
     /**
+     * Set the throwExceptions flag and retrieve current status
+     *
      * Set whether exceptions encounted in the dispatch loop should be thrown
-     * or caught and trapped in the response object
+     * or caught and trapped in the response object.
      *
      * Default behaviour is to trap them in the response object; call this
      * method to have them thrown.
      *
-     * @param boolean $flag Defaults to true
+     * Passing no value will return the current value of the flag; passing a 
+     * boolean true or false value will set the flag and return the current 
+     * object instance.
+     *
+     * @param boolean $flag Defaults to null (return flag state)
      * @return boolean|Zend_Controller_Front Used as a setter, returns object; as a getter, returns boolean
      */
     public function throwExceptions($flag = null)
     {
-        if (true === $flag) {
-            $this->_throwExceptions = true;
-            return $this;
-        } elseif (false === $flag) {
-            $this->_throwExceptions = false;
+        if ($flag !== null) {
+            $this->_throwExceptions = (bool) $flag;
             return $this;
         }
 
@@ -803,10 +804,12 @@ class Zend_Controller_Front
     {
         if (!$this->getParam('noErrorHandler') && !$this->_plugins->hasPlugin('Zend_Controller_Plugin_ErrorHandler')) {
             // Register with stack index of 100
+            require_once 'Zend/Controller/Plugin/ErrorHandler.php';
             $this->_plugins->registerPlugin(new Zend_Controller_Plugin_ErrorHandler(), 100);
         }
 
         if (!$this->getParam('noViewRenderer') && !Zend_Controller_Action_HelperBroker::hasHelper('viewRenderer')) {
+            require_once 'Zend/Controller/Action/Helper/ViewRenderer.php';
             Zend_Controller_Action_HelperBroker::addHelper(new Zend_Controller_Action_Helper_ViewRenderer());
         }
 
@@ -825,8 +828,8 @@ class Zend_Controller_Front
          * Set base URL of request object, if available
          */
         if (is_callable(array($this->_request, 'setBaseUrl'))) {
-            if (null !== ($baseUrl = $this->getBaseUrl())) {
-                $this->_request->setBaseUrl($baseUrl);
+            if (null !== $this->_baseUrl) {
+                $this->_request->setBaseUrl($this->_baseUrl);
             }
         }
 

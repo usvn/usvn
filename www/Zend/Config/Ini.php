@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ini.php 4532 2007-04-18 16:52:34Z darby $
+ * @version    $Id: Ini.php 8988 2008-03-21 22:55:57Z rob $
  */
 
 
@@ -30,7 +29,7 @@ require_once 'Zend/Config.php';
 /**
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config_Ini extends Zend_Config
@@ -46,10 +45,12 @@ class Zend_Config_Ini extends Zend_Config
      * Loads the section $section from the config file $filename for
      * access facilitated by nested object properties.
      *
-     * If any keys with $section are called "extends", then the section
-     * pointed to by the "extends" is then included into the properties.
-     * Note that the keys in $section will override any keys of the same
-     * name in the sections that have been included via "extends".
+     * If the section name contains a ":" then the section name to the right
+     * is loaded and included into the properties. Note that the keys in
+     * this $section will override any keys of the same
+     * name in the sections that have been included via ":".
+     *
+     * If the $section is null, then all sections in the ini file are loaded.
      *
      * If any key includes a ".", then this will act as a separator to
      * create a sub-property.
@@ -59,43 +60,48 @@ class Zend_Config_Ini extends Zend_Config
      *      db.connection = database
      *      hostname = live
      *
-     *      [staging]
-     *      extends = all
+     *      [staging : all]
      *      hostname = staging
      *
      * after calling $data = new Zend_Config_Ini($file, 'staging'); then
      *      $data->hostname === "staging"
      *      $data->db->connection === "database"
      *
-     * The $config parameter may be provided as either a boolean or an array. If provided as a boolean, this sets the
-     * $allowModifications option of Zend_Config. If provided as an array, there are two configuration directives that
-     * may be set. For example:
+     * The $options parameter may be provided as either a boolean or an array.
+     * If provided as a boolean, this sets the $allowModifications option of
+     * Zend_Config. If provided as an array, there are two configuration
+     * directives that may be set. For example:
      *
-     * $config = array(
+     * $options = array(
      *     'allowModifications' => false,
      *     'nestSeparator'      => '->'
      *      );
      *
      * @param  string        $filename
-     * @param  mixed         $section
-     * @param  boolean|array $config
+     * @param  string|null   $section
+     * @param  boolean|array $options
      * @throws Zend_Config_Exception
+     * @return void
      */
-    public function __construct($filename, $section, $config = false)
+    public function __construct($filename, $section = null, $options = false)
     {
         if (empty($filename)) {
+            /**
+             * @see Zend_Config_Exception
+             */
+            require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception('Filename is not set');
         }
 
         $allowModifications = false;
-        if (is_bool($config)) {
-            $allowModifications = $config;
-        } elseif (is_array($config)) {
-            if (isset($config['allowModifications'])) {
-                $allowModifications = (bool) $config['allowModifications'];
+        if (is_bool($options)) {
+            $allowModifications = $options;
+        } elseif (is_array($options)) {
+            if (isset($options['allowModifications'])) {
+                $allowModifications = (bool) $options['allowModifications'];
             }
-            if (isset($config['nestSeparator'])) {
-                $this->_nestSeparator = (string) $config['nestSeparator'];
+            if (isset($options['nestSeparator'])) {
+                $this->_nestSeparator = (string) $options['nestSeparator'];
             }
         }
 
@@ -104,7 +110,6 @@ class Zend_Config_Ini extends Zend_Config
         foreach ($iniArray as $key => $data)
         {
             $bits = explode(':', $key);
-            $numberOfBits = count($bits);
             $thisSection = trim($bits[0]);
             switch (count($bits)) {
                 case 1:
@@ -117,6 +122,10 @@ class Zend_Config_Ini extends Zend_Config
                     break;
 
                 default:
+                    /**
+                     * @see Zend_Config_Exception
+                     */
+                    require_once 'Zend/Config/Exception.php';
                     throw new Zend_Config_Exception("Section '$thisSection' may not extend multiple sections in $filename");
             }
         }
@@ -124,13 +133,21 @@ class Zend_Config_Ini extends Zend_Config
         if (null === $section) {
             $dataArray = array();
             foreach ($preProcessedArray as $sectionName => $sectionData) {
-                $dataArray[$sectionName] = $this->_processExtends($preProcessedArray, $sectionName);
+                if(!is_array($sectionData)) {
+                    $dataArray = array_merge_recursive($dataArray, $this->_processKey(array(), $sectionName, $sectionData));
+                } else {
+                    $dataArray[$sectionName] = $this->_processExtends($preProcessedArray, $sectionName);
+                }
             }
             parent::__construct($dataArray, $allowModifications);
         } elseif (is_array($section)) {
             $dataArray = array();
             foreach ($section as $sectionName) {
                 if (!isset($preProcessedArray[$sectionName])) {
+                    /**
+                     * @see Zend_Config_Exception
+                     */
+                    require_once 'Zend/Config/Exception.php';
                     throw new Zend_Config_Exception("Section '$sectionName' cannot be found in $filename");
                 }
                 $dataArray = array_merge($this->_processExtends($preProcessedArray, $sectionName), $dataArray);
@@ -139,6 +156,10 @@ class Zend_Config_Ini extends Zend_Config
             parent::__construct($dataArray, $allowModifications);
         } else {
             if (!isset($preProcessedArray[$section])) {
+                /**
+                 * @see Zend_Config_Exception
+                 */
+                require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception("Section '$section' cannot be found in $filename");
             }
             parent::__construct($this->_processExtends($preProcessedArray, $section), $allowModifications);
@@ -152,9 +173,9 @@ class Zend_Config_Ini extends Zend_Config
      * the "extends" inheritance keyword. Passes control to _processKey()
      * to handle the "dot" sub-property syntax in each key.
      *
-     * @param array $iniArray
-     * @param string $section
-     * @param array $config
+     * @param  array  $iniArray
+     * @param  string $section
+     * @param  array  $config
      * @throws Zend_Config_Exception
      * @return array
      */
@@ -168,6 +189,10 @@ class Zend_Config_Ini extends Zend_Config
                     $this->_assertValidExtend($section, $value);
                     $config = $this->_processExtends($iniArray, $value, $config);
                 } else {
+                    /**
+                     * @see Zend_Config_Exception
+                     */
+                    require_once 'Zend/Config/Exception.php';
                     throw new Zend_Config_Exception("Section '$section' cannot be found");
                 }
             } else {
@@ -182,9 +207,9 @@ class Zend_Config_Ini extends Zend_Config
      * notation for sub-properties by passing control to
      * processLevelsInKey().
      *
-     * @param array $config
-     * @param string $key
-     * @param string $value
+     * @param  array  $config
+     * @param  string $key
+     * @param  string $value
      * @throws Zend_Config_Exception
      * @return array
      */
@@ -196,10 +221,18 @@ class Zend_Config_Ini extends Zend_Config
                 if (!isset($config[$pieces[0]])) {
                     $config[$pieces[0]] = array();
                 } elseif (!is_array($config[$pieces[0]])) {
+                    /**
+                     * @see Zend_Config_Exception
+                     */
+                    require_once 'Zend/Config/Exception.php';
                     throw new Zend_Config_Exception("Cannot create sub-key for '{$pieces[0]}' as key already exists");
                 }
                 $config[$pieces[0]] = $this->_processKey($config[$pieces[0]], $pieces[1], $value);
             } else {
+                /**
+                 * @see Zend_Config_Exception
+                 */
+                require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception("Invalid key '$key'");
             }
         } else {

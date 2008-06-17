@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -16,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter_Http
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php 5765 2007-07-18 22:00:00Z thomas $
+ * @version    $Id: Http.php 8964 2008-03-21 17:53:14Z thomas $
  */
 
 
@@ -36,7 +35,7 @@ require_once 'Zend/Auth/Adapter/Interface.php';
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter_Http
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @todo       Support auth-int
  * @todo       Track nonces, nonce-count, opaque for replay protection and stale support
@@ -168,6 +167,14 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
      */
     public function __construct(array $config)
     {
+        if (!extension_loaded('hash')) {
+            /**
+             * @see Zend_Auth_Adapter_Exception
+             */
+            require_once 'Zend/Auth/Adapter/Exception.php';
+            throw new Zend_Auth_Adapter_Exception(__CLASS__  . ' requires the \'hash\' extension');
+        }
+
         $this->_request  = null;
         $this->_response = null;
         $this->_ieNoOpaque = false;
@@ -351,8 +358,8 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
     /**
      * Authenticate
      *
-     * @return Zend_Auth_Result
      * @throws Zend_Auth_Adapter_Exception
+     * @return Zend_Auth_Result
      */
     public function authenticate()
     {

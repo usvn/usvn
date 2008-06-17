@@ -15,18 +15,14 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
 
 /**
  * Zend_Http_Client
  */
 require_once 'Zend/Http/Client.php';
-
-/**
- * Zend_Http_Client_Exception
- */
-require_once 'Zend/Http/Client/Exception.php';
 
 /**
  * Zend_Version
@@ -41,7 +37,7 @@ require_once 'Zend/Version.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_AuthSub
@@ -69,42 +65,34 @@ class Zend_Gdata_AuthSub
       *  are available to registered applications only.
       * @param int $session (optional) Boolean flag indicating whether the one-time-use
       *  token may be exchanged for a session token (1) or not (0).
+      * @param string $request_uri (optional) URI to which to direct the authentication request.
       */
-     public static function getAuthSubTokenUri($next, $scope, $secure=0, $session=0)
+     public static function getAuthSubTokenUri($next, $scope, $secure=0, $session=0, 
+                                               $request_uri = self::AUTHSUB_REQUEST_URI)
      {
          $querystring = '?next=' . urlencode($next)
              . '&scope=' . urldecode($scope)
              . '&secure=' . urlencode($secure)
              . '&session=' . urlencode($session);
-         return self::AUTHSUB_REQUEST_URI.$querystring;
+         return $request_uri . $querystring;
      }
 
 
     /**
      * Upgrades a single use token to a session token
      *
-     * @param string $token
+     * @param string $token The single use token which is to be upgraded
+     * @param Zend_Http_Client $client (optional) HTTP client to use to make the request
+     * @param string $request_uri (optional) URI to which to direct the session token upgrade
+     * @return string The upgraded token value
      * @throws Zend_Gdata_App_AuthException
      * @throws Zend_Gdata_App_HttpException
      */
-    public static function getAuthSubSessionToken($token, $client = null)
+    public static function getAuthSubSessionToken($token, $client = null, 
+                                                  $request_uri = self::AUTHSUB_SESSION_TOKEN_URI)
     {
-        if ($client == null) {
-            $client = new Zend_Http_Client();
-        }
-        if (!$client instanceof Zend_Http_Client) {
-            require_once 'Zend/Gdata/App/HttpException.php';
-            throw new Zend_Gdata_App_HttpException('Client is not an instance of Zend_Http_Client.');
-        }
-        $client->setUri(self::AUTHSUB_SESSION_TOKEN_URI);
-        $headers['authorization'] = 'AuthSub token="' . $token . '"';
-        $useragent = 'Zend_Framework_Gdata/' . Zend_Version::VERSION;
-        $client->setConfig(array(
-                'strictredirects' => true,
-                'useragent' => $useragent
-            )
-        );
-        $client->setHeaders($headers);
+        $client = self::getHttpClient($token, $client);
+        $client->setUri($request_uri);
 
         try {
             $response = $client->request('GET');
@@ -133,29 +121,17 @@ class Zend_Gdata_AuthSub
     /**
      * Revoke a token
      *
-     * @param string $token
-     * @return boolean
+     * @param string $token The token to revoke
+     * @param Zend_Http_Client $client (optional) HTTP client to use to make the request
+     * @param string $request_uri (optional) URI to which to direct the revokation request
+     * @return boolean Whether the revokation was successful
      * @throws Zend_Gdata_App_HttpException
      */
-    public static function AuthSubRevokeToken($token, $client = null)
+    public static function AuthSubRevokeToken($token, $client = null,
+                                              $request_uri = self::AUTHSUB_REVOKE_TOKEN_URI)
     {
-        if ($client == null) {
-            $client = new Zend_Http_Client();
-        }
-        if (!$client instanceof Zend_Http_Client) {
-            require_once 'Zend/Gdata/App/HttpException.php';
-            throw new Zend_Gdata_App_HttpException('Client is not an instance of Zend_Http_Client.');
-        }
-        $client->setUri(self::AUTHSUB_REVOKE_TOKEN_URI);
-        $headers['authorization'] = 'AuthSub token="' . $token . '"';
-        $useragent = 'Zend_Framework_Gdata/' . Zend_Version::VERSION .
-                ' ' . $source;
-        $client->setConfig(array(
-                'strictredirects' => true,
-                'useragent' => $useragent
-            )
-        );
-        $client->setHeaders($headers);
+        $client = self::getHttpClient($token, $client);
+        $client->setUri($request_uri);
         ob_start();
         try {
             $response = $client->request('GET');
@@ -176,20 +152,15 @@ class Zend_Gdata_AuthSub
     /**
      * get token information
      *
-     * @param string $token
+     * @param string $token The token to retrieve information about
+     * @param Zend_Http_Client $client (optional) HTTP client to use to make the request
+     * @param string $request_uri (optional) URI to which to direct the information request
      */
-    public static function getAuthSubTokenInfo($token, $client = null)
+    public static function getAuthSubTokenInfo($token, $client = null,
+                                               $request_uri = self::AUTHSUB_TOKEN_INFO_URI)
     {
-        if ($client == null) {
-            $client = new Zend_Http_Client();
-        }
-        if (!$client instanceof Zend_Http_Client) {
-            require_once 'Zend/Gdata/App/HttpException.php';
-            throw new Zend_Gdata_App_HttpException('Client is not an instance of Zend_Http_Client.');
-        }
-        $client->setUri(self::AUTHSUB_TOKEN_INFO_URI);
-        $headers['authorization'] = 'AuthSub token="' . $token . '"';
-        $client->setHeaders($headers);
+        $client = self::getHttpClient($token, $client);
+        $client->setUri($request_uri);
         ob_start();
         try {
             $response = $client->request('GET');
@@ -201,6 +172,13 @@ class Zend_Gdata_AuthSub
         return $response->getBody();
     }
 
+    /**
+     * Retrieve a HTTP client object with AuthSub credentials attached
+     * as the Authorization header
+     *
+     * @param string $token The token to retrieve information about
+     * @param Zend_Http_Client $client (optional) HTTP client to use to make the request
+     */
     public static function getHttpClient($token, $client = null)
     {
         if ($client == null) {

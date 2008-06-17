@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -73,7 +73,7 @@ require_once 'Zend/XmlRpc/Fault.php';
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Client
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Client
@@ -242,7 +242,6 @@ class Zend_XmlRpc_Client
         $this->_lastResponse->loadXml($httpResponse->getBody());
     }
 
-
     /**
      * Send an XML-RPC request to the service (for a specific method)
      *
@@ -252,6 +251,32 @@ class Zend_XmlRpc_Client
      */
     public function call($method, $params=array())
     {
+        if ('system.' != substr($method, 0, 7)) {
+
+            // Ensure empty array/struct params are cast correctly
+            
+            $signatures = $this->getIntrospector()->getMethodSignature($method);
+            foreach ($params as $key => $param) {
+                if (is_array($param) && empty($param)) {
+                    $type = 'array';
+                    foreach ($signatures as $signature) {
+                        if (!is_array($signature)) {
+                            continue;
+                        }
+                        if (array_key_exists($key + 1, $signature)) {
+                            $type = $signature[$key + 1];
+                            $type = (in_array($type, array('array', 'struct'))) ? $type : 'array';
+                            break;
+                        }
+                    }
+                    $params[$key] = array(
+                        'type'  => $type, 
+                        'value' => $param
+                    );
+                } 
+            }
+        }
+
         $request = new Zend_XmlRpc_Request($method, $params);
 
         $this->doRequest($request);

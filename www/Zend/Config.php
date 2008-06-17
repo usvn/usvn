@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,21 +14,16 @@
  *
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Config.php 9384 2008-05-05 19:02:58Z doctorrock83 $
  */
-
-
-/**
- * Zend_Config_Exception
- */
-require_once 'Zend/Config/Exception.php';
 
 
 /**
  * @category   Zend
  * @package    Zend_Config
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config implements Countable, Iterator
@@ -88,11 +82,11 @@ class Zend_Config implements Countable, Iterator
      * Zend_Config also implements Countable and Iterator to
      * facilitate easy access to the data.
      *
-     * @param array $array
-     * @param boolean $allowModifications
-     * @throws Zend_Config_Exception
+     * @param  array   $array
+     * @param  boolean $allowModifications
+     * @return void
      */
-    public function __construct($array, $allowModifications = false)
+    public function __construct(array $array, $allowModifications = false)
     {
         $this->_allowModifications = (boolean) $allowModifications;
         $this->_loadedSection = null;
@@ -100,7 +94,7 @@ class Zend_Config implements Countable, Iterator
         $this->_data = array();
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $this->_data[$key] = new Zend_Config($value, $this->_allowModifications);
+                $this->_data[$key] = new self($value, $this->_allowModifications);
             } else {
                 $this->_data[$key] = $value;
             }
@@ -139,20 +133,23 @@ class Zend_Config implements Countable, Iterator
      * Only allow setting of a property if $allowModifications
      * was set to true on construction. Otherwise, throw an exception.
      *
-     * @param string $name
-     * @param mixed $value
+     * @param  string $name
+     * @param  mixed  $value
      * @throws Zend_Config_Exception
+     * @return void
      */
     public function __set($name, $value)
     {
         if ($this->_allowModifications) {
             if (is_array($value)) {
-                $this->_data[$name] = new Zend_Config($value, true);
+                $this->_data[$name] = new self($value, true);
             } else {
                 $this->_data[$name] = $value;
             }
             $this->_count = count($this->_data);
         } else {
+            /** @see Zend_Config_Exception */
+            require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception('Zend_Config is read only');
         }
     }
@@ -166,7 +163,7 @@ class Zend_Config implements Countable, Iterator
     {
         $array = array();
         foreach ($this->_data as $key => $value) {
-            if (is_object($value)) {
+            if ($value instanceof Zend_Config) {
                 $array[$key] = $value->toArray();
             } else {
                 $array[$key] = $value;
@@ -184,6 +181,25 @@ class Zend_Config implements Countable, Iterator
     protected function __isset($name)
     {
         return isset($this->_data[$name]);
+    }
+
+    /**
+     * Support unset() overloading on PHP 5.1
+     *
+     * @param  string $name
+     * @throws Zend_Config_Exception
+     * @return void
+     */
+    protected function __unset($name)
+    {
+        if ($this->_allowModifications) {
+            unset($this->_data[$name]);
+        } else {
+            /** @see Zend_Config_Exception */
+            require_once 'Zend/Config/Exception.php';
+            throw new Zend_Config_Exception('Zend_Config is read only');
+        }
+
     }
 
     /**
@@ -266,13 +282,51 @@ class Zend_Config implements Countable, Iterator
         return $this->_loadedSection === null;
     }
 
+
+    /**
+     * Merge another Zend_Config with this one. The items
+     * in $merge will override the same named items in
+     * the current config.
+     *
+     * @param Zend_Config $merge
+     * @return Zend_Config
+     */
+    public function merge(Zend_Config $merge)
+    {
+        foreach($merge as $key => $item) {
+            if(array_key_exists($key, $this->_data)) {
+                if($item instanceof Zend_Config && $this->$key instanceof Zend_Config) {
+                    $this->$key = $this->$key->merge($item);
+                } else {
+                    $this->$key = $item;
+                }
+            } else {
+                $this->$key = $item;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Prevent any more modifications being made to this instance. Useful
+     * after merge() has been used to merge multiple Zend_Config objects
+     * into one object which should then not be modified again.
+     *
+     */
+    public function setReadOnly()
+    {
+        $this->_allowModifications = false;
+    }
+
     /**
      * Throws an exception if $extendingSection may not extend $extendedSection,
      * and tracks the section extension if it is valid.
      *
-     * @param string $extendingSection
-     * @param string $extendedSection
+     * @param  string $extendingSection
+     * @param  string $extendedSection
      * @throws Zend_Config_Exception
+     * @return void
      */
     protected function _assertValidExtend($extendingSection, $extendedSection)
     {
@@ -280,6 +334,8 @@ class Zend_Config implements Countable, Iterator
         $extendedSectionCurrent = $extendedSection;
         while (array_key_exists($extendedSectionCurrent, $this->_extends)) {
             if ($this->_extends[$extendedSectionCurrent] == $extendingSection) {
+                /** @see Zend_Config_Exception */
+                require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception('Illegal circular inheritance detected');
             }
             $extendedSectionCurrent = $this->_extends[$extendedSectionCurrent];
@@ -288,10 +344,4 @@ class Zend_Config implements Countable, Iterator
         $this->_extends[$extendingSection] = $extendedSection;
     }
 
-    public function __unset($name)
-    {
-        if ($this->_allowModifications) {
-            unset($this->_data[$name]);
-        }
-    }
 }

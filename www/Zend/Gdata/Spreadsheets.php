@@ -14,8 +14,8 @@
  *
  * @category     Zend
  * @package        Zend_Gdata
- * @copyright    Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license        http://framework.zend.com/license/new-bsd         New BSD License
+ * @copyright    Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
@@ -85,8 +85,8 @@ require_once('Zend/Gdata/Spreadsheets/CellQuery.php');
  *
  * @category     Zend
  * @package        Zend_Gdata
- * @copyright    Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license        http://framework.zend.com/license/new-bsd         New BSD License
+ * @copyright    Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Spreadsheets extends Zend_Gdata
 {
@@ -100,13 +100,17 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
 
     /**
      * Create Gdata_Spreadsheets object
+     *
+     * @param Zend_Http_Client $client (optional) The HTTP client to use when
+     *          when communicating with the Google servers.
+     * @param string $applicationId The identity of the app in the form of Company-AppName-Version
      */
-    public function __construct($client = null)
+    public function __construct($client = null, $applicationId = 'MyCompany-MyApp-1.0')
     {
-        parent::__construct($client);
-        $this->_httpClient->setParameterPost('service', self::AUTH_SERVICE_NAME);
         $this->registerPackage('Zend_Gdata_Spreadsheets');
         $this->registerPackage('Zend_Gdata_Spreadsheets_Extension');
+        parent::__construct($client, $applicationId);
+        $this->_httpClient->setParameterPost('service', self::AUTH_SERVICE_NAME);
         $this->_server = 'spreadsheets.google.com';
     }
 
@@ -304,9 +308,8 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
         {
             $newCustom = new Zend_Gdata_Spreadsheets_Extension_Custom();
             $newCustom->setText($v)->setColumnName($k);
-            $newCustomArr[] = $newCustom;
+            $newEntry->addCustom($newCustom);
         }
-        $newEntry->setCustom($newCustomArr);
 
         $query = new Zend_Gdata_Spreadsheets_ListQuery();
         $query->setSpreadsheetKey($key);

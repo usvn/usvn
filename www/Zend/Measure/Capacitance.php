@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Capacitance.php 3224 2007-02-05 22:08:48Z gavin $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Capacitance.php 8064 2008-02-16 10:58:39Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Capacitance
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Capacitance extends Zend_Measure_Abstract
@@ -66,30 +66,30 @@ class Zend_Measure_Capacitance extends Zend_Measure_Abstract
     const TERAFARAD            = 'TERAFARAD';
 
     protected $_UNITS = array(
-        'ABFARAD'              => array(1.0e+9,      'abfarad'),
-        'AMPERE_PER_SECOND_VOLT' => array(1,         'A/sV'),
-        'CENTIFARAD'           => array(0.01,        'cF'),
-        'COULOMB_PER_VOLT'     => array(1,           'C/V'),
-        'DECIFARAD'            => array(0.1,         'dF'),
-        'DEKAFARAD'            => array(10,          'daF'),
-        'ELECTROMAGNETIC_UNIT' => array(1.0e+9,      'capacity emu'),
-        'ELECTROSTATIC_UNIT'   => array(1.11265e-12, 'capacity esu'),
-        'FARAD'                => array(1,           'F'),
-        'FARAD_INTERNATIONAL'  => array(0.99951,     'F'),
-        'GAUSSIAN'             => array(1.11265e-12, 'G'),
-        'GIGAFARAD'            => array(1.0e+9,      'GF'),
-        'HECTOFARAD'           => array(100,         'hF'),
-        'JAR'                  => array(1.11265e-9,  'jar'),
-        'KILOFARAD'            => array(1000,        'kF'),
-        'MEGAFARAD'            => array(1000000,     'MF'),
-        'MICROFARAD'           => array(0.000001,    'µF'),
-        'MILLIFARAD'           => array(0.001,       'mF'),
-        'NANOFARAD'            => array(1.0e-9,      'nF'),
-        'PICOFARAD'            => array(1.0e-12,     'pF'),
-        'PUFF'                 => array(1.0e-12,     'pF'),
-        'SECOND_PER_OHM'       => array(1,           's/Ohm'),
-        'STATFARAD'            => array(1.11265e-12, 'statfarad'),
-        'TERAFARAD'            => array(1.0e+12,     'TF'),
+        'ABFARAD'              => array('1.0e+9',      'abfarad'),
+        'AMPERE_PER_SECOND_VOLT' => array('1',         'A/sV'),
+        'CENTIFARAD'           => array('0.01',        'cF'),
+        'COULOMB_PER_VOLT'     => array('1',           'C/V'),
+        'DECIFARAD'            => array('0.1',         'dF'),
+        'DEKAFARAD'            => array('10',          'daF'),
+        'ELECTROMAGNETIC_UNIT' => array('1.0e+9',      'capacity emu'),
+        'ELECTROSTATIC_UNIT'   => array('1.11265e-12', 'capacity esu'),
+        'FARAD'                => array('1',           'F'),
+        'FARAD_INTERNATIONAL'  => array('0.99951',     'F'),
+        'GAUSSIAN'             => array('1.11265e-12', 'G'),
+        'GIGAFARAD'            => array('1.0e+9',      'GF'),
+        'HECTOFARAD'           => array('100',         'hF'),
+        'JAR'                  => array('1.11265e-9',  'jar'),
+        'KILOFARAD'            => array('1000',        'kF'),
+        'MEGAFARAD'            => array('1000000',     'MF'),
+        'MICROFARAD'           => array('0.000001',    'µF'),
+        'MILLIFARAD'           => array('0.001',       'mF'),
+        'NANOFARAD'            => array('1.0e-9',      'nF'),
+        'PICOFARAD'            => array('1.0e-12',     'pF'),
+        'PUFF'                 => array('1.0e-12',     'pF'),
+        'SECOND_PER_OHM'       => array('1',           's/Ohm'),
+        'STATFARAD'            => array('1.11265e-12', 'statfarad'),
+        'TERAFARAD'            => array('1.0e+12',     'TF'),
         'STANDARD'             => 'FARAD'
     );
 }

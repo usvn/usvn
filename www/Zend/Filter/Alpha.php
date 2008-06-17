@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Alpha.php 5470 2007-06-28 17:05:56Z andries $
+ * @version    $Id: Alpha.php 8732 2008-03-10 15:21:46Z darby $
  */
 
 
@@ -30,7 +30,7 @@ require_once 'Zend/Filter/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Alpha implements Zend_Filter_Interface
@@ -77,7 +77,11 @@ class Zend_Filter_Alpha implements Zend_Filter_Interface
         if (!self::$_unicodeEnabled) {
             // POSIX named classes are not supported, use alternative a-zA-Z match
             $pattern = '/[^a-zA-Z' . $whiteSpace . ']/';
+        } else if (extension_loaded('mbstring')) {
+            // Unicode safe filter for the value with mbstring
+            $pattern = '/[^[:alpha:]' . $whiteSpace . ']/u';
         } else {
+            // Unicode safe filter for the value without mbstring
             $pattern = '/[^\p{L}' . $whiteSpace . ']/u';
         }
 

@@ -177,7 +177,7 @@ class Install
 	 */
 	static public function installTimezone($config_file, $timezone)
 	{
-		$availableTimeZones = Zend_Locale_Data::getContent("en", "timezonestandard");
+		$availableTimeZones = Zend_Locale_Data::getList("en", "WindowsToTimezone");
 		if (array_key_exists($timezone, $availableTimeZones)) {
 			$config = Install::_loadConfig($config_file);
 			$config->timezone = $timezone;

@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ require_once 'Zend/Json/Exception.php';
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Encoder
@@ -69,7 +69,7 @@ class Zend_Json_Encoder
      */
     public static function encode($value, $cycleCheck = false)
     {
-        $encoder = new Zend_Json_Encoder(($cycleCheck) ? true : false);
+        $encoder = new self(($cycleCheck) ? true : false);
 
         return $encoder->_encodeValue($value);
     }

@@ -15,7 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ require_once 'Zend/Gdata/App.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata extends Zend_Gdata_App
@@ -81,10 +81,11 @@ class Zend_Gdata extends Zend_Gdata_App
      * Create Gdata object
      *
      * @param Zend_Http_Client $client
+     * @param string $applicationId The identity of the app in the form of Company-AppName-Version
      */
-    public function __construct($client = null)
+    public function __construct($client = null, $applicationId = 'MyCompany-MyApp-1.0')
     {
-        parent::__construct($client);
+        parent::__construct($client, $applicationId);
     }
 
     /**

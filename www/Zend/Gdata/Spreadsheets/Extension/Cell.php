@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id: Entry.php 3941 2007-03-14 21:36:13Z darby $
  */
@@ -35,20 +35,45 @@ require_once 'Zend/Gdata/Extension.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Spreadsheets_Extension_Cell extends Zend_Gdata_Extension
 {
     protected $_rootElement = 'cell';
     protected $_rootNamespace = 'gs';
+
+    /**
+     * The row attribute of this cell
+     *
+     * @var string
+     */
     protected $_row = null;
+
+    /**
+     * The column attribute of this cell
+     *
+     * @var string
+     */
     protected $_col = null;
+
+    /**
+     * The inputValue attribute of this cell
+     *
+     * @var string
+     */
     protected $_inputValue = null;
+
+    /**
+     * The numericValue attribute of this cell
+     *
+     * @var string
+     */
     protected $_numericValue = null;
 
     /**
      * Constructs a new Zend_Gdata_Spreadsheets_Extension_Cell element.
+     *
      * @param string $text (optional) Text contents of the element.
      * @param string $row (optional) Row attribute of the element.
      * @param string $col (optional) Column attribute of the element.

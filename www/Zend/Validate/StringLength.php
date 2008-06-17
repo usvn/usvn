@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringLength.php 4974 2007-05-25 21:11:56Z bkarwin $
+ * @version    $Id: StringLength.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
@@ -30,7 +30,7 @@ require_once 'Zend/Validate/Abstract.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_StringLength extends Zend_Validate_Abstract
@@ -98,10 +98,19 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      * Sets the min option
      *
      * @param  integer $min
+     * @throws Zend_Validate_Exception
      * @return Zend_Validate_StringLength Provides a fluent interface
      */
     public function setMin($min)
     {
+        if (null !== $this->_max && $min > $this->_max) {
+            /**
+             * @see Zend_Validate_Exception
+             */
+            require_once 'Zend/Validate/Exception.php';
+            throw new Zend_Validate_Exception("The minimum must be less than or equal to the maximum length, but $min >"
+                                            . " $this->_max");
+        }
         $this->_min = max(0, (integer) $min);
         return $this;
     }
@@ -120,12 +129,20 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      * Sets the max option
      *
      * @param  integer|null $max
+     * @throws Zend_Validate_Exception
      * @return Zend_Validate_StringLength Provides a fluent interface
      */
     public function setMax($max)
     {
         if (null === $max) {
             $this->_max = null;
+        } else if ($max < $this->_min) {
+            /**
+             * @see Zend_Validate_Exception
+             */
+            require_once 'Zend/Validate/Exception.php';
+            throw new Zend_Validate_Exception("The maximum must be greater than or equal to the minimum length, but "
+                                            . "$max < $this->_min");
         } else {
             $this->_max = (integer) $max;
         }
@@ -146,7 +163,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
     {
         $valueString = (string) $value;
         $this->_setValue($valueString);
-        $length = strlen($valueString);
+        $length = iconv_strlen($valueString);
         if ($length < $this->_min) {
             $this->_error(self::TOO_SHORT);
         }

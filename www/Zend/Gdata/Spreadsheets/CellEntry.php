@@ -15,12 +15,12 @@
  *
  * @category     Zend
  * @package      Zend_Gdata
- * @copyright    Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license      http://framework.zend.com/license/new-bsd         New BSD License
+ * @copyright    Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
- * @see Zend_Gdata_EntryAtom
+ * @see Zend_Gdata_Entry
  */
 require_once 'Zend/Gdata/Entry.php';
 
@@ -34,8 +34,8 @@ require_once 'Zend/Gdata/Spreadsheets/Extension/Cell.php';
  *
  * @category     Zend
  * @package      Zend_Gdata
- * @copyright    Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license      http://framework.zend.com/license/new-bsd         New BSD License
+ * @copyright    Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Spreadsheets_CellEntry extends Zend_Gdata_Entry
 {

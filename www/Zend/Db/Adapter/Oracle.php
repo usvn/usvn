@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,7 +33,7 @@ require_once 'Zend/Db/Statement/Oracle.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
@@ -99,19 +99,20 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
              * @see Zend_Db_Adapter_Oracle_Exception
              */
             require_once 'Zend/Db/Adapter/Oracle/Exception.php';
-            throw new Zend_DB_Adapter_Oracle_Exception('The OCI8 extension is required for this adapter but not loaded');
+            throw new Zend_Db_Adapter_Oracle_Exception('The OCI8 extension is required for this adapter but the extension is not loaded');
         }
 
-       /* if (isset($this->_config['dbname'])) {
+        if (isset($this->_config['dbname'])) {
             $this->_connection = @oci_connect(
                 $this->_config['username'],
                 $this->_config['password'],
                 $this->_config['dbname']);
-        } else {*/
-            $this->_connection = @oci_connect(
+        } else {
+            $this->_connection = oci_connect(
                 $this->_config['username'],
                 $this->_config['password']);
-        //}
+        }
+
         // check the connection
         if (!$this->_connection) {
             /**
@@ -405,7 +406,7 @@ class Zend_Db_Adapter_Oracle extends Zend_Db_Adapter_Abstract
      *
      * @param integer $mode A fetch mode.
      * @return void
-     * @throws Zend_Db_Adapter_Exception
+     * @throws Zend_Db_Adapter_Oracle_Exception
      */
     public function setFetchMode($mode)
     {

@@ -15,7 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -44,7 +44,7 @@ require_once 'Zend/Gdata/App/Extension/Uri.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension
@@ -131,7 +131,7 @@ abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension
 
     /**
      * @param Zend_Gdata_App_Extension_Email $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return Zend_Gdata_App_Extension_Person Provides a fluent interface
      */
     public function setEmail($value)
     {
@@ -149,7 +149,7 @@ abstract class Zend_Gdata_App_Extension_Person extends Zend_Gdata_App_Extension
 
     /**
      * @param Zend_Gdata_App_Extension_Uri $value
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return Zend_Gdata_App_Extension_Person Provides a fluent interface
      */
     public function setUri($value)
     {

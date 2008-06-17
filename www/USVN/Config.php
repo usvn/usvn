@@ -46,7 +46,7 @@ class USVN_Config
 	 */
 	static public function setTimeZone($timezone)
 	{
-		$availableTimezones = Zend_Locale_Data::getContent("en", "timezonestandard");
+		$availableTimezones = Zend_Locale_Data::getList("en", "WindowsToTimezone");
 		if (array_key_exists($timezone, $availableTimezones)) {
 			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 			$config->timezone = $timezone;

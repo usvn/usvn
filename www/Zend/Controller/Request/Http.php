@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -38,6 +38,12 @@ require_once 'Zend/Uri.php';
  */
 class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
 {
+    /**
+     * Allowed parameter sources
+     * @var array
+     */
+    protected $_paramSources = array('_GET', '_POST');
+
     /**
      * REQUEST_URI
      * @var string;
@@ -277,7 +283,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     /**
      * Retrieve a member of the $_SERVER superglobal
      *
-     * If no $key is passed, returns the entire $_COOKIE array.
+     * If no $key is passed, returns the entire $_SERVER array.
      *
      * @param string $key
      * @param mixed $default Default value to use if key not found
@@ -295,7 +301,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     /**
      * Retrieve a member of the $_ENV superglobal
      *
-     * If no $key is passed, returns the entire $_COOKIE array.
+     * If no $key is passed, returns the entire $_ENV array.
      *
      * @param string $key
      * @param mixed $default Default value to use if key not found
@@ -561,6 +567,30 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     }
 
     /**
+     * Set allowed parameter sources
+     *
+     * Can be empty array, or contain one or more of '_GET' or '_POST'.
+     * 
+     * @param  array $paramSoures 
+     * @return Zend_Controller_Request_Http
+     */
+    public function setParamSources(array $paramSources = array())
+    {
+        $this->_paramSources = $paramSources;
+        return $this;
+    }
+
+    /**
+     * Get list of allowed parameter sources
+     * 
+     * @return array
+     */
+    public function getParamSources()
+    {
+        return $this->_paramSources;
+    }
+
+    /**
      * Set a userland parameter
      *
      * Uses $key to set a userland parameter. If $key is an alias, the actual
@@ -572,8 +602,7 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
      */
     public function setParam($key, $value)
     {
-        $keyName = (null !== ($alias = $this->getAlias($key))) ? $alias : $key;
-
+        $key = (null !== ($alias = $this->getAlias($key))) ? $alias : $key;
         parent::setParam($key, $value);
         return $this;
     }
@@ -595,11 +624,12 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     {
         $keyName = (null !== ($alias = $this->getAlias($key))) ? $alias : $key;
 
+        $paramSources = $this->getParamSources();
         if (isset($this->_params[$keyName])) {
             return $this->_params[$keyName];
-        } elseif ((isset($_GET[$keyName]))) {
+        } elseif (in_array('_GET', $paramSources) && (isset($_GET[$keyName]))) {
             return $_GET[$keyName];
-        } elseif ((isset($_POST[$keyName]))) {
+        } elseif (in_array('_POST', $paramSources) && (isset($_POST[$keyName]))) {
             return $_POST[$keyName];
         }
 
@@ -712,11 +742,97 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     }
 
     /**
+     * Was the request made by GET?
+     *
+     * @return boolean
+     */
+    public function isGet()
+    {
+        if ('GET' == $this->getMethod()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Was the request made by PUT?
+     *
+     * @return boolean
+     */
+    public function isPut()
+    {
+        if ('PUT' == $this->getMethod()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Was the request made by DELETE?
+     *
+     * @return boolean
+     */
+    public function isDelete()
+    {
+        if ('DELETE' == $this->getMethod()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Was the request made by HEAD?
+     *
+     * @return boolean
+     */
+    public function isHead()
+    {
+        if ('HEAD' == $this->getMethod()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Was the request made by OPTIONS?
+     *
+     * @return boolean
+     */
+    public function isOptions()
+    {
+        if ('OPTIONS' == $this->getMethod()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return the raw body of the request, if present
+     *
+     * @return string|false Raw body, or false if not present
+     */
+    public function getRawBody()
+    {
+        $body = file_get_contents('php://input');
+
+        if (strlen(trim($body)) > 0) {
+            return $body;
+        }
+
+        return false;
+    }
+
+    /**
      * Return the value of the given HTTP header. Pass the header name as the
      * plain, HTTP-specified header name. Ex.: Ask for 'Accept' to get the
      * Accept header, 'Accept-Encoding' to get the Accept-Encoding header.
      *
-     * @param string HTTP header name
+     * @param string $header HTTP header name
      * @return string|false HTTP header value, or false if not found
      * @throws Zend_Controller_Request_Exception
      */
@@ -755,5 +871,15 @@ class Zend_Controller_Request_Http extends Zend_Controller_Request_Abstract
     public function isXmlHttpRequest()
     {
         return ($this->getHeader('X_REQUESTED_WITH') == 'XMLHttpRequest');
+    }
+
+    /**
+     * Is this a Flash request?
+     * 
+     * @return bool
+     */
+    public function isFlashRequest()
+    {
+        return ($this->getHeader('USER_AGENT') == 'Shockwave Flash');
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -16,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php 5906 2007-07-28 02:58:20Z bkarwin $
+ * @version    $Id: Mysqli.php 9146 2008-04-04 19:53:48Z kgbfernando $
  */
 
 
@@ -34,7 +33,7 @@ require_once 'Zend/Db/Statement.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
@@ -95,7 +94,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
      * @param mixed $length    OPTIONAL Length of SQL parameter.
      * @param mixed $options   OPTIONAL Other options.
      * @return bool
-     * @throws Zend_Db_Statement_Db2_Exception
+     * @throws Zend_Db_Statement_Mysqli_Exception
      */
     protected function _bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
     {
@@ -125,6 +124,7 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
     public function closeCursor()
     {
         if ($stmt = $this->_stmt) {
+        $this->_stmt->free_result();
             return $this->_stmt->reset();
         }
         return false;
@@ -188,6 +188,32 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
         if (!$this->_stmt) {
             return false;
         }
+
+        // if no params were given as an argument to execute(),
+        // then default to the _bindParam array
+        if ($params === null) {
+            $params = $this->_bindParam;
+        }
+        // send $params as input parameters to the statement
+        if ($params) {
+            array_unshift($params, str_repeat('s', count($params)));
+            call_user_func_array(
+                array($this->_stmt, 'bind_param'),
+                $params
+            );
+        }
+
+        // execute the statement
+        $retval = $this->_stmt->execute();
+        if ($retval === false) {
+            /**
+             * @see Zend_Db_Statement_Mysqli_Exception
+             */
+            require_once 'Zend/Db/Statement/Mysqli/Exception.php';
+            throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement execute error : " . $this->_stmt->error);
+        }
+
+
         // retain metadata
         if ($this->_meta === null) {
             $this->_meta = $this->_stmt->result_metadata();
@@ -220,38 +246,16 @@ class Zend_Db_Statement_Mysqli extends Zend_Db_Statement
                 $refs[$i] = &$f;
             }
 
+            $this->_stmt->store_result();
             // bind to the result variables
             call_user_func_array(
                 array($this->_stmt, 'bind_result'),
                 $this->_values
             );
         }
-
-        // if no params were given as an argument to execute(),
-        // then default to the _bindParam array
-        if ($params === null) {
-            $params = $this->_bindParam;
-        }
-        // send $params as input parameters to the statement
-        if ($params) {
-            array_unshift($params, str_repeat('s', count($params)));
-            call_user_func_array(
-                array($this->_stmt, 'bind_param'),
-                $params
-            );
-        }
-
-        // execute the statement
-        $retval = $this->_stmt->execute();
-        if ($retval === false) {
-            /**
-             * @see Zend_Db_Statement_Mysqli_Exception
-             */
-            require_once 'Zend/Db/Statement/Mysqli/Exception.php';
-            throw new Zend_Db_Statement_Mysqli_Exception("Mysqli statement execute error : " . $this->_stmt->error);
-        }
         return $retval;
     }
+
 
     /**
      * Fetches a row from the result set.

@@ -15,7 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ require_once 'Zend/Gdata/Calendar.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Calendar_Extension_AccessLevel extends Zend_Gdata_Extension
@@ -97,7 +97,6 @@ class Zend_Gdata_Calendar_Extension_AccessLevel extends Zend_Gdata_Extension
     /**
      * Get the value for this element's value attribute.
      *
-     * @param string The desired value for this attribute
      * @return string The attribute being modified.
      */
     public function getValue()
@@ -109,7 +108,7 @@ class Zend_Gdata_Calendar_Extension_AccessLevel extends Zend_Gdata_Extension
     /**
      * Set the value for this element's value attribute.
      *
-     * @param bool $value The desired value for this attribute.
+     * @param string $value The desired value for this attribute.
      * @return Zend_Gdata_Calendar_Extension_Selected The element being modified.
      */
     public function setValue($value)

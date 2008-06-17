@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Date
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @version    $Id: DateObject.php 2511 2006-12-26 22:54:37Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -27,7 +27,7 @@
  * @category   Zend
  * @package    Zend_Date
  * @subpackage Zend_Date_Cities
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Date_Cities {

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Rest
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -43,7 +43,7 @@ require_once 'Zend/Server/Abstract.php';
  * @category   Zend
  * @package    Zend_Rest
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Interface
@@ -55,8 +55,14 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
 
     /**
      * Class Constructor Args
+     * @var array
      */
     protected $_args = array();
+
+    /**
+     * @var string Encoding
+     */
+    protected $_encoding = 'UTF-8';
 
     /**
      * @var array An array of Zend_Server_Reflect_Method
@@ -86,6 +92,28 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
     {
         set_exception_handler(array($this, "fault"));
         $this->_reflection = new Zend_Server_Reflection();
+    }
+
+    /**
+     * Set XML encoding
+     * 
+     * @param  string $encoding 
+     * @return Zend_Rest_Server
+     */
+    public function setEncoding($encoding)
+    {
+        $this->_encoding = (string) $encoding;
+        return $this;
+    }
+
+    /**
+     * Get XML encoding
+     * 
+     * @return string
+     */
+    public function getEncoding()
+    {
+        return $this->_encoding;
     }
 
     /**
@@ -253,7 +281,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
 
         $method = $function->getName();
 
-        $dom    = new DOMDocument('1.0', 'UTF-8');
+        $dom    = new DOMDocument('1.0', $this->getEncoding());
         if ($class) {
             $root   = $dom->createElement($class);
             $method = $dom->createElement($method);
@@ -307,7 +335,8 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
                 $element = $dom->createElement($key);
                 $this->_structValue($value, $dom, $element);
             } else {
-                $element = $dom->createElement($key, $value);
+                $element = $dom->createElement($key);
+                $element->appendChild($dom->createTextNode($value));
             }
 
             $parent->appendChild($element);
@@ -331,7 +360,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
 
         $method = $function->getName();
 
-        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom = new DOMDocument('1.0', $this->getEncoding());
         if ($class) {
             $xml = $dom->createElement($class);
             $methodNode = $dom->createElement($method);
@@ -351,7 +380,9 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         }
 
         if (isset($value)) {
-            $methodNode->appendChild($dom->createElement('response', $value));
+            $element = $dom->createElement('response');
+            $element->appendChild($dom->createTextNode($value));
+            $methodNode->appendChild($element);
         } else {
             $methodNode->appendChild($dom->createElement('response'));
         }
@@ -392,7 +423,7 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
             $method = $function;
         }
 
-        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom = new DOMDocument('1.0', $this->getEncoding());
         if ($class) {
             $xml       = $dom->createElement($class);
             $xmlMethod = $dom->createElement($method);
@@ -409,7 +440,9 @@ class Zend_Rest_Server extends Zend_Server_Abstract implements Zend_Server_Inter
         $xmlMethod->appendChild($xmlResponse);
 
         if ($exception instanceof Exception) {
-            $xmlResponse->appendChild($dom->createElement('message', $exception->getMessage()));
+            $element = $dom->createElement('message');
+            $element->appendChild($dom->createTextNode($exception->getMessage()));
+            $xmlResponse->appendChild($element);
             $code = $exception->getCode();
         } elseif (!is_null($exception) || 'rest' == $function) {
             $xmlResponse->appendChild($dom->createElement('message', 'An unknown error occured. Please try again.'));

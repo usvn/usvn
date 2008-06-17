@@ -60,7 +60,7 @@ class BrowserajaxController extends USVN_Controller
 	/**
 	 * Get list files of subversion directory.
 	 */
-	public function GetListFileAction()
+	public function getListFileAction()
 	{
 		$path = $_GET['name'];
 		$SVN = new USVN_SVN(str_replace(USVN_URL_SEP, '/', $this->_request->getParam('project')));
@@ -137,7 +137,7 @@ class BrowserajaxController extends USVN_Controller
 	/**
 	 * If files exist dump rights
 	 */
-	public function DumpRightsAction()
+	public function dumpRightsAction()
 	{
 		$text = "";
 		$table_project = new USVN_Db_Table_Projects();
@@ -190,7 +190,7 @@ class BrowserajaxController extends USVN_Controller
 	/**
 	 * If files exist update rights if not insert rights
 	 */
-	public function UpdateOrInsertRightsAction()
+	public function updateOrInsertRightsAction()
 	{
 		try
 		{

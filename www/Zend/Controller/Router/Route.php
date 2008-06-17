@@ -14,13 +14,10 @@
  *
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Route.php 5768 2007-07-18 22:01:35Z thomas $
- * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Route.php 8064 2008-02-16 10:58:39Z thomas $
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-/** Zend_Controller_Router_Exception */
-require_once 'Zend/Controller/Router/Exception.php';
 
 /** Zend_Controller_Router_Route_Interface */
 require_once 'Zend/Controller/Router/Route/Interface.php';
@@ -30,8 +27,8 @@ require_once 'Zend/Controller/Router/Route/Interface.php';
  *
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see        http://manuals.rubyonrails.com/read/chapter/65
  */
 class Zend_Controller_Router_Route implements Zend_Controller_Router_Route_Interface
@@ -52,6 +49,8 @@ class Zend_Controller_Router_Route implements Zend_Controller_Router_Route_Inter
 
     /**
      * Instantiates route based on passed Zend_Config structure
+     *
+     * @param Zend_Config $config Configuration object
      */
     public static function getInstance(Zend_Config $config)
     {
@@ -65,9 +64,9 @@ class Zend_Controller_Router_Route implements Zend_Controller_Router_Route_Inter
      * to a corresponding atomic parts. These parts are assigned
      * a position which is later used for matching and preparing values.
      *
-     * @param string Map used to match with later submitted URL path
-     * @param array Defaults for map variables with keys as variable names
-     * @param array Regular expression requirements for variables (keys as variable names)
+     * @param string $route Map used to match with later submitted URL path
+     * @param array $defaults Defaults for map variables with keys as variable names
+     * @param array $reqs Regular expression requirements for variables (keys as variable names)
      */
     public function __construct($route, $defaults = array(), $reqs = array())
     {
@@ -118,7 +117,7 @@ class Zend_Controller_Router_Route implements Zend_Controller_Router_Route_Inter
      * Matches a user submitted path with parts defined by a map. Assigns and
      * returns an array of variables on a successful match.
      *
-     * @param string Path used to match against this routing map
+     * @param string $path Path used to match against this routing map
      * @return array|false An array of assigned values or a false on a mismatch
      */
     public function match($path)
@@ -231,8 +230,10 @@ class Zend_Controller_Router_Route implements Zend_Controller_Router_Route_Inter
                     $url[$key] = $this->_params[$part['name']];
                 } elseif (isset($this->_defaults[$part['name']])) {
                     $url[$key] = $this->_defaults[$part['name']];
-                } else
+                } else {
+                    require_once 'Zend/Controller/Router/Exception.php';
                     throw new Zend_Controller_Router_Exception($part['name'] . ' is not specified');
+                }
 
             } else {
 
@@ -256,19 +257,19 @@ class Zend_Controller_Router_Route implements Zend_Controller_Router_Route_Inter
 
         foreach (array_reverse($url, true) as $key => $value) {
             if ($flag || !isset($this->_parts[$key]['name']) || $value !== $this->getDefault($this->_parts[$key]['name'])) {
-                $return = '/' . $value . $return;
+                $return = $this->_urlDelimiter . $value . $return;
                 $flag = true;
             }
         }
 
-        return trim($return, '/');
+        return trim($return, $this->_urlDelimiter);
 
     }
 
     /**
      * Return a single parameter of route's defaults
      *
-     * @param name Array key of the parameter
+     * @param string $name Array key of the parameter
      * @return string Previously set default
      */
     public function getDefault($name) {

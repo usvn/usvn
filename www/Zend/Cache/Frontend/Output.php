@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,44 +14,43 @@
  *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Frontend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Frontend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 
 /**
- * Zend_Cache_Core
+ * @see Zend_Cache_Core
  */
 require_once 'Zend/Cache/Core.php';
 
 
 /**
  * @package    Zend_Cache
- * @subpackage Frontend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Frontend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_Output extends Zend_Cache_Core
 {
-
     /**
      * Constructor
      *
-     * @param array $options associative array of options
+     * @param  array $options Associative array of options
+     * @return void
      */
     public function __construct($options = array())
     {
         parent::__construct($options);
     }
 
-
     /**
      * Start the cache
      *
-     * @param string $id cache id
-     * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
-     * @return boolean true if the cache is hit (false else)
+     * @param  string  $id                     Cache id
+     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @return boolean True if the cache is hit (false else)
      */
     public function start($id, $doNotTestCacheValidity = false)
     {
@@ -66,12 +64,12 @@ class Zend_Cache_Frontend_Output extends Zend_Cache_Core
         return false;
     }
 
-
     /**
      * Stop the cache
      *
-     * @param array $tags tags array
-     * @param int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param  array $tags             Tags array
+     * @param  int   $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return void
      */
     public function end($tags = array(), $specificLifetime = false)
     {

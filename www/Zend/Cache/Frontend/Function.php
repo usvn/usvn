@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,31 +14,26 @@
  *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Frontend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Frontend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 
 /**
- * Zend_Cache_Core
+ * @see Zend_Cache_Core
  */
 require_once 'Zend/Cache/Core.php';
 
 
 /**
  * @package    Zend_Cache
- * @subpackage Frontend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Frontend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Frontend_Function extends Zend_Cache_Core
 {
-
-    // ------------------
-    // --- Properties ---
-    // ------------------
-
     /**
      * This frontend specific options
      *
@@ -60,15 +54,11 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
         'non_cached_functions' => array()
     );
 
-
-    // ----------------------
-    // --- Public methods ---
-    // ----------------------
-
     /**
      * Constructor
      *
-     * @param array $options associative array of options
+     * @param  array $options Associative array of options
+     * @return void
      */
     public function __construct($options = array())
     {
@@ -81,11 +71,11 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
     /**
      * Main method : call the specified function or get the result from cache
      *
-     * @param string $name function name
-     * @param array $parameters function parameters
-     * @param array $tags cache tags
-     * @param int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @return mixed result
+     * @param  string $name             Function name
+     * @param  array  $parameters       Function parameters
+     * @param  array  $tags             Cache tags
+     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return mixed Result
      */
     public function call($name, $parameters = array(), $tags = array(), $specificLifetime = false)
     {
@@ -117,17 +107,13 @@ class Zend_Cache_Frontend_Function extends Zend_Cache_Core
         return $return;
     }
 
-
-    // ------------------------------------
-    // --- Private or protected methods ---
-    // ------------------------------------
-
     /**
      * Make a cache id from the function name and parameters
      *
-     * @param string $name function name
-     * @param array $parameters function parameters
-     * @return string cache id
+     * @param  string $name       Function name
+     * @param  array  $parameters Function parameters
+     * @throws Zend_Cache_Exception
+     * @return string Cache id
      */
     private function _makeId($name, $parameters)
     {

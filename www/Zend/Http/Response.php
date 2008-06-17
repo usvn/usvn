@@ -16,12 +16,10 @@
  * @category   Zend
  * @package    Zend_Http
  * @subpackage Response
- * @version    $Id: Response.php 5771 2007-07-18 22:06:24Z thomas $
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Response.php 8064 2008-02-16 10:58:39Z thomas $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-require_once 'Zend/Http/Exception.php';
 
 /**
  * Zend_Http_Response represents an HTTP 1.0 / 1.1 response message. It
@@ -30,7 +28,7 @@ require_once 'Zend/Http/Exception.php';
  *
  * @package    Zend_Http
  * @subpackage Response
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Http_Response
@@ -153,14 +151,18 @@ class Zend_Http_Response
     public function __construct($code, $headers, $body = null, $version = '1.1', $message = null)
     {
         // Make sure the response code is valid and set it
-        if (self::responseCodeAsText($code) === null)
+        if (self::responseCodeAsText($code) === null) {
+            require_once 'Zend/Http/Exception.php';
             throw new Zend_Http_Exception("{$code} is not a valid HTTP response code");
+        }
 
         $this->code = $code;
 
         // Make sure we got valid headers and set them
-        if (! is_array($headers))
+        if (! is_array($headers)) {
+            require_once 'Zend/Http/Exception.php';
             throw new Zend_Http_Exception('No valid headers were passed');
+	}
 
         foreach ($headers as $name => $value) {
             if (is_int($name))
@@ -173,8 +175,10 @@ class Zend_Http_Response
         $this->body = $body;
 
         // Set the HTTP version
-        if (! preg_match('|^\d\.\d$|', $version))
+        if (! preg_match('|^\d\.\d$|', $version)) {
+            require_once 'Zend/Http/Exception.php';
             throw new Zend_Http_Exception("Invalid HTTP response version: $version");
+        }
 
         $this->version = $version;
 
@@ -479,7 +483,14 @@ class Zend_Http_Response
     public static function extractHeaders($response_str)
     {
         $headers = array();
-        $lines = explode("\n", $response_str);
+        
+        // First, split body and headers
+        $parts = preg_split('|(?:\r?\n){2}|m', $response_str, 2);
+        if (! $parts[0]) return $headers;
+        
+        // Split headers part to lines
+        $lines = explode("\n", $parts[0]);
+        unset($parts);
         $last_header = null;
 
         foreach($lines as $line) {
@@ -523,10 +534,12 @@ class Zend_Http_Response
      */
     public static function extractBody($response_str)
     {
-        list(, $body) = preg_split('/^\r?$/m', $response_str, 2);
-        $body = ltrim($body);
-
-        return $body;
+        $parts = preg_split('|(?:\r?\n){2}|m', $response_str, 2);
+        if (isset($parts[1])) { 
+        	return $parts[1];
+        } else {
+        	return '';
+        }
     }
 
     /**
@@ -538,9 +551,10 @@ class Zend_Http_Response
     public static function decodeChunkedBody($body)
     {
         $decBody = '';
-
+        
         while (trim($body)) {
             if (! preg_match("/^([\da-fA-F]+)[^\r\n]*\r\n/sm", $body, $m)) {
+                require_once 'Zend/Http/Exception.php';
                 throw new Zend_Http_Exception("Error parsing body - doesn't seem to be a chunked message");
             }
 
@@ -566,8 +580,8 @@ class Zend_Http_Response
     {
         if (! function_exists('gzinflate')) {
             require_once 'Zend/Http/Exception.php';
-            throw new Zend_Http_Exception('Unable to decode gzipped response ' .
-                'body: perhaps the zlib extension is not loaded?');
+            throw new Zend_Http_Exception('Unable to decode gzipped response ' . 
+                'body: perhaps the zlib extension is not loaded?'); 
         }
 
         return gzinflate(substr($body, 10));
@@ -585,11 +599,11 @@ class Zend_Http_Response
     {
         if (! function_exists('gzuncompress')) {
             require_once 'Zend/Http/Exception.php';
-            throw new Zend_Http_Exception('Unable to decode deflated response ' .
-                'body: perhaps the zlib extension is not loaded?');
+            throw new Zend_Http_Exception('Unable to decode deflated response ' . 
+                'body: perhaps the zlib extension is not loaded?'); 
         }
 
-        return gzuncompress($body);
+    	return gzuncompress($body);
     }
 
     /**

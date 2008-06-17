@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,7 +35,7 @@ require_once 'Zend/Db/Statement/Interface.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
@@ -91,7 +91,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
     /**
      * @var Zend_Db_Profiler_Query
      */
-    protected $_queryProfile = null;
+    protected $_queryId = null;
 
     /**
      * Constructor for a statement.
@@ -107,9 +107,8 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         }
         $this->_parseParameters($sql);
         $this->_prepare($sql);
-        if (($q = $this->_adapter->getProfiler()->queryStart($sql)) !== null) {
-            $this->_queryProfile = $this->_adapter->getProfiler()->getQueryProfile($q);
-        }
+
+        $this->_queryId = $this->_adapter->getProfiler()->queryStart($sql);
     }
 
     /**
@@ -164,6 +163,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         // this is usually " but in MySQL is `
         $d = $this->_adapter->quoteIdentifier('a');
         $d = $d[0];
+
         // get the value used as an escaped delimited id quote,
         // e.g. \" or "" or \`
         $de = $this->_adapter->quoteIdentifier($d);
@@ -174,6 +174,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         // this should be '
         $q = $this->_adapter->quote('a');
         $q = $q[0];
+
         // get the value used as an escaped quote,
         // e.g. \' or ''
         $qe = $this->_adapter->quote($q);
@@ -185,7 +186,9 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         // remove "foo\"bar"
         $sql = preg_replace("/$d($de|[^$d])*$d/", '', $sql);
         // remove 'foo\'bar'
-        $sql = preg_replace("/$q($qe|[^$q])*$q/", '', $sql);
+        if (!empty($q)) {
+            $sql = preg_replace("/$q($qe|[^$q])*$q/", '', $sql);
+        }
 
         return $sql;
     }
@@ -249,9 +252,6 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
 
         // Finally we are assured that $position is valid
         $this->_bindParam[$position] =& $variable;
-        if ($this->_queryProfile) {
-            $this->_queryProfile->bindParam($position, $variable);
-        }
         return $this->_bindParam($position, $variable, $type, $length, $options);
     }
 
@@ -276,33 +276,34 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      */
     public function execute(array $params = null)
     {
-        if ($this->_queryProfile) {
-            if ($this->_queryProfile->hasEnded()) {
-                $prof = $this->_adapter->getProfiler();
-                $q = $prof->queryClone($this->_queryProfile);
-                $this->_queryProfile = $prof->getQueryProfile($q);
-            }
-            if ($params !== null) {
-                foreach ($params as $param => $variable) {
-                    if (is_int($param)) {
-                        $param++;
-                    }
-                    $this->_queryProfile->bindParam($param, $variable);
-                }
-            }
-            $this->_queryProfile->start();
+        /*
+         * Simple case - no query profiler to manage.
+         */
+        if ($this->_queryId === null) {
+            return $this->_execute($params);
         }
 
-        $retval = true;
+        /*
+         * Do the same thing, but with query profiler
+         * management before and after the execute.
+         */
+        $prof = $this->_adapter->getProfiler();
+        $qp = $prof->getQueryProfile($this->_queryId);
+        if ($qp->hasEnded()) {
+            $this->_queryId = $prof->queryClone($qp);
+            $qp = $prof->getQueryProfile($this->_queryId);
+        }
         if ($params !== null) {
-            $retval = $this->_execute($params);
+            $qp->bindParams($params);
         } else {
-            $retval = $this->_execute();
+            $qp->bindParams($this->_bindParam);
         }
+        $qp->start($this->_queryId);
 
-        if ($this->_queryProfile) {
-            $this->_queryProfile->end();
-        }
+        $retval = $this->_execute($params);
+
+        $prof->queryEnd($this->_queryId);
+
         return $retval;
     }
 
@@ -335,18 +336,17 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      * Returns a single column from the next row of a result set.
      *
      * @param int $col OPTIONAL Position of the column to fetch.
-     * @return string
+     * @return string One value from the next row of result set, or false.
      */
     public function fetchColumn($col = 0)
     {
         $data = array();
         $col = (int) $col;
         $row = $this->fetch(Zend_Db::FETCH_NUM);
-        if (is_array($row)) {
-            return $row[$col];
-        } else {
+        if (!is_array($row)) {
             return false;
         }
+        return $row[$col];
     }
 
     /**
@@ -354,12 +354,15 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      *
      * @param string $class  OPTIONAL Name of the class to create.
      * @param array  $config OPTIONAL Constructor arguments for the class.
-     * @return mixed One object instance of the specified class.
+     * @return mixed One object instance of the specified class, or false.
      */
     public function fetchObject($class = 'stdClass', array $config = array())
     {
         $obj = new $class($config);
         $row = $this->fetch(Zend_Db::FETCH_ASSOC);
+        if (!is_array($row)) {
+            return false;
+        }
         foreach ($row as $key => $val) {
             $obj->$key = $val;
         }

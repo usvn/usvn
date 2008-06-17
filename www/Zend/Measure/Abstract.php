@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Abstract.php 5786 2007-07-19 18:34:23Z thomas $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Abstract.php 8907 2008-03-19 20:10:01Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ require_once 'Zend/Locale/Format.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Abstract
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Measure_Abstract
@@ -83,6 +83,7 @@ abstract class Zend_Measure_Abstract
         }
 
         if (!$this->_Locale = Zend_Locale::isLocale($locale, true)) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception("Language ($locale) is unknown");
         }
 
@@ -93,6 +94,7 @@ abstract class Zend_Measure_Abstract
         }
 
         if (!array_key_exists($type, $this->_UNITS)) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception("Type ($type) is unknown");
         }
         $this->setValue($value, $type, $this->_Locale);
@@ -101,10 +103,15 @@ abstract class Zend_Measure_Abstract
 
     /**
      * Returns the internal value
+     *
+     * @param  integer  $round  OPTIONAL rounds the value to an given precision
      */
-    public function getValue()
+    public function getValue($round = 2)
     {
-        return $this->_value;
+        if ($round < 1) {
+            return $this->_value;
+        }
+        return Zend_Locale_Math::round($this->_value, $round);
     }
 
 
@@ -132,6 +139,7 @@ abstract class Zend_Measure_Abstract
         }
 
         if (!Zend_Locale::isLocale($locale)) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception("Language ($locale) is unknown");
         }
 
@@ -140,12 +148,14 @@ abstract class Zend_Measure_Abstract
         }
 
         if (empty($this->_UNITS[$type])) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception("Type ($type) is unknown");
         }
 
         try {
             $value = Zend_Locale_Format::getNumber($value, array('locale' => $locale));
         } catch(Exception $e) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception($e->getMessage());
         }
 
@@ -174,6 +184,7 @@ abstract class Zend_Measure_Abstract
     public function setType($type)
     {
         if (empty($this->_UNITS[$type])) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception("Type ($type) is unknown");
         }
 
@@ -203,12 +214,12 @@ abstract class Zend_Measure_Abstract
                     }
                 }
             } else {
-                $value = $value * ($this->_UNITS[$this->getType()][0]);
+                $value = call_user_func(Zend_Locale_Math::$mul, $value, $this->_UNITS[$this->getType()][0], 25);
             }
-
+            
             // Convert to expected value
             if (is_array($this->_UNITS[$type][0])) {
-                foreach ($this->_UNITS[$type][0] as $key => $found) {
+                foreach (array_reverse($this->_UNITS[$type][0]) as $key => $found) {
                     switch ($key) {
                         case "/":
                             $value = call_user_func(Zend_Locale_Math::$mul, $value, $found, 25);
@@ -227,7 +238,7 @@ abstract class Zend_Measure_Abstract
                     }
                 }
             } else {
-                $value = $value / ($this->_UNITS[$type][0]);
+                $value = @call_user_func(Zend_Locale_Math::$div, $value, $this->_UNITS[$type][0], 25);
             }
 
             $this->_value = $value;
@@ -257,11 +268,12 @@ abstract class Zend_Measure_Abstract
     /**
      * Returns a string representation
      *
+     * @param  integer  $round  OPTIONAL rounds the value to an given exception
      * @return string
      */
-    public function toString()
+    public function toString($round = -1)
     {
-        return $this->getValue() . ' ' . $this->_UNITS[$this->getType()][1];
+        return $this->getValue($round) . ' ' . $this->_UNITS[$this->getType()][1];
     }
 
 
@@ -290,13 +302,14 @@ abstract class Zend_Measure_Abstract
     /**
      * Alias function for setType returning the converted unit
      *
-     * @param $type  type
+     * @param $type   type
+     * @param $round  integer  OPTIONAL rounds the value to a given precision
      * @return string
      */
-    public function convertTo($type)
+    public function convertTo($type, $round = 2)
     {
         $this->setType($type);
-        return $this->toString();
+        return $this->toString($round);
     }
 
 

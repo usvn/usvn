@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -52,7 +52,7 @@ require_once 'Zend/Pdf/Color/Cmyk.php';
  * PDF Page
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Page
@@ -167,6 +167,17 @@ class Zend_Pdf_Page
     private $_saveCount = 0;
 
     /**
+     * Safe Graphics State semafore
+     * 
+     * If it's false, than we can't be sure Graphics State is restored withing 
+     * context of previous contents stream (ex. drawing coordinate system may be rotated).
+     * We should encompass existing content with save/restore GS operators
+     * 
+     * @var boolean 
+     */
+    private $_safeGS;
+
+    /**
      * Current font
      *
      * @var Zend_Pdf_Resource_Font
@@ -229,17 +240,47 @@ class Zend_Pdf_Page
             $this->_pageDictionary = $param1;
             $this->_objFactory     = $param2;
             $this->_attached       = true;
+            $this->_safeGS         = false;
+
             return;
 
         } else if ($param1 instanceof Zend_Pdf_Page && $param2 === null && $param3 === null) {
-            /** @todo implementation */
-            throw new Zend_Pdf_Exception('Not implemented yet.');
+            // Clone existing page.
+            // Let already existing content and resources to be shared between pages
+            // We don't give existing content modification functionality, so we don't need "deep copy"
+            $this->_objFactory = $param1->_objFactory;
+            $this->_attached   = &$param1->_attached;
+            $this->_safeGS     = false;
+            
+            $this->_pageDictionary = $this->_objFactory->newObject(new Zend_Pdf_Element_Dictionary());
 
+            foreach ($param1->_pageDictionary->getKeys() as $key) {
+                if ($key == 'Contents') {
+                    // Clone Contents property
+
+                    $this->_pageDictionary->Contents = new Zend_Pdf_Element_Array();
+
+                    if ($param1->_pageDictionary->Contents->getType() != Zend_Pdf_Element::TYPE_ARRAY) {
+                        // Prepare array of content streams and add existing stream
+                        $this->_pageDictionary->Contents->items[] = $param1->_pageDictionary->Contents;
+                    } else {
+                        // Clone array of the content streams
+                        foreach ($param1->_pageDictionary->Contents->items as $srcContentStream) {
+                            $this->_pageDictionary->Contents->items[] = $srcContentStream;
+                        }
+                    }
+                } else {
+                    $this->_pageDictionary->$key = $param1->_pageDictionary->$key;
+                }
+            }
+
+            return;
         } else if (is_string($param1) &&
                    ($param2 === null || $param2 instanceof Zend_Pdf_ElementFactory_Interface) &&
                    $param3 === null) {
             $this->_objFactory = ($param2 !== null)? $param2 : Zend_Pdf_ElementFactory::createFactory(1);
-            $this->_attached = false;
+            $this->_attached   = false;
+            $this->_safeGS     = true; /** New page created. That's users App responsibility to track GS changes */
 
             switch (strtolower($param1)) {
                 case 'a4':
@@ -277,6 +318,7 @@ class Zend_Pdf_Page
                    ($param3 === null || $param3 instanceof Zend_Pdf_ElementFactory_Interface)) {
             $this->_objFactory = ($param3 !== null)? $param3 : Zend_Pdf_ElementFactory::createFactory(1);
             $this->_attached = false;
+            $this->_safeGS     = true; /** New page created. That's users App responsibility to track GS changes */
             $pageWidth  = $param1;
             $pageHeight = $param2;
 
@@ -296,6 +338,16 @@ class Zend_Pdf_Page
         $this->_pageDictionary->Contents     = new Zend_Pdf_Element_Array();
     }
 
+
+    /**
+     * Clone operator
+     *
+     * @throws Zend_Pdf_Exception
+     */
+    public function __clone()
+    {
+        throw new Zend_Pdf_Exception('Cloning Zend_Pdf_Page object using \'clone\' keyword is not supported. Use \'new Zend_Pdf_Page($srcPage)\' syntax');
+    }
 
     /**
      * Attach resource to the page
@@ -332,7 +384,7 @@ class Zend_Pdf_Page
 
         return $newResName;
     }
-
+    
     /**
      * Add procedureSet to the Page description
      *
@@ -399,6 +451,27 @@ class Zend_Pdf_Page
             $this->_pageDictionary->Contents->touch();
         }
 
+        if ((!$this->_safeGS)  &&  (count($this->_pageDictionary->Contents->items) != 0)) {
+        	/**
+        	 * Page already has some content which is not treated as safe.
+        	 * 
+        	 * Add save/restore GS operators
+        	 */
+            $this->_addProcSet('PDF');
+        	
+        	$newContentsArray = new Zend_Pdf_Element_Array();
+        	$newContentsArray->items[] = $this->_objFactory->newStreamObject(" q\n");
+        	foreach ($this->_pageDictionary->Contents->items as $contentStream) {
+        		$newContentsArray->items[] = $contentStream;
+        	}
+            $newContentsArray->items[] = $this->_objFactory->newStreamObject(" Q\n");
+
+        	$this->_pageDictionary->touch();
+        	$this->_pageDictionary->Contents = $newContentsArray;
+        	
+        	$this->_safeGS = true;
+        }
+        
         $this->_pageDictionary->Contents->items[] =
                 $this->_objFactory->newStreamObject($this->_contents);
 
@@ -550,6 +623,112 @@ class Zend_Pdf_Page
     {
         return $this->_font;
     }
+
+    /**
+     * Extract resources attached to the page
+     *
+     * This method is not intended to be used in userland, but helps to optimize some document wide operations
+     * 
+     * returns array of Zend_Pdf_Element_Dictionary objects
+     * 
+     * @internal 
+     * @return array
+     */
+    public function extractResources()
+    {
+        return $this->_pageDictionary->Resources;
+    }
+    
+    /**
+     * Extract fonts attached to the page
+     *
+     * returns array of Zend_Pdf_Resource_Font_Extracted objects
+     * 
+     * @return array
+     */
+    public function extractFonts()
+    {
+        if ($this->_pageDictionary->Resources->Font === null) {
+            // Page doesn't have any font attached
+            // Return empty array
+            return array();
+        }
+        
+        $fontResources = $this->_pageDictionary->Resources->Font;
+
+        $fontResourcesUnique = array();
+        foreach ($fontResources->getKeys() as $fontResourceName) {
+            $fontDictionary = $fontResources->$fontResourceName;
+
+            if (! ($fontDictionary instanceof Zend_Pdf_Element_Reference  ||
+                   $fontDictionary instanceof Zend_Pdf_Element_Object) ) {
+                // Font dictionary has to be an indirect object or object reference
+                continue;
+            }
+
+            $fontResourcesUnique[$fontDictionary->toString($this->_objFactory)] = $fontDictionary;
+        }
+        
+        $fonts = array();
+        foreach ($fontResourcesUnique as $resourceReference => $fontDictionary) {
+            try {
+                // Try to extract font
+                $extractedFont = new Zend_Pdf_Resource_Font_Extracted($fontDictionary);
+
+                $fonts[$resourceReference] = $extractedFont; 
+            } catch (Zend_Pdf_Exception $e) {
+                if ($e->getMessage() != 'Unsupported font type.') {
+                    throw $e;
+                }
+            }
+        }
+        
+        return $fonts;
+    } 
+
+    /**
+     * Extract font attached to the page by specific font name
+     * 
+     * $fontName should be specified in UTF-8 encoding
+     *
+     * @return Zend_Pdf_Resource_Font_Extracted|null
+     */
+    public function extractFont($fontName)
+    {
+        if ($this->_pageDictionary->Resources->Font === null) {
+            // Page doesn't have any font attached
+            return null;
+        }
+        
+        $fontResources = $this->_pageDictionary->Resources->Font;
+
+        foreach ($fontResources->getKeys() as $fontResourceName) {
+            $fontDictionary = $fontResources->$fontResourceName;
+            
+            if (! ($fontDictionary instanceof Zend_Pdf_Element_Reference  ||
+                   $fontDictionary instanceof Zend_Pdf_Element_Object) ) {
+                // Font dictionary has to be an indirect object or object reference
+                continue;
+            }
+            
+            if ($fontDictionary->BaseFont->value != $fontName) {
+                continue;
+            }
+            
+            try {
+                // Try to extract font
+                return new Zend_Pdf_Resource_Font_Extracted($fontDictionary); 
+            } catch (Zend_Pdf_Exception $e) {
+                if ($e->getMessage() != 'Unsupported font type.') {
+                    throw $e;
+                }
+                
+                // Continue searhing font with specified name
+            }
+        }
+        
+        return null;
+    } 
 
     /**
      * Get current font size

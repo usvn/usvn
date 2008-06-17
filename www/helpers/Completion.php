@@ -50,7 +50,7 @@ function ajax_completion(idx, divcompletion, nameInput, evenement)
     	xhr.onreadystatechange = function() { alert_ajax_completion(xhr, divcompletion); };
 		var t = "{$grp}";
 		var p = "{$project_name}";
-		xhr.open("GET", "{$view->url(array('controller' => 'completion', 'action' => 'completion?txt="+ login + "&idx=" + idx + "&input=" + nameInput + "&grp=" + t + "&prj=" + p + "', 'name' => null), "default", true)}", true);
+		xhr.open("GET", "{$view->url(array('controller' => 'completion', 'action' => 'completion?txt="+ login + "&idx=" + idx + "&input=" + nameInput + "&grp=" + t + "&prj=" + p + "', 'name' => null), "default", true, false)}", true);
 		xhr.send(null);
 	}
 }

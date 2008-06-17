@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
@@ -57,18 +57,26 @@ class Zend_View_Helper_FormFile extends Zend_View_Helper_FormElement
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
-        // build the element
+        // is it disabled?
+        $disabled = '';
         if ($disable) {
-            // disabled
-            $xhtml = $this->_hidden($name, $value) . $this->view->escape($value);
-        } else {
-            // enabled
-            $xhtml = '<input type="file"'
-                   . ' name="' . $this->view->escape($name) . '"'
-                   . ' id="' . $this->view->escape($id) . '"'
-                   . ' value="' . $this->view->escape($value) . '"'
-                   . $this->_htmlAttribs($attribs) . ' />';
+            $disabled = ' disabled="disabled"';
+        } 
+        
+        // XHTML or HTML end tag?
+        $endTag = ' />';
+        if (($this->view instanceof Zend_View_Abstract) && !$this->view->doctype()->isXhtml()) {
+            $endTag= '>';
         }
+
+        // build the element
+        $xhtml = '<input type="file"'
+                . ' name="' . $this->view->escape($name) . '"'
+                . ' id="' . $this->view->escape($id) . '"'
+                . ' value="' . $this->view->escape($value) . '"'
+                . $disabled
+                . $this->_htmlAttribs($attribs) 
+                . $endTag;
 
         return $xhtml;
     }

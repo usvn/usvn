@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Loader.php 8906 2008-03-19 19:15:30Z darby $
  */
 
 /**
@@ -23,10 +24,9 @@
  *
  * @category   Zend
  * @package    Zend_Loader
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Loader
 {
     /**
@@ -59,40 +59,33 @@ class Zend_Loader
             require_once 'Zend/Exception.php';
             throw new Zend_Exception('Directory argument must be a string or an array');
         }
-        if (null === $dirs) {
-            $dirs = array();
-        }
-        if (is_string($dirs)) {
-            $dirs = (array) $dirs;
-        }
 
         // autodiscover the path from the class name
-        $path = str_replace('_', DIRECTORY_SEPARATOR, $class);
-        if ($path != $class) {
+        $file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+        if (!empty($dirs)) {
             // use the autodiscovered path
-            $dirPath = dirname($path);
-            if (0 == count($dirs)) {
-                $dirs = array($dirPath);
-            } else {
-                foreach ($dirs as $key => $dir) {
-                    if ($dir == '.') {
-                        $dirs[$key] = $dirPath;
-                    } else {
-                        $dir = rtrim($dir, '\\/');
-                        $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
-                    }
+            $dirPath = dirname($file);
+            if (is_string($dirs)) {
+                $dirs = explode(PATH_SEPARATOR, $dirs);
+            }
+            foreach ($dirs as $key => $dir) {
+                if ($dir == '.') {
+                    $dirs[$key] = $dirPath;
+                } else {
+                    $dir = rtrim($dir, '\\/');
+                    $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
                 }
             }
-            $file = basename($path) . '.php';
+            $file = basename($file);
+            self::loadFile($file, $dirs, true);
         } else {
-            $file = $class . '.php';
+            self::_securityCheck($file);
+            include_once $file;
         }
-
-        self::loadFile($file, $dirs, true);
 
         if (!class_exists($class, false) && !interface_exists($class, false)) {
             require_once 'Zend/Exception.php';
-            throw new Zend_Exception("File \"$file\" was loaded but class \"$class\" was not found in the file");
+            throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
         }
     }
 
@@ -121,64 +114,37 @@ class Zend_Loader
      */
     public static function loadFile($filename, $dirs = null, $once = false)
     {
-        /**
-         * Security check
-         */
-        if (preg_match('/[^a-z0-9\-_.]/i', $filename)) {
-            require_once 'Zend/Exception.php';
-            throw new Zend_Exception('Security check: Illegal character in filename');
-        }
+        self::_securityCheck($filename);
 
         /**
-         * Search for the file in each of the dirs named in $dirs.
+         * Search in provided directories, as well as include_path
          */
-        if (is_null($dirs)) {
-            $dirs = array();
-        } elseif (is_string($dirs))  {
-            $dirs = explode(PATH_SEPARATOR, $dirs);
-        }
-        foreach ($dirs as $dir) {
-            $filespec = rtrim($dir, '\\/') . DIRECTORY_SEPARATOR . $filename;
-            if (self::isReadable($filespec)) {
-                return self::_includeFile($filespec, $once);
+        $incPath = false;
+        if (!empty($dirs) && (is_array($dirs) || is_string($dirs))) {
+            if (is_array($dirs)) {
+                $dirs = implode(PATH_SEPARATOR, $dirs);
             }
+            $incPath = get_include_path();
+            set_include_path($dirs . PATH_SEPARATOR . $incPath);
         }
 
         /**
-         * The file was not found in the $dirs specified.
          * Try finding for the plain filename in the include_path.
          */
-        if (self::isReadable($filename)) {
-            return self::_includeFile($filename, $once);
+        if ($once) {
+            include_once $filename;
+        } else {
+            include $filename;
         }
 
         /**
-         * The file was not located anywhere.
+         * If searching in directories, reset include_path
          */
-        require_once 'Zend/Exception.php';
-        throw new Zend_Exception("File \"$filename\" was not found");
-    }
-
-    /**
-     * Attempt to include() the file.
-     *
-     * include() is not prefixed with the @ operator because if
-     * the file is loaded and contains a parse error, execution
-     * will halt silently and this is difficult to debug.
-     *
-     * Always set display_errors = Off on production servers!
-     *
-     * @param  string  $filespec
-     * @param  boolean $once
-     * @return boolean
-     */
-    protected static function _includeFile($filespec, $once = false)
-    {
-        if ($once) {
-            return include_once $filespec;
-        } else {
-            return include $filespec ;
+        if ($incPath) {
+            set_include_path($incPath);
         }
+
+        return true;
     }
 
     /**
@@ -191,25 +157,11 @@ class Zend_Loader
      */
     public static function isReadable($filename)
     {
-        if (@is_readable($filename)) {
-            return true;
+        if (!$fh = @fopen($filename, 'r', true)) {
+            return false;
         }
 
-        $path = get_include_path();
-        $dirs = explode(PATH_SEPARATOR, $path);
-
-        foreach ($dirs as $dir) {
-            // No need to check against current dir -- already checked
-            if ('.' == $dir) {
-                continue;
-            }
-
-            if (@is_readable($dir . DIRECTORY_SEPARATOR . $filename)) {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     /**
@@ -236,12 +188,13 @@ class Zend_Loader
     /**
      * Register {@link autoload()} with spl_autoload()
      *
-     * @param string OPTIONAL $class
+     * @param string $class (optional)
+     * @param boolean $enabled (optional)
      * @return void
      * @throws Zend_Exception if spl_autoload() is not found
      * or if the specified class does not have an autoload() method.
      */
-    public static function registerAutoload($class = 'Zend_Loader')
+    public static function registerAutoload($class = 'Zend_Loader', $enabled = true)
     {
         if (!function_exists('spl_autoload_register')) {
             require_once 'Zend/Exception.php';
@@ -255,6 +208,51 @@ class Zend_Loader
             throw new Zend_Exception("The class \"$class\" does not have an autoload() method");
         }
 
-        spl_autoload_register(array($class, 'autoload'));
+        if ($enabled === true) {
+            spl_autoload_register(array($class, 'autoload'));
+        } else {
+            spl_autoload_unregister(array($class, 'autoload'));
+        }
+    }
+
+    /**
+     * Ensure that filename does not contain exploits
+     *
+     * @param  string $filename
+     * @return void
+     * @throws Zend_Exception
+     */
+    protected static function _securityCheck($filename)
+    {
+        /**
+         * Security check
+         */
+        if (preg_match('/[^a-z0-9\\/\\\\_.-]/i', $filename)) {
+            require_once 'Zend/Exception.php';
+            throw new Zend_Exception('Security check: Illegal character in filename');
+        }
+    }
+
+    /**
+     * Attempt to include() the file.
+     *
+     * include() is not prefixed with the @ operator because if
+     * the file is loaded and contains a parse error, execution
+     * will halt silently and this is difficult to debug.
+     *
+     * Always set display_errors = Off on production servers!
+     *
+     * @param  string  $filespec
+     * @param  boolean $once
+     * @return boolean
+     * @deprecated Since 1.5.0; use loadFile() instead
+     */
+    protected static function _includeFile($filespec, $once = false)
+    {
+        if ($once) {
+            return include_once $filespec;
+        } else {
+            return include $filespec ;
+        }
     }
 }

@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Dynamic.php 3224 2007-02-05 22:08:48Z gavin $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Dynamic.php 8064 2008-02-16 10:58:39Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Viscosity_Dynamic
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Viscosity_Dynamic extends Zend_Measure_Abstract
@@ -78,40 +78,40 @@ class Zend_Measure_Viscosity_Dynamic extends Zend_Measure_Abstract
     const SAE_20W_99C          = 'SAE_20W_99C';
 
     protected $_UNITS = array(
-        'CENTIPOISE'          => array(0.001,      'cP'),
-        'DECIPOISE'           => array(0.01,       'dP'),
-        'DYNE_SECOND_PER_SQUARE_CENTIMETER'       => array(0.1,     'dyn s/cm²'),
-        'GRAM_FORCE_SECOND_PER_SQUARE_CENTIMETER' => array(98.0665, 'gf s/cm²'),
-        'GRAM_PER_CENTIMETER_SECOND'              => array(0.1,     'g/cm s'),
-        'KILOGRAM_FORCE_SECOND_PER_SQUARE_METER'  => array(9.80665, 'kgf s/m²'),
-        'KILOGRAM_PER_METER_HOUR'    => array(array('' => 1, '/' => 3600), 'kg/m h'),
-        'KILOGRAM_PER_METER_SECOND'  => array(1,   'kg/ms'),
-        'MILLIPASCAL_SECOND'  => array(0.001,      'mPa s'),
-        'MILLIPOISE'          => array(0.0001,     'mP'),
-        'NEWTON_SECOND_PER_SQUARE_METER' => array(1, 'N s/m²'),
-        'PASCAL_SECOND'       => array(1,          'Pa s'),
-        'POISE'               => array(0.1,        'P'),
-        'POISEUILLE'          => array(1,          'Pl'),
-        'POUND_FORCE_SECOND_PER_SQUARE_FEET' => array(47.880259,  'lbf s/ft²'),
-        'POUND_FORCE_SECOND_PER_SQUARE_INCH' => array(6894.75729, 'lbf s/in²'),
-        'POUND_PER_FOOT_HOUR' => array(0.00041337887,             'lb/ft h'),
-        'POUND_PER_FOOT_SECOND'          => array(1.4881639,      'lb/ft s'),
-        'POUNDAL_HOUR_PER_SQUARE_FOOT'   => array(0.00041337887,  'pdl h/ft²'),
-        'POUNDAL_SECOND_PER_SQUARE_FOOT' => array(1.4881639,      'pdl s/ft²'),
-        'REYN'                => array(6894.75729, 'reyn'),
-        'SLUG_PER_FOOT_SECOND'=> array(47.880259,  'slug/ft s'),
-        'WATER_20C'           => array(0.001,      'water (20°)'),
-        'WATER_40C'           => array(0.00065,    'water (40°)'),
-        'HEAVY_OIL_20C'       => array(0.45,       'oil (20°)'),
-        'HEAVY_OIL_40C'       => array(0.11,       'oil (40°)'),
-        'GLYCERIN_20C'        => array(1.41,       'glycerin (20°)'),
-        'GLYCERIN_40C'        => array(0.284,      'glycerin (40°)'),
-        'SAE_5W_MINUS18C'     => array(1.2,        'SAE 5W (-18°)'),
-        'SAE_10W_MINUS18C'    => array(2.4,        'SAE 10W (-18°)'),
-        'SAE_20W_MINUS18C'    => array(9.6,        'SAE 20W (-18°)'),
-        'SAE_5W_99C'          => array(0.0039,     'SAE 5W (99°)'),
-        'SAE_10W_99C'         => array(0.0042,     'SAE 10W (99°)'),
-        'SAE_20W_99C'         => array(0.0057,     'SAE 20W (99°)'),
+        'CENTIPOISE'          => array('0.001',      'cP'),
+        'DECIPOISE'           => array('0.01',       'dP'),
+        'DYNE_SECOND_PER_SQUARE_CENTIMETER'       => array('0.1',     'dyn s/cm²'),
+        'GRAM_FORCE_SECOND_PER_SQUARE_CENTIMETER' => array('98.0665', 'gf s/cm²'),
+        'GRAM_PER_CENTIMETER_SECOND'              => array('0.1',     'g/cm s'),
+        'KILOGRAM_FORCE_SECOND_PER_SQUARE_METER'  => array('9.80665', 'kgf s/m²'),
+        'KILOGRAM_PER_METER_HOUR'    => array(array('' => '1', '/' => '3600'), 'kg/m h'),
+        'KILOGRAM_PER_METER_SECOND'  => array('1',   'kg/ms'),
+        'MILLIPASCAL_SECOND'  => array('0.001',      'mPa s'),
+        'MILLIPOISE'          => array('0.0001',     'mP'),
+        'NEWTON_SECOND_PER_SQUARE_METER' => array('1', 'N s/m²'),
+        'PASCAL_SECOND'       => array('1',          'Pa s'),
+        'POISE'               => array('0.1',        'P'),
+        'POISEUILLE'          => array('1',          'Pl'),
+        'POUND_FORCE_SECOND_PER_SQUARE_FEET' => array('47.880259',  'lbf s/ft²'),
+        'POUND_FORCE_SECOND_PER_SQUARE_INCH' => array('6894.75729', 'lbf s/in²'),
+        'POUND_PER_FOOT_HOUR' => array('0.00041337887',             'lb/ft h'),
+        'POUND_PER_FOOT_SECOND'          => array('1.4881639',      'lb/ft s'),
+        'POUNDAL_HOUR_PER_SQUARE_FOOT'   => array('0.00041337887',  'pdl h/ft²'),
+        'POUNDAL_SECOND_PER_SQUARE_FOOT' => array('1.4881639',      'pdl s/ft²'),
+        'REYN'                => array('6894.75729', 'reyn'),
+        'SLUG_PER_FOOT_SECOND'=> array('47.880259',  'slug/ft s'),
+        'WATER_20C'           => array('0.001',      'water (20°)'),
+        'WATER_40C'           => array('0.00065',    'water (40°)'),
+        'HEAVY_OIL_20C'       => array('0.45',       'oil (20°)'),
+        'HEAVY_OIL_40C'       => array('0.11',       'oil (40°)'),
+        'GLYCERIN_20C'        => array('1.41',       'glycerin (20°)'),
+        'GLYCERIN_40C'        => array('0.284',      'glycerin (40°)'),
+        'SAE_5W_MINUS18C'     => array('1.2',        'SAE 5W (-18°)'),
+        'SAE_10W_MINUS18C'    => array('2.4',        'SAE 10W (-18°)'),
+        'SAE_20W_MINUS18C'    => array('9.6',        'SAE 20W (-18°)'),
+        'SAE_5W_99C'          => array('0.0039',     'SAE 5W (99°)'),
+        'SAE_10W_99C'         => array('0.0042',     'SAE 10W (99°)'),
+        'SAE_20W_99C'         => array('0.0057',     'SAE 20W (99°)'),
         'STANDARD'            => 'KILOGRAM_PER_METER_SECOND'
     );
 }

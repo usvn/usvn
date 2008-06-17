@@ -11,30 +11,33 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
- *
+ * 
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @version    $Id: Smtp.php 5763 2007-07-18 21:58:13Z thomas $
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Smtp.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
 /**
- * Zend_Loader
+ * @see Zend_Loader
  */
 require_once 'Zend/Loader.php';
 
+/**
+ * @see Zend_Mime
+ */
+require_once 'Zend/Mime.php';
 
 /**
- * Zend_Mail_Protocol_Smtp
+ * @see Zend_Mail_Protocol_Smtp
  */
 require_once 'Zend/Mail/Protocol/Smtp.php';
 
-
 /**
- * Zend_Mail_Transport_Abstract
+ * @see Zend_Mail_Transport_Abstract
  */
 require_once 'Zend/Mail/Transport/Abstract.php';
 
@@ -47,11 +50,18 @@ require_once 'Zend/Mail/Transport/Abstract.php';
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Transport
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
 {
+    /**
+     * EOL character string used by transport
+     * @var string
+     * @access public
+     */
+    public $EOL = "\n";
+
     /**
      * Remote smtp hostname or i.p.
      *
@@ -132,7 +142,11 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
     public function __destruct()
     {
         if ($this->_connection instanceof Zend_Mail_Protocol_Smtp) {
-            $this->_connection->quit();
+            try {
+                $this->_connection->quit();
+            } catch (Zend_Mail_Protocol_Exception $e) {
+            	// ignore
+            }
             $this->_connection->disconnect();
         }
     }
@@ -196,7 +210,32 @@ class Zend_Mail_Transport_Smtp extends Zend_Mail_Transport_Abstract
         }
 
         // Issue DATA command to client
-        $this->_connection->data($this->header . $this->EOL . $this->body);
+        $this->_connection->data($this->header . Zend_Mime::LINEEND . $this->body);
     }
 
+    /**
+     * Format and fix headers
+     *
+     * Some SMTP servers do not strip BCC headers. Most clients do it themselves as do we.
+     *
+     * @access  protected
+     * @param   array $headers
+     * @return  void
+     * @throws  Zend_Transport_Exception
+     */
+    protected function _prepareHeaders($headers)
+    {
+        if (!$this->_mail) {
+            /**
+             * @see Zend_Mail_Transport_Exception
+             */
+            require_once 'Zend/Mail/Transport/Exception.php';
+            throw new Zend_Mail_Transport_Exception('_prepareHeaders requires a registered Zend_Mail object');
+        }
+
+        unset($headers['Bcc']);
+
+        // Prepare headers
+        parent::_prepareHeaders($headers);
+    }
 }

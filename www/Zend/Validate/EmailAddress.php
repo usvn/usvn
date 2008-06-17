@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EmailAddress.php 5794 2007-07-20 14:24:19Z darby $
+ * @version    $Id: EmailAddress.php 8986 2008-03-21 21:38:32Z matthew $
  */
 
 
@@ -36,7 +36,7 @@ require_once 'Zend/Validate/Hostname.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
@@ -175,7 +175,8 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
         $this->_hostname  = $matches[2];
 
         // Match hostname part
-        $hostnameResult = $this->hostnameValidator->isValid($this->_hostname);
+        $hostnameResult = $this->hostnameValidator->setTranslator($this->getTranslator())
+                               ->isValid($this->_hostname);
         if (!$hostnameResult) {
             $this->_error(self::INVALID_HOSTNAME);
 

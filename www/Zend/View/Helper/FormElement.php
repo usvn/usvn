@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Helper_FormElement
@@ -72,7 +72,7 @@ abstract class Zend_View_Helper_FormElement
      * @access protected
      *
      * @return array An element info array with keys for name, value,
-     * attribs, options, listsep, and disable.
+     * attribs, options, listsep, disable, and escape.
      */
     protected function _getInfo($name, $value = null, $attribs = null,
         $options = null, $listsep = null)
@@ -89,6 +89,7 @@ abstract class Zend_View_Helper_FormElement
             'options' => $options,
             'listsep' => $listsep,
             'disable' => false,
+            'escape'  => true,
         );
 
         // override with named args
@@ -104,16 +105,24 @@ abstract class Zend_View_Helper_FormElement
         // force attribs to an array, per note from Orjan Persson.
         settype($info['attribs'], 'array');
 
-        // disable if readonly
-        if (isset($info['attribs']['readonly']) &&
-            $info['attribs']['readonly'] == 'readonly') {
+        // Normalize readonly tag
+        if (isset($info['attribs']['readonly']) 
+            && $info['attribs']['readonly'] != 'readonly') 
+        {
+            $info['attribs']['readonly'] = 'readonly';
         }
 
-        // normal disable, overrides readonly
-        if (isset($info['attribs']['disable']) &&
-            $info['attribs']['disable']) {
+        // Disable attribute
+        if (isset($info['attribs']['disable']) 
+            && is_scalar($info['attribs']['disable'])) 
+        {
             // disable the element
             $info['disable'] = true;
+            unset($info['attribs']['disable']);
+        } elseif (isset($info['attribs']['disable'])
+            && is_array($info['attribs']['disable']))
+        {
+            $info['disable'] = $info['attribs']['disable'];
             unset($info['attribs']['disable']);
         }
 
@@ -121,12 +130,30 @@ abstract class Zend_View_Helper_FormElement
         if (isset($info['attribs']['id'])) {
             $info['id'] = (string) $info['attribs']['id'];
         } elseif (!isset($info['attribs']['id']) && !empty($info['name'])) {
-            $info['id'] = $info['name'];
+            $id = $info['name'];
+            if (substr($id, -2) == '[]') {
+                $id = substr($id, 0, strlen($id) - 2);
+            }
+            if (strstr($id, ']')) {
+                $id = trim($id, ']');
+                $id = str_replace('][', '-', $id);
+                $id = str_replace('[', '-', $id);
+            }
+            $info['id'] = $id;
         }
 
-        // remove attribs that might overwrite the other keys.
-        // we do this LAST because we needed the other attribs
-        // values earlier.
+        // Determine escaping from attributes
+        if (isset($info['attribs']['escape'])) {
+            $info['escape'] = (bool) $info['attribs']['escape'];
+        }
+
+        // Determine listsetp from attributes
+        if (isset($info['attribs']['listsep'])) {
+            $info['listsep'] = (string) $info['attribs']['listsep'];
+        }
+
+        // Remove attribs that might overwrite the other keys. We do this LAST 
+        // because we needed the other attribs values earlier.
         foreach ($info as $key => $val) {
             if (isset($info['attribs'][$key])) {
                 unset($info['attribs'][$key]);
@@ -155,10 +182,11 @@ abstract class Zend_View_Helper_FormElement
      */
     protected function _hidden($name, $value = null, $attribs = null)
     {
+        $endTag = ($this->view->doctype()->isXhtml()) ? ' />' : '>';
         return '<input type="hidden"'
              . ' name="' . $this->view->escape($name) . '"'
              . ' value="' . $this->view->escape($value) . '"'
-             . $this->_htmlAttribs($attribs) . ' />';
+             . $this->_htmlAttribs($attribs) . $endTag;
     }
 
     /**

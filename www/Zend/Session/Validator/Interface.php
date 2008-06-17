@@ -14,19 +14,19 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php 5754 2007-07-18 21:01:51Z thomas $
+ * @version    $Id: Interface.php 9275 2008-04-22 13:37:19Z darby $
  * @since      Preview Release 0.2
  */
 
 /**
  * Zend_Session_Validator_Interface
  *
- * @category Zend
- * @package Zend_Session
- * @subpackage Validators
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @category   Zend
+ * @package    Zend_Session
+ * @subpackage Validator
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Session_Validator_Interface
@@ -34,7 +34,9 @@ interface Zend_Session_Validator_Interface
 
     /**
      * Setup() - this method will store the environment variables
-     * nessissary to be able to validate against in future requests.
+     * necessary to be able to validate against in future requests.
+     *
+     * @return void
      */
     public function setup();
 
@@ -42,6 +44,8 @@ interface Zend_Session_Validator_Interface
      * Validate() - this method will be called at the beginning of
      * every session to determine if the current environment matches
      * that which was store in the setup() procedure.
+     *
+     * @return boolean
      */
     public function validate();
 

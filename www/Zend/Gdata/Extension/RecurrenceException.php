@@ -15,7 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ require_once 'Zend/Gdata/Extension.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Extension_RecurrenceException extends Zend_Gdata_Extension
@@ -50,7 +50,7 @@ class Zend_Gdata_Extension_RecurrenceException extends Zend_Gdata_Extension
             $originalEvent = null)
     {
         parent::__construct();
-    $this->_specialized = $specialized;
+        $this->_specialized = $specialized;
         $this->_entryLink = $entryLink;
         $this->_originalEvent = $originalEvent;
     }
@@ -95,7 +95,7 @@ class Zend_Gdata_Extension_RecurrenceException extends Zend_Gdata_Extension
                 $this->_specialized = true;
             }
             else if ($attribute->nodeValue == "false") {
-                $this->_specialzied = false;
+                $this->_specialized = false;
             }
             else {
                 throw new Zend_Gdata_App_InvalidArgumentException("Expected 'true' or 'false' for gCal:selected#value.");

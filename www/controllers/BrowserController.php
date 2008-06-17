@@ -18,5 +18,10 @@
  */
 class BrowserController extends USVN_Controller
 {
+	public function indexAction()
+	{
+		$table = new USVN_Db_Table_Projects();
+		$this->view->project = $table->findByName($this->getRequest()->getParam('project'));
+	}
 }
 

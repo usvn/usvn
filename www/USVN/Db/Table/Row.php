@@ -18,50 +18,25 @@
  * $Id $
  */
 class USVN_Db_Table_Row extends Zend_Db_Table_Row_Abstract {
-	/**
-	 * Getter for camelCaps properties mapped to underscore_word columns.
-	 *
-	 * @param string $camel The camelCaps property name; e.g., 'columnName' maps to 'column_name'.
-	 * @return string The mapped column value.
-	 */
-	public function __get($key)
+    /**
+     * Transform a column name from the user-specified form
+     * to the physical form used in the database.
+     * You can override this method in a custom Row class
+     * to implement column name mappings, for example inflection.
+     *
+     * @param string $columnName Column name given.
+     * @return string The column name after transformation applied (none by default).
+     * @throws Zend_Db_Table_Row_Exception if the $columnName is not a string.
+     */
+    protected function _transformColumn($columnName)
 	{
-		$under = $this->_checkKey($key);
-		return stripslashes($this->_data[$under]);
-	}
-
-	/**
-	 * Setter for camelCaps properties mapped to underscore_word columns.
-	 *
-	 * @param string $camel The camelCaps property name; e.g., 'columnName' maps to 'column_name'.
-	 * @param mixed $value The value for the property.
-	 * @return void
-	 * @throws Zend_Db_Table_Row_Exception
-	 */
-	public function __set($key, $value)
-	{
-		$under = $this->_checkKey($key);
-		// @todo this should permit a primary key value to be set
-		// not all table have an auto-generated primary key
-		if (in_array($under, $this->_primary)) {
-			require_once 'Zend/Db/Table/Row/Exception.php';
-			throw new Zend_Db_Table_Row_Exception("Changing the primary key value(s) is not allowed");
+		if (array_key_exists($columnName, $this->_data)) {
+			return $columnName;
 		}
-
-		$this->_data[$under] = $value;
-	}
-
-	protected function _checkKey($key)
-	{
-		if (array_key_exists($key, $this->_data)) {
-			return $key;
-		}
-
 		$info = $this->_getTable()->info();
-		if (array_key_exists($info['fieldPrefix'] . $key, $this->_data)) {
-			return $info['fieldPrefix'] . $key;
+		if (array_key_exists($info['fieldPrefix'] . $columnName, $this->_data)) {
+			return $info['fieldPrefix'] . $columnName;
 		}
-
-		throw new Zend_Db_Table_Row_Exception("column '$key' not in row");
+		throw new Zend_Db_Table_Row_Exception("column '$columnName' not in row");
 	}
 }

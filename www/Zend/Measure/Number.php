@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Number.php 5777 2007-07-18 22:22:40Z thomas $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Number.php 8276 2008-02-22 08:09:33Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,6 @@
 /**
  * Implement needed classes
  */
-require_once 'Zend/Measure/Exception.php';
 require_once 'Zend/Measure/Abstract.php';
 require_once 'Zend/Locale.php';
 
@@ -32,7 +31,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Number
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
  * This class can only handle numbers without precission
@@ -149,6 +148,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         }
 
         if (!$this->_Locale = Zend_Locale::isLocale($locale, true)) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception("Language ($locale) is unknown");
         }
 
@@ -159,6 +159,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         }
 
         if (!array_key_exists($type, $this->_UNITS)) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception("Type ($type) is unknown");
         }
         $this->setValue($value, $type, $this->_Locale);
@@ -180,6 +181,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
         }
 
         if (empty($this->_UNITS[$type])) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception('unknown type of number:' . $type);
         }
 
@@ -232,6 +234,7 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
                 try {
                     $value = Zend_Locale_Format::getInteger($value, array('locale' => $locale));
                 } catch (Exception $e) {
+                    require_once 'Zend/Measure/Exception.php';
                     throw new Zend_Measure_Exception($e->getMessage());
                 }
                 if (call_user_func(Zend_Locale_Math::$comp, $value, 0) < 0) {
@@ -301,13 +304,29 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
      */
     private function fromDecimal($value, $type)
     {
+        $tempvalue = $value;
         if ($this->_UNITS[$type][0] <= 16) {
-            $newvalue = "";
-            while(call_user_func(Zend_Locale_Math::$comp, $value, 0) >= 1) {
-                $target = call_user_func(Zend_Locale_Math::$mod, $value, $this->_UNITS[$type][0]);
-                $target = strtoupper( dechex($target) );
-                $newvalue = $target . $newvalue;
-                $value = call_user_func(Zend_Locale_Math::$div, $value, $this->_UNITS[$type][0], 0);
+            $newvalue = '';
+            $count = 200;
+            $base = $this->_UNITS[$type][0];
+            
+            while (call_user_func(Zend_Locale_Math::$comp, $value, 0, 25) <> 0) {
+                $target = call_user_func(Zend_Locale_Math::$mod, $value, $base);
+
+                $newvalue = strtoupper( dechex($target) ) . $newvalue;
+                
+                $value = call_user_func(Zend_Locale_Math::$sub, $value, $target, 0);
+                $value = call_user_func(Zend_Locale_Math::$div, $value, $base,   0);
+
+                --$count;
+                if ($count == 0) {
+                    require_once 'Zend/Measure/Exception.php';
+                    throw new Zend_Measure_Exception("Your value '$tempvalue' cannot be processed because it extends 200 digits");
+                }
+            }
+            
+            if ($newvalue == '') {
+                $newvalue = '0';
             }
         }
 
@@ -316,11 +335,21 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
             $newvalue = "";
             $romanval = array_values( array_reverse(self::$_ROMAN) );
             $romankey = array_keys( array_reverse(self::$_ROMAN) );
-            while(call_user_func(Zend_Locale_Math::$comp, $value, 0) != 0) {
+            $count = 200;
+            while(call_user_func(Zend_Locale_Math::$comp, $value, 0, 25) <> 0) {
 
                 while ($value >= $romanval[$i]) {
                     $value    -= $romanval[$i];
                     $newvalue .= $romankey[$i];
+
+                    if ($value < 1) {
+                        break; 
+                    }
+                    --$count;
+                    if ($count == 0) {
+                        require_once 'Zend/Measure/Exception.php';
+                        throw new Zend_Measure_Exception("Your value '$tempvalue' cannot be processed because it extends 200 digits");
+                    }
                 }
                 $i++;
 
@@ -341,13 +370,29 @@ class Zend_Measure_Number extends Zend_Measure_Abstract
     public function setType( $type )
     {
         if (empty($this->_UNITS[$type])) {
+            require_once 'Zend/Measure/Exception.php';
             throw new Zend_Measure_Exception('Unknown type of number:' . $type);
         }
 
-        $value = $this->toDecimal($this->getValue(), $this->getType());
+        $value = $this->toDecimal($this->getValue(-1), $this->getType(-1));
         $value = $this->fromDecimal($value, $type);
 
         $this->_value = $value;
         $this->_type  = $type;
+    }
+
+
+    /**
+     * Alias function for setType returning the converted unit
+     * Default is 0 as this class only handles numbers without precision
+     *
+     * @param $type   type
+     * @param $round  integer  OPTIONAL Precision to add, will always be 0
+     * @return string
+     */
+    public function convertTo($type, $round = 0)
+    {
+        $this->setType($type);
+        return $this->toString($round);
     }
 }

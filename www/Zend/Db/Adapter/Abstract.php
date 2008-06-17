@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -16,11 +15,16 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php 5906 2007-07-28 02:58:20Z bkarwin $
+ * @version    $Id: Abstract.php 9136 2008-04-04 13:58:29Z thomas $
  */
 
+
+/**
+ * @see Zend_Config
+ */
+require_once 'Zend/Config.php';
 
 /**
  * @see Zend_Db
@@ -28,14 +32,14 @@
 require_once 'Zend/Db.php';
 
 /**
- * @see Zend_Db_Profiler
- */
-require_once 'Zend/Db/Profiler.php';
-
-/**
  * @see Zend_Db_Select
  */
 require_once 'Zend/Db/Select.php';
+
+/**
+ * @see Zend_Loader
+ */
+require_once 'Zend/Loader.php';
 
 
 /**
@@ -44,7 +48,7 @@ require_once 'Zend/Db/Select.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Db_Adapter_Abstract
@@ -65,11 +69,19 @@ abstract class Zend_Db_Adapter_Abstract
     protected $_fetchMode = Zend_Db::FETCH_ASSOC;
 
     /**
-     * Query profiler
+     * Query profiler object, of type Zend_Db_Profiler
+     * or a subclass of that.
      *
      * @var Zend_Db_Profiler
      */
     protected $_profiler;
+
+    /**
+     * Default class name for the profiler object.
+     *
+     * @var string
+     */
+    protected $_defaultProfilerClass = 'Zend_Db_Profiler';
 
     /**
      * Database connection
@@ -85,7 +97,7 @@ abstract class Zend_Db_Adapter_Abstract
      * Zend_Db::CASE_LOWER
      * Zend_Db::CASE_UPPER
      *
-     * @access protected
+     * @var integer
      */
     protected $_caseFolding = Zend_Db::CASE_NATURAL;
 
@@ -96,7 +108,7 @@ abstract class Zend_Db_Adapter_Abstract
      * If false, developer must quote identifiers themselves
      * by calling quoteIdentifier().
      *
-     * @access protected
+     * @var bool
      */
     protected $_autoQuoteIdentifiers = true;
 
@@ -120,8 +132,8 @@ abstract class Zend_Db_Adapter_Abstract
     /**
      * Constructor.
      *
-     * $config is an array of key/value pairs containing configuration
-     * options.  These options are common to most adapters:
+     * $config is an array of key/value pairs or an instance of Zend_Config
+     * containing configuration options.  These options are common to most adapters:
      *
      * dbname         => (string) The name of the database to user
      * username       => (string) Connect to the database as this username.
@@ -133,22 +145,42 @@ abstract class Zend_Db_Adapter_Abstract
      * port           => (string) The port of the database
      * persistent     => (boolean) Whether to use a persistent connection or not, defaults to false
      * protocol       => (string) The network protocol, defaults to TCPIP
-     * caseFolding    => (int)
+     * caseFolding    => (int) style of case-alteration used for identifiers
      *
-     * @param array $config An array of configuration keys.
+     * @param  array|Zend_Config $config An array or instance of Zend_Config having configuration data
      * @throws Zend_Db_Adapter_Exception
      */
-    public function __construct(array $config = array())
+    public function __construct($config)
     {
+        /*
+         * Verify that adapter parameters are in an array.
+         */
+        if (!is_array($config)) {
+            /*
+             * Convert Zend_Config argument to a plain array.
+             */
+            if ($config instanceof Zend_Config) {
+                $config = $config->toArray();
+            } else {
+                /**
+                 * @see Zend_Db_Exception
+                 */
+                require_once 'Zend/Db/Exception.php';
+                throw new Zend_Db_Exception('Adapter parameters must be in an array or a Zend_Config object');
+            }
+        }
+
         $this->_checkRequiredOptions($config);
 
         $options = array(
             Zend_Db::CASE_FOLDING           => $this->_caseFolding,
             Zend_DB::AUTO_QUOTE_IDENTIFIERS => $this->_autoQuoteIdentifiers
         );
-        $driver_options = array();
+        $driverOptions = array();
 
-        // normalize the config and merge it with the defaults
+        /*
+         * normalize the config and merge it with the defaults
+         */
         if (array_key_exists('options', $config)) {
             // can't use array_merge() because keys might be integers
             foreach ((array) $config['options'] as $key => $value) {
@@ -158,12 +190,12 @@ abstract class Zend_Db_Adapter_Abstract
         if (array_key_exists('driver_options', $config)) {
             // can't use array_merge() because keys might be integers
             foreach ((array) $config['driver_options'] as $key => $value) {
-                $driver_options[$key] = $value;
+                $driverOptions[$key] = $value;
             }
         }
         $this->_config  = array_merge($this->_config, $config);
         $this->_config['options'] = $options;
-        $this->_config['driver_options'] = $driver_options;
+        $this->_config['driver_options'] = $driverOptions;
 
         // obtain the case setting, if there is one
         if (array_key_exists(Zend_Db::CASE_FOLDING, $options)) {
@@ -176,7 +208,8 @@ abstract class Zend_Db_Adapter_Abstract
                     break;
                 default:
                     require_once 'Zend/Db/Adapter/Exception.php';
-                    throw new Zend_Db_Adapter_Exception("Case must be one of the following constants: Zend_Db::CASE_NATURAL, Zend_Db::CASE_LOWER, Zend_Db::CASE_UPPER");
+                    throw new Zend_Db_Adapter_Exception('Case must be one of the following constants: '
+                        . 'Zend_Db::CASE_NATURAL, Zend_Db::CASE_LOWER, Zend_Db::CASE_UPPER');
             }
         }
 
@@ -186,13 +219,12 @@ abstract class Zend_Db_Adapter_Abstract
         }
 
         // create a profiler object
-        $enabled = false;
-        if (array_key_exists('profiler', $this->_config)) {
-            $enabled = (bool) $this->_config['profiler'];
-            unset($this->_config['profiler']);
+        $profiler = false;
+        if (array_key_exists(Zend_Db::PROFILER, $this->_config)) {
+            $profiler = $this->_config[Zend_Db::PROFILER];
+            unset($this->_config[Zend_Db::PROFILER]);
         }
-
-        $this->_profiler = new Zend_Db_Profiler($enabled);
+        $this->setProfiler($profiler);
     }
 
     /**
@@ -207,7 +239,7 @@ abstract class Zend_Db_Adapter_Abstract
         // we need at least a dbname
         if (! array_key_exists('dbname', $config)) {
             require_once 'Zend/Db/Adapter/Exception.php';
-            throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'dbname' that names the database instance.");
+            throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'dbname' that names the database instance");
         }
 
         if (! array_key_exists('password', $config)) {
@@ -215,7 +247,7 @@ abstract class Zend_Db_Adapter_Abstract
              * @see Zend_Db_Adapter_Exception
              */
             require_once 'Zend/Db/Adapter/Exception.php';
-            throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'password' for login credentials.");
+            throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'password' for login credentials");
         }
 
         if (! array_key_exists('username', $config)) {
@@ -223,7 +255,7 @@ abstract class Zend_Db_Adapter_Abstract
              * @see Zend_Db_Adapter_Exception
              */
             require_once 'Zend/Db/Adapter/Exception.php';
-            throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'username' for login credentials.");
+            throw new Zend_Db_Adapter_Exception("Configuration array must have a key for 'username' for login credentials");
         }
     }
 
@@ -238,6 +270,100 @@ abstract class Zend_Db_Adapter_Abstract
         $this->_connect();
         return $this->_connection;
     }
+
+    /**
+     * Returns the configuration variables in this adapter.
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->_config;
+    }
+
+    /**
+     * Set the adapter's profiler object.
+     *
+     * The argument may be a boolean, an associative array, an instance of
+     * Zend_Db_Profiler, or an instance of Zend_Config.
+     *
+     * A boolean argument sets the profiler to enabled if true, or disabled if
+     * false.  The profiler class is the adapter's default profiler class,
+     * Zend_Db_Profiler.
+     *
+     * An instance of Zend_Db_Profiler sets the adapter's instance to that
+     * object.  The profiler is enabled and disabled separately.
+     *
+     * An associative array argument may contain any of the keys 'enabled',
+     * 'class', and 'instance'. The 'enabled' and 'instance' keys correspond to the
+     * boolean and object types documented above. The 'class' key is used to name a
+     * class to use for a custom profiler. The class must be Zend_Db_Profiler or a
+     * subclass. The class is instantiated with no constructor arguments. The 'class'
+     * option is ignored when the 'instance' option is supplied.
+     *
+     * An object of type Zend_Config may contain the properties 'enabled', 'class', and
+     * 'instance', just as if an associative array had been passed instead.
+     *
+     * @param  Zend_Db_Profiler|Zend_Config|array|boolean $profiler
+     * @return Zend_Db_Adapter_Abstract Provides a fluent interface
+     * @throws Zend_Db_Profiler_Exception if the object instance or class specified
+     *         is not Zend_Db_Profiler or an extension of that class.
+     */
+    public function setProfiler($profiler)
+    {
+        $enabled          = null;
+        $profilerClass    = $this->_defaultProfilerClass;
+        $profilerInstance = null;
+
+        if ($profilerIsObject = is_object($profiler)) {
+            if ($profiler instanceof Zend_Db_Profiler) {
+                $profilerInstance = $profiler;
+            } else if ($profiler instanceof Zend_Config) {
+                $profiler = $profiler->toArray();
+            } else {
+                /**
+                 * @see Zend_Db_Profiler_Exception
+                 */
+                require_once 'Zend/Db/Profiler/Exception.php';
+                throw new Zend_Db_Profiler_Exception('Profiler argument must be an instance of either Zend_Db_Profiler'
+                    . ' or Zend_Config when provided as an object');
+            }
+        }
+
+        if (is_array($profiler)) {
+            if (isset($profiler['enabled'])) {
+                $enabled = (bool) $profiler['enabled'];
+            }
+            if (isset($profiler['class'])) {
+                $profilerClass = $profiler['class'];
+            }
+            if (isset($profiler['instance'])) {
+                $profilerInstance = $profiler['instance'];
+            }
+        } else if (!$profilerIsObject) {
+            $enabled = (bool) $profiler;
+        }
+
+        if ($profilerInstance === null) {
+            @Zend_Loader::loadClass($profilerClass);
+            $profilerInstance = new $profilerClass();
+        }
+
+        if (!$profilerInstance instanceof Zend_Db_Profiler) {
+            require_once 'Zend/Db/Profiler/Exception.php';
+            throw new Zend_Db_Profiler_Exception('Class ' . get_class($profilerInstance) . ' does not extend '
+                . 'Zend_Db_Profiler');
+        }
+
+        if (null !== $enabled) {
+            $profilerInstance->setEnabled($enabled);
+        }
+
+        $this->_profiler = $profilerInstance;
+
+        return $this;
+    }
+
 
     /**
      * Returns the profiler for this adapter.
@@ -477,14 +603,38 @@ abstract class Zend_Db_Adapter_Abstract
      * Fetches all SQL result rows as a sequential array.
      * Uses the current fetchMode for the adapter.
      *
-     * @param  string|Zend_Db_Select $sql  An SQL SELECT statement.
-     * @param  mixed                 $bind Data to bind into SELECT placeholders.
+     * @param string|Zend_Db_Select $sql  An SQL SELECT statement.
+     * @param mixed                 $bind Data to bind into SELECT placeholders.
+     * @param mixed                 $fetchMode Override current fetch mode.
      * @return array
      */
-    public function fetchAll($sql, $bind = array())
+    public function fetchAll($sql, $bind = array(), $fetchMode = null)
     {
+        if ($fetchMode === null) {
+            $fetchMode = $this->_fetchMode;
+        }
         $stmt = $this->query($sql, $bind);
-        $result = $stmt->fetchAll($this->_fetchMode);
+        $result = $stmt->fetchAll($fetchMode);
+        return $result;
+    }
+
+    /**
+     * Fetches the first row of the SQL result.
+     * Uses the current fetchMode for the adapter.
+     *
+     * @param string|Zend_Db_Select $sql An SQL SELECT statement.
+     * @param mixed $bind Data to bind into SELECT placeholders.
+     * @param mixed                 $fetchMode Override current fetch mode.
+     * @return array
+     */
+    public function fetchRow($sql, $bind = array(), $fetchMode = null)
+    {
+        if ($fetchMode === null) {
+            $fetchMode = $this->_fetchMode;
+        }
+        $stmt = $this->query($sql, $bind);
+        $result = $stmt->fetch($fetchMode);
+        $stmt->closeCursor();
         return $result;
     }
 
@@ -492,7 +642,10 @@ abstract class Zend_Db_Adapter_Abstract
      * Fetches all SQL result rows as an associative array.
      *
      * The first column is the key, the entire row array is the
-     * value.
+     * value.  You should construct the query to be sure that
+     * the first column contains unique values, or else
+     * rows with duplicate values in the first column will
+     * overwrite previous data.
      *
      * @param string|Zend_Db_Select $sql An SQL SELECT statement.
      * @param mixed $bind Data to bind into SELECT placeholders.
@@ -502,7 +655,7 @@ abstract class Zend_Db_Adapter_Abstract
     {
         $stmt = $this->query($sql, $bind);
         $data = array();
-        while ($row = $stmt->fetch($this->_fetchMode)) {
+        while ($row = $stmt->fetch(Zend_Db::FETCH_ASSOC)) {
             $tmp = array_values(array_slice($row, 0, 1));
             $data[$tmp[0]] = $row;
         }
@@ -561,22 +714,6 @@ abstract class Zend_Db_Adapter_Abstract
     }
 
     /**
-     * Fetches the first row of the SQL result.
-     * Uses the current fetchMode for the adapter.
-     *
-     * @param string|Zend_Db_Select $sql An SQL SELECT statement.
-     * @param mixed $bind Data to bind into SELECT placeholders.
-     * @return array
-     */
-    public function fetchRow($sql, $bind = array())
-    {
-        $stmt = $this->query($sql, $bind);
-        $result = $stmt->fetch($this->_fetchMode);
-        $stmt->closeCursor();
-        return $result;
-    }
-
-    /**
      * Quote a raw string.
      *
      * @param string $value     Raw string
@@ -604,6 +741,10 @@ abstract class Zend_Db_Adapter_Abstract
     {
         $this->_connect();
 
+        if ($value instanceof Zend_Db_Select) {
+            return '(' . $value->__toString() . ')';
+        }
+
         if ($value instanceof Zend_Db_Expr) {
             return $value->__toString();
         }
@@ -621,13 +762,18 @@ abstract class Zend_Db_Adapter_Abstract
                     return (string) intval($value);
                     break;
                 case Zend_Db::BIGINT_TYPE: // 64-bit integer
-                    if (preg_match('/^([1-9]\d*)/', (string) $value, $matches)) {
-                        return $matches[1];
-                    }
-                    if (preg_match('/^(0x[\dA-F]+)/i', (string) $value, $matches)) {
-                        return $matches[1];
-                    }
-                    if (preg_match('/^(0[0-7]*)/', (string) $value, $matches)) {
+                    // ANSI SQL-style hex literals (e.g. x'[\dA-F]+')
+                    // are not supported here, because these are string
+                    // literals, not numeric literals.
+                    if (preg_match('/^(
+                          [+-]?                  # optional sign
+                          (?:
+                            0[Xx][\da-fA-F]+     # ODBC-style hexadecimal
+                            |\d+                 # decimal or octal, or MySQL ZEROFILL decimal
+                            (?:[eE][+-]?\d+)?    # optional exponent on decimals or octals
+                          )
+                        )/x',
+                        (string) $value, $matches)) {
                         return $matches[1];
                     }
                     break;
@@ -654,14 +800,25 @@ abstract class Zend_Db_Adapter_Abstract
      * // $safe = "WHERE date < '2005-01-02'"
      * </code>
      *
-     * @param string $text  The text with a placeholder.
-     * @param mixed  $value The value to quote.
-     * @param string $type  OPTIONAL SQL datatype
+     * @param string  $text  The text with a placeholder.
+     * @param mixed   $value The value to quote.
+     * @param string  $type  OPTIONAL SQL datatype
+     * @param integer $count OPTIONAL count of placeholders to replace
      * @return string An SQL-safe quoted value placed into the orignal text.
      */
-    public function quoteInto($text, $value, $type = null)
+    public function quoteInto($text, $value, $type = null, $count = null)
     {
-        return str_replace('?', $this->quote($value, $type), $text);
+        if ($count === null) {
+            return str_replace('?', $this->quote($value, $type), $text);
+        } else {
+            while ($count > 0) {
+                if (strpos($text, '?') != false) {
+                    $text = substr_replace($text, $this->quote($value, $type), strpos($text, '?'), 1);
+                }
+                --$count;
+            }
+            return $text;
+        }
     }
 
     /**
@@ -712,7 +869,7 @@ abstract class Zend_Db_Adapter_Abstract
      * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
-    public function quoteTableAs($ident, $alias, $auto=false)
+    public function quoteTableAs($ident, $alias = null, $auto=false)
     {
         return $this->_quoteIdentifierAs($ident, $alias, $auto);
     }
@@ -730,6 +887,8 @@ abstract class Zend_Db_Adapter_Abstract
     {
         if ($ident instanceof Zend_Db_Expr) {
             $quoted = $ident->__toString();
+        } elseif ($ident instanceof Zend_Db_Select) {
+            $quoted = '(' . $ident->__toString() . ')';
         } else {
             if (is_string($ident)) {
                 $ident = explode('.', $ident);
@@ -931,6 +1090,8 @@ abstract class Zend_Db_Adapter_Abstract
      * Set the fetch mode.
      *
      * @param integer $mode
+     * @return void
+     * @throws Zend_Db_Adapter_Exception
      */
     abstract public function setFetchMode($mode);
 

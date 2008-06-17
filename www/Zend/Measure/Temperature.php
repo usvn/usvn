@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Temperature.php 5786 2007-07-19 18:34:23Z thomas $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Temperature.php 8064 2008-02-16 10:58:39Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Temperature
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Temperature extends Zend_Measure_Abstract
@@ -47,10 +47,10 @@ class Zend_Measure_Temperature extends Zend_Measure_Abstract
     const KELVIN     = 'KELVIN';
 
     protected $_UNITS = array(
-        'CELSIUS'    => array(array('' => 1, '+' => 273.15),'°C'),
-        'FAHRENHEIT' => array(array('' => 1, '+' => 459.67, '/' => 1.8),'°F'),
-        'RANKINE'    => array(array('' => 1, '/' => 1.8),'°R'),
-        'REAUMUR'    => array(array('' => 1, '*' => 1.25, '+' => 273.15),'°r'),
+        'CELSIUS'    => array(array('' => '1', '+' => '273.15'),'°C'),
+        'FAHRENHEIT' => array(array('' => '1', '-' => '32', '/' => '1.8', '+' => '273.15'),'°F'),
+        'RANKINE'    => array(array('' => '1', '/' => '1.8'),'°R'),
+        'REAUMUR'    => array(array('' => '1', '*' => '1.25', '+' => '273.15'),'°r'),
         'KELVIN'     => array(1,'°K'),
         'STANDARD'   => 'KELVIN'
     );

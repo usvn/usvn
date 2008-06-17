@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Measure
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Mole.php 3224 2007-02-05 22:08:48Z gavin $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Mole.php 8064 2008-02-16 10:58:39Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,7 +32,7 @@ require_once 'Zend/Locale.php';
  * @category   Zend
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Flow_Mole
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Measure_Flow_Mole extends Zend_Measure_Abstract
@@ -62,26 +62,26 @@ class Zend_Measure_Flow_Mole extends Zend_Measure_Abstract
     const MOLE_PER_SECOND      = 'MOLE_PER_SECOND';
 
     protected $_UNITS = array(
-        'CENTIMOLE_PER_DAY'    => array(array('' => 0.01, '/' => 86400),     'cmol/day'),
-        'CENTIMOLE_PER_HOUR'   => array(array('' => 0.01, '/' => 3600),      'cmol/h'),
-        'CENTIMOLE_PER_MINUTE' => array(array('' => 0.01, '/' => 60),        'cmol/m'),
-        'CENTIMOLE_PER_SECOND' => array(0.01,     'cmol/s'),
-        'MEGAMOLE_PER_DAY'     => array(array('' => 1000000, '/' => 86400),  'Mmol/day'),
-        'MEGAMOLE_PER_HOUR'    => array(array('' => 1000000, '/' => 3600),   'Mmol/h'),
-        'MEGAMOLE_PER_MINUTE'  => array(array('' => 1000000, '/' => 60),     'Mmol/m'),
-        'MEGAMOLE_PER_SECOND'  => array(1000000,  'Mmol/s'),
-        'MICROMOLE_PER_DAY'    => array(array('' => 0.000001, '/' => 86400), 'µmol/day'),
-        'MICROMOLE_PER_HOUR'   => array(array('' => 0.000001, '/' => 3600),  'µmol/h'),
-        'MICROMOLE_PER_MINUTE' => array(array('' => 0.000001, '/' => 60),    'µmol/m'),
-        'MICROMOLE_PER_SECOND' => array(0.000001, 'µmol/s'),
-        'MILLIMOLE_PER_DAY'    => array(array('' => 0.001, '/' => 86400),    'mmol/day'),
-        'MILLIMOLE_PER_HOUR'   => array(array('' => 0.001, '/' => 3600),     'mmol/h'),
-        'MILLIMOLE_PER_MINUTE' => array(array('' => 0.001, '/' => 60),       'mmol/m'),
-        'MILLIMOLE_PER_SECOND' => array(0.001,    'mmol/s'),
-        'MOLE_PER_DAY'         => array(array('' => 1, '/' => 86400),        'mol/day'),
-        'MOLE_PER_HOUR'        => array(array('' => 1, '/' => 3600),         'mol/h'),
-        'MOLE_PER_MINUTE'      => array(array('' => 1, '/' => 60),           'mol/m'),
-        'MOLE_PER_SECOND'      => array(1,        'mol/s'),
+        'CENTIMOLE_PER_DAY'    => array(array('' => '0.01', '/' => '86400'),     'cmol/day'),
+        'CENTIMOLE_PER_HOUR'   => array(array('' => '0.01', '/' => '3600'),      'cmol/h'),
+        'CENTIMOLE_PER_MINUTE' => array(array('' => '0.01', '/' => '60'),        'cmol/m'),
+        'CENTIMOLE_PER_SECOND' => array('0.01',     'cmol/s'),
+        'MEGAMOLE_PER_DAY'     => array(array('' => '1000000', '/' => '86400'),  'Mmol/day'),
+        'MEGAMOLE_PER_HOUR'    => array(array('' => '1000000', '/' => '3600'),   'Mmol/h'),
+        'MEGAMOLE_PER_MINUTE'  => array(array('' => '1000000', '/' => '60'),     'Mmol/m'),
+        'MEGAMOLE_PER_SECOND'  => array('1000000',  'Mmol/s'),
+        'MICROMOLE_PER_DAY'    => array(array('' => '0.000001', '/' => '86400'), 'µmol/day'),
+        'MICROMOLE_PER_HOUR'   => array(array('' => '0.000001', '/' => '3600'),  'µmol/h'),
+        'MICROMOLE_PER_MINUTE' => array(array('' => '0.000001', '/' => '60'),    'µmol/m'),
+        'MICROMOLE_PER_SECOND' => array('0.000001', 'µmol/s'),
+        'MILLIMOLE_PER_DAY'    => array(array('' => '0.001', '/' => '86400'),    'mmol/day'),
+        'MILLIMOLE_PER_HOUR'   => array(array('' => '0.001', '/' => '3600'),     'mmol/h'),
+        'MILLIMOLE_PER_MINUTE' => array(array('' => '0.001', '/' => '60'),       'mmol/m'),
+        'MILLIMOLE_PER_SECOND' => array('0.001',    'mmol/s'),
+        'MOLE_PER_DAY'         => array(array('' => '1', '/' => '86400'),        'mol/day'),
+        'MOLE_PER_HOUR'        => array(array('' => '1', '/' => '3600'),         'mol/h'),
+        'MOLE_PER_MINUTE'      => array(array('' => '1', '/' => '60'),           'mol/m'),
+        'MOLE_PER_SECOND'      => array('1',        'mol/s'),
         'STANDARD'             => 'MOLE_PER_SECOND'
     );
 }

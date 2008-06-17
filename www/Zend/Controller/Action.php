@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -38,7 +38,7 @@ require_once 'Zend/Controller/Response/Abstract.php';
 /**
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Action
@@ -259,7 +259,9 @@ abstract class Zend_Controller_Action
     {
         if (!$this->getInvokeArg('noViewRenderer') && $this->_helper->hasHelper('viewRenderer')) {
             $viewRenderer = $this->_helper->getHelper('viewRenderer');
-            $viewRenderer->setNoController($noController);
+            if (null !== $noController) {
+                $viewRenderer->setNoController($noController);
+            }
             return $viewRenderer->getViewScript($action);
         }
 
@@ -469,15 +471,14 @@ abstract class Zend_Controller_Action
      */
     public function __call($methodName, $args)
     {
-        if (empty($methodName)) {
-            $msg = 'No action specified and no default action has been defined in __call() for '
-                 . get_class($this);
-        } else {
-            $msg = get_class($this) . '::' . $methodName
-                 .'() does not exist and was not trapped in __call()';
+        if ('Action' == substr($methodName, -6)) {
+            require_once 'Zend/Controller/Action/Exception.php';
+            $action = substr($methodName, 0, strlen($methodName) - 6);
+            throw new Zend_Controller_Action_Exception(sprintf('Action "%s" does not exist and was not trapped in __call()', $action), 404);
         }
 
-        throw new Zend_Controller_Action_Exception($msg);
+        require_once 'Zend/Controller/Action/Exception.php';
+        throw new Zend_Controller_Action_Exception(sprintf('Method "%s" does not exist and was not trapped in __call()', $methodName), 500);
     }
 
     /**
@@ -494,7 +495,14 @@ abstract class Zend_Controller_Action
         $this->preDispatch();
         if ($this->getRequest()->isDispatched()) {
             // preDispatch() didn't change the action, so we can continue
-            $this->$action();
+            if ($this->getInvokeArg('useCaseSensitiveActions') || in_array($action, get_class_methods($this))) {
+                if ($this->getInvokeArg('useCaseSensitiveActions')) {
+                    trigger_error('Using case sensitive actions without word separators is deprecated; please do not rely on this "feature"');
+                }
+                $this->$action();
+            } else {
+                $this->__call($action, array());
+            }
             $this->postDispatch();
         }
 

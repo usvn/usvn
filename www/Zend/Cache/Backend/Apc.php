@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,40 +14,37 @@
  *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Backend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Backend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 
 /**
- * Zend_Cache_Backend_Interface
+ * @see Zend_Cache_Backend_Interface
  */
 require_once 'Zend/Cache/Backend/Interface.php';
 
 /**
- * Zend_Cache_Backend
+ * @see Zend_Cache_Backend
  */
 require_once 'Zend/Cache/Backend.php';
 
 
 /**
  * @package    Zend_Cache
- * @subpackage Backend
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Zend_Cache_Backend
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Backend_Interface
 {
-
-    // ----------------------
-    // --- Public methods ---
-    // ----------------------
-
     /**
      * Constructor
      *
-     * @param array $options associative array of options
+     * @param  array $options associative array of options
+     * @throws Zend_Cache_Exception
+     * @return void
      */
     public function __construct($options = array())
     {
@@ -63,8 +59,8 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
      *
      * WARNING $doNotTestCacheValidity=true is unsupported by the Apc backend
      *
-     * @param string $id cache id
-     * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
+     * @param  string  $id                     cache id
+     * @param  boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
      * @return string cached datas (or false)
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -82,7 +78,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
     /**
      * Test if a cache is available or not (for the given id)
      *
-     * @param string $id cache id
+     * @param  string $id cache id
      * @return mixed false (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
     public function test($id)
@@ -119,7 +115,7 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
     /**
      * Remove a cache record
      *
-     * @param string $id cache id
+     * @param  string $id cache id
      * @return boolean true if no problem
      */
     public function remove($id)
@@ -138,8 +134,8 @@ class Zend_Cache_Backend_Apc extends Zend_Cache_Backend implements Zend_Cache_Ba
      * 'notMatchingTag' => remove cache entries not matching one of the given tags
      *                     ($tags can be an array of strings or a single string)
      *
-     * @param string $mode clean mode
-     * @param tags array $tags array of tags
+     * @param  string $mode clean mode
+     * @param  array  $tags array of tags
      * @return boolean true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())

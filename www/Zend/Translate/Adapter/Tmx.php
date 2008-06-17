@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @version    $Id: Date.php 2498 2006-12-23 22:13:38Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -23,9 +23,6 @@
 /** Zend_Locale */
 require_once 'Zend/Locale.php';
 
-/** Zend_Translate_Exception */
-require_once 'Zend/Translate/Exception.php';
-
 /** Zend_Translate_Adapter */
 require_once 'Zend/Translate/Adapter.php';
 
@@ -33,7 +30,7 @@ require_once 'Zend/Translate/Adapter.php';
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
@@ -53,10 +50,11 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
      * @param  string              $data     Translation data
      * @param  string|Zend_Locale  $locale   OPTIONAL Locale/Language to set, identical with locale identifier,
      *                                       see Zend_Locale for more information
+     * @param  array               $options  OPTIONAL Options to set
      */
-    public function __construct($data, $locale = null)
+    public function __construct($data, $locale = null, array $options = array())
     {
-        parent::__construct($data, $locale);
+        parent::__construct($data, $locale, $options);
     }
 
 
@@ -82,6 +80,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
         }
 
         if (!is_readable($filename)) {
+            require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
         }
 
@@ -92,66 +91,69 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
         xml_set_character_data_handler($this->_file, "_contentElement");
 
         if (!xml_parse($this->_file, file_get_contents($filename))) {
-            throw new Zend_Translate_Exception(sprintf('XML error: %s at line %d',
-                      xml_error_string(xml_get_error_code($this->_file)),
-                      xml_get_current_line_number($this->_file)));
+            $ex = sprintf('XML error: %s at line %d',
+                          xml_error_string(xml_get_error_code($this->_file)),
+                          xml_get_current_line_number($this->_file));
             xml_parser_free($this->_file);
-        }
-
-        if ($this->_defined !== true) {
-            foreach ($this->_translate as $key => $value) {
-                if (!in_array($key, $this->_languages)) {
-                    $this->_languages[$key] = $key;
-                }
-            }
+            require_once 'Zend/Translate/Exception.php';
+            throw new Zend_Translate_Exception($ex);
         }
     }
 
     private function _startElement($file, $name, $attrib)
     {
-        switch(strtolower($name)) {
-            case 'tu':
-                if (array_key_exists('tuid', $attrib)) {
-                    $this->_tu = $attrib['tuid'];
-                }
-                break;
-            case 'tuv':
-                if (array_key_exists('xml:lang', $attrib)) {
-                    $this->_tuv = $attrib['xml:lang'];
-                    if (!array_key_exists($this->_tuv, $this->_translate)) {
-                        $this->_translate[$this->_tuv] = array();
+        if ($this->_seg !== null) {
+            $this->_content .= "<".$name;
+            foreach($attrib as $key => $value) {
+                $this->_content .= " $key=\"$value\"";
+            }
+            $this->_content .= ">";
+        } else {
+            switch(strtolower($name)) {
+                case 'tu':
+                    if (array_key_exists('tuid', $attrib)) {
+                        $this->_tu = $attrib['tuid'];
                     }
-                    if (!array_key_exists($this->_tuv, $this->_languages) and ($this->_defined === true)) {
-                        $this->_languages[$this->_tuv] = $this->_tuv;
+                    break;
+                case 'tuv':
+                    if (array_key_exists('xml:lang', $attrib)) {
+                        $this->_tuv = $attrib['xml:lang'];
+                        if (!array_key_exists($this->_tuv, $this->_translate)) {
+                            $this->_translate[$this->_tuv] = array();
+                        }
                     }
-                }
-                break;
-            case 'seg':
-                $this->_seg     = true;
-                $this->_content = null;
-                break;
-            default:
-                break;
+                    break;
+                case 'seg':
+                    $this->_seg     = true;
+                    $this->_content = null;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     private function _endElement($file, $name)
     {
-        switch (strtolower($name)) {
-            case 'tu':
-                $this->_tu = null;
-                break;
-            case 'tuv':
-                $this->_tuv = null;
-                break;
-            case 'seg':
-                $this->_seg = null;
-                if (!empty($this->_content) or !array_key_exists($this->_tu, $this->_translate[$this->_tuv])) {
-                    $this->_translate[$this->_tuv][$this->_tu] = $this->_content;
-                }
-                break;
-            default:
-                break;
+        if (($this->_seg !== null) and ($name !== 'seg')) {
+            $this->_content .= "</".$name.">";
+        } else {
+            switch (strtolower($name)) {
+                case 'tu':
+                    $this->_tu = null;
+                    break;
+                case 'tuv':
+                    $this->_tuv = null;
+                    break;
+                case 'seg':
+                    $this->_seg = null;
+                    if (!empty($this->_content) or !array_key_exists($this->_tu, $this->_translate[$this->_tuv])) {
+                        $this->_translate[$this->_tuv][$this->_tu] = $this->_content;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

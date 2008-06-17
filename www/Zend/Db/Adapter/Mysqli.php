@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -16,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mysqli.php 5906 2007-07-28 02:58:20Z bkarwin $
+ * @version    $Id: Mysqli.php 9136 2008-04-04 13:58:29Z thomas $
  */
 
 
@@ -47,7 +46,7 @@ require_once 'Zend/Db/Statement/Mysqli.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
@@ -170,7 +169,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     public function describeTable($tableName, $schemaName = null)
     {
         /**
-         * @todo: use INFORMATION_SCHEMA someday when
+         * @todo  use INFORMATION_SCHEMA someday when
          * MySQL's implementation isn't too slow.
          */
 
@@ -270,6 +269,14 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     {
         if ($this->_connection) {
             return;
+        }
+
+        if (!extension_loaded('mysqli')) {
+            /**
+             * @see Zend_Db_Adapter_Mysqli_Exception
+             */
+            require_once 'Zend/Db/Adapter/Mysqli/Exception.php';
+            throw new Zend_Db_Adapter_Mysqli_Exception('The Mysqli extension is required for this adapter but the extension is not loaded');
         }
 
         if (isset($this->_config['port'])) {
@@ -390,6 +397,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      *
      * @param int $mode
      * @return void
+     * @throws Zend_Db_Adapter_Mysqli_Exception
      */
     public function setFetchMode($mode)
     {

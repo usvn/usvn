@@ -15,7 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -54,7 +54,7 @@ require_once 'Zend/Gdata/App/Extension/Control.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
@@ -192,6 +192,8 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Gets the value of the atom:content element
+     *
      * @return Zend_Gdata_App_Extension_Content
      */
     public function getContent()
@@ -200,6 +202,8 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Sets the value of the atom:content element
+     *
      * @param Zend_Gdata_App_Extension_Content $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
@@ -210,6 +214,9 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Sets the value of the atom:published element
+     * This represents the publishing date for an entry
+     *
      * @return Zend_Gdata_App_Extension_Published
      */
     public function getPublished()
@@ -218,6 +225,9 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Sets the value of the atom:published element
+     * This represents the publishing date for an entry
+     *
      * @param Zend_Gdata_App_Extension_Published $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
@@ -228,6 +238,8 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Gets the value of the atom:source element
+     *
      * @return Zend_Gdata_App_Extension_Source
      */
     public function getSource()
@@ -236,6 +248,8 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Sets the value of the atom:source element
+     *
      * @param Zend_Gdata_App_Extension_Source $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
@@ -246,6 +260,9 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Gets the value of the atom:summary element
+     * This represents a textual summary of this entry's content
+     *
      * @return Zend_Gdata_App_Extension_Summary
      */
     public function getSummary()
@@ -254,6 +271,9 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Sets the value of the atom:summary element
+     * This represents a textual summary of this entry's content
+     *
      * @param Zend_Gdata_App_Extension_Summary $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */
@@ -264,6 +284,8 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Gets the value of the app:control element
+     *
      * @return Zend_Gdata_App_Extension_Control
      */
     public function getControl()
@@ -272,6 +294,8 @@ class Zend_Gdata_App_Entry extends Zend_Gdata_App_FeedEntryParent
     }
 
     /**
+     * Sets the value of the app:control element
+     *
      * @param Zend_Gdata_App_Extension_Control $value
      * @return Zend_Gdata_App_Entry Provides a fluent interface
      */

@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Locale.php 5790 2007-07-19 20:04:11Z thomas $
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Locale.php 8927 2008-03-20 19:33:47Z thomas $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,7 +23,7 @@
 /**
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Locale {
@@ -34,38 +34,42 @@ class Zend_Locale {
         'am_ET' => true, 'am'    => true, 'ar_AE' => true, 'ar_BH' => true, 'ar_DZ' => true, 'ar_EG' => true, 'ar_IQ' => true, 'ar_JO' => true, 'ar_KW' => true, 'ar_LB' => true,
         'ar_LY' => true, 'ar_MA' => true, 'ar_OM' => true, 'ar_QA' => true, 'ar_SA' => true, 'ar_SD' => true, 'ar_SY' => true, 'ar_TN' => true, 'ar_YE' => true, 'ar'    => true,
         'as_IN' => true, 'as'    => true, 'az_AZ' => true, 'az'    => true, 'be_BY' => true, 'be'    => true, 'bg_BG' => true, 'bg'    => true, 'bn_BD' => true, 'bn_IN' => true,
-        'bn'    => true, 'bs_BA' => true, 'bs'    => true, 'byn_ER'=> true, 'byn'   => true, 'ca_ES' => true, 'ca'    => true, 'cch_NG'=> true, 'cch'   => true, 'cs_CZ' => true,
-        'cs'    => true, 'cy_GB' => true, 'cy'    => true, 'da_DK' => true, 'da'    => true, 'de_AT' => true, 'de_BE' => true, 'de_CH' => true, 'de_DE' => true, 'de_LI' => true,
-        'de_LU' => true, 'de'    => true, 'dv_MV' => true, 'dv'    => true, 'dz_BT' => true, 'dz'    => true, 'ee_GH' => true, 'ee_TG' => true, 'ee'    => true, 'el_CY' => true,
-        'el_GR' => true, 'el'    => true, 'en_AS' => true, 'en_AU' => true, 'en_BE' => true, 'en_BW' => true, 'en_BZ' => true, 'en_CA' => true, 'en_GB' => true, 'en_GU' => true,
-        'en_HK' => true, 'en_IE' => true, 'en_IN' => true, 'en_JM' => true, 'en_MH' => true, 'en_MP' => true, 'en_MT' => true, 'en_NZ' => true, 'en_PH' => true, 'en_PK' => true,
-        'en_SG' => true, 'en_TT' => true, 'en_UM' => true, 'en_US' => true, 'en_VI' => true, 'en_ZA' => true, 'en_ZW' => true, 'en'    => true, 'eo'    => true, 'es_AR' => true,
-        'es_BO' => true, 'es_CL' => true, 'es_CO' => true, 'es_CR' => true, 'es_DO' => true, 'es_EC' => true, 'es_ES' => true, 'es_GT' => true, 'es_HN' => true, 'es_MX' => true,
-        'es_NI' => true, 'es_PA' => true, 'es_PE' => true, 'es_PR' => true, 'es_PY' => true, 'es_SV' => true, 'es_US' => true, 'es_UY' => true, 'es_VE' => true, 'es'    => true,
-        'et_EE' => true, 'et'    => true, 'eu_ES' => true, 'eu'    => true, 'fa_AF' => true, 'fa_IR' => true, 'fa'    => true, 'fi_FI' => true, 'fi'    => true, 'fo_FO' => true,
-        'fo'    => true, 'fr_BE' => true, 'fr_CA' => true, 'fr_CH' => true, 'fr_FR' => true, 'fr_LU' => true, 'fr_MC' => true, 'fr'    => true, 'fur_IT'=> true, 'fur'   => true,
-        'ga_IE' => true, 'ga'    => true, 'gaa_GH'=> true, 'gaa'   => true, 'gez_ER'=> true, 'gez_ET'=> true, 'gez'   => true, 'gl_ES' => true, 'gl'    => true, 'gu_IN' => true,
-        'gu'    => true, 'gv_GB' => true, 'gv'    => true, 'ha_GH' => true, 'ha_NE' => true, 'ha_NG' => true, 'ha'    => true, 'haw_US'=> true, 'haw'   => true, 'he_IL' => true,
-        'he'    => true, 'hi_IN' => true, 'hi'    => true, 'hr_HR' => true, 'hr'    => true, 'hu_HU' => true, 'hu'    => true, 'hy_AM' => true, 'hy'    => true, 'ia'    => true,
-        'id_ID' => true, 'id'    => true, 'ig_NG' => true, 'ig'    => true, 'is_IS' => true, 'is'    => true, 'it_CH' => true, 'it_IT' => true, 'it'    => true, 'iu'    => true,
-        'ja_JP' => true, 'ja'    => true, 'ka_GE' => true, 'ka'    => true, 'kaj_NG'=> true, 'kaj'   => true, 'kam_KE'=> true, 'kam'   => true, 'kcg_NG'=> true, 'kcg'   => true,
-        'kfo_NG'=> true, 'kfo'   => true, 'kk_KZ' => true, 'kk'    => true, 'kl_GL' => true, 'kl'    => true, 'km_KH' => true, 'km'    => true, 'kn_IN' => true, 'kn'    => true,
-        'ko_KR' => true, 'ko'    => true, 'kok_IN'=> true, 'kok'   => true, 'ku_IQ' => true, 'ku_IR' => true, 'ku_SY' => true, 'ku_TR' => true, 'ku'    => true, 'kw_GB' => true,
-        'kw'    => true, 'ky_KG' => true, 'ky'    => true, 'ln_CD' => true, 'ln_CG' => true, 'ln'    => true, 'lo_LA' => true, 'lo'    => true, 'lt_LT' => true, 'lt'    => true,
-        'lv_LV' => true, 'lv'    => true, 'mk_MK' => true, 'mk'    => true, 'ml_IN' => true, 'ml'    => true, 'mn_MN' => true, 'mn'    => true, 'mr_IN' => true, 'mr'    => true,
-        'ms_BN' => true, 'ms_MY' => true, 'ms'    => true, 'mt_MT' => true, 'mt'    => true, 'nb_NO' => true, 'nb'    => true, 'ne_NP' => true, 'ne'    => true, 'nl_BE' => true,
-        'nl_NL' => true, 'nl'    => true, 'nn_NO' => true, 'nn'    => true, 'nr_ZA' => true, 'nr'    => true, 'nso_ZA'=> true, 'nso'   => true, 'ny_MW' => true, 'ny'    => true,
-        'om_ET' => true, 'om_KE' => true, 'om'    => true, 'or_IN' => true, 'or'    => true, 'pa_IN' => true, 'pa_PK' => true, 'pa'    => true, 'pl_PL' => true, 'pl'    => true,
-        'ps_AF' => true, 'ps'    => true, 'pt_BR' => true, 'pt_PT' => true, 'pt'    => true, 'ro_RO' => true, 'ro'    => true, 'ru_RU' => true, 'ru_UA' => true, 'ru'    => true,
-        'rw_RW' => true, 'rw'    => true, 'sa_IN' => true, 'sa'    => true, 'se_NO' => true, 'se'    => true, 'sh_BA' => true, 'sh_CS' => true, 'sh_YU' => true, 'sh'    => true,
-        'sid_ET'=> true, 'sid'   => true, 'sk_SK' => true, 'sk'    => true, 'sl_SI' => true, 'sl'    => true, 'so_DJ' => true, 'so_ET' => true, 'so_KE' => true, 'so_SO' => true,
-        'so'    => true, 'sq_AL' => true, 'sq'    => true, 'sr_BA' => true, 'sr_CS' => true, 'sr_ME' => true, 'sr_RS' => true, 'sr_YU' => true, 'sr'    => true, 'ss_ZA' => true,
-        'ss'    => true, 'st_ZA' => true, 'st'    => true, 'sv_FI' => true, 'sv_SE' => true, 'sv'    => true, 'sw_KE' => true, 'sw_TZ' => true, 'sw'    => true, 'syr_SY'=> true,
-        'syr'   => true, 'ta_IN' => true, 'ta'    => true, 'te_IN' => true, 'te'    => true, 'tg_TJ' => true, 'tg'    => true, 'th_TH' => true, 'th'    => true, 'ti_ER' => true,
-        'ti_ET' => true, 'ti'    => true, 'tig_ER'=> true, 'tig'   => true, 'tn_ZA' => true, 'tn'    => true, 'tr_TR' => true, 'tr'    => true, 'ts_ZA' => true, 'ts'    => true,
-        'tt_RU' => true, 'tt'    => true, 'uk_UA' => true, 'uk'    => true, 'ur_IN' => true, 'ur_PK' => true, 'ur'    => true, 'uz_AF' => true, 'uz_UZ' => true, 'uz'    => true,
-        've_ZA' => true, 've'    => true, 'vi_VN' => true, 'vi'    => true, 'wal_ET'=> true, 'wal'   => true, 'xh_ZA' => true, 'xh'    => true, 'yo_NG' => true, 'yo'    => true,
-        'zh_CN' => true, 'zh_HK' => true, 'zh_MO' => true, 'zh_SG' => true, 'zh_TW' => true, 'zh'    => true, 'zu_ZA' => true, 'zu'    => true
+        'bn'    => true, 'bo_CN' => true, 'bo_IN' => true, 'bo'    => true, 'bs_BA' => true, 'bs'    => true, 'byn_ER'=> true, 'byn'   => true, 'ca_ES' => true, 'ca'    => true,
+        'cch_NG'=> true, 'cch'   => true, 'cop_EG'=> true, 'cop_US'=> true, 'cop'   => true, 'cs_CZ' => true, 'cs'    => true, 'cy_GB' => true, 'cy'    => true, 'da_DK' => true,
+        'da'    => true, 'de_AT' => true, 'de_BE' => true, 'de_CH' => true, 'de_DE' => true, 'de_LI' => true, 'de_LU' => true, 'de'    => true, 'dv_MV' => true, 'dv'    => true,
+        'dz_BT' => true, 'dz'    => true, 'ee_GH' => true, 'ee_TG' => true, 'ee'    => true, 'el_CY' => true, 'el_GR' => true, 'el'    => true, 'en_AS' => true, 'en_AU' => true,
+        'en_BE' => true, 'en_BW' => true, 'en_BZ' => true, 'en_CA' => true, 'en_GB' => true, 'en_GU' => true, 'en_HK' => true, 'en_IE' => true, 'en_IN' => true, 'en_JM' => true,
+        'en_MH' => true, 'en_MP' => true, 'en_MT' => true, 'en_NZ' => true, 'en_PH' => true, 'en_PK' => true, 'en_SG' => true, 'en_TT' => true, 'en_UM' => true, 'en_US' => true,
+        'en_VI' => true, 'en_ZA' => true, 'en_ZW' => true, 'en'    => true, 'eo'    => true, 'es_AR' => true, 'es_BO' => true, 'es_CL' => true, 'es_CO' => true, 'es_CR' => true,
+        'es_DO' => true, 'es_EC' => true, 'es_ES' => true, 'es_GT' => true, 'es_HN' => true, 'es_MX' => true, 'es_NI' => true, 'es_PA' => true, 'es_PE' => true, 'es_PR' => true,
+        'es_PY' => true, 'es_SV' => true, 'es_US' => true, 'es_UY' => true, 'es_VE' => true, 'es'    => true, 'et_EE' => true, 'et'    => true, 'eu_ES' => true, 'eu'    => true,
+        'fa_AF' => true, 'fa_IR' => true, 'fa'    => true, 'fi_FI' => true, 'fi'    => true, 'fil'   => true, 'fo_FO' => true, 'fo'    => true, 'fr_BE' => true, 'fr_CA' => true,
+        'fr_CH' => true, 'fr_FR' => true, 'fr_LU' => true, 'fr_MC' => true, 'fr'    => true, 'fur_IT'=> true, 'fur'   => true, 'ga_IE' => true, 'ga'    => true, 'gaa_GH'=> true,
+        'gaa'   => true, 'gez_ER'=> true, 'gez_ET'=> true, 'gez'   => true, 'gl_ES' => true, 'gl'    => true, 'gu_IN' => true, 'gu'    => true, 'gv_GB' => true, 'gv'    => true,
+        'ha_GH' => true, 'ha_NE' => true, 'ha_NG' => true, 'ha'    => true, 'haw_US'=> true, 'haw'   => true, 'he_IL' => true, 'he'    => true, 'hi_IN' => true, 'hi'    => true,
+        'hr_HR' => true, 'hr'    => true, 'hu_HU' => true, 'hu'    => true, 'hy_AM' => true, 'hy'    => true, 'ia'    => true, 'id_ID' => true, 'id'    => true, 'ig_NG' => true,
+        'ig'    => true, 'ii_CN' => true, 'ii'    => true, 'is_IS' => true, 'is'    => true, 'it_CH' => true, 'it_IT' => true, 'it'    => true, 'iu'    => true, 'ja_JP' => true,
+        'ja'    => true, 'ka_GE' => true, 'ka'    => true, 'kaj_NG'=> true, 'kaj'   => true, 'kam_KE'=> true, 'kam'   => true, 'kcg_NG'=> true, 'kcg'   => true, 'kfo_NG'=> true,
+        'kfo'   => true, 'kk_KZ' => true, 'kk'    => true, 'kl_GL' => true, 'kl'    => true, 'km_KH' => true, 'km'    => true, 'kn_IN' => true, 'kn'    => true, 'ko_KR' => true,
+        'ko'    => true, 'kok_IN'=> true, 'kok'   => true, 'kpe_GN'=> true, 'kpe_LR'=> true, 'kpe'   => true, 'ku_IQ' => true, 'ku_IR' => true, 'ku_SY' => true, 'ku_TR' => true,
+        'ku'    => true, 'kw_GB' => true, 'kw'    => true, 'ky_KG' => true, 'ky'    => true, 'ln_CD' => true, 'ln_CG' => true, 'ln'    => true, 'lo_LA' => true, 'lo'    => true,
+        'lt_LT' => true, 'lt'    => true, 'lv_LV' => true, 'lv'    => true, 'mk_MK' => true, 'mk'    => true, 'ml_IN' => true, 'ml'    => true, 'mn_MN' => true, 'mn'    => true,
+        'mr_IN' => true, 'mr'    => true, 'ms_BN' => true, 'ms_MY' => true, 'ms'    => true, 'mt_MT' => true, 'mt'    => true, 'my_MM' => true, 'my'    => true, 'nb_NO' => true,
+        'nb'    => true, 'ne_NP' => true, 'ne'    => true, 'nl_BE' => true, 'nl_NL' => true, 'nl'    => true, 'nn_NO' => true, 'nn'    => true, 'nr_ZA' => true, 'nr'    => true,
+        'nso_ZA'=> true, 'nso'   => true, 'ny_MW' => true, 'ny'    => true, 'om_ET' => true, 'om_KE' => true, 'om'    => true, 'or_IN' => true, 'or'    => true, 'pa_IN' => true,
+        'pa_PK' => true, 'pa'    => true, 'pl_PL' => true, 'pl'    => true, 'ps_AF' => true, 'ps'    => true, 'pt_BR' => true, 'pt_PT' => true, 'pt'    => true, 'ro_RO' => true,
+        'ro'    => true, 'ru_RU' => true, 'ru_UA' => true, 'ru'    => true, 'rw_RW' => true, 'rw'    => true, 'sa_IN' => true, 'sa'    => true, 'se_FI' => true, 'se_NO' => true,
+        'se'    => true, 'sh_BA' => true, 'sh_CS' => true, 'sh_YU' => true, 'sh'    => true, 'sid_ET'=> true, 'sid'   => true, 'sk_SK' => true, 'sk'    => true, 'sl_SI' => true,
+        'sl'    => true, 'so_DJ' => true, 'so_ET' => true, 'so_KE' => true, 'so_SO' => true, 'so'    => true, 'sq_AL' => true, 'sq'    => true, 'sr_BA' => true, 'sr_CS' => true,
+        'sr_ME' => true, 'sr_RS' => true, 'sr_YU' => true, 'sr'    => true, 'ss_ZA' => true, 'ss'    => true, 'ssy'   => true, 'st_ZA' => true, 'st'    => true, 'sv_FI' => true,
+        'sv_SE' => true, 'sv'    => true, 'sw_KE' => true, 'sw_TZ' => true, 'sw'    => true, 'syr_SY'=> true, 'syr'   => true, 'ta_IN' => true, 'ta'    => true, 'te_IN' => true,
+        'te'    => true, 'tg_TJ' => true, 'tg'    => true, 'th_TH' => true, 'th'    => true, 'ti_ER' => true, 'ti_ET' => true, 'ti'    => true, 'tig_ER'=> true, 'tig'   => true,
+        'tn_ZA' => true, 'tn'    => true, 'to_TO' => true, 'to'    => true, 'tr_TR' => true, 'tr'    => true, 'ts_ZA' => true, 'ts'    => true, 'tt_RU' => true, 'tt'    => true,
+        'ug'    => true, 'uk_UA' => true, 'uk'    => true, 'und_ZZ'=> true, 'und'   => true, 'ur_IN' => true, 'ur_PK' => true, 'ur'    => true, 'uz_AF' => true, 'uz_UZ' => true,
+        'uz'    => true, 've_ZA' => true, 've'    => true, 'vi_VN' => true, 'vi'    => true, 'wal_ET'=> true, 'wal'   => true, 'wo_SN' => true, 'wo'    => true, 'xh_ZA' => true,
+        'xh'    => true, 'yo_NG' => true, 'yo'    => true, 'zh_CN' => true, 'zh_HK' => true, 'zh_MO' => true, 'zh_SG' => true, 'zh_TW' => true, 'zh'    => true, 'zu_ZA' => true,
+        'zu'    => true, 
+        'auto'  => false, 'browser' => false, 'environment' => false
     );
 
 
@@ -88,6 +92,14 @@ class Zend_Locale {
      */
     private $_Codeset;
 
+    /**
+     * Automatic detected locale
+     */
+    private static $_auto;
+    private static $_browser;
+    private static $_environment;
+
+    private static $_Default = "en";
 
     /**
      * Generates a locale object
@@ -100,10 +112,20 @@ class Zend_Locale {
      *  4. Framework Standard
      *
      * @param  string  $locale  OPTIONAL locale for parsing input
-     * @return object
+     * @throws Zend_Locale_Exception
      */
     public function __construct($locale = null)
     {
+        if (empty(self::$_auto)) {
+            self::$_auto        = $this->getDefault(null, false);
+            self::$_browser     = $this->getDefault(self::BROWSER, false);
+            self::$_environment = $this->getDefault(self::ENVIRONMENT, false);
+            if (empty($locale) and empty(self::$_auto) and empty(self::$_Default)) {
+                require_once 'Zend/Locale/Exception.php';
+                throw new Zend_Locale_Exception('Autodetection of Locale has been failed!');
+            }
+        }
+
         if ($locale instanceof Zend_Locale) {
             $locale = $locale->toString();
         }
@@ -152,7 +174,7 @@ class Zend_Locale {
      * Standard Searchorder is
      * - getBrowser
      * - getEnvironment
-     * @todo - getFramework
+     * - getFramework
      *
      * @param $searchorder  - OPTIONAL searchorder
      * @param $fastsearch   - OPTIONAL returnes the first found locale array when true
@@ -193,7 +215,40 @@ class Zend_Locale {
             }
 
         }
+
+        if (!array_key_exists(self::$_Default, $languages)) {
+            $languages[self::$_Default] = 0.1;
+        }
         return $languages;
+    }
+
+
+    /**
+     * Sets a new default locale
+     *
+     * @param String $locale
+     * @return boolean
+     * @throws Zend_Locale_Exception
+     */
+    public static function setDefault($locale)
+    {
+        if (($locale == "auto") or ($locale == "root") or 
+            ($locale == "environment") or ($locale == "browser")) {
+            require_once 'Zend/Locale/Exception.php';
+            throw new Zend_Locale_Exception('Only full qualified locales can be used as default!');
+        }
+        if (array_key_exists($locale, self::$_localeData)) {
+            self::$_Default = $locale;
+            return true;
+        } else {
+            $locale = explode('_', $locale);
+            if (array_key_exists($locale[0], self::$_localeData)) {
+                self::$_Default = $locale[0];
+                return true;
+            }
+        }
+        require_once 'Zend/Locale/Exception.php';
+        throw new Zend_Locale_Exception("Unknown locale '$locale' can not be set as default!");
     }
 
 
@@ -212,31 +267,38 @@ class Zend_Locale {
 
         $language = setlocale(LC_ALL, 0);
         $languages = explode(';', $language);
+
         $languagearray = array();
 
-        foreach ($languages as $locale)
-        {
+        foreach ($languages as $locale) {
 
-            $language = substr($locale, strpos($locale, '='));
-            if ($language != '=C') {
+            if (strpos($locale, '=') !== false) {
+                $language = substr($locale, strpos($locale, '='));
+                $language = substr($language, 1);
+            }
 
-               $language = substr($language, 1, strpos($language, '.') - 1);
-               $splitted = explode('_', $language);
-               if (array_key_exists((string) $language, self::$_localeData)) {
-                   $languagearray[$language] = 1;
-                   if (strlen($language) > 4) {
-                       $languagearray[substr($language, 0, 2)] = 1;
-                   }
-                   continue;
-               }
+            if ($language != 'C') {
+                if (strpos($language, '.') !== false) {
+                    $language = substr($language, 0, strpos($language, '.') - 1);
+                } else if (strpos($language, '@') !== false) {
+                    $language = substr($language, 0, strpos($language, '@') - 1);
+                }
+                $splitted = explode('_', $language);
+                if (array_key_exists((string) $language, self::$_localeData)) {
+                    $languagearray[$language] = 1;
+                    if (strlen($language) > 4) {
+                        $languagearray[substr($language, 0, 2)] = 1;
+                    }
+                    continue;
+                }
 
-               if (!empty(Zend_Locale_Data_Translation::$localeTranslation[$splitted[0]])) {
-                   if (!empty(Zend_Locale_Data_Translation::$localeTranslation[$splitted[1]])) {
-                       $languagearray[Zend_Locale_Data_Translation::$localeTranslation[$splitted[0]] . '_'
-                     . Zend_Locale_Data_Translation::$localeTranslation[$splitted[1]]] = 1;
-                   }
-                   $languagearray[Zend_Locale_Data_Translation::$localeTranslation[$splitted[0]]] = 1;
-               }
+                if (!empty(Zend_Locale_Data_Translation::$localeTranslation[$splitted[0]])) {
+                    if (!empty(Zend_Locale_Data_Translation::$localeTranslation[$splitted[1]])) {
+                        $languagearray[Zend_Locale_Data_Translation::$localeTranslation[$splitted[0]] . '_'
+                      . Zend_Locale_Data_Translation::$localeTranslation[$splitted[1]]] = 1;
+                    }
+                    $languagearray[Zend_Locale_Data_Translation::$localeTranslation[$splitted[0]]] = 1;
+                }
             }
         }
         return $languagearray;
@@ -288,7 +350,9 @@ class Zend_Locale {
             foreach($country2 as $country) {
                 $languages[$region . '_' . strtoupper($country)] = $quality;
             }
-            $languages[$region] = $quality;
+            if (!isset($languages[$region]) || ($languages[$region] < $quality)) {
+                $languages[$region] = $quality;
+            }
         }
         return $languages;
     }
@@ -296,6 +360,8 @@ class Zend_Locale {
 
     /**
      * Returns the locale which the framework is set to
+     * 
+     * @return array
      */
     public function getFramework()
     {
@@ -313,6 +379,16 @@ class Zend_Locale {
     {
         if (($locale == self::BROWSER) or ($locale == self::ENVIRONMENT) or ($locale === null)) {
             $locale = $this->getDefault($locale, true);
+        }
+
+        if (($locale == 'auto') or ($locale === null)) {
+            $locale = self::$_auto;
+        }
+        if ($locale == 'browser') {
+            $locale = self::$_browser;
+        }
+        if ($locale == 'environment') {
+            $locale = self::$_environment;
         }
         if (is_array($locale)) {
             $locale = key($locale);
@@ -349,9 +425,9 @@ class Zend_Locale {
 
 
     /**
-     * Returns the region part of the locale if avaiable
+     * Returns the region part of the locale if available
      *
-     * @return region
+     * @return string|false - Regionstring
      */
     public function getRegion()
     {
@@ -366,7 +442,8 @@ class Zend_Locale {
 
     /**
      * Return the accepted charset of the client
-     * @todo verify working
+     * 
+     * @return string
      */
     public function getHttpCharset()
     {
@@ -417,128 +494,40 @@ class Zend_Locale {
     /**
      * Returns localized informations as array, supported are several
      * types of informations.
-     * Supported types are:
-     * 'language', 'script', 'country', 'territory', 'calendar', 'month', 'month_short',
-     * 'month_narrow', 'day', 'day_short', 'day_narrow', 'dateformat', 'timeformat',
-     * 'timezone', 'currency', 'currency_sign', 'currency_detail', 'territory_detail'
-     * 'language_detail', 'characters'
      * For detailed information about the types look into the documentation
      *
-     * @param  string         $type    OPTIONAL Type of information to return
+     * @param  string         $path    OPTIONAL Type of information to return
      * @param  string|locale  $locale  OPTIONAL Locale|Language for which this informations should be returned
+     * @param  string         $value   OPTIONAL Value for detail list
      * @return array                   Array with the wished information in the given language
      */
-    public function getTranslationList($type = null, $locale = null)
+    public function getTranslationList($path = null, $locale = null, $value = null)
     {
         // load class within method for speed
         require_once 'Zend/Locale/Data.php';
+        require_once 'Zend/Locale/Exception.php';
 
         if ($locale === null) {
             $locale = $this->_Locale;
         }
 
-        switch (strtolower($type)) {
-            case 'language' :
-                return Zend_Locale_Data::getContent($locale, 'languagelist');
-                break;
-            case 'script' :
-                return Zend_Locale_Data::getContent($locale, 'scriptlist');
-                break;
-            case 'country' :
-                $list = Zend_Locale_Data::getContent($locale, 'territorylist');
-                foreach ($list as $key => $entry) {
-                    if (is_numeric($key) or ($key == "QO")) {
-                        unset($list[$key]);
-                    }
-                }
-                return $list;
-                break;
-            case 'territory' :
-                $list = Zend_Locale_Data::getContent($locale, 'territorylist');
-                foreach ($list as $key => $entry) {
-                    if (!is_numeric($key) and ($key != "QO")) {
-                        unset($list[$key]);
-                    }
-                }
-                return $list;
-                break;
-            case 'calendar' :
-                return Zend_Locale_Data::getContent($locale, 'type', 'calendar');
-                break;
-            case 'month' :
-                return Zend_Locale_Data::getContent($locale, 'monthlist', array('gregorian', 'format', 'wide'));
-                break;
-            case 'month_short' :
-                return Zend_Locale_Data::getContent($locale, 'monthlist', array('gregorian', 'format', 'abbreviated'));
-                break;
-            case 'month_narrow' :
-                return Zend_Locale_Data::getContent($locale, 'monthlist', array('gregorian', 'stand-alone', 'narrow'));
-                break;
-            case 'day' :
-                return Zend_Locale_Data::getContent($locale, 'daylist', array('gregorian', 'format', 'wide'));
-                break;
-            case 'day_short' :
-                return Zend_Locale_Data::getContent($locale, 'daylist', array('gregorian', 'format', 'abbreviated'));
-                break;
-            case 'day_narrow' :
-                return Zend_Locale_Data::getContent($locale, 'daylist', array('gregorian', 'stand-alone', 'narrow'));
-                break;
-            case 'dateformat' :
-                $result = Zend_Locale_Data::getContent($locale, 'defdateformat', 'gregorian');
-                $result = Zend_Locale_Data::getContent($locale, 'dateformat', array('gregorian', $result['default'], 'narrow'));
-                $list['default'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'dateformat', array('gregorian', 'full', 'narrow'));
-                $list['full'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'dateformat', array('gregorian', 'long', 'narrow'));
-                $list['long'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'dateformat', array('gregorian', 'medium', 'narrow'));
-                $list['medium'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'dateformat', array('gregorian', 'short', 'narrow'));
-                $list['short'] = $result['pattern'];
-                return $list;
-                break;
-            case 'timeformat' :
-                $result = Zend_Locale_Data::getContent($locale, 'deftimeformat', 'gregorian');
-                $result = Zend_Locale_Data::getContent($locale, 'timeformat', array('gregorian', $result['default'], 'narrow'));
-                $list['default'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'timeformat', array('gregorian', 'full', 'narrow'));
-                $list['full'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'timeformat', array('gregorian', 'long', 'narrow'));
-                $list['long'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'timeformat', array('gregorian', 'medium', 'narrow'));
-                $list['medium'] = $result['pattern'];
-                $result = Zend_Locale_Data::getContent($locale, 'timeformat', array('gregorian', 'short', 'narrow'));
-                $list['short'] = $result['pattern'];
-                return $list;
-                break;
-            case 'timezone' :
-                return Zend_Locale_Data::getContent($locale, 'timezones');
-                break;
-            case 'currency' :
-                return Zend_Locale_Data::getContent($locale, 'currencynames');
-                break;
-            case 'currency_sign' :
-                return Zend_Locale_Data::getContent($locale, 'currencysymbols');
-                break;
-            case 'currency_detail' :
-                return Zend_Locale_Data::getContent($locale, 'currencyforregionlist');
-                break;
-            case 'territory_detail' :
-                return Zend_Locale_Data::getContent($locale, 'regionforterritorylist');
-                break;
-            case 'language_detail' :
-                return Zend_Locale_Data::getContent($locale, 'territoryforlanguagelist');
-                break;
-            case 'characters' :
-                return Zend_Locale_Data::getContent($locale, 'characters');
-                break;
-            default :
-                return array('language', 'script', 'country', 'territory', 'calendar', 'month', 'month_short',
-                             'month_narrow', 'day', 'day_short', 'day_narrow', 'dateformat', 'timeformat',
-                             'timezone', 'currency', 'currency_sign', 'currency_detail', 'territory_detail',
-                             'language_detail', 'characters');
+        if ($locale == 'auto') {
+            $locale = self::$_auto;
         }
-        return false;
+        if ($locale == 'browser') {
+            $locale = self::$_browser;
+        }
+        if ($locale == 'environment') {
+            $locale = self::$_environment;
+        }
+        if (is_array($locale)) {
+            $locale = key($locale);
+        }
+        $result = Zend_Locale_Data::getList($locale, $path, $value);
+        if (empty($result)) {
+            return false;
+        }
+        return $result;
     }
 
 
@@ -574,7 +563,7 @@ class Zend_Locale {
      */
     public function getCountryTranslationList($locale = null)
     {
-        return $this->getTranslationList('country', $locale);
+        return $this->getTranslationList('territory', $locale, 2);
     }
 
 
@@ -587,172 +576,59 @@ class Zend_Locale {
      */
     public function getTerritoryTranslationList($locale = null)
     {
-        return $this->getTranslationList('territory', $locale);
+        return $this->getTranslationList('territory', $locale, 1);
     }
 
 
     /**
      * Returns a localized information string, supported are several types of informations.
-     *
-     * Supported types are:
-     * 'language', 'script', 'country', 'territory', 'calendar', 'month', 'month_short',
-     * 'month_narrow', 'day', 'day_short', 'day_narrow', 'dateformat', 'timeformat',
-     * 'timezone', 'currency', 'currency_sign', 'currency_detail', 'territory_detail', 'language_detail', 'characters'
      * For detailed information about the types look into the documentation
      *
-     * @param  string         $what    Name to get detailed information about
-     * @param  string         $type    OPTIONAL Type of information to return
+     * @param  string         $value   Name to get detailed information about
+     * @param  string         $path    OPTIONAL Type of information to return
      * @param  string|locale  $locale  OPTIONAL Locale|Language for which this informations should be returned
-     * @return string|array            Array with the wished information in the given language
+     * @return string                  The wished information in the given language
      */
-    public function getTranslation($what, $type = null, $locale = null)
+    public function getTranslation($value = null, $path = null, $locale = null)
     {
         // load class within method for speed
         require_once 'Zend/Locale/Data.php';
+        require_once 'Zend/Locale/Exception.php';
 
         if ($locale === null) {
             $locale = $this->_Locale;
         }
 
-        switch (strtolower($type)) {
-            case 'language' :
-                $list = Zend_Locale_Data::getContent($locale, 'language', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'script' :
-                $list = Zend_Locale_Data::getContent($locale, 'script', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'country' :
-                $list = Zend_Locale_Data::getContent($locale, 'territory', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'territory' :
-                $list = Zend_Locale_Data::getContent($locale, 'territory', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'calendar' :
-                $list = Zend_Locale_Data::getContent($locale, 'type', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'month' :
-                $list = Zend_Locale_Data::getContent($locale, 'month', array('gregorian', 'format', 'wide', $what));
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'month_short' :
-                $list = Zend_Locale_Data::getContent($locale, 'month', array('gregorian', 'format', 'abbreviated', $what));
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'month_narrow' :
-                $list = Zend_Locale_Data::getContent($locale, 'month', array('gregorian', 'stand-alone', 'narrow', $what));
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'day' :
-                $list = Zend_Locale_Data::getContent($locale, 'day', array('gregorian', 'format', 'wide', $what));
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'day_short' :
-                $list = Zend_Locale_Data::getContent($locale, 'day', array('gregorian', 'format', 'abbreviated', $what));
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'day_narrow' :
-                $list = Zend_Locale_Data::getContent($locale, 'day', array('gregorian', 'stand-alone', 'narrow', $what));
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'dateformat' :
-                $list = Zend_Locale_Data::getContent($locale, 'dateformat', array('gregorian', $what, 'narrow'));
-                if (isset($list['pattern'])) {
-                    return $list['pattern'];
-                }
-                break;
-            case 'timeformat' :
-                $list = Zend_Locale_Data::getContent($locale, 'timeformat', array('gregorian', $what, 'narrow'));
-                if (isset($list['pattern'])) {
-                    return $list['pattern'];
-                }
-                break;
-            case 'timezone' :
-                $list = Zend_Locale_Data::getContent($locale, 'timezone', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'currency' :
-                $list = Zend_Locale_Data::getContent($locale, 'currencyname', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'currency_sign' :
-                $list = Zend_Locale_Data::getContent($locale, 'currencysymbol', $what);
-                if (isset($list[$what])) {
-                    return $list[$what];
-                }
-                break;
-            case 'currency_detail' :
-                $list = Zend_Locale_Data::getContent($locale, 'currencyforregion', $what);
-                if (!empty($list)) {
-                    return $list;
-                }
-                break;
-            case 'territory_detail' :
-                $list = Zend_Locale_Data::getContent($locale, 'regionforterritory', $what);
-                if (isset($list[$what])) {
-                    return explode(' ', $list[$what]);
-                }
-                break;
-            case 'language_detail' :
-                $list = Zend_Locale_Data::getContent($locale, 'territoryforlanguage', $what);
-                if (isset($list[$what])) {
-                    return explode(' ', $list[$what]);
-                }
-                break;
-            case 'characters' :
-                $list = Zend_Locale_Data::getContent($locale, 'characters');
-                return $list[0];
-                break;
-            default :
-                return array('language', 'script', 'country', 'territory', 'calendar', 'month', 'month_short',
-                             'month_narrow', 'day', 'day_short', 'day_narrow', 'dateformat', 'timeformat',
-                             'timezone', 'currency', 'currency_sign', 'currency_detail', 'territory_detail',
-                             'language_detail', 'characters');
+        if ($locale == 'auto') {
+            $locale = self::$_auto;
         }
-        return false;
+        if ($locale == 'browser') {
+            $locale = self::$_browser;
+        }
+        if ($locale == 'environment') {
+            $locale = self::$_environment;
+        }
+        if (is_array($locale)) {
+            $locale = key($locale);
+        }
+        $result = Zend_Locale_Data::getContent($locale, $path, $value);
+        if (empty($result)) {
+            return false;
+        }
+        return $result;
     }
 
 
     /**
      * Returns the localized language name
      *
-     * @param   string  $what    Name to get detailed information about
+     * @param   string  $value   Name to get detailed information about
      * @param   string  $locale  OPTIONAL locale for language translation
      * @return  array
      */
-    public function getLanguageTranslation($what, $locale = null)
+    public function getLanguageTranslation($value, $locale = null)
     {
-        return $this->getTranslation($what, 'language', $locale);
+        return $this->getTranslation($value, 'language', $locale);
     }
 
 
@@ -763,9 +639,9 @@ class Zend_Locale {
      * @param   string  $locale  OPTIONAL locale for script translation
      * @return  array
      */
-    public function getScriptTranslation($what, $locale = null)
+    public function getScriptTranslation($value, $locale = null)
     {
-        return $this->getTranslation($what, 'script', $locale);
+        return $this->getTranslation($value, 'script', $locale);
     }
 
 
@@ -776,9 +652,9 @@ class Zend_Locale {
      * @param   string  $locale  OPTIONAL locale for country translation
      * @return  array
      */
-    public function getCountryTranslation($what, $locale = null)
+    public function getCountryTranslation($value, $locale = null)
     {
-        return $this->getTranslation($what, 'country', $locale);
+        return $this->getTranslation($value, 'country', $locale);
     }
 
 
@@ -790,9 +666,9 @@ class Zend_Locale {
      * @param   string  $locale  OPTIONAL locale for territory translation
      * @return  array
      */
-    public function getTerritoryTranslation($what, $locale = null)
+    public function getTerritoryTranslation($value, $locale = null)
     {
-        return $this->getTranslation($what, 'territory', $locale);
+        return $this->getTranslation($value, 'territory', $locale);
     }
 
 
@@ -811,15 +687,69 @@ class Zend_Locale {
             $locale = $this->_Locale;
         }
 
-        $quest = Zend_Locale_Data::getContent($locale, 'questionstrings');
+        if ($locale == 'auto') {
+            $locale = self::$_auto;
+        }
+        if ($locale == 'browser') {
+            $locale = self::$_browser;
+        }
+        if ($locale == 'environment') {
+            $locale = self::$_environment;
+        }
+        if (is_array($locale)) {
+            $locale = key($locale);
+        }
+        $quest = Zend_Locale_Data::getList($locale, 'question');
         $yes = explode(':', $quest['yes']);
         $no  = explode(':', $quest['no']);
-        $quest['yes']     = $yes[0];
-        $quest['yesabbr'] = $yes[1];
-        $quest['no']      = $no[0];
-        $quest['noabbr']  = $no[1];
+        $quest['yes']      = $yes[0];
+        $quest['yesarray'] = $yes;
+        $quest['no']       = $no[0];
+        $quest['noarray']  = $no;
+        $quest['yesexpr']  = $this->_getRegex($yes);
+        $quest['noexpr']   = $this->_getRegex($no);
 
         return $quest;
+    }
+
+
+    /**
+     * Internal function for creating a regex
+     *
+     * @param string  $input
+     * @return string
+     */
+    private function _getRegex($input)
+    {
+        $regex = "";
+        if (is_array($input)) {
+            $regex = "^";
+            $start = true;
+            foreach($input as $row) {
+                if ($start === false) {
+                    $regex .= "|";
+                }
+                $start = false;
+                $regex .= "(";
+                $one = null;
+                if (strlen($row) > 2) {
+                    $one = true;
+                }
+                foreach (str_split($row, 1) as $char) {
+                    $regex .= "[" . $char;
+                    $regex .= strtoupper($char) . "]";
+                    if ($one === true) {
+                        $one = false;
+                        $regex .= "(";
+                    }
+                }
+                if ($one === false) {
+                    $regex .= ")";
+                }
+                $regex .= "?)";
+            }
+        }
+        return $regex;
     }
 
 
@@ -836,13 +766,31 @@ class Zend_Locale {
     public static function isLocale($locale, $create = false)
     {
         if (empty($locale) and ($create === true)) {
-            $locale = new Zend_Locale();
+            $locale = new self();
         }
         if ($locale instanceof Zend_Locale) {
             return $locale->toString();
         }
         if (!is_string($locale)) {
             return false;
+        }
+        if (empty(self::$_auto)) {
+            $temp = new self($locale);
+            self::$_auto        = $temp->getDefault(null, false);
+            self::$_browser     = $temp->getDefault(self::BROWSER, false);
+            self::$_environment = $temp->getDefault(self::ENVIRONMENT, false);
+        }
+        if ($locale == 'auto') {
+            $locale = self::$_auto;
+        }
+        if ($locale == 'browser') {
+            $locale = self::$_browser;
+        }
+        if ($locale == 'environment') {
+            $locale = self::$_environment;
+        }
+        if (is_array($locale)) {
+            $locale = key($locale);
         }
 
         if (array_key_exists($locale, self::$_localeData)) {
@@ -854,5 +802,36 @@ class Zend_Locale {
             }
         }
         return false;
+    }
+
+
+    /**
+     * Returns a list of all known locales where the locale is the key
+     * Only real locales are returned, the internal locales 'root', 'auto', 'browser'
+     * and 'environment' are suppressed
+     * 
+     * @return  array
+     */
+    public static function getLocaleList()
+    {
+        $list = self::$_localeData;
+        unset($list['root']);
+        unset($list['auto']);
+        unset($list['browser']);
+        unset($list['environment']);
+        return $list;
+    }
+
+
+    /**
+     * Sets a cache
+     *
+     * @param Zend_Cache_Core $cache
+     */
+    public static function setCache(Zend_Cache_Core $cache)
+    {
+        // load class within method for speed
+        require_once 'Zend/Locale/Data.php';
+        Zend_Locale_Data::setCache($cache);
     }
 }

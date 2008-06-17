@@ -65,8 +65,10 @@ function dumpRights(file)
 			echo $this->url(
 				array(
 					'controller' => 'browserajax',
-					'action' => 'DumpRights?name="+ file + "&group="+ groupe.substring(0, groupe.length - 1) +"'
+					'project' => $this->project->name,
+					'action' => 'dump-rights?name="+ file + "&group="+ groupe.substring(0, groupe.length - 1) +"'
 				)
+				, null, true, false
 			);
 		?>",
 				true);
@@ -83,9 +85,12 @@ function updateOrInsertRights(file)
 		"<?php echo $this->url(
 			array(
 				'controller' => 'browserajax',
-				'action' => 'UpdateOrInsertRights?name="+ file +"&rights="+ text.substring(0, text.length - 1) +
+				'project' => $this->project->name,
+				'action' => 'update-or-insert-rights?name="+ file +"&rights="+ text.substring(0, text.length - 1) +
 							"&group="+ groupe.substring(0, groupe.length - 1) +"'
-			)); ?>", true);
+			)
+			, null, true, false
+			); ?>", true);
 	xhr.send(null);
 }
 
@@ -98,8 +103,10 @@ function getListFile(file)
 			echo $this->url(
 				array(
 					'controller' => 'browserajax',
-					'action' => 'GetListFile?name="+ file + "'
+					'project' => $this->project->name,
+					'action' => 'get-list-file?name="+ file + "'
 				)
+				, null, true, false
 			); ?>", true);
 	xhr.send(null);
 }

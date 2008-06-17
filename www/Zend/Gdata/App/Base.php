@@ -15,16 +15,17 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
+
 
 /**
  * Abstract class for all XML elements
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Gdata_App_Base
@@ -73,6 +74,12 @@ abstract class Zend_Gdata_App_Base
     {
     }
 
+    /**
+     * Returns the child text node of this element
+     * This represents any raw text contained within the XML element
+     *
+     * @return string Child text node
+     */
     public function getText($trim = true)
     {
         if ($trim) {
@@ -82,29 +89,67 @@ abstract class Zend_Gdata_App_Base
         }
     }
 
+    /**
+     * Sets the child text node of this element
+     * This represents any raw text contained within the XML element
+     *
+     * @param string $value Child text node
+     * @return Zend_Gdata_App_Base Returns an object of the same type as 'this' to provide a fluent interface.
+     */
     public function setText($value)
     {
         $this->_text = $value;
         return $this;
     }
 
+    /**
+     * Returns an array of all elements not matched to data model classes
+     * during the parsing of the XML
+     *
+     * @return array All elements not matched to data model classes during parsing
+     */
     public function getExtensionElements()
     {
         return $this->_extensionElements;
     }
 
+    /**
+     * Sets an array of all elements not matched to data model classes
+     * during the parsing of the XML.  This method can be used to add arbitrary
+     * child XML elements to any data model class.
+     *
+     * @param array $value All extension elements
+     * @return Zend_Gdata_App_Base Returns an object of the same type as 'this' to provide a fluent interface.
+     */
     public function setExtensionElements($value)
     {
         $this->_extensionElements = $value;
         return $this;
     }
 
-
+    /**
+     * Returns an array of all extension attributes not transformed into data
+     * model properties during parsing of the XML.  Each element of the array 
+     * is a hashed array of the format: 
+     *     array('namespaceUri' => string, 'name' => string, 'value' => string);
+     *
+     * @return array All extension attributes
+     */
     public function getExtensionAttributes()
     {
         return $this->_extensionAttributes;
     }
 
+    /**
+     * Sets an array of all extension attributes not transformed into data
+     * model properties during parsing of the XML.  Each element of the array 
+     * is a hashed array of the format: 
+     *     array('namespaceUri' => string, 'name' => string, 'value' => string);
+     * This can be used to add arbitrary attributes to any data model element
+     *
+     * @param array $value All extension attributes
+     * @return Zend_Gdata_App_Base Returns an object of the same type as 'this' to provide a fluent interface.
+     */
     public function setExtensionAttributes($value)
     {
         $this->_extensionAttributes = $value;
@@ -203,6 +248,15 @@ abstract class Zend_Gdata_App_Base
         }
     }
 
+    /**
+     * Parses the provided XML text and generates data model classes for
+     * each know element by turning the XML text into a DOM tree and calling
+     * transferFromDOM($element).  The first data model element with the same
+     * name as $this->_rootElement is used and the child elements are
+     * recursively parsed.
+     *
+     * @param string $xml The XML text to parse
+     */
     public function transferFromXML($xml)
     {
         if ($xml) {
@@ -228,7 +282,7 @@ abstract class Zend_Gdata_App_Base
     }
 
     /**
-     * Converts this element and all children into XML using getDOM()
+     * Converts this element and all children into XML text using getDOM()
      *
      * @return string XML content
      */
@@ -241,8 +295,23 @@ abstract class Zend_Gdata_App_Base
     /**
      * Alias for saveXML() returns XML content for this element and all
      * children
+     *
+     * @return string XML content
      */
     public function getXML()
+    {
+        return $this->saveXML();
+    }
+    
+    /**
+     * Alias for saveXML()
+     *
+     * Can be overridden by children to provide more complex representations
+     * of entries.
+     *
+     * @return string Encoded string content
+     */
+    public function encode()
     {
         return $this->saveXML();
     }
@@ -379,6 +448,8 @@ abstract class Zend_Gdata_App_Base
     /**
      * Magic toString method allows using this directly via echo
      * Works best in PHP >= 4.2.0
+     *
+     * @return string The text representation of this object
      */
     public function __toString()
     {

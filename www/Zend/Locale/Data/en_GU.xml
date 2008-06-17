@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.4/ldml.dtd">
+<!DOCTYPE ldml SYSTEM "http://www.unicode.org/cldr/dtd/1.5/ldml.dtd">
 <ldml>
-    <identity>
-        <version number="$Revision: 1.28 $"/>
-        <generation date="$Date: 2006/06/27 23:30:53 $"/>
-        <language type="en"/>
-        <territory type="GU"/>
-    </identity>
-    <numbers>
-        <currencyFormats>
-            <currencyFormatLength>
-                <currencyFormat>
-                    <pattern draft="unconfirmed">¤#,##0.00;(¤#,##0.00)</pattern>
-                </currencyFormat>
-            </currencyFormatLength>
-        </currencyFormats>
-    </numbers>
+	<identity>
+		<version number="$Revision: 1.34 $"/>
+		<generation date="$Date: 2007/07/19 22:31:39 $"/>
+		<language type="en"/>
+		<territory type="GU"/>
+	</identity>
 </ldml>
 

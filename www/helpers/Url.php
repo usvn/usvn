@@ -27,14 +27,14 @@ class USVN_View_Helper_Url extends Zend_View_Helper_Url {
      * @param  bool $reset Whether or not to reset the route defaults with those provided
      * @return string Url for the link href attribute.
      */
-    public function url(array $urlOptions = array(), $name = null, $reset = false)
+    public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true)
     {
     	foreach ($urlOptions as $key => $value) {
     		if ($key === 'project' || $key === 'group' || $key === 'name') {
     			$urlOptions[$key] = str_replace('/', USVN_URL_SEP, $value);
     		}
     	}
-        $url = parent::url($urlOptions, $name, $reset);
+        $url = parent::url($urlOptions, $name, $reset, $encode);
         return $url;
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simple.php 5764 2007-07-18 21:59:22Z thomas $
+ * @version    $Id: Simple.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 /** Zend_Log_Formatter_Interface */
@@ -27,9 +27,9 @@ require_once 'Zend/Log/Formatter/Interface.php';
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simple.php 5764 2007-07-18 21:59:22Z thomas $
+ * @version    $Id: Simple.php 8064 2008-02-16 10:58:39Z thomas $
  */
 class Zend_Log_Formatter_Simple implements Zend_Log_Formatter_Interface
 {

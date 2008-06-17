@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Mime
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Mime
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mime
@@ -196,16 +196,17 @@ class Zend_Mime
      *
      * @param string $str
      * @param string $encoding
+     * @param string $EOL EOL string; defaults to {@link Zend_Mime::LINEEND}
      * @return string
      */
-    public static function encode($str, $encoding)
+    public static function encode($str, $encoding, $EOL = self::LINEEND)
     {
         switch ($encoding) {
             case self::ENCODING_BASE64:
-                return self::encodeBase64($str);
+                return self::encodeBase64($str, self::LINELENGTH, $EOL);
 
             case self::ENCODING_QUOTEDPRINTABLE:
-                return self::encodeQuotedPrintable($str);
+                return self::encodeQuotedPrintable($str, self::LINELENGTH, $EOL);
 
             default:
                 /**

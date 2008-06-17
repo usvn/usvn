@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rss.php 4733 2007-05-06 19:41:25Z thomas $
+ * @version    $Id: Rss.php 8064 2008-02-16 10:58:39Z thomas $
  */
 
 
@@ -43,7 +43,7 @@ require_once 'Zend/Feed/Entry/Rss.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Rss extends Zend_Feed_Abstract
@@ -72,8 +72,8 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
     /**
      * Override Zend_Feed_Abstract to set up the $_element and $_entries aliases.
      *
-     * @throws Zend_Feed_Exception
      * @return void
+     * @throws Zend_Feed_Exception
      */
     public function __wakeup()
     {
@@ -82,6 +82,10 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
         // Find the base channel element and create an alias to it.
         $this->_element = $this->_element->getElementsByTagName('channel')->item(0);
         if (!$this->_element) {
+            /** 
+             * @see Zend_Feed_Exception
+             */
+            require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('No root <channel> element found, cannot parse channel.');
         }
 
@@ -453,7 +457,7 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
      *
      * @return string
      */
-    public function saveXML()
+    public function saveXml()
     {
         // Return a complete document including XML prologue.
         $doc = new DOMDocument($this->_element->ownerDocument->version,
@@ -479,18 +483,22 @@ class Zend_Feed_Rss extends Zend_Feed_Abstract
     /**
      * Send feed to a http client with the correct header
      *
-     * @throws Zend_Feed_Exception if headers have already been sent
      * @return void
+     * @throws Zend_Feed_Exception if headers have already been sent
      */
     public function send()
     {
         if (headers_sent()) {
+            /** 
+             * @see Zend_Feed_Exception
+             */
+            require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Cannot send RSS because headers have already been sent.');
         }
 
         header('Content-type: application/rss+xml; charset: ' . $this->_element->ownerDocument->actualEncoding);
 
-        echo $this->saveXML();
+        echo $this->saveXml();
     }
 
 }

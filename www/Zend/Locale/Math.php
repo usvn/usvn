@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Math.php 5775 2007-07-18 22:09:43Z thomas $
+ * @version    $Id: Math.php 8672 2008-03-07 21:20:42Z thomas $
  */
 
 
@@ -28,7 +28,7 @@
  *
  * @category   Zend
  * @package    Zend_Locale
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -65,9 +65,9 @@ class Zend_Locale_Math
     public static function round($op1, $precision = 0)
     {
         if (self::$_bcmathDisabled) {
-            return (string) round($op1, $precision);
+            return self::normalize(round($op1, $precision));
         }
-        $op1 = trim($op1);
+        $op1 = trim(self::normalize($op1));
         $length = strlen($op1);
         if (($decPos = strpos($op1, '.')) === false) {
             $op1 .= '.0';
@@ -119,13 +119,30 @@ class Zend_Locale_Math
      */
     public static function normalize($value)
     {
-        $value = (string) $value;
         $convert = localeconv();
-        $value = str_replace($convert['thousands_sep'], "",$value);
-        $value = str_replace($convert['positive_sign'], "",$value);
+        $value = str_replace($convert['thousands_sep'], "",(string) $value);
+        $value = str_replace($convert['positive_sign'], "", $value);
+        $value = str_replace($convert['decimal_point'], ".",$value);
         if (!empty($convert['negative_sign']) and (strpos($value, $convert['negative_sign']))) {
-            $value = str_replace($convert['negative_sign'], "",$value);
-            $value = "-".$value;
+            $value = str_replace($convert['negative_sign'], "", $value);
+            $value = "-" . $value;
+        }
+        return $value;
+    }
+
+    /**
+     * Localizes an input from standard english notation
+     * Fixes a problem of BCMath with setLocale which is PHP related
+     *
+     * @param   integer  $value  Value to normalize
+     * @return  string           Normalized string without BCMath problems
+     */
+    public static function localize($value)
+    {
+        $convert = localeconv();
+        $value = str_replace(".", $convert['decimal_point'], (string) $value);
+        if (!empty($convert['negative_sign']) and (strpos($value, "-"))) {
+            $value = str_replace("-", $convert['negative_sign'], $value);
         }
         return $value;
     }
@@ -135,5 +152,3 @@ if ((defined('TESTS_ZEND_LOCALE_BCMATH_ENABLED') && !TESTS_ZEND_LOCALE_BCMATH_EN
     || !extension_loaded('bcmath')) {
     require_once 'Zend/Locale/Math/PhpMath.php';
 }
-
-?>

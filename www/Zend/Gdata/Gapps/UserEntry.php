@@ -15,7 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -58,7 +58,7 @@ require_once 'Zend/Gdata/Gapps/Extension/Quota.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
@@ -226,11 +226,7 @@ class Zend_Gdata_Gapps_UserEntry extends Zend_Gdata_Entry
     }
 
     /**
-     * Get the value of the quota
-     * @throws Zend_Gdata_App_HttpException
-     * @throws Zend_Gdata_Gapps_ServiceException
-     * @return Zend_Gdata_App_Feed
- property for this object.
+     * Get the value of the quota property for this object.
      *
      * @see setQuota
      * @return Zend_Gdata_Gapps_Extension_Quota The requested object.

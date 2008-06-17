@@ -15,7 +15,7 @@
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -34,7 +34,7 @@ require_once 'Zend/Gdata/App/FeedSourceParent.php';
  *
  * @category   Zend
  * @package    Zend_Gdata
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
@@ -180,7 +180,8 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     }
 
     /**
-     * Returns Entry elements from this feed
+     * Gets the array of atom:entry elements contained within this
+     * atom:feed representation
      *
      * @return array Zend_Gdata_App_Entry array
      */
@@ -190,8 +191,11 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     }
 
     /**
-     * @param array The array of Zend_Gdata_App_Entry elements
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * Sets the array of atom:entry elements contained within this
+     * atom:feed representation
+     *
+     * @param array $value The array of Zend_Gdata_App_Entry elements
+     * @return Zend_Gdata_App_Feed Provides a fluent interface
      */
     public function setEntry($value)
     {
@@ -200,8 +204,11 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     }
 
     /**
+     * Adds an entry representation to the array of entries
+     * contained within this feed
+     *
      * @param Zend_Gdata_App_Entry An individual entry to add.
-     * @return Zend_Gdata_App_Entry Provides a fluent interface
+     * @return Zend_Gdata_App_Feed Provides a fluent interface
      */
     public function addEntry($value)
     {

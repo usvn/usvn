@@ -28,7 +28,7 @@
 			<td>
 				<select name="timezone">
 					<?php
-						$timezones = Zend_Locale_Data::getContent("en", "timezonestandard");
+						$timezones = Zend_Locale_Data::getList("en", "WindowsToTimezone");
 						ksort($timezones);
 						foreach ($timezones as $timezone => $city) {
 							if ($timezone == date_default_timezone_get()) {

@@ -14,16 +14,19 @@
  *
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Module.php 5768 2007-07-18 22:01:35Z thomas $
- * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Module.php 8972 2008-03-21 18:48:44Z thomas $
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
-/** Zend_Controller_Router_Exception */
-require_once 'Zend/Controller/Router/Exception.php';
 
 /** Zend_Controller_Router_Route_Interface */
 require_once 'Zend/Controller/Router/Route/Interface.php';
+
+/** Zend_Controller_Dispatcher_Interface */
+require_once 'Zend/Controller/Dispatcher/Interface.php';
+
+/** Zend_Controller_Request_Abstract */
+require_once 'Zend/Controller/Request/Abstract.php';
 
 /**
  * Module Route
@@ -32,14 +35,14 @@ require_once 'Zend/Controller/Router/Route/Interface.php';
  *
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://www.zend.com/license/framework/1_0.txt Zend Framework License version 1.0
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see        http://manuals.rubyonrails.com/read/chapter/65
  */
 class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Route_Interface
 {
     /**
-     * @const string URI delimiter
+     * URI delimiter
      */
     const URI_DELIMITER = '/';
 
@@ -84,9 +87,9 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
     /**
      * Constructor
      *
-     * @param array Defaults for map variables with keys as variable names
-     * @param Zend_Controller_Dispatcher_Interface Dispatcher object
-     * @param Zend_Controller_Request_Abstract Request object
+     * @param array $defaults Defaults for map variables with keys as variable names
+     * @param Zend_Controller_Dispatcher_Interface $dispatcher Dispatcher object
+     * @param Zend_Controller_Request_Abstract $request Request object
      */
     public function __construct(array $defaults = array(),
                 Zend_Controller_Dispatcher_Interface $dispatcher = null,
@@ -135,7 +138,7 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
      * setControllerName(), and setActionName() accessors to set those values.
      * Always returns the values as an array.
      *
-     * @param string Path used to match against this routing map
+     * @param string $path Path used to match against this routing map
      * @return array An array of assigned values or a false on a mismatch
      */
     public function match($path)
@@ -180,7 +183,8 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
     /**
      * Assembles user submitted parameters forming a URL path defined by this route
      *
-     * @param array An array of variable and value pairs used as parameters
+     * @param array $data An array of variable and value pairs used as parameters
+     * @param bool $reset Weither to reset the current params
      * @return string Route path with user submitted parameters
      */
     public function assemble($data = array(), $reset = false)
@@ -234,6 +238,27 @@ class Zend_Controller_Router_Route_Module implements Zend_Controller_Router_Rout
         }
 
         return ltrim($url, self::URI_DELIMITER);
+    }
+
+    /**
+     * Return a single parameter of route's defaults
+     *
+     * @param string $name Array key of the parameter
+     * @return string Previously set default
+     */
+    public function getDefault($name) {
+        if (isset($this->_defaults[$name])) {
+            return $this->_defaults[$name];
+        }
+    }
+
+    /**
+     * Return an array of defaults
+     *
+     * @return array Route defaults
+     */
+    public function getDefaults() {
+        return $this->_defaults;
     }
 
 }

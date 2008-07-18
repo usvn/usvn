@@ -5,24 +5,26 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: messages\n"
+"Project-Id-Version: USVN 0.7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2007-12-11 10:23+0100\n"
-"Last-Translator: Karen Arzumanyan\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2008-07-18 21:14+0300\n"
+"Last-Translator: Arzumanyan Karen <akr.rka@gmail.com>\n"
+"Language-Team: AKR <akr.rka@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#: ../../../www//menus/browser.php:32 ../../../www//menus/browserTest.php:47
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
 msgid "Browser"
 msgstr "Обозреватель"
 
 #: ../../../www//menus/timeline.php:32
 #: ../../../www//views/Timeline/index.phtml:3
-#, fuzzy
 msgid "Timeline"
 msgstr "Хронология"
 
@@ -93,7 +95,8 @@ msgstr "Не удалось добавить пользователя %s. Имп
 msgid "Invalid path %s."
 msgstr "Неверный путь %s."
 
-#: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:106
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//USVN/Menu.php:106
 #: ../../../www//views/index/index.phtml:2
 msgid "Homepage"
 msgstr "Домашняя страница"
@@ -106,7 +109,8 @@ msgstr "Вошёл как"
 msgid "Can't write config file."
 msgstr "Не удается записать файл конфигурации"
 
-#: ../../../www//USVN/Auth/Adapter/Db.php:54 ../../../www//USVN/Project.php:91
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:91
 #, php-format
 msgid "Login %s not found"
 msgstr "Логин %s не найден"
@@ -136,7 +140,8 @@ msgstr ""
 "Ошибка:\n"
 "%s"
 
-#: ../../../www//USVN/SVNUtils.php:194 ../../../www//USVN/Project.php:54
+#: ../../../www//USVN/SVNUtils.php:194
+#: ../../../www//USVN/Project.php:54
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr "Не удалось создать репозитарий subversion: %s"
@@ -151,7 +156,8 @@ msgstr "Не удалось загрузить репозитарий subversion
 msgid "Can't list subversion repository: %s"
 msgstr "Не удалось просмотреть репозитарий subversion: %s"
 
-#: ../../../www//USVN/Menu.php:58 ../../../www//USVN/Db/Utils.php:33
+#: ../../../www//USVN/Menu.php:58
+#: ../../../www//USVN/Db/Utils.php:33
 #, php-format
 msgid "Can't open file %s."
 msgstr "Не удалось открыть файл %s."
@@ -195,7 +201,7 @@ msgstr "Не удалось прочитать каталог %s."
 #: ../../../www//USVN/ImportSVNRepositories.php:35
 #, php-format
 msgid "%s must be a string: %s"
-msgstr ""%s должен быть строкой: %s""
+msgstr "\"%s должен быть строкой: %s"
 
 #: ../../../www//USVN/Project.php:105
 #, php-format
@@ -228,12 +234,8 @@ msgid "The project's name is empty."
 msgstr "Имя проекта пустое"
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
-msgid ""
-"The project's name is invalid. A project's name can only include alpha-"
-"numeric characters and '-' or '_'."
-msgstr ""
-"Такое название проекта недопустимо. Имя проекта может содержать только алфавитно-" 
-"цифровые символы и знаки '-' или '_'."
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Такое название проекта недопустимо. Имя проекта может содержать только алфавитно-цифровые символы и знаки '-' или '_'."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
@@ -246,12 +248,8 @@ msgid "Login empty."
 msgstr "Логин пустой"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
-msgid ""
-"Login invalid.  The login can only include alpha-numeric characters and '-' "
-"or '_'."
-msgstr ""
-"Такое логин недопустим. Логин может содержать только алфавитно-" 
-"цифровые символы и знаки '-' или '_'."
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
+msgstr "Такое логин недопустим. Логин может содержать только алфавитно-цифровые символы и знаки '-' или '_'."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
 msgid "Invalid email address."
@@ -283,12 +281,8 @@ msgid "The group's name is empty."
 msgstr "Имя группы пустое"
 
 #: ../../../www//USVN/Db/Table/Groups.php:78
-msgid ""
-"The group's name is invalid. The group's name can only include alpha-numeric "
-"characters and '-' or '_'."
-msgstr ""
-"Такое название группы недопустимо. Название группы может содержать только алфавитно-" 
-"цифровые символы и знаки '-' или '_'."
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Такое название группы недопустимо. Название группы может содержать только алфавитно-цифровые символы и знаки '-' или '_'."
 
 #: ../../../www//USVN/Db/Table/Users.php:127
 #, php-format
@@ -309,11 +303,13 @@ msgstr ""
 msgid "Welcome to USVN"
 msgstr "Добро пожаловать в USVN"
 
-#: ../../../www//USVN/Config.php:37 ../../../www//install/Install.php:144
+#: ../../../www//USVN/Config.php:37
+#: ../../../www//install/Install.php:144
 msgid "Invalid language"
 msgstr "Неправильный язык"
 
-#: ../../../www//USVN/Config.php:56 ../../../www//install/Install.php:166
+#: ../../../www//USVN/Config.php:56
+#: ../../../www//install/Install.php:166
 msgid "Invalid timezone"
 msgstr "Неправильный часовой пояс"
 
@@ -323,8 +319,7 @@ msgstr "Неправильный шаблон"
 
 #: ../../../www//USVN/User.php:106
 msgid "This user can't be created. A group has the same name."
-msgstr ""
-"Этот пользователь не может быть создан. У группы есть такое же название."
+msgstr "Этот пользователь не может быть создан. У группы есть такое же название."
 
 #: ../../../www//USVN/SVNLog.php:56
 #, php-format
@@ -346,9 +341,9 @@ msgstr "Поля не найдены"
 
 #: ../../../www//controllers/UseradminController.php:101
 #: ../../../www//controllers/UseradminController.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid user %s."
-msgstr "Неверный пользователь %s.\n"
+msgstr "Неверный пользователь %s."
 
 #: ../../../www//controllers/UseradminController.php:119
 #, php-format
@@ -368,7 +363,7 @@ msgstr "Группа %s уже существует"
 #: ../../../www//controllers/GroupadminController.php:86
 #: ../../../www//controllers/GroupadminController.php:102
 #: ../../../www//controllers/GroupadminController.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid group %s."
 msgstr "Неверная группа %s."
 
@@ -455,7 +450,7 @@ msgid ""
 "Your version of USVN is out of date. A new version %s is available on\n"
 "\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
 msgstr ""
-"Ваша версия USVN устарела. Новая версия %s доступна по адресу \n" 
+"Ваша версия USVN устарела. Новая версия %s доступна по адресу \n"
 "\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
 
 #: ../../../www//views/profile/index.phtml:15
@@ -512,27 +507,22 @@ msgid "Submit"
 msgstr "Отправить"
 
 #: ../../../www//views/systemreportadmin/index.phtml:3
-#, fuzzy
 msgid "PHP version:"
 msgstr "Версия PHP: "
 
 #: ../../../www//views/systemreportadmin/index.phtml:4
-#, fuzzy
 msgid "USVN version:"
 msgstr "Версия USVN: "
 
 #: ../../../www//views/systemreportadmin/index.phtml:5
-#, fuzzy
 msgid "Translation:"
 msgstr "Перевод:"
 
 #: ../../../www//views/systemreportadmin/index.phtml:6
-#, fuzzy
 msgid "Database:"
 msgstr "База данных:"
 
 #: ../../../www//views/systemreportadmin/index.phtml:7
-#, fuzzy
 msgid "Subversion version:"
 msgstr "Версия Subversion:"
 
@@ -612,7 +602,6 @@ msgid "Group's information"
 msgstr "Информация о группе"
 
 #: ../../../www//views/groupadmin/form.phtml:33
-#, fuzzy
 msgid "Managing group"
 msgstr "Управление группой %s"
 
@@ -642,12 +631,8 @@ msgid "Password"
 msgstr "Пароль"
 
 #: ../../../www//views/useradmin/import.phtml:4
-msgid ""
-"This form allow you to add to USVN all users contents into an apache "
-"password file."
-msgstr ""
-"Эта форма позволит Вам добавить в USVN все пользовательское данные из файла "
-"паролей apache."
+msgid "This form allow you to add to USVN all users contents into an apache password file."
+msgstr "Эта форма позволит Вам добавить в USVN все пользовательское данные из файла паролей apache."
 
 #: ../../../www//views/useradmin/import.phtml:10
 msgid "Upload"
@@ -719,7 +704,6 @@ msgstr "Проверить обновление"
 
 #: ../../../www//views/configadmin/index.phtml:67
 #: ../../../www//views/configadmin/index.phtml:71
-#, fuzzy
 msgid "Yes"
 msgstr "Да"
 
@@ -753,30 +737,22 @@ msgid "Start revision or date revision"
 msgstr "Начальная ревизия или дата ревизии"
 
 #: ../../../www//views/Timeline/index.phtml:12
-msgid ""
-"You can list 100 revisions since your revision or date. The date format is : "
-"DD/MM/YYYY"
-msgstr ""
-"Вы можете видеть список из 100 изменений со времени Вашей ревизии или даты. Дата в формате:" 
-"DD/MM/YYYY"
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
+msgstr "Вы можете видеть список из 100 изменений со времени Вашей ревизии или даты. Дата в формате:DD/MM/YYYY"
 
 #: ../../../www//views/Timeline/index.phtml:28
 msgid "End revision or date revision"
 msgstr "Конечная ревизия или дата ревизии"
 
 #: ../../../www//views/Timeline/index.phtml:30
-msgid ""
-"This is optional.The listing is made between start revision/date and this "
-"one."
-msgstr ""
-"Это опционально. Просмотр производится между начальной ревизии/даты, и текщей."
+msgid "This is optional.The listing is made between start revision/date and this one."
+msgstr "Это опционально. Просмотр производится между начальной ревизии/даты, и текщей."
 
 #: ../../../www//views/Timeline/index.phtml:40
 msgid "Search"
 msgstr "Поиск"
 
 #: ../../../www//views/Timeline/index.phtml:50
-#, fuzzy
 msgid "Last hundred commit"
 msgstr "Последние сто коментариев"
 
@@ -851,9 +827,7 @@ msgstr "Администраторы"
 #: ../../../www//views/project/index.phtml:39
 #, php-format
 msgid "Do you really want to remove user %s as admin of project %s?"
-msgstr ""
-"Вы действительно желаете исключить пользователя %s из администраторов проекта %"
-"s?"
+msgstr "Вы действительно желаете исключить пользователя %s из администраторов проекта %s?"
 
 #: ../../../www//views/project/index.phtml:69
 #, php-format
@@ -877,21 +851,20 @@ msgid "You don't have any project."
 msgstr "У вас нет ни одного проекта."
 
 #: ../../../www//views/index/index.phtml:20
-#, fuzzy
 msgid "Your groups"
-msgstr "Ваши проекты"
+msgstr "Ваши группы"
 
 #: ../../../www//views/index/index.phtml:30
 msgid "You are not assign to a group."
 msgstr "Вы не состоите не в одной группе"
 
 #: ../../../www//views/index/error.phtml:2
-#, fuzzy
 msgid "This page doesn't exist."
 msgstr "Эта страница не существует."
 
 #: ../../../www//install/install-commandline.php:36
-#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
 msgid "Error"
 msgstr "Ошибка"
 
@@ -924,9 +897,7 @@ msgstr "Лицензионное соглашение"
 
 #: ../../../www//install/views/step3.html:3
 msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
-msgstr ""
-"Прочтите и примите пожалуйста ЛИЦЕНЗИЮ БЕСПЛАТНОГО ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ "
-"CeCILL."
+msgstr "Прочтите и примите пожалуйста ЛИЦЕНЗИЮ БЕСПЛАТНОГО ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ CeCILL."
 
 #: ../../../www//install/views/step3.html:1966
 msgid "I understand and accept this license."
@@ -946,11 +917,6 @@ msgid "Configure USVN"
 msgstr "Конфигурация USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
-msgstr 
-"Параметры общей конфигурации USVN. Вы можете сохранить настройки по умолчанию."
-
 #: ../../../www//install/views/step4.html:12
 msgid "Page title"
 msgstr "Название страницы"
@@ -1000,12 +966,8 @@ msgid "Apache configuration"
 msgstr "Конфигурация Apache"
 
 #: ../../../www//install/views/step8.html:8
-msgid ""
-"Last step is to configure subversion into apache. Copy past following lines "
-"at the end of your <em>httpd.conf</em>:"
-msgstr ""
-"Следующий шаг это конфигурация subversion в apache. Скопируйте и вставьте в "
-"конец вашего файла <em>httpd.conf</em>:"
+msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
+msgstr "Следующий шаг это конфигурация subversion в apache. Скопируйте и вставьте в конец вашего файла <em>httpd.conf</em>:"
 
 #: ../../../www//install/views/step8.html:14
 msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
@@ -1026,8 +988,7 @@ msgstr "Проверка наличия новой версии"
 #: ../../../www//install/views/step7.html:6
 msgid ""
 "\n"
-"<p>During update checks, USVN will send information regarding of your "
-"installation.</p>\n"
+"<p>During update checks, USVN will send information regarding of your installation.</p>\n"
 "<p>\n"
 "This information is only collected for statistical purposes and allow\n"
 "us to better know the platforms on which USVN is installed.\n"
@@ -1049,28 +1010,27 @@ msgid ""
 "disable the update notification.\n"
 "</p>\n"
 msgstr ""
-"\n" 
-"<p> В ходе проверки обновления, USVN будет посылать информацию о вашей" 
-"установке. </р>\n" 
-"<p>\n" 
-"Эта информация используется только для целей сбора  статистики и позволит\n" 
-"нам лучше знать, о платформах, на которых USVN корректно установлен.\n" 
-"</р>\n" 
-"<p>\n" 
-"Вот список того, чего мы хотим собрать:\n" 
-"<ul>\n" 
-"<li>IP (чтобы получить статистику о географическоом положение USVN в мире)</li>\n" 
-"<li>Версия PHP</li>\n" 
-"<li>Версия SVN</li>\n" 
-"<li>Версия USVN</li>\n" 
-"<li>Содержимое phpinfo()</li>\n" 
-"<li>Используемая база данных драйверов</li>\n" 
-"<li>Используемый перевод</li>\n" 
-"</ul>\n" 
-"</р>\n" 
-"<p>\n" 
-"Если вы не хотите, чтобы эта информация была собираться, вам необходимо просто\n" 
-"отключить уведомления об обновлениях.\n" 
+"\n"
+"<p> В ходе проверки обновления, USVN будет посылать информацию о вашейустановке. </р>\n"
+"<p>\n"
+"Эта информация используется только для целей сбора  статистики и позволит\n"
+"нам лучше знать, о платформах, на которых USVN корректно установлен.\n"
+"</р>\n"
+"<p>\n"
+"Вот список того, чего мы хотим собрать:\n"
+"<ul>\n"
+"<li>IP (чтобы получить статистику о географическоом положение USVN в мире)</li>\n"
+"<li>Версия PHP</li>\n"
+"<li>Версия SVN</li>\n"
+"<li>Версия USVN</li>\n"
+"<li>Содержимое phpinfo()</li>\n"
+"<li>Используемая база данных драйверов</li>\n"
+"<li>Используемый перевод</li>\n"
+"</ul>\n"
+"</р>\n"
+"<p>\n"
+"Если вы не хотите, чтобы эта информация была собираться, вам необходимо просто\n"
+"отключить уведомления об обновлениях.\n"
 "</р>\n"
 
 #: ../../../www//install/views/step7.html:33
@@ -1125,7 +1085,8 @@ msgstr "Создание первого администратора USVN."
 msgid "System"
 msgstr "Система"
 
-#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
 msgid "You need to accept the licence to continue installation."
 msgstr "Вы должны принять условия лицензионного соглашения для продолжения установки"
 
@@ -1166,12 +1127,8 @@ msgstr "Не удалось записать файл доступа %s.\n"
 
 #: ../../../www//install/Install.php:241
 #, php-format
-msgid ""
-"Invalid subversion path \"%s\", please check if directory exist and is "
-"writable."
-msgstr ""
-"Неверный subversion путь \"%s\", проверьте существует ли директория и "
-"имеются ли права на запись в неё."
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "Неверный subversion путь \"%s\", проверьте существует ли директория и имеются ли права на запись в неё."
 
 #: ../../../www//install/Install.php:286
 #, php-format
@@ -1191,11 +1148,8 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN не может выполниться в безопасном режиме php."
 
 #: ../../../www//install/Install.php:445
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
-msgstr ""
-"Subversion не установлена на вашей системе. Если используется ОС Windows, "
-"установите Subversion"
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Subversion не установлена на вашей системе. Если используется ОС Windows, установите Subversion"
 
 #: ../../../www//install/Install.php:445
 msgid ""
@@ -1205,10 +1159,10 @@ msgid ""
 msgstr ""
 " и произведите рестарт операционной системы (ВНИМАНИЕ рестарт обязателен). \n"
 "\n"
-"Если же используется ОС UNIX вы вероятно должны установить пакет с именем "
-"subversion."
+"Если же используется ОС UNIX вы вероятно должны установить пакет с именем subversion."
 
-#: ../../../www//install/Install.php:457 ../../../www//install/Install.php:465
+#: ../../../www//install/Install.php:457
+#: ../../../www//install/Install.php:465
 msgid "mod_rewrite seems not to be loaded"
 msgstr "mod_rewrite похоже, что не загружен"
 
@@ -1227,12 +1181,10 @@ msgstr "Домой"
 
 #~ msgid "Login invalid."
 #~ msgstr "Неправильный логин"
-
 #~ msgid "The project's name is invalid."
 #~ msgstr "Имя проекта неправильное"
-
 #~ msgid "The group's name is invalid."
 #~ msgstr "Имя группы неправильное"
-
 #~ msgid "Manage"
 #~ msgstr "Управление"
+

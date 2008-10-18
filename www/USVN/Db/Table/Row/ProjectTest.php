@@ -19,6 +19,9 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 	private $projectTable;
 	private $project;
 	private $projectid;
+	private $project2Table;
+	private $project2;
+	private $project2id;
 	private $groups;
 	private $users;
 
@@ -42,6 +45,12 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->project->projects_name = 'testStem';
 		$this->project->projects_start_date = '2007-04-01 15:29:57';
 		$this->projectid = $this->project->save();
+		$this->project2Table = new USVN_Db_Table_Projects();
+		$this->project2 = $this->projectTable->fetchNew();
+		$this->project2->projects_name = 'testNoplay';
+		$this->project2->projects_start_date = '2007-04-01 15:29:57';
+		$this->project2id = $this->project2->save();
+
 		$this->groups = new USVN_Db_Table_Groups();
 		$this->groups->insert(
 			array(
@@ -94,6 +103,8 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 	{
 		$this->assertEquals('testStem', $this->project->projects_name);
 		$this->assertEquals('testStem', $this->project->name);
+		$this->assertEquals('testNoplay', $this->project2->projects_name);
+		$this->assertEquals('testNoplay', $this->project2->name);
 	}
 
 	public function testAddGroup()
@@ -144,23 +155,34 @@ class USVN_Db_Table_Row_ProjectTest extends USVN_Test_DB {
 		$this->assertNotContains("test2", $res);
 	}
 
-	public function testDeleteGroupWithFIleRights()
+	public function testDeleteGroupWithFileRights()
 	{
 		$table_files = new USVN_Db_Table_FilesRights();
-			$fileid = $table_files->insert(array(
+		$fileid = $table_files->insert(array(
     		'projects_id'		=> $this->project->id,
+			'files_rights_path' => '/trunk'
+		));
+		$fileid2 = $table_files->insert(array(
+    		'projects_id'		=> $this->project2->id,
 			'files_rights_path' => '/trunk'
 		));
 		$table_groupstofiles = new USVN_Db_Table_GroupsToFilesRights();
 
 		$this->project->addGroup($this->groups->find(42)->current());
+		$this->project2->addGroup($this->groups->find(42)->current());
 		$table_groupstofiles->insert(array('files_rights_id' 		  => $fileid,
 										   'files_rights_is_readable' => true,
 				 						   'files_rights_is_writable' => false,
 			       	 					   'groups_id'	 			  => 42));
+		$table_groupstofiles->insert(array('files_rights_id' 		  => $fileid2,
+										   'files_rights_is_readable' => true,
+				 						   'files_rights_is_writable' => false,
+			       	 					   'groups_id'	 			  => 42));
 		$this->assertNotNull($table_groupstofiles->findByIdRightsAndIdGroup($fileid, 42));
+		$this->assertNotNull($table_groupstofiles->findByIdRightsAndIdGroup($fileid2, 42));
 		$this->project->deleteGroup($this->groups->find(42)->current());
 		$this->assertNull($table_groupstofiles->findByIdRightsAndIdGroup($fileid, 42));
+		$this->assertNotNull($table_groupstofiles->findByIdRightsAndIdGroup($fileid2, 42));
 	}
 
 	public function testGroupIsMember()

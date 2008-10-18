@@ -120,7 +120,7 @@ subversion.passwd = "' . getcwd() . '/tests/htpasswd"
 	 *
 	 * @return USVN_Db_Table_Row_User
 	 */
-    public function createUser($login, $password)
+    protected function createUser($login, $password = "test")
     {
 		$table = new USVN_Db_Table_Users();
 		try {
@@ -140,6 +140,25 @@ subversion.passwd = "' . getcwd() . '/tests/htpasswd"
 			$this->fail($login . " : " . $e->getMessage());
 		}
     }
-}
 
-?>
+
+	/**
+	 * Generate and save a project
+	 *
+	 * @param string $name
+	 * @return USVN_Db_Table_Row_Project
+	 */
+	protected function createProject($name)
+	{
+		$table = new USVN_Db_Table_Projects();
+		try {
+			$obj = $table->fetchNew();
+			$obj->setFromArray(array('projects_name' => $name));
+			$obj->save();
+			return $obj;
+		}
+		catch (Exception $e) {
+			$this->fail($name . " : " . $e->getMessage());
+		}
+	}
+}

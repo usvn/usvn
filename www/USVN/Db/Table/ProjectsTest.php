@@ -359,14 +359,6 @@ class USVN_Db_Table_ProjectsTest extends USVN_Test_DB {
 		$this->assertEquals(3, count($table->fetchAllAssignedTo($crivis_s)));
 		$this->assertEquals(count($projects), count($table->fetchAllAssignedTo($stem)));
 	}
-
-	private function createProject($name)
-	{
-		$table = new USVN_Db_Table_Projects();
-		$project = $table->createRow(array("projects_name" => $name));
-		$project->save();
-		return $project;
-	}
 }
 
 // Call USVN_Db_Table_ProjectsTest::main() if this source file is executed directly.

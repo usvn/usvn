@@ -2,7 +2,7 @@
 <div class="usvn_info">
 	<h1><?php echo $this->project->name;?></h1>
 	<p><?php echo $this->project->description;?><br /><br />
-<?php echo sprintf(T_("Checkout URL : %s"), $this->subversion_url);?>
+<?php echo sprintf(T_("Checkout URL : %s"), '<a href="' . $this->subversion_url . '">' . $this->subversion_url . '</a>');?>
 </p>
 </div>
 <div class="usvn_info">

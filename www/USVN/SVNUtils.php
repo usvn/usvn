@@ -339,4 +339,21 @@ class USVN_SVNUtils
 		}
 		return escapeshellarg('file://' . $newpath);
 	}
+
+	/**
+	*
+	* @param string Project name
+	* @param string Path into Subversion
+	* @return string Return url of files into Subversion
+	*/
+	public static function getSubversionUrl($project, $path)
+	{
+		$config = Zend_Registry::get('config');
+		$url = $config->subversion->url;
+		if (substr($url, -1, 1) != '/') {
+			$url .= '/';
+		}
+		$url .= $project . $path;
+		return $url;
+	}
 }

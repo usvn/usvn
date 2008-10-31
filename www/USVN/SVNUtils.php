@@ -35,7 +35,7 @@ class USVN_SVNUtils
 	*/
     public static function isSVNRepository($path)
     {
-        if (file_exists($path . "/hooks") && file_exists($path . "/dav")){
+        if (file_exists($path . "/hooks") && file_exists($path . "/db")){
             return true;
         }
         return false;

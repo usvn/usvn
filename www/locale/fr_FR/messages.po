@@ -889,7 +889,7 @@ msgstr "USVN est déjà installé"
 
 #: ../../../www//install/views/footer.html:3
 msgid "Copyright USVN"
-msgstr "Copyright l'équipe USVN 2007."
+msgstr "Copyright l'équipe USVN 2007-2008."
 
 #: ../../../www//install/views/install_error.html:12
 msgid "Force installation"

@@ -36,8 +36,9 @@ class BrowserajaxController extends USVN_Controller
 		parent::postDispatch();
 	}
 
-	private function getTopLink($path)
+	private function getTopLink($project, $path)
 	{
+		$url = USVN_SVNUtils::getSubversionUrl($project, $path);
 		$str = "<h2>";
 		$str .= '<a href=\'javascript:getListFile("/");\'>root</a>&nbsp;/&nbsp;';
 		$list = array();
@@ -51,6 +52,7 @@ class BrowserajaxController extends USVN_Controller
 			$str .= '<a href=\'javascript:getListFile("' . urlencode($path) . '");\'>' . basename($path) . '</a>&nbsp;/&nbsp;';
 		}
 		$str .= "</h2>";
+		$str .= sprintf(T_("Checkout URL : %s"), '<a href="'.$url.'">'.$url.'</a>');
 		$str .= "<h3><a href='javascript:dumpRights(\"{$path}\");'>";
 		$str .= sprintf(T_("Apply rights on %s"), $path);
 		$str .= "</a></h3>";
@@ -63,10 +65,11 @@ class BrowserajaxController extends USVN_Controller
 	public function getListFileAction()
 	{
 		$path = $_GET['name'];
-		$SVN = new USVN_SVN(str_replace(USVN_URL_SEP, '/', $this->_request->getParam('project')));
+		$project_name = str_replace(USVN_URL_SEP, '/',$this->_request->getParam('project'));
+		$SVN = new USVN_SVN($project_name);
 		$tab = $SVN->listFile($path);
 		ob_start();
-		echo $this->getTopLink($path);
+		echo $this->getTopLink($project_name, $path);
 		echo "<br />";
 
 		$user = $this->getRequest()->getParam('user');
@@ -105,6 +108,7 @@ class BrowserajaxController extends USVN_Controller
 				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
+				$tabl['path_raw'] = htmlspecialchars($tabl['path']);
 				$tabl['path'] = rawurlencode($tabl['path']);
 				echo "<tr>";
 				$dir = false;
@@ -119,7 +123,7 @@ class BrowserajaxController extends USVN_Controller
 				if ($dir) {
 					echo "<a href='javascript:getListFile(\"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
 				} else {
-					echo "<a>{$tabl['name']}</a></td>";
+					echo "<a href=\"". USVN_SVNUtils::getSubversionUrl($project_name, $tabl['path_raw']) . "\">{$tabl['name']}</a></td>";
 				}
 				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 			}

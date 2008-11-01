@@ -36,7 +36,6 @@ require_once 'www/USVN/autoload.php';
 class USVN_Db_Table_FileRightsTest extends USVN_Test_DB {
 	private $_projectid1;
 	private $_projectid2;
-	private $_groupid1;
 
     /**
      * Runs the test methods of this class.
@@ -64,11 +63,6 @@ class USVN_Db_Table_FileRightsTest extends USVN_Test_DB {
 		$project = $table->fetchNew();
 		$project->setFromArray(array('projects_name' => 'project2',  'projects_start_date' => '1984-12-03 00:00:00'));
 		$this->_projectid2 = $project->save();
-
-		$group_table = new USVN_Db_Table_Groups();
-		$group = $group_table->fetchNew();
-		$group->setFromArray(array("groups_name" => "toto"));
-		$this->_groupid1 = $group->save();;
 
 		$table_files = new USVN_Db_Table_FilesRights();
     	$id = $table_files->insert(array(

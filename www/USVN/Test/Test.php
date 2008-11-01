@@ -40,6 +40,7 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
 subversion.path = "' . getcwd() . '/tests/tmp/"
 subversion.passwd = "' . getcwd() . '/tests/tmp/htpasswd"
 subversion.authz = "' . getcwd() . '/tests/tmp/authz"
+subversion.url = "http://localhost/"
 version = "0.8.4"
 translation.locale = "en_US"
 ');

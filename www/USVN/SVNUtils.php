@@ -35,7 +35,7 @@ class USVN_SVNUtils
 	*/
     public static function isSVNRepository($path)
     {
-        if (file_exists($path . "/hooks") && file_exists($path . "/dav")){
+        if (file_exists($path . "/hooks") && file_exists($path . "/db")){
             return true;
         }
         return false;
@@ -338,5 +338,22 @@ class USVN_SVNUtils
 			$newpath = USVN_SVNUtils::getCannocialPath($path);
 		}
 		return escapeshellarg('file://' . $newpath);
+	}
+
+	/**
+	*
+	* @param string Project name
+	* @param string Path into Subversion
+	* @return string Return url of files into Subversion
+	*/
+	public static function getSubversionUrl($project, $path)
+	{
+		$config = Zend_Registry::get('config');
+		$url = $config->subversion->url;
+		if (substr($url, -1, 1) != '/') {
+			$url .= '/';
+		}
+		$url .= $project . $path;
+		return $url;
 	}
 }

@@ -64,7 +64,7 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 		putenv('HOME=' . $this->_saveHOME);
 		parent::tearDown();
 	}
-
+/*
     public function test_isSVNRepository()
     {
         $this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/test repository'));
@@ -285,6 +285,12 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 			$this->assertEquals("'file:///tutu'", USVN_SVNUtils::getRepositoryPath("//tata/../tutu"));
 			$this->assertEquals("'file:///'", USVN_SVNUtils::getRepositoryPath("//.."));
 		}
+	}
+*/
+
+	public function test_getSubversionUrl()
+	{
+		$this->assertEquals("http://localhost/test/toto/tutu", USVN_SVNUtils::getSubversionUrl("test", "/toto/tutu"));
 	}
 }
 

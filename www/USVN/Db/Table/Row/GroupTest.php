@@ -207,6 +207,8 @@ class USVN_Db_Table_Row_GroupTest extends USVN_Test_DB {
 	{
 		$groups = new USVN_Db_Table_Groups();
 		$group = $groups->createRow();
+		$group->name = 'test';
+		$group->save();
 		$user2 = $this->users["test"];
 		$this->assertFalse($group->hasUser($user2));
 	}

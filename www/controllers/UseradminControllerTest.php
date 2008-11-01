@@ -166,7 +166,7 @@ class UseradminControllerTest extends USVN_Test_AdminController {
 	public function test_deleteBadUser()
 	{
 		$users = new USVN_Db_Table_Users();
-		$this->request->setParam('name', 'Pif');
+		$this->request->setParam('login', 'Pif');
 		try {
 			$this->runAction('delete');
 		}

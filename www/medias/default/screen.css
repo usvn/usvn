@@ -449,6 +449,7 @@ h3 {
   background-color: #fff;
 }
 
+<?php include($this->css_directory . "/index.css"); ?>
 <?php include($this->css_directory . "/login.css"); ?>
 <?php include($this->css_directory . "/config.css"); ?>
 <?php include($this->css_directory . "/user.css"); ?>

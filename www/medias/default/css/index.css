@@ -1,0 +1,19 @@
+.usvn_index_box {
+	background-color: #eff2ff;
+	background-repeat: no-repeat;
+	background-position: right 17px;
+	background-color: #EFF2FF;
+	padding: 5px;
+	margin: 0 0 2em 0;
+	border: 1px solid #ccc;
+	min-height: 80px;
+}
+
+#usvn_index_projects {
+	background-image:url("<?php echo $this->images_directory ;?>/CrystalClear/64x64/apps/easymoblog.png");
+
+}
+
+#usvn_index_groups {
+	background-image:url("<?php echo $this->images_directory ;?>/CrystalClear/64x64/apps/Community Help.png");
+}

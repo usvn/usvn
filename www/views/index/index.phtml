@@ -1,7 +1,7 @@
 <div class="usvn_info">
 	<h1><?php echo T_("Homepage"); ?></h1>
 </div>
-<div id="usvn_list_project">
+<div id="usvn_index_projects" class="usvn_index_box">
 	<h3><?php echo T_("Your projects") . ":"; ?></h3>
 <?php
 if (count($this->projects)) {
@@ -16,7 +16,7 @@ else {
 }
 ?>
 </div>
-<div id="usvn_list_groups">
+<div id="usvn_index_groups" class="usvn_index_box">
 	<h3><?php echo T_("Your groups") . ":"; ?></h3>
 <?php
 if (count($this->groups)) {

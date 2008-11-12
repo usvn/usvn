@@ -39,15 +39,40 @@ function checkName() {
         	echo '</table>';
         } else if ($this->action == 'edit') {
         	if ($this->AdminProject != 1) {
-        		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin">';
+        		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin"></label>';
         	} else {
-        		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin" checked >';
+        		echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin" checked ></label>';
         	}
         }
         ?>
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
-		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
 		<br />
 	</fieldset>
+	<?php if (is_object($this->project_notification)) { ?>
+	<fieldset>
+		<legend><?php echo T_("Post-commit email notification settings"); ?></legend>
+                <?php
+        	if ($this->project_notification->enabled) {
+        		echo '<label>' . T_('Send notification after each commit:') . '<input type = "checkbox" name="notification" value="notification" checked ></label>';
+        	} else {
+        		echo '<label>' . T_('Send notification after each commit:') . '<input type = "checkbox" name="notification" value="notification"></label>';
+        	}
+                ?>
+		<br />
+			<label><?php echo T_("Subject"); ?>:<br />
+			<?php echo $this->formText('notify_subject', $this->project_notification->getSubject(), array('maxlength' => 255)); ?>
+		</label>
+		<br />
+		<label><?php echo T_("Message"); ?>:<br />
+			<?php echo $this->formTextarea('notify_text',$this->project_notification->getText(), array('rows' => 8, 'cols' => 80)); ?>
+		</label>
+		<br />
+		<label><?php echo T_("Recipients"); ?>:<br />
+			<?php echo $this->formTextarea('notify_recipients',implode("\n", $this->project_notification->getRecipients()), array('rows' => 8, 'cols' => 80)); ?>
+		</label>
+		<br />
+	</fieldset>
+	<? } ?>
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
 </form>
 <br />

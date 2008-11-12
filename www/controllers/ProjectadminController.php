@@ -19,6 +19,7 @@
  */
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminadminController.php';
+require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'USVN' . DIRECTORY_SEPARATOR . 'Notification.php';
 
 class ProjectadminController extends AdminadminController
 {
@@ -44,6 +45,8 @@ class ProjectadminController extends AdminadminController
 	{
 		$table = new USVN_Db_Table_Projects();
 		$this->view->project = $table->createRow();
+
+		$this->view->project_notification = new USVN_Notification();
 	}
 
 	public function createAction()
@@ -55,7 +58,6 @@ class ProjectadminController extends AdminadminController
 		try {
 			$identity = Zend_Auth::getInstance()->getIdentity();
 			USVN_Project::createProject($data, $identity['username'], $_POST['creategroup'], $_POST['addmetogroup'], $_POST['admin'], $_POST['createsvndir']);
-			$this->_redirect("/admin/project/");
 		}
 		catch (USVN_Exception $e) {
 			$this->view->message = nl2br($e->getMessage());
@@ -63,6 +65,29 @@ class ProjectadminController extends AdminadminController
 			$this->view->project->setFromArray($data);
 			$this->render('new');
 		}
+		try {
+			$project_notification = new USVN_Notification($project->name);
+			$project_notification->setSubject($_POST['notify_subject']);
+			$project_notification->setText($_POST['notify_text']);
+			$recipients = array();
+			foreach (explode("\n", $_POST['notify_recipients']) as $recipient) {
+				$recipient = trim($recipient);
+				if ($recipient != "") {
+					$project_notification->addRecipient($recipient);
+				}
+			}
+			$project_notification->saveTemplate();
+			$project_notification->saveRecipients();
+			if (isset($_POST['notification'])) {
+				$project_notification->enable();
+			} else {
+				$project_notification->disable();
+			}
+		}
+		catch (USVN_Exception $e) {
+			// pass
+		}
+		$this->_redirect("/admin/project/");
 	}
 
 	public function editAction()
@@ -75,6 +100,10 @@ class ProjectadminController extends AdminadminController
 
 		$table = new USVN_Db_Table_Projects();
 		$this->view->project = $table->fetchRow(array('projects_name = ?' => str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'))));
+
+		$this->view->project_notification = new USVN_Notification($this->view->project->name);
+		$this->view->project_notification->readTemplate();
+		$this->view->project_notification->readRecipients();
 
 		$table = new USVN_Db_Table_UsersToProjects();
 		$UserToProject = $table->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $this->view->project->projects_id));
@@ -110,13 +139,34 @@ class ProjectadminController extends AdminadminController
 			$table->DeleteUserToProject($users, $project);
 		}
 
+		$project_notification = new USVN_Notification($project->name);
+
 		$project->setFromArray($data);
 		try {
 			$project->save();
+
+			$project_notification->setSubject($_POST['notify_subject']);
+			$project_notification->setText($_POST['notify_text']);
+			$recipients = array();
+			foreach (explode("\n", $_POST['notify_recipients']) as $recipient) {
+				$recipient = trim($recipient);
+				if ($recipient != "") {
+					$project_notification->addRecipient($recipient);
+				}
+			}
+			$project_notification->saveTemplate();
+			$project_notification->saveRecipients();
+			if (isset($_POST['notification'])) {
+				$project_notification->enable();
+			} else {
+				$project_notification->disable();
+			}
+
 			$this->_redirect("/admin/project/");
 		}
 		catch (Exception $e) {
 			$this->view->project = $project;
+			$this->view->project_notification = $project_notification;
 			$this->view->message = nl2br($e->getMessage());
 			$this->render('edit');
 		}

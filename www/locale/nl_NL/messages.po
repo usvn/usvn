@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: USVN 0.7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2008-09-27 20:22+0100\n"
+"PO-Revision-Date: 2008-12-04 21:21+0100\n"
 "Last-Translator: Kevin Wouters <kevin@kevinius.com>\n"
 "Language-Team: USVN <contact@usvn.info>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Projecten"
 
 #: ../../../www//menus/projectadmin.php:53
 msgid "Add new project"
-msgstr "Voeg nieuw toe"
+msgstr "Voeg nieuw project toe"
 
 #: ../../../www//menus/groupadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:27
@@ -468,7 +468,7 @@ msgstr "Huidig wachtwoord"
 
 #: ../../../www//views/profile/index.phtml:40
 msgid "New password"
-msgstr "Nieuwe wachtwoord"
+msgstr "Nieuw wachtwoord"
 
 #: ../../../www//views/profile/index.phtml:45
 #: ../../../www//views/useradmin/index.phtml:10
@@ -554,7 +554,7 @@ msgstr "Wilt u het project %s echt verwijderen ?"
 
 #: ../../../www//views/projectadmin/form.phtml:10
 msgid "Project's name empty, please fill it."
-msgstr "De naam van het project is leeg, vul het a.u.b in"
+msgstr "De naam van het project is leeg, vul het alstublieft in"
 
 #: ../../../www//views/projectadmin/form.phtml:22
 msgid "Project's information"
@@ -593,7 +593,7 @@ msgstr "Wilt u echt de groep %s verwijderen ?"
 
 #: ../../../www//views/groupadmin/form.phtml:10
 msgid "Group's name empty, please fill it."
-msgstr "De groepsnaam is leeg, vul deze a.u.b in."
+msgstr "De groepsnaam is leeg, vul deze alstublieft in."
 
 #: ../../../www//views/groupadmin/form.phtml:22
 msgid "Group's information"
@@ -605,7 +605,7 @@ msgstr "Groep beheren"
 
 #: ../../../www//views/login/login.phtml:5
 msgid "Please enter your login and your password to connect to USVN."
-msgstr "Vul a.u.b uw login en wachtwoord in om met USVN te verbinden."
+msgstr "Vul alstublieft uw login en wachtwoord in om met USVN te verbinden."
 
 #: ../../../www//views/login/login.phtml:11
 msgid "Authentification"
@@ -698,7 +698,7 @@ msgstr "Standaard template"
 
 #: ../../../www//views/configadmin/index.phtml:62
 msgid "Check for update"
-msgstr "Zoeken voor updates"
+msgstr "Zoeken naar updates"
 
 #: ../../../www//views/configadmin/index.phtml:67
 #: ../../../www//views/configadmin/index.phtml:71
@@ -894,11 +894,11 @@ msgstr "Licentie-akkoord"
 
 #: ../../../www//install/views/step3.html:3
 msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
-msgstr "Lees en ga a.u.b akkoord met de  CeCILL FREE SOFTWARE LICENSE."
+msgstr "Lees en ga alstublieft akkoord met de  CeCILL FREE SOFTWARE LICENSE."
 
 #: ../../../www//install/views/step3.html:1966
 msgid "I understand and accept this license."
-msgstr "I begrijp het en ga akkoord met de licentie.`"
+msgstr "I begrijp het en ga akkoord met de licentie."
 
 #: ../../../www//install/views/step3.html:1969
 #: ../../../www//install/views/step1.html:16
@@ -1014,7 +1014,7 @@ msgstr ""
 "<p>Tijdens het zoeken naar updates zal USVN informatie over uw installatie verzenden</p>\n"
 "<p>\n"
 "Deze informatie wordt alleen gebruikt voor statistische doeleinden en laat\n"
-"ons weten op welke platformen USN is geinstalleerd\n"
+"ons weten op welke platformen USVN is geinstalleerd\n"
 "</p>\n"
 "<p>\n"
 "Hier een lijst van welke gegevens wij verzamelen:\n"
@@ -1118,7 +1118,7 @@ msgid ""
 "Please, install UTF-8 locale."
 msgstr ""
 "Ongeldige locale\n"
-"Installeer a.u.b een UTF-8 locale"
+"Installeer alstublieft een UTF-8 locale"
 
 #: ../../../www//install/Install.php:237
 #, php-format

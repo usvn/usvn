@@ -1,9 +1,0 @@
-/**
- * Group's css page
- */
-
-.usvn_info_group {
-	background-image:url("<?php echo $this->images_directory ;?>/CrystalClear/64x64/apps/Community Help.png");
-}
-
-/* End of group's css page*/

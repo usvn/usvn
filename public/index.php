@@ -1,10 +1,5 @@
 <?php
 
-echo '<pre>';
-print_r($_SERVER);
-echo '</pre>';
-exit(0);
-
 try {
 
 	require_once '../app/bootstrap.php';

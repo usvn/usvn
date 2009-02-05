@@ -1,0 +1,31 @@
+<div class="usvn_info_group">
+	<h1><?php echo T_("Groups"); ?></h1>
+</div>
+<?php
+
+print '<table class="sortable" id="grps">' .
+		'<thead><tr>' .
+		'<th>' . T_('Name') . '</th>' .
+		'<th>' . T_('Description') . '</th>' .
+		'<th class="sorttable_nosort">' . T_('Action') . '</th>' .
+		'</tr></thead><tbody>';
+
+if (count($this->groups)) {
+	foreach ($this->groups as $group) {
+		$editurl = $this->url(array('action' => 'edit', 'name' => $group->name));
+		$deletetext = T_("Do you really want to delete group %s?");
+		echo <<<EOF
+		<tr>
+			<td><a href="{$editurl}">{$group->name}</a></td>
+			<td><a href="{$editurl}">{$group->description}</a></td>
+			<td>
+				{$this->homeLinkGroup($group->name)}
+                {$this->editLink('name', $group->name)}
+                {$this->deleteLink('name', $group->name, $deletetext)}
+            </td>
+		</tr>
+EOF;
+	}
+}
+print '</tbody></table><br />';
+

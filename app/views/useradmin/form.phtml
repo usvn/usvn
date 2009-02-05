@@ -1,0 +1,43 @@
+<fieldset style="float: right;">
+	<legend>
+		<?php echo T_("Affected groups"); ?>
+	</legend>
+	<select multiple="multiple" name="groups[]">
+	<?php foreach ($this->groups as $group) : ?>
+		<?php echo var_dump($group);?>
+		<option value="<?php echo $group->groups_id; ?>" <?php
+		if ($this->user->isInGroup($group)) {
+			echo 'selected="selected"';
+			} ?>><?php echo $group->name ?></option>
+	<?php endforeach; ?>
+	</select>
+</fieldset>
+<legend>
+	<?php echo T_("User account"); ?>
+</legend>
+<label><?php echo T_("Login"); ?><span class="usvn_require">*</span>:<br />
+	<?php echo $this->formText('users_login', $this->user->login, array('maxlength' => 255)); ?>
+</label>
+<br />
+<label><?php echo T_("Password"); ?><span class="usvn_require">*</span>:<br />
+	<?php echo $this->formPassword('users_password',  null); ?>
+</label>
+<br />
+<label><?php echo T_("Confirm password"); ?><span class="usvn_require">*</span>:<br />
+	<?php echo $this->formPassword('users_password2',  null); ?>
+</label>
+<br />
+<label><?php echo T_("Lastname"); ?>:<br />
+	<?php echo $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)); ?></label>
+<br />
+<label><?php echo T_("Firstname"); ?>:<br />
+	<?php echo $this->formText('users_firstname', $this->user->firstname , array('maxlength' => 100)); ?>
+</label>
+<br />
+<label><?php echo T_("Email"); ?>:<br />
+	<?php echo $this->formText('users_email', $this->user->email, array('maxlength' => 150)); ?>
+</label>
+<br />
+<label><?php echo T_("Administrator");?>:
+	<?php echo $this->formCheckbox('users_is_admin', $this->user->is_admin,  array('checked' => intval($this->user->is_admin))); ?>
+</label>

@@ -1,0 +1,39 @@
+ <?php echo $this->error($this); ?>
+<script type="text/javascript">
+<!--
+function checkName() {
+	spanError = document.getElementById('error');
+	var checkRegExp = new RegExp("^[ \t]*$");
+	var group = document.getElementById('group');
+	if (group.groups_name.value.length == 0
+		|| checkRegExp.test(group.groups_name.value)) {
+		spanError.innerHTML = "<?php echo T_('Group\'s name empty, please fill it.'); ?>";
+		spanError.className = "usvn_error";
+		return false;
+	}
+	spanError.innerHTML = '';
+	spanError.className = "";
+	return true;
+}
+-->
+</script>
+<form id="group" class="usvn_form" method="post" action="<?php echo $this->url ?>">
+<fieldset>
+		<legend><?php echo T_("Group's information");?></legend>
+		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
+			<?php echo $this->formText('groups_name', $this->group->name, array('maxlength' => 150)); ?>
+		</label>
+		<br />
+		<label><?php echo T_("Description"); ?>:<br />
+			<?php echo $this->formTextarea('groups_description', $this->group->description, array('rows' => 8, 'cols' => 80)); ?>
+		</label>
+		<br/>
+		<?php
+		if ($this->action != "new" && !$this->error($this))
+			echo '<a href="' . $this->url(array('controller' => 'group', 'group' => $this->group->name), 'group') . '">'. T_("Managing group")." ".$this->group->name . '</a>';
+		?>
+		<br /><br />
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
+</fieldset>
+</form>
+<br />

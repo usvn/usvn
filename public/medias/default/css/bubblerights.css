@@ -1,0 +1,11 @@
+/* CSS Document */
+
+.bubblerights
+{
+	visibility:hidden; 
+	position:absolute; 
+	background-color:#FFFFFF; 
+	border:1px solid #5F7FFF;
+	width:310px;
+	z-index:2;
+}

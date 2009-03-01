@@ -209,7 +209,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		$select = $this->_db->select();
 
 		// the FROM clause
-		$select->from($this->_name, $this->_cols);
+		$select->from($this->_name, $this->_getCols());
 
 		// the JOIN clause
 		$users = self::$prefix . "users";
@@ -253,7 +253,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 		$select = $this->_db->select();
 
 		// the FROM clause
-		$select->from($this->_name, $this->_cols);
+		$select->from($this->_name, $this->_getCols());
 
 		// the JOIN clause
 		$users = self::$prefix . "users";

@@ -19,6 +19,13 @@
  * $Id: bootstrap.php 1536 2008-11-01 16:08:37Z duponc_j $
  */
 
+$globalUSVNLogs = array();
+function USVNLogObject($name, $value)
+{
+	global $globalUSVNLogs;
+
+	$globalUSVNLogs[] = array('name' => $name, 'value' => $value);
+}
 error_reporting(E_ALL | E_STRICT);
 date_default_timezone_set('UTC');
 
@@ -37,8 +44,11 @@ define('USVN_HELPERS_DIR',     USVN_APP_DIR . '/helpers');
 define('USVN_VIEWS_DIR',       USVN_APP_DIR . '/views');
 define('USVN_MEDIAS_DIR',      USVN_PUB_DIR . '/medias');
 
-/**/
+/*TEMP*/
 define('USVN_MENUS_DIR', USVN_LIB_DIR . '/menus');
+define('USVN_MEDIAS_DIRECTORY', USVN_MEDIAS_DIR);
+/*!TEMP*/
+
 define('USVN_URL_SEP', ':');
 
 set_include_path(
@@ -178,5 +188,16 @@ catch (Zend_Controller_Dispatcher_Exception $e)
 }
 catch (Exception $e) {
 	echo $e->getMessage() . '<br/><br/>Stacktrace:<br />' . nl2br($e->getTraceAsString());
+	if (count($globalUSVNLogs) != 0)
+	{
+		echo '<table style="border-collapse:collapse">';
+		foreach ($globalUSVNLogs as $logRow)
+		{
+			echo '<tr style="border-top: 1px solid black;border-bottom: 1px solid black;vertical-align:top;"><td>' . $logRow['name'] . '</td><td><pre>';
+			var_dump($logRow['value']);
+			echo '</pre></td></tr>';
+		}
+		echo '</table>';
+	}
 }
 

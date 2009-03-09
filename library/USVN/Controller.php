@@ -39,15 +39,16 @@ class USVN_Controller extends Zend_Controller_Action {
 	 */
 	public function init() {
 		parent::init();
-         $this->getResponse()->setHeader('Content-Type', $this->_mimetype);
-        $this->_request->setParam('view', $this->_helper->viewRenderer);
-        $this->_helper->viewRenderer->setViewScriptPathSpec(":action.phtml");
-        $this->view->addHelperPath(USVN_HELPERS_DIR, 'USVN_View_Helper');
+		$this->getResponse()->setHeader('Content-Type', $this->_mimetype);
+		$this->_request->setParam('view', $this->_helper->viewRenderer);
+		$this->_helper->viewRenderer->setViewScriptPathSpec(":action.phtml");
+		$this->view->addHelperPath(USVN_HELPERS_DIR, 'USVN_View_Helper');
+		$this->_helper->layout->setLayout('default');
 		$this->_request->setParam('project', $this->_request->getParam('project', '__NONE__'));
 		$this->_request->setParam('area',    $this->_request->getParam('area',    '__NONE__'));
-        if ($this->_mimetype != 'text/html') {
-            $this->_helper->viewRenderer->setNoRender();
-        }
+		if ($this->_mimetype != 'text/html') {
+			$this->_helper->viewRenderer->setNoRender();
+		}
 	}
 
 	/**

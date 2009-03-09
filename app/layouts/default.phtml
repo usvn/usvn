@@ -1,14 +1,47 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>default</title>
-		
+		<title>USVN</title>
+		<? // $this->stylesheetTag('screen.css'); ?>
+		<? // $this->faviconTag(''); ?>
+		<link type="text/css" rel="stylesheet" media="screen" href="/usvn-new/medias/usvn/stylesheets/new.css" />
+		<link rel="shortcut icon" href="/usvn-new/medias/usvn/images/logo_small.tiff" />
 	</head>
-	<body id="">
-		<div id="name">
-			<?= $this->layout()->content ?>
+	<body>
+		<div id="header">
+		  <div id="shaddow">
+	  	  <div id="header-wrapper">
+	    	  <div id="logo">
+	    		  &nbsp;
+	    		</div>
+	    		<div id="main-menu">
+		          <ul>
+		<? foreach (array('index', 'profile', 'admin', 'logout') as $menuLink): ?>
+		            <li><a href="<?= $this->url(array('controller' => $menuLink), 'default') ?>" <?= ($menuLink == $this->controller ? ' id="selected"' : '') ?>><span><?= $menuLink ?></span></a></li>
+		<? endforeach ?>
+		          </ul>
+	    		</div>
+	  		</div>
+			</div>
+	  </div>
+		<div id="container">
+		  <div id="container-wrapper">
+	  	  <div id="sub-menu">
+	  		  Submenu
+	  		</div>
+	  		<div id="main">
+				<?= $this->layout()->content ?>
+	  		</div>
+	  		<div id="hspacer">
+	  		  &nbsp;
+	  		</div>
+	  		<div id="footer">
+	  		  Footer
+			<? // join(array_keys((array)$this), '<br />') ?>
+	  		</div>
+			</div>
 		</div>
 	</body>
 </html>

@@ -37,6 +37,8 @@ class USVN_Db_Table_Row extends Zend_Db_Table_Row_Abstract {
 		if (array_key_exists($info['fieldPrefix'] . $columnName, $this->_data)) {
 			return $info['fieldPrefix'] . $columnName;
 		}
+		USVNLogObject('Row Data', $this->_data);
+		USVNLogObject('Field Prefix', $info['fieldPrefix']);
 		throw new Zend_Db_Table_Row_Exception("column '$columnName' not in row");
 	}
 }

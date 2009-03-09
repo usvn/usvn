@@ -1,0 +1,156 @@
+/* global */
+* {
+	padding: 0px;
+	margin: 0px;
+}
+ 
+html {
+	background: #ffffff;
+	height: 100%;
+	margin-bottom: 0px;
+}
+ 
+body {
+	color: #000000;
+	font: 100% "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+ 
+li, p {
+	font-size: 14px;
+}
+ 
+img {
+	border: none;
+}
+ 
+a {
+	color: #100076;
+}
+ 
+a:hover {
+	color: #ADA08F;
+	text-decoration: none;
+}
+ 
+/* Header */
+#header {
+	background: #172933 url('../images/header_bg2.png') repeat-x;
+  min-height: 124px;
+}
+ 
+#header #shaddow {
+  min-height: 124px;
+  min-width: 950px;
+  margin-left: auto;
+	margin-right: auto;
+	background: transparent url('../images/header_back.png') no-repeat 0px 0px;  
+}
+ 
+#header #shaddow #header-wrapper {
+  width: 1000px;
+  margin-left: auto;
+	margin-right: auto;
+}
+ 
+#header #shaddow #header-wrapper #logo {
+  width: 320px;
+  height: 124px;
+  float: left;
+	background: transparent url('../images/logo_trans.png') no-repeat 0px 0px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu {
+  height: 124px;
+  width: 678px;
+  float: left;
+  text-align: center;
+  vertical-align: bottom;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul {
+/*  list-style: none;*/
+  display: table;
+  margin-left: auto;
+	margin-right: auto;
+	margin-top: 92px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li {
+/*  float: left;*/
+  display: table-cell;
+  position: relative;
+/*  width: 11em;*/
+  margin-top: 92px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a {
+  height: 32px;
+  float: left;
+  text-decoration: none;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a span {
+  float: left;
+  margin-top: 0px;
+  padding: 1px 10px 10px 10px;
+  color: #ffffff;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a:hover {
+  background: transparent url('../images/up_arrow.png') repeat-x center -50px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a:hover span {
+  color: #ffffff;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a#selected {
+  background: transparent url('../images/up_arrow.png') repeat-x center -50px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a#selected span {
+  font-weight: bold;
+  color: #D3B65E;
+}
+ 
+/* Container */
+#container {
+	background: url('../images/container_bg.png') repeat-x;
+	min-height: 340px;
+}
+ 
+#container #container-wrapper {
+	width: 998px;
+	margin-left: auto;
+	margin-right: auto;
+}
+ 
+#container #container-wrapper #sub-menu {
+  /* Use the following to hide the menu */
+  /*
+  visibility: hidden;
+  height: 0px;
+  */
+  
+  background-color: #ffffff;
+	border: 1px solid #cbd5b8;
+	border-top: none;
+	border-bottom: none;
+}
+ 
+#container #container-wrapper #main {
+  /* Utile ?  */
+  /* height: 100%; */
+	background-color: #ffffff;
+	border: 1px solid #cbd5b8;
+	border-top: none;
+}
+ 
+#container #container-wrapper #hspacer {
+}
+ 
+#container #container-wrapper #footer {
+	height: 50px;
+	background-color: #d3d9c6;
+	padding: 1px;
+}

@@ -29,6 +29,9 @@
 		<div id="container">
 		  <div id="container-wrapper">
 	  	  <div id="sub-menu">
+		<? if (file_exists(USVN_VIEWS_DIR . '/' . $this->controller . '/' . '_submenu.phtml')): ?>
+			<?= $this->partial('_submenu.phtml') ?>
+		<? endif ?>
 	  		  Submenu
 	  		</div>
 	  		<div id="main">

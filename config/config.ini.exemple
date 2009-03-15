@@ -1,5 +1,8 @@
 [general]
+
+;; Change this
 url.base = "/usvn-new"
+
 translation.locale = "fr_FR"
 timezone = "Europe/Paris"
 system.locale = "af_ZA.UTF-8"
@@ -11,12 +14,15 @@ subversion.path = "/Library/WebServer/Subversion/"
 subversion.passwd = "/Library/WebServer/Subversion.htpasswd"
 subversion.authz = "/Library/WebServer/Subversion.authz"
 subversion.url = "http://localhost/svn/"
+
+;; Probably no need to change this
 database.adapterName = "MYSQLI"
 database.prefix = "usvn_"
+
+;; Change this
 database.options.host = "localhost"
 database.options.username = "usvn"
-database.options.password = "VDy4ccDxKy8WrFV9"
+database.options.password = ""
 database.options.dbname = "usvn"
-update.lastcheckforupdate = "1235921837"
-update.availableversion = "0.7.2"
+
 version = "0.7.2"

@@ -33,7 +33,7 @@ class USVN_Translation
 	{
 		USVN_Translation::$language = $language;
 		USVN_Translation::$locale_directory = $locale_directory;
-		USVN_Translation::$translation_instance = new Zend_Translate('gettext', "$locale_directory/$language/messages.mo", $language);
+		USVN_Translation::$translation_instance = new Zend_Translate('gettext', "$locale_directory/$language/messages.mo", $language, array('disableNotices' => true));
 	}
 
 	/**

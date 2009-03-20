@@ -4,5 +4,5 @@ Deny from all
 </Files>
 RewriteEngine on
 #RewriteCond 
-RewriteBase /usvn-new/
+RewriteBase /
 RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php

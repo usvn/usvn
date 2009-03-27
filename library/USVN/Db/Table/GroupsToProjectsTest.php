@@ -25,7 +25,7 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-require_once 'www/USVN/autoload.php';
+require_once 'library/USVN/autoload.php';
 
 /**
  * Test class for USVN_Db_Table_GroupsToProjects.

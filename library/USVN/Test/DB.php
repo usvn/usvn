@@ -20,8 +20,8 @@
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-require_once 'www/USVN/autoload.php';
-require_once 'www/install/Install.php';
+require_once 'library/USVN/autoload.php';
+//require_once 'www/install/Install.php'; //Comment until fix tests
 
 class USVN_Test_DB extends USVN_Test_Test {
 	protected $db;

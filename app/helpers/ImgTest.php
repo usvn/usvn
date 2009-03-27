@@ -24,8 +24,8 @@ if (!defined("PHPUnit_MAIN_METHOD")) {
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-require_once 'www/USVN/autoload.php';
-require_once 'www/helpers/Img.php';
+require_once 'library/USVN/autoload.php';
+require_once 'app/helpers/Img.php';
 
 /**
  * Test class for USVN_View_Helper_Img.

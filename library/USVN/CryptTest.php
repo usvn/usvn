@@ -24,7 +24,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 require_once 'PHPUnit/Framework.php';
 
-require_once 'www/USVN/autoload.php';
+require_once 'library/USVN/autoload.php';
 class USVN_CryptTest extends PHPUnit_Framework_TestCase {
     /**
      * Runs the test methods of this class.

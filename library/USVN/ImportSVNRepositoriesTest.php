@@ -26,7 +26,7 @@ require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
 define('CONFIG_FILE', 'tests/test.ini');
-require_once 'www/USVN/autoload.php';
+require_once 'library/USVN/autoload.php';
 
 /**
  * Test class for USVN_ImportSVNRepositoriesTest.

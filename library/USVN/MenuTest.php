@@ -26,7 +26,7 @@ require_once "PHPUnit/Framework/TestSuite.php";
 
 define('CONFIG_FILE', 'tests/config.ini');
 
-require_once 'www/USVN/autoload.php';
+require_once 'library/USVN/autoload.php';
 
 class USVN_MenuTest extends USVN_Test_DB
 {

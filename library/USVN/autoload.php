@@ -18,3 +18,10 @@
  * $Id: autoload.php 1188 2007-10-06 12:03:17Z crivis_s $
  */
 
+/* Necessary Includes */
+set_include_path(
+	'library' . PATH_SEPARATOR
+	. get_include_path());
+
+require_once 'library/Zend/Loader.php';
+Zend_Loader::registerAutoload();

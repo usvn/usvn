@@ -19,7 +19,7 @@
 require_once "PHPUnit/Framework/TestCase.php";
 require_once "PHPUnit/Framework/TestSuite.php";
 
-require_once 'www/USVN/autoload.php';
+require_once 'library/USVN/autoload.php';
 
 define('USVN_URL_SEP', ':');
 

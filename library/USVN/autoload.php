@@ -25,3 +25,8 @@ set_include_path(
 
 require_once 'library/Zend/Loader.php';
 Zend_Loader::registerAutoload();
+
+function T_($str)
+{
+	return USVN_Translation::_($str);
+}

@@ -52,7 +52,7 @@ class USVN_Db_UtilsTest extends PHPUnit_Framework_TestCase {
 		'username' => 'usvn-test',
 		'password' => 'usvn-test',
 		'dbname'   => 'usvn-test');
-		USVN_Translation::initTranslation('en_US', 'www/locale');
+		USVN_Translation::initTranslation('en_US', 'app/locale');
 
 		if (getenv('DB') != "PDO_MYSQL") {
 			$this->markTestSkipped("Test only with PDO_MYSQL");

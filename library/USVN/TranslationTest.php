@@ -47,19 +47,19 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 
     public function test_getLanguage()
     {
-		USVN_Translation::initTranslation('fr_FR', 'www/locale');
+		USVN_Translation::initTranslation('fr_FR', 'app/locale');
 		$this->assertEquals('fr_FR', USVN_Translation::getLanguage());
 	}
 
     public function test_getLocaleDirectory()
     {
-		USVN_Translation::initTranslation('fr_FR', 'www/locale');
-		$this->assertEquals('www/locale', USVN_Translation::getLocaleDirectory());
+		USVN_Translation::initTranslation('fr_FR', 'app/locale');
+		$this->assertEquals('app/locale', USVN_Translation::getLocaleDirectory());
 	}
 
 	public function test_translation()
     {
-		USVN_Translation::initTranslation('fr_FR', 'www/locale');
+		USVN_Translation::initTranslation('fr_FR', 'app/locale');
 		$this->assertEquals("Bienvenue sur USVN", T_("Welcome to USVN"), "Translation error.");
 	}
 
@@ -75,9 +75,9 @@ class USVN_TranslationTest extends PHPUnit_Framework_TestCase {
 
 	public function test_isValidLanguageDirectory()
 	{
-		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('www/locale/fr_FR'));
-		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('www/locale/en_US'));
-		$this->assertFalse(USVN_Translation::isValidLanguageDirectory('www/locale/.svn'));
+		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('app/locale/fr_FR'));
+		$this->assertTrue(USVN_Translation::isValidLanguageDirectory('app/locale/en_US'));
+		$this->assertFalse(USVN_Translation::isValidLanguageDirectory('app/locale/.svn'));
 	}
 }
 

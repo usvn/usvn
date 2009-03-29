@@ -107,7 +107,7 @@ class USVN_SVNUtilsTest extends USVN_Test_Test {
 	public function test_createSvnFR()
 	{
 		putenv("LANG=C");
-		USVN_Translation::initTranslation('fr_FR', 'www/locale');
+		USVN_Translation::initTranslation('fr_FR', 'app/locale');
 		USVN_SVNUtils::createSvn('tests/tmp/svn directory');
 		$this->assertTrue(file_exists('tests/tmp/svn directory'));
 		$this->assertTrue(USVN_SVNUtils::isSVNRepository('tests/tmp/svn directory'));

@@ -65,14 +65,14 @@ class USVN_TemplateTest extends PHPUnit_Framework_TestCase {
 
     public function test_getTemplate()
     {
-		USVN_Template::initTemplate('default', 'www/medias');
+		USVN_Template::initTemplate('default', 'public/medias');
 		$this->assertEquals('default', USVN_Template::getTemplate());
 	}
 
     public function test_getLocaleDirectory()
     {
-		USVN_Template::initTemplate('default', 'www/medias');
-		$this->assertEquals('www/medias', USVN_Template::getLocaleDirectory());
+		USVN_Template::initTemplate('default', 'public/medias');
+		$this->assertEquals('public/medias', USVN_Template::getLocaleDirectory());
 	}
 
 	public function test_listTemplate()
@@ -87,8 +87,8 @@ class USVN_TemplateTest extends PHPUnit_Framework_TestCase {
 
 	public function test_isValidTemplateDirectory()
 	{
-		$this->assertTrue(USVN_Template::isValidTemplateDirectory('www/medias/default'));
-		$this->assertFalse(USVN_Template::isValidTemplateDirectory('www/medias/.svn'));
+		$this->assertTrue(USVN_Template::isValidTemplateDirectory('public/medias/default'));
+		$this->assertFalse(USVN_Template::isValidTemplateDirectory('public/medias/.svn'));
 		$this->assertFalse(USVN_Template::isValidTemplateDirectory('.htaccess'));
 	}
 }

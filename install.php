@@ -1,6 +1,21 @@
 #!/usr/bin/env php
 <?php
 
+function myPassThru(array $args, $infile=null)
+{
+	$command = '';
+	foreach ($args as $arg) {
+		if (empty($command))
+			$command .= escapeshellcmd($arg);
+		else
+			$command .= ' ' . escapeshellarg($arg);
+	}
+	if (!empty($infile))
+		$command .= ' <' . escapeshellarg($infile);
+	echo "$command\n";
+	passthru($command);
+}
+
 function askParameter($message, $defaultValue = null)
 {
 	echo $message . "?\n";
@@ -55,14 +70,34 @@ function templateToFile($destPath, $srcPath, $values)
 	echo "Database\n";
 	$values['dbAdapter'] = askParameter('Database Adapter', 'MYSQLI');
 	$values['dbHost']    = askParameter('Database Host', 'localhost');
-	$values['dbDB']      = askParameter('Database Name', 'usvn');
 	$values['dbUser']    = askParameter('Database Login', 'usvn');
 	$values['dbPwd']     = askParameter('Database Password');
+	$values['dbDB']      = askParameter('Database Name', $values['dbUser']);
 	
 	echo "Repositories\n";
 	$values['reposRoot']  = askParameter('Repository Path');
-	$values['reposHTPwd'] = askParameter('Repository htpasswd file path');
-	$values['reposAuthz'] = askParameter('Repository authz file path');
+	$values['reposHTPwd'] = askParameter('Repository htpasswd file path', $values['reposRoot'] . '/htpasswd');
+	$values['reposAuthz'] = askParameter('Repository authz file path', $values['reposRoot'] . '/authz');
 	$values['reposURL']   = askParameter('Repository external url');
 	templateToFile($configFile, $sampleDir . '/config.ini', $values);
+
+	// myPassThru(array("mysql",
+	// 	'-h', $values['dbHost'],
+	// 	'-u', $values['dbUser'],
+	// 	'-p', $values['dbPwd'],
+	// 	'-D', $values['dbDB']), $sampleDir . '/SQL/mysql.sql');
+	echo "setup database\n";
+	$conn = mysql_connect($values['dbHost'], $values['dbUser'], $values['dbPwd'], true) or die(mysql_error());
+	mysql_select_db($values['dbDB'], $conn) or die(mysql_error());
+	$requests = file_get_contents($sampleDir . '/SQL/mysql.sql');
+	foreach (split(';', $requests) as $req) {
+		$result = mysql_query($req, $conn) or die(mysql_error());
+		$reqLines = split("\n", $req);
+		foreach ($reqLines as $line) {
+			echo "  " . $line . "\n";
+		}
+		echo "OK\n";
+		echo "\n";
+	}
+	mysql_close($conn) or die(mysql_error());
 }

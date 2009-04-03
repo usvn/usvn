@@ -21,7 +21,7 @@ function askParameter($message, $defaultValue = null)
 	echo $message . "?\n";
 	if (!empty($defaultValue))
 		echo '[' . $defaultValue . ']: ';
-	$value = trim(fgets(STDIN, 128), "\n");
+	$value = trim(fgets(STDIN, 128), "\r\n");
 	return (empty($value) ? $defaultValue : $value);
 }
 

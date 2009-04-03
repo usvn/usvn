@@ -1,3 +1,11 @@
+/*
+   new.css
+   usvn-new
+   
+   Created by Zak on 2009-04-03.
+   Copyright 2009 LabEIP. All rights reserved.
+*/
+
 /* global */
 * {
 	padding: 0px;
@@ -144,6 +152,9 @@ a:hover {
 	background-color: #ffffff;
 	border: 1px solid #cbd5b8;
 	border-top: none;
+	padding: 5px;
+	font-size: 13px;
+	font-family: 'Verdana','Helvetica';
 }
  
 #container #container-wrapper #hspacer {
@@ -153,4 +164,130 @@ a:hover {
 	height: 50px;
 	background-color: #d3d9c6;
 	padding: 1px;
+}
+
+/* Intégration */
+/* Styles spécifiques */
+.usvn_require {
+  color: red;
+  float: none;
+  font-weight: bold;
+  margin-left: 3px;
+}
+
+/* Tableaux */
+table.usvn_table, table.sortable {
+  border-collapse: collapse;
+  margin: auto;
+  min-width: 300px;
+  text-decoration: none;
+  width: 80%;
+}
+
+table.usvn_table th, table.sortable th {
+  background-color: #d3d9c6;
+  border: 1px solid black;
+}
+
+table.usvn_table td, table.sortable td {
+  border: 1px solid #cbd5b8;
+}
+
+/* Page d'acceuil */
+.usvn_info_project {
+  background-image: url(/usvn-new/medias/default/images/CrystalClear/64x64/apps/easymoblog.png);
+}
+.usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
+  background-color: #EFF2FF;
+  background-position: right 17px;
+  background-repeat: no-repeat;
+  border-color: #CCCCCC;
+  border-style: solid solid dotted;
+  border-width: 1px;
+  clear: both;
+  margin: 0 0 2em;
+  min-height: 80px;
+  padding: 5px;
+  width: 99%;
+}
+
+#loginBox {
+  background-color: #F4F4F4;
+  background-image: url(/usvn-new/medias/default/images/CrystalClear/128x128/actions/encrypted.png);
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  border: 1px solid #CCCCCC;
+  margin: auto;
+  padding: 50px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+form.usvn_form > fieldset > legend, .usvn_legend {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.usvn_info p, .usvn_info_config p, .usvn_info_user p, .usvn_info_group p, .usvn_info_project p {
+  font-size: 95%;
+  line-height: 130%;
+  margin: 10px 0 12px 10px;
+}
+
+h3 {
+  color: #D3B65E;
+  margin-bottom: 5px;
+}
+
+#usvn_index_projects ul, #usvn_index_groups ul {
+  padding-left: 40px;
+}
+
+/* Profile */
+form.usvn_form > fieldset {
+  margin-bottom: 1em;
+  padding: 5px;
+}
+
+form.usvn_form > fieldset > label {
+  font-weight: bold;
+}
+
+/* Administration */
+/* Admin::Home */
+.usvn_info_config {
+  background-image: url('/usvn-new/medias/default/images/CrystalClear/64x64/apps/kpackage.png');
+}
+
+.usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
+  clear: left;
+  color: #D3B65E;
+  font-size: 180%;
+  font-weight: bold;
+  margin: 0 0 3px;
+}
+
+.usvn_info ul, .usvn_info_config ul, .usvn_info_user ul, .usvn_info_group ul, .usvn_info_project ul {
+  padding-left: 40px;
+}
+
+
+ul#usvn_admin_section {
+  list-style-type: none;
+}
+
+#usvn_admin_section li {
+  background-color: #99BEDF;
+  border-color: #CCCCCC;
+  border-style: solid solid dotted;
+  border-width: 1px;
+  display: inline;
+  font-weight: bold;
+  margin: 10px;
+  padding: 6px;
+}
+
+/* Admin::Groups */
+.usvn_info_group {
+  background-image: url('/usvn-new/medias/default/images/CrystalClear/64x64/apps/Community Help.png');
 }

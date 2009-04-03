@@ -45,6 +45,11 @@ function templateToFile($destPath, $srcPath, $values)
 
 	templateToFile($apacheConf, $sampleDir . '/usvn.conf', $values);
 	echo "enable/include this new file and restart apache\n";
+	echo "check that the folowing modules are enabled:\n";
+	echo " - mod_php5\n";
+	echo " - mod_authz_svn\n";
+	echo " - mod_dav_svn\n";
+	echo " - mad_rewrite\n";
 	templateToFile($htaccessFile, $sampleDir . '/htaccess', $values);
 
 	echo "Database\n";

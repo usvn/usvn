@@ -1,21 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-function myPassThru(array $args, $infile=null)
-{
-	$command = '';
-	foreach ($args as $arg) {
-		if (empty($command))
-			$command .= escapeshellcmd($arg);
-		else
-			$command .= ' ' . escapeshellarg($arg);
-	}
-	if (!empty($infile))
-		$command .= ' <' . escapeshellarg($infile);
-	echo "$command\n";
-	passthru($command);
-}
-
 function askParameter($message, $defaultValue = null)
 {
 	echo $message . "?\n";
@@ -81,11 +66,6 @@ function templateToFile($destPath, $srcPath, $values)
 	$values['reposURL']   = askParameter('Repository external url');
 	templateToFile($configFile, $sampleDir . '/config.ini', $values);
 
-	// myPassThru(array("mysql",
-	// 	'-h', $values['dbHost'],
-	// 	'-u', $values['dbUser'],
-	// 	'-p', $values['dbPwd'],
-	// 	'-D', $values['dbDB']), $sampleDir . '/SQL/mysql.sql');
 	echo "setup database\n";
 	$conn = mysql_connect($values['dbHost'], $values['dbUser'], $values['dbPwd'], true) or die(mysql_error());
 	mysql_select_db($values['dbDB'], $conn) or die(mysql_error());
@@ -99,5 +79,7 @@ function templateToFile($destPath, $srcPath, $values)
 		echo "OK\n";
 		echo "\n";
 	}
+	// $values['usvnUser']    = askParameter('USVN Login', 'admin');
+	// $values['usvnPwd']     = askParameter('USVN Password');
 	mysql_close($conn) or die(mysql_error());
 }

@@ -22,20 +22,14 @@ class LoginController extends USVN_Controller
 {
 	public function loginAction()
 	{
-		/**
-		 * Check for an existing identity
-		 */
+		// Check for an existing identity
 		$auth = Zend_Auth::getInstance();
-		if ($auth->hasIdentity()) {
+		if ($auth->hasIdentity())
 			$this->_redirect('/');
-		}
-
-		/**
-		 * Check the authentication
-		 */
-		if (!empty($_POST)) {
+		
+		// Check the authentication
+		if (!empty($_POST))
 			$this->_doLogin();
-		}
 	}
 
 	public function logoutAction()
@@ -48,22 +42,22 @@ class LoginController extends USVN_Controller
 	protected function _doLogin()
 	{
 		// Get a reference to the Singleton instance of Zend_Auth
-		require_once 'Zend/Auth.php';
 		$auth = Zend_Auth::getInstance();
-
+		
 		// Set up the authentication adapter
 		$authAdapter = new USVN_Auth_Adapter_Db($_POST['login'], $_POST['password']);
-
+		
 		// Attempt authentication, saving the result
 		$result = $auth->authenticate($authAdapter);
-
-		if (!$result->isValid()) {
+		
+		if (!$result->isValid())
+		{
 			$this->view->login = $_POST['login'];
 			$this->view->messages = $result->getMessages();
 			$this->render('errors');
 			$this->render('login');
-		} else {
-			$this->_redirect("/");
 		}
+		else
+			$this->_redirect("/");
 	}
 }

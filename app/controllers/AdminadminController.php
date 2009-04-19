@@ -21,28 +21,26 @@
 class AdminadminController extends USVN_Controller
 {
 	/**
-     * Pre-dispatch routines
-     *
-     * Called before action method. If using class with
-     * {@link Zend_Controller_Front}, it may modify the
-     * {@link $_request Request object} and reset its dispatched flag in order
-     * to skip processing the current action.
-     *
-     * @return void
-     */
+	 * Pre-dispatch routines
+	 *
+	 * Called before action method. If using class with
+	 * {@link Zend_Controller_Front}, it may modify the
+	 * {@link $_request Request object} and reset its dispatched flag in order
+	 * to skip processing the current action.
+	 *
+	 * @return void
+	 */
 	public function preDispatch()
 	{
 		parent::preDispatch();
 		$user = $this->getRequest()->getParam('user');
-		if (!$user || !$user->is_admin) {
+		if (!$user || !$user->is_admin)
 			$this->_redirect("/");
-		}
 	}
 
 	public function indexAction()
 	{
 		$this->view->config = Zend_Registry::get('config');
 		$this->view->available_version = USVN_Update::getUSVNAvailableVersion();
-		parent::indexAction();
 	}
 }

@@ -1,7 +1,7 @@
 [general]
 
 ;; Change this
-url.base = "/usvn-new"
+url.base = "/usvn"
 
 translation.locale = "fr_FR"
 timezone = "Europe/Paris"

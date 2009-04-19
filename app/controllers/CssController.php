@@ -24,24 +24,24 @@ class CssController extends Zend_Controller_Action
 
 	public function screenAction()
 	{
-        $this->_helper->viewRenderer->setNoRender();
+		$this->_helper->viewRenderer->setNoRender();
 		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
 		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
 		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
-        header('Cache-Control: max-age=3600, must-revalidate');
+		header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $this->_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css');
 	}
 
 	public function printAction()
 	{
-        $this->_helper->viewRenderer->setNoRender();
+		$this->_helper->viewRenderer->setNoRender();
 		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
 		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
 		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
 		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
-        header('Cache-Control: max-age=3600, must-revalidate');
+		header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $this->_mimetype");
 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css');
 	}

@@ -4,8 +4,8 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>USVN</title>
-		<? // $this->stylesheetTag('screen.css'); ?>
-		<? // $this->faviconTag(''); ?>
+		<? /* $this->stylesheetTag('screen.css');*/ ?>
+		<? /* $this->faviconTag(''); */ ?>
 		<link type="text/css" rel="stylesheet" media="screen" href="<?= $this->url(array('type' => 'stylesheets', 'name' => 'new.css'), 'medias')?>" />
 		<link rel="shortcut icon" href="<?= $this->url(array('type' => 'images', 'name' => 'logo_small.tiff'), 'medias') ?>" />
 	</head>
@@ -28,12 +28,16 @@
 	  </div>
 		<div id="container">
 		  <div id="container-wrapper">
+	  	  <? if (isset($this->layout()->getView()->submenu)): ?>
 	  	  <div id="sub-menu">
-		<? if (file_exists(USVN_VIEWS_DIR . '/' . $this->controller . '/' . '_submenu.phtml')): ?>
-			<?= $this->partial('_submenu.phtml') ?>
-		<? endif ?>
-	  		</div>
-	  		<div id="main">
+	  	  <ul>
+	  	    <? foreach($this->layout()->getView()->submenu as $item): ?>
+	  	    <li><?= $item['label']; ?></li>
+	  	    <? endforeach ?>
+	  	  </ul>
+	  	  </div>
+	  	  <? endif ?>
+	  	  <div id="main">
 				<?= $this->layout()->content ?>
 	  		</div>
 	  		<div id="hspacer">
@@ -41,13 +45,13 @@
 	  		</div>
 	  		<div id="footer">
 	  		  Footer
-	<? //htmlspecialchars($this->headStyle('toto'), array('href' => '/toto')) ?>
-	<? //htmlspecialchars($this->headLink(array('href' => '/toto'))) ?>
-	<? //$this->headLink()->appendStylesheet('/toto') ?>
-	<? //htmlspecialchars($this->headLink()) ?>
-	<? // htmlspecialchars($this->url()) ?>
-	<?// $this->mediaStylesheet?>
-			<? // join(array_keys((array)$this), '<br />') ?>
+	<? /* htmlspecialchars($this->headStyle('toto'), array('href' => '/toto')) */ ?>
+	<? /* htmlspecialchars($this->headLink(array('href' => '/toto'))) */ ?>
+	<? /* $this->headLink()->appendStylesheet('/toto') */ ?>
+	<? /* htmlspecialchars($this->headLink()) */ ?>
+	<? /* htmlspecialchars($this->url()) */ ?>
+	<? /* $this->mediaStylesheet */ ?>
+	<? /* join(array_keys((array)$this), '<br />') */ ?>
 	  		</div>
 			</div>
 		</div>

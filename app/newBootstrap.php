@@ -17,7 +17,7 @@ define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
 /* Application */
 define('USVN_CONTROLLERS_DIR',    USVN_APP_DIR . '/controllers');
 define('USVN_HELPERS_DIR',        USVN_APP_DIR . '/helpers');
-define('USVN_VIEWS_DIR',          USVN_APP_DIR . '/views');
+define('USVN_VIEWS_DIR',          USVN_APP_DIR . '/views/scripts');
 define('USVN_LAYOUTS_DIR',        USVN_APP_DIR . '/layouts');
 define('USVN_MODEL_DIR',          USVN_APP_DIR . '/models');
 define('USVN_MEDIAS_DIR',         USVN_PUB_DIR . '/medias/');

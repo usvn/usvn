@@ -12,7 +12,7 @@ define('USVN_CONFIG_DIR',         USVN_BASE_DIR . '/config');
 /* Libraries */
 define('ZEND_DIRECTORY',          USVN_LIB_DIR . '/Zend');
 define('USVN_DIRECTORY',          USVN_LIB_DIR . '/USVN');
-define('USVN_ROUTES_CONFIG_FILE', USVN_DIRECTORY . '/routes.ini');
+define('USVN_ROUTES_CONFIG_FILE', USVN_APP_DIR . '/routes.ini');
 
 /* Application */
 define('USVN_CONTROLLERS_DIR',    USVN_APP_DIR . '/controllers');
@@ -22,11 +22,12 @@ define('USVN_LAYOUTS_DIR',        USVN_APP_DIR . '/layouts');
 define('USVN_MODEL_DIR',          USVN_APP_DIR . '/models');
 define('USVN_MEDIAS_DIR',         USVN_PUB_DIR . '/medias/');
 define('USVN_LOCALE_DIR',         USVN_APP_DIR . '/locale');
-define('USVN_LOCALE_DIRECTORY',   USVN_LOCALE_DIR);
 
 /* Config */
 define('USVN_CONFIG_FILE',        USVN_CONFIG_DIR . '/config.ini');
 define('USVN_CONFIG_SECTION',     'general');
+define('USVN_CONFIG_VERSION',     '0.7.2');
+
 
 /* Misc */
 define('USVN_URL_SEP', ':');
@@ -39,17 +40,32 @@ require_once 'Zend/Loader.php';
 Zend_Loader::registerAutoload();
 require_once 'functions.php';
 
-/* Config Loading */
-$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-
-/* Installation **FIXME** */
-
+/* Config Loading or Installation */
+try
+{
+	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+	if (!isset($config->version))
+	{
+		header("Location: install.php");
+		exit(0);
+	}
+	if ($config->version != USVN_CONFIG_VERSION)
+	{
+		header("Location: {$config->url->base}/update/{$config->version}/");
+		exit(0);
+	}
+}
+catch (Exception $e)
+{
+	header("Location: install.php");
+	exit(0);
+}
 
 /* USVN Configuration */
 date_default_timezone_set($config->timezone);
 
 USVN_ConsoleUtils::setLocale($config->system->locale);
-USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIRECTORY);
+USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIR);
 USVN_Template::initTemplate($config->template->name, USVN_MEDIAS_DIR);
 
 /* Zend Configuration */

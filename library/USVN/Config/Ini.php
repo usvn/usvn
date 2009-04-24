@@ -33,46 +33,47 @@
 	public function __construct($filename, $section, $config = array())
 	{
 		$this->_filename = $filename;
-		if (!file_exists($filename)) {
-			if (isset($config['create']) && $config['create'] === true) {
-				if (@file_put_contents($filename, "[$section]\n") === false) {
-					throw new USVN_Exception("Can't write config file %s.", getcwd() . DIRECTORY_SEPARATOR . $filename);
-				}
+		if (!file_exists($filename))
+		{
+			if (isset($config['create']) && $config['create'] === true)
+			{
+				if (@file_put_contents($filename, "[$section]\n") === false)
+					throw new USVN_Exception("Can't write config file %s.", $filename);
 			}
-			else {
-				throw new USVN_Exception("Can't open config file %s.", getcwd() . DIRECTORY_SEPARATOR . $filename);
-			}
+			else
+				throw new USVN_Exception("Can't open config file %s.", $filename);
 		}
-		try {
+		try
+		{
 			parent::__construct($filename, $section, true);
 		}
-		catch (Exception $e) {
+		catch (Exception $e)
+		{
 			throw new USVN_Exception($e->getMessage());
 		}
 	}
 
 	private function dumpLevel($handle, $prefix, $data)
 	{
-        foreach ($data->_data as $key => $value) {
-            if (is_object($value)) {
-               $this->dumpLevel($handle, "$prefix$key.", $value);
-            } else {
+		foreach ($data->_data as $key => $value)
+		{
+			if (is_object($value))
+				$this->dumpLevel($handle, "$prefix$key.", $value);
+			else
 				fwrite($handle, "$prefix$key = \"$value\"\n");
-            }
-        }
+		}
 	}
 
 	/**
-	* Save change on the config file
-	*/
+	 * Save change on the config file
+	 */
 	public function save()
 	{
 		$f = @fopen($this->_filename, 'w');
-		if (!$f) {
+		if (!$f)
 			throw new USVN_Exception(T_("Can't write config file."));
-		}
 		fwrite($f, "[".$this->getSectionName()."]\n");
 		$this->dumpLevel($f, "", $this);
-        fclose($f);
+		fclose($f);
 	}
- }
+}

@@ -1,0 +1,137 @@
+<script type="text/javascript">
+function changeAdapter()
+{
+	var host = document.getElementById("host_config");
+	var user = document.getElementById("user_config");
+	var password = document.getElementById("password_config");
+	var createdb = document.getElementById("createdb_config");
+	var prefix = document.getElementById("prefix_config");
+	var database = document.getElementById("database");
+	if (document.configdb.adapter.value == "PDO_SQLITE") {
+		host.style.display = "none";
+		user.style.display = "none";
+		password.style.display = "none";
+		createdb.style.display = "none";
+		prefix.style.display = "none";
+		database.value = "<?= addslashes(USVN_BASE_DIR . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "usvn.db") ?>";
+		database.size = 80;
+	}
+	else {
+		host.style.display = "";
+		user.style.display = "";
+		password.style.display = "";
+		createdb.style.display = "";
+		prefix.style.display = "";
+		database.value = "usvn";
+		database.size = 20;
+	}
+}
+</script>
+<div class="usvn_info">
+	<h1><?php echo T_("Step");?> 5: <?php echo T_("Database installation"); ?></h1>
+	<p><?php echo T_("Configuration of database's access."); ?></p>
+</div>
+<form name="configdb" action="?step=6" method="post">
+<div id="usvn_logo_install_step"
+	style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/database.png); height: 210px;">
+	<table>
+		<tr>
+			<td><label class="usvn_label" for="adapter"><?php echo T_("Database Type");?>:</label></td>
+			<td>
+				<select name="adapter" id="adapter" size="1" onchange="javascript:changeAdapter()">
+					<option value="PDO_MYSQL" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "PDO_MYSQL") echo 'selected';?>>PDO MySql</option>
+					<option value="MYSQLI" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "MYSQLI") echo 'selected';?>>MySqli</option>
+					<option value="PDO_SQLITE" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "PDO_SQLITE") echo 'selected';?>>PDO SqLite</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr id="host_config">
+			<td>
+				<label class="usvn_label" for="host"><?= T_("Host") ?>:</label>
+			</td>
+			<td>
+				<input type="text" name="host" id="host" value="<?php
+				if (isset($_POST['host'])) {
+					echo $_POST['host'];
+				}
+				else {
+					echo "localhost";
+				}
+				?>" />
+			</td>
+		</tr>
+		<tr id="user_config">
+			<td>
+				<label class="usvn_label" for="user"><?php echo T_("Login");?>:</label>
+			</td>
+			<td>
+				<input type="text" name="user" id="user" value="<?php
+				if (isset($_POST['user'])) {
+					echo $_POST['user'];
+				}
+				else {
+					echo "root";
+				}
+				?>" />
+			</td>
+		</tr>
+
+		<tr id="password_config">
+			<td>
+				<label class="usvn_label" for="password"><?php echo T_("Password");?>:</label>
+			</td>
+			<td>
+				<input type="password" name="password" id="password" onclick="this.select();" />
+			</td>
+		</tr>
+
+		<tr id="database_config">
+			<td>
+				<label class="usvn_label" for="database"><?php echo T_("Database");?>:</label>
+			</td>
+			<td>
+				<input type="text" name="database" id="database" value="<?php
+				if (isset($_POST['database'])) {
+					echo $_POST['database'];
+				}
+				else {
+					echo "usvn";
+				}
+				?>" />
+			</td>
+		</tr>
+
+		<tr id="createdb_config">
+			<td>
+				<label for="createdb" class="usvn_label"><?php echo T_("Create database ?") ?></label>
+			</td>
+			<td>
+				<input type="checkbox" name="createdb" id="createdb" <?php echo ((isset($_POST['createdb'])) ? ' checked="checked" ' : ""); ?> />
+			</td>
+		</tr>
+		<tr id="prefix_config">
+			<td>
+				<label class="usvn_label" for="prefix"><?php echo T_("Table prefix");?>:</label>
+			</td>
+			<td>
+				<input type="text" name="prefix" id="prefix" value="<?php
+				if (isset($_POST['prefix'])) {
+					echo $_POST['prefix'];
+				}
+				else {
+					echo "usvn_";
+				}
+				?>" />
+			</td>
+		</tr>
+	</table>
+</div>
+	<hr />
+	<input type="submit" value="<?php echo T_("Next step");?>" />
+</form>
+<script type="text/javascript">
+<!--
+changeAdapter();
+-->
+</script>

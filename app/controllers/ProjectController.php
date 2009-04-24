@@ -69,9 +69,9 @@ class ProjectController extends USVN_Controller
 		}
 		$this->view->submenu = array(
 		array('label' => $project->name),
-		array('label' => 'Test HREF',     'href' => 'toto'),
-		array('label' => 'Test Url Un',   'url' => array('action' => 'add')),
-		array('label' => 'Test Url Deux', 'url' => array('action' => 'browse'))
+		array('label' => 'Index',    'url' => array('action' => '')),
+		array('label' => 'Timeline', 'url' => array('action' => 'timeline')),
+		array('label' => 'Browser',  'url' => array('action' => 'browser'))
 		);
 	}
 
@@ -102,6 +102,52 @@ class ProjectController extends USVN_Controller
 				$this->view->subversion_url .= '/trunk';
 		}
 		$this->view->log = $SVN->log(5);
+	}
+
+
+	public function browserAction()
+	{
+		$this->view->project = $this->_project;
+	}
+
+	public function timelineAction()
+	{
+//		$project = $this->getRequest()->getParam('project');
+//		$table = new USVN_Db_Table_Projects();
+//		$project = $table->fetchRow(array("projects_name = ?" => $project));
+//		/* @var $project USVN_Db_Table_Row_Project */
+//		if ($project === null) {
+//			$this->_redirect("/");
+//		}
+//		$this->_project = $project;
+		$project = $this->_project;
+
+		//get the identity of the user
+		$identity = Zend_Auth::getInstance()->getIdentity();
+
+		$user_table = new USVN_Db_Table_Users();
+		$user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
+
+//		$table = new USVN_Db_Table_Projects();
+//		$this->view->project = $table->fetchRow(array('projects_name = ?' => $project->name));
+
+		$table = new USVN_Db_Table_UsersToProjects();
+		$userToProject = $table->fetchRow(array(
+			'users_id = ?' => $user->users_id,
+			'projects_id = ?' => $project->projects_id));
+
+		if ($userToProject == null)
+		{
+		//search project
+//			$this->view->project = $project;
+//			$this->view->user = $user;
+//			$this->render('accesdenied');
+//			return;
+		}
+
+		$this->view->project = $project;
+		$SVN = new USVN_SVN($this->_project->name);
+		$this->view->log = $SVN->log(100);
 	}
 
 	public function adduserAction()

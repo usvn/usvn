@@ -1,6 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+<!DOCTYPE  html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
+<? $view = $this->layout()->getView(); ?>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>USVN</title>
@@ -8,6 +9,8 @@
 		<? /* $this->faviconTag(''); */ ?>
 		<link type="text/css" rel="stylesheet" media="screen" href="<?= $this->url(array('type' => 'stylesheets', 'name' => 'new.css'), 'medias')?>" />
 		<link rel="shortcut icon" href="<?= $this->url(array('type' => 'images', 'name' => 'logo_small.tiff'), 'medias') ?>" />
+		<? if (isset($view->javascripts)): foreach ($view->javascripts as $js): ?>
+		<? endforeach; endif; ?>
 	</head>
 	<body>
 		<div id="header">

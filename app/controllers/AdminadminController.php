@@ -38,10 +38,11 @@ class AdminadminController extends USVN_Controller
 			$this->_redirect("/");
 		$this->view->submenu = array(
 		array('label' => 'Admin'),
-		array('label' => 'Users',    'route' => 'admin', 'url' => array('controller' => 'user')),
-		array('label' => 'Groups',   'route' => 'admin', 'url' => array('controller' => 'group')),
-		array('label' => 'Projects', 'route' => 'admin', 'url' => array('controller' => 'project')),
-		array('label' => 'Config',   'route' => 'admin', 'url' => array('controller' => 'config'))
+		array('label' => 'Users',         'route' => 'admin', 'url' => array('controller' => 'user')),
+		array('label' => 'Groups',        'route' => 'admin', 'url' => array('controller' => 'group')),
+		array('label' => 'Projects',      'route' => 'admin', 'url' => array('controller' => 'project')),
+		array('label' => 'Configuration', 'route' => 'admin', 'url' => array('controller' => 'config')),
+		array('label' => 'System report', 'route' => 'admin', 'url' => array('controller' => 'systemreport'))
 		);
 	}
 

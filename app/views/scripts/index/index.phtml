@@ -1,34 +1,36 @@
 <div class="usvn_info">
-	<h1><?php echo T_("Homepage"); ?></h1>
+	<h1><?= T_("Homepage") ?></h1>
 </div>
 <div id="usvn_index_projects" class="usvn_index_box">
-	<h3><?php echo T_("Your projects") . ":"; ?></h3>
-<?php
-if (count($this->projects)) {
-	echo '<ul>';
-	foreach ($this->projects as $project) {
-		echo '<li><a href="' . $this->url(array('project' => $project->name), 'project') . '">' . $project->name . '</a></li>';
-	}
-	echo '</ul>';
-}
-else {
-	echo "<p>" . T_("You don't have any project.") . "</p>";
-}
-?>
+	<h3><?= T_("Your projects") ?>:</h3>
+<? if (count($this->projects)): ?>
+    <ul>
+	<? foreach ($this->projects as $project): ?>
+		<li>
+			<a href="<?= $this->url(array('project' => $project->name), 'project'); ?>">
+				<?= $project->name ?>
+			</a>
+		</li>
+	<? endforeach ?>
+	</ul>
+<? else: ?>
+	<p><?= T_("You don't have any project.") ?></p>
+<? endif ?>
 </div>
 <div id="usvn_index_groups" class="usvn_index_box">
-	<h3><?php echo T_("Your groups") . ":"; ?></h3>
-<?php
-if (count($this->groups)) {
-	echo '<ul>';
-	foreach ($this->groups as $group) {
-		echo '<li><a href="' . $this->url(array('controller' => 'group', 'group' => $group->name), 'group') . '">' . $group->name . '</a></li>';
-	}
-	echo '</ul>';
-}
-else {
-	echo "<p>" . T_("You are not assign to a group.") . "</p>";
-}
-?>
+	<h3><?= T_("Your groups"); ?>:</h3>
+<? if (count($this->groups)): ?>
+	<ul>
+	<? foreach ($this->groups as $group): ?>
+		<li>
+			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>">
+				<?= $group->name ?>
+			</a>
+		</li>
+	<? endforeach ?>
+	</ul>
+<? else: ?>
+	<p><?= T_("You are not assign to a group.") ?></p>
+<? endif ?>
 </div>
 <!-- img src="<?php echo $this->url(array('controller' => 'checkupdate')); ?>" / -->

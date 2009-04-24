@@ -32,13 +32,27 @@
 	  	  <div id="sub-menu">
 	  	  <ul>
 	  	    <? foreach($this->layout()->getView()->submenu as $item): ?>
-	  	    <li><?= $item['label']; ?></li>
+	  	    <li>
+	  	    	<? if (isset($item['href'])): ?>
+	  	    	  <a href="<?= htmlspecialchars($this->url(array('controller' => ''), 'default') . $item['href']); ?>">
+	  	    	  	<?= htmlspecialchars(T_($item['label'])); ?>
+	  	    	  </a>
+	  	    	<? elseif (isset($item['url'])): ?>
+	  	    	  <? $route = (isset($item['route']) ? $item['route'] : null); ?>
+	  	    	  <a href="<?= htmlspecialchars($this->url($item['url'], $route)); ?>">
+	  	    	  	<?= htmlspecialchars(T_($item['label'])); ?>
+	  	    	  </a>
+	  	    	<? else: ?>
+	  	    	  <h3><?= T_($item['label']); ?></h3>
+	  	    	<? endif ?>
+	  	    </li>
 	  	    <? endforeach ?>
 	  	  </ul>
 	  	  </div>
 	  	  <? endif ?>
 	  	  <div id="main">
 				<?= $this->layout()->content ?>
+				<div style="clear:both;"></div>
 	  		</div>
 	  		<div id="hspacer">
 	  		  &nbsp;

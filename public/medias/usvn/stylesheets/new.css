@@ -8,7 +8,8 @@
    Copyright 2009 USVN Team. All rights reserved.
 */
 
-/* global */
+/* @group global */
+
 * {
 	padding: 0px;
 	margin: 0px;
@@ -35,14 +36,19 @@ img {
  
 a {
 	color: #100076;
+	text-decoration: none;
 }
  
 a:hover {
 	color: #ADA08F;
 	text-decoration: none;
 }
- 
-/* Header */
+
+
+
+/* @end */
+
+/* @group Header */
 #header {
 	background: #172933 url('../images/header_bg2.png') repeat-x;
   min-height: 124px;
@@ -122,8 +128,10 @@ a:hover {
   font-weight: bold;
   color: #D3B65E;
 }
- 
-/* Container */
+
+/* @end */
+
+/* @group Container */
 #container {
 	background: url('../images/container_bg.png') repeat-x;
 	min-height: 340px;
@@ -143,9 +151,9 @@ a:hover {
   */
   
   background-color: #ffffff;
-	border: 1px solid #cbd5b8;
+	/*border: 1px solid #cbd5b8;
 	border-top: none;
-	border-bottom: none;
+	border-bottom: none;*/
 }
  
 #container #container-wrapper #main {
@@ -157,19 +165,79 @@ a:hover {
 	padding: 5px;
 	font-size: 13px;
 	font-family: 'Verdana','Helvetica';
+	margin-left: 145px;
+	margin-right: 145px;
 }
  
 #container #container-wrapper #hspacer {
 }
  
 #container #container-wrapper #footer {
+	display: none;
 	height: 50px;
 	background-color: #d3d9c6;
 	padding: 1px;
 }
 
+/* @end */
+
+/* @group Submenu */
+
+div#sub-menu {
+	margin: 4px 0 0;
+	padding: 5px 0 0;
+	position: absolute;
+	width: 140px;
+	border-color: #cbd5b8;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-right-width: 1px;
+	border-right-style: solid;
+	overflow: hidden;
+}
+
+div#sub-menu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 2px;
+}
+
+div#sub-menu ul li {
+	padding: 0;
+	width: 100%;
+	margin: 0;
+	font-size: 13px;
+}
+
+div#sub-menu ul li * {
+	padding: 3px 3px 4px;
+}
+
+div#sub-menu ul li h3 {
+	font-size: 14px;
+	border-bottom: 1px solid #c3a957;
+	margin: 0;
+}
+
+div#sub-menu ul li a {
+	background-color: #f8f8f8;
+	display: block;
+}
+
+div#sub-menu ul li a:hover {
+	background-color: #eee;
+}
+
+
+
+/* @end */
+
 /* Intégration */
-/* Styles spécifiques */
+
+/* @group Styles spécifiques */
+
 .usvn_require {
   color: red;
   float: none;
@@ -177,7 +245,12 @@ a:hover {
   margin-left: 3px;
 }
 
-/* Tableaux */
+
+
+/* @end */
+
+/* @group Tableaux */
+
 table.usvn_table, table.sortable {
   border-collapse: collapse;
   margin: auto;
@@ -195,10 +268,16 @@ table.usvn_table td, table.sortable td {
   border: 1px solid #cbd5b8;
 }
 
-/* Page d'acceuil */
+
+
+/* @end */
+
+/* @group Page d'accueil */
+
 .usvn_info_project {
   background-image: url('../medias/default/images/CrystalClear/64x64/apps/easymoblog.png');
 }
+
 .usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
   background-color: #EFF2FF;
   background-position: right 17px;
@@ -207,10 +286,9 @@ table.usvn_table td, table.sortable td {
   border-style: solid solid dotted;
   border-width: 1px;
   clear: both;
-  margin: 0 0 2em;
+  margin: auto auto 2em;
   min-height: 80px;
   padding: 5px;
-  width: 99%;
 }
 
 #loginBox {
@@ -245,7 +323,12 @@ h3 {
   padding-left: 40px;
 }
 
-/* Profile */
+
+
+/* @end */
+
+/* @group Profile */
+
 form.usvn_form > fieldset {
   margin-bottom: 1em;
   padding: 5px;
@@ -255,8 +338,13 @@ form.usvn_form > fieldset > label {
   font-weight: bold;
 }
 
-/* Administration */
-/* Admin::Home */
+
+
+/* @end */
+
+/* @group Administration */
+
+/* @group Admin::Home */
 .usvn_info_config {
   background-image: url('/medias/default/images/CrystalClear/64x64/apps/kpackage.png');
 }
@@ -287,9 +375,14 @@ ul#usvn_admin_section {
   font-weight: bold;
   margin: 10px;
   padding: 6px;
+	float: left;
+	width: 45%;
 }
+/* @end */
 
-/* Admin::Groups */
+/* @group Admin::Groups */
 .usvn_info_group {
   background-image: url('/medias/default/images/CrystalClear/64x64/apps/Community Help.png');
 }
+/* @end */
+/* @end */

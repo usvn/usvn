@@ -10,13 +10,18 @@ template.name = "default"
 site.title = "USVN"
 site.ico = "medias/default/images/USVN.ico"
 site.logo = "medias/default/images/USVN-logo.png"
+
+;; Emplacement des depot
 subversion.path = "/Library/WebServer/Subversion/"
+;; Emplacement des fichiers de conf
 subversion.passwd = "/Library/WebServer/Subversion.htpasswd"
 subversion.authz = "/Library/WebServer/Subversion.authz"
+;; Url pour acceder aux depots
 subversion.url = "http://localhost/svn/"
 
-;; Probably no need to change this
+;; Adaptateur de BDD
 database.adapterName = "MYSQLI"
+;; Prefixe des tables
 database.prefix = "usvn_"
 
 ;; Change this

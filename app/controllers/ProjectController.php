@@ -68,9 +68,10 @@ class ProjectController extends USVN_Controller
 			$this->_redirect("/");
 		}
 		$this->view->submenu = array(
-		array('action' => 'index', 'label' => 'Item 1'),
-		array('action' => 'index', 'label' => 'Item Deux'),
-		array('action' => 'index', 'label' => 'Item Trois')
+		array('label' => $project->name),
+		array('label' => 'Test HREF',     'href' => 'toto'),
+		array('label' => 'Test Url Un',   'url' => array('action' => 'add')),
+		array('label' => 'Test Url Deux', 'url' => array('action' => 'browse'))
 		);
 	}
 

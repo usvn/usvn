@@ -23,16 +23,16 @@ class BrowserajaxController extends USVN_Controller
 	public function preDispatch()
 	{
 		parent::preDispatch();
-		if ($_GET['name'] == 'nop') {
+		$this->_helper->layout()->disableLayout();
+		if (empty($_GET['name']) || $_GET['name'] == 'nop')
 			$_GET['name'] = "/";
-		}
-		echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-		echo "<files>\n";
+		echo '<?xml version="1.0" encoding="utf-8" ?>'."\n";
+/*		echo "<files>\n";*/
 	}
 
 	public function postDispatch()
 	{
-		echo "</files>";
+/*		echo "</files>";*/
 		parent::postDispatch();
 	}
 

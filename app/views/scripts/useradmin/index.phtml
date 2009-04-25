@@ -1,49 +1,44 @@
 <div class="usvn_info_user">
-	<h1><?php echo T_("Users"); ?></h1>
+	<h1><?= T_("Users") ?></h1>
 </div>
 
-<?php
-print '<table class="sortable" id="users">' .
-		'<thead><tr>' .
-		'<th>' . T_('Login') . '</th>' .
-		'<th>' . T_('Firstname') . '</th>' .
-		'<th>' . T_('Lastname') . '</th>' .
-		'<th>' . T_('Email') . '</th>' .
-		'<th>' . T_('Administrator') . '</th>' .
-		'<th class="sorttable_nosort">' . T_('Action') . '</th>' .
-		'</tr></thead><tbody>';
+<table class="sortable" id="users">
+  <thead>
+    <tr>
+      <th><?= T_('Login') ?></th>
+      <th><?= T_('Firstname') ?></th>
+      <th><?= T_('Lastname') ?></th>
+      <th><?= T_('Email') ?></th>
+      <th><?= T_('Administrator') ?></th>
+      <th class="sorttable_nosort"><?= T_('Action') ?></th>
+    </tr>
+  </thead>
+  <tbody>
 
-if (count($this->users)) {
-	$me = Zend_Auth::getInstance()->getIdentity();
-	$me = $me['username'];
-	foreach ($this->users as $user) {
-		$edit = "<a href=\"{$this->url(array('action' => 'edit', 'login' => $user->users_login))}\">Edit</a>";
-		$delete = "";
-		if ($user->login != $me) {
-			$delete .= "<a href=\"{$this->url(array('action' => 'delete', 'login' => $user->users_login))}\">Delete</a>";
-		}
-		if ($user->is_admin) {
-			$admin = T_("yes");
-		} else {
-			$admin = T_("no");
-		}
-		$editurl = $this->url(array('action' => 'edit', 'login' => $user->login));
-		$deletetext = T_("Do you really want to delete user %s?");
-		$line = <<<EOF
-		<tr>
-			<td><a href="{$editurl}">{$user->login}</a></td>
-			<td><a href="{$editurl}">{$user->firstname}</a></td>
-			<td><a href="{$editurl}">{$user->lastname}</a></td>
-			<td><a href="mailto:{$user->email}">{$user->email}</a></td>
-			<td><a href="{$editurl}">{$admin}</a></td>
-            <td>
-                {$this->editLink('login', $user->login)}
-                {$this->deleteLink('login', $user->login, $deletetext)}
-            </td>
-		</tr>\n
-EOF;
-		echo $line;
-	}
-}
-print '</tbody></table><br />';
-?>
+<? if (!empty($this->users)): ?>
+<?   $me = Zend_Auth::getInstance()->getIdentity() ;
+     $me = $me['username'] ?>
+<?   foreach ($this->users as $user): ?>
+<?     $editurl = $this->url(array('action' => 'edit', 'login' => $user->login)) ?>
+<?     $deletetext = T_("Do you really want to delete user %s?") ?>
+    <tr>
+      <td><a href="<?= h_($editurl) ?>"><?= h_($user->login) ?></a></td>
+      <td><a href="<?= h_($editurl) ?>"><?= h_($user->firstname) ?></a></td>
+      <td><a href="<?= h_($editurl) ?>"><?= h_($user->lastname) ?></a></td>
+      <td><a href="mailto:<?= h_($user->email) ?>"><?= h_($user->email) ?></a></td>
+      <td><a href="<?= h_($editurl) ?>"><?= T_($user->is_admin ? "yes" : "no") ?></a></td>
+      <td>
+<?=    $this->editLink('login', $user->login) ?>
+<?     if ($user->login != $me): ?>
+<?=      $this->deleteLink('login', $user->login, $deletetext) ?>
+<?     endif ?>
+      </td>
+		</tr>
+<?   endforeach ?>
+<? endif ?>
+    <tr>
+      <td colspan="6" style="text-align:right;"><a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("Add new user") ?></a></td>
+    </tr>
+  </tbody>
+</table>
+<br />

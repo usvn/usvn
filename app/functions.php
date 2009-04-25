@@ -12,3 +12,8 @@ function T_($str)
 {
 	return USVN_Translation::_($str);
 }
+
+function h_($string)
+{
+	return htmlspecialchars($string);
+}

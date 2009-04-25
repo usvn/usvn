@@ -123,7 +123,7 @@ class BrowserajaxController extends USVN_Controller
 				if ($dir) {
 					echo "<a href='javascript:getListFile(\"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
 				} else {
-					echo "<a href=\"". USVN_SVNUtils::getSubversionUrl($project_name, $tabl['path_raw']) . "\">{$tabl['name']}</a></td>";
+          echo "<a href=\"". $this->view->url(array('controller' => 'showfile', 'action' => 'index'), 'default') . "?project=".urlencode($project_name)."&file=" . urlencode($tabl['path_raw']) . "\">{$tabl['name']}</a></td>";
 				}
 				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 			}

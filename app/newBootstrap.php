@@ -51,8 +51,9 @@ try
 	}
 	if ($config->version != USVN_CONFIG_VERSION)
 	{
-		header("Location: {$config->url->base}/update/{$config->version}/");
-		exit(0);
+    // TODO: Do something useful
+    // header("Location: {$config->url->base}/update/{$config->version}/");
+    // exit(0);
 	}
 }
 catch (Exception $e)

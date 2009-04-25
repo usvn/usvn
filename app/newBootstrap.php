@@ -46,7 +46,7 @@ try
 	$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 	if (!isset($config->version))
 	{
-		header("Location: install.php");
+		header('Location: install.php');
 		exit(0);
 	}
 	if ($config->version != USVN_CONFIG_VERSION)
@@ -58,7 +58,7 @@ try
 }
 catch (Exception $e)
 {
-	header("Location: install.php");
+	header('Location: install.php');
 	exit(0);
 }
 
@@ -89,4 +89,3 @@ $routes_config = new USVN_Config_Ini(USVN_ROUTES_CONFIG_FILE, USVN_CONFIG_SECTIO
 $router->addConfig($routes_config, 'routes');
 $front->setRouter($router);
 $front->setControllerDirectory(USVN_CONTROLLERS_DIR);
-

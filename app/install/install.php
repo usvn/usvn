@@ -273,10 +273,13 @@ Order Allow,Deny
 Deny from all
 </Files>
 RewriteEngine on
-RewriteCond %{REQUEST_URI} !/install*
-RewriteBase {$path}/
-RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
-
+#RewriteCond
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ /index.php [NC,L]
 EOF;
 		if (@file_put_contents($htaccess_file, $content) === false)
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);
@@ -435,5 +438,38 @@ EOF;
 			if (function_exists('apache_get_modules') && !in_array('mod_dav_svn', apache_get_modules()))
 				throw new  USVN_Exception(T_('mod_dav_svn seems not to be loaded'));
 		}
+	}
+
+	static public function check()
+	{
+		$errors = array(
+			'safe_mode' => 'ok',
+			'svn' => 'ok',
+			'mod_rewrite' => 'ok',
+			'mod_dav_svn' => 'ok',
+			'mod_authz_svn' => 'ok',
+			'public' => 'ok',
+			'config' => 'ok');
+		if (ini_get('safe_mode'))
+			$errors['safe_mode'] = 'ko';
+		if (USVN_ConsoleUtils::runCmd('svn --config-dir /USVN/fake --version'))
+			$errors['svn'] = 'ko';
+		if (php_sapi_name() != 'cli')
+		{
+			if (function_exists('apache_get_modules') && !in_array('mod_rewrite', apache_get_modules()))
+				$errors['mod_rewrite'] = 'ko';
+			if (function_exists('apache_get_modules') && !in_array('mod_dav_svn', apache_get_modules()))
+				$errors['mod_dav_svn'] = 'ko';
+			if (function_exists('apache_get_modules') && !in_array('mod_authz_svn', apache_get_modules()))
+				$errors['mod_authz_svn'] = 'ko';
+		}
+		if (!file_exists(USVN_PUB_DIR) or !is_writable(USVN_PUB_DIR) or !is_readable(USVN_PUB_DIR))
+			$errors['public'] = 'ko';
+		if (!file_exists(USVN_CONFIG_DIR))
+			if (!@mkdir(USVN_CONFIG_DIR, 0755, true))
+				$errors['config'] = 'ko';
+		if (file_exists(USVN_CONFIG_DIR) and (!is_writable(USVN_CONFIG_DIR) or !is_readable(USVN_CONFIG_DIR)))
+			$errors['config'] = 'ko';
+		return ($errors);
 	}
 }

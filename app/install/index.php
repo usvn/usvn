@@ -11,13 +11,15 @@
 header("Content-encoding: UTF-8");
 
 define('USVN_BASE_DIR',         realpath(dirname(__FILE__) . '/../..'));
-define('USVN_APP_DIR',          USVN_BASE_DIR . '/app');
-define('USVN_LIB_DIR',          USVN_BASE_DIR . '/library');
-define('USVN_PUB_DIR',          USVN_BASE_DIR . '/public');
+define('USVN_APP_DIR',          USVN_BASE_DIR   . '/app');
+define('USVN_LIB_DIR',          USVN_BASE_DIR   . '/library');
+define('USVN_PUB_DIR',          USVN_BASE_DIR   . '/public');
+define('USVN_CONFIG_DIR',       USVN_BASE_DIR   . '/config');
+define('USVN_FILES_DIR',        USVN_BASE_DIR   . '/files');
 
-define('USVN_CONFIG_FILE',      USVN_BASE_DIR . '/config/config.ini');
-define('USVN_HTACCESS_FILE',    USVN_PUB_DIR .  '/.htaccess');
-define('USVN_LOCALE_DIRECTORY', USVN_APP_DIR .  '/locale');
+define('USVN_CONFIG_FILE',      USVN_CONFIG_DIR . '/config.ini');
+define('USVN_HTACCESS_FILE',    USVN_PUB_DIR    . '/.htaccess');
+define('USVN_LOCALE_DIRECTORY', USVN_APP_DIR    . '/locale');
 
 define('USVN_CONFIG_SECTION',   'general');
 define('USVN_CONFIG_VERSION',   '0.7.2');
@@ -72,7 +74,7 @@ catch (USVN_Exception $e)
 if ($install_is_possible)
 {
 	if (!isset($_GET['step']))
-		$step = 1;
+		$step = 0;
 	else
 		$step = $_GET['step'];
 	try
@@ -81,10 +83,7 @@ if ($install_is_possible)
 	}
 	catch (USVN_Exception $e)
 	{
-		if ($step == 1)
-			include 'views/install_error.html';
-		else
-			displayError($e->getMessage());
+		displayError($e->getMessage());
 		$step--;
 	}
 	installationStep($step);
@@ -107,10 +106,13 @@ function installationOperation($step)
 	switch ($step)
 	{
 		case 1:
-			if (!isset($_GET['force']))
-				Install::checkSystem();
+			global $errors;
+			$errors = Install::check();
+			break;
+
+		case 2:
 			Install::installUrl(USVN_CONFIG_FILE, USVN_HTACCESS_FILE, $_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'], isset($_SERVER['HTTPS']));
-		break;
+			break;
 
 		case 3:
 			Install::installLanguage(USVN_CONFIG_FILE, $language);
@@ -152,8 +154,9 @@ function installationOperation($step)
 
 function installationStep($step)
 {
+	global $errors;
 	$language = $GLOBALS['language'];
-	if ($step >= 1 && $step <= 8)
+	if ($step >= 0 && $step <= 8)
 		include "views/step$step.html";
 }
 ?>

@@ -1,18 +1,69 @@
-<div class="usvn_info">
-	<h1>Step 1: Welcome on USVN</h1>
-	<p>
-		Thank you for choosing our solution.
-	</p>
-</div>
-<div id="usvn_logo_install_step"
-	style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/access.png);">
-	<p>
-		This wizard will help you during this installation.<br />
-	</p>
-</div>
-<hr />
+
+Step 0 : Description TBD
+<br />
+<br />
+<table>
+	<tr>
+		<?php
+			$ok = '<img src="./images/icons/accepted_16.png" />';
+			$ko = '<img src="./images/icons/cancel_16.png" />';
+		?>
+		<td><?= ($errors['safe_mode'] == 'ko') ? $ko : $ok ?></td>
+		<td>php safe mode disabled</td>
+	</tr>
+	<tr>
+		<td><?= ($errors['svn'] == 'ko') ? $ko : $ok ?></td>
+		<td>Subversion installation</td>
+	</tr>
+	<tr>
+		<td><?= ($errors['mod_rewrite'] == 'ko') ? $ko : $ok ?></td>
+		<td>mod_rewrite</td>
+	</tr>
+	<tr>
+		<td><?= ($errors['mod_dav_svn'] == 'ko') ? $ko : $ok ?></td>
+		<td>mod_dav_svn</td>
+	</tr>
+	<tr>
+		<td><?= ($errors['mod_authz_svn'] == 'ko') ? $ko : $ok ?></td>
+		<td>mod_authz_svn</td>
+	</tr>
+	<tr>
+		<td><?= ($errors['public'] == 'ko') ? $ko : $ok ?></td>
+		<td>public folder rights</td>
+	</tr>
+	<tr>
+		<td><?= ($errors['config'] == 'ko') ? $ko : $ok ?></td>
+		<td>config folder rights</td>
+	</tr>
+</table>
+<br />
+<br />
+<?php
+	if (isset($_GET['force']) or !in_array('ko', $errors))
+	{
+?>
 <form action="?step=2" method="post">
 	<div>
 		<input type="submit" value="<?= T_('Next step') ?>" />
 	</div>
 </form>
+<?php
+}
+else
+{
+?>
+	<form name="forceForm" action="?step=1&force" method="post">
+		<div>
+			<p>You can force installation but it's problably not a good idea.</p>
+			I'm sure: <input type="checkbox" onclick="document.forceForm.ok.disabled = !document.forceForm.forceCheck.checked;" name="forceCheck">
+			<br />
+			<br />
+			<input type="submit" value="<?= T_("Force installation") ?>" name="ok" />
+		</div>
+	</form>
+	<script>
+	document.forceForm.ok.disabled = true;
+	</script>
+<?php
+}
+?>

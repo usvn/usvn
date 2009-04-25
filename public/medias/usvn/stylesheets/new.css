@@ -262,13 +262,22 @@ table.usvn_table, table.sortable {
 table.usvn_table th, table.sortable th {
   background-color: #d3d9c6;
   border: 1px solid black;
+	padding: 3px 4px;
 }
 
 table.usvn_table td, table.sortable td {
   border: 1px solid #cbd5b8;
+	padding: 3px;
+	vertical-align: top;
 }
 
+.even {
+	
+}
 
+.odd {
+	
+}
 
 /* @end */
 

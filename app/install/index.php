@@ -135,7 +135,7 @@ function installationOperation($step)
 				$createdb = true;
 			else
 				$createdb = false;
-			Install::installDb(USVN_CONFIG_FILE, '../SQL/', $_POST['host'], $_POST['user'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['adapter'], $createdb);
+			Install::installDb(USVN_CONFIG_FILE, USVN_APP_DIR . '/install/sql/', $_POST['host'], $_POST['user'], $_POST['password'], $_POST['database'], $_POST['prefix'], $_POST['adapter'], $createdb);
 		break;
 
 		case 7:

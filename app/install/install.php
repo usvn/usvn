@@ -66,7 +66,7 @@ class Install
 		}
 		catch (Exception $e)
 		{
-			throw new USVN_Exception(T_("Can't connect to database.\n") ." ". $e->getMessage());
+			throw new USVN_Exception(T_("Can't connect to database.\n") . ' ' . $e->getMessage());
 		}
 		Zend_Db_Table::setDefaultAdapter($db);
 		USVN_Db_Table::$prefix = $prefix;

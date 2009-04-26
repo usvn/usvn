@@ -194,4 +194,32 @@ class ProjectController extends USVN_Controller
 		$this->_project->deleteGroup($this->getRequest()->getParam('groups_id'));
 		$this->_redirect("/project/{$this->_project->name}/");
 	}
+	
+	/**
+   * Display a file using appropriate highlighting
+   *
+   * @return void
+   * @author Zak
+   */
+	public function showAction()
+	{
+	  include_once('geshi/geshi.php');
+    $config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+	  $project_name = str_replace(USVN_URL_SEP, '/',$this->_project->name);
+    $svn_file_path = $this->getRequest()->getParam('file');
+    $local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$svn_file_path);
+    $file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
+    $cmd = USVN_SVNUtils::svnCommand("cat --non-interactive $local_file_path");
+    $source = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+    if ($return) {
+      throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
+    } else {
+      $geshi = new Geshi();
+      $geshi->set_language($geshi->get_language_name_from_extension($file_ext), true);
+      $geshi->set_source($source);
+      $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+      $geshi->set_header_type(GESHI_HEADER_DIV);
+      echo $geshi->parse_code();
+    }
+	}
 }

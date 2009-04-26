@@ -1,5 +1,4 @@
 <?php
-
 try
 {
 	require_once '../app/newBootstrap.php';

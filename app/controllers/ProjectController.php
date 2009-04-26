@@ -67,12 +67,12 @@ class ProjectController extends USVN_Controller
 		if (!$find && !$this->isAdmin()) {
 			$this->_redirect("/");
 		}
-		$this->view->submenu = array(
-		array('label' => $project->name),
-		array('label' => 'Index',    'url' => array('action' => '')),
-		array('label' => 'Timeline', 'url' => array('action' => 'timeline')),
-		array('label' => 'Browser',  'url' => array('action' => 'browser'))
-		);
+    $this->view->submenu = array(
+        array('label' => $project->name),
+        array('label' => 'Index',    'url' => array('action' => '', 'project' => $project->name), 'route' => 'project'),
+        array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
+        array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project')
+    );
 	}
 
 	protected function isAdmin()

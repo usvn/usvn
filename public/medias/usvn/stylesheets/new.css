@@ -11,7 +11,7 @@
 /* @group global */
 
 * {
-	padding: 0px;
+  padding: 0px;
 	margin: 0px;
 }
  
@@ -44,7 +44,9 @@ a:hover {
 	text-decoration: none;
 }
 
-
+ol {
+  padding-left: 50px;
+}
 
 /* @end */
 

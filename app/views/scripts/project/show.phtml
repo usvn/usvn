@@ -1,0 +1,18 @@
+<?php echo $this->error($this); ?>
+<div class="usvn_info">
+  <h1><?php echo $this->path ?></h1>
+  <br />
+  <table width="100%">
+    <tr>
+      <th align="left"><?php echo T_("Language:")." ".$this->language ?></th>
+      <th align="right">
+        <a href="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project') ?>"><?php echo T_('Back') ?></a>
+        /
+        <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path) ?>"><?php echo T_('Original') ?></a>
+      </th>
+    </tr>
+  </table>
+  <p align="right">
+  </p>
+</div>
+<?php echo $this->highlighted_source ?>

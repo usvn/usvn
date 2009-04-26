@@ -108,7 +108,7 @@ class BrowserajaxController extends USVN_Controller
 				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
-				$tabl['path_raw'] = htmlspecialchars($tabl['path']);
+				$tabl['path_raw'] = $tabl['path'];
 				$tabl['path'] = rawurlencode($tabl['path']);
 				echo "<tr>";
 				$dir = false;
@@ -123,7 +123,7 @@ class BrowserajaxController extends USVN_Controller
 				if ($dir) {
 					echo "<a href='javascript:getListFile(\"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
 				} else {
-          echo "<a href=\"". $this->view->url(array('project' => $project->name, 'file' => $tabl['path_raw']), 'show') . "\">{$tabl['name']}</a></td>";
+          echo "<a href=\"". $this->view->url(array('project' => $project->name, 'file' => substr($tabl['path_raw'], 1)), 'show', false, false) . "\">{$tabl['name']}</a></td>";
 				}
 				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 			}

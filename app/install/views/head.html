@@ -3,33 +3,95 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <style type="text/css">
+/* new */
 html, body {
 	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	margin: auto;
 	height: 100%;
-    background: #FFFFFF;
-    font-size:small;
+	background: #FFFFFF;
+	font-size: small;
 }
 
-#usvn_page {
+img {border: 0;}
+
+#steps {
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#steps td {
+	text-align: center;
+	width: 100px;
+	padding: 0 10px;
+}
+
+.step {
+	color: #1984ff;
+}
+
+.step_alt {
+	color: #888888;
+}
+
+#content {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#system_check td {
+	padding: 10px 5px 0 0;
+}
+
+#usvn_header {
+	background-image:url(../medias/usvn/images/header_back.png);
+	background-repeat:repeat-x;
+	height: 134px;
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+#usvn_logo {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#usvn_logo img {
+	margin-top: 2px;
+	margin-left: 0px;
+}
+
+#usvn_footer {
+	position: absolute;
+	background: #143C4E;
+	color: #FFFFFF;
+	bottom: 0;
+	width: 100%;
+	padding: 2px 0 2px 5px;
+}
+
+/* old */
+
+/*#usvn_page {
 	position: relative;
 	min-height: 100%;
 }
-
-p {width: 50em;}
+*/
+/*p {width: 50em;}
 li {width:62%;}
-img {border: 0;}
-
-form {margin-left: 10px;}
+*/
+/*form {margin-left: 10px;}
 form ul{margin:0; padding:0;list-style-type:none;width:100%;}
 form li{margin:0;padding:4px 5px 2px 9px;position:relative;}
-
-hr {
+*/
+/*hr {
 	clear: both;
 	width: 80%;
 }
-
-.usvn_info {
+*/
+/*.usvn_info {
 	background-image:url(../medias/default/images/CrystalClear/64x64/apps/kpackage.png);
 	background-repeat: no-repeat;
 	background-position: right 17px;
@@ -42,8 +104,8 @@ hr {
 	border-bottom: 1px dotted #ccc;
 	min-height: 80px;
 }
-
-.usvn_info[class] {
+*/
+/*.usvn_info[class] {
 	display:block;
 }
 
@@ -60,8 +122,8 @@ hr {
 	line-height: 130%;
 	margin: 10px 0 12px 10px;
 }
-
-a.usvn_tooltips {
+*/
+/*a.usvn_tooltips {
     position: relative;
     z-index: 24;
     color: #000;
@@ -71,7 +133,6 @@ a.usvn_tooltips {
 	background-repeat: no-repeat;
 	background-position: right;
 }
-
 a.usvn_tooltips:hover {
 	z-index: 25;
 	background-color: #ff0;
@@ -92,14 +153,14 @@ a.usvn_tooltips:hover span {
     color:#000;
     text-align: center
 }
-
-.usvn_require {
+*/
+/*.usvn_require {
 	float: none;
 	color: red;
 	font-weight: bold;
 }
-
-.usvn_button {
+*/
+/*.usvn_button {
 	background-image:url(../medias/default/images/button.png);
 	border: 1px solid #1E568F;
 	background-repeat: repeat-x;
@@ -131,34 +192,16 @@ a.usvn_button:hover {
     font-size:small;
 	font-weight:bold;
 }
-
-#usvn_logo_install_step {
+*/
+/*#usvn_logo_install_step {
 	padding-left: 150px;
 	background-repeat: no-repeat;
 	background-position: middle;
 	padding-bottom: 10px;
 	height: 150px;
 }
-
-#usvn_banner {
-	background: #334BCF;
-}
-
-#usvn_header {
-	background-image:url(../medias/default/images/bg_banner.png);
-	border-bottom: 4px solid #0A1648;
-	background-repeat:repeat-x;
-	height: 158px;
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-
-#usvn_logo {
-	margin-top: 30px;
-	margin-left: 30px;
-}
-
-#usvn_content {
+*/
+/*#usvn_content {
 	position: relative;
     min-height: 100%;
     margin-top: 1em;
@@ -167,17 +210,8 @@ a.usvn_button:hover {
     margin-left: 1em;
     margin-right: 1em;
 }
-
-#usvn_footer {
-	position: absolute;
-	border-top: 4px solid #0A1648;
-	background: #4F6EFF;
-	color: #FFFFFF;
-	bottom: 0;
-	width: 100%;
-}
-
-.usvn_error {
+*/
+/*.usvn_error {
 	color: black;
 	font-weight: bold;
 	background-color: #FF9F9F;
@@ -192,11 +226,11 @@ a.usvn_button:hover {
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-
-.usvn_legend {
+*/
+/*.usvn_legend {
 	font-weight:bold;
 }
-
+*/
 </style>
 <title><?php echo T_("USVN installation");?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -206,7 +240,9 @@ a.usvn_button:hover {
 	<div id="usvn_page">
 		<div id="usvn_banner">
 			<div id="usvn_header">
-				<img id="usvn_logo" src="../medias/default/images/USVN-logo.png" alt="USVN, Userfriendly SVN" />
+				<div id="usvn_logo">
+					<img src="../medias/usvn/images/logo_trans.png" alt="USVN, Userfriendly SVN" />
+				</div>
 			</div>
 		</div>
-		<div id="usvn_content">
+		<div id="content">

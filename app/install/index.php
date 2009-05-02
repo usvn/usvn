@@ -86,6 +86,7 @@ if ($install_is_possible)
 		displayError($e->getMessage());
 		$step--;
 	}
+	include 'views/steps.php';
 	installationStep($step);
 }
 else

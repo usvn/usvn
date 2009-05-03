@@ -1,5 +1,7 @@
-<br />
-<br />
+<div class="usvn_info">
+	<h1>System check</h1>
+	<p>Description TBD</p>
+</div>
 <table id="system_check">
 	<tr>
 		<?php
@@ -34,22 +36,30 @@
 		<td>config folder rights</td>
 	</tr>
 </table>
-<br />
-<br />
 <?php
 	if (isset($_GET['force']) or !in_array('ko', $errors))
 	{
 ?>
-<form action="?step=2" method="post">
-	<div>
-		<input type="submit" value="<?= T_('Next step') ?>" />
-	</div>
-</form>
+	<br />
+	<hr />
+	<form action="?step=2" method="post">
+		<div>
+			<input type="submit" value="<?= T_('Next step') ?>" />
+		</div>
+	</form>
 <?php
 }
 else
 {
 ?>
+	<br />
+	<form action="?step=1" method="post">
+		<div>
+			<input type="submit" value="<?= T_('Refresh') ?>" />
+		</div>
+	</form>
+	<br />
+	<hr />
 	<form name="forceForm" action="?step=1&force" method="post">
 		<div>
 			<p>You can force installation but it's problably not a good idea.</p>

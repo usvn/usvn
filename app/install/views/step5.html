@@ -7,16 +7,18 @@ function changeAdapter()
 	var createdb = document.getElementById("createdb_config");
 	var prefix = document.getElementById("prefix_config");
 	var database = document.getElementById("database");
-	if (document.configdb.adapter.value == "PDO_SQLITE") {
+	if (document.configdb.adapter.value == "PDO_SQLITE")
+	{
 		host.style.display = "none";
 		user.style.display = "none";
 		password.style.display = "none";
 		createdb.style.display = "none";
 		prefix.style.display = "none";
-		database.value = "<?= addslashes(USVN_BASE_DIR . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "usvn.db") ?>";
+		database.value = "<?= addslashes(USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'usvn.db') ?>";
 		database.size = 80;
 	}
-	else {
+	else
+	{
 		host.style.display = "";
 		user.style.display = "";
 		password.style.display = "";
@@ -28,58 +30,52 @@ function changeAdapter()
 }
 </script>
 <div class="usvn_info">
-	<h1><?= T_("Step") ?> 5: <?= T_("Database installation") ?></h1>
-	<p><?= T_("Configuration of database's access.") ?></p>
+	<h1><?= T_('Database installation') ?></h1>
+	<p><?= T_('Configuration of database\'s access.') ?></p>
 </div>
 <form name="configdb" action="?step=6" method="post">
-<div id="usvn_logo_install_step"
-	style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/database.png); height: 210px;">
 	<table>
 		<tr>
-			<td><label class="usvn_label" for="adapter"><?php echo T_("Database Type");?>:</label></td>
+			<td><label class="usvn_label" for="adapter"><?= T_('Database Type') ?>:</label></td>
 			<td>
 				<select name="adapter" id="adapter" size="1" onchange="javascript:changeAdapter()">
-					<option value="PDO_MYSQL" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "PDO_MYSQL") echo 'selected' ;?>>PDO MySql</option>
-					<option value="MYSQLI" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "MYSQLI") echo 'selected';?>>MySqli</option>
-					<option value="PDO_SQLITE" <?php if(isset($_POST['adapter']) && $_POST['adapter'] == "PDO_SQLITE") echo 'selected' ;?>>PDO SqLite</option>
+					<option value="PDO_MYSQL" <?php if (isset($_POST['adapter']) && $_POST['adapter'] == 'PDO_MYSQL') echo 'selected' ;?>>PDO MySql</option>
+					<option value="MYSQLI" <?php if (isset($_POST['adapter']) && $_POST['adapter'] == 'MYSQLI') echo 'selected';?>>MySqli</option>
+					<option value="PDO_SQLITE" <?php if (isset($_POST['adapter']) && $_POST['adapter'] == 'PDO_SQLITE') echo 'selected' ;?>>PDO SqLite</option>
 				</select>
 			</td>
 		</tr>
 
 		<tr id="host_config">
 			<td>
-				<label class="usvn_label" for="host"><?= T_("Host") ?>:</label>
+				<label class="usvn_label" for="host"><?= T_('Host') ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="host" id="host" value="<?php
-				if (isset($_POST['host'])) {
-					echo $_POST['host'];
-				}
-				else {
-					echo "localhost";
-				}
-				?>" />
+					if (isset($_POST['host']))
+						echo $_POST['host'];
+					else
+						echo 'localhost';
+					?>" />
 			</td>
 		</tr>
 		<tr id="user_config">
 			<td>
-				<label class="usvn_label" for="user"><?= T_("Login") ?>:</label>
+				<label class="usvn_label" for="user"><?= T_('Login') ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="user" id="user" value="<?php
-				if (isset($_POST['user'])) {
-					echo $_POST['user'];
-				}
-				else {
-					echo "root";
-				}
-				?>" />
+					if (isset($_POST['user']))
+						echo $_POST['user'];
+					else
+						echo 'root';
+					?>" />
 			</td>
 		</tr>
 
 		<tr id="password_config">
 			<td>
-				<label class="usvn_label" for="password"><?= T_("Password") ?>:</label>
+				<label class="usvn_label" for="password"><?= T_('Password') ?>:</label>
 			</td>
 			<td>
 				<input type="password" name="password" id="password" onclick="this.select();" />
@@ -88,47 +84,43 @@ function changeAdapter()
 
 		<tr id="database_config">
 			<td>
-				<label class="usvn_label" for="database"><?= T_("Database") ?>:</label>
+				<label class="usvn_label" for="database"><?= T_('Database') ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="database" id="database" value="<?php
-				if (isset($_POST['database'])) {
-					echo $_POST['database'];
-				}
-				else {
-					echo "usvn";
-				}
-				?>" />
+					if (isset($_POST['database']))
+						echo $_POST['database'];
+					else
+						echo 'usvn';
+					?>" />
 			</td>
 		</tr>
 
 		<tr id="createdb_config">
 			<td>
-				<label for="createdb" class="usvn_label"><?= T_("Create database ?") ?></label>
+				<label for="createdb" class="usvn_label"><?= T_('Create database ?') ?></label>
 			</td>
 			<td>
-				<input type="checkbox" name="createdb" id="createdb" <?php echo ((isset($_POST['createdb'])) ? ' checked="checked" ' : ""); ?> />
+				<input type="checkbox" name="createdb" id="createdb" <?= ((isset($_POST['createdb'])) ? ' checked="checked" ' : '') ?> />
 			</td>
 		</tr>
 		<tr id="prefix_config">
 			<td>
-				<label class="usvn_label" for="prefix"><?= T_("Table prefix") ?>:</label>
+				<label class="usvn_label" for="prefix"><?= T_('Table prefix') ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="prefix" id="prefix" value="<?php
-				if (isset($_POST['prefix'])) {
-					echo $_POST['prefix'];
-				}
-				else {
-					echo "usvn_";
-				}
-				?>" />
+					if (isset($_POST['prefix']))
+						echo $_POST['prefix'];
+					else
+						echo 'usvn_';
+					?>" />
 			</td>
 		</tr>
 	</table>
-</div>
+	<br />
 	<hr />
-	<input type="submit" value="<?= T_("Next step") ?>" />
+	<input type="submit" value="<?= T_('Next step') ?>" />
 </form>
 <script type="text/javascript">
 <!--

@@ -98,7 +98,7 @@ include 'views/footer.html';
 
 function displayError($message)
 {
-	echo "<div class='usvn_error'>" . T_('Error'). ': ' . nl2br($message) . '</div>';
+	echo "<div class='usvn_error'>" . nl2br($message) . '</div>';
 }
 
 function installationOperation($step)

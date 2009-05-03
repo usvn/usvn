@@ -1,30 +1,34 @@
 <script type="text/javascript">
-function checkForm() {
+function checkForm()
+{
 	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
-	if (document.createAdmin.login.value.length == 0
-		|| checkRegExp.test(document.createAdmin.login.value)) {
-		spanError.innerHTML = '<?php echo T_('Login empty.');?>';
+	if (document.createAdmin.login.value.length == 0 || checkRegExp.test(document.createAdmin.login.value))
+	{
+		spanError.innerHTML = '<?= T_('Login empty.') ?>';
 		spanError.className = "usvn_error";
 		return false;
 	}
-	if (document.createAdmin.lastname.value.length == 0
-		|| checkRegExp.test(document.createAdmin.lastname.value)) {
+	if (document.createAdmin.lastname.value.length == 0 || checkRegExp.test(document.createAdmin.lastname.value))
+	{
 		spanError.innerHTML = '<?php echo T_('Lastname empty.');?>';
 		spanError.className = "usvn_error";
 		return false;
 	}
-	if (!document.createAdmin.password.value.length || !document.createAdmin.password2.value.length) {
+	if (!document.createAdmin.password.value.length || !document.createAdmin.password2.value.length)
+	{
 		spanError.innerHTML = '<?php echo T_('Password empty.');?>';
 		spanError.className = "usvn_error";
 		return false;
 	}
-	if (document.createAdmin.password.value != document.createAdmin.password2.value) {
+	if (document.createAdmin.password.value != document.createAdmin.password2.value)
+	{
 		spanError.innerHTML = '<?php echo T_('Password incorrect (not the same).');?>';
 		spanError.className = "usvn_error";
 		return false;
 	}
-	if (document.createAdmin.password.value.length < 8) {
+	if (document.createAdmin.password.value.length < 8)
+	{
 		spanError.innerHTML = '<?php echo T_('Password incorrect (need more 8 characters).');?>';
 		spanError.className = "usvn_error";
 		return false;
@@ -36,69 +40,61 @@ function checkForm() {
 </script>
 
 <div class="usvn_info">
-	<h1><?= T_("Step") ?> 6: <?= T_("Create administrator user") ?></h1>
-	<p><?= T_("Creation of the first administrator of USVN.") ?></p>
+	<h1><?= T_('Create administrator user') ?></h1>
+	<p><?= T_('Creation of the first administrator of USVN.') ?></p>
 </div>
 <div id="error"></div>
 <form name="createAdmin" action="?step=7" method="post">
-<div id="usvn_logo_install_step"
-	style="background-image: url(../medias/default/images/CrystalClear/128x128/apps/kdmconfig.png);">
 	<table>
 		<tr>
 			<td>
 				<label class="usvn_label" for="login">
-				<?= T_("Login") ?>:
+				<?= T_('Login') ?>:
 			</td>
 			<td>
 				<input type="text" name="login" id="login" maxlength="255" value="<?php
-					if (isset($_POST['login'])) {
+					if (isset($_POST['login']))
 						echo $_POST['login'];
-					}
-					else {
-						echo "admin";
-					}
-				?>"/>
+					else
+						echo 'admin';
+					?>"/>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="firstname">
-				<?php echo T_("Firstname");?>:
+				<?php echo T_('Firstname');?>:
 			</td>
 			<td>
 				<input type="text" name="firstname" id="firstname" maxlength="100" value="<?php
-					if (isset($_POST['firstname'])) {
+					if (isset($_POST['firstname']))
 						echo $_POST['firstname'];
-					}
-					else {
-						echo T_("System");
-					}
-				?>"/>
+					else
+						echo T_('System');
+					?>"/>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="lastname">
-				<?php echo T_("Lastname");?>:
+				<?= T_('Lastname') ?>:
 			</td>
 			<td>
 				<input type="text" name="lastname" id="lastname" maxlength="100" value="<?php
-					if (isset($_POST['lastname'])) {
+					if (isset($_POST['lastname']))
 						echo $_POST['lastname'];
-					}
-					else {
-						echo T_("Administrator");
-					}
-				?>"/>
+					else
+						echo T_('Administrator');
+					?>"/>
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="password">
-				<?php echo T_("Password");?>:
+				<?= T_('Password') ?>:
 			</td>
 			<td>
 				<input type="password" name="password" id="password" />
@@ -108,7 +104,7 @@ function checkForm() {
 		<tr>
 			<td>
 				<label class="usvn_label" for="password2">
-				<?php echo T_("Confirm password");?>:
+				<?= T_('Confirm password') ?>:
 			</td>
 			<td>
 				<input type="password" name="password2" id="password2" />
@@ -118,19 +114,18 @@ function checkForm() {
 		<tr>
 			<td>
 				<label class="usvn_label" for="email">
-				<?php echo T_("Email");?>:
+				<?= T_('Email') ?>:
 			</td>
 			<td>
 				<input type="text" name="email" id="email" maxlength="150" value="<?php
-					if (isset($_POST['email'])) {
+					if (isset($_POST['email']))
 						echo $_POST['email'];
-					}
-				?>"/>
+					?>"/>
 				</label>
 			</td>
 		</tr>
 	</table>
-</div>
+	<br />
 	<hr />
-	<input type="submit" value="<?php echo T_("Next step");?>" onclick="return checkForm();" />
+	<input type="submit" value="<?= T_('Next step');?>" onclick="return checkForm();" />
 </form>

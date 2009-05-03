@@ -1,90 +1,90 @@
 <div class="usvn_info">
-	<h1><?= T_("Step") ?> 4: <?= T_("Configure USVN") ?></h1>
-	<p><?= T_("Settings of general configuration of USVN. You can keep default settings.") ?></p>
+	<h1><?= T_('Configure USVN') ?></h1>
+	<p><?= T_('Settings of general configuration of USVN. You can keep default settings.') ?></p>
 </div>
 <form action="?step=5" method="post">
-<div id="usvn_logo_install_step"
-	style="background-image: url('../medias/default/images/CrystalClear/128x128/apps/Network Connection Manager.png');">
 	<table>
 		<tr>
 			<td>
 				<label class="usvn_label" for="pathSubversion">
-				<?= T_("Page title") ?>:
+					<?= T_('Page title') ?>:
+				</label>
 			</td>
 			<td>
 				<input type="text" name="title" value="<?php
-					if (isset($_POST['title']))
-						echo $_POST['title'];
-					else
-						echo "USVN";
-				?>" />
-				</label>
+						if (isset($_POST['title']))
+							echo $_POST['title'];
+						else
+							echo "USVN";
+					?>" />
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="pathSubversion">
-				<a href="#" class="usvn_tooltips">
-					<?= T_("Subversion repository") ?>
-					<span><?= T_("Location where usvn will create subversion repository.") ?></span>
-				</a>:
+					<a href="#" class="usvn_tooltips">
+						<?= T_('Subversion repository') ?>:
+						<span><?= T_('Location where usvn will create subversion repository.') ?></span>
+					</a>
+				</label>
 			</td>
 			<td>
-				<input type="text" size="67" name="pathSubversion" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR ?>" />
-				</label>
+				<input type="text" size="67" name="pathSubversion" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR ?>" />
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="passwdFile">
 					<a href="#" class="usvn_tooltips">
-				<?= T_("Subversion password file ") ?>
-				<span><?= T_("Location where usvn will create password file.") ?></span>
-			</a>:
-		</td>
-		<td>
-			<input type="text" size="67" name="passwdFile" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "htpasswd" ?>" />
-		</label>
-	</td>
-	</tr>
-	<tr>
-		<td>
-			<label class="usvn_label" for="authzFile">
-				<a href="#" class="usvn_tooltips">
-			<?= T_("Subversion access file") ?>
-			<span><?= T_("Location where usvn will create access file.") ?></span>
-		</a>:
-	</td>
-	<td>
-		<input type="text" size="67" name="authzFile" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . "files" . DIRECTORY_SEPARATOR . "authz" ?>" />
-		</label>
-	</td>
-	</tr>
-	<tr>
-		<td>
+						<?= T_('Subversion password file') ?>:
+						<span><?= T_('Location where usvn will create password file.') ?></span>
+					</a>
+				</label>
+			</td>
+			<td>
+				<input type="text" size="67" name="passwdFile" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'htpasswd' ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label class="usvn_label" for="authzFile">
+					<a href="#" class="usvn_tooltips">
+						<?= T_('Subversion access file') ?>:
+						<span><?= T_('Location where usvn will create access file.') ?></span>
+					</label>
+				</a>
+			</td>
+			<td>
+				<input type="text" size="67" name="authzFile" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'authz' ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<label class="usvn_label" for="urlSubversion">
-				<a href="#" class="usvn_tooltips">
-					<?= T_("Subversion url") ?>
-					<span><?= T_("The url used by users to checkout projects.") ?></span>
-				</a>:
+					<a href="#" class="usvn_tooltips">
+						<?= T_('Subversion url') ?>:
+						<span><?= T_('The url used by users to checkout projects.') ?></span>
+					</a>
+				</label>
 			</td>
 			<td>
 				<input type="text" size="67" name="urlSubversion" value="<?php
-				if (isset($_SERVER['HTTPS'])) {
-					$method = "https://";
-					$port = ($_SERVER['SERVER_PORT'] != 443) ? (":" . $_SERVER['SERVER_PORT']) : "";
-				}
-				else {
-					$method = "http://";
-					$port = ($_SERVER['SERVER_PORT'] != 80) ? (":" . $_SERVER['SERVER_PORT']) : "";
-				}
-				echo $method . $_SERVER['SERVER_NAME'] . $port . preg_replace("/\/install.*/", "/svn", $_SERVER['REQUEST_URI']);
-				?>" />
-				</label>
+					if (isset($_SERVER['HTTPS']))
+					{
+						$method = 'https://';
+						$port = ($_SERVER['SERVER_PORT'] != 443) ? (':' . $_SERVER['SERVER_PORT']) : '';
+					}
+					else
+					{
+						$method = 'http://';
+						$port = ($_SERVER['SERVER_PORT'] != 80) ? (':' . $_SERVER['SERVER_PORT']) : '';
+					}
+					echo $method . $_SERVER['SERVER_NAME'] . $port . preg_replace("/\/install.*/", '/svn', $_SERVER['REQUEST_URI']);
+					?>" />
 			</td>
 		</tr>
 	</table>
-</div>
+	<br />
 	<hr />
-	<input type="submit" value="<?= T_("Next step") ?>" />
+	<input type="submit" value="<?= T_('Next step') ?>" />
 </form>

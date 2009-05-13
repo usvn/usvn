@@ -274,12 +274,12 @@ Deny from all
 </Files>
 RewriteEngine on
 #RewriteCond
-RewriteBase /
+RewriteBase /{$path}/
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
-RewriteRule ^.*$ /index.php [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
 EOF;
 		if (@file_put_contents($htaccess_file, $content) === false)
 			throw new USVN_Exception(T_("Can't write htaccess file %s.\n"),  $htaccess_file);

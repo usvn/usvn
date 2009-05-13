@@ -103,15 +103,16 @@ function displayError($message)
 
 function installationOperation($step)
 {
+	global $errors;
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
 	switch ($step)
 	{
 		case 1:
-			global $errors;
 			$errors = Install::check();
 			break;
 
 		case 2:
+			$errors = Install::check();
 			Install::installUrl(USVN_CONFIG_FILE, USVN_HTACCESS_FILE, $_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'], isset($_SERVER['HTTPS']));
 			break;
 

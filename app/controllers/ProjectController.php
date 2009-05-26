@@ -211,7 +211,47 @@ class ProjectController extends USVN_Controller
     $this->view->path = $svn_file_path;
     $local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$svn_file_path);
     $file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
-    $cmd = USVN_SVNUtils::svnCommand("cat --non-interactive $local_file_path");
+		$revision = $this->getRequest()->getParam('rev');
+		$file_rev = '';
+		if (!empty($revision)) {
+			if (is_numeric($revision) && $revision > 0) {
+				$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --revision $revision --quiet $local_file_path");
+				$verif = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+				if (!$return) {
+					$this->view->revision = $revision;
+					$file_rev = '--revision '.$revision;
+				}
+			}
+		}
+		if (empty($file_rev)) {
+			$cmd = USVN_SVNUtils::svnCommand("info $local_file_path");
+			$infos = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+			if (preg_match_all('#^([^:]+): (.*)$#m', $infos, $tmp)) {
+				$infos = array();
+				foreach ($tmp[1] as $k => $v) {
+					$infos[$v] = $tmp[2][$k];
+				}
+				$this->view->revision = $infos['Last Changed Rev'];
+			}
+		}
+		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --quiet $local_file_path");
+		$revs = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if (preg_match_all('#^r([0-9]+) \|#m', $revs, $tmp)) {
+			$revs = array();
+			$this->view->prev_revision = NULL;
+			$this->view->next_revision = NULL;
+			foreach ($tmp[1] as $k => $rev) {
+				if ($this->view->prev_revision === NULL && $rev < $this->view->revision) {
+					$this->view->prev_revision = $rev;
+				}
+				if ($rev > $this->view->revision) {
+					$this->view->next_revision = $rev;
+				}
+				$revs[] = $rev;
+			}
+			$this->view->select_revisions = $revs;
+		}
+    $cmd = USVN_SVNUtils::svnCommand("cat --non-interactive $file_rev $local_file_path");
     $source = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
     if ($return) {
       throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);

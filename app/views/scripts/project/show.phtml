@@ -4,12 +4,33 @@
   <br />
   <table width="100%">
     <tr>
-      <th align="left"><?php echo T_("Language:")." ".$this->language ?></th>
+      <th align="left"><?php echo T_("Language:")." ".(empty($this->language) ? T_('text') : $this->language) ?></th>
       <th align="right">
         <a href="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project') ?>"><?php echo T_('Back') ?></a>
         /
         <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path) ?>"><?php echo T_('Original') ?></a>
       </th>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <form name="revisions" method="POST" action="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)) ?>">
+          <input type="hidden" name="rev" value="" id="rev" />
+          <?php if ($this->prev_revision > 0) { ?>
+            <input type="submit" onclick="document.getElementById('rev').value='<?php echo $this->prev_revision ?>';" value="<?php echo T_('Previous') ?>" />
+          <?php } else { ?>
+            <input type="submit" value="<?php echo T_('Previous') ?>" disabled />
+          <?php } ?>
+          <?php echo T_('Revision: ') ?>
+          <select onChange="document.getElementById('rev').value=this.value;document.revisions.submit();">
+            <?php foreach ($this->select_revisions as $rev) { echo '<option value="'.$rev.'"'.($rev == $this->revision ? 'selected' : '').'>'.$rev.'</option>'; } ?>
+          </select>
+          <?php if ($this->next_revision > 0) { ?>
+            <input type="submit" onclick="document.getElementById('rev').value='<?php echo $this->next_revision ?>';" value="<?php echo T_('Next') ?>" />
+          <?php } else { ?>
+            <input type="submit" value="<?php echo T_('Next') ?>" disabled />
+          <?php } ?>
+        </form>
+      </td>
     </tr>
   </table>
   <p align="right">

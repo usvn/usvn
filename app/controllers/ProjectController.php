@@ -255,11 +255,17 @@ class ProjectController extends USVN_Controller
     $source = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
     if ($return) {
       throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
-    } else {
+		} else {
+			if ($this->getRequest()->getParam('rev') !== NULL) {
+				$this->view->color_view = $this->getRequest()->getParam('color');
+				$this->view->diff_view = $this->getRequest()->getParam('diff');
+			} else {
+				$this->view->color_view = 1;
+			}
       $geshi = new Geshi();
       $lang_name = $geshi->get_language_name_from_extension($file_ext);
       $this->view->language = $lang_name;
-      $geshi->set_language($lang_name, true);
+      $geshi->set_language(($this->view->color_view ? $lang_name : NULL), true);
       $geshi->set_source($source);
       $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
       $geshi->set_header_type(GESHI_HEADER_DIV);

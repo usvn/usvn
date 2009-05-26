@@ -2,6 +2,7 @@
 <div class="usvn_info">
   <h1><?php echo $this->path ?></h1>
   <br />
+  <form name="revisions" method="POST" action="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)) ?>">
   <table width="100%">
     <tr>
       <th align="left"><?php echo T_("Language:")." ".(empty($this->language) ? T_('text') : $this->language) ?></th>
@@ -12,8 +13,7 @@
       </th>
     </tr>
     <tr>
-      <td colspan="2" align="center">
-        <form name="revisions" method="POST" action="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)) ?>">
+      <td align="center">
           <input type="hidden" name="rev" value="" id="rev" />
           <?php if ($this->prev_revision > 0) { ?>
             <input type="submit" onclick="document.getElementById('rev').value='<?php echo $this->prev_revision ?>';" value="<?php echo T_('Previous') ?>" />
@@ -29,10 +29,14 @@
           <?php } else { ?>
             <input type="submit" value="<?php echo T_('Next') ?>" disabled />
           <?php } ?>
-        </form>
+      </td>
+      <td align="left">
+        <label><input onChange="document.revisions.submit();" type="checkbox" name="color" style="vertical-align: middle;" <?php echo ($this->color_view ? 'checked' : '') ?> /> <?php echo T_('Color view') ?></label><br />
+        <label><input onChange="document.revisions.submit();" type="checkbox" name="diff" style="vertical-align: middle;" <?php echo ($this->diff_view ? 'checked' : '') ?> /> <?php echo T_('Diff view') ?></label>
       </td>
     </tr>
   </table>
+  </form>
   <p align="right">
   </p>
 </div>

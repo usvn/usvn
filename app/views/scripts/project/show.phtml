@@ -14,7 +14,7 @@
     </tr>
     <tr>
       <td align="center">
-          <input type="hidden" name="rev" value="" id="rev" />
+          <input type="hidden" name="rev" value="<?php echo $this->revision ?>" id="rev" />
           <?php if ($this->prev_revision > 0) { ?>
             <input type="submit" onclick="document.getElementById('rev').value='<?php echo $this->prev_revision ?>';" value="<?php echo T_('Previous') ?>" />
           <?php } else { ?>
@@ -40,4 +40,37 @@
   <p align="right">
   </p>
 </div>
-<?php echo $this->highlighted_source ?>
+<?php
+  if (!$this->diff_view) {
+    echo $this->highlighted_source;
+  }
+  else {
+    ?><table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;"><tr><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->prev_revision ?></th><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->revision ?></th><th style="background-color: #EEEEEE;">&nbsp;</th></tr><?php
+      $source = explode("\n", $this->highlighted_source);
+      $r1_line = 1;
+      $r2_line = 1;
+      foreach ($source as $nb => $line) {
+        echo '<tr><td align="right" style="background-color: #EEEEEE;">';
+        if (!isset($this->diff_lines[$nb]) || $this->diff_lines[$nb] == '-') {
+          echo $r1_line++;
+        } else {
+          echo '&nbsp;';
+        }
+        echo '</td><td align="right" style="background-color: #EEEEEE;">';
+        if (!isset($this->diff_lines[$nb]) || $this->diff_lines[$nb] == '+') {
+          echo $r2_line++;
+        } else {
+          echo '&nbsp;';
+        }
+        echo '</td>';
+        if (isset($this->diff_lines[$nb])) {
+          echo '<td style="background-color: '.($this->diff_lines[$nb] == '+' ? '#DDFFDD' : '#FFDDDD').';">';
+        }
+        else {
+          echo '<td>';
+        }
+        echo $line, '</td></tr>';
+      }
+    ?></table><?php
+  }
+?>

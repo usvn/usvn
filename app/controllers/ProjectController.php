@@ -266,10 +266,58 @@ class ProjectController extends USVN_Controller
       $lang_name = $geshi->get_language_name_from_extension($file_ext);
       $this->view->language = $lang_name;
       $geshi->set_language(($this->view->color_view ? $lang_name : NULL), true);
-      $geshi->set_source($source);
-      $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+			if (!$this->view->diff_view) {
+      	$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+			}	elseif ($this->view->prev_revision) {
+				$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision {$this->view->prev_revision}:{$this->view->revision} $local_file_path");
+		    $diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+				if (!$return) {
+					$new_source = array();
+					$source = explode("\n", $source);
+					$diff = explode("\n", $diff);
+					$source_line = NULL;
+					$count_line = 0;
+					$diff_lines = array();
+					while (($line = array_shift($diff)) !== NULL) {
+						if (preg_match('#^@@ \-[0-9,]+ \+([0-9]+),[0-9]+ @@$#', $line, $tmp)) {
+							if ($source_line === NULL) {
+								$source_line = 1;
+							}
+							while ($source_line < $tmp[1]) {
+								array_push($new_source, array_shift($source));
+								$source_line++;
+								$count_line++;
+							}
+							continue;
+						}
+						if ($source_line !== NULL) {
+							$diff_char = substr($line, 0, 1);
+							if ($diff_char == '-') {
+								array_push($new_source, substr($line, 1));
+								$diff_lines[$count_line] = '-';
+							}
+							else {
+								if ($diff_char == '+') {
+									$diff_lines[$count_line] = '+';
+								}
+								array_push($new_source, array_shift($source));
+								$source_line++;
+							}
+							$count_line++;
+						}
+					}
+					$new_source = array_merge($new_source, $source);
+					$source = implode("\n", $new_source);
+					unset($new_source);
+					$this->view->diff_lines = $diff_lines;
+				}
+			}
+			$geshi->set_source($source);
       $geshi->set_header_type(GESHI_HEADER_DIV);
       $this->view->highlighted_source = $geshi->parse_code();
+			if ($this->view->diff_view) {
+				$tab_source = explode("\n", $this->view->highlighted_source);
+			}
     }
 	}
 }

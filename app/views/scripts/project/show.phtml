@@ -48,18 +48,21 @@
     echo $this->highlighted_source;
   }
   else {
-    ?><table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;"><tr><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->prev_revision ?></th><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->revision ?></th><th style="background-color: #EEEEEE;">&nbsp;</th></tr><?php
+    ?><table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;"><tr><?php if ($this->prev_revision > 0) { ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->prev_revision ?></th><?php } ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->revision ?></th><th style="background-color: #EEEEEE;">&nbsp;</th></tr><?php
       $source = explode("\n", $this->highlighted_source);
       $r1_line = 1;
       $r2_line = 1;
       foreach ($source as $nb => $line) {
-        echo '<tr><td align="right" style="background-color: #EEEEEE;">';
-        if (!isset($this->diff_lines[$nb]) || $this->diff_lines[$nb] == '-') {
-          echo $r1_line++;
-        } else {
-          echo '&nbsp;';
+        if ($this->prev_revision > 0) {
+          echo '<tr><td align="right" style="background-color: #EEEEEE;">';
+          if (!isset($this->diff_lines[$nb]) || $this->diff_lines[$nb] == '-') {
+            echo $r1_line++;
+          } else {
+            echo '&nbsp;';
+          }
+          echo '</td>';
         }
-        echo '</td><td align="right" style="background-color: #EEEEEE;">';
+        echo '<td align="right" style="background-color: #EEEEEE;">';
         if (!isset($this->diff_lines[$nb]) || $this->diff_lines[$nb] == '+') {
           echo $r2_line++;
         } else {

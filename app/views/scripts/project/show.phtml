@@ -2,17 +2,20 @@
 <div class="usvn_info">
   <h1><?php echo $this->path ?></h1>
   <br />
-  <form name="revisions" method="POST" action="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)) ?>">
   <table width="100%">
     <tr>
       <th align="left"><?php echo T_("Language:")." ".(empty($this->language) ? T_('text') : $this->language) ?></th>
       <th align="right">
-        <a href="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project') ?>"><?php echo T_('Back') ?></a>
+        <form method="POST" action="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project') ?>" style="display: inline;">
+          <input type="hidden" name="back" value="<?php echo '/'.dirname($this->path).'/' ?>">
+          <input type="submit" value="<?php echo T_('Back') ?>" />
+        </form>
         /
         <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path) ?>"><?php echo T_('Original') ?></a>
       </th>
     </tr>
     <tr>
+      <form name="revisions" method="POST" action="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)) ?>">
       <td align="center">
           <input type="hidden" name="rev" value="<?php echo $this->revision ?>" id="rev" />
           <?php if ($this->prev_revision > 0) { ?>
@@ -34,9 +37,9 @@
         <label><input onChange="document.revisions.submit();" type="checkbox" name="color" style="vertical-align: middle;" <?php echo ($this->color_view ? 'checked' : '') ?> /> <?php echo T_('Color view') ?></label><br />
         <label><input onChange="document.revisions.submit();" type="checkbox" name="diff" style="vertical-align: middle;" <?php echo ($this->diff_view ? 'checked' : '') ?> /> <?php echo T_('Diff view') ?></label>
       </td>
+      </form>
     </tr>
   </table>
-  </form>
   <p align="right">
   </p>
 </div>

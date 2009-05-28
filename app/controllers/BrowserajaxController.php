@@ -27,12 +27,12 @@ class BrowserajaxController extends USVN_Controller
 		if (empty($_GET['name']) || $_GET['name'] == 'nop')
 			$_GET['name'] = "/";
 		echo '<?xml version="1.0" encoding="utf-8" ?>'."\n";
-/*		echo "<files>\n";*/
+		echo "<files>\n";
 	}
 
 	public function postDispatch()
 	{
-/*		echo "</files>";*/
+		echo "</files>";
 		parent::postDispatch();
 	}
 
@@ -186,7 +186,7 @@ class BrowserajaxController extends USVN_Controller
 		$text .= "</table>";
 		$text .= "<br /><table><tr><td><input type='button' value='Ok' onclick=\"javascript:updateOrInsertRights('" . $_GET['name'] . "');\" $disabled/></td><td>";
 		$text .= "<input type='button' value='Cancel' onclick='javascript:cancel();'/></td></tr></table><label id='labelError'></label>";
-		echo "<basename>".basename($_GET['name'])."</basename>";
+		echo "<basename>".basename($_GET['name'])."</basename>\n";
 		echo "<nbgroup>".$i."</nbgroup>\n";
 		echo "<groups><![CDATA[".$text."]]></groups>\n";
 	}

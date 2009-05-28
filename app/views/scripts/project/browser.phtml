@@ -125,7 +125,7 @@ function alert_ajax(xhr, index)
 			} else {
 				basename = "/";
 			}
-			var bulle = "<h3>&nbsp;<?php echo T_('Acces rights for'); ?>" + " " + basename + "&nbsp;</h3>";
+			var bulle = "<br /><h3>&nbsp;<?php echo T_('Acces rights for'); ?>" + " " + basename + "&nbsp;</h3>";
 			bulle += items_groups;
 			document.getElementById('bulle').style.visibility = 'visible';
 			document.getElementById('bulle').innerHTML = bulle;
@@ -159,6 +159,6 @@ function alert_ajax(xhr, index)
 <script type="text/javascript">
 <!--
 register_position();
-getListFile('nop');
+getListFile('<?php echo $this->back ?>');
 -->
 </script>

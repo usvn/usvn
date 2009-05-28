@@ -108,6 +108,10 @@ class ProjectController extends USVN_Controller
 	public function browserAction()
 	{
 		$this->view->project = $this->_project;
+		$this->view->back = $this->getRequest()->getParam('back');
+		if (!preg_match('#/.*/#', $this->view->back)) {
+			$this->view->back = 'nop';
+		}
 	}
 
 	public function timelineAction()

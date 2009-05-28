@@ -30,7 +30,7 @@ function changeAdapter()
 }
 </script>
 <div class="usvn_info">
-	<h1><?= T_('Database installation') ?></h1>
+	<h1><?php echo T_($installSteps[$step]); ?></h1>
 	<p><?= T_('Configuration of database\'s access.') ?></p>
 </div>
 <form name="configdb" action="?step=6" method="post">

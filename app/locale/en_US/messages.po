@@ -945,10 +945,6 @@ msgstr ""
 msgid "The url used by users to checkout projects."
 msgstr ""
 
-#: ../../../www//install/views/step8.html:2
-msgid "Installation is over"
-msgstr ""
-
 #: ../../../www//install/views/step8.html:3
 msgid "You can now enjoy of USVN."
 msgstr ""
@@ -1146,4 +1142,31 @@ msgstr ""
 #: ../../../www//helpers/HomeLinkGroup.php:34
 #: ../../../www//helpers/HomeLink.php:34
 msgid "Home"
+msgstr ""
+
+#############
+# INSTALLER #
+#############
+msgid "System Check"
+msgstr ""
+
+msgid "Language Selection"
+msgstr ""
+
+msgid "License Agreement"
+msgstr ""
+
+msgid "USVN Configuration"
+msgstr ""
+
+msgid "Database Installation"
+msgstr ""
+
+msgid "Administrator User Creation"
+msgstr ""
+
+msgid "Check for a Newer Version"
+msgstr ""
+
+msgid "Installation is over"
 msgstr ""

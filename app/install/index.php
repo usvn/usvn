@@ -32,6 +32,7 @@ require_once USVN_APP_DIR . '/functions.php';
 require_once USVN_APP_DIR . '/install/install.php';
 $GLOBALS['language'] = 'en_US';
 
+
 if (file_exists(USVN_CONFIG_FILE))
 {
 	try
@@ -56,6 +57,16 @@ if (file_exists(USVN_CONFIG_FILE))
 	}
 }
 USVN_Translation::initTranslation($GLOBALS['language'], USVN_LOCALE_DIRECTORY);
+
+$installSteps = array(
+ 	1 => ('System Check'),
+ 	2 => ('Language Selection'),
+ 	3 => ('License Agreement'),
+ 	4 => ('USVN Configuration'),
+ 	5 => ('Database Installation'),
+ 	6 => ('Administrator User Creation'),
+ 	7 => ('Check for a Newer Version'),
+ 	8 => ('Installation is over'));
 
 //------------------------------------------------------------------------------------------------
 
@@ -157,6 +168,7 @@ function installationOperation($step)
 function installationStep($step)
 {
 	global $errors;
+	global $installSteps;
 	$language = $GLOBALS['language'];
 	if ($step >= 0 && $step <= 8)
 		include "views/step$step.html";

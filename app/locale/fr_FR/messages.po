@@ -905,10 +905,6 @@ msgstr "Forcer l'installation d'USVN"
 msgid "Step"
 msgstr "Etape"
 
-#: ../../../www//install/views/step3.html:2
-msgid "Agreement of the licence"
-msgstr "Acceptation de la licence"
-
 #: ../../../www//install/views/step3.html:3
 msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
 msgstr "Merci de lire et d'accepter la licence CeCILL."
@@ -972,10 +968,6 @@ msgstr ""
 "L'url que les utilisateurs utiliseront pour se connecter au serveur "
 "Subversion."
 
-#: ../../../www//install/views/step8.html:2
-msgid "Installation is over"
-msgstr "L'installation est finie"
-
 #: ../../../www//install/views/step8.html:3
 msgid "You can now enjoy of USVN."
 msgstr "Vous pouvez désormais utiliser USVN"
@@ -1005,10 +997,6 @@ msgstr "Connexion à USVN"
 #: ../../../www//install/views/head.html:201
 msgid "USVN installation"
 msgstr "Installation d'USVN"
-
-#: ../../../www//install/views/step7.html:2
-msgid "Check for new version"
-msgstr "Vérifier les mises à jour"
 
 #: ../../../www//install/views/step7.html:6
 msgid ""
@@ -1213,3 +1201,29 @@ msgstr "Editer"
 msgid "Home"
 msgstr "Page d'accueil"
 
+#############
+# INSTALLER #
+#############
+msgid "System Check"
+msgstr "Vérification du Système"
+
+msgid "Language Selection"
+msgstr "Selection de la Langue"
+
+msgid "License Agreement"
+msgstr "Accord de Licence"
+
+msgid "USVN Configuration"
+msgstr "Configuration d'USVN"
+
+msgid "Database Installation"
+msgstr "Installation de la Base de Donnée"
+
+msgid "Administrator User Creation"
+msgstr "Creation d'un Compte Administrateur"
+
+msgid "Check for a Newer Version"
+msgstr "Recherche de Nouvelle Version"
+
+msgid "Installation is over"
+msgstr "Fin de l'installation"

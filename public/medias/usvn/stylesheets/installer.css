@@ -1,4 +1,5 @@
-/* @override http://usvn.localhost/medias/usvn/stylesheets/installer.css */
+/* @override http://usvn.localhost/medias/usvn/stylesheets/installer.css
+	http://localhost/usvn-insta/medias/usvn/stylesheets/installer.css */
 
 html, body {
 	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
@@ -43,6 +44,7 @@ img {
 
 #system_check td {
 	padding: 10px 5px 0 0;
+	vertical-align: top;
 }
 
 #usvn_header {

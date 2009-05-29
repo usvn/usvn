@@ -38,25 +38,11 @@ class USVN_Auth_Adapter_Ldap extends Zend_Auth_Adapter_Ldap
 			{
 				$arrayOfOptions = array($arrayOfOptions);
 			}
-			foreach ($arrayOfOptions as &$options)
-			{
-				if ($options['bindDnFormat'])
-				{
-					$this->_identityUserName = $username;
-					$username = sprintf($options['bindDnFormat'], $username);
-					unset($options['bindDnFormat']);
-				}
-			}
 			parent::__construct($arrayOfOptions, $username, $password);
 		}
 		catch (Exception $e)
 		{
 			throw new USVN_Exception($e->getMessage());
 		}
-	}
-
-	public function getIdentityUserName()
-	{
-		return $this->_identityUserName;
 	}
 }

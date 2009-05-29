@@ -41,8 +41,6 @@ class LoginController extends USVN_Controller
 
 	protected function _doLogin()
 	{
-		$logger = new Zend_Log(new Zend_Log_Writer_Stream("/tmp/USVNlog"));
-
 		// Get a reference to the Singleton instance of Zend_Auth
 		$auth = Zend_Auth::getInstance();
 

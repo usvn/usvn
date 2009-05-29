@@ -263,6 +263,10 @@ class ProjectController extends USVN_Controller
 			if ($this->getRequest()->getParam('rev') !== NULL) {
 				$this->view->color_view = $this->getRequest()->getParam('color');
 				$this->view->diff_view = $this->getRequest()->getParam('diff');
+				$this->view->diff_revision = $this->getRequest()->getParam('drev');
+				if ($this->view->diff_revision >= $this->view->revision) {
+					$this->view->diff_revision = $this->view->prev_revision;
+				}
 			} else {
 				$this->view->color_view = 1;
 			}
@@ -272,9 +276,10 @@ class ProjectController extends USVN_Controller
       $geshi->set_language(($this->view->color_view ? $lang_name : NULL), true);
 			if (!$this->view->diff_view) {
       	$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-			}	elseif ($this->view->prev_revision) {
-				$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision {$this->view->prev_revision}:{$this->view->revision} $local_file_path");
-		    $diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+			}	elseif ($this->view->diff_revision || $this->view->prev_revision) {
+				$d_revs = ($this->view->diff_revision ? $this->view->diff_revision : $this->view->prev_revision).':'.$this->view->revision;
+				$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision {$d_revs} $local_file_path");
+				$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
 				if (!$return) {
 					$new_source = array();
 					$source = explode("\n", $source);
@@ -296,6 +301,9 @@ class ProjectController extends USVN_Controller
 						}
 						if ($source_line !== NULL) {
 							$diff_char = substr($line, 0, 1);
+							if ($diff_char == '\\') {
+								continue;
+							}
 							if ($diff_char == '-') {
 								array_push($new_source, substr($line, 1));
 								$diff_lines[$count_line] = '-';
@@ -310,7 +318,9 @@ class ProjectController extends USVN_Controller
 							$count_line++;
 						}
 					}
-					$new_source = array_merge($new_source, $source);
+					if (count($source)) {
+						$new_source = array_merge($new_source, $source);
+					}
 					$source = implode("\n", $new_source);
 					unset($new_source);
 					$this->view->diff_lines = $diff_lines;
@@ -319,9 +329,6 @@ class ProjectController extends USVN_Controller
 			$geshi->set_source($source);
       $geshi->set_header_type(GESHI_HEADER_DIV);
       $this->view->highlighted_source = $geshi->parse_code();
-			if ($this->view->diff_view) {
-				$tab_source = explode("\n", $this->view->highlighted_source);
-			}
     }
 	}
 }

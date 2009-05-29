@@ -25,7 +25,7 @@
           <?php } ?>
           <?php echo T_('Revision: ') ?>
           <select onChange="document.getElementById('rev').value=this.value;document.revisions.submit();">
-            <?php foreach ($this->select_revisions as $rev) { echo '<option value="'.$rev.'"'.($rev == $this->revision ? 'selected' : '').'>'.$rev.'</option>'; } ?>
+            <?php foreach ($this->select_revisions as $rev) { echo '<option value="'.$rev.'"'.($rev == $this->revision ? ' selected' : '').'>'.$rev.'</option>'; } ?>
           </select>
           <?php if ($this->next_revision > 0) { ?>
             <input type="submit" onclick="document.getElementById('rev').value='<?php echo $this->next_revision ?>';" value="<?php echo T_('Next') ?>" />
@@ -36,6 +36,19 @@
       <td align="left">
         <label><input onChange="document.revisions.submit();" type="checkbox" name="color" style="vertical-align: middle;" <?php echo ($this->color_view ? 'checked' : '') ?> /> <?php echo T_('Color view') ?></label><br />
         <label><input onChange="document.revisions.submit();" type="checkbox" name="diff" style="vertical-align: middle;" <?php echo ($this->diff_view ? 'checked' : '') ?> /> <?php echo T_('Diff view') ?></label>
+        <input type="hidden" name="drev" value="<?php echo $this->diff_revision ?>" id="drev" />
+        <select onChange="document.getElementById('drev').value=this.value;document.revisions.submit();" <?php echo ($this->diff_view ? '' : 'disabled') ?>>
+          <?php foreach ($this->select_revisions as $rev) {
+              if ($rev > $this->revision) { continue; }
+              if ($rev == $this->revision) {
+                echo '<option value=""'.($this->diff_revision ? ' selected' : '').'>'.T_('Prev').'</option>';
+                continue;
+              }
+              echo '<option value="'.$rev.'"'.($rev == $this->diff_revision ? ' selected' : '').'>'.$rev.'</option>';
+            }
+            $diff_rev = ($this->diff_revision ? $this->diff_revision : $this->prev_revision);
+          ?>
+        </select>
       </td>
       </form>
     </tr>
@@ -48,12 +61,12 @@
     echo $this->highlighted_source;
   }
   else {
-    ?><table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;"><tr><?php if ($this->prev_revision > 0) { ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->prev_revision ?></th><?php } ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->revision ?></th><th style="background-color: #EEEEEE;">&nbsp;</th></tr><?php
+    ?><table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;"><tr><?php if ($diff_rev > 0) { ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $diff_rev ?></th><?php } ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->revision ?></th><th style="background-color: #EEEEEE;">&nbsp;</th></tr><?php
       $source = explode("\n", $this->highlighted_source);
       $r1_line = 1;
       $r2_line = 1;
       foreach ($source as $nb => $line) {
-        if ($this->prev_revision > 0) {
+        if ($diff_rev > 0) {
           echo '<tr><td align="right" style="background-color: #EEEEEE;">';
           if (!isset($this->diff_lines[$nb]) || $this->diff_lines[$nb] == '-') {
             echo $r1_line++;

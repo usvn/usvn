@@ -48,7 +48,11 @@ class LoginController extends USVN_Controller
 
 		// Find the authentication adapter from the config file
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
-		$authAdapterMethod = strtolower($config->authAdapterMethod);
+		$authAdapterMethod = "database"; // Default method is databse
+		if ($config->authAdapterMethod)
+		{
+			$authAdapterMethod = strtolower($config->authAdapterMethod);
+		}
 		$authAdapterClass = 'USVN_Auth_Adapter_' . ucfirst($authAdapterMethod);
 		if (!class_exists($authAdapterClass))
 		{

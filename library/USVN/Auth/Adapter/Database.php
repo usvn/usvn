@@ -1,6 +1,6 @@
 <?php
 /**
- * Auth an user from the Database
+ * Auth a user from the Database
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
@@ -18,7 +18,7 @@
  * $Id: Db.php 1188 2007-10-06 12:03:17Z crivis_s $
  */
 
-class USVN_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface {
+class USVN_Auth_Adapter_Database implements Zend_Auth_Adapter_Interface {
 	protected $_login;
 	protected $_password;
 
@@ -27,7 +27,7 @@ class USVN_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface {
 	 *
 	 * @return void
 	 */
-	public function __construct($username, $password)
+	public function __construct($username, $password, $options = null)
 	{
 		$this->_login = $username;
 		$this->_password = $password;

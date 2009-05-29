@@ -23,7 +23,7 @@ class USVN_Test_AdminController extends USVN_Test_Controller
 	protected function setUp()
 	{
 		parent::setUp();
-		$authAdapter = new USVN_Auth_Adapter_Db('god', 'ingodwetrust');
+		$authAdapter = new USVN_Auth_Adapter_Database('god', 'ingodwetrust');
 		Zend_Auth::getInstance()->authenticate($authAdapter);
 	}
 }

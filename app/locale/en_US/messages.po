@@ -15,106 +15,109 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../../www//menus/browser.php:32 ../../../www//menus/browserTest.php:47
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: ../../../www//menus/timeline.php:32
 #: ../../../www//views/Timeline/index.phtml:3
 msgid "Timeline"
-msgstr ""
+msgstr "Timeline"
 
 #: ../../../www//menus/configadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:15
 #: ../../../www//views/configadmin/index.phtml:2
 msgid "Configuration"
-msgstr ""
+msgstr "Configuration"
 
 #: ../../../www//menus/projectadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:21
 #: ../../../www//views/projectadmin/index.phtml:2
 msgid "Projects"
-msgstr ""
+msgstr "Projects"
 
 #: ../../../www//menus/projectadmin.php:53
 msgid "Add new project"
-msgstr ""
+msgstr "Add a new project"
 
 #: ../../../www//menus/groupadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:27
 #: ../../../www//views/groupadmin/index.phtml:2
 msgid "Groups"
-msgstr ""
+msgstr "Groups"
 
 #: ../../../www//menus/groupadmin.php:51
 msgid "Add new group"
-msgstr ""
+msgstr "Add a new group"
 
 #: ../../../www//menus/systemreportadmin.php:33
 #: ../../../www//views/systemreportadmin/index.phtml:1
 msgid "System report"
-msgstr ""
+msgstr "System report"
 
 #: ../../../www//menus/useradmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:33
 #: ../../../www//views/useradmin/index.phtml:2
 msgid "Users"
-msgstr ""
+msgstr "Users"
 
 #: ../../../www//menus/useradmin.php:53
 msgid "Add new user"
-msgstr ""
+msgstr "Add a new user"
 
 #: ../../../www//menus/useradmin.php:57
 #: ../../../www//views/useradmin/import.phtml:2
 msgid "Import htpasswd"
-msgstr ""
+msgstr "Import password file"
 
 #: ../../../www//USVN/ImportHtpasswd.php:49
 msgid "Invalid htpasswd file."
-msgstr ""
+msgstr "Invalid password file."
 
 #: ../../../www//USVN/ImportHtpasswd.php:52
 #, php-format
 msgid "User %s already exist into htpasswd file."
-msgstr ""
+msgstr "The user "%s" already exists into the password file."
 
 #: ../../../www//USVN/ImportHtpasswd.php:79
 #, php-format
 msgid "Can't add users %s. Import cancel."
-msgstr ""
+msgstr "Importing users from the password file has been cancelled because an error occured."
 
 #: ../../../www//USVN/FilesAccessRights.php:42
 #: ../../../www//USVN/FilesAccessRights.php:83
 #, php-format
 msgid "Invalid path %s."
-msgstr ""
+msgstr "Invalid path %s."
 
-#: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:106
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//USVN/Menu.php:106
 #: ../../../www//views/index/index.phtml:2
 msgid "Homepage"
-msgstr ""
+msgstr "Homepage"
 
 #: ../../../www//USVN/plugins/layout.php:83
 msgid "Logged as"
-msgstr ""
+msgstr "Logged in as"
 
 #: ../../../www//USVN/Config/Ini.php:72
 msgid "Can't write config file."
-msgstr ""
+msgstr "Can't create config file."
 
-#: ../../../www//USVN/Auth/Adapter/Db.php:54 ../../../www//USVN/Project.php:91
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:91
 #, php-format
 msgid "Login %s not found"
-msgstr ""
+msgstr "Login %s not found"
 
 #: ../../../www//USVN/Auth/Adapter/Db.php:59
 msgid "Incorrect password"
-msgstr ""
+msgstr "Incorrect password"
 
 #: ../../../www//USVN/SVNUtils.php:174
 msgid "Commit by USVN"
-msgstr ""
+msgstr "Commit by USVN"
 
 #: ../../../www//USVN/SVNUtils.php:177
 #, php-format
@@ -125,120 +128,129 @@ msgid ""
 "\n"
 "Error:\n"
 "%s"
-msgstr ""
+msgstr "Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
 
-#: ../../../www//USVN/SVNUtils.php:194 ../../../www//USVN/Project.php:54
+#: ../../../www//USVN/SVNUtils.php:194
+#: ../../../www//USVN/Project.php:54
 #, php-format
 msgid "Can't create subversion repository: %s"
-msgstr ""
+msgstr "Can't create subversion repository: %s"
 
 #: ../../../www//USVN/SVNUtils.php:234
 #, php-format
 msgid "Can't checkout subversion repository: %s"
-msgstr ""
+msgstr "Can't checkout subversion repository: %s"
 
 #: ../../../www//USVN/SVNUtils.php:250
 #, php-format
 msgid "Can't list subversion repository: %s"
-msgstr ""
+msgstr "Can't list subversion repository: %s"
 
-#: ../../../www//USVN/Menu.php:58 ../../../www//USVN/Db/Utils.php:33
+#: ../../../www//USVN/Menu.php:58
+#: ../../../www//USVN/Db/Utils.php:33
 #, php-format
 msgid "Can't open file %s."
-msgstr ""
+msgstr "Can't open file %s."
 
 #: ../../../www//USVN/Menu.php:97
 msgid "Sign in"
-msgstr ""
+msgstr "Sign in"
 
 #: ../../../www//USVN/Menu.php:130
 msgid "Edit my profile"
-msgstr ""
+msgstr "Edit my profile"
 
 #: ../../../www//USVN/Menu.php:137
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: ../../../www//USVN/Menu.php:146
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: ../../../www//USVN/DirectoryUtils.php:31
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr ""
+msgstr "Can't delete directory %s. Permission denied."
 
 #: ../../../www//USVN/DirectoryUtils.php:50
 #, php-format
 msgid "Can't delete file %s."
-msgstr ""
+msgstr "Can't delete file %s."
 
 #: ../../../www//USVN/DirectoryUtils.php:58
 #, php-format
 msgid "Can't delete directory %s."
-msgstr ""
+msgstr "Can't delete directory %s."
 
 #: ../../../www//USVN/DirectoryUtils.php:75
 #, php-format
 msgid "Can't read directory %s."
-msgstr ""
+msgstr "Can't read directory %s."
 
 #: ../../../www//USVN/ImportSVNRepositories.php:35
 #, php-format
 msgid "%s must be a string: %s"
-msgstr ""
+msgstr "%s must be a string: %s"
 
 #: ../../../www//USVN/Project.php:105
 #, php-format
 msgid "Autocreated group for project %s"
-msgstr ""
+msgstr "A group was automatically created for project %s"
 
 #: ../../../www//USVN/Project.php:135
 #, php-format
 msgid "Project %s doesn't exist."
-msgstr ""
+msgstr "The project %s doesn't exist"
 
 #: ../../../www//USVN/SVN.php:32
 #, php-format
 msgid "Invalid project name %s."
-msgstr ""
+msgstr "%s is not a valid project name"
 
 #: ../../../www//USVN/Db/Table/Row/Group.php:138
 #, php-format
 msgid "User %s is not member of group %s"
-msgstr ""
+msgstr "The user %s is not a member of the %s group"
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:62
 #: ../../../www//USVN/Db/Table/Row/Project.php:68
 #, php-format
 msgid "Invalid group %s for project %s."
-msgstr ""
+msgstr "Invalid group %s for project %s."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
-msgstr ""
+msgstr "Empty project name."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid ""
 "The project's name is invalid. A project's name can only include alpha-"
 "numeric characters and '-' or '_'."
-msgstr ""
+msgstr "Invalid project name. A valid project name can only include"
+"alphanumeric characters, dashes ('-') or underscores ('_')"
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
-msgstr ""
+msgstr "You can't rename a project."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:129
 #: ../../../www//views/useradmin/js.phtml:9
 #: ../../../www//install/views/step6.html:7
 msgid "Login empty."
-msgstr ""
+msgstr "Login empty."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
 msgid ""
 "Login invalid.  The login can only include alpha-numeric characters and '-' "
 "or '_'."
-msgstr ""
+msgstr "Invalid login. Logins can only include alphanumeric characters,"
+"dashes ('-'), or underscores ('_')"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
 msgid "Invalid email address."
@@ -257,28 +269,29 @@ msgstr ""
 #: ../../../www//views/useradmin/js.phtml:21
 #: ../../../www//install/views/step6.html:28
 msgid "Password incorrect (need more 8 characters)."
-msgstr ""
+msgstr "Incorrect password. Password must be at least 8 characters."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:195
 #: ../../../www//USVN/Db/Table/Users.php:78
 #, php-format
 msgid "Login %s already exist."
-msgstr ""
+msgstr "Login %s already exists."
 
 #: ../../../www//USVN/Db/Table/Groups.php:75
 msgid "The group's name is empty."
-msgstr ""
+msgstr "The group name is empty."
 
 #: ../../../www//USVN/Db/Table/Groups.php:78
 msgid ""
 "The group's name is invalid. The group's name can only include alpha-numeric "
 "characters and '-' or '_'."
-msgstr ""
+msgstr "Invalid group name. Valid group names can only include alphanumeric"
+"characted, dashes ('-'), or underscores ('_')"
 
 #: ../../../www//USVN/Db/Table/Users.php:127
 #, php-format
 msgid "Can't create or write on htpasswd file %s."
-msgstr ""
+msgstr "Can't create / write password file (%s)."
 
 #: ../../../www//USVN/Db/Utils.php:46
 #, php-format
@@ -292,11 +305,13 @@ msgstr ""
 msgid "Welcome to USVN"
 msgstr ""
 
-#: ../../../www//USVN/Config.php:37 ../../../www//install/Install.php:144
+#: ../../../www//USVN/Config.php:37
+#: ../../../www//install/Install.php:144
 msgid "Invalid language"
 msgstr ""
 
-#: ../../../www//USVN/Config.php:56 ../../../www//install/Install.php:166
+#: ../../../www//USVN/Config.php:56
+#: ../../../www//install/Install.php:166
 msgid "Invalid timezone"
 msgstr ""
 
@@ -306,7 +321,7 @@ msgstr ""
 
 #: ../../../www//USVN/User.php:106
 msgid "This user can't be created. A group has the same name."
-msgstr ""
+msgstr "This user can't be created because a group is already name that way."
 
 #: ../../../www//USVN/SVNLog.php:56
 #, php-format
@@ -320,7 +335,7 @@ msgstr ""
 #: ../../../www//controllers/ProfileController.php:42
 #: ../../../www//controllers/UseradminController.php:46
 msgid "Not the same password."
-msgstr ""
+msgstr "Passwords do not match."
 
 #: ../../../www//controllers/UseradminController.php:35
 msgid "Missing fields."
@@ -344,7 +359,7 @@ msgstr ""
 #: ../../../www//controllers/GroupadminController.php:61
 #, php-format
 msgid "Group %s already exist"
-msgstr ""
+msgstr "%s group already exists"
 
 #: ../../../www//controllers/GroupadminController.php:86
 #: ../../../www//controllers/GroupadminController.php:102
@@ -852,7 +867,8 @@ msgid "This page doesn't exist."
 msgstr ""
 
 #: ../../../www//install/install-commandline.php:36
-#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
 msgid "Error"
 msgstr ""
 
@@ -1054,7 +1070,8 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
 msgid "You need to accept the licence to continue installation."
 msgstr ""
 
@@ -1127,7 +1144,8 @@ msgid ""
 "Otherwise under UNIX you probably need to install a package named subversion."
 msgstr ""
 
-#: ../../../www//install/Install.php:457 ../../../www//install/Install.php:465
+#: ../../../www//install/Install.php:457
+#: ../../../www//install/Install.php:465
 msgid "mod_rewrite seems not to be loaded"
 msgstr ""
 

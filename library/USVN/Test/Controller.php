@@ -72,7 +72,7 @@ class USVN_Test_Controller extends USVN_Test_DB {
 													'users_is_admin' => true));
 		$this->admin_user->save();
 
-		$authAdapter = new USVN_Auth_Adapter_Db('john', 'pinocchio');
+		$authAdapter = new USVN_Auth_Adapter_Database('john', 'pinocchio');
 		Zend_Auth::getInstance()->authenticate($authAdapter);
 
 		$front->setControllerDirectory(USVN_CONTROLLERS_DIR);

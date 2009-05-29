@@ -41,15 +41,31 @@ class LoginController extends USVN_Controller
 
 	protected function _doLogin()
 	{
+		$logger = new Zend_Log(new Zend_Log_Writer_Stream("/tmp/USVNlog"));
+
 		// Get a reference to the Singleton instance of Zend_Auth
 		$auth = Zend_Auth::getInstance();
-		
+
+		// Find the authentication adapter from the config file
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
+		$authAdapterMethod = strtolower($config->authAdapterMethod);
+		$authAdapterClass = 'USVN_Auth_Adapter_' . ucfirst($authAdapterMethod);
+		if (!class_exists($authAdapterClass))
+		{
+			throw new USVN_Exception(T_('The authentication adapter method set in the config file is not valid.'));
+		}
+		// Retrieve auth-options, if any, from the config file
+		$authOptions = null;
+		if ($config->$authAdapterMethod && $config->$authAdapterMethod->options)
+		{
+			$authOptions = $config->$authAdapterMethod->options->toArray();
+		}
 		// Set up the authentication adapter
-		$authAdapter = new USVN_Auth_Adapter_Db($_POST['login'], $_POST['password']);
+		$authAdapter = new $authAdapterClass($_POST['login'], $_POST['password'], $authOptions);
 		
 		// Attempt authentication, saving the result
 		$result = $auth->authenticate($authAdapter);
-		
+
 		if (!$result->isValid())
 		{
 			$this->view->login = $_POST['login'];
@@ -58,6 +74,29 @@ class LoginController extends USVN_Controller
 			$this->render('login');
 		}
 		else
+		{
+			/**
+			 * Workaround for LDAP. We need the identity to match the database,
+			 * but LDAP identities can be in the following form:
+			 * uid=username,ou=people,dc=foo,dc=com
+			 * We need to simply keep username, as passed to the constructor method.
+			 *
+			 * Using in_array(..., get_class_methods()) instead of method_exists() or is_callable(),
+			 * because none of them really check if the method is actually callable (ie. not protected/private).
+			 * See comments @ http://us.php.net/manual/en/function.method-exists.php
+			*/
+			if (in_array("getIdentityUserName", get_class_methods($authAdapter)))
+			{
+				$identity = $auth->getStorage()->read();
+				// Because USVN uses an array (...) when Zend uses a string
+				if (!is_array($identity))
+				{
+					$identity = array();
+				}
+				$identity['username'] = $authAdapter->getIdentityUserName();
+				$auth->getStorage()->write($identity);
+			}
 			$this->_redirect("/");
+		}
 	}
 }

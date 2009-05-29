@@ -76,7 +76,7 @@ class GroupControllerTest extends USVN_Test_Controller {
 
 	public function test_DisplayGroupAdmin()
 	{
-		$authAdapter = new USVN_Auth_Adapter_Db('god', 'ingodwetrust');
+		$authAdapter = new USVN_Auth_Adapter_Database('god', 'ingodwetrust');
 		Zend_Auth::getInstance()->authenticate($authAdapter);
 
 		$this->request->setParam('group', 'Indochine');

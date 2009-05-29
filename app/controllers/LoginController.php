@@ -77,12 +77,27 @@ class LoginController extends USVN_Controller
 		}
 		else
 		{
-			$identity = $auth->getStorage()->read();
-			if (!is_array($identity))
+			/**
+			 * Workaround for LDAP. We need the identity to match the database,
+			 * but LDAP identities can be in the following form:
+			 * uid=username,ou=people,dc=foo,dc=com
+			 * We need to simply keep username, as passed to the constructor method.
+			 *
+			 * Using in_array(..., get_class_methods()) instead of method_exists() or is_callable(),
+			 * because none of them really check if the method is actually callable (ie. not protected/private).
+			 * See comments @ http://us.php.net/manual/en/function.method-exists.php
+			*/
+			if (in_array("getIdentityUserName", get_class_methods($authAdapter)))
 			{
-				$identity = array('username' => $identity);
+				$identity = $auth->getStorage()->read();
+				// Because USVN uses an array (...) when Zend uses a string
+				if (!is_array($identity))
+				{
+					$identity = array();
+				}
+				$identity['username'] = $authAdapter->getIdentityUserName();
+				$auth->getStorage()->write($identity);
 			}
-			$auth->getStorage()->write($identity);
 			$this->_redirect("/");
 		}
 	}

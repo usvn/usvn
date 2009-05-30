@@ -331,7 +331,7 @@ class ProjectController extends USVN_Controller
       $this->view->highlighted_source = $geshi->parse_code();
 			if ($this->view->diff_view) {
 				if (preg_match('#^<div ([^>]*)><ol>(.*)</ol></div>(\s*)$#s', $this->view->highlighted_source, $tmp)) {
-					$this->view->diff_table = $tmp[1];
+					$this->view->diff_div = $tmp[1];
 					$this->view->highlighted_source = $tmp[2];
 	      }
 			}

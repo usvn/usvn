@@ -73,6 +73,7 @@ class ProjectController extends USVN_Controller
         array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
         array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project')
     );
+		$this->view->csss = array('timeline.css', 'bubblerights.css');
 	}
 
 	protected function isAdmin()
@@ -274,9 +275,8 @@ class ProjectController extends USVN_Controller
       $lang_name = $geshi->get_language_name_from_extension($file_ext);
       $this->view->language = $lang_name;
       $geshi->set_language(($this->view->color_view ? $lang_name : NULL), true);
-			if (!$this->view->diff_view) {
-      	$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-			}	elseif ($this->view->diff_revision || $this->view->prev_revision) {
+    	$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+			if ($this->view->diff_view && ($this->view->diff_revision || $this->view->prev_revision)) {
 				$d_revs = ($this->view->diff_revision ? $this->view->diff_revision : $this->view->prev_revision).':'.$this->view->revision;
 				$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision {$d_revs} $local_file_path");
 				$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
@@ -329,6 +329,12 @@ class ProjectController extends USVN_Controller
 			$geshi->set_source($source);
       $geshi->set_header_type(GESHI_HEADER_DIV);
       $this->view->highlighted_source = $geshi->parse_code();
+			if ($this->view->diff_view) {
+				if (preg_match('#^<div ([^>]*)><ol>(.*)</ol></div>(\s*)$#s', $this->view->highlighted_source, $tmp)) {
+					$this->view->diff_table = $tmp[1];
+					$this->view->highlighted_source = $tmp[2];
+	      }
+			}
     }
 	}
 }

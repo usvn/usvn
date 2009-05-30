@@ -15,20 +15,20 @@
       </th>
     </tr>
     <tr>
-      <form name="revisions" method="POST" action="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)) ?>">
+      <form name="revisions" method="POST" action="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)).'?rev='.$this->revision ?>">
       <td align="center">
-          <input type="hidden" name="rev" value="<?php echo $this->revision ?>" id="rev" />
+        <input type="hidden" name="post" value="1" />
           <?php if ($this->prev_revision > 0) { ?>
-            <input type="submit" onclick="document.getElementById('rev').value='<?php echo $this->prev_revision ?>';" value="<?php echo T_('Previous') ?>" />
+            <input type="submit" onclick="document.revisions.action=document.revisions.action.split('?',1)+'?rev=<?php echo $this->prev_revision ?>';" value="<?php echo T_('Previous') ?>" />
           <?php } else { ?>
             <input type="submit" value="<?php echo T_('Previous') ?>" disabled />
           <?php } ?>
           <?php echo T_('Revision: ') ?>
-          <select onChange="document.getElementById('rev').value=this.value;document.revisions.submit();">
+          <select onChange="document.revisions.action=document.revisions.action.split('?',1)+'?rev='+this.value;document.revisions.submit();">
             <?php foreach ($this->select_revisions as $rev) { echo '<option value="'.$rev.'"'.($rev == $this->revision ? ' selected' : '').'>'.$rev.'</option>'; } ?>
           </select>
           <?php if ($this->next_revision > 0) { ?>
-            <input type="submit" onclick="document.getElementById('rev').value='<?php echo $this->next_revision ?>';" value="<?php echo T_('Next') ?>" />
+            <input type="submit" onclick="document.revisions.action=document.revisions.action.split('?',1)+'?rev=<?php echo $this->next_revision ?>';" value="<?php echo T_('Next') ?>" />
           <?php } else { ?>
             <input type="submit" value="<?php echo T_('Next') ?>" disabled />
           <?php } ?>
@@ -85,8 +85,7 @@
         echo '</td>';
         if (isset($this->diff_lines[$nb])) {
           echo '<td style="background-color: '.($this->diff_lines[$nb] == '+' ? '#DDFFDD' : '#FFDDDD').';">';
-        }
-        else {
+        } else {
           echo '<td>';
         }
         if (preg_match('#^<li [^>]*>(.*)</li>$#', $line, $tmp)) {

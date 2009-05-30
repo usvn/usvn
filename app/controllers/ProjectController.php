@@ -261,7 +261,7 @@ class ProjectController extends USVN_Controller
     if ($return) {
       throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 		} else {
-			if ($this->getRequest()->getParam('rev') !== NULL) {
+			if ($this->getRequest()->getParam('post') !== NULL) {
 				$this->view->color_view = $this->getRequest()->getParam('color');
 				$this->view->diff_view = $this->getRequest()->getParam('diff');
 				$this->view->diff_revision = $this->getRequest()->getParam('drev');

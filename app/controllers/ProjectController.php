@@ -204,7 +204,6 @@ class ProjectController extends USVN_Controller
    * Display a file using appropriate highlighting
    *
    * @return void
-   * @author Zak
    */
 	public function showAction()
 	{
@@ -287,7 +286,9 @@ class ProjectController extends USVN_Controller
 				} else {
 					$new_source = array();
 					$source = explode("\n", $source);
+					array_pop($source); // Skip the final "\n"
 					$diff = explode("\n", $diff);
+					array_pop($diff); // Skip the final "\n"
 					$source_line = NULL;
 					$count_line = 0;
 					$diff_lines = array();
@@ -307,12 +308,10 @@ class ProjectController extends USVN_Controller
 							$diff_char = substr($line, 0, 1);
 							if ($diff_char == '\\') {
 								continue;
-							}
-							if ($diff_char == '-') {
+							} elseif ($diff_char == '-') {
 								array_push($new_source, substr($line, 1));
 								$diff_lines[$count_line] = '-';
-							}
-							else {
+							}	else {
 								if ($diff_char == '+') {
 									$diff_lines[$count_line] = '+';
 								}
@@ -340,5 +339,84 @@ class ProjectController extends USVN_Controller
 	      }
 			}
     }
+	}
+	
+	/**
+   * Display a file using appropriate highlighting
+   *
+   * @return void
+   */
+	public function commitAction()
+	{
+		include_once('geshi/geshi.php');
+		$this->view->project = $this->_project;
+    $config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$project_name = str_replace(USVN_URL_SEP, '/',$this->_project->name);
+		$local_project_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/");
+		$commit = $this->getRequest()->getParam('commit');
+		$base = $commit - 1;
+		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --revision {$commit} $local_project_path");
+		$log = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if (!$return) {
+			$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision ".($commit - 1).":{$commit} $local_project_path");
+			$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+			if (!$return) {
+				$diff = explode("\n", $diff);
+				array_pop($diff); // Skip the final "\n"
+				$file = NULL;
+				$count = 0;
+				$indiff = FALSE;
+				$tab_diff = array();
+				$tab_index = NULL;
+				foreach ($diff as $line) {
+					if (strpos($line, 'Index: ') === 0) {
+						$file = substr($line, 7);
+						$tab_diff[$file] = array();
+						$indiff = FALSE;
+					} elseif (!$indiff) {
+						if (preg_match('#^@@ \-([0-9]+)(,([0-9]+))? \+([0-9]+)(,([0-9]+))? @@$#', $line, $tmp)) {
+							$tab_index = count($tab_diff[$file]);
+							$tab_diff[$file][$tab_index] = array(
+								$base => array('begin' => $tmp[1], 'end' => (empty($tmp[3]) ? $tmp[1] : $tmp[3]), 'content' => array()),
+								$commit => array('begin' => $tmp[4], 'end' => (empty($tmp[6]) ? $tmp[4] : $tmp[6]), 'content' => array()),
+								'common' => array()
+							);
+							$count = 0;
+							$indiff = TRUE;
+						}
+					} else {
+						$diff_char = substr($line, 0, 1);
+						if ($diff_char == '\\') {
+							continue;
+						}
+						$line = htmlentities(substr($line, 1));
+						if ($diff_char == '-') {
+							$tab_diff[$file][$tab_index][$base]['content'][$count++] = $line;
+						} elseif ($diff_char == '+') {
+							$tab_diff[$file][$tab_index][$commit]['content'][$count++] = $line;
+						} else {
+							$tab_diff[$file][$tab_index]['common'][$count++] = $line;
+						}
+					}
+				}
+				$this->view->diff = $tab_diff;
+				$this->view->commit = $commit;
+				$this->view->base = $base;
+				unset($tab_diff);
+				$log = explode("\n", $log);
+				if (preg_match('#^r[0-9]* \| (.*) \| ([0-9-]+ [0-9:]+) [^\|]* \| ([0-9]*)[^\|]*$#', $log[1], $tmp)) {
+					$this->view->author = $tmp[1];
+					$this->view->date = $tmp[2];
+					$this->view->log = NULL;
+					for ($i = 0; $i < $tmp[3]; ++$i) {
+						$this->view->log .= ($this->view->log != NULL ? "\n" : '').$log[3 + $i];
+					}
+				}
+			} else {
+				throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
+			}
+		} else {
+			throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
+		}
 	}
 }

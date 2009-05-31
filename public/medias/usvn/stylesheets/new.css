@@ -396,4 +396,18 @@ ul#usvn_admin_section {
   background-image: url('/medias/default/images/CrystalClear/64x64/apps/Community Help.png');
 }
 /* @end */
+
+.usvn_error {
+	color: black;
+	font-weight: bold;
+	background-color: #FF9F9F;
+	border : solid 1px #CF0000;
+	background-position: 10px;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	text-align: center;
+	padding: 15px 0;
+	margin-top: 15px;
+}
+
 /* @end */

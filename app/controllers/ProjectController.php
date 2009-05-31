@@ -237,6 +237,9 @@ class ProjectController extends USVN_Controller
 					$infos[$v] = $tmp[2][$k];
 				}
 				$this->view->revision = $infos['Last Changed Rev'];
+				if ($revision) {
+					$this->view->message = T_("The requested revision does not exist. Switching to the last changed revision.");
+				}
 			}
 		}
 		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --quiet $local_file_path");
@@ -261,14 +264,13 @@ class ProjectController extends USVN_Controller
     if ($return) {
       throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 		} else {
-			if ($this->getRequest()->getParam('post') !== NULL) {
-				$this->view->color_view = $this->getRequest()->getParam('color');
-				$this->view->diff_view = $this->getRequest()->getParam('diff');
-				$this->view->diff_revision = $this->getRequest()->getParam('drev');
-				if ($this->view->diff_revision >= $this->view->revision) {
-					$this->view->diff_revision = $this->view->prev_revision;
-				}
-			} else {
+			$this->view->color_view = $this->getRequest()->getParam('color');
+			$this->view->diff_view = $this->getRequest()->getParam('diff');
+			$this->view->diff_revision = $this->getRequest()->getParam('drev');
+			if ($this->view->diff_revision >= $this->view->revision) {
+				$this->view->diff_revision = $this->view->prev_revision;
+			}
+			if ($this->getRequest()->getParam('post') === NULL) {
 				$this->view->color_view = 1;
 			}
       $geshi = new Geshi();
@@ -280,7 +282,9 @@ class ProjectController extends USVN_Controller
 				$d_revs = ($this->view->diff_revision ? $this->view->diff_revision : $this->view->prev_revision).':'.$this->view->revision;
 				$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision {$d_revs} $local_file_path");
 				$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-				if (!$return) {
+				if ($return) {
+					$this->view->message = T_('The requested diff revision does not exist.');
+				} else {
 					$new_source = array();
 					$source = explode("\n", $source);
 					$diff = explode("\n", $diff);

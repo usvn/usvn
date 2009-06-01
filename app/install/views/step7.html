@@ -1,7 +1,7 @@
 <div class="usvn_info">
 	<h1><?php echo T_($installSteps[$step]); ?></h1>
 </div>
-<?= T_("
+<?php echo T_('
 <p>During update checks, USVN will send information regarding of your installation.</p>
 <p>
 This information is only collected for statistical purposes and allow
@@ -23,15 +23,15 @@ Here is a list of what we want to collect:
 If you do not want this information to be collected, you juste have to
 disable the update notification.
 </p>
-") ?>
+'); ?>
 <br />
 <hr />
 <form name="checkUpdate" action="?step=8" method="post">
 	<input type="hidden" name="update" value="1" />
-	<input type="submit" value="<?= T_("Allow check update and send statistics informations") ?>" />
+	<input type="submit" value="<?php echo  T_("Allow check update and send statistics informations") ; ?>" />
 </form>
 &nbsp;
 <form name="createAdmin" action="?step=8" method="post">
 	<input type="hidden" name="update" value="0" />
-	<input type="submit" value="<?= T_("Don't check update") ?>" />
+	<input type="submit" value="<?php echo  T_("Don't check update") ; ?>" />
 </form>

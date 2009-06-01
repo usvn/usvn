@@ -14,7 +14,7 @@ function changeAdapter()
 		password.style.display = "none";
 		createdb.style.display = "none";
 		prefix.style.display = "none";
-		database.value = "<?= addslashes(USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'usvn.db') ?>";
+		database.value = "<?php echo  addslashes(USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'usvn.db') ; ?>";
 		database.size = 80;
 	}
 	else
@@ -31,12 +31,12 @@ function changeAdapter()
 </script>
 <div class="usvn_info">
 	<h1><?php echo T_($installSteps[$step]); ?></h1>
-	<p><?= T_('Configuration of database\'s access.') ?></p>
+	<p><?php echo  T_('Configuration of database\'s access.') ; ?></p>
 </div>
 <form name="configdb" action="?step=6" method="post">
 	<table>
 		<tr>
-			<td><label class="usvn_label" for="adapter"><?= T_('Database Type') ?>:</label></td>
+			<td><label class="usvn_label" for="adapter"><?php echo  T_('Database Type') ; ?>:</label></td>
 			<td>
 				<select name="adapter" id="adapter" size="1" onchange="javascript:changeAdapter()">
 					<option value="PDO_MYSQL" <?php if (isset($_POST['adapter']) && $_POST['adapter'] == 'PDO_MYSQL') echo 'selected' ;?>>PDO MySql</option>
@@ -48,7 +48,7 @@ function changeAdapter()
 
 		<tr id="host_config">
 			<td>
-				<label class="usvn_label" for="host"><?= T_('Host') ?>:</label>
+				<label class="usvn_label" for="host"><?php echo  T_('Host') ; ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="host" id="host" value="<?php
@@ -61,7 +61,7 @@ function changeAdapter()
 		</tr>
 		<tr id="user_config">
 			<td>
-				<label class="usvn_label" for="user"><?= T_('Login') ?>:</label>
+				<label class="usvn_label" for="user"><?php echo  T_('Login') ; ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="user" id="user" value="<?php
@@ -75,7 +75,7 @@ function changeAdapter()
 
 		<tr id="password_config">
 			<td>
-				<label class="usvn_label" for="password"><?= T_('Password') ?>:</label>
+				<label class="usvn_label" for="password"><?php echo  T_('Password') ; ?>:</label>
 			</td>
 			<td>
 				<input type="password" name="password" id="password" onclick="this.select();" />
@@ -84,7 +84,7 @@ function changeAdapter()
 
 		<tr id="database_config">
 			<td>
-				<label class="usvn_label" for="database"><?= T_('Database') ?>:</label>
+				<label class="usvn_label" for="database"><?php echo  T_('Database') ; ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="database" id="database" value="<?php
@@ -98,15 +98,15 @@ function changeAdapter()
 
 		<tr id="createdb_config">
 			<td>
-				<label for="createdb" class="usvn_label"><?= T_('Create database ?') ?></label>
+				<label for="createdb" class="usvn_label"><?php echo  T_('Create database ?') ; ?></label>
 			</td>
 			<td>
-				<input type="checkbox" name="createdb" id="createdb" <?= ((isset($_POST['createdb'])) ? ' checked="checked" ' : '') ?> />
+				<input type="checkbox" name="createdb" id="createdb" <?php echo  ((isset($_POST['createdb'])) ? ' checked="checked" ' : '') ; ?> />
 			</td>
 		</tr>
 		<tr id="prefix_config">
 			<td>
-				<label class="usvn_label" for="prefix"><?= T_('Table prefix') ?>:</label>
+				<label class="usvn_label" for="prefix"><?php echo  T_('Table prefix') ; ?>:</label>
 			</td>
 			<td>
 				<input type="text" name="prefix" id="prefix" value="<?php
@@ -120,7 +120,7 @@ function changeAdapter()
 	</table>
 	<br />
 	<hr />
-	<input type="submit" value="<?= T_('Next step') ?>" />
+	<input type="submit" value="<?php echo  T_('Next step') ; ?>" />
 </form>
 <script type="text/javascript">
 <!--

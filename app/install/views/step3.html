@@ -1,6 +1,6 @@
 <div class="usvn_info">
 	<h1><?php echo T_($installSteps[$step]); ?></h1>
-	<p><?= T_('Please read and accept the CeCILL FREE SOFTWARE LICENSE.') ?></p>
+	<p><?php echo  T_('Please read and accept the CeCILL FREE SOFTWARE LICENSE.') ; ?></p>
 </div>
 
 <?php if ($language == 'fr_FR') { ?>
@@ -1965,9 +1965,9 @@ thereof to its provisions.</p>
 <form action="?step=4" method="post">
 <label class="usvn_label" for="agreement">
 	<input type="checkbox" name="agreement" id="agreement" value="ok" />
-	<?= T_('I understand and accept this license.') ?>
+	<?php echo  T_('I understand and accept this license.') ; ?>
 </label>
 <br />
 <br />
-<input type="submit" value="<?= T_('Next step') ?>" />
+<input type="submit" value="<?php echo  T_('Next step') ; ?>" />
 </form>

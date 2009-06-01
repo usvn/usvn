@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+if [ "$#" -ne "0" ]; then
+  cmd="bash $(basename $0)"
+  if [ "$(basename "$(pwd -P)")" = "locale" ]; then
+      cat <<EOF
+  usage: $cmd
+EOF
+  else
+      cat <<EOF
+  usage: cd \$USVNPATH/app/locale && $cmd
+EOF
+  fi
+fi
+
 MSGFMTBIN=msgfmt
 
 if ! which "$MSGFMTBIN" >/dev/null ; then

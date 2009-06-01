@@ -1,13 +1,13 @@
 <div class="usvn_info">
 	<h1><?php echo T_($installSteps[$step]); ?></h1>
-	<p><?= T_('Settings of general configuration of USVN. You can keep default settings.') ?></p>
+	<p><?php echo  T_('Settings of general configuration of USVN. You can keep default settings.') ; ?></p>
 </div>
 <form action="?step=5" method="post">
 	<table>
 		<tr>
 			<td>
 				<label class="usvn_label" for="pathSubversion">
-					<?= T_('Page title') ?>:
+					<?php echo  T_('Page title') ; ?>:
 				</label>
 			</td>
 			<td>
@@ -23,47 +23,47 @@
 			<td>
 				<label class="usvn_label" for="pathSubversion">
 					<a href="#" class="usvn_tooltips">
-						<?= T_('Subversion repository') ?>:
-						<span><?= T_('Location where usvn will create subversion repository.') ?></span>
+						<?php echo  T_('Subversion repository') ; ?>:
+						<span><?php echo  T_('Location where usvn will create subversion repository.') ; ?></span>
 					</a>
 				</label>
 			</td>
 			<td>
-				<input type="text" size="67" name="pathSubversion" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR ?>" />
+				<input type="text" size="67" name="pathSubversion" value="<?php echo  USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR ; ?>" />
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="passwdFile">
 					<a href="#" class="usvn_tooltips">
-						<?= T_('Subversion password file') ?>:
-						<span><?= T_('Location where usvn will create password file.') ?></span>
+						<?php echo  T_('Subversion password file') ; ?>:
+						<span><?php echo  T_('Location where usvn will create password file.') ; ?></span>
 					</a>
 				</label>
 			</td>
 			<td>
-				<input type="text" size="67" name="passwdFile" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'htpasswd' ?>" />
+				<input type="text" size="67" name="passwdFile" value="<?php echo  USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'htpasswd' ; ?>" />
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="authzFile">
 					<a href="#" class="usvn_tooltips">
-						<?= T_('Subversion access file') ?>:
-						<span><?= T_('Location where usvn will create access file.') ?></span>
+						<?php echo  T_('Subversion access file') ; ?>:
+						<span><?php echo  T_('Location where usvn will create access file.') ; ?></span>
 					</label>
 				</a>
 			</td>
 			<td>
-				<input type="text" size="67" name="authzFile" value="<?= USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'authz' ?>" />
+				<input type="text" size="67" name="authzFile" value="<?php echo  USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'authz' ; ?>" />
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label class="usvn_label" for="urlSubversion">
 					<a href="#" class="usvn_tooltips">
-						<?= T_('Subversion url') ?>:
-						<span><?= T_('The url used by users to checkout projects.') ?></span>
+						<?php echo  T_('Subversion url') ; ?>:
+						<span><?php echo  T_('The url used by users to checkout projects.') ; ?></span>
 					</a>
 				</label>
 			</td>
@@ -86,5 +86,5 @@
 	</table>
 	<br />
 	<hr />
-	<input type="submit" value="<?= T_('Next step') ?>" />
+	<input type="submit" value="<?php echo  T_('Next step') ; ?>" />
 </form>

@@ -1201,9 +1201,9 @@ msgstr "Editer"
 msgid "Home"
 msgstr "Page d'accueil"
 
-#############
-# INSTALLER #
-#############
+##############
+## INSTALLER #
+##############
 msgid "System Check"
 msgstr "Vérification du Système"
 

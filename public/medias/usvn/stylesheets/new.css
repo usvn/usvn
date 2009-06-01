@@ -52,7 +52,7 @@ ol {
 
 /* @group Header */
 #header {
-	background: #172933 url('../images/header_bg2.png') repeat-x;
+	background: #172933 url('<?php echo $this->images_directory ?>/header_bg2.png') repeat-x;
   min-height: 124px;
 }
  
@@ -61,7 +61,7 @@ ol {
   min-width: 950px;
   margin-left: auto;
 	margin-right: auto;
-	background: transparent url('../images/header_back.png') no-repeat 0px 0px;  
+	background: transparent url('<?php echo $this->images_directory ?>/header_back.png') no-repeat 0px 0px;  
 }
  
 #header #shaddow #header-wrapper {
@@ -74,7 +74,7 @@ ol {
   width: 320px;
   height: 124px;
   float: left;
-	background: transparent url('../images/logo_trans.png') no-repeat 0px 0px;
+	background: transparent url('<?php echo $this->images_directory ?>/logo_trans.png') no-repeat 0px 0px;
 }
  
 #header #shaddow #header-wrapper #main-menu {
@@ -115,7 +115,7 @@ ol {
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a:hover {
-  background: transparent url('../images/up_arrow.png') repeat-x center -50px;
+  background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a:hover span {
@@ -123,7 +123,7 @@ ol {
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a#selected {
-  background: transparent url('../images/up_arrow.png') repeat-x center -50px;
+  background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a#selected span {
@@ -135,7 +135,7 @@ ol {
 
 /* @group Container */
 #container {
-	background: url('../images/container_bg.png') repeat-x;
+	background: url('<?php echo $this->images_directory ?>/container_bg.png') repeat-x;
 	min-height: 340px;
 }
  
@@ -274,7 +274,7 @@ table.usvn_table td, table.sortable td {
 }
 
 .even {
-	
+	background-color: white;
 }
 
 .odd {
@@ -286,7 +286,7 @@ table.usvn_table td, table.sortable td {
 /* @group Page d'accueil */
 
 .usvn_info_project {
-  background-image: url('../medias/default/images/CrystalClear/64x64/apps/easymoblog.png');
+  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/64x64/apps/easymoblog.png');
 }
 
 .usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
@@ -304,7 +304,7 @@ table.usvn_table td, table.sortable td {
 
 #loginBox {
   background-color: #F4F4F4;
-  background-image: url('/medias/default/images/CrystalClear/128x128/actions/encrypted.png');
+  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/128x128/actions/encrypted.png');
   background-position: right bottom;
   background-repeat: no-repeat;
   border: 1px solid #CCCCCC;
@@ -357,7 +357,7 @@ form.usvn_form > fieldset > label {
 
 /* @group Admin::Home */
 .usvn_info_config {
-  background-image: url('/medias/default/images/CrystalClear/64x64/apps/kpackage.png');
+  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/64x64/apps/kpackage.png');
 }
 
 .usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
@@ -393,7 +393,7 @@ ul#usvn_admin_section {
 
 /* @group Admin::Groups */
 .usvn_info_group {
-  background-image: url('/medias/default/images/CrystalClear/64x64/apps/Community Help.png');
+  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/64x64/apps/Community Help.png');
 }
 /* @end */
 

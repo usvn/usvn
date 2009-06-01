@@ -22,27 +22,49 @@ class CssController extends Zend_Controller_Action
 {
 	protected $_mimetype = 'text/css';
 
-	public function screenAction()
+	public function preDispatch()
 	{
 		$this->_helper->viewRenderer->setNoRender();
-		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
-		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
-		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
-		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css';
+	}
+
+	public function screenAction()
+	{
+		$this->medias_directory = $this->_request->getBaseUrl().'/medias';
+		$this->images_default_directory = $this->_request->getBaseUrl().'/medias/default/images';
+		/*
+		FIXME: Should be :
+		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';
+		But there are some modifications to do to the template system first.
+		*/
+		$this->css_directory = $this->_request->getBaseUrl().'/medias/usvn/stylesheets';
+		$this->images_directory = $this->_request->getBaseUrl().'/medias/usvn/images';
 		header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $this->_mimetype");
-		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/screen.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/new.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/bubblerights.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/completion.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/timeline.css');
 	}
 
 	public function printAction()
 	{
-		$this->_helper->viewRenderer->setNoRender();
-		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
-		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
-		$this->css_directory = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/css';
-		$this->css_file = USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css';
+		/*
+		FIXME: We don't have any special css for the "print", so this is just a copy of the "screen".
+		*/
+		$this->medias_directory = $this->_request->getBaseUrl().'/medias';
+		$this->images_default_directory = $this->_request->getBaseUrl().'/medias/default/images';
+		/*
+		FIXME: Should be :
+		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';
+		But there are some modifications to do to the template system first.
+		*/
+		$this->css_directory = $this->_request->getBaseUrl().'/medias/usvn/stylesheets';
+		$this->images_directory = $this->_request->getBaseUrl().'/medias/usvn/images';
 		header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $this->_mimetype");
-		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/print.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/new.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/bubblerights.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/completion.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/timeline.css');
 	}
 }

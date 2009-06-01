@@ -19,7 +19,13 @@
 
 class CompletionController extends USVN_Controller
 {
-    protected $_mimetype = "text/xml";
+	protected $_mimetype = "text/xml";
+
+	public function preDispatch()
+	{
+		parent::preDispatch();
+		$this->_helper->layout()->disableLayout();
+	}
 
 	public function completionAction()
 	{

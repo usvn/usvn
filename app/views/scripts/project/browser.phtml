@@ -129,10 +129,8 @@ function alert_ajax(xhr, index)
 			bulle += items_groups;
 			document.getElementById('bulle').style.visibility = 'visible';
 			document.getElementById('bulle').innerHTML = bulle;
-			//document.getElementById('bulle').style.left = mouse_x - 15 + "px";
-  			//document.getElementById('bulle').style.top = mouse_y - 205 + "px";
-			document.getElementById('bulle').style.left = mouse_x + 5 + "px";
-  			document.getElementById('bulle').style.top = mouse_y - 212 + "px";
+			document.getElementById('bulle').style.left = (mouse_x + 10) + "px";
+  		document.getElementById('bulle').style.top = (mouse_y + 10) + "px";
 		}
 		if (index == 2)
 		{
@@ -144,9 +142,9 @@ function alert_ajax(xhr, index)
 		}
 		if (index == 3)
 		{
-            var txthtml2 = document.getElementById('txthtml2');
-            var txthtml = docXML.getElementsByTagName("txthtml").item(0);
-            txthtml2.innerHTML = txthtml.firstChild.data;
+      var txthtml2 = document.getElementById('txthtml2');
+      var txthtml = docXML.getElementsByTagName("txthtml").item(0);
+      txthtml2.innerHTML = txthtml.firstChild.data;
 		}
 	}
 }

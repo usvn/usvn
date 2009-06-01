@@ -22,22 +22,26 @@ class JsController extends Zend_Controller_Action
 {
 	protected $_mimetype = 'text/javascript';
 
+	public function preDispatch()
+	{
+		$this->_helper->viewRenderer->setNoRender();
+	}
+
 	public function indexAction()
 	{
-        $this->_helper->viewRenderer->setNoRender();
 		//directories for medias and images
-		$this->medias_directory = $this->_request->getBaseUrl() .'/medias';
-		$this->images_directory = $this->_request->getBaseUrl() .'/medias/' . USVN_Template::getTemplate() . '/images';
+		$this->medias_directory = $this->_request->getBaseUrl().'/medias';
+		$this->images_directory = $this->_request->getBaseUrl().'/medias/'.USVN_Template::getTemplate().'/images';
 
 		//directories for javascript
-		$this->js_default_directory = $this->_request->getBaseUrl() . '/medias/default/js';
-		$this->js_directory = $this->_request->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/js';
+		$this->js_default_directory = $this->_request->getBaseUrl().'/medias/default/js';
+		$this->js_directory = $this->_request->getBaseUrl().'/medias/'.USVN_Template::getTemplate().'/js';
 
 		//javascript files to load: the firts required and the second for templates
-        header('Cache-Control: max-age=3600, must-revalidate');
-        header("Content-type: $this->_mimetype");
-		include(USVN_MEDIAS_DIRECTORY . '/default/js/usvn.js');
- 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/script.js');
- 		include(USVN_MEDIAS_DIRECTORY . '/' . USVN_Template::getTemplate() . '/js/tools/sortable.js');
+		header('Cache-Control: max-age=3600, must-revalidate');
+		header("Content-type: $this->_mimetype");
+		include(USVN_MEDIAS_DIR.'/default/js/usvn.js');
+ 		include(USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/script.js');
+ 		include(USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/js/tools/sortable.js');
 	}
 }

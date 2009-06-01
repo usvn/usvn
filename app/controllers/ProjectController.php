@@ -73,7 +73,6 @@ class ProjectController extends USVN_Controller
         array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
         array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project')
     );
-		$this->view->csss = array('timeline.css', 'bubblerights.css');
 	}
 
 	protected function isAdmin()

@@ -53,7 +53,7 @@ class BrowserajaxController extends USVN_Controller
 		}
 		$str .= "</h2>";
 		$str .= sprintf(T_("Checkout URL : %s"), '<a href="'.$url.'">'.$url.'</a>');
-		$str .= "<h3><a href='javascript:dumpRights(\"{$path}\");'>";
+		$str .= "<br /><br /><h3><a href='javascript:dumpRights(\"{$path}\");'>";
 		$str .= sprintf(T_("Apply rights on %s"), $path);
 		$str .= "</a></h3>";
 		return $str;
@@ -70,7 +70,6 @@ class BrowserajaxController extends USVN_Controller
 		$tab = $SVN->listFile($path);
 		ob_start();
 		echo $this->getTopLink($project_name, $path);
-		echo "<br />";
 
 		$user = $this->getRequest()->getParam('user');
 		/* @var $user USVN_Db_Table_Row_User */
@@ -95,7 +94,7 @@ class BrowserajaxController extends USVN_Controller
 		if ($read) {
 			echo '<table class="usvn_table">';
 			echo '<thead>';
-			echo '<tr><th>', T_('Name'), '</th><th>', T_('Action'), '</th></tr>';
+			echo '<tr><th>', T_('Name'), '</th><th>', T_('File revision'), '</th><th>', T_('Action'), '</th></tr>';
 			echo '</thead>';
 			echo '<tbody>';
 			if ($path != "/" && $path != "//") {
@@ -104,8 +103,8 @@ class BrowserajaxController extends USVN_Controller
 				} else {
 					$pathbefore = dirname($path) . "/";
 				}
-				echo "<tr><td>" .$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
-				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>..</a></td><td></td></tr>";
+				echo "<tr><td>";
+				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>".$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'))." ..</a></td><td></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
 				$tabl['path_raw'] = $tabl['path'];
@@ -119,11 +118,17 @@ class BrowserajaxController extends USVN_Controller
 				else{
 					$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
 				}
-				echo "<td>{$tabl['isDirectory']}";
+				echo "<td>";
 				if ($dir) {
-					echo "<a href='javascript:getListFile(\"{$tabl['path']}\");'>{$tabl['name']}</a></td>";
+					echo "<a href='javascript:getListFile(\"{$tabl['path']}\");'>{$tabl['isDirectory']} {$tabl['name']}</a></td>";
 				} else {
-          echo "<a href=\"". $this->view->url(array('project' => $project->name, 'file' => substr($tabl['path_raw'], 1)), 'show', false, false) . "\">{$tabl['name']}</a></td>";
+					$tabl['size'] = round($tabl['size'] / 1000.0, 2).' Ko'; 
+          echo "<a href=\"". $this->view->url(array('project' => $project->name, 'file' => substr($tabl['path_raw'], 1)), 'show', false, false) . "\">{$tabl['isDirectory']} {$tabl['name']}</a> <span style=\"font-size: 8px; text-align: right;\">({$tabl['size']})</span></td>";
+				}
+				if (isset($tabl['revision'])) {
+					echo "<td><a href=\"".$this->view->url(array('project' => $project->name, 'action' => 'commit', 'commit' => $tabl['revision']), 'commit')."\">{$tabl['revision']}</a> by {$tabl['author']}</td>";
+				} else {
+					echo "<td></td>";
 				}
 				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
 			}

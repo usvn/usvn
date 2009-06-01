@@ -244,24 +244,32 @@ class USVN_SVNUtils
 	*/
 	public static function listSvn($repository, $path)
 	{
-        $escape_path = USVN_SVNUtils::getRepositoryPath($repository . '/' . $path);
+		$escape_path = USVN_SVNUtils::getRepositoryPath($repository . '/' . $path);
 		$lists = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe(USVN_SVNUtils::svnCommand("ls --xml $escape_path"), $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't list subversion repository: %s"), $lists);
 		}
-        $res = array();
-        $xml = new SimpleXMLElement($lists);
-        foreach ($xml->list->entry as $list) {
-            if ($list['kind'] == 'file') {
-                array_push($res, array("name" => (string)$list->name, "isDirectory" => false, "path" => str_replace('//', '/', $path . "/" . $list->name)));
-            }
-            else {
-                array_push($res, array("name" => (string)$list->name, "isDirectory" => true, "path" => str_replace('//', '/', $path . "/" . $list->name  . '/')));
-            }
-        }
-        $sortfunc = create_function('$a,$b', 'return (strcasecmp($a["name"], $b["name"]));');
-        usort($res, $sortfunc);
-        return $res;
+		$res = array();
+		$xml = new SimpleXMLElement($lists);
+		foreach ($xml->list->entry as $list) {
+			if ($list['kind'] == 'file') {
+				array_push($res, array(
+																"name" => (string)$list->name,
+																"isDirectory" => false,
+																"path" => str_replace('//', '/', $path . "/" . $list->name),
+																"size" => $list->size,
+																"revision" => $list->commit['revision'],
+																"author" => $list->commit->author,
+																"date" => $list->commit->date
+															));
+			}
+			else {
+				array_push($res, array("name" => (string)$list->name, "isDirectory" => true, "path" => str_replace('//', '/', $path . "/" . $list->name  . '/')));
+			}
+		}
+		$sortfunc = create_function('$a,$b', 'return (strcasecmp($a["name"], $b["name"]));');
+		usort($res, $sortfunc);
+		return $res;
 	}
 
 	/**

@@ -12,7 +12,7 @@
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->formText("users_login", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion', 'users_login')", "onfocus" => "javascript:ajax_completion(1, 'completion', 'users_login', event)")); ?>
+							<?php echo $this->formText("users_login", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion', 'users_login')", "onfocus" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "onblur" => "setTimeout('document.getElementById(\\'completion\\').style.visibility=\\'hidden\\';', 200)")); ?>
 						</td>
 						<td>
 							<?php echo $this->formSubmit("adduser", T_("Add")); ?>
@@ -50,7 +50,7 @@
 			<div>
 				<table>
 					<tr><td>
-						<?php echo $this->formText("groups_name", null, array("onkeyup" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion1', 'groups_name')", "onfocus" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)")); ?>
+						<?php echo $this->formText("groups_name", null, array("onkeyup" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion1', 'groups_name')", "onfocus" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "onblur" => "setTimeout('document.getElementById(\\'completion1\\').style.visibility=\\'hidden\\';', 200)")); ?>
 					</td><td>
 						<?php echo $this->formSubmit("addgroup", T_("Add")); ?>
 					</td></tr>

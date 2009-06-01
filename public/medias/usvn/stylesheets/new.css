@@ -298,7 +298,7 @@ table.usvn_table td, table.sortable td {
   border-width: 1px;
   clear: both;
   margin: auto auto 2em;
-  min-height: 80px;
+  min-height: 40px;
   padding: 5px;
 }
 

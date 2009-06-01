@@ -97,19 +97,20 @@ class BrowserajaxController extends USVN_Controller
 			echo '<tr><th>', T_('Name'), '</th><th>', T_('File revision'), '</th><th>', T_('Action'), '</th></tr>';
 			echo '</thead>';
 			echo '<tbody>';
+			$i = 0;
 			if ($path != "/" && $path != "//") {
 				if (dirname($path) == "\\") {
 					$pathbefore = "/";
 				} else {
 					$pathbefore = dirname($path) . "/";
 				}
-				echo "<tr><td>";
+				echo "<tr class=\"".(++$i % 2 ? 'even' : 'odd')."\"><td>";
 				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>".$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'))." ..</a></td><td></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
 				$tabl['path_raw'] = $tabl['path'];
 				$tabl['path'] = rawurlencode($tabl['path']);
-				echo "<tr>";
+				echo "<tr class=\"".(++$i % 2 ? 'even' : 'odd')."\">";
 				$dir = false;
 				if ($tabl['isDirectory'] == 1) {
 					$dir = true;

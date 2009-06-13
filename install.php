@@ -1,5 +1,16 @@
 #!/usr/bin/env php
 <?php
+# Apache 2 pour windows (VM bilan tech)
+# http://apache.crihan.fr/dist/httpd/binaries/win32/apache_2.2.11-win32-x86-openssl-0.9.8i.msi
+
+# Subversion setup
+# http://subversion.tigris.org/files/documents/15/45953/Setup-Subversion-1.6.2.msi
+
+# PHP Installer
+# http://fr.php.net/distributions/php-5.2.9-2-win32-installer.msi
+
+# MySQL
+# http://mir2.ovh.net/ftp.mysql.com/Downloads/MySQL-5.1/mysql-5.1.35-win32.msi
 
 function askParameter($message, $defaultValue = null)
 {

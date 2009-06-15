@@ -274,7 +274,7 @@ Deny from all
 </Files>
 RewriteEngine on
 #RewriteCond
-RewriteBase /{$path}/
+RewriteBase "/{$path}/"
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d

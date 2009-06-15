@@ -92,8 +92,8 @@ class USVN_FilesAccessRights
 			));
 			$table_groupstofiles->insert(array(
 				'files_rights_id' => $file_id,
-				'files_rights_is_readable' => $read,
-				'files_rights_is_writable' => $write,
+				'files_rights_is_readable' => ($read === true ? 1 : 0),
+				'files_rights_is_writable' => ($write === true ? 1 : 0),
 				'groups_id' => $group_id
 			));
 		}
@@ -105,14 +105,14 @@ class USVN_FilesAccessRights
 			if ($groupstofiles === null) {
 				$table_groupstofiles->insert(array(
 					'files_rights_id' => $file_id,
-					'files_rights_is_readable' => $read,
-					'files_rights_is_writable' => $write,
+					'files_rights_is_readable' => ($read === true ? 1 : 0),
+					'files_rights_is_writable' => ($write === true ? 1 : 0),
 					'groups_id' => $group_id
 				));
 			}
 			else {
-				$groupstofiles->files_rights_is_readable = $read;
-				$groupstofiles->files_rights_is_writable = $write;
+				$groupstofiles->files_rights_is_readable = ($read === true ? 1 : 0);
+				$groupstofiles->files_rights_is_writable = ($write === true ? 1 : 0);
 				$groupstofiles->save();
 			}
 		}

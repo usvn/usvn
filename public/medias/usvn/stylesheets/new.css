@@ -285,10 +285,6 @@ table.usvn_table td, table.sortable td {
 
 /* @group Page d'accueil */
 
-.usvn_info_project {
-  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/64x64/apps/easymoblog.png');
-}
-
 .usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
   background-color: #EFF2FF;
   background-position: right 17px;
@@ -304,7 +300,6 @@ table.usvn_table td, table.sortable td {
 
 #loginBox {
   background-color: #F4F4F4;
-  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/128x128/actions/encrypted.png');
   background-position: right bottom;
   background-repeat: no-repeat;
   border: 1px solid #CCCCCC;
@@ -356,9 +351,6 @@ form.usvn_form > fieldset > label {
 /* @group Administration */
 
 /* @group Admin::Home */
-.usvn_info_config {
-  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/64x64/apps/kpackage.png');
-}
 
 .usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
   clear: left;
@@ -388,12 +380,6 @@ ul#usvn_admin_section {
   padding: 6px;
 	float: left;
 	width: 45%;
-}
-/* @end */
-
-/* @group Admin::Groups */
-.usvn_info_group {
-  background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/64x64/apps/Community Help.png');
 }
 /* @end */
 

@@ -23,7 +23,7 @@
 	    		</div>
 	    		<div id="main-menu">
 		          <ul>
-		<? foreach (array('index' => 'Accueil', 'profile' => 'Profile', 'admin' => 'Admin', 'logout' => 'Logout') as $menuLink => $menuLabel): ?>
+		<? foreach (array('index' => 'Home', 'profile' => 'Profile', 'admin' => 'Admin', 'logout' => 'Logout') as $menuLink => $menuLabel): ?>
 		            <li><a href="<?= $this->url(array('controller' => $menuLink), 'default') ?>" <?= ($menuLink == $this->controller ? ' id="selected"' : '') ?>><span><?= T_($menuLabel) ?></span></a></li>
 		<? endforeach ?>
 		          </ul>
@@ -33,7 +33,7 @@
 	  </div>
 		<div id="container">
 		  <div id="container-wrapper">
-	  	  <? if (isset($this->layout()->getView()->submenu)): ?>
+	  	  <? if (!empty($this->layout()->getView()->submenu)): ?>
 	  	  <div id="sub-menu">
 	  	  <ul>
 	  	    <? foreach($this->layout()->getView()->submenu as $item): ?>

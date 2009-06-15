@@ -111,6 +111,14 @@ class USVN_Config
 	static public function setLDAPConfig($ldap_options)
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		if (!$config->ldap)
+		{
+			$config->ldap = array();
+		}
+		if (!$config->ldap->options)
+		{
+			$config->ldap->options = array();
+		}
 		$config->ldap->createGroupForUserInDB = $ldap_options['createGroupForUserInDB'];
 		$config->ldap->createUserInDBOnLogin = $ldap_options['createUserInDBOnLogin'];
 		if (strlen($ldap_options['host'])) $config->ldap->options->host = $ldap_options['host'];

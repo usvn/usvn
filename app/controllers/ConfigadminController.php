@@ -28,6 +28,9 @@ class ConfigadminController extends AdminadminController
 		if ($this->view->config->ldap == null)
 		{
 			$this->view->config->ldap = array();
+		}
+		if ($this->view->config->ldap->options == null)
+		{
 			$this->view->config->ldap->options = array();
 		}
         $this->view->locale = new Zend_Locale(USVN_Translation::getLanguage());

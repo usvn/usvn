@@ -125,6 +125,23 @@
 		<tr>
 			<td><label><?php echo T_("Create DB user from LDAP on login"); ?>:</label></td>
 			<td>
+				<select name="ldap[createUserInDBOnLogin]">
+					<?php
+						if ($this->config->ldap->createUserInDBOnLogin) {
+							echo '<option value="1" selected>' . T_("Yes"). '</option>';
+							echo '<option value="0">' . T_("No"). '</option>';
+						}
+						else {
+							echo '<option value="1">' . T_("Yes"). '</option>';
+							echo '<option value="0" selected>' . T_("No"). '</option>';
+						}
+					?>
+				<select>
+			</td>
+		</tr>
+		<tr>
+			<td><label><?php echo T_("Also create a group for this user"); ?>:</label></td>
+			<td>
 				<select name="ldap[createGroupForUserInDB]">
 					<?php
 						if ($this->config->ldap->createGroupForUserInDB) {

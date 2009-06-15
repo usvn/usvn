@@ -104,17 +104,20 @@ class LoginController extends USVN_Controller
 			 * log in with LDAP, or any other non-DB support, we need to add
 			 * the user in the database :)
 			*/
-			$table = new USVN_Db_Table_Users();
-			$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
-			if (!$user && in_array("createUserInDB", get_class_methods($authAdapter)))
+			if ($config->$authAdapterMethod->createUserInDBOnLogin)
 			{
-				$data = array(
-					'users_login' => $identity['username'],
-					'users_is_admin' => 0,
-					'users_password' => $_POST['password']
-				);
-				$user = USVN_User::create($data, $config->$authAdapterMethod->createGroupForUserInDB, null);
-				$user->save();
+				$table = new USVN_Db_Table_Users();
+				$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
+				if (!$user && in_array("createUserInDB", get_class_methods($authAdapter)))
+				{
+					$data = array(
+						'users_login' => $identity['username'],
+						'users_is_admin' => 0,
+						'users_password' => $_POST['password']
+					);
+					$user = USVN_User::create($data, $config->$authAdapterMethod->createGroupForUserInDB, null);
+					$user->save();
+				}
 			}
 			$this->_redirect("/");
 		}

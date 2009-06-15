@@ -112,6 +112,7 @@ class USVN_Config
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$config->ldap->createGroupForUserInDB = $ldap_options['createGroupForUserInDB'];
+		$config->ldap->createUserInDBOnLogin = $ldap_options['createUserInDBOnLogin'];
 		if (strlen($ldap_options['host'])) $config->ldap->options->host = $ldap_options['host'];
 		if (strlen($ldap_options['port'])) $config->ldap->options->port = $ldap_options['port'];
 		if (strlen($ldap_options['username'])) $config->ldap->options->username = $ldap_options['username'];

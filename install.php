@@ -48,8 +48,8 @@ function templateToFile($destPath, $srcPath, $values)
 {
 	$values = array();
 	$sampleDir = "./install";
-	$htaccessFile = "./public/.htaccess";
-	$configFile = "./config/config.ini";
+//	$htaccessFile = "./public/.htaccess";
+//	$configFile = "./config/config.ini";
 	$apacheConf = askParameter('apache conf', '/etc/apache2/sites-available/usvn');
 	$values['urlBase'] = askParameter('base url', '/usvn');
 	$values['dir'] = realpath(getcwd());
@@ -61,36 +61,36 @@ function templateToFile($destPath, $srcPath, $values)
 	echo " - mod_authz_svn\n";
 	echo " - mod_dav_svn\n";
 	echo " - mad_rewrite\n";
-	templateToFile($htaccessFile, $sampleDir . '/htaccess', $values);
+	// templateToFile($htaccessFile, $sampleDir . '/htaccess', $values);
 
-	echo "Database\n";
-	$values['dbAdapter'] = askParameter('Database Adapter', 'MYSQLI');
-	$values['dbHost']    = askParameter('Database Host', 'localhost');
-	$values['dbUser']    = askParameter('Database Login', 'usvn');
-	$values['dbPwd']     = askParameter('Database Password');
-	$values['dbDB']      = askParameter('Database Name', $values['dbUser']);
-	
-	echo "Repositories\n";
-	$values['reposRoot']  = askParameter('Repository Path');
-	$values['reposHTPwd'] = askParameter('Repository htpasswd file path', $values['reposRoot'] . '/htpasswd');
-	$values['reposAuthz'] = askParameter('Repository authz file path', $values['reposRoot'] . '/authz');
-	$values['reposURL']   = askParameter('Repository external url');
-	templateToFile($configFile, $sampleDir . '/config.ini', $values);
-
-	echo "setup database\n";
-	$conn = mysql_connect($values['dbHost'], $values['dbUser'], $values['dbPwd'], true) or die(mysql_error());
-	mysql_select_db($values['dbDB'], $conn) or die(mysql_error());
-	$requests = file_get_contents($sampleDir . '/SQL/mysql.sql');
-	foreach (split(';', $requests) as $req) {
-		$result = mysql_query($req, $conn) or die(mysql_error());
-		$reqLines = split("\n", $req);
-		foreach ($reqLines as $line) {
-			echo "  " . $line . "\n";
-		}
-		echo "OK\n";
-		echo "\n";
-	}
-	// $values['usvnUser']    = askParameter('USVN Login', 'admin');
-	// $values['usvnPwd']     = askParameter('USVN Password');
-	mysql_close($conn) or die(mysql_error());
+	// echo "Database\n";
+	// $values['dbAdapter'] = askParameter('Database Adapter', 'MYSQLI');
+	// $values['dbHost']    = askParameter('Database Host', 'localhost');
+	// $values['dbUser']    = askParameter('Database Login', 'usvn');
+	// $values['dbPwd']     = askParameter('Database Password');
+	// $values['dbDB']      = askParameter('Database Name', $values['dbUser']);
+	// 
+	// echo "Repositories\n";
+	// $values['reposRoot']  = askParameter('Repository Path');
+	// $values['reposHTPwd'] = askParameter('Repository htpasswd file path', $values['reposRoot'] . '/htpasswd');
+	// $values['reposAuthz'] = askParameter('Repository authz file path', $values['reposRoot'] . '/authz');
+	// $values['reposURL']   = askParameter('Repository external url');
+	// templateToFile($configFile, $sampleDir . '/config.ini', $values);
+	// 
+	// echo "setup database\n";
+	// $conn = mysql_connect($values['dbHost'], $values['dbUser'], $values['dbPwd'], true) or die(mysql_error());
+	// mysql_select_db($values['dbDB'], $conn) or die(mysql_error());
+	// $requests = file_get_contents($sampleDir . '/SQL/mysql.sql');
+	// foreach (split(';', $requests) as $req) {
+	// 	$result = mysql_query($req, $conn) or die(mysql_error());
+	// 	$reqLines = split("\n", $req);
+	// 	foreach ($reqLines as $line) {
+	// 		echo "  " . $line . "\n";
+	// 	}
+	// 	echo "OK\n";
+	// 	echo "\n";
+	// }
+	// // $values['usvnUser']    = askParameter('USVN Login', 'admin');
+	// // $values['usvnPwd']     = askParameter('USVN Password');
+	// mysql_close($conn) or die(mysql_error());
 }

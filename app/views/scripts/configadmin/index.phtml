@@ -122,6 +122,19 @@
 				</select>
 			</td>
 		</tr>
+	</table>
+</fieldset>
+<fieldset>
+	<legend><?php echo T_("LDAP Settings");?></legend>
+	<table>
+		<tr>
+			<td>
+				<?php echo T_('These settings are based on Zend LDAP settings. You can find their meaning on <a target="_blank" href="http://framework.zend.com/manual/en/zend.ldap.html">Zend\'s website</a>') ?>
+			</td>
+		</tr>
+	</table>
+	<hr style="margin: 10px;" />
+	<table>
 		<tr>
 			<td><label><?php echo T_("Create DB user from LDAP on login"); ?>:</label></td>
 			<td>
@@ -157,17 +170,8 @@
 			</td>
 		</tr>
 	</table>
-</fieldset>
-<fieldset>
-	<legend><?php echo T_("LDAP Settings");?></legend>
+	<hr style="margin: 10px;" />
 	<table>
-		<tr>
-			<td colspan="2">
-				<?php echo T_('These settings are based on Zend LDAP settings. You can find their meaning on <a target="_blank" href="http://framework.zend.com/manual/en/zend.ldap.html">Zend\'s website</a>') ?>
-				<br />
-				<br />
-			</td>
-		</tr>
 		<tr>
 			<td><label><?php echo T_("Host"); ?>:</label></td>
 			<td>

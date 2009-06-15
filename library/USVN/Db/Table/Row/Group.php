@@ -38,7 +38,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 				array(
 					"groups_id" => $this->id,
 					"users_id" 	=> $user_id,
-					"is_leader" => $leader,
+					"is_leader" => ($leader === true ? 1 : 0),
 				)
 			);
 		}

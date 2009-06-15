@@ -77,6 +77,7 @@ class LoginController extends USVN_Controller
 		}
 		else
 		{
+			$identity = $auth->getStorage()->read();
 			/**
 			 * Workaround for LDAP. We need the identity to match the database,
 			 * but LDAP identities can be in the following form:
@@ -89,7 +90,6 @@ class LoginController extends USVN_Controller
 			*/
 			if (in_array("getIdentityUserName", get_class_methods($authAdapter)))
 			{
-				$identity = $auth->getStorage()->read();
 				// Because USVN uses an array (...) when Zend uses a string
 				if (!is_array($identity))
 				{
@@ -97,6 +97,24 @@ class LoginController extends USVN_Controller
 				}
 				$identity['username'] = $authAdapter->getIdentityUserName();
 				$auth->getStorage()->write($identity);
+			}
+			/**
+			 * Another workaround for LDAP. As long as we don't provide real
+			 * and full LDAP support (add, remove, etc.), if a user managed to
+			 * log in with LDAP, or any other non-DB support, we need to add
+			 * the user in the database :)
+			*/
+			$table = new USVN_Db_Table_Users();
+			$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
+			if (!$user && in_array("createUserInDB", get_class_methods($authAdapter)))
+			{
+				$data = array(
+					'users_login' => $identity['username'],
+					'users_is_admin' => 0,
+					'users_password' => $_POST['password']
+				);
+				$user = USVN_User::create($data, $config->$authAdapterMethod->createGroupForUserInDB, null);
+				$user->save();
 			}
 			$this->_redirect("/");
 		}

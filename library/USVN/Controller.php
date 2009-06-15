@@ -76,15 +76,22 @@ class USVN_Controller extends Zend_Controller_Action
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		if ($identity === null)
 		{
+			// TODO:
+			// It is ugly to have "magic strings" instead of an array saying
+			// which controllers do not need to be logged in...
 			if ($controller != "login" && $controller != "rss")
+			{
 				$this->_redirect("/login/");
+			}
 			return;
 		}
 		
 		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
 		if ($user === null && $controller != "login"  && $controller != "rss")
+		{
 			$this->_redirect("/logout/");
+		}
 		$request->setParam('user', $user);
 	}
 

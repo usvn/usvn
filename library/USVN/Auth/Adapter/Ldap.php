@@ -59,4 +59,9 @@ class USVN_Auth_Adapter_Ldap extends Zend_Auth_Adapter_Ldap
 	{
 		return $this->_identityUserName;
 	}
+
+	public function createUserInDB()
+	{
+		return true;
+	}
 }

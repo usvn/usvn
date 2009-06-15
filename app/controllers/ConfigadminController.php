@@ -25,6 +25,11 @@ class ConfigadminController extends AdminadminController
 	public function indexAction()
 	{
 		$this->view->config = Zend_Registry::get("config");
+		if ($this->view->config->ldap == null)
+		{
+			$this->view->config->ldap = array();
+			$this->view->config->ldap->options = array();
+		}
         $this->view->locale = new Zend_Locale(USVN_Translation::getLanguage());
 		$this->render("index");
 	}
@@ -39,6 +44,11 @@ class ConfigadminController extends AdminadminController
 							'ico'			=> $_POST['siteIco'],
 							'logo'			=> $_POST['siteLogo']);
 		USVN_Config::setSiteDatas($siteDatas);
+		USVN_Config::setAuthAdapter($_POST['authAdapterMethod']);
+		$ldapEncryptMethod = $_POST['LDAPEncryptionMethod'];
+		$_POST['ldap']['useStartTls'] = ($ldapEncryptMethod == 'tls' ? '1' : '0');
+		$_POST['ldap']['useSsl'] = ($ldapEncryptMethod == 'ssl' ? '1' : '0');
+		USVN_Config::setLDAPConfig($_POST['ldap']);
 		$this->_redirect('/admin/config/');
 	}
 }

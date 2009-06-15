@@ -160,9 +160,12 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 		if (empty($password) || preg_match('/^\s+$/', $password)) {
 			throw new USVN_Exception(T_('Password empty.'));
 		}
-		if (strlen($password) < 8) {
-			throw new USVN_Exception(T_('Password incorrect (need more 8 characters).'));
-		}
+		/**
+		 * This is not really cool when adding users from LDAP...
+		 */
+		// if (strlen($password) < 8) {
+		// 	throw new USVN_Exception(T_('Password incorrect (need more 8 characters).'));
+		// }
 	}
 
 	/**

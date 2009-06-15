@@ -137,4 +137,11 @@ class USVN_Config
 		$config->authAdapterMethod = $adapterMethod;
 		$config->save();
 	}
+
+	static public function setDefaultUser($defaultUser)
+	{
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$config->alwaysUseDatabaseForLogin = $defaultUser;
+		$config->save();
+	}
 }

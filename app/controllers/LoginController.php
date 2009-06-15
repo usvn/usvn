@@ -47,7 +47,11 @@ class LoginController extends USVN_Controller
 		// Find the authentication adapter from the config file
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
 		$authAdapterMethod = "database"; // Default method is databse
-		if ($config->authAdapterMethod)
+		if (empty($config->alwaysUseDatabaseForLogin))
+		{
+			$config->alwaysUseDatabaseForLogin = 'admin';
+		}
+		if ($config->alwaysUseDatabaseForLogin != $_POST['login'] && $config->authAdapterMethod)
 		{
 			$authAdapterMethod = strtolower($config->authAdapterMethod);
 		}

@@ -122,6 +122,12 @@
 				</select>
 			</td>
 		</tr>
+		<tr>
+			<td><label><?php echo T_("Always use database for login"); ?>:</label></td>
+			<td>
+				<?php echo $this->formText('alwaysUseDatabaseForLogin', $this->config->alwaysUseDatabaseForLogin ? $this->config->alwaysUseDatabaseForLogin : "admin", array('size' => 80)); ?>
+			</td>
+		</tr>
 	</table>
 </fieldset>
 <fieldset>

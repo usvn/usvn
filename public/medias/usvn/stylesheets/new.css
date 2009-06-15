@@ -79,7 +79,7 @@ ol {
  
 #header #shaddow #header-wrapper #main-menu {
   height: 124px;
-  width: 678px;
+  width: 530px;
   float: left;
   text-align: center;
   vertical-align: bottom;
@@ -88,8 +88,9 @@ ol {
 #header #shaddow #header-wrapper #main-menu ul {
 /*  list-style: none;*/
   display: table;
-  margin-left: auto;
-	margin-right: auto;
+/*  margin-left: auto;
+	margin-right: auto; */
+	float: right;
 	margin-top: 92px;
 }
  
@@ -135,7 +136,7 @@ ol {
 
 /* @group Container */
 #container {
-	background: url('<?php echo $this->images_directory ?>/container_bg.png') repeat-x;
+/*	background: url('<?php echo $this->images_directory ?>/container_bg.png') repeat-x; */
 	min-height: 340px;
 }
  

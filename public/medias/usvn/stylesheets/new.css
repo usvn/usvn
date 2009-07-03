@@ -1,5 +1,8 @@
 /* @override 
-	http://localhost/usvn-new/medias/usvn/stylesheets/new.css */
+	http://localhost/usvn-new/medias/usvn/stylesheets/new.css
+	http://localhost/usvn-hook/css
+*/
+
 /*
    new.css
    USVN
@@ -290,13 +293,11 @@ table.usvn_table td, table.sortable td {
   background-color: #EFF2FF;
   background-position: right 17px;
   background-repeat: no-repeat;
-  border-color: #CCCCCC;
-  border-style: solid solid dotted;
-  border-width: 1px;
   clear: both;
   margin: auto auto 2em;
   min-height: 40px;
   padding: 5px;
+	border: 1px dotted #CCCCCC;
 }
 
 #loginBox {
@@ -401,5 +402,45 @@ ul#usvn_admin_section {
 	background-color: #D3D9C6;
 	cursor: pointer;
 }
+
+/* @end */
+
+/* @group Index */
+
+.usvn_index_box {
+	clear: both;
+}
+
+/* @end */
+
+/* @group Grid */
+
+ul.grid_list {
+	list-style-type: none;
+}
+
+ul.grid_list li {
+	width: 200px;
+	height: 75px;
+	padding: 2px;
+	margin: 2px;
+	text-align: center;
+	float: left;
+	list-style-type: none;
+}
+
+ul.grid_list li a {
+	height: 100%;
+	border: 1px solid #ccc;
+	display: block;
+	background: #EFF2FF no-repeat left top;
+}
+
+ul.grid_list li a:hover {
+	color: #03067d;
+	background-color: #e5e9f5;
+}
+
+
 
 /* @end */

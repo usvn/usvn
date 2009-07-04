@@ -16,7 +16,7 @@
 <div style="font-family:monospace;">
   <?php foreach ($this->diff as $file => $diff) { ?>
     <table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;">
-      <tr height="30px"><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->base ?></th><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->commit ?></th><th align="left" style="background-color: #EEEEEE; padding-left: 20px;"><a name="<?php echo htmlentities($file) ?>" href="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode($file)).'?rev='.$this->commit ?>"><?php echo htmlentities($file) ?></a></th></tr>
+      <tr height="30px"><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->base ?></th><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->commit ?></th><th align="left" style="background-color: #EEEEEE; padding-left: 20px;"><a name="<?php echo htmlentities($file) ?>" href="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode(trim($file))).'?rev='.$this->commit ?>"><?php echo htmlentities($file) ?></a></th></tr>
       <?php
       $i = NULL;
       foreach ($diff as $d) {

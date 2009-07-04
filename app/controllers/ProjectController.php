@@ -313,13 +313,14 @@ class ProjectController extends USVN_Controller
 					$diff_lines = array();
 					while (($line = array_shift($diff)) !== NULL)
 					{
+						$line = trim($line);
 						if (preg_match('#^@@ \-[0-9,]+ \+([0-9]+),[0-9]+ @@$#', $line, $tmp))
 						{
 							if ($source_line === NULL)
 							{
 								$source_line = 1;
 							}
-							while ($source_line < $tmp[1])
+							while (intval($source_line) < intval($tmp[1]))
 							{
 								array_push($new_source, array_shift($source));
 								$source_line++;

@@ -7,7 +7,7 @@
     <ul class="grid_list">
 	<? foreach ($this->projects as $project): ?>
 		<li>
-			<a href="<?= $this->url(array('project' => $project->name), 'project'); ?>" style="background-image: url(<?= $this->url() ?>/images/icons/box_48.png);">
+			<a href="<?= $this->url(array('project' => $project->name), 'project'); ?>" style="background-image: url(<?= $this->url() ?>images/icons/box_48.png);">
 				<?= $project->name ?>
 			</a>
 		</li>
@@ -23,7 +23,7 @@
 	<ul class="grid_list">
 	<? foreach ($this->groups as $group): ?>
 		<li>
-			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>" style="background-image: url(<?= $this->url() ?>/images/icons/users_two_48.png);">
+			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>" style="background-image: url(<?= $this->url() ?>images/icons/users_two_48.png);">
 				<?= $group->name ?>
 			</a>
 		</li>

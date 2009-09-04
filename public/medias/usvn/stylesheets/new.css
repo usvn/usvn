@@ -163,14 +163,11 @@ ol {
 }
  
 #container #container-wrapper #main {
-  /* Utile ?  */
-  /* height: 100%; */
-	background-color: #ffffff;
-	border: 1px solid #cbd5b8;
+	border: 1px dotted #d6d6d6;
 	border-top: none;
 	padding: 5px;
 	font-size: 13px;
-	font-family: 'Verdana','Helvetica';
+	font-family: 'Verdana', 'Helvetica';
 	margin-left: 145px;
 	margin-right: 145px;
 }
@@ -272,7 +269,7 @@ table.usvn_table th, table.sortable th {
 }
 
 table.usvn_table td, table.sortable td {
-  border: 1px solid #cbd5b8;
+	border: 1px solid #cbd5b8;
 	padding: 3px;
 	vertical-align: top;
 }
@@ -289,46 +286,47 @@ table.usvn_table td, table.sortable td {
 
 /* @group Page d'accueil */
 
-.usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
-  background-color: #EFF2FF;
-  background-position: right 17px;
-  background-repeat: no-repeat;
-  clear: both;
-  margin: auto auto 2em;
-  min-height: 40px;
-  padding: 5px;
+.usvn_info {
+	background-color: #E9F5FE;
+	background-position: right 17px;
+	background-repeat: no-repeat;
+	clear: both;
+	margin: auto auto 2em;
+	min-height: 40px;
+	padding: 5px;
 	border: 1px dotted #CCCCCC;
 }
 
 #loginBox {
-  background-color: #F4F4F4;
-  background-position: right bottom;
-  background-repeat: no-repeat;
-  border: 1px solid #CCCCCC;
-  margin: auto;
-  padding: 50px;
-  text-align: center;
-  vertical-align: middle;
+	background-color: #F4F4F4;
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	border: 1px solid #CCCCCC;
+	margin: auto;
+	padding: 50px;
+	text-align: center;
+	vertical-align: middle;
 }
 
 form.usvn_form > fieldset > legend, .usvn_legend {
-  font-weight: bold;
-  margin-left: 5px;
+	font-weight: bold;
+	margin-left: 5px;
 }
 
-.usvn_info p, .usvn_info_config p, .usvn_info_user p, .usvn_info_group p, .usvn_info_project p {
+.usvn_info p {
   font-size: 95%;
   line-height: 130%;
   margin: 10px 0 12px 10px;
 }
 
 h3 {
-  color: #D3B65E;
-  margin-bottom: 5px;
+	color: #89C8FF;
+	margin-bottom: 5px;
+	padding-top: 15px;
 }
 
 #usvn_index_projects ul, #usvn_index_groups ul {
-  padding-left: 40px;
+  padding-left: 20px;
 }
 
 
@@ -354,15 +352,15 @@ form.usvn_form > fieldset > label {
 
 /* @group Admin::Home */
 
-.usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
+.usvn_info h1 {
   clear: left;
-  color: #D3B65E;
+  color: #409FFF;
   font-size: 180%;
   font-weight: bold;
   margin: 0 0 3px;
 }
 
-.usvn_info ul, .usvn_info_config ul, .usvn_info_user ul, .usvn_info_group ul, .usvn_info_project ul {
+.usvn_info ul {
   padding-left: 40px;
 }
 
@@ -414,14 +412,12 @@ ul#usvn_admin_section {
 /* @end */
 
 /* @group Grid */
-
 ul.grid_list {
 	list-style-type: none;
 }
 
 ul.grid_list li {
-	width: 200px;
-	height: 75px;
+	width: 100px;
 	padding: 2px;
 	margin: 2px;
 	text-align: center;
@@ -431,16 +427,17 @@ ul.grid_list li {
 
 ul.grid_list li a {
 	height: 100%;
-	border: 1px solid #ccc;
 	display: block;
-	background: #EFF2FF no-repeat left top;
+	color: #1984FF;
 }
 
 ul.grid_list li a:hover {
-	color: #03067d;
-	background-color: #e5e9f5;
+	color: #1074FE;
+	background-color: #E9F5FE;
 }
 
-
+.grid_img {
+	height: 64px;
+}
 
 /* @end */

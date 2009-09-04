@@ -7,8 +7,11 @@
     <ul class="grid_list">
 	<? foreach ($this->projects as $project): ?>
 		<li>
-			<a href="<?= $this->url(array('project' => $project->name), 'project'); ?>" style="background-image: url(<?= $this->url() ?>images/icons/box_48.png);">
-				<?= $project->name ?>
+			<a href="<?= $this->url(array('project' => $project->name), 'project'); ?>">
+				<div class="grid_img">
+					<img src="<?= $this->url() ?>images/icons/box_48.png" />
+				</div>
+				<div><?= $project->name ?></div>
 			</a>
 		</li>
 	<? endforeach ?>
@@ -23,8 +26,11 @@
 	<ul class="grid_list">
 	<? foreach ($this->groups as $group): ?>
 		<li>
-			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>" style="background-image: url(<?= $this->url() ?>images/icons/users_two_48.png);">
-				<?= $group->name ?>
+			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>">
+				<div>
+					<img src="<?= $this->url() ?>images/icons/users_two_48.png" />
+				</div>
+				<div><?= $group->name ?></div>
 			</a>
 		</li>
 	<? endforeach ?>

@@ -294,7 +294,7 @@ a:hover {
 	font-weight: bold;
 }
 
-.usvn_info, .usvn_info_config, .usvn_info_user, .usvn_info_group, .usvn_info_project {
+.usvn_info {
 	background-repeat: no-repeat;
 	background-position: right 17px;
 	background-color: #EFF2FF;
@@ -308,7 +308,7 @@ a:hover {
 }
 
 
-.usvn_info h1, .usvn_info_config h1, .usvn_info_user h1, .usvn_info_group h1, .usvn_info_project h1 {
+.usvn_info h1 {
 	font-weight: bold;
 	font-size: 180%;
 	margin: 0 0 3px 0;
@@ -316,7 +316,7 @@ a:hover {
 	color: #003366;
 }
 
-.usvn_info p, .usvn_info_config p, .usvn_info_user p, .usvn_info_group p, .usvn_info_project p {
+.usvn_info p {
 	font-size: 95%;
 	line-height: 130%;
 	margin: 10px 0 12px 10px;

@@ -183,6 +183,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 
 	public function allLeader($group_id, $type)
 	{
+		$type = ($type ? 1 : 0);
 		$user_groups = new USVN_Db_Table_UsersToGroups();
 		$links = $user_groups->fetchAll(array('groups_id = ?' => $group_id, 'is_leader = ?' => $type));
 		if (count($links) === 0) {

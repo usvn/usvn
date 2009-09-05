@@ -6,18 +6,27 @@
 	<p><?php echo $this->group->description;?></p>
 	<p><?php $right = $this->group->isLeaderOrAdmin($this->user); ?></p>
 </div>
-	<div class="usvn_info">
+<div class="usvn_info">
 	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => 'addleadergroup')); ?>" method="post">
 		<div>
 			<table>
-		<tr><td>
-			<?php if ($right == 1) {
-			echo $this->formText("ap", null, array("onkeyup" => "javascript:ajax_completion(3, 'completionleader', 'ap', event)", "autocomplete" => "off", 		"onkeyDown" => "javascript:geretouche(event, 'completionleader', 'ap')", "onfocus" => "javascript:ajax_completion(3, 'completionleader', 'ap', event)")); ?>
-		</td><td>
-			<?php echo $this->formSubmit("addleadergroup", T_("Add")); ?>
-			<?php } ?>
-		</td></tr>
-		<tr><td><div id="completionleader" class="_list_autocomplete_ajax" style="visibility:hidden"></div></td><td></td></tr>
+				<tr>
+					<td>
+						<?php if ($right == 1) {
+						echo $this->formText("ap", null, array("onkeyup" => "javascript:ajax_completion(3, 'completionleader', 'ap', event)", "autocomplete" => "off", 		"onkeyDown" => "javascript:geretouche(event, 'completionleader', 'ap')", "onfocus" => "javascript:ajax_completion(3, 'completionleader', 'ap', event)")); ?>
+					</td>
+					<td>
+						<?php echo $this->formSubmit("addleadergroup", T_("Add")); ?>
+						<?php } ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="completionleader" class="_list_autocomplete_ajax" style="visibility:hidden">
+						</div>
+					</td>
+					<td></td>
+				</tr>
 		</table>
 		</div>
 	</form>
@@ -33,20 +42,29 @@
 		&nbsp;<?php echo $user->login; ?></li>
 	<?php endforeach; ?>
 	</ul>
-	</div>
-	<div class="usvn_info">
+</div>
+<div class="usvn_info">
 	<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => 'managegroup')); ?>" method="post">
 		<div>
 			<table>
-		<tr><td>
-			<?php if ($right == 1) {
-			echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion(4, 'completion', 'addlogin', event)", "autocomplete" => "off", 		"onkeyDown" => "javascript:geretouche(event, 'completion', 'addlogin')", "onfocus" => "javascript:ajax_completion(4, 'completion', 'addlogin', event)")); ?>
-		</td><td>
-			<?php echo $this->formSubmit("managegroup", T_("Add")); ?>
-			<?php } ?>
-		</td></tr>
-		<tr><td><div id="completion" class="_list_autocomplete_ajax" style="visibility:hidden"></div></td><td></td></tr>
-		</table>
+				<tr>
+					<td>
+						<?php if ($right == 1) {
+						echo $this->formText("addlogin", null, array("onkeyup" => "javascript:ajax_completion(4, 'completion', 'addlogin', event)", "autocomplete" => "off", 		"onkeyDown" => "javascript:geretouche(event, 'completion', 'addlogin')", "onfocus" => "javascript:ajax_completion(4, 'completion', 'addlogin', event)")); ?>
+					</td>
+					<td>
+						<?php echo $this->formSubmit("managegroup", T_("Add")); ?>
+						<?php } ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="completion" class="_list_autocomplete_ajax" style="visibility:hidden">
+						</div>
+					</td>
+					<td></td>
+				</tr>
+			</table>
 		</div>
 	</form>
 	<h1><?php echo T_("Affected Users");?></h1>
@@ -61,4 +79,4 @@
 		&nbsp;<?php echo $user->login; ?></li>
 	<?php endforeach; ?>
 	</ul>
-	</div>
+</div>

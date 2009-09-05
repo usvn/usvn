@@ -73,12 +73,12 @@ class GroupController extends USVN_Controller
 
             try {
                 $table = new USVN_Db_Table_Users();
-                if ($request->getParam('addlogin', "") != "")
+                if ($request->getParam('addlogin', '') != '')
                 {
 
-                    $user = $table->fetchRow(array("users_login = ?" => $request->getParam('addlogin')));
+                    $user = $table->fetchRow(array('users_login = ?' => $request->getParam('addlogin')));
                     if ($user === null) {
-                        throw new USVN_Exception(sprintf(T_("Unknown user %s"), $request->getParam('addlogin')));
+                        throw new USVN_Exception(sprintf(T_('Unknown user %s'), $request->getParam('addlogin')));
                     }
                     if (!$group->hasUser($user))
                         $group->addUser($user);

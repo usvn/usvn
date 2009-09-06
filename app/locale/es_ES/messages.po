@@ -6,15 +6,16 @@ msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2007-11-27 19:32-0300\n"
-"Last-Translator: Esteban Cerutti <ecerutti@lifia.info.unlp.edu.ar>\n"
+"PO-Revision-Date: 2009-09-06 15:45+0100\n"
+"Last-Translator: \n"
 "Language-Team: castellano <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../../../www//menus/browser.php:32 ../../../www//menus/browserTest.php:47
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
 msgid "Browser"
 msgstr "Explorador"
 
@@ -89,7 +90,8 @@ msgstr "No se pudo agregar el usuario %s. Importaci&oacute;n cancelada."
 msgid "Invalid path %s."
 msgstr "La ruta %s es inv&aacute;lida."
 
-#: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:106
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//USVN/Menu.php:106
 #: ../../../www//views/index/index.phtml:2
 msgid "Homepage"
 msgstr "P&aacute;gina principal"
@@ -102,7 +104,8 @@ msgstr "Conectado como"
 msgid "Can't write config file."
 msgstr "No se puede escribir el archivo de configuraci&oacute;n."
 
-#: ../../../www//USVN/Auth/Adapter/Db.php:54 ../../../www//USVN/Project.php:91
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:91
 #, php-format
 msgid "Login %s not found"
 msgstr "Login %s no encontrado"
@@ -132,7 +135,8 @@ msgstr ""
 "Error:\n"
 "%s"
 
-#: ../../../www//USVN/SVNUtils.php:194 ../../../www//USVN/Project.php:54
+#: ../../../www//USVN/SVNUtils.php:194
+#: ../../../www//USVN/Project.php:54
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr "No se puede crear el repositorio subversion: %s"
@@ -147,7 +151,8 @@ msgstr "No se pudo realizar un checkout del repositorio subversion: %s"
 msgid "Can't list subversion repository: %s"
 msgstr "No se pudo de listar el repositorio subversion: %s"
 
-#: ../../../www//USVN/Menu.php:58 ../../../www//USVN/Db/Utils.php:33
+#: ../../../www//USVN/Menu.php:58
+#: ../../../www//USVN/Db/Utils.php:33
 #, php-format
 msgid "Can't open file %s."
 msgstr "No se pudo abrir el archivo %s."
@@ -224,12 +229,8 @@ msgid "The project's name is empty."
 msgstr "El nombre del proyecto esta vac&iacute;o."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
-msgid ""
-"The project's name is invalid. A project's name can only include alpha-"
-"numeric characters and '-' or '_'."
-msgstr ""
-"El nombre del proyecto es inva&aaacute;lido. Un nombre de proyecto solo "
-"puede contener caracteres alfa-num&eacute;ricos y '-' o '_'."
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "El nombre del proyecto es inva&aaacute;lido. Un nombre de proyecto solo puede contener caracteres alfa-num&eacute;ricos y '-' o '_'."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
@@ -242,12 +243,8 @@ msgid "Login empty."
 msgstr "Login vac&iacute;o"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
-msgid ""
-"Login invalid.  The login can only include alpha-numeric characters and '-' "
-"or '_'."
-msgstr ""
-"Login inv&aacute;lido. El login solo puede contener caracteres alfa-"
-"num&eacute;ricos y '-' o '_'."
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
+msgstr "Login inv&aacute;lido. El login solo puede contener caracteres alfa-num&eacute;ricos y '-' o '_'."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
 msgid "Invalid email address."
@@ -279,12 +276,8 @@ msgid "The group's name is empty."
 msgstr "El nombre de grupo esta vac&iacute;o."
 
 #: ../../../www//USVN/Db/Table/Groups.php:78
-msgid ""
-"The group's name is invalid. The group's name can only include alpha-numeric "
-"characters and '-' or '_'."
-msgstr ""
-"El nombre del grupo es in&aacute;lido. El nombre del grupo solo puede "
-"contener caracteres alfa-num&eacute;ricos y '-' o '_'."
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "El nombre del grupo es in&aacute;lido. El nombre del grupo solo puede contener caracteres alfa-num&eacute;ricos y '-' o '_'."
 
 #: ../../../www//USVN/Db/Table/Users.php:127
 #, php-format
@@ -305,11 +298,13 @@ msgstr ""
 msgid "Welcome to USVN"
 msgstr "Bienvenido a USVN"
 
-#: ../../../www//USVN/Config.php:37 ../../../www//install/Install.php:144
+#: ../../../www//USVN/Config.php:37
+#: ../../../www//install/Install.php:144
 msgid "Invalid language"
 msgstr "Lenguaje inv&aacute;lido"
 
-#: ../../../www//USVN/Config.php:56 ../../../www//install/Install.php:166
+#: ../../../www//USVN/Config.php:56
+#: ../../../www//install/Install.php:166
 msgid "Invalid timezone"
 msgstr "Zona horaria inv&aacute;lida"
 
@@ -449,8 +444,7 @@ msgid ""
 "Your version of USVN is out of date. A new version %s is available on\n"
 "\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
 msgstr ""
-"Su versi&oacute;n de USVN est&aacute; desactualizada. A nueva versi&oacute;n "
-"%s se encuentra disponible en\n"
+"Su versi&oacute;n de USVN est&aacute; desactualizada. A nueva versi&oacute;n %s se encuentra disponible en\n"
 "\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
 
 #: ../../../www//views/profile/index.phtml:15
@@ -607,12 +601,10 @@ msgstr "Gestionar grupo"
 
 #: ../../../www//views/login/login.phtml:5
 msgid "Please enter your login and your password to connect to USVN."
-msgstr ""
-"Por favor, ingrese su nombre de usuario y contrase&ntilde;a para conectarse "
-"a USVN."
+msgstr "Por favor, ingrese su nombre de usuario y contrase&ntilde;a para conectarse a USVN."
 
 #: ../../../www//views/login/login.phtml:11
-msgid "Authentification"
+msgid "Authentication"
 msgstr "Autentificaci&oacute;n"
 
 #: ../../../www//views/login/login.phtml:15
@@ -633,12 +625,8 @@ msgid "Password"
 msgstr "Contrase&ntilde;a"
 
 #: ../../../www//views/useradmin/import.phtml:4
-msgid ""
-"This form allow you to add to USVN all users contents into an apache "
-"password file."
-msgstr ""
-"Este formulario le permite agregar a USVN todos los usuarios contenidos en "
-"un archivo de contrase&ntilde;as de apache."
+msgid "This form allow you to add to USVN all users contents into an apache password file."
+msgstr "Este formulario le permite agregar a USVN todos los usuarios contenidos en un archivo de contrase&ntilde;as de apache."
 
 #: ../../../www//views/useradmin/import.phtml:10
 msgid "Upload"
@@ -743,24 +731,16 @@ msgid "Start revision or date revision"
 msgstr "Revisi&oacute;n inicial o fecha de revisi&oacute;n "
 
 #: ../../../www//views/Timeline/index.phtml:12
-msgid ""
-"You can list 100 revisions since your revision or date. The date format is : "
-"DD/MM/YYYY"
-msgstr ""
-"Puede listas 100 revisiones por su revisi&oacute;n o fecha. El formato de la "
-"fecha es: DD/MM/AAAA"
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
+msgstr "Puede listas 100 revisiones por su revisi&oacute;n o fecha. El formato de la fecha es: DD/MM/AAAA"
 
 #: ../../../www//views/Timeline/index.phtml:28
 msgid "End revision or date revision"
 msgstr "Fin de la revis&oacute;n o fecha de revisi&oacute;n"
 
 #: ../../../www//views/Timeline/index.phtml:30
-msgid ""
-"This is optional.The listing is made between start revision/date and this "
-"one."
-msgstr ""
-"Esto es opcional. El listado se hace entre la revisi&oacte;n/fecha de inicio "
-"y &eacute;sta."
+msgid "This is optional.The listing is made between start revision/date and this one."
+msgstr "Esto es opcional. El listado se hace entre la revisi&oacte;n/fecha de inicio y &eacute;sta."
 
 #: ../../../www//views/Timeline/index.phtml:40
 msgid "Search"
@@ -840,8 +820,7 @@ msgstr "Usuarios administradores"
 #: ../../../www//views/project/index.phtml:39
 #, php-format
 msgid "Do you really want to remove user %s as admin of project %s?"
-msgstr ""
-"Realmente desea borrar el usuario %s como administrador del proyecto %s?"
+msgstr "Realmente desea borrar el usuario %s como administrador del proyecto %s?"
 
 #: ../../../www//views/project/index.phtml:69
 #, php-format
@@ -877,7 +856,8 @@ msgid "This page doesn't exist."
 msgstr "Esta p&aacute;gina no existe."
 
 #: ../../../www//install/install-commandline.php:36
-#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
 msgid "Error"
 msgstr "Error"
 
@@ -930,10 +910,8 @@ msgid "Configure USVN"
 msgstr "Configurar USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
-msgstr ""
-"Configuraci&oacute;n general de USVN. Puede dejar los valores por defecto."
+msgid "Settings of general configuration of USVN. You can keep default settings."
+msgstr "Configuraci&oacute;n general de USVN. Puede dejar los valores por defecto."
 
 #: ../../../www//install/views/step4.html:12
 msgid "Page title"
@@ -953,8 +931,7 @@ msgstr "Archivo de contrase&ntilde;as de Subversion"
 
 #: ../../../www//install/views/step4.html:46
 msgid "Location where usvn will create password file."
-msgstr ""
-"Ubicaci&oacute;n donde usvn crear&aacute; el archivo de contrase&ntilde;as."
+msgstr "Ubicaci&oacute;n donde usvn crear&aacute; el archivo de contrase&ntilde;as."
 
 #: ../../../www//install/views/step4.html:60
 msgid "Subversion access file"
@@ -970,8 +947,7 @@ msgstr "Subversion url"
 
 #: ../../../www//install/views/step4.html:76
 msgid "The url used by users to checkout projects."
-msgstr ""
-"URL utilizada por los usuarios para realizar un checkout de los projectos."
+msgstr "URL utilizada por los usuarios para realizar un checkout de los projectos."
 
 #: ../../../www//install/views/step8.html:2
 msgid "Installation is over"
@@ -986,13 +962,8 @@ msgid "Apache configuration"
 msgstr "Configuraci&oacute;n de Apache"
 
 #: ../../../www//install/views/step8.html:8
-msgid ""
-"Last step is to configure subversion into apache. Copy past following lines "
-"at the end of your <em>httpd.conf</em>:"
-msgstr ""
-"El &uacute;ltimo paso es para configurar Subversion en Apache. Copie y pegue "
-"las siguientes lineas al final del archivo de configuraci&oacute;n <em>httpd."
-"conf</em>:"
+msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
+msgstr "El &uacute;ltimo paso es para configurar Subversion en Apache. Copie y pegue las siguientes lineas al final del archivo de configuraci&oacute;n <em>httpd.conf</em>:"
 
 #: ../../../www//install/views/step8.html:14
 msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
@@ -1013,8 +984,7 @@ msgstr "Chequear por una nueva versi&oacute;n"
 #: ../../../www//install/views/step7.html:6
 msgid ""
 "\n"
-"<p>During update checks, USVN will send information regarding of your "
-"installation.</p>\n"
+"<p>During update checks, USVN will send information regarding of your installation.</p>\n"
 "<p>\n"
 "This information is only collected for statistical purposes and allow\n"
 "us to better know the platforms on which USVN is installed.\n"
@@ -1037,18 +1007,14 @@ msgid ""
 "</p>\n"
 msgstr ""
 "\n"
-"<p>Durante el chequeo de actualizaci&oacute;n, USVN enviar&aacute; "
-"informaci&oacute;n relacionada con su instalaci&oacute;n.</p>\n"
+"<p>Durante el chequeo de actualizaci&oacute;n, USVN enviar&aacute; informaci&oacute;n relacionada con su instalaci&oacute;n.</p>\n"
 "<p>\n"
-"Esta informaci&oacute;n es recolectada solo para prop&oacute;sitos "
-"estad&iacute;sticos que nos permite conocer mejor las plataformas sobre las "
-"cuales es instalado USVN.\n"
+"Esta informaci&oacute;n es recolectada solo para prop&oacute;sitos estad&iacute;sticos que nos permite conocer mejor las plataformas sobre las cuales es instalado USVN.\n"
 "</p>\n"
 "<p>\n"
 "Aqu&iacute; esta una lista de lo que queremos recolectar:\n"
 "<ul>\n"
-"<li>IP (para obtener estad&iacute;sticas de la posici&oacute;n geogr&aacute;"
-"fica de USVN en el mundo)</li>\n"
+"<li>IP (para obtener estad&iacute;sticas de la posici&oacute;n geogr&aacute;fica de USVN en el mundo)</li>\n"
 "<li>La versi&oacute;n de PHP</li>\n"
 "<li>La versi&oacute;n de SVN</li>\n"
 "<li>La versi&oacute;n de USVN</li>\n"
@@ -1064,9 +1030,7 @@ msgstr ""
 
 #: ../../../www//install/views/step7.html:33
 msgid "Allow check update and send statistics informations"
-msgstr ""
-"Permitir el chequeo de actualizaciones y el env&iacute;o de informaci&oacute;"
-"n estad&iacute;stica"
+msgstr "Permitir el chequeo de actualizaciones y el env&iacute;o de informaci&oacute;n estad&iacute;stica"
 
 #: ../../../www//install/views/step7.html:38
 msgid "Don't check update"
@@ -1116,7 +1080,8 @@ msgstr "Creaci&oacute;n del primer usuario administrador de USVN"
 msgid "System"
 msgstr "Sistema"
 
-#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
 msgid "You need to accept the licence to continue installation."
 msgstr "Necesita aceptar la licencia para continuar con la instalaci&oacute;n."
 
@@ -1157,12 +1122,8 @@ msgstr "No se puede escribir el archivo %s.\n"
 
 #: ../../../www//install/Install.php:241
 #, php-format
-msgid ""
-"Invalid subversion path \"%s\", please check if directory exist and is "
-"writable."
-msgstr ""
-"El path subversion \"%s\", es inv&aacute;lido, por favor verifique que el "
-"directorio exista y posea permisos de escritura."
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "El path subversion \"%s\", es inv&aacute;lido, por favor verifique que el directorio exista y posea permisos de escritura."
 
 #: ../../../www//install/Install.php:286
 #, php-format
@@ -1182,11 +1143,8 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN no puede ejecutarse en el modo seguro de PHP."
 
 #: ../../../www//install/Install.php:445
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
-msgstr ""
-"Subversion no esta instalado en su sistema. Si usted se encuentra en Windows "
-"instale"
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Subversion no esta instalado en su sistema. Si usted se encuentra en Windows instale"
 
 #: ../../../www//install/Install.php:445
 msgid ""
@@ -1198,7 +1156,8 @@ msgstr ""
 "\n"
 "Sino en UNIX probablemente necesite instalar un paquete llamado subversion."
 
-#: ../../../www//install/Install.php:457 ../../../www//install/Install.php:465
+#: ../../../www//install/Install.php:457
+#: ../../../www//install/Install.php:465
 msgid "mod_rewrite seems not to be loaded"
 msgstr "el m&oacute;dulo mod_rewrite no pudo ser cargado"
 
@@ -1214,3 +1173,4 @@ msgstr "Editar"
 #: ../../../www//helpers/HomeLink.php:34
 msgid "Home"
 msgstr "P&aacute;gina principal"
+

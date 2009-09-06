@@ -17,22 +17,26 @@
   padding: 0px;
 	margin: 0px;
 }
- 
+
 html {
 	background: #ffffff;
 	height: 100%;
 	margin-bottom: 0px;
 }
- 
+
 body {
 	color: #000000;
 	font: 100% "Lucida Grande", Lucida, Verdana, sans-serif;
 }
- 
+
+fieldset {
+	border: 1px dotted #CCCCCC;
+}
+
 li, p {
 	font-size: 14px;
 }
- 
+
 img {
 	border: none;
 }
@@ -41,7 +45,7 @@ a {
 	color: #100076;
 	text-decoration: none;
 }
- 
+
 a:hover {
 	color: #ADA08F;
 	text-decoration: none;
@@ -56,83 +60,78 @@ ol {
 /* @group Header */
 #header {
 	background: #172933 url('<?php echo $this->images_directory ?>/header_bg2.png') repeat-x;
-  min-height: 124px;
+	min-height: 124px;
 }
  
 #header #shaddow {
-  min-height: 124px;
-  min-width: 950px;
-  margin-left: auto;
+	min-height: 124px;
+	min-width: 950px;
+	margin-left: auto;
 	margin-right: auto;
 	background: transparent url('<?php echo $this->images_directory ?>/header_back.png') no-repeat 0px 0px;  
 }
  
 #header #shaddow #header-wrapper {
-  width: 1000px;
-  margin-left: auto;
+	width: 1000px;
+	margin-left: auto;
 	margin-right: auto;
 }
  
 #header #shaddow #header-wrapper #logo {
-  width: 320px;
-  height: 124px;
-  float: left;
+	width: 320px;
+	height: 124px;
+	float: left;
 	background: transparent url('<?php echo $this->images_directory ?>/logo_trans.png') no-repeat 0px 0px;
 }
  
 #header #shaddow #header-wrapper #main-menu {
-  height: 124px;
-  width: 530px;
-  float: left;
-  text-align: center;
-  vertical-align: bottom;
+	height: 124px;
+	width: 530px;
+	float: left;
+	text-align: center;
+	vertical-align: bottom;
 }
  
 #header #shaddow #header-wrapper #main-menu ul {
-/*  list-style: none;*/
-  display: table;
-/*  margin-left: auto;
-	margin-right: auto; */
+	display: table;
 	float: right;
 	margin-top: 92px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li {
-/*  float: left;*/
-  display: table-cell;
-  position: relative;
-/*  width: 11em;*/
-  margin-top: 92px;
+	display: table-cell;
+	position: relative;
+	margin-top: 92px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a {
-  height: 32px;
-  float: left;
-  text-decoration: none;
+	height: 32px;
+	float: left;
+	text-decoration: none;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a span {
-  float: left;
-  margin-top: 0px;
-  padding: 1px 10px 10px 10px;
-  color: #ffffff;
+	float: left;
+	margin-top: 0px;
+	padding: 1px 10px 10px 10px;
+	color: #ffffff;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a:hover {
-  background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
+	background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a:hover span {
-  color: #ffffff;
+	color: #ffffff;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a#selected {
-  background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
+	background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a#selected span {
-  font-weight: bold;
-  color: #D3B65E;
+	font-weight: bold;
+	color: #D3B65E;
 }
 
 /* @end */
@@ -150,16 +149,7 @@ ol {
 }
  
 #container #container-wrapper #sub-menu {
-  /* Use the following to hide the menu */
-  /*
-  visibility: hidden;
-  height: 0px;
-  */
-  
-  background-color: #ffffff;
-	/*border: 1px solid #cbd5b8;
-	border-top: none;
-	border-bottom: none;*/
+	background-color: #ffffff;
 }
  
 #container #container-wrapper #main {
@@ -242,10 +232,10 @@ div#sub-menu ul li a:hover {
 /* @group Styles spécifiques */
 
 .usvn_require {
-  color: red;
-  float: none;
-  font-weight: bold;
-  margin-left: 3px;
+	color: red;
+	float: none;
+	font-weight: bold;
+	margin-left: 3px;
 }
 
 
@@ -255,16 +245,16 @@ div#sub-menu ul li a:hover {
 /* @group Tableaux */
 
 table.usvn_table, table.sortable {
-  border-collapse: collapse;
-  margin: auto;
-  min-width: 300px;
-  text-decoration: none;
-  width: 80%;
+	border-collapse: collapse;
+	margin: auto;
+	min-width: 300px;
+	text-decoration: none;
+	width: 80%;
 }
 
 table.usvn_table th, table.sortable th {
-  background-color: #d3d9c6;
-  border: 1px solid black;
+	background-color: #d3d9c6;
+	border: 1px solid black;
 	padding: 3px 4px;
 }
 
@@ -297,15 +287,14 @@ table.usvn_table td, table.sortable td {
 	border: 1px dotted #CCCCCC;
 }
 
-#loginBox {
-	background-color: #F4F4F4;
-	background-position: right bottom;
-	background-repeat: no-repeat;
-	border: 1px solid #CCCCCC;
+#login_box {
+	background-color: #F6FAFD;
+	border: 1px dotted #CCCCCC;
 	margin: auto;
-	padding: 50px;
+	padding: 40px;
 	text-align: center;
 	vertical-align: middle;
+	margin-bottom: 20px;
 }
 
 form.usvn_form > fieldset > legend, .usvn_legend {
@@ -314,9 +303,9 @@ form.usvn_form > fieldset > legend, .usvn_legend {
 }
 
 .usvn_info p {
-  font-size: 95%;
-  line-height: 130%;
-  margin: 10px 0 12px 10px;
+	font-size: 95%;
+	line-height: 130%;
+	margin: 10px 0 12px 10px;
 }
 
 h3 {
@@ -326,7 +315,7 @@ h3 {
 }
 
 #usvn_index_projects ul, #usvn_index_groups ul {
-  padding-left: 20px;
+	padding-left: 20px;
 }
 
 
@@ -336,12 +325,12 @@ h3 {
 /* @group Profile */
 
 form.usvn_form > fieldset {
-  margin-bottom: 1em;
-  padding: 5px;
+	margin-bottom: 1em;
+	padding: 5px;
 }
 
 form.usvn_form > fieldset > label {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 
@@ -353,31 +342,31 @@ form.usvn_form > fieldset > label {
 /* @group Admin::Home */
 
 .usvn_info h1 {
-  clear: left;
-  color: #409FFF;
-  font-size: 180%;
-  font-weight: bold;
-  margin: 0 0 3px;
+	clear: left;
+	color: #409FFF;
+	font-size: 180%;
+	font-weight: bold;
+	margin: 0 0 3px;
 }
 
 .usvn_info ul {
-  padding-left: 40px;
+	padding-left: 40px;
 }
 
 
 ul#usvn_admin_section {
-  list-style-type: none;
+	list-style-type: none;
 }
 
 #usvn_admin_section li {
-  background-color: #99BEDF;
-  border-color: #CCCCCC;
-  border-style: solid solid dotted;
-  border-width: 1px;
-  display: inline;
-  font-weight: bold;
-  margin: 10px;
-  padding: 6px;
+	background-color: #99BEDF;
+	border-color: #CCCCCC;
+	border-style: solid solid dotted;
+	border-width: 1px;
+	display: inline;
+	font-weight: bold;
+	margin: 10px;
+	padding: 6px;
 	float: left;
 	width: 45%;
 }

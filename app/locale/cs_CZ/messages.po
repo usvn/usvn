@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2007-09-19 11:50+0100\n"
-"Last-Translator: Alois Bělaška <alois.belaska@monetplus.cz>\n"
+"PO-Revision-Date: 2009-09-06 15:45+0100\n"
+"Last-Translator: \n"
 "Language-Team: cs <alois.belaska@monetplus.cz>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,8 @@ msgstr ""
 "X-Poedit-Country: CZECH REPUBLIC\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../../../www//menus/browser.php:32 ../../../www//menus/browserTest.php:47
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
 msgid "Browser"
 msgstr "Prohlížeč"
 
@@ -90,7 +91,8 @@ msgstr "Nelze přidat uživatele %s. Import přerušen."
 msgid "Invalid path %s."
 msgstr "Špatná cesta %s."
 
-#: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:106
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//USVN/Menu.php:106
 #: ../../../www//views/index/index.phtml:2
 msgid "Homepage"
 msgstr "Domácí stránka"
@@ -103,7 +105,8 @@ msgstr "Přihlášen jako"
 msgid "Can't write config file."
 msgstr "Nelze zapsat konfigurační soubor."
 
-#: ../../../www//USVN/Auth/Adapter/Db.php:54 ../../../www//USVN/Project.php:91
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:91
 #, php-format
 msgid "Login %s not found"
 msgstr "Login %s nenalezen"
@@ -133,7 +136,8 @@ msgstr ""
 "Chyba:\n"
 "%s"
 
-#: ../../../www//USVN/SVNUtils.php:194 ../../../www//USVN/Project.php:54
+#: ../../../www//USVN/SVNUtils.php:194
+#: ../../../www//USVN/Project.php:54
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr "Nelze vytvořit subversion repozitář: %s"
@@ -148,7 +152,8 @@ msgstr "Nelze provést checkout ye subversion repozitáře: %s"
 msgid "Can't list subversion repository: %s"
 msgstr "Nelze vylistovat subversion respozitář: %s"
 
-#: ../../../www//USVN/Menu.php:58 ../../../www//USVN/Db/Utils.php:33
+#: ../../../www//USVN/Menu.php:58
+#: ../../../www//USVN/Db/Utils.php:33
 #, php-format
 msgid "Can't open file %s."
 msgstr "Nelze otevřít soubor %s."
@@ -225,9 +230,7 @@ msgid "The project's name is empty."
 msgstr "Jméno projektu je prázdné."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
-msgid ""
-"The project's name is invalid. A project's name can only include alpha-"
-"numeric characters and '-' or '_'."
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
 msgstr ""
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
@@ -241,9 +244,7 @@ msgid "Login empty."
 msgstr "Prázdný login."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
-msgid ""
-"Login invalid.  The login can only include alpha-numeric characters and '-' "
-"or '_'."
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
 msgstr ""
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
@@ -276,9 +277,7 @@ msgid "The group's name is empty."
 msgstr "Jméno skupiny je prázdné."
 
 #: ../../../www//USVN/Db/Table/Groups.php:78
-msgid ""
-"The group's name is invalid. The group's name can only include alpha-numeric "
-"characters and '-' or '_'."
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
 msgstr ""
 
 #: ../../../www//USVN/Db/Table/Users.php:127
@@ -300,11 +299,13 @@ msgstr ""
 msgid "Welcome to USVN"
 msgstr "Vítejte v USVN"
 
-#: ../../../www//USVN/Config.php:37 ../../../www//install/Install.php:144
+#: ../../../www//USVN/Config.php:37
+#: ../../../www//install/Install.php:144
 msgid "Invalid language"
 msgstr "Špatný jazyk"
 
-#: ../../../www//USVN/Config.php:56 ../../../www//install/Install.php:166
+#: ../../../www//USVN/Config.php:56
+#: ../../../www//install/Install.php:166
 msgid "Invalid timezone"
 msgstr "Špatná časová zóna"
 
@@ -314,8 +315,7 @@ msgstr "Špatná šablona"
 
 #: ../../../www//USVN/User.php:106
 msgid "This user can't be created. A group has the same name."
-msgstr ""
-"Tento uživatel nemůže být vytvořen. Již existuje skupina se shodným jménem. "
+msgstr "Tento uživatel nemůže být vytvořen. Již existuje skupina se shodným jménem. "
 
 #: ../../../www//USVN/SVNLog.php:56
 #, php-format
@@ -609,7 +609,7 @@ msgid "Please enter your login and your password to connect to USVN."
 msgstr "Prosím zadejte váš login a heslo pro přihlášení k USVN."
 
 #: ../../../www//views/login/login.phtml:11
-msgid "Authentification"
+msgid "Authentication"
 msgstr "Autentizace"
 
 #: ../../../www//views/login/login.phtml:15
@@ -630,12 +630,8 @@ msgid "Password"
 msgstr "Heslo"
 
 #: ../../../www//views/useradmin/import.phtml:4
-msgid ""
-"This form allow you to add to USVN all users contents into an apache "
-"password file."
-msgstr ""
-"Tento formulář vám umožní přidat do USVN všechny uživatele uvedené v apache "
-"souboru s hesly."
+msgid "This form allow you to add to USVN all users contents into an apache password file."
+msgstr "Tento formulář vám umožní přidat do USVN všechny uživatele uvedené v apache souboru s hesly."
 
 #: ../../../www//views/useradmin/import.phtml:10
 msgid "Upload"
@@ -741,9 +737,7 @@ msgid "Start revision or date revision"
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:12
-msgid ""
-"You can list 100 revisions since your revision or date. The date format is : "
-"DD/MM/YYYY"
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:28
@@ -751,9 +745,7 @@ msgid "End revision or date revision"
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:30
-msgid ""
-"This is optional.The listing is made between start revision/date and this "
-"one."
+msgid "This is optional.The listing is made between start revision/date and this one."
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:40
@@ -836,9 +828,7 @@ msgstr "Administrátoři"
 #: ../../../www//views/project/index.phtml:39
 #, php-format
 msgid "Do you really want to remove user %s as admin of project %s?"
-msgstr ""
-"Opravdu si přejete zrušit administrátorské oprávnění uživatele %s na "
-"projektu %s?"
+msgstr "Opravdu si přejete zrušit administrátorské oprávnění uživatele %s na projektu %s?"
 
 #: ../../../www//views/project/index.phtml:69
 #, php-format
@@ -875,7 +865,8 @@ msgid "This page doesn't exist."
 msgstr "Uživatel %s neexistuje."
 
 #: ../../../www//install/install-commandline.php:36
-#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
 msgid "Error"
 msgstr "Chyba"
 
@@ -928,10 +919,8 @@ msgid "Configure USVN"
 msgstr "Konfigurovat USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
-msgstr ""
-"Nastavení hlavní konfigurace USVN. Můžete ponechat standartní nastavení."
+msgid "Settings of general configuration of USVN. You can keep default settings."
+msgstr "Nastavení hlavní konfigurace USVN. Můžete ponechat standartní nastavení."
 
 #: ../../../www//install/views/step4.html:12
 msgid "Page title"
@@ -982,17 +971,12 @@ msgid "Apache configuration"
 msgstr "Konfigurace Apache"
 
 #: ../../../www//install/views/step8.html:8
-msgid ""
-"Last step is to configure subversion into apache. Copy past following lines "
-"at the end of your <em>httpd.conf</em>:"
-msgstr ""
-"Posledním krokem je konfigurace subversion v apache. Zkopírujte následující "
-"řádky a vložte je na konec souboru  <em>httpd.conf</em>:"
+msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
+msgstr "Posledním krokem je konfigurace subversion v apache. Zkopírujte následující řádky a vložte je na konec souboru  <em>httpd.conf</em>:"
 
 #: ../../../www//install/views/step8.html:14
 msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
-msgstr ""
-"A restartujte váš apaceh server příkazem <kbd>apache2ctl restart</kbd>."
+msgstr "A restartujte váš apaceh server příkazem <kbd>apache2ctl restart</kbd>."
 
 #: ../../../www//install/views/step8.html:18
 msgid "Connect to USVN"
@@ -1009,8 +993,7 @@ msgstr ""
 #: ../../../www//install/views/step7.html:6
 msgid ""
 "\n"
-"<p>During update checks, USVN will send information regarding of your "
-"installation.</p>\n"
+"<p>During update checks, USVN will send information regarding of your installation.</p>\n"
 "<p>\n"
 "This information is only collected for statistical purposes and allow\n"
 "us to better know the platforms on which USVN is installed.\n"
@@ -1085,7 +1068,8 @@ msgstr "Vytvoření prvního administrátora USVN"
 msgid "System"
 msgstr "Systém"
 
-#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
 msgid "You need to accept the licence to continue installation."
 msgstr "Musíte akceptovat licenci pro pokračování v instalaci."
 
@@ -1124,12 +1108,8 @@ msgstr "Nelze zapsat přístupový soubor %s.\n"
 
 #: ../../../www//install/Install.php:241
 #, php-format
-msgid ""
-"Invalid subversion path \"%s\", please check if directory exist and is "
-"writable."
-msgstr ""
-"Špatná subversion cesta \"%s\", prosím zkontrolujte zda adresář existuje a "
-"je zapisovatelný."
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "Špatná subversion cesta \"%s\", prosím zkontrolujte zda adresář existuje a je zapisovatelný."
 
 #: ../../../www//install/Install.php:286
 #, php-format
@@ -1149,8 +1129,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN nemůže běžet v php safe módu."
 
 #: ../../../www//install/Install.php:445
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr "Subversion není nainstalováno."
 
 #: ../../../www//install/Install.php:445
@@ -1158,10 +1137,10 @@ msgid ""
 " and after restart your system (WARNING it's mandatory). \n"
 "\n"
 "Otherwise under UNIX you probably need to install a package named subversion."
-msgstr ""
-"Pod UNIX systémem pravděpodobně potřebujete nainstalovat balíček subversion."
+msgstr "Pod UNIX systémem pravděpodobně potřebujete nainstalovat balíček subversion."
 
-#: ../../../www//install/Install.php:457 ../../../www//install/Install.php:465
+#: ../../../www//install/Install.php:457
+#: ../../../www//install/Install.php:465
 msgid "mod_rewrite seems not to be loaded"
 msgstr "mod_rewrite není nainstalován"
 
@@ -1180,9 +1159,8 @@ msgstr "Doma"
 
 #~ msgid "The group's name is invalid."
 #~ msgstr "Jméno skupiny je špatné."
-
 #~ msgid "The project's name is invalid."
 #~ msgstr "Jméno projektu je špatné."
-
 #~ msgid "Login invalid."
 #~ msgstr "Špatný login."
+

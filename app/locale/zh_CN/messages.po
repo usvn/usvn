@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2007-11-30 13:21+0000\n"
-"Last-Translator:  <>\n"
+"PO-Revision-Date: 2009-09-06 15:46+0100\n"
+"Last-Translator: \n"
 "Language-Team: Chinese/Simplified <contact@usvn.info>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../../www//menus/browser.php:32 ../../../www//menus/browserTest.php:47
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
 msgid "Browser"
 msgstr "浏览"
 
@@ -91,7 +92,8 @@ msgstr "无法添加用户 %s. 导入取消."
 msgid "Invalid path %s."
 msgstr "无效的路径 %s."
 
-#: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:106
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//USVN/Menu.php:106
 #: ../../../www//views/index/index.phtml:2
 msgid "Homepage"
 msgstr "主页"
@@ -104,7 +106,8 @@ msgstr "登陆为"
 msgid "Can't write config file."
 msgstr "无法创建配置文件."
 
-#: ../../../www//USVN/Auth/Adapter/Db.php:54 ../../../www//USVN/Project.php:91
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:91
 #, php-format
 msgid "Login %s not found"
 msgstr "登录名 %s 未找到"
@@ -134,7 +137,8 @@ msgstr ""
 "错误:\n"
 "%s"
 
-#: ../../../www//USVN/SVNUtils.php:194 ../../../www//USVN/Project.php:54
+#: ../../../www//USVN/SVNUtils.php:194
+#: ../../../www//USVN/Project.php:54
 #, php-format
 msgid "Can't create subversion repository: %s"
 msgstr "无法创建 subversion 仓库: %s"
@@ -149,7 +153,8 @@ msgstr "无法检出 (checkout) subversion 仓库: %s"
 msgid "Can't list subversion repository: %s"
 msgstr "无法列出 subversion 仓库: %s"
 
-#: ../../../www//USVN/Menu.php:58 ../../../www//USVN/Db/Utils.php:33
+#: ../../../www//USVN/Menu.php:58
+#: ../../../www//USVN/Db/Utils.php:33
 #, php-format
 msgid "Can't open file %s."
 msgstr "无法打开 %s 文件."
@@ -226,9 +231,7 @@ msgid "The project's name is empty."
 msgstr "项目名是空的."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
-msgid ""
-"The project's name is invalid. A project's name can only include alpha-"
-"numeric characters and '-' or '_'."
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
 msgstr "项目名无效. 项目名只能包含字母, 数字, '-', '_'"
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
@@ -242,9 +245,7 @@ msgid "Login empty."
 msgstr "登录名不可为空."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
-msgid ""
-"Login invalid.  The login can only include alpha-numeric characters and '-' "
-"or '_'."
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
 msgstr "登录名无效. 登录名只能包含字母, 数字, '-', '_'"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
@@ -277,9 +278,7 @@ msgid "The group's name is empty."
 msgstr "用户组的名字是空的."
 
 #: ../../../www//USVN/Db/Table/Groups.php:78
-msgid ""
-"The group's name is invalid. The group's name can only include alpha-numeric "
-"characters and '-' or '_'."
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
 msgstr "用户组名无效. 用户组名只能包含字母, 数字, '-', '_'"
 
 #: ../../../www//USVN/Db/Table/Users.php:127
@@ -301,11 +300,13 @@ msgstr ""
 msgid "Welcome to USVN"
 msgstr "欢迎使用 USVN"
 
-#: ../../../www//USVN/Config.php:37 ../../../www//install/Install.php:144
+#: ../../../www//USVN/Config.php:37
+#: ../../../www//install/Install.php:144
 msgid "Invalid language"
 msgstr "无效的语言"
 
-#: ../../../www//USVN/Config.php:56 ../../../www//install/Install.php:166
+#: ../../../www//USVN/Config.php:56
+#: ../../../www//install/Install.php:166
 msgid "Invalid timezone"
 msgstr "无效的时区"
 
@@ -605,7 +606,7 @@ msgid "Please enter your login and your password to connect to USVN."
 msgstr "请输入您的登录名和密码"
 
 #: ../../../www//views/login/login.phtml:11
-msgid "Authentification"
+msgid "Authentication"
 msgstr "验证"
 
 #: ../../../www//views/login/login.phtml:15
@@ -626,9 +627,7 @@ msgid "Password"
 msgstr "密码"
 
 #: ../../../www//views/useradmin/import.phtml:4
-msgid ""
-"This form allow you to add to USVN all users contents into an apache "
-"password file."
+msgid "This form allow you to add to USVN all users contents into an apache password file."
 msgstr "这个表单允许你添加所有 usvn 用户到 Apache 的密码文件中."
 
 #: ../../../www//views/useradmin/import.phtml:10
@@ -734,21 +733,15 @@ msgid "Start revision or date revision"
 msgstr "开始的修订或日期"
 
 #: ../../../www//views/Timeline/index.phtml:12
-msgid ""
-"You can list 100 revisions since your revision or date. The date format is : "
-"DD/MM/YYYY"
-msgstr ""
-"您能显示从您选定的修订或日期开始的 100 个修订. 日期的格式是: DD/MM/YYYY(日/"
-"月/年)"
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
+msgstr "您能显示从您选定的修订或日期开始的 100 个修订. 日期的格式是: DD/MM/YYYY(日/月/年)"
 
 #: ../../../www//views/Timeline/index.phtml:28
 msgid "End revision or date revision"
 msgstr "结束的修订或日期"
 
 #: ../../../www//views/Timeline/index.phtml:30
-msgid ""
-"This is optional.The listing is made between start revision/date and this "
-"one."
+msgid "This is optional.The listing is made between start revision/date and this one."
 msgstr "这是可选的. 这个列表显示 开始修订/日期 和本项之间的提交."
 
 #: ../../../www//views/Timeline/index.phtml:40
@@ -865,7 +858,8 @@ msgid "This page doesn't exist."
 msgstr "此页不存在."
 
 #: ../../../www//install/install-commandline.php:36
-#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
 msgid "Error"
 msgstr "错误"
 
@@ -918,8 +912,7 @@ msgid "Configure USVN"
 msgstr "设置 USVN"
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
+msgid "Settings of general configuration of USVN. You can keep default settings."
 msgstr "USVN 的设置, 您可以使用默认值."
 
 #: ../../../www//install/views/step4.html:12
@@ -971,12 +964,8 @@ msgid "Apache configuration"
 msgstr "Apache 设置"
 
 #: ../../../www//install/views/step8.html:8
-msgid ""
-"Last step is to configure subversion into apache. Copy past following lines "
-"at the end of your <em>httpd.conf</em>:"
-msgstr ""
-"最后一步是设置 apache 集成 subversion 添加下面的几行到您的配置文件 <em>httpd."
-"conf</em> 的末尾"
+msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
+msgstr "最后一步是设置 apache 集成 subversion 添加下面的几行到您的配置文件 <em>httpd.conf</em> 的末尾"
 
 #: ../../../www//install/views/step8.html:14
 msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
@@ -997,8 +986,7 @@ msgstr "检查新版本"
 #: ../../../www//install/views/step7.html:6
 msgid ""
 "\n"
-"<p>During update checks, USVN will send information regarding of your "
-"installation.</p>\n"
+"<p>During update checks, USVN will send information regarding of your installation.</p>\n"
 "<p>\n"
 "This information is only collected for statistical purposes and allow\n"
 "us to better know the platforms on which USVN is installed.\n"
@@ -1094,7 +1082,8 @@ msgstr "创建 USVN 的第一个管理员."
 msgid "System"
 msgstr "系统"
 
-#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
 msgid "You need to accept the licence to continue installation."
 msgstr "您需要接受这个协议才能继续安装."
 
@@ -1135,9 +1124,7 @@ msgstr "无法写访问控制文件 %s .\n"
 
 #: ../../../www//install/Install.php:241
 #, php-format
-msgid ""
-"Invalid subversion path \"%s\", please check if directory exist and is "
-"writable."
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
 msgstr "无效的 subversion 路径 %s, 请检查目录是否存在并且可写."
 
 #: ../../../www//install/Install.php:286
@@ -1158,8 +1145,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr "USVN 无法在 php 的安全模式下运行."
 
 #: ../../../www//install/Install.php:445
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr "Subversion 在您的系统上没有安装, 如果您正在 Windows 中安装 USVN."
 
 #: ../../../www//install/Install.php:445
@@ -1171,7 +1157,8 @@ msgstr ""
 " 重启您的系统 (注意: 这是必须的). \n"
 "如果, 在 UNIX 中您很可能需要安装 subversion 软件包."
 
-#: ../../../www//install/Install.php:457 ../../../www//install/Install.php:465
+#: ../../../www//install/Install.php:457
+#: ../../../www//install/Install.php:465
 msgid "mod_rewrite seems not to be loaded"
 msgstr "mod_rewrite 没有被加载"
 
@@ -1190,21 +1177,16 @@ msgstr "首页"
 
 #~ msgid "Login invalid."
 #~ msgstr "登录名无效."
-
 #~ msgid "The project's name is invalid."
 #~ msgstr "项目名无效."
-
 #~ msgid "The group's name is invalid."
 #~ msgstr "用户组名无效."
-
 #~ msgid "Manage"
 #~ msgstr "管理"
-
 #~ msgid "admin"
 #~ msgstr "管理员"
-
 #~ msgid "Register"
 #~ msgstr "注册"
-
 #~ msgid "To modify the rights on"
 #~ msgstr "修改权限 :"
+

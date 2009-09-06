@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2009-09-06 15:56+0100\n"
+"Last-Translator: \n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,12 +78,12 @@ msgstr "Invalid password file."
 #: ../../../www//USVN/ImportHtpasswd.php:52
 #, php-format
 msgid "User %s already exist into htpasswd file."
-msgstr "The user "%s" already exists into the password file."
+msgstr "The user \"%s\" already exists into the password file."
 
 #: ../../../www//USVN/ImportHtpasswd.php:79
 #, php-format
 msgid "Can't add users %s. Import cancel."
-msgstr "Importing users from the password file has been cancelled because an error occured."
+msgstr "Importing users from the password file has been cancelled because an error occured. (%s)"
 
 #: ../../../www//USVN/FilesAccessRights.php:42
 #: ../../../www//USVN/FilesAccessRights.php:83
@@ -128,7 +128,8 @@ msgid ""
 "\n"
 "Error:\n"
 "%s"
-msgstr "Can't import into subversion repository.\n"
+msgstr ""
+"Can't import into subversion repository.\n"
 "Command:\n"
 "%s\n"
 "\n"
@@ -229,11 +230,8 @@ msgid "The project's name is empty."
 msgstr "Empty project name."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
-msgid ""
-"The project's name is invalid. A project's name can only include alpha-"
-"numeric characters and '-' or '_'."
-msgstr "Invalid project name. A valid project name can only include"
-"alphanumeric characters, dashes ('-') or underscores ('_')"
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Invalid project name. A valid project name can only include alphanumeric characters, dashes ('-') or underscores ('_')"
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
@@ -246,11 +244,8 @@ msgid "Login empty."
 msgstr "Login empty."
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
-msgid ""
-"Login invalid.  The login can only include alpha-numeric characters and '-' "
-"or '_'."
-msgstr "Invalid login. Logins can only include alphanumeric characters,"
-"dashes ('-'), or underscores ('_')"
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
+msgstr "Invalid login. Logins can only include alphanumeric characters,dashes ('-'), or underscores ('_')"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:147
 msgid "Invalid email address."
@@ -282,11 +277,8 @@ msgid "The group's name is empty."
 msgstr "The group name is empty."
 
 #: ../../../www//USVN/Db/Table/Groups.php:78
-msgid ""
-"The group's name is invalid. The group's name can only include alpha-numeric "
-"characters and '-' or '_'."
-msgstr "Invalid group name. Valid group names can only include alphanumeric"
-"characted, dashes ('-'), or underscores ('_')"
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Invalid group name. Valid group names can only include alphanumericcharacted, dashes ('-'), or underscores ('_')"
 
 #: ../../../www//USVN/Db/Table/Users.php:127
 #, php-format
@@ -609,7 +601,7 @@ msgid "Please enter your login and your password to connect to USVN."
 msgstr ""
 
 #: ../../../www//views/login/login.phtml:11
-msgid "Authentification"
+msgid "Authentication"
 msgstr ""
 
 #: ../../../www//views/login/login.phtml:15
@@ -630,9 +622,7 @@ msgid "Password"
 msgstr ""
 
 #: ../../../www//views/useradmin/import.phtml:4
-msgid ""
-"This form allow you to add to USVN all users contents into an apache "
-"password file."
+msgid "This form allow you to add to USVN all users contents into an apache password file."
 msgstr ""
 
 #: ../../../www//views/useradmin/import.phtml:10
@@ -738,9 +728,7 @@ msgid "Start revision or date revision"
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:12
-msgid ""
-"You can list 100 revisions since your revision or date. The date format is : "
-"DD/MM/YYYY"
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:28
@@ -748,9 +736,7 @@ msgid "End revision or date revision"
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:30
-msgid ""
-"This is optional.The listing is made between start revision/date and this "
-"one."
+msgid "This is optional.The listing is made between start revision/date and this one."
 msgstr ""
 
 #: ../../../www//views/Timeline/index.phtml:40
@@ -921,8 +907,7 @@ msgid "Configure USVN"
 msgstr ""
 
 #: ../../../www//install/views/step4.html:3
-msgid ""
-"Settings of general configuration of USVN. You can keep default settings."
+msgid "Settings of general configuration of USVN. You can keep default settings."
 msgstr ""
 
 #: ../../../www//install/views/step4.html:12
@@ -970,9 +955,7 @@ msgid "Apache configuration"
 msgstr ""
 
 #: ../../../www//install/views/step8.html:8
-msgid ""
-"Last step is to configure subversion into apache. Copy past following lines "
-"at the end of your <em>httpd.conf</em>:"
+msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
 msgstr ""
 
 #: ../../../www//install/views/step8.html:14
@@ -994,8 +977,7 @@ msgstr ""
 #: ../../../www//install/views/step7.html:6
 msgid ""
 "\n"
-"<p>During update checks, USVN will send information regarding of your "
-"installation.</p>\n"
+"<p>During update checks, USVN will send information regarding of your installation.</p>\n"
 "<p>\n"
 "This information is only collected for statistical purposes and allow\n"
 "us to better know the platforms on which USVN is installed.\n"
@@ -1110,9 +1092,7 @@ msgstr ""
 
 #: ../../../www//install/Install.php:241
 #, php-format
-msgid ""
-"Invalid subversion path \"%s\", please check if directory exist and is "
-"writable."
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
 msgstr ""
 
 #: ../../../www//install/Install.php:286
@@ -1133,8 +1113,7 @@ msgid "USVN can't run with php's safe mode."
 msgstr ""
 
 #: ../../../www//install/Install.php:445
-msgid ""
-"Subversion is not install on your system. If you are under Windows install "
+msgid "Subversion is not install on your system. If you are under Windows install "
 msgstr ""
 
 #: ../../../www//install/Install.php:445
@@ -1188,3 +1167,4 @@ msgstr ""
 
 msgid "Installation is over"
 msgstr ""
+

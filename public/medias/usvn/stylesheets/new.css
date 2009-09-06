@@ -55,6 +55,23 @@ ol {
   padding-left: 50px;
 }
 
+h3 {
+	color: #2ABBF5;
+	margin-bottom: 5px;
+	padding-top: 15px;
+}
+
+input {
+	line-height: 15px;
+	margin-bottom: 10px;
+}
+
+label {
+	text-align: left;
+	font-weight: bold;
+	line-height: 20px;
+}
+
 /* @end */
 
 /* @group Header */
@@ -131,7 +148,7 @@ ol {
  
 #header #shaddow #header-wrapper #main-menu ul li a#selected span {
 	font-weight: bold;
-	color: #D3B65E;
+	color: #2ABBF5;
 }
 
 /* @end */
@@ -287,31 +304,20 @@ table.usvn_table td, table.sortable td {
 	border: 1px dotted #CCCCCC;
 }
 
-#login_box {
+#box {
 	background-color: #F6FAFD;
 	border: 1px dotted #CCCCCC;
 	margin: auto;
-	padding: 40px;
+	width: 200px;
+	padding: 20px;
 	text-align: center;
-	vertical-align: middle;
 	margin-bottom: 20px;
-}
-
-form.usvn_form > fieldset > legend, .usvn_legend {
-	font-weight: bold;
-	margin-left: 5px;
 }
 
 .usvn_info p {
 	font-size: 95%;
 	line-height: 130%;
 	margin: 10px 0 12px 10px;
-}
-
-h3 {
-	color: #89C8FF;
-	margin-bottom: 5px;
-	padding-top: 15px;
 }
 
 #usvn_index_projects ul, #usvn_index_groups ul {
@@ -324,16 +330,19 @@ h3 {
 
 /* @group Profile */
 
-form.usvn_form > fieldset {
-	margin-bottom: 1em;
-	padding: 5px;
+form.usvn_form {
+	margin-bottom: 20px;
+	padding: 15px;
 }
 
-form.usvn_form > fieldset > label {
-	font-weight: bold;
+#profile {
+	background-color: #F6FAFD;
+	border: 1px dotted #CCCCCC;
+	margin: auto;
+	width: 300px;
+	padding: 20px;
+	margin-bottom: 20px;
 }
-
-
 
 /* @end */
 
@@ -343,7 +352,7 @@ form.usvn_form > fieldset > label {
 
 .usvn_info h1 {
 	clear: left;
-	color: #409FFF;
+	color: #125675;
 	font-size: 180%;
 	font-weight: bold;
 	margin: 0 0 3px;
@@ -417,7 +426,7 @@ ul.grid_list li {
 ul.grid_list li a {
 	height: 100%;
 	display: block;
-	color: #1984FF;
+	color: #0D62B9;
 }
 
 ul.grid_list li a:hover {

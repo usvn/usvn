@@ -6,18 +6,17 @@
 </div>
 <div>
 	<form method="post" action="<?= $this->url() ?>">
-		<table id="login_box">
-			<tr id="username">
-				<td id="lbLogin"><?= T_("Login") . ':' ?></td>
-				<td><?= $this->formText('login', (isset($this->login) ? $this->login : "")) ?></td>
-			</tr>
-			<tr id="pass">
-				<td id="lbPass"><?= T_("Password") . ':' ?></td>
-				<td><?= $this->formPassword('password') ?></td>
-			</tr>
-			<tr id="logon">
-				<td colspan="2"><?= $this->formSubmit('submit', T_("Submit")) ?></td>
-			</tr>
-		</table>
+		<div id="box">
+			<label for="login" id="username"><?= T_("Login") ?><br />
+				<?= $this->formText('login', (isset($this->login) ? $this->login : "")) ?>
+			</label>
+			<br />
+			<label for="lbPass" id="pass">
+				<?= T_("Password") ?><br />
+				<?= $this->formPassword('password') ?>
+			</label>
+			<br />
+			<?= $this->formSubmit('submit', T_("Submit")) ?>
+		</div>
 	</form>
 </div>

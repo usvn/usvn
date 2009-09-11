@@ -35,6 +35,7 @@ fieldset {
 
 li, p {
 	font-size: 14px;
+	list-style-type: none;
 }
 
 img {
@@ -427,6 +428,7 @@ ul.grid_list li a {
 	height: 100%;
 	display: block;
 	color: #0D62B9;
+	overflow: hidden;
 }
 
 ul.grid_list li a:hover {

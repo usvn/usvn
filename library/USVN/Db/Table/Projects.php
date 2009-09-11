@@ -87,7 +87,7 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	 */
 	public function insert(array $data)
 	{
-		if (!$data['projects_start_date']) {
+		if (!isset($data['projects_start_date']) || !$data['projects_start_date']) {
 			$data['projects_start_date'] = date("Y-m-d H:i:s");
 		}
 

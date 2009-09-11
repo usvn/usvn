@@ -33,7 +33,7 @@ class USVN_Project
 		. 'svn'
 		. DIRECTORY_SEPARATOR
 		. $project_name;
-		if (!USVN_SVNUtils::isSVNRepository($path)) {
+		if (!USVN_SVNUtils::isSVNRepository($path, true)) {
 			$directories = explode(DIRECTORY_SEPARATOR, $path);
 			$tmp_path = '';
 			foreach ($directories as $directory) {
@@ -51,8 +51,11 @@ class USVN_Project
 				}
 			} else {
 				$message = "One of these repository's subfolders is a subversion repository.";
-				throw new USVN_Exception(T_("Can't create subversion repository: %s"), $message);
+				throw new USVN_Exception(T_("Can't create subversion repository:<br />%s"), $message);
 			}
+		} else {
+			$message = $project_name." is a SVN repository.";
+			throw new USVN_Exception(T_("Can't create subversion repository:<br />%s"), $message);
 		}
 	}
 
@@ -91,6 +94,13 @@ class USVN_Project
 			throw new USVN_Exception(T_('Login %s not found'), $login);
 		}
 
+		$groups = new USVN_Db_Table_Groups();
+		if ($create_group) {
+			$group = $groups->fetchRow(array('groups_name = ?' => $data['projects_name']));
+			if ($group !== null) {
+				throw new USVN_Exception(T_("Group %s already exists."), $data['projects_name']);
+			}
+		}
 		try {
 			$table = new USVN_Db_Table_Projects();
 			$table->getAdapter()->beginTransaction();
@@ -100,7 +110,6 @@ class USVN_Project
 			USVN_Project::createProjectSVN($data['projects_name'], $create_svn_directories);
 				
 			if ($create_group) {
-				$groups = new USVN_Db_Table_Groups();
 				$group = $groups->createRow();
 				$group->description = sprintf(T_("Autocreated group for project %s"), $data['projects_name']);
 				$group->name = $data['projects_name'];

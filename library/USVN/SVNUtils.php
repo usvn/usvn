@@ -33,11 +33,22 @@ class USVN_SVNUtils
 	* @param string Path of subversion repository
 	* @return bool
 	*/
-    public static function isSVNRepository($path)
+    public static function isSVNRepository($path, $available = false)
     {
         if (file_exists($path . "/hooks") && file_exists($path . "/db")){
             return true;
         }
+				if ($available && is_dir($path)) {
+					$not_dir = false;
+					foreach (array_diff(scandir($path), array('.', '..')) as $file) {
+						if (!is_dir($path.'/'.$file)) {
+							$not_dir = true;
+						}
+					}
+					if ($not_dir === false) {
+						return true;
+					}
+				}
         return false;
     }
 

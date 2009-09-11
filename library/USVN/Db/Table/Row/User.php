@@ -94,7 +94,12 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	 */
 	public function listGroups()
 	{
-		return $this->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
+		$groupTable = new USVN_Db_Table_Groups();
+		$select = $groupTable->select();
+		$select->order('groups_name');
+		return $this->findManyToManyRowset('USVN_Db_Table_Groups',
+		 'USVN_Db_Table_UsersToGroups',
+		  null, null, $select);
 	}
 
 	/**

@@ -85,7 +85,7 @@
 	if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
 		echo "  <a href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."'>".$this->img('rss.png', T_('Rss'))."</a>";
 	 ?></h1>
-	<table id="commits" class="sortable">
+	<table class="sortable">
 		<thead>
 			<tr>
 				<th><?php echo T_("Revision");?></th>

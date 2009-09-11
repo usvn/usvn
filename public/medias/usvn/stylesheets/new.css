@@ -48,7 +48,7 @@ a {
 }
 
 a:hover {
-	color: #ADA08F;
+	color: #0D62B9;
 	text-decoration: none;
 }
 
@@ -167,7 +167,7 @@ label {
 }
  
 #container #container-wrapper #sub-menu {
-	background-color: #ffffff;
+	background-color: #E4F2FD;
 }
  
 #container #container-wrapper #main {
@@ -196,16 +196,9 @@ label {
 
 div#sub-menu {
 	margin: 4px 0 0;
-	padding: 5px 0 0;
 	position: absolute;
-	width: 140px;
-	border-color: #cbd5b8;
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-	border-left-style: solid;
-	border-right-width: 1px;
-	border-right-style: solid;
+	width: 138px;
+	border: 1px dotted #CCCCCC;
 	overflow: hidden;
 }
 
@@ -227,21 +220,20 @@ div#sub-menu ul li * {
 }
 
 div#sub-menu ul li h3 {
-	font-size: 14px;
-	border-bottom: 1px solid #c3a957;
+	font-size: 15px;
+	color: #DDEEFC;
+	background-color: #124361;
+	border-bottom: 1px solid #F0F8FD;
 	margin: 0;
+	text-align: center;
 }
 
 div#sub-menu ul li a {
-	background-color: #f8f8f8;
 	display: block;
 }
 
 div#sub-menu ul li a:hover {
-	background-color: #eee;
 }
-
-
 
 /* @end */
 
@@ -267,18 +259,26 @@ table.usvn_table, table.sortable {
 	margin: auto;
 	min-width: 300px;
 	text-decoration: none;
-	width: 80%;
+	width: 90%;
 }
 
 table.usvn_table th, table.sortable th {
-	background-color: #d3d9c6;
-	border: 1px solid black;
+	background-color: #124361;
+	border: 1px solid #124361;
 	padding: 3px 4px;
+	color: #E4F2FD;
 }
 
 table.usvn_table td, table.sortable td {
-	border: 1px solid #cbd5b8;
-	padding: 3px;
+	border: 1px solid #124361;
+	padding: 3px 4px;
+	vertical-align: top;
+}
+
+table.usvn_table tr:hover, table.sortable tr:hover {
+	background-color: #B5DCEE;
+	border: 1px solid #124361;
+	padding: 3px 4px;
 	vertical-align: top;
 }
 
@@ -337,7 +337,7 @@ form.usvn_form {
 }
 
 #profile {
-	background-color: #F6FAFD;
+	background-color: #F2F8FD;
 	border: 1px dotted #CCCCCC;
 	margin: auto;
 	width: 300px;
@@ -369,9 +369,9 @@ ul#usvn_admin_section {
 }
 
 #usvn_admin_section li {
-	background-color: #99BEDF;
+	background-color: #F2F8FD;
 	border-color: #CCCCCC;
-	border-style: solid solid dotted;
+	border-style: dotted;
 	border-width: 1px;
 	display: inline;
 	font-weight: bold;
@@ -393,11 +393,6 @@ ul#usvn_admin_section {
 	text-align: center;
 	padding: 15px 0;
 	margin-top: 15px;
-}
-
-#commits tr:hover {
-	background-color: #D3D9C6;
-	cursor: pointer;
 }
 
 /* @end */

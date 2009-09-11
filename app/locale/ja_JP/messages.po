@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2009-09-06 15:46+0100\n"
+"PO-Revision-Date: 2009-09-11 22:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: ja <yoshida@crossnet.co.jp>\n"
 "MIME-Version: 1.0\n"
@@ -813,7 +813,7 @@ msgid "Do you really want to remove group %s from project %s?"
 msgstr "本当にグループ %s をプロジェクト %s から削除しますか？"
 
 #: ../../../www//views/project/index.phtml:79
-msgid "Last five commit"
+msgid "Last five commits"
 msgstr "最新のコミットログ - 5件"
 
 #: ../../../www//views/project/index.phtml:82

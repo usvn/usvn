@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: USVN 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2009-09-06 15:45+0100\n"
+"PO-Revision-Date: 2009-09-11 22:44+0100\n"
 "Last-Translator: \n"
 "Language-Team: cs <alois.belaska@monetplus.cz>\n"
 "MIME-Version: 1.0\n"
@@ -836,7 +836,7 @@ msgid "Do you really want to remove group %s from project %s?"
 msgstr "Opravdu si přejete odebrat skupinu %s z projektu %s?"
 
 #: ../../../www//views/project/index.phtml:79
-msgid "Last five commit"
+msgid "Last five commits"
 msgstr "Posledních 5 commitů"
 
 #: ../../../www//views/project/index.phtml:82

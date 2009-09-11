@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-12 10:26+0100\n"
-"PO-Revision-Date: 2009-09-06 15:46+0100\n"
+"PO-Revision-Date: 2009-09-11 22:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: id <public@lokamaya.com>\n"
 "MIME-Version: 1.0\n"
@@ -824,7 +824,7 @@ msgid "Do you really want to remove group %s from project %s?"
 msgstr "Apakah anda ingin menghapus grup %s dari proyek %s?"
 
 #: ../../../www//views/project/index.phtml:79
-msgid "Last five commit"
+msgid "Last five commits"
 msgstr "Lima instruksi \"commit\" terakhir"
 
 #: ../../../www//views/project/index.phtml:82

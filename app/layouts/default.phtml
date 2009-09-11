@@ -23,8 +23,15 @@
 	    		</div>
 	    		<div id="main-menu">
 		          <ul>
-		<? foreach (array('index' => 'Home', 'profile' => 'Profile', 'admin' => 'Admin', 'logout' => 'Logout') as $menuLink => $menuLabel): ?>
-		            <li><a href="<?= $this->url(array('controller' => $menuLink), 'default') ?>" <?= ($menuLink == $this->controller ? ' id="selected"' : '') ?>><span><?= T_($menuLabel) ?></span></a></li>
+		<?
+		$selected = $this->controller;
+		if (isset($_SERVER['REDIRECT_URL'])) {
+		  if (preg_match('#/usvn/([^/]+)#', $_SERVER['REDIRECT_URL'], $tmp)) {
+		    $selected = $tmp[1];
+		  }
+		}
+		foreach (array('index' => 'Home', 'profile' => 'Profile', 'admin' => 'Admin', 'logout' => 'Logout') as $menuLink => $menuLabel): ?>
+		            <li><a href="<?= $this->url(array('controller' => $menuLink), 'default') ?>" <?= ($menuLink == $selected ? ' id="selected"' : '') ?>><span><?= T_($menuLabel) ?></span></a></li>
 		<? endforeach ?>
 		          </ul>
 	    		</div>

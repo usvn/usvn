@@ -272,6 +272,9 @@ class Install
 Order Allow,Deny
 Deny from all
 </Files>
+
+php_flag short_open_tag on
+
 RewriteEngine on
 #RewriteCond
 RewriteBase "/{$path}/"

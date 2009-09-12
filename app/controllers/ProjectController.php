@@ -67,8 +67,13 @@ class ProjectController extends USVN_Controller
 		if (!$find && !$this->isAdmin()) {
 			$this->_redirect("/");
 		}
+		if (strlen($project->name) > 12) {
+			$shortName = substr($project->name, 0, 12) . '..';
+		} else {
+			$shortName = $project->name;
+		}
     $this->view->submenu = array(
-        array('label' => $project->name),
+        array('label' => $shortName),
         array('label' => 'Index',    'url' => array('action' => '', 'project' => $project->name), 'route' => 'project'),
         array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
         array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project')

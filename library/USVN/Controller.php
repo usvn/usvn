@@ -71,6 +71,13 @@ class USVN_Controller extends Zend_Controller_Action
 		$this->view->setScriptPath($dir);
 		$this->view->assign('project', str_replace(USVN_URL_SEP, '/', $request->getParam('project')));
 		$this->view->assign('controller', $request->getParam('controller'));
+		$area = $request->getParam('area');
+		if ($area == '__NONE__') {
+			$area = $request->getParam('controller');
+		} elseif (in_array($area, array('project', 'group'))) {
+			$area = 'index';
+		}
+		$this->view->assign('area', $area);
 		$this->view->assign('action', $request->getParam('action'));
 		
 		$identity = Zend_Auth::getInstance()->getIdentity();

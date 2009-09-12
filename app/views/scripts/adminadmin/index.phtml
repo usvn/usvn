@@ -10,15 +10,9 @@
 <?php } ?>
 <ul id="usvn_admin_section">
 	<li>
-		<a href="<?php echo $this->url(array('controller' => 'config'));?>">
-			<?php echo $this->img("CrystalClear/64x64/apps/kpackage.png");?>
-			<?php echo T_("Configuration");?>
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $this->url(array('controller' => 'project'));?>">
-			<?php echo $this->img("CrystalClear/64x64/apps/easymoblog.png");?>
-			<?php echo T_("Projects");?>
+		<a href="<?php echo $this->url(array('controller' => 'user'));?>">
+			<?php echo $this->img("CrystalClear/64x64/apps/kdmconfig.png");?>
+			<?php echo T_("Users");?>
 		</a>
 	</li>
 	<li>
@@ -28,9 +22,15 @@
 		</a>
 	</li>
 	<li>
-		<a href="<?php echo $this->url(array('controller' => 'user'));?>">
-			<?php echo $this->img("CrystalClear/64x64/apps/kdmconfig.png");?>
-			<?php echo T_("Users");?>
+		<a href="<?php echo $this->url(array('controller' => 'project'));?>">
+			<?php echo $this->img("CrystalClear/64x64/apps/easymoblog.png");?>
+			<?php echo T_("Projects");?>
+		</a>
+	</li>
+	<li>
+		<a href="<?php echo $this->url(array('controller' => 'config'));?>">
+			<?php echo $this->img("CrystalClear/64x64/apps/kpackage.png");?>
+			<?php echo T_("Configuration");?>
 		</a>
 	</li>
 </ul>

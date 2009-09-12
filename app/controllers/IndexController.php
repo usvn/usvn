@@ -30,6 +30,7 @@ class IndexController extends USVN_Controller {
 		$user_table = new USVN_Db_Table_Users();
 		$user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 		$this->view->groups = $user->listGroups();
+		$this->view->maxlen = 12;
 	}
 
 	public function errorAction()

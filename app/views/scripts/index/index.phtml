@@ -11,7 +11,18 @@
 				<div class="grid_img">
 					<img src="<?= $this->url() ?>images/icons/box_48.png" />
 				</div>
-				<div><?= $project->name ?></div>
+				<div><?php
+					if (strlen($project->name) > $this->maxlen) {
+						echo substr($project->name, 0, $this->maxlen), '<br />';
+						if (strlen($project->name) > ($this->maxlen * 2 - 3)) {
+							echo substr($project->name, $this->maxlen, $this->maxlen - 3), '...';
+						} else {
+							echo substr($project->name, $this->maxlen);
+						}
+					} else {
+				 		echo $project->name;
+					}
+				?></div>
 			</a>
 		</li>
 	<? endforeach ?>
@@ -30,7 +41,18 @@
 				<div>
 					<img src="<?= $this->url() ?>images/icons/users_two_48.png" />
 				</div>
-				<div><?= $group->name ?></div>
+				<div><?php
+				 	if (strlen($group->name) > $this->maxlen) {
+						echo substr($group->name, 0, $this->maxlen), '<br />';
+						if (strlen($group->name) > ($this->maxlen * 2 - 3)) {
+							echo substr($group->name, $this->maxlen, $this->maxlen - 3), '...';
+						} else {
+							echo substr($group->name, $this->maxlen);
+						}
+					} else {
+				 		echo $group->name;
+					}
+				?></div>
 			</a>
 		</li>
 	<? endforeach ?>

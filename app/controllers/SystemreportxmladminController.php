@@ -21,5 +21,9 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'AdminadminController.php
 
 class SystemreportxmladminController extends AdminadminController
 {
-	protected $_mimetype = 'text/xml';
+	public function indexAction()
+	{
+		$this->view->layout()->disableLayout();
+		header("Content-type: text/xml; charset: UTF-8");
+	}	
 }

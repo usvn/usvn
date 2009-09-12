@@ -411,7 +411,7 @@ ul.grid_list {
 }
 
 ul.grid_list li {
-	width: 100px;
+	min-width: 100px;
 	padding: 2px;
 	margin: 2px;
 	text-align: center;
@@ -420,10 +420,9 @@ ul.grid_list li {
 }
 
 ul.grid_list li a {
-	height: 100%;
+	height: 100px;
 	display: block;
 	color: #0D62B9;
-	overflow: hidden;
 }
 
 ul.grid_list li a:hover {

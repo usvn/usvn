@@ -64,7 +64,7 @@ class BrowserajaxController extends USVN_Controller
 	 */
 	public function getListFileAction()
 	{
-		$path = $_GET['name'];
+		$path = str_replace('//', '/', $_GET['name']);
 		$project_name = str_replace(USVN_URL_SEP, '/',$this->_request->getParam('project'));
 		$SVN = new USVN_SVN($project_name);
 		$tab = $SVN->listFile($path);

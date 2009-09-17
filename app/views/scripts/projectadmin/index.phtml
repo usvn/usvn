@@ -1,0 +1,39 @@
+<div class="usvn_info">
+	<h1><?= T_("Projects") ?></h1>
+</div>
+<table class="sortable" id="projects">
+  <thead>
+    <tr>
+      <th><?= T_('Name') ?></th>
+      <th><?= T_('Description') ?></th>
+      <th class="sorttable_nosort"><?= T_('Action') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+<? if (!empty($this->projects)): ?>
+<?   $deletetext = T_("Do you really want to delete project %s?"); ?>
+<?   foreach ($this->projects as $project): ?>
+<?     $editurl = $this->url(array('action' => 'edit', 'name' => $project->name)); ?>
+    <tr>
+      <td><a href="<?= $editurl ?>"><?= $project->projects_name ?></a></td>
+      <td><a href="<?= $editurl ?>"><?= nl2br(htmlspecialchars($project->projects_description)) ?></a></td>
+      <td>
+        <?= $this->homeLink($project->name) ?>
+        <?= $this->editLink('name', $project->name) ?>
+        <?= $this->deleteLink('name', $project->name, $deletetext) ?>
+        <?= $this->ACLLink($project->name) ?>
+      </td>
+    </tr>
+
+<?	endforeach ?>
+<? endif ?>
+	</tbody>
+	<tfoot>
+    <tr>
+      <td colspan="3" style="text-align:right;"><a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("New Project") ?></a></td>
+    </tr>
+  </tfoot>
+</table>
+<br />
+
+

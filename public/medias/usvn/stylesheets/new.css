@@ -1,0 +1,437 @@
+/* @override 
+	http://localhost/usvn-new/medias/usvn/stylesheets/new.css
+	http://localhost/usvn-hook/css
+*/
+
+/*
+   new.css
+   USVN
+   
+   Created by Zak on 2009-04-03.
+   Copyright 2009 USVN Team. All rights reserved.
+*/
+
+/* @group global */
+
+* {
+  padding: 0px;
+	margin: 0px;
+}
+
+html {
+	background: #ffffff;
+	height: 100%;
+	margin-bottom: 0px;
+}
+
+body {
+	color: #000000;
+	font: 100% "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+fieldset {
+	border: 1px dotted #CCCCCC;
+}
+
+li, p {
+	font-size: 14px;
+	list-style-type: none;
+}
+
+img {
+	border: none;
+}
+ 
+a {
+	color: #100076;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #0D62B9;
+	text-decoration: none;
+}
+
+ol {
+  padding-left: 50px;
+}
+
+h3 {
+	color: #2ABBF5;
+	margin-bottom: 5px;
+	padding-top: 15px;
+}
+
+input {
+	line-height: 15px;
+	margin-bottom: 10px;
+}
+
+label {
+	text-align: left;
+	font-weight: bold;
+	line-height: 20px;
+}
+
+/* @end */
+
+/* @group Header */
+#header {
+	background: #172933 url('<?php echo $this->images_directory ?>/header_bg2.png') repeat-x;
+	min-height: 124px;
+}
+ 
+#header #shaddow {
+	min-height: 124px;
+	min-width: 950px;
+	margin-left: auto;
+	margin-right: auto;
+	background: transparent url('<?php echo $this->images_directory ?>/header_back.png') no-repeat 0px 0px;  
+}
+ 
+#header #shaddow #header-wrapper {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+ 
+#header #shaddow #header-wrapper #logo {
+	width: 320px;
+	height: 124px;
+	float: left;
+	background: transparent url('<?php echo $this->images_directory ?>/logo_trans.png') no-repeat 0px 0px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu {
+	height: 124px;
+	width: 530px;
+	float: left;
+	text-align: center;
+	vertical-align: bottom;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul {
+	display: table;
+	float: right;
+	margin-top: 92px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li {
+	display: table-cell;
+	position: relative;
+	margin-top: 92px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a {
+	height: 32px;
+	float: left;
+	text-decoration: none;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a span {
+	float: left;
+	margin-top: 0px;
+	padding: 1px 10px 10px 10px;
+	color: #ffffff;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a:hover {
+	background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a:hover span {
+	color: #ffffff;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a#selected {
+	background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
+}
+ 
+#header #shaddow #header-wrapper #main-menu ul li a#selected span {
+	font-weight: bold;
+	color: #2ABBF5;
+}
+
+/* @end */
+
+/* @group Container */
+#container {
+/*	background: url('<?php echo $this->images_directory ?>/container_bg.png') repeat-x; */
+	min-height: 340px;
+}
+ 
+#container #container-wrapper {
+	width: 998px;
+	margin-left: auto;
+	margin-right: auto;
+}
+ 
+#container #container-wrapper #sub-menu {
+	background-color: #E4F2FD;
+}
+ 
+#container #container-wrapper #main {
+	border: 1px dotted #d6d6d6;
+	border-top: none;
+	padding: 5px;
+	font-size: 13px;
+	font-family: 'Verdana', 'Helvetica';
+	margin-left: 145px;
+	margin-right: 145px;
+}
+ 
+#container #container-wrapper #hspacer {
+}
+ 
+#container #container-wrapper #footer {
+	display: none;
+	height: 50px;
+	background-color: #d3d9c6;
+	padding: 1px;
+}
+
+/* @end */
+
+/* @group Submenu */
+
+div#sub-menu {
+	margin: 4px 0 0;
+	position: absolute;
+	width: 138px;
+	border: 1px dotted #CCCCCC;
+	overflow: hidden;
+}
+
+div#sub-menu ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 2px;
+}
+
+div#sub-menu ul li {
+	padding: 0;
+	width: 100%;
+	margin: 0;
+	font-size: 13px;
+}
+
+div#sub-menu ul li * {
+	padding: 3px 3px 4px;
+}
+
+div#sub-menu ul li h3 {
+	font-size: 15px;
+	color: #DDEEFC;
+	background-color: #124361;
+	border-bottom: 1px solid #F0F8FD;
+	margin: 0;
+	text-align: center;
+}
+
+div#sub-menu ul li a {
+	display: block;
+}
+
+div#sub-menu ul li a:hover {
+}
+
+/* @end */
+
+/* Intégration */
+
+/* @group Styles spécifiques */
+
+.usvn_require {
+	color: red;
+	float: none;
+	font-weight: bold;
+	margin-left: 3px;
+}
+
+
+
+/* @end */
+
+/* @group Tableaux */
+
+table.usvn_table, table.sortable {
+	border-collapse: collapse;
+	margin: auto;
+	min-width: 300px;
+	text-decoration: none;
+	width: 90%;
+}
+
+table.usvn_table th, table.sortable th {
+	background-color: #124361;
+	border: 1px solid #124361;
+	padding: 3px 4px;
+	color: #E4F2FD;
+}
+
+table.usvn_table td, table.sortable td {
+	border: 1px solid #124361;
+	padding: 3px 4px;
+	vertical-align: top;
+}
+
+table.usvn_table tr:hover, table.sortable tr:hover {
+	background-color: #B5DCEE;
+	border: 1px solid #124361;
+	padding: 3px 4px;
+	vertical-align: top;
+}
+
+.even {
+	background-color: white;
+}
+
+.odd {
+	
+}
+
+/* @end */
+
+/* @group Page d'accueil */
+
+.usvn_info {
+	background-color: #E9F5FE;
+	background-position: right 17px;
+	background-repeat: no-repeat;
+	clear: both;
+	margin: auto auto 2em;
+	min-height: 40px;
+	padding: 5px;
+	border: 1px dotted #CCCCCC;
+}
+
+#box {
+	background-color: #F6FAFD;
+	border: 1px dotted #CCCCCC;
+	margin: auto;
+	width: 200px;
+	padding: 20px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.usvn_info p {
+	font-size: 95%;
+	line-height: 130%;
+	margin: 10px 0 12px 10px;
+}
+
+#usvn_index_projects ul, #usvn_index_groups ul {
+	padding-left: 20px;
+}
+
+
+
+/* @end */
+
+/* @group Profile */
+
+form.usvn_form {
+	margin-bottom: 20px;
+	padding: 15px;
+}
+
+#profile {
+	background-color: #F2F8FD;
+	border: 1px dotted #CCCCCC;
+	margin: auto;
+	width: 300px;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+/* @end */
+
+/* @group Administration */
+
+/* @group Admin::Home */
+
+.usvn_info h1 {
+	clear: left;
+	color: #125675;
+	font-size: 180%;
+	font-weight: bold;
+	margin: 0 0 3px;
+}
+
+.usvn_info ul {
+	padding-left: 40px;
+}
+
+
+ul#usvn_admin_section {
+	list-style-type: none;
+}
+
+#usvn_admin_section li {
+	background-color: #F2F8FD;
+	border-color: #CCCCCC;
+	border-style: dotted;
+	border-width: 1px;
+	display: inline;
+	font-weight: bold;
+	margin: 10px;
+	padding: 6px;
+	float: left;
+	width: 45%;
+}
+/* @end */
+
+.usvn_error {
+	color: black;
+	font-weight: bold;
+	background-color: #FF9F9F;
+	border : solid 1px #CF0000;
+	background-position: 10px;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	text-align: center;
+	padding: 15px 0;
+	margin-top: 15px;
+}
+
+/* @end */
+
+/* @group Index */
+
+.usvn_index_box {
+	clear: both;
+}
+
+/* @end */
+
+/* @group Grid */
+ul.grid_list {
+	list-style-type: none;
+}
+
+ul.grid_list li {
+	min-width: 100px;
+	padding: 2px;
+	margin: 2px;
+	text-align: center;
+	float: left;
+	list-style-type: none;
+}
+
+ul.grid_list li a {
+	height: 100px;
+	display: block;
+	color: #0D62B9;
+}
+
+ul.grid_list li a:hover {
+	color: #1074FE;
+	background-color: #E9F5FE;
+}
+
+.grid_img {
+	height: 64px;
+}
+
+/* @end */

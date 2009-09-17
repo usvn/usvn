@@ -1,0 +1,70 @@
+<?php
+/**
+ * Controller for css into default module
+ *
+ * @author Team USVN <contact@usvn.info>
+ * @link http://www.usvn.info
+ * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
+ * @copyright Copyright 2007, Team USVN
+ * @since 0.5
+ * @package default
+ * @subpackage controller
+ *
+ * This software has been written at EPITECH <http://www.epitech.net>
+ * EPITECH, European Institute of Technology, Paris - FRANCE -
+ * This project has been realised as part of
+ * end of studies project.
+ *
+ * $Id: CssController.php 1188 2007-10-06 12:03:17Z crivis_s $
+ */
+
+class CssController extends Zend_Controller_Action
+{
+	protected $_mimetype = 'text/css';
+
+	public function preDispatch()
+	{
+		$this->_helper->viewRenderer->setNoRender();
+	}
+
+	public function screenAction()
+	{
+		$this->medias_directory = $this->_request->getBaseUrl().'/medias';
+		$this->images_default_directory = $this->_request->getBaseUrl().'/medias/default/images';
+		/*
+		FIXME: Should be :
+		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';
+		But there are some modifications to do to the template system first.
+		*/
+		$this->css_directory = $this->_request->getBaseUrl().'/medias/usvn/stylesheets';
+		$this->images_directory = $this->_request->getBaseUrl().'/medias/usvn/images';
+		header('Cache-Control: max-age=3600, must-revalidate');
+		header("Content-type: $this->_mimetype");
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/new.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/bubblerights.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/completion.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/timeline.css');
+	}
+
+	public function printAction()
+	{
+		/*
+		FIXME: We don't have any special css for the "print", so this is just a copy of the "screen".
+		*/
+		$this->medias_directory = $this->_request->getBaseUrl().'/medias';
+		$this->images_default_directory = $this->_request->getBaseUrl().'/medias/default/images';
+		/*
+		FIXME: Should be :
+		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';
+		But there are some modifications to do to the template system first.
+		*/
+		$this->css_directory = $this->_request->getBaseUrl().'/medias/usvn/stylesheets';
+		$this->images_directory = $this->_request->getBaseUrl().'/medias/usvn/images';
+		header('Cache-Control: max-age=3600, must-revalidate');
+		header("Content-type: $this->_mimetype");
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/new.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/bubblerights.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/completion.css');
+		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/timeline.css');
+	}
+}

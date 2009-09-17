@@ -1,0 +1,9 @@
+/**
+ * Config's css page
+ */
+
+.usvn_info {
+	background-image:url(<?php echo $this->images_directory ;?>/CrystalClear/64x64/apps/kpackage.png);
+}
+
+/* End of config's css page*/

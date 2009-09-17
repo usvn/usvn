@@ -1,0 +1,1152 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2009-09-11 22:46+0100\n"
+"Last-Translator: \n"
+"Language-Team: ja <yoshida@crossnet.co.jp>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
+msgid "Browser"
+msgstr "レポジトリブラウザ"
+
+#: ../../../www//menus/timeline.php:32
+#: ../../../www//views/Timeline/index.phtml:3
+msgid "Timeline"
+msgstr "タイムライン"
+
+#: ../../../www//menus/configadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:15
+#: ../../../www//views/configadmin/index.phtml:2
+msgid "Configuration"
+msgstr "環境設定"
+
+#: ../../../www//menus/projectadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:21
+#: ../../../www//views/projectadmin/index.phtml:2
+msgid "Projects"
+msgstr "プロジェクト管理"
+
+#: ../../../www//menus/projectadmin.php:53
+msgid "Add new project"
+msgstr "新規プロジェクトの作成"
+
+#: ../../../www//menus/groupadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:27
+#: ../../../www//views/groupadmin/index.phtml:2
+msgid "Groups"
+msgstr "グループ管理"
+
+#: ../../../www//menus/groupadmin.php:51
+msgid "Add new group"
+msgstr "新規グループの作成"
+
+#: ../../../www//menus/systemreportadmin.php:33
+#: ../../../www//views/systemreportadmin/index.phtml:1
+msgid "System report"
+msgstr "システムレポート"
+
+#: ../../../www//menus/useradmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:33
+#: ../../../www//views/useradmin/index.phtml:2
+msgid "Users"
+msgstr "ユーザ管理"
+
+#: ../../../www//menus/useradmin.php:53
+msgid "Add new user"
+msgstr "新規ユーザの作成"
+
+#: ../../../www//menus/useradmin.php:57
+#: ../../../www//views/useradmin/import.phtml:2
+msgid "Import htpasswd"
+msgstr "htpasswdファイルのインポート"
+
+#: ../../../www//USVN/ImportHtpasswd.php:49
+msgid "Invalid htpasswd file."
+msgstr "不正なhtpasswdファイルです。"
+
+#: ../../../www//USVN/ImportHtpasswd.php:52
+#, php-format
+msgid "User %s already exist into htpasswd file."
+msgstr "ユーザ %s はhtpasswdファイルに既に存在しています。"
+
+#: ../../../www//USVN/ImportHtpasswd.php:79
+#, php-format
+msgid "Can't add users %s. Import cancel."
+msgstr "ユーザ %s を追加できませんでした。インポート処理は中断されました。"
+
+#: ../../../www//USVN/FilesAccessRights.php:42
+#: ../../../www//USVN/FilesAccessRights.php:83
+#, php-format
+msgid "Invalid path %s."
+msgstr "パス %s は正しくありません。"
+
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//USVN/Menu.php:106
+#: ../../../www//views/index/index.phtml:2
+msgid "Homepage"
+msgstr "ホーム"
+
+#: ../../../www//USVN/plugins/layout.php:83
+msgid "Logged as"
+msgstr "ログインユーザ"
+
+#: ../../../www//USVN/Config/Ini.php:72
+msgid "Can't write config file."
+msgstr "設定ファイルに書き込めません。"
+
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:91
+#, php-format
+msgid "Login %s not found"
+msgstr "ログインID %s が見つかりません。"
+
+#: ../../../www//USVN/Auth/Adapter/Db.php:59
+msgid "Incorrect password"
+msgstr "パスワードが間違っています"
+
+#: ../../../www//USVN/SVNUtils.php:174
+msgid "Commit by USVN"
+msgstr "USVNによるコミット"
+
+#: ../../../www//USVN/SVNUtils.php:177
+#, php-format
+msgid ""
+"Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Subversionレポジトリへのインポートに失敗しました。\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+
+#: ../../../www//USVN/SVNUtils.php:194
+#: ../../../www//USVN/Project.php:54
+#, php-format
+msgid "Can't create subversion repository: %s"
+msgstr "Subversionレポジトリの作成に失敗しました: %s"
+
+#: ../../../www//USVN/SVNUtils.php:234
+#, php-format
+msgid "Can't checkout subversion repository: %s"
+msgstr "Subversionレポジトリのチェックアウトに失敗しました: %s"
+
+#: ../../../www//USVN/SVNUtils.php:250
+#, php-format
+msgid "Can't list subversion repository: %s"
+msgstr "Subversionのレポジトリリストの取得に失敗しました: %s"
+
+#: ../../../www//USVN/Menu.php:58
+#: ../../../www//USVN/Db/Utils.php:33
+#, php-format
+msgid "Can't open file %s."
+msgstr "ファイル %s を開けません。"
+
+#: ../../../www//USVN/Menu.php:97
+msgid "Sign in"
+msgstr "ログイン"
+
+#: ../../../www//USVN/Menu.php:130
+msgid "Edit my profile"
+msgstr "プロフィール編集"
+
+#: ../../../www//USVN/Menu.php:137
+msgid "Admin"
+msgstr "システム管理"
+
+#: ../../../www//USVN/Menu.php:146
+msgid "Logout"
+msgstr "ログアウト"
+
+#: ../../../www//USVN/DirectoryUtils.php:31
+#, php-format
+msgid "Can't delete directory %s. Permission denied."
+msgstr "ディレクトリ %s を削除できません。アクセスが拒否されました。"
+
+#: ../../../www//USVN/DirectoryUtils.php:50
+#, php-format
+msgid "Can't delete file %s."
+msgstr "ファイル %s を削除できません。"
+
+#: ../../../www//USVN/DirectoryUtils.php:58
+#, php-format
+msgid "Can't delete directory %s."
+msgstr "ディレクトリ %s を削除できません。"
+
+#: ../../../www//USVN/DirectoryUtils.php:75
+#, php-format
+msgid "Can't read directory %s."
+msgstr "ディレクトリ %s は読み込めません。"
+
+#: ../../../www//USVN/ImportSVNRepositories.php:35
+#, php-format
+msgid "%s must be a string: %s"
+msgstr "%s は文字列でなければなりません: %s"
+
+#: ../../../www//USVN/Project.php:105
+#, php-format
+msgid "Autocreated group for project %s"
+msgstr "プロジェクト %s のグループ（自動作成）"
+
+#: ../../../www//USVN/Project.php:135
+#, php-format
+msgid "Project %s doesn't exist."
+msgstr "プロジェクト %s は存在しません。"
+
+#: ../../../www//USVN/SVN.php:32
+#, php-format
+msgid "Invalid project name %s."
+msgstr "プロジェクト名 %s は正しくありません。"
+
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
+#, php-format
+msgid "User %s is not member of group %s"
+msgstr "ユーザ %s はグループ %s のメンバーではありません"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:62
+#: ../../../www//USVN/Db/Table/Row/Project.php:68
+#, php-format
+msgid "Invalid group %s for project %s."
+msgstr "グループ %s （プロジェクト %s）は正しくありません。"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
+msgid "The project's name is empty."
+msgstr "プロジェクト名が空です。"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "プロジェクト名が正しくありません。英数字及び'-'と'_'が使用できます。"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
+msgid "You can't rename a project."
+msgstr "プロジェクト名は変更できません。"
+
+#: ../../../www//USVN/Db/Table/Row/User.php:129
+#: ../../../www//views/useradmin/js.phtml:9
+#: ../../../www//install/views/step6.html:7
+msgid "Login empty."
+msgstr "ログインIDが入力されていません"
+
+#: ../../../www//USVN/Db/Table/Row/User.php:132
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
+msgstr "ユーザ名が正しくありません。英数字及び'-'と'_'が使用できます。"
+
+#: ../../../www//USVN/Db/Table/Row/User.php:147
+msgid "Invalid email address."
+msgstr "メールアドレスが正しくありません。"
+
+#: ../../../www//USVN/Db/Table/Row/User.php:161
+#: ../../../www//views/profile/index.phtml:10
+#: ../../../www//views/useradmin/js.phtml:15
+#: ../../../www//install/views/step6.html:18
+msgid "Password empty."
+msgstr "パスワードが入力されていません"
+
+#: ../../../www//USVN/Db/Table/Row/User.php:164
+#: ../../../www//views/profile/index.phtml:21
+#: ../../../www//views/useradmin/profile.phtml:12
+#: ../../../www//views/useradmin/js.phtml:21
+#: ../../../www//install/views/step6.html:28
+msgid "Password incorrect (need more 8 characters)."
+msgstr "パスワードは8文字以上で設定してください"
+
+#: ../../../www//USVN/Db/Table/Row/User.php:195
+#: ../../../www//USVN/Db/Table/Users.php:78
+#, php-format
+msgid "Login %s already exist."
+msgstr "ログインID %s は既に存在します。"
+
+#: ../../../www//USVN/Db/Table/Groups.php:75
+msgid "The group's name is empty."
+msgstr "グループ名が空です。"
+
+#: ../../../www//USVN/Db/Table/Groups.php:78
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "グループ名が正しくありません。英数字及び'-'と'_'が使用できます。"
+
+#: ../../../www//USVN/Db/Table/Users.php:127
+#, php-format
+msgid "Can't create or write on htpasswd file %s."
+msgstr "htpasswdファイル %s に書き込めません。"
+
+#: ../../../www//USVN/Db/Utils.php:46
+#, php-format
+msgid ""
+"Can't load file %s at:\n"
+"%s"
+msgstr ""
+"ファイル %s の読み込みに失敗しました:\n"
+"%s"
+
+#: ../../../www//USVN/TranslationTest.php:63
+#: ../../../www//views/login/login.phtml:2
+msgid "Welcome to USVN"
+msgstr "USVNへようこそ"
+
+#: ../../../www//USVN/Config.php:37
+#: ../../../www//install/Install.php:144
+msgid "Invalid language"
+msgstr "言語設定が正しくありません"
+
+#: ../../../www//USVN/Config.php:56
+#: ../../../www//install/Install.php:166
+msgid "Invalid timezone"
+msgstr "タイムゾーン設定が正しくありません"
+
+#: ../../../www//USVN/Config.php:74
+msgid "Invalid template"
+msgstr "テンプレートが正しくありません"
+
+#: ../../../www//USVN/User.php:106
+msgid "This user can't be created. A group has the same name."
+msgstr "グループを作成できません。同名のグループが存在します。"
+
+#: ../../../www//USVN/SVNLog.php:56
+#, php-format
+msgid "Can't get subversion repository logs: %s"
+msgstr "Subversionレポジトリの履歴取得に失敗しました: %s"
+
+#: ../../../www//controllers/ProfileController.php:38
+msgid "Wrong password"
+msgstr "パスワードが間違っています"
+
+#: ../../../www//controllers/ProfileController.php:42
+#: ../../../www//controllers/UseradminController.php:46
+msgid "Not the same password."
+msgstr "パスワードが一致しません"
+
+#: ../../../www//controllers/UseradminController.php:35
+msgid "Missing fields."
+msgstr "未入力項目があります。"
+
+#: ../../../www//controllers/UseradminController.php:101
+#: ../../../www//controllers/UseradminController.php:142
+#, php-format
+msgid "Invalid user %s."
+msgstr "不正なユーザ %s。"
+
+#: ../../../www//controllers/UseradminController.php:119
+#, php-format
+msgid "User %s does not exist."
+msgstr "ユーザ %s は存在しません。"
+
+#: ../../../www//controllers/UseradminController.php:145
+msgid "You can't delete yourself."
+msgstr "あなた自身を削除することはできません。"
+
+#: ../../../www//controllers/GroupadminController.php:61
+#, php-format
+msgid "Group %s already exist"
+msgstr "グループ %s は既に存在します"
+
+#: ../../../www//controllers/GroupadminController.php:86
+#: ../../../www//controllers/GroupadminController.php:102
+#: ../../../www//controllers/GroupadminController.php:130
+#, php-format
+msgid "Invalid group %s."
+msgstr "不正なグループ %s。"
+
+#: ../../../www//controllers/BrowserajaxController.php:55
+#, php-format
+msgid "Apply rights on %s"
+msgstr "%s に権限を設定します"
+
+#: ../../../www//controllers/BrowserajaxController.php:95
+#: ../../../www//views/projectadmin/index.phtml:8
+#: ../../../www//views/projectadmin/form.phtml:24
+#: ../../../www//views/groupadmin/index.phtml:8
+#: ../../../www//views/groupadmin/form.phtml:23
+msgid "Name"
+msgstr "名前"
+
+#: ../../../www//controllers/BrowserajaxController.php:95
+#: ../../../www//views/projectadmin/index.phtml:10
+#: ../../../www//views/groupadmin/index.phtml:10
+#: ../../../www//views/useradmin/index.phtml:13
+msgid "Action"
+msgstr "アクション"
+
+#: ../../../www//controllers/BrowserajaxController.php:104
+#: ../../../www//controllers/BrowserajaxController.php:113
+msgid "Folder"
+msgstr "フォルダ"
+
+#: ../../../www//controllers/BrowserajaxController.php:116
+msgid "File"
+msgstr "ファイル"
+
+#: ../../../www//controllers/BrowserajaxController.php:124
+#: ../../../www//helpers/ACLLink.php:33
+msgid "Rights"
+msgstr "権限"
+
+#: ../../../www//controllers/BrowserajaxController.php:128
+msgid "You don't have read access to this folder"
+msgstr "このフォルダの読み取り権限がありません"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Group"
+msgstr "グループ"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Read"
+msgstr "読込"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Write"
+msgstr "書込"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Recursive"
+msgstr "再帰的に設定"
+
+#: ../../../www//controllers/GroupController.php:45
+#: ../../../www//controllers/GroupController.php:104
+#: ../../../www//controllers/GroupController.php:151
+#: ../../../www//views/Timeline/accesdenied.phtml:1
+msgid "Access denied."
+msgstr "アクセスが拒否されました。"
+
+#: ../../../www//controllers/GroupController.php:78
+#: ../../../www//controllers/GroupController.php:88
+#: ../../../www//controllers/GroupController.php:124
+#: ../../../www//controllers/GroupController.php:138
+#, php-format
+msgid "Unknown user %s"
+msgstr "ユーザ %s は存在しません"
+
+#: ../../../www//views/adminadmin/index.phtml:2
+msgid "Administration"
+msgstr "管理メニュー"
+
+#: ../../../www//views/adminadmin/index.phtml:3
+msgid "USVN version: "
+msgstr "USVNのバージョン: "
+
+#: ../../../www//views/adminadmin/index.phtml:7
+#, php-format
+msgid ""
+"Your version of USVN is out of date. A new version %s is available on\n"
+"\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
+msgstr ""
+"古いバージョンのUSVNです。\n"
+"\t<a href=\"http://www.usvn.info\">ここから</a>新しいバージョン(%s)のUSVNが取得できます。"
+
+#: ../../../www//views/profile/index.phtml:15
+#: ../../../www//views/useradmin/profile.phtml:6
+#: ../../../www//views/useradmin/js.phtml:26
+#: ../../../www//install/views/step6.html:23
+msgid "Password incorrect (not the same)."
+msgstr "パスワードが一致しません"
+
+#: ../../../www//views/profile/index.phtml:34
+msgid "My account"
+msgstr "マイアカウント"
+
+#: ../../../www//views/profile/index.phtml:36
+msgid "Actual password"
+msgstr "現在のパスワード"
+
+#: ../../../www//views/profile/index.phtml:40
+msgid "New password"
+msgstr "新しいパスワード"
+
+#: ../../../www//views/profile/index.phtml:45
+#: ../../../www//views/useradmin/index.phtml:10
+#: ../../../www//views/useradmin/profile.phtml:35
+#: ../../../www//views/useradmin/form.phtml:31
+#: ../../../www//install/views/step6.html:84
+msgid "Lastname"
+msgstr "氏名（姓）"
+
+#: ../../../www//views/profile/index.phtml:48
+#: ../../../www//views/useradmin/index.phtml:9
+#: ../../../www//views/useradmin/profile.phtml:39
+#: ../../../www//views/useradmin/form.phtml:34
+#: ../../../www//install/views/step6.html:67
+msgid "Firstname"
+msgstr "氏名（名）"
+
+#: ../../../www//views/profile/index.phtml:52
+#: ../../../www//views/useradmin/index.phtml:11
+#: ../../../www//views/useradmin/profile.phtml:43
+#: ../../../www//views/useradmin/form.phtml:38
+#: ../../../www//install/views/step6.html:121
+msgid "Email"
+msgstr "メールアドレス"
+
+#: ../../../www//views/profile/index.phtml:56
+#: ../../../www//views/projectadmin/form.phtml:49
+#: ../../../www//views/groupadmin/form.phtml:36
+#: ../../../www//views/login/login.phtml:23
+#: ../../../www//views/useradmin/edit.phtml:13
+#: ../../../www//views/useradmin/profile.phtml:48
+#: ../../../www//views/useradmin/new.phtml:18
+msgid "Submit"
+msgstr "サブミット"
+
+#: ../../../www//views/systemreportadmin/index.phtml:3
+msgid "PHP version:"
+msgstr "PHPのバージョン:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:4
+msgid "USVN version:"
+msgstr "USVNのバージョン:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:5
+msgid "Translation:"
+msgstr "言語:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:6
+msgid "Database:"
+msgstr "データベース:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:7
+msgid "Subversion version:"
+msgstr "Subversionのバージョン:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:8
+msgid "OS:"
+msgstr "OS:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:10
+msgid "Get full report"
+msgstr "全てのレポートの取得"
+
+#: ../../../www//views/systemreportadmin/index.phtml:11
+msgid "PHP extensions"
+msgstr "PHP拡張モジュール"
+
+#: ../../../www//views/systemreportadmin/index.phtml:18
+msgid "Apache modules"
+msgstr "Apache拡張モジュール"
+
+#: ../../../www//views/projectadmin/index.phtml:9
+#: ../../../www//views/projectadmin/form.phtml:28
+#: ../../../www//views/groupadmin/index.phtml:9
+#: ../../../www//views/groupadmin/form.phtml:27
+msgid "Description"
+msgstr "説明"
+
+#: ../../../www//views/projectadmin/index.phtml:16
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr "プロジェクト %s を本当に削除しますか？"
+
+#: ../../../www//views/projectadmin/form.phtml:10
+msgid "Project's name empty, please fill it."
+msgstr "プロジェクト名を入力してください。"
+
+#: ../../../www//views/projectadmin/form.phtml:22
+msgid "Project's information"
+msgstr "プロジェクト情報"
+
+#: ../../../www//views/projectadmin/form.phtml:35
+msgid "Add me to project group:"
+msgstr "自分のアカウントをプロジェクトのグループに追加する:"
+
+#: ../../../www//views/projectadmin/form.phtml:37
+#: ../../../www//views/projectadmin/form.phtml:42
+#: ../../../www//views/projectadmin/form.phtml:44
+msgid "Add me as admin of the project:"
+msgstr "自分のアカウントをプロジェクトの管理者として登録する:"
+
+#: ../../../www//views/projectadmin/form.phtml:38
+msgid "Create SVN standard directories (/trunk, /branches and /tags):"
+msgstr "標準的な初期ディレクトリを作成する (/trunk, /branches and /tags):"
+
+#: ../../../www//views/browser/index.phtml:133
+msgid "Acces rights for"
+msgstr "アクセス権限"
+
+#: ../../../www//views/browser/index.phtml:160
+msgid "Files list"
+msgstr "ファイル一覧"
+
+#: ../../../www//views/groupadmin/index.phtml:16
+#, php-format
+msgid "Do you really want to delete group %s?"
+msgstr "%s グループを本当に削除しますか？"
+
+#: ../../../www//views/groupadmin/form.phtml:10
+msgid "Group's name empty, please fill it."
+msgstr "グループ名が入力されていません。"
+
+#: ../../../www//views/groupadmin/form.phtml:22
+msgid "Group's information"
+msgstr "グループ情報"
+
+#: ../../../www//views/groupadmin/form.phtml:33
+msgid "Managing group"
+msgstr "グループ管理"
+
+#: ../../../www//views/login/login.phtml:5
+msgid "Please enter your login and your password to connect to USVN."
+msgstr "ユーザIDとパスワードを入力してログインしてください。"
+
+#: ../../../www//views/login/login.phtml:11
+msgid "Authentication"
+msgstr "認証設定"
+
+#: ../../../www//views/login/login.phtml:15
+#: ../../../www//views/useradmin/index.phtml:8
+#: ../../../www//views/useradmin/profile.phtml:27
+#: ../../../www//views/useradmin/form.phtml:19
+#: ../../../www//install/views/step5.html:68
+#: ../../../www//install/views/step6.html:50
+msgid "Login"
+msgstr "ログインID"
+
+#: ../../../www//views/login/login.phtml:19
+#: ../../../www//views/useradmin/profile.phtml:30
+#: ../../../www//views/useradmin/form.phtml:23
+#: ../../../www//install/views/step5.html:84
+#: ../../../www//install/views/step6.html:101
+msgid "Password"
+msgstr "パスワード"
+
+#: ../../../www//views/useradmin/import.phtml:4
+msgid "This form allow you to add to USVN all users contents into an apache password file."
+msgstr "ApacheのパスワードファイルをインポートしてUSVNのユーザに追加できます。"
+
+#: ../../../www//views/useradmin/import.phtml:10
+msgid "Upload"
+msgstr "アップロード"
+
+#: ../../../www//views/useradmin/index.phtml:12
+#: ../../../www//views/useradmin/form.phtml:42
+#: ../../../www//install/views/step6.html:92
+msgid "Administrator"
+msgstr "管理者"
+
+#: ../../../www//views/useradmin/index.phtml:31
+#, php-format
+msgid "Do you really want to delete user %s?"
+msgstr "ユーザ %s を本当に削除しますか？"
+
+#: ../../../www//views/useradmin/profile.phtml:23
+#: ../../../www//views/useradmin/form.phtml:17
+msgid "User account"
+msgstr "ユーザアカウント"
+
+#: ../../../www//views/useradmin/form.phtml:4
+#: ../../../www//views/project/index.phtml:63
+msgid "Affected groups"
+msgstr "所属グループ"
+
+#: ../../../www//views/useradmin/form.phtml:27
+#: ../../../www//install/views/step6.html:111
+msgid "Confirm password"
+msgstr "パスワード（確認用）"
+
+#: ../../../www//views/useradmin/js.phtml:33
+msgid "Email incorrect."
+msgstr "メールアドレスが正しくありません。"
+
+#: ../../../www//views/useradmin/new.phtml:13
+msgid "Create group"
+msgstr "グループの作成"
+
+#: ../../../www//views/configadmin/index.phtml:6
+msgid "General settings"
+msgstr "一般設定"
+
+#: ../../../www//views/configadmin/index.phtml:9
+#: ../../../www//install/views/step2.html:8
+msgid "Default language"
+msgstr "言語"
+
+#: ../../../www//views/configadmin/index.phtml:27
+#: ../../../www//install/views/step2.html:32
+msgid "Default timezone"
+msgstr "タイムゾーン"
+
+#: ../../../www//views/configadmin/index.phtml:45
+msgid "Default template"
+msgstr "テンプレート"
+
+#: ../../../www//views/configadmin/index.phtml:62
+msgid "Check for update"
+msgstr "アップデートをチェックする"
+
+#: ../../../www//views/useradmin/index.phtml:26
+#: ../../../www//views/configadmin/index.phtml:67
+#: ../../../www//views/configadmin/index.phtml:71
+msgid "yes"
+msgstr "はい"
+
+#: ../../../www//views/useradmin/index.phtml:28
+#: ../../../www//views/configadmin/index.phtml:68
+#: ../../../www//views/configadmin/index.phtml:72
+msgid "no"
+msgstr "いいえ"
+
+#: ../../../www//views/configadmin/index.phtml:81
+msgid "Site's information"
+msgstr "サイト情報"
+
+#: ../../../www//views/configadmin/index.phtml:84
+msgid "Title"
+msgstr "タイトル"
+
+#: ../../../www//views/configadmin/index.phtml:90
+msgid "Icone"
+msgstr "アイコン画像"
+
+#: ../../../www//views/configadmin/index.phtml:96
+msgid "Logo"
+msgstr "ロゴ画像"
+
+#: ../../../www//views/configadmin/index.phtml:104
+msgid "Save"
+msgstr "保存"
+
+#: ../../../www//views/Timeline/index.phtml:10
+msgid "Start revision or date revision"
+msgstr "開始リビジョンもしくは日付"
+
+#: ../../../www//views/Timeline/index.phtml:12
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
+msgstr "入力したリビジョンか日付（YYYY/MM/DD）から最大100件のコミット情報を表示できます。"
+
+#: ../../../www//views/Timeline/index.phtml:28
+msgid "End revision or date revision"
+msgstr "終了リビジョンもしくは日付"
+
+#: ../../../www//views/Timeline/index.phtml:30
+msgid "This is optional.The listing is made between start revision/date and this one."
+msgstr "必須ではありません。開始リビジョン/日付（YYYY/MM/DD）から終了リビジョン/日付までのコミット情報を表示します。"
+
+#: ../../../www//views/Timeline/index.phtml:40
+msgid "Search"
+msgstr "検索"
+
+#: ../../../www//views/Timeline/index.phtml:50
+msgid "Last hundred commit"
+msgstr "過去100件分のコミット"
+
+#: ../../../www//views/Timeline/index.phtml:54
+#: ../../../www//views/project/index.phtml:87
+#: ../../../www//views/rss/index.phtml:19
+msgid "Revision"
+msgstr "リビジョン"
+
+#: ../../../www//views/Timeline/index.phtml:55
+#: ../../../www//views/project/index.phtml:88
+#: ../../../www//views/rss/index.phtml:19
+msgid "Author"
+msgstr "変更者"
+
+#: ../../../www//views/Timeline/index.phtml:56
+#: ../../../www//views/project/index.phtml:89
+#: ../../../www//views/rss/index.phtml:19
+msgid "Date"
+msgstr "日時"
+
+#: ../../../www//views/Timeline/index.phtml:57
+#: ../../../www//views/project/index.phtml:90
+#: ../../../www//views/rss/index.phtml:20
+msgid "Message"
+msgstr "メッセージ"
+
+#: ../../../www//views/group/index.phtml:5
+#, php-format
+msgid "Managing group %s"
+msgstr "グループ %s の設定"
+
+#: ../../../www//views/group/index.phtml:17
+#: ../../../www//views/group/index.phtml:45
+#: ../../../www//views/project/index.phtml:18
+#: ../../../www//views/project/index.phtml:55
+msgid "Add"
+msgstr "追加"
+
+#: ../../../www//views/group/index.phtml:24
+msgid "Leader Users"
+msgstr "リーダー"
+
+#: ../../../www//views/group/index.phtml:29
+#: ../../../www//views/group/index.phtml:57
+#: ../../../www//views/project/index.phtml:38
+#: ../../../www//views/project/index.phtml:68
+#: ../../../www//helpers/DeleteLink.php:35
+msgid "Delete"
+msgstr "削除"
+
+#: ../../../www//views/group/index.phtml:30
+#: ../../../www//views/group/index.phtml:58
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "本当にユーザ %s をグループ %s から削除しますか？"
+
+#: ../../../www//views/group/index.phtml:52
+msgid "Affected Users"
+msgstr "所属ユーザ"
+
+#: ../../../www//views/project/index.phtml:5
+#, php-format
+msgid "Checkout URL : %s"
+msgstr "チェックアウトURL : %s"
+
+#: ../../../www//views/project/index.phtml:33
+msgid "Admins users"
+msgstr "管理ユーザ"
+
+#: ../../../www//views/project/index.phtml:39
+#, php-format
+msgid "Do you really want to remove user %s as admin of project %s?"
+msgstr "本当にユーザ %s をプロジェクト %s から削除しますか？"
+
+#: ../../../www//views/project/index.phtml:69
+#, php-format
+msgid "Do you really want to remove group %s from project %s?"
+msgstr "本当にグループ %s をプロジェクト %s から削除しますか？"
+
+#: ../../../www//views/project/index.phtml:79
+msgid "Last five commits"
+msgstr "最新のコミットログ - 5件"
+
+#: ../../../www//views/project/index.phtml:82
+msgid "Rss"
+msgstr "Rss"
+
+#: ../../../www//views/index/index.phtml:5
+msgid "Your projects"
+msgstr "所属プロジェクト"
+
+#: ../../../www//views/index/index.phtml:15
+msgid "You don't have any project."
+msgstr "プロジェクトが登録されていません。"
+
+#: ../../../www//views/index/index.phtml:20
+msgid "Your groups"
+msgstr "所属グループ"
+
+#: ../../../www//views/index/index.phtml:30
+msgid "You are not assign to a group."
+msgstr "所属しているグループはありません。"
+
+#: ../../../www//views/index/error.phtml:2
+msgid "This page doesn't exist."
+msgstr "ページが見つかりません。"
+
+#: ../../../www//install/install-commandline.php:36
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
+msgid "Error"
+msgstr "エラー"
+
+#: ../../../www//install/install-commandline.php:36
+#: ../../../www//install/index.php:87
+msgid "USVN is already install."
+msgstr "USVNは既にインストールされています"
+
+#: ../../../www//install/views/footer.html:3
+msgid "Copyright USVN"
+msgstr "Copyright USVN"
+
+#: ../../../www//install/views/install_error.html:12
+msgid "Force installation"
+msgstr "強制的にインストールする"
+
+#: ../../../www//install/views/step3.html:2
+#: ../../../www//install/views/step4.html:2
+#: ../../../www//install/views/step8.html:2
+#: ../../../www//install/views/step7.html:2
+#: ../../../www//install/views/step5.html:33
+#: ../../../www//install/views/step6.html:39
+#: ../../../www//install/views/step2.html:2
+msgid "Step"
+msgstr "手順"
+
+#: ../../../www//install/views/step3.html:2
+msgid "Agreement of the licence"
+msgstr "ライセンスの確認"
+
+#: ../../../www//install/views/step3.html:3
+msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
+msgstr "CeCILL FREE SOFTWARE LICENSEを確認し同意してください。"
+
+#: ../../../www//install/views/step3.html:1966
+msgid "I understand and accept this license."
+msgstr "ライセンスに同意する"
+
+#: ../../../www//install/views/step3.html:1969
+#: ../../../www//install/views/step1.html:16
+#: ../../../www//install/views/step4.html:97
+#: ../../../www//install/views/step5.html:133
+#: ../../../www//install/views/step6.html:135
+#: ../../../www//install/views/step2.html:57
+msgid "Next step"
+msgstr "次へ"
+
+#: ../../../www//install/views/step4.html:2
+msgid "Configure USVN"
+msgstr "USVNを設定します"
+
+#: ../../../www//install/views/step4.html:3
+msgid "Settings of general configuration of USVN. You can keep default settings."
+msgstr "USVNの基本設定。よく分からない場合はそのままにしてください。"
+
+#: ../../../www//install/views/step4.html:12
+msgid "Page title"
+msgstr "ページタイトル"
+
+#: ../../../www//install/views/step4.html:30
+msgid "Subversion repository"
+msgstr "Subversionレポジトリ"
+
+#: ../../../www//install/views/step4.html:31
+msgid "Location where usvn will create subversion repository."
+msgstr "USVNがSubversionレポジトリを作成するディレクトリを設定します"
+
+#: ../../../www//install/views/step4.html:45
+msgid "Subversion password file "
+msgstr "Subversionパスワードファイル"
+
+#: ../../../www//install/views/step4.html:46
+msgid "Location where usvn will create password file."
+msgstr "USVNが管理するパスワードファイルのパス"
+
+#: ../../../www//install/views/step4.html:60
+msgid "Subversion access file"
+msgstr "Subversionアクセスファイル"
+
+#: ../../../www//install/views/step4.html:61
+msgid "Location where usvn will create access file."
+msgstr "USVNが管理するSVNアクセス管理ファイルのパス"
+
+#: ../../../www//install/views/step4.html:75
+msgid "Subversion url"
+msgstr "SubversionのベースURL"
+
+#: ../../../www//install/views/step4.html:76
+msgid "The url used by users to checkout projects."
+msgstr "SVNのチェックアウトパス（SVNParentPath）"
+
+#: ../../../www//install/views/step8.html:2
+msgid "Installation is over"
+msgstr "インストールが終了しました"
+
+#: ../../../www//install/views/step8.html:3
+msgid "You can now enjoy of USVN."
+msgstr "それではUSVNをお楽しみください！"
+
+#: ../../../www//install/views/step8.html:7
+msgid "Apache configuration"
+msgstr "Apacheの設定"
+
+#: ../../../www//install/views/step8.html:8
+msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
+msgstr "最後にApacheにSubversionの設定を行ってください。<em>httpd.conf</em>を以下のように設定してください。"
+
+#: ../../../www//install/views/step8.html:14
+msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
+msgstr "設定後、Apacheを再起動<kbd>（apache2ctl restartもしくはservice httpd restart）</kbd>してください。"
+
+#: ../../../www//install/views/step8.html:18
+msgid "Connect to USVN"
+msgstr "USVNに接続する"
+
+#: ../../../www//install/views/head.html:201
+msgid "USVN installation"
+msgstr "USVNのインストール"
+
+#: ../../../www//install/views/step7.html:2
+msgid "Check for new version"
+msgstr "新しいバージョンをチェックする"
+
+#: ../../../www//install/views/step7.html:6
+msgid ""
+"\n"
+"<p>During update checks, USVN will send information regarding of your installation.</p>\n"
+"<p>\n"
+"This information is only collected for statistical purposes and allow\n"
+"us to better know the platforms on which USVN is installed.\n"
+"</p>\n"
+"<p>\n"
+"Here is a list of what we want to collect:\n"
+"<ul>\n"
+"<li>IP (to get geographical position statistics of USVN in the world)</li>\n"
+"<li>The PHP version</li>\n"
+"<li>The SVN version</li>\n"
+"<li>The USVN version</li>\n"
+"<li>The contents of phpinfo()</li>\n"
+"<li>The used database driver</li>\n"
+"<li>The used translation</li>\n"
+"</ul>\n"
+"</p>\n"
+"<p>\n"
+"If you do not want this information to be collected, you juste have to\n"
+"disable the update notification.\n"
+"</p>\n"
+msgstr ""
+"\n"
+"<p>自動アップデートを行うとUSVNはシステム情報を送信します。</p>\n"
+"<p>\n"
+"送信された情報は、USVNがインストールされたプラットフォームを知るための\n"
+"統計目的にのみ利用されます。\n"
+"</p>\n"
+"<p>\n"
+"送信される情報の一覧:\n"
+"<ul>\n"
+"<li>IP (世界のどこでUSVNが使われているかの統計用)</li>\n"
+"<li>PHPのバージョン</li>\n"
+"<li>SVNのバージョン</li>\n"
+
+#: ../../../www//install/views/step7.html:33
+msgid "Allow check update and send statistics informations"
+msgstr "自動アップデートをチェックし統計情報を送信する"
+
+#: ../../../www//install/views/step7.html:38
+msgid "Don't check update"
+msgstr "自動アップデートをチェックしない"
+
+#: ../../../www//install/views/step5.html:33
+msgid "Database installation"
+msgstr "データベースの設定"
+
+#: ../../../www//install/views/step5.html:34
+msgid "Configuration of database's access."
+msgstr "データベースアクセスの設定"
+
+#: ../../../www//install/views/step5.html:41
+msgid "Database Type"
+msgstr "データベースタイプ"
+
+#: ../../../www//install/views/step5.html:53
+msgid "Host"
+msgstr "ホスト"
+
+#: ../../../www//install/views/step5.html:93
+msgid "Database"
+msgstr "データベース"
+
+#: ../../../www//install/views/step5.html:109
+msgid "Create database ?"
+msgstr "データベースを作成しますか？"
+
+#: ../../../www//install/views/step5.html:117
+msgid "Table prefix"
+msgstr "テーブルプリフィックス"
+
+#: ../../../www//install/views/step6.html:13
+msgid "Lastname empty."
+msgstr "氏名（名）が入力されていません"
+
+#: ../../../www//install/views/step6.html:39
+msgid "Create administrator user"
+msgstr "管理者ユーザの作成"
+
+#: ../../../www//install/views/step6.html:40
+msgid "Creation of the first administrator of USVN."
+msgstr "最初のUSVN管理ユーザの作成。"
+
+#: ../../../www//install/views/step6.html:75
+msgid "System"
+msgstr "システム"
+
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
+msgid "You need to accept the licence to continue installation."
+msgstr "続けるにはライセンスに同意してください。"
+
+#: ../../../www//install/Install.php:64
+msgid "Can't create database\n"
+msgstr "データベースを作成できません\n"
+
+#: ../../../www//install/Install.php:73
+msgid "Can't connect to database.\n"
+msgstr "データベースに接続できません\n"
+
+#: ../../../www//install/Install.php:86
+#, php-format
+msgid "Invalid adapter %s.\n"
+msgstr "アダプター設定 %s が正しくありません。\n"
+
+#: ../../../www//install/Install.php:96
+msgid "Can't load SQL file.\n"
+msgstr "SQLファイルを読み込めません\n"
+
+#: ../../../www//install/Install.php:123
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "設定ファイル %s を作成できません\n"
+
+#: ../../../www//install/Install.php:191
+msgid ""
+"Invalide locale\n"
+"Please, install UTF-8 locale."
+msgstr ""
+"ロケールが不正です。\n"
+"UTF-8でインストールしてください。"
+
+#: ../../../www//install/Install.php:237
+#, php-format
+msgid "Can't write access file %s.\n"
+msgstr "%s に書き込めません。\n"
+
+#: ../../../www//install/Install.php:241
+#, php-format
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "Subversionのパス(\"%s\")が正しくありません。書き込み可能か確認してください。"
+
+#: ../../../www//install/Install.php:286
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr "アクセス制御ファイル %s に書き込みできません。\n"
+
+#: ../../../www//install/Install.php:330
+msgid "Password empty"
+msgstr "パスワードが入力されていません"
+
+#: ../../../www//install/Install.php:388
+msgid "Need a title."
+msgstr "タイトルが空です。"
+
+#: ../../../www//install/Install.php:441
+msgid "USVN can't run with php's safe mode."
+msgstr "PHPのセーフモードではUSVNは動作しません。"
+
+#: ../../../www//install/Install.php:445
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Subversionがインストールされていません。 Windows環境の場合は"
+
+#: ../../../www//install/Install.php:445
+msgid ""
+" and after restart your system (WARNING it's mandatory). \n"
+"\n"
+"Otherwise under UNIX you probably need to install a package named subversion."
+msgstr ""
+"をインストールしてシステムを再起動してください(WARNING 必須)。 \n"
+"\n"
+"UNIX環境の場合はSubversionパッケージをインストールする必要があります。"
+
+#: ../../../www//install/Install.php:457
+#: ../../../www//install/Install.php:465
+msgid "mod_rewrite seems not to be loaded"
+msgstr "mod_rewiteが見つかりません"
+
+#: ../../../www//install/Install.php:474
+msgid "mod_dav_svn seems not to be loaded"
+msgstr "mod_dav_svnが見つかりません"
+
+#: ../../../www//helpers/EditLink.php:35
+msgid "Edit"
+msgstr "編集"
+
+#: ../../../www//helpers/HomeLinkGroup.php:34
+#: ../../../www//helpers/HomeLink.php:34
+msgid "Home"
+msgstr "ホーム"
+

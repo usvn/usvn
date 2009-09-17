@@ -1,0 +1,29 @@
+/**
+ * Timeline's css page
+ */
+
+a.usvn_tooltips {
+    position: relative;
+    z-index: 26;
+    color: #000;
+    text-decoration: none;
+    background-image: url(../../../medias/default/images/CrystalClear/16x16/actions/documentinfo.png);
+    padding-right: 13px;
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+a.usvn_tooltips:hover {
+	z-index: 25;
+	background-color: #cccffc;
+}
+
+a.usvn_tooltips span {
+	display: none
+}
+ 
+p.usvn_info {
+	line-width: 15px;
+}
+
+/* End of Project's css page*/

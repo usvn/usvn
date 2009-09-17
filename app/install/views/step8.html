@@ -1,0 +1,16 @@
+<div class="usvn_info">
+	<h1><?php echo T_($installSteps[$step]); ?></h1>
+	<p><?php echo  T_('You can now enjoy of USVN.') ; ?></p>
+</div>
+<h2><?php echo T_('Apache configuration');?></h2>
+<?php echo  T_('Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:') ; ?>
+<br />
+<br />
+<textarea rows="12" cols="80" onclick="this.select();"><?php echo  htmlspecialchars($GLOBALS['apacheConfig']) ; ?></textarea>
+<br />
+<br />
+<?php echo  T_('And restart your server with <kbd>apache2ctl restart</kbd>.') ; ?>
+<br />
+<hr />
+<br />
+<a href="./" class="usvn_button"><?php echo  T_('Connect to USVN') ; ?></a>

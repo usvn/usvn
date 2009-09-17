@@ -1,6 +1,0 @@
-Template: usvn-common/restart-apache
-Type: boolean
-Default: true
-Description: Restart apache now?
- You need to restart apache to get USVN working. After restarting apache USVN
- will be available on http://localhost/usvn

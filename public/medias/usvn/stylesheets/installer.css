@@ -1,0 +1,153 @@
+/* @override http://usvn.localhost/medias/usvn/stylesheets/installer.css
+	http://localhost/usvn-insta/medias/usvn/stylesheets/installer.css */
+
+html, body {
+	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	margin: auto;
+	height: 100%;
+	background: #FFFFFF;
+	font-size: small;
+	background: url(../images/header_bg2.png) repeat-x;
+}
+
+img {
+	border: 0;
+}
+
+#steps {
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+}
+
+#steps td {
+	text-align: center;
+	width: 100px;
+	padding: 0 10px;
+}
+
+.step {
+	color: #1984ff;
+	font-weight:bold;
+}
+
+.step_alt {
+	color: #888888;
+}
+
+#content {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#system_check td {
+	padding: 10px 5px 0 0;
+	vertical-align: top;
+}
+
+#usvn_header {
+	margin-left: auto;
+	margin-right: auto;
+	background: url(../images/header_back.png) no-repeat;
+	height: 134px;
+	margin-top: 0px;
+}
+
+#usvn_logo {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#usvn_logo img {
+	margin-top: 2px;
+	margin-left: 0px;
+}
+
+.usvn_info {
+	background-color: #D7F8FF;
+	padding: 5px;
+	margin: 15px 0;
+	padding-left: 20px;
+	border: 1px dotted #ccc;
+}
+
+.usvn_info h1 {
+	font-weight: bold;
+	font-size: 24px;
+	margin: 4px 0;
+	color: #3090FF;
+}
+
+.usvn_info p {
+	font-size: 13px;
+	margin: 15px 0;
+}
+
+.usvn_label {
+	line-height: 150%;
+	padding: 10px 0 0 0;
+	font-weight:bold;
+}
+
+.usvn_error {
+	color: black;
+	font-weight: bold;
+	background-color: #FF9F9F;
+	border : solid 1px #CF0000;
+	background-position: 10px;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	text-align: center;
+	padding: 15px 0;
+	margin-top: 15px;
+}
+
+a.usvn_tooltips {
+    position: relative;
+    z-index: 24;
+    color: #000;
+    text-decoration: none;
+    padding-right: 13px;
+	background-repeat: no-repeat;
+	background-position: right;
+}
+a.usvn_tooltips:hover {
+	z-index: 25;
+	background-color: #fff;
+}
+
+a.usvn_tooltips span {
+	display: none
+}
+
+a.usvn_tooltips:hover span {
+    display: block;
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    width: 15em;
+	border: 1px dotted #ccc;
+    background-color: #D7F8FF;
+    color:#000;
+    text-align: center
+}
+
+.usvn_button {
+	text-decoration: none;
+	font-style: normal;
+	font-weight: bold;
+	font-size:20px;
+	color: #3090ff;
+	border: 1px dotted #ccc;
+	padding: 3px;
+	margin: 5px;
+	background: #d7f8ff;
+}
+
+a.usvn_button:hover {
+	border: 1px dotted #135871;
+	color: #135871;
+}

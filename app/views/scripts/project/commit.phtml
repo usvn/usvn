@@ -1,0 +1,48 @@
+<?php function spaceToNbsp($text) { return str_replace(array(' ', "\t"), array('&nbsp; ', '&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; '), $text); } ?>
+<?php echo $this->error($this); ?>
+<div class="usvn_info">
+  <h1><?php echo T_('Commit').': '.$this->commit ?></h1>
+  <table width="100%">
+    <tr><td><?php echo T_('Author') ?>:</td><td><?php echo $this->author ?></td></tr>
+    <tr><td><?php echo T_('Date') ?>:</td><td><?php echo $this->date ?></td></tr>
+    <tr><td style="vertical-align: top;"><?php echo T_('Files') ?>:</td><td><?php
+        foreach ($this->diff as $file => $diff) {
+          echo '<a href="#'.htmlentities($file).'">'.htmlentities($file).'</a><br />';
+        }
+        ?></td></tr>
+    <tr><td style="vertical-align: top;"><?php echo T_('Comment') ?>:</td>
+      <td><pre><?php echo htmlentities($this->log) ?></pre></td></tr>
+  </table>
+</div>
+<div style="font-family:monospace;">
+  <?php foreach ($this->diff as $file => $diff) { ?>
+    <table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;">
+      <tr height="30px"><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->base ?></th><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->commit ?></th><th align="left" style="background-color: #EEEEEE; padding-left: 20px;"><a name="<?php echo htmlentities($file) ?>" href="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode(trim($file))).'?rev='.$this->commit ?>"><?php echo htmlentities($file) ?></a></th></tr>
+      <?php
+      $i = NULL;
+      foreach ($diff as $d) {
+        if ($i !== NULL) {
+          echo '<tr><td style="background-color: #EEEEEE;">&nbsp;</td><td style="background-color: #EEEEEE;">&nbsp;</td><td style="background-color: #EEEEEE;">&nbsp;</td></tr>', "\n";
+        }
+        for ($i = 0, $basei = $d[$this->base]['begin'], $commiti = $d[$this->commit]['begin']; TRUE; ++$i) {
+          if (isset($d[$this->base]['content'][$i])) {
+            echo '<tr><td style="background-color: #EEEEEE;">'.($basei++).'</td>'
+	    .'<td style="background-color: #EEEEEE;">&nbsp;</td>'
+	    .'<td style="background-color: #FFDDDD;"><span>'.spaceToNbsp($d[$this->base]['content'][$i]).'</span></td></tr>', "\n";
+          } elseif (isset($d[$this->commit]['content'][$i])) {
+            echo '<tr><td style="background-color: #EEEEEE;">&nbsp;</td>'
+	    .'<td style="background-color: #EEEEEE;">'.($commiti++).'</td>'
+	    .'<td style="background-color: #DDFFDD;"><span>'.spaceToNbsp($d[$this->commit]['content'][$i]).'</span></td></tr>', "\n";
+          } elseif (isset($d['common'][$i])) {
+            echo '<tr><td style="background-color: #EEEEEE;">'.($basei++).'</td>'
+	    .'<td style="background-color: #EEEEEE;">'.($commiti++).'</td>'
+	    .'<td><span>'.spaceToNbsp($d['common'][$i]).'</span></td></tr>', "\n";
+          } else {
+            break;
+          }
+        }
+      }
+      ?>
+    </table><br />
+  <?php } ?>
+</div>

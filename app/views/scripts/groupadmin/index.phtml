@@ -1,0 +1,37 @@
+<div class="usvn_info">
+	<h1><?= T_("Groups") ?></h1>
+</div>
+<table class="sortable" id="grps">
+  <thead>
+	<tr>
+      <th><?= T_('Name') ?></th>
+      <th><?= T_('Description') ?></th>
+      <th class="sorttable_nosort"><?= T_('Action') ?></th>
+    </tr>
+  </thead>
+  <tbody>
+
+<? if (!empty($this->groups)): ?>
+<?   $deletetext = T_("Do you really want to delete group %s?") ?>
+<? 	 foreach ($this->groups as $group): ?>
+<?     $editurl = $this->url(array('action' => 'edit', 'name' => $group->name)) ?>
+    <tr>
+      <td><a href="<?= $editurl ?>"><?= htmlspecialchars($group->name) ?></a></td>
+      <td><a href="<?= $editurl ?>"><?= htmlspecialchars($group->description) ?></a></td>
+      <td>
+<?=    $this->homeLinkGroup($group->name) ?>
+<?=    $this->editLink('name', $group->name) ?>
+<?=    $this->deleteLink('name', $group->name, $deletetext) ?>
+      </td>
+    </tr>
+<?   endforeach ?>
+<? endif ?>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" style="text-align:right;"><a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("Add new group") ?></a></td>
+    </tr>
+  </tfoot>
+</table>
+<br />
+

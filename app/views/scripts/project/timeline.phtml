@@ -1,0 +1,69 @@
+ <?php echo $this->error($this); ?>
+ <div class="usvn_info">
+<h1><?php echo T_("Timeline");?> </h1> <br>
+	<form action="<?php echo $this->url(array("action" => "LastHundredRequest")); ?>" method="post">
+			<div>
+				<table>
+					<tr>
+						<td>
+							<a href="#" class="usvn_tooltips">
+								<?php echo T_("Start revision or date revision"); ?>
+								<span>
+									<?php echo T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"); ?>
+								</span>
+							</a>:
+						</td>
+
+						<td>
+							<?php
+								 echo $this->formText("number_start"); 
+						     	 echo '<br>';
+							?>
+			 			</td>
+			 		</tr>
+			 		
+			 		<tr>
+				 		<td>
+						<a href="#" class="usvn_tooltips">
+							<?php echo T_("End revision or date revision");?>
+							<span>
+								<?php echo T_("This is optional.The listing is made between start revision/date and this one."); ?>
+							</span>
+						</a>:
+						</td>
+						<td>
+							<?php echo $this->formText("number_end"); ?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<?php echo $this->formSubmit("LastHundredRequest", T_("Search")); ?>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+		</form>		
+</div>
+
+<div class="usvn_info">
+	<h1><?php echo T_("Last hundred commit");?></h1>
+	<table id="commits" class="sortable">
+		<thead>
+			<tr>
+				<th><?php echo T_("Revision");?></th>
+				<th><?php echo T_("Author");?></th>
+				<th><?php echo T_("Date");?></th>
+				<th><?php echo T_("Message");?></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+			foreach (array_keys($this->log) as $revision) {
+				$commit = $this->log[$revision];
+				echo "<tr onClick=\"window.location='".$this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit')."'\"><td>{$revision}</td><td>{$commit['author']}</td><td>" . date("Y-m-d",  $commit["date"]) . "&nbsp;" . date("H:i", $commit["date"]) . "</td><td>" . nl2br($commit['msg']) . "</td></tr>";
+			}
+		?>
+		</tbody>
+	</table>
+</div>

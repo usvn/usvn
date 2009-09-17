@@ -1,4 +1,0 @@
-Welcome on USVN.
-
-USVN url : http://localhost/usvn/
-login :

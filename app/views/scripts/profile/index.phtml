@@ -1,0 +1,58 @@
+<?= $this->error($this) ?>
+<script type="text/javascript">
+<!--
+function checkForm() {
+	spanError = document.getElementById('error');
+	var checkRegExp = new RegExp("^[ \t]*$");
+	var user = document.getElementById('user');
+	if ((!user.users_password.value.length || !user.users_password2.value.length)
+		&& !user.users_id) {
+		spanError.innerHTML = "<?= T_('Password empty.') ?>";
+		spanError.className = "usvn_error";
+		return false;
+	}
+	if (user.users_password.value != user.users_password2.value) {
+		spanError.innerHTML = "<?= T_('Password incorrect (not the same).') ?>";
+		spanError.className = "usvn_error";
+		return false;
+	}
+	if (user.users_password.value.length < 8 && (!user.users_id ||
+		user.users_password.value.length >= 1)) {
+		spanError.innerHTML = "<?= T_('Password incorrect (need more 8 characters).') ?>";
+		spanError.className = "usvn_error";
+		return false;
+	}
+	spanError.innerHTML = '';
+	spanError.className = "";
+	return true;
+}
+-->
+</script>
+<div class="usvn_info">
+	<h1><?= T_("My account") ?></h1>
+</div>
+<div id="profile">
+	<form id="user" class="usvn_form" method="post" action="<?= $this->url(array("action" => "save")) ?>">
+		<label for="users_password"><?= T_("Actual password") ?><span class="usvn_require">*</span><br />
+			<?= $this->formPassword('users_password',  null) ?>
+		</label>
+		<br />
+		<label><?= T_("New password") ?><br />
+			<?= $this->formPassword('users_new_password',  null) ?>
+			<?= $this->formPassword('users_new_password2',  null) ?>
+		</label>
+		<br />
+		<label><?= T_("Lastname") ?><br />
+			<?= $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)) ?></label>
+		<br />
+		<label><?= T_("Firstname") ?><br />
+			<?= $this->formText('users_firstname', $this->user->firstname, array('maxlength' => 100)) ?>
+		</label>
+		<br />
+		<label><?= T_("Email") ?><br />
+			<?= $this->formText('users_email', $this->user->email, array('maxlength' => 150)) ?>
+		</label>
+		<br />
+		<?= $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')) ?>
+	</form>
+<div>

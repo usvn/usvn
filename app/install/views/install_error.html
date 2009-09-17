@@ -1,0 +1,17 @@
+<div class='usvn_error'>
+	<h2>Error: You can't install USVN.</h2>
+	<?= nl2br($e->getMessage()) ?>
+	<br/><br/>
+	You can force installation but it's problably not a good idea.
+</div>
+<form name="forceForm" action="?step=1&force=1" method="post">
+	<div>
+		I'm sure: <input type="checkbox" onclick="document.forceForm.ok.disabled = !document.forceForm.forceCheck.checked;" name="forceCheck">
+		<br />
+		<br />
+		<input type="submit" value="<?= T_("Force installation") ?>" name="ok" />
+	</div>
+</form>
+<script>
+document.forceForm.ok.disabled = true;
+</script>

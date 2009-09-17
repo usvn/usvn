@@ -458,4 +458,44 @@ class ProjectController extends USVN_Controller
 			throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 		}
 	}
+
+	public function lasthundredrequestAction()
+//	public function lastHundredRequestAction()
+    {
+		$project = $this->getRequest()->getParam('project');
+		$table = new USVN_Db_Table_Projects();
+		$project = $table->fetchRow(array("projects_name = ?" => $project));
+		/* @var $project USVN_Db_Table_Row_Project */
+		if ($project === null) {
+			$this->_redirect("/");
+		}		
+			$this->_project = $project;
+			$this->view->project = $this->_project;
+			$SVN = new USVN_SVN($this->_project->name);
+		try {
+			$number_start = $project = $this->getRequest()->getParam('number_start');
+			$number_end = $project = $this->getRequest()->getParam('number_end');
+			$number_end = $this->convertDate($number_end);
+			$number_start = $this->convertDate($number_start);
+			$this->view->log = $SVN->log(100, $number_start, $number_end);
+			$this->render("timeline");
+		}
+		catch(USVN_Exception $e) {
+			$this->view->message = "No such revision found";
+			$this->view->log = $SVN->log(100);
+			$this->render("timeline");
+		}
+	}	
+
+	protected function convertDate($number)
+	{
+		if (strstr($number, '/') != FALSE) {
+			$split = split("/",$number); 
+			$jour = $split[0]; 
+			$mois = $split[1]; 
+			$annee = $split[2]; 
+			return "{".$annee.$mois.$jour."}";
+		}
+		return $number;
+	}
 }

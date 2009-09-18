@@ -2,7 +2,7 @@
 	<h1><?php echo T_($installSteps[$step]); ?></h1>
 	<p><?php echo  T_('Settings of general configuration of USVN. You can keep default settings.') ; ?></p>
 </div>
-<form action="?step=5" method="post">
+<form action="?step=5" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<td>
@@ -81,6 +81,40 @@
 					}
 					echo $method . $_SERVER['SERVER_NAME'] . $port . preg_replace("/\/install.*/", '/svn', $_SERVER['REQUEST_URI']);
 					?>" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<label class="usvn_label" for="urlSubversion">
+					<a id="expandImport" href="#" onClick="
+					  var imp=document.getElementById('contentImport');
+					  if (imp.style.display == 'none') {
+					    document.getElementById('expandImport').innerHTML='[-]';
+					    imp.style.display='';
+					  } else {
+					    document.getElementById('expandImport').innerHTML='[+]';
+					    imp.style.display='none';
+				    }
+				  ">[+]</a>
+			    <a href="#" class="usvn_tooltips">
+						<?php echo T_('Import an old USVN version') ; ?>.
+						<span><?php echo  T_('If you have an USVN 7.2 installed and you want to import the datas.') ; ?></span>
+					</a>
+				</label>
+			</td>
+		</tr>
+		<tr id="contentImport" style="display: none;">
+			<td>
+				<label class="usvn_label" for="urlSubversion">
+					<a href="#" class="usvn_tooltips">
+						<?php echo  T_('Old config file') ; ?>:
+						<span><?php echo  T_('Choose the old configuration file (in [..]/usvn/config.ini).') ; ?></span>
+					</a>
+				</label>
+			</td>
+			<td>
+			  <input type="hidden" name="MAX_FILE_SIZE" value="2048" />
+				<input type="file" size="55" name="configFile" />
 			</td>
 		</tr>
 	</table>

@@ -112,7 +112,7 @@ function displayError($message)
 	echo "<div class='usvn_error'>" . nl2br($message) . '</div>';
 }
 
-function installationOperation($step)
+function installationOperation(&$step)
 {
 	global $errors;
 	$language = isset($_POST['language']) ? $_POST['language'] : $GLOBALS['language'];
@@ -142,7 +142,10 @@ function installationOperation($step)
 
 		case 5:
 			Install::installConfiguration(USVN_CONFIG_FILE, $_POST['title']);
-			Install::installSubversion(USVN_CONFIG_FILE, $_POST['pathSubversion'], $_POST['passwdFile'], $_POST['authzFile'], $_POST['urlSubversion']);
+			$import = Install::installSubversion(USVN_CONFIG_FILE, $_POST['pathSubversion'], $_POST['passwdFile'], $_POST['authzFile'], $_POST['urlSubversion'], $_FILES['configFile']);
+			if ($import === true) {
+				$step = 7;
+			}
 		break;
 
 		case 6:

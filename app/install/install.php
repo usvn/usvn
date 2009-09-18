@@ -14,6 +14,26 @@ class Install
 	{
 		return new USVN_Config_Ini($config_file, USVN_CONFIG_SECTION, array('create' => true));
 	}
+	
+	private static function _loadOldConfig(&$config, $old_config_file)
+	{
+		$old_config = new USVN_Config_Ini($old_config_file['tmp_name'], USVN_CONFIG_SECTION, array('create' => false));
+		// Import subversion configuration
+		foreach ($old_config->subversion as $key => $value) {
+			if ($config->subversion->{$key} != $value && $key != 'url') {
+				if (USVN_DirectoryUtils::copyr($value, $config->subversion->{$key}) === false) {
+					throw new USVN_Exception(T_("Can't copy the old configuration.\n"));
+				}
+			}
+		}
+		// Import database configuration
+		if ($old_config->database->adapterName == 'PDO_SQLITE') {
+			if (strpos($old_config->database->options->dbname, $old_config->subversion->path) === 0) {
+				$old_config->database->options->dbname = $config->subversion->path . substr($old_config->database->options->dbname, strlen($old_config->subversion->path));
+			}
+		}
+		$config->database = $old_config->database;
+	}
 
 	/**
 	* This method will test connection to the database, load database schemas
@@ -218,7 +238,7 @@ class Install
 	 * @param string Path to subversion access file
 	 * @param string Url of subversion repository
 	 */
-	static public function installSubversion($config_file, $path, $passwd, $authz, $url)
+	static public function installSubversion($config_file, $path, $passwd, $authz, $url, $old_file = NULL)
 	{
 		if (substr($path, -1) != DIRECTORY_SEPARATOR && substr($path, -1) != '/')
 			$path .= DIRECTORY_SEPARATOR;
@@ -234,12 +254,19 @@ class Install
 				'authz' => $authz,
 				'url' => $url
 			);
+			if ($old_file !== NULL && isset($old_file['size']) && $old_file['size'] > 0) {
+				Install::_loadOldConfig($config, $old_file);
+				if (is_object($config->subversion) && is_object($config->database)) {
+					return true;
+				}
+			}
 			$config->save();
 			if (!@touch($authz))
 				throw new USVN_Exception(T_("Can't write access file %s.\n"), $authz);
 		}
 		else
 			throw new USVN_Exception(T_("Invalid subversion path \"%s\", please check if directory exist and is writable."), $path);
+		return false;
 	}
 
 	/**

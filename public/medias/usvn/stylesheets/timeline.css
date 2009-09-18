@@ -6,8 +6,8 @@ a.usvn_tooltips {
 	position: relative;
 	color: #000;
 	text-decoration: none;
-	background-image: url('<?php echo $this->images_default_directory ?>/CrystalClear/16x16/actions/documentinfo.png');
-	padding-right: 13px;
+	background-image: url('<?php echo $this->images_directory ?>/info.png');
+	padding-right: 15px;
 	background-repeat: no-repeat;
 	background-position: right;
 }
@@ -35,6 +35,10 @@ a.usvn_tooltips:hover span {
  
 p.usvn_info {
 	line-width: 15px;
+}
+
+.usvn_info input {
+	margin: 0;
 }
 
 /* End of Project's css page*/

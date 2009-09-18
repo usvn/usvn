@@ -29,8 +29,6 @@ class CssController extends Zend_Controller_Action
 
 	public function screenAction()
 	{
-		$this->medias_directory = $this->_request->getBaseUrl().'/medias';
-		$this->images_default_directory = $this->_request->getBaseUrl().'/medias/default/images';
 		/*
 		FIXME: Should be :
 		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';
@@ -48,11 +46,6 @@ class CssController extends Zend_Controller_Action
 
 	public function printAction()
 	{
-		/*
-		FIXME: We don't have any special css for the "print", so this is just a copy of the "screen".
-		*/
-		$this->medias_directory = $this->_request->getBaseUrl().'/medias';
-		$this->images_default_directory = $this->_request->getBaseUrl().'/medias/default/images';
 		/*
 		FIXME: Should be :
 		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';

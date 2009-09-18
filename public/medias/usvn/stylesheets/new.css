@@ -36,6 +36,7 @@ fieldset {
 li, p {
 	font-size: 14px;
 	list-style-type: none;
+	text-align: middle;
 }
 
 img {
@@ -436,6 +437,14 @@ ul.grid_list li a:hover {
 
 .grid_img {
 	height: 64px;
+}
+
+#sorttable_sortfwdind img {
+	margin-left: 5px;
+}
+
+#sorttable_sortrevind img {
+	margin-left: 5px;
 }
 
 /* @end */

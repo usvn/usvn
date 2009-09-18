@@ -20,10 +20,10 @@ var stIsIE = /*@cc_on!@*/false;
 
 /* You can change these values */
 var custom_images	= true;
-var image_path		= "<?php echo $this->images_directory; ?>/CrystalClear/16x16/actions/";
-var image_none		= "1uparrow.png";
-var image_up 		= "1uparrow.png";
-var image_down		= "1downarrow.png";
+var image_path		= "<?php echo $this->images_directory; ?>/";
+var image_none		= "uparrow.png";
+var image_up 		= "uparrow.png";
+var image_down		= "downarrow.png";
 var alternate_row_colors = true;
 
 sorttable = {

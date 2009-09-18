@@ -105,7 +105,7 @@ class BrowserajaxController extends USVN_Controller
 					$pathbefore = dirname($path) . "/";
 				}
 				echo "<tr class=\"".(++$i % 2 ? 'even' : 'odd')."\"><td>";
-				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>".$this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'))." ..</a></td><td></td><td></td></tr>";
+				echo "<a href='javascript:getListFile(" . "\"". $pathbefore . "\"" . ");'>".$this->view->img('folder.png', T_('Folder'))." ..</a></td><td></td><td></td></tr>";
 			}
 			foreach ($tab as &$tabl) {
 				$tabl['path_raw'] = $tabl['path'];
@@ -114,10 +114,10 @@ class BrowserajaxController extends USVN_Controller
 				$dir = false;
 				if ($tabl['isDirectory'] == 1) {
 					$dir = true;
-					$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/filesystems/folder_blue.png', T_('Folder'));
+					$tabl['isDirectory'] = $this->view->img('folder.png', T_('Folder'));
 				}
 				else{
-					$tabl['isDirectory'] = $this->view->img('CrystalClear/16x16/mimetypes/document.png', T_('File'));
+					$tabl['isDirectory'] = $this->view->img('file.png', T_('File'));
 				}
 				echo "<td>";
 				if ($dir) {
@@ -131,7 +131,7 @@ class BrowserajaxController extends USVN_Controller
 				} else {
 					echo "<td></td>";
 				}
-				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('CrystalClear/16x16/apps/kwalletmanager.png', T_('Rights')) . "</a></td></tr>";
+				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('lock.png', T_('Rights')) . "</a></td></tr>";
 			}
 			echo "</tbody></table>";
 		} else {

@@ -32,7 +32,7 @@ class USVN_View_Helper_EditLink {
         $front = Zend_Controller_Front::getInstance();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
         $url = $view->url(array('action' => 'edit', $param => $name));
-        $img = $view->img("CrystalClear/16x16/actions/edit.png", T_("Edit"));
+        $img = $view->img("edit.png", T_("Edit"));
         return <<< EOF
         <a href="{$url}">
             {$img}

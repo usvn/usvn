@@ -105,6 +105,19 @@ img {
 	margin-top: 15px;
 }
 
+.usvn_warning {
+	color: black;
+	font-weight: bold;
+	background-color: #FFF9D6;
+	border : solid 1px #CFC296;
+	background-position: 10px;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+	text-align: center;
+	padding: 15px 0;
+	margin-top: 15px;
+}
+
 a.usvn_tooltips {
     position: relative;
     z-index: 24;

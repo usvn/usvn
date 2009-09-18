@@ -24,6 +24,6 @@ class USVN_View_Helper_Img {
     public function img($path, $alt = "")
     {
         $ctrl = Zend_Controller_Front::getInstance();
-        return '<img src="' . $ctrl->getBaseUrl() . '/medias/default/images/' . $path . '" alt="' . $alt .'" />';
+				return '<img src="' . $ctrl->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/images/' . $path. '" alt="' . $alt .'" />';
     }
 }

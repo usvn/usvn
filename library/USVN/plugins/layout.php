@@ -26,9 +26,12 @@ class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 	{
 		$response = $this->getResponse();
 		$headers = $response->getHeaders();
-		foreach ($headers as $header) {
-			if (strcasecmp($header['name'], "Content-Type") === 0) {
-				if (strcasecmp($header['value'], "text/html") === 0) {
+		foreach ($headers as $header)
+		{
+			if (strcasecmp($header['name'], "Content-Type") === 0)
+			{
+				if (strcasecmp($header['value'], "text/html") === 0)
+				{
 					$this->addHeader($response);
 					$this->addFooter($response);
 				}
@@ -44,27 +47,24 @@ class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 	*/
 	private function buildMenu($menu_items, $css_id)
 	{
-		if (count($menu_items) == 0) {
+		if (count($menu_items) == 0)
 			return "";
-		}
 		$str = "<ul id=\"$css_id\">\n";
 		$base_url = $this->getRequest()->getBaseUrl();
 		$path = $this->getRequest()->getPathInfo();
-		foreach ($menu_items as $elem) {
+		foreach ($menu_items as $elem)
+		{
 			$img = '';
 			$selected = '';
 			$item = '';
 			//should be unique later with custom images for each tab
 			if ($css_id == 'usvn_menu')
 				$item = ' id="usvn_menu_item"';
-			if (strncmp("/" . $elem['link'], $path, strlen($elem['link']) + 1) === 0) {
-				if (strlen($elem['link']) != 0 || $path == '/' || strlen($path) == 0) {
+			if (strncmp("/" . $elem['link'], $path, strlen($elem['link']) + 1) === 0)
+				if (strlen($elem['link']) != 0 || $path == '/' || strlen($path) == 0)
 					$selected = " class=\"selected\"";
-				}
-			}
-			if (isset($elem["image"]) && !empty($elem["image"])) {
+			if (isset($elem["image"]) && !empty($elem["image"]))
 				$img = "<img src=\"{$elem["image"]}\">";
-			}
 			$str .= "<li$selected$item><a href=\"$base_url/{$elem["link"]}\">$img{$elem["title"]}</a></li>\n";
 		}
 		return $str . "</ul>\n";
@@ -90,8 +90,7 @@ class USVN_plugins_layout extends Zend_Controller_Plugin_Abstract
 	    <title>{$config->site->title}</title>
 		<meta http-equiv="Content-Type"	content="text/html; charset=utf-8" />
 		<link rel="icon" href="{$config->url->base}/{$config->site->ico}" type="image/x-icon" />
-		<link type="text/css" rel="stylesheet" media="screen" href="{$config->url->base}/medias/default/screen.css" />
-		<link type="text/css" rel="stylesheet" media="print" href="{$config->url->base}/medias/default/print.css" />
+		<link type="text/css" rel="stylesheet" media="screen" href="{$config->url->base}/medias/usvn/stylesheets/new.css" />
 		<script type="text/javascript" src="{$config->url->base}/js/"></script>
 	</head>
 	<body>

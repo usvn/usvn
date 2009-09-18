@@ -35,7 +35,7 @@
 		<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToProjects") as $user) :?>
 			<li>
 				<?php if ($this->isAdmin) : ?>
-					<?php echo $this->urlConfirm(array("action" => "deleteuser", "users_id" => $user->id), $this->img("delete.png", T_("Delete"), 'style="vertical-align: middle;"'),
+					<?php echo $this->urlConfirm(array("action" => "deleteuser", "users_id" => $user->id), $this->img("delete.png", T_("Delete")),
 					sprintf(T_("Do you really want to remove user %s as admin of project %s?"), $user->login, $this->project->name));
 					?>
 				<?php endif; ?>
@@ -65,7 +65,7 @@
 		<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_GroupsToProjects") as $group) :?>
 			<li>
 				<?php if ($this->isAdmin) : ?>
-					<?php echo $this->urlConfirm(array("action" => "deletegroup", "groups_id" => $group->id), $this->img("delete.png", T_("Delete"), 'style="vertical-align: middle;"'),
+					<?php echo $this->urlConfirm(array("action" => "deletegroup", "groups_id" => $group->id), $this->img("delete.png", T_("Delete")),
 					sprintf(T_("Do you really want to remove group %s from project %s?"), $group->name, $this->project->name));
 					 ?>
 					<?php endif; ?>

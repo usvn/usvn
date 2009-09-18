@@ -21,9 +21,10 @@ class USVN_View_Helper_Img {
     * @param Path to thie image without medias/TEMPLATE/images/
     * @param Alternative text (empty by default)
     */
-    public function img($path, $alt = "", $extra = null)
+    public function img($path, $alt = "", $extra = null, $vertical = true)
     {
         $ctrl = Zend_Controller_Front::getInstance();
-				return '<img src="' . $ctrl->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/images/' . $path. '" alt="' . $alt .'" ' . $extra . ' />';
+				return '<img src="' . $ctrl->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/images/' . $path. '" alt="' . $alt .'" '.
+						($vertical === true ? 'style="vertical-align: middle;"' : '').' ' . $extra . ' />';
     }
 }

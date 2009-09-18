@@ -31,6 +31,6 @@ class USVN_View_Helper_ACLLink {
         $front = Zend_Controller_Front::getInstance();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
         $img = $view->img("lock.png", T_('Rights'));
-        return '<a href="' . $view->url(array('controller' => 'browser', 'project' => $project), "project", true) . '">' . $img .'</a>';
+        return '<a href="' . $view->url(array('controller' => 'project', 'action' => 'browser', 'project' => $project), "project", true) . '">' . $img .'</a>';
     }
 }

@@ -34,7 +34,7 @@ class USVN_View_Helper_FormText extends Zend_View_Helper_FormText {
      */
     public function formText($name, $value = null, $attribs = null)
     {
-		$value = htmlspecialchars_decode($value, ENT_QUOTES);
+//		$value = htmlspecialchars_decode($value, ENT_QUOTES);
 		return parent::formText($name, $value, $attribs);
 	}
 }

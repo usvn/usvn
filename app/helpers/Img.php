@@ -21,9 +21,9 @@ class USVN_View_Helper_Img {
     * @param Path to thie image without medias/TEMPLATE/images/
     * @param Alternative text (empty by default)
     */
-    public function img($path, $alt = "")
+    public function img($path, $alt = "", $extra = null)
     {
         $ctrl = Zend_Controller_Front::getInstance();
-				return '<img src="' . $ctrl->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/images/' . $path. '" alt="' . $alt .'" />';
+				return '<img src="' . $ctrl->getBaseUrl() . '/medias/' . USVN_Template::getTemplate() . '/images/' . $path. '" alt="' . $alt .'" ' . $extra . ' />';
     }
 }

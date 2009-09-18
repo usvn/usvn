@@ -345,6 +345,10 @@ form.usvn_form {
 	margin-bottom: 20px;
 }
 
+#profile input {
+	width: 260px;
+}
+
 /* @end */
 
 /* @group Administration */

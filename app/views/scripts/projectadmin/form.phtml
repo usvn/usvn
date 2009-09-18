@@ -25,7 +25,7 @@ function checkName() {
 			<?php echo '', $this->formText('projects_name', $this->project->name,
 			    ($this->action != 'edit' && $this->action != 'update' ?
 			      array('maxlength' => 255, 'size' => '77') :
-			      array('maxlength' => 255, 'disabled' => 'disabled', 'size' => '77'))); ?>
+			      array('maxlength' => 255, 'readonly' => 'true', 'size' => '77'))); ?>
 		</label>
 		<br />
 		<label><?php echo T_("Description"); ?>:<br />

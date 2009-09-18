@@ -81,7 +81,7 @@ class ProjectadminController extends AdminadminController
 		if ($UserToProject !== null) {
 			$this->view->AdminProject = 1;
 		}
-
+		
 		if ($this->view->project === null) {
 			$this->_redirect("/admin/project/");
 		}

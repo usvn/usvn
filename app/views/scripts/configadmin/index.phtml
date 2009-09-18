@@ -106,7 +106,12 @@
 		<tr>
 			<td><label><?php echo T_("Authentication method"); ?>:</label></td>
 			<td>
-				<select name="authAdapterMethod">
+				<select name="authAdapterMethod" onChange="
+				  if (this.value == 'ldap') {
+            document.getElementById('ldap').style.display='';
+				  } else {
+				    document.getElementById('ldap').style.display='none';
+				  }">
 					<?php
 						if ($this->config->authAdapterMethod == 'ldap')
 						{
@@ -125,12 +130,12 @@
 		<tr>
 			<td><label><?php echo T_("Always use database for login"); ?>:</label></td>
 			<td>
-				<?php echo $this->formText('alwaysUseDatabaseForLogin', $this->config->alwaysUseDatabaseForLogin ? $this->config->alwaysUseDatabaseForLogin : "admin", array('size' => 80)); ?>
+				<?php echo $this->formText('alwaysUseDatabaseForLogin', $this->config->alwaysUseDatabaseForLogin ? $this->config->alwaysUseDatabaseForLogin : "admin", array('size' => 54)); ?>
 			</td>
 		</tr>
 	</table>
 </fieldset>
-<fieldset>
+<fieldset id="ldap" <?php if ($this->config->authAdapterMethod != 'ldap') { echo 'style="display: none;"'; } ?>>
 	<legend><?php echo T_("LDAP Settings");?></legend>
 	<table>
 		<tr>

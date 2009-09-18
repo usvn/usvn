@@ -5,13 +5,13 @@ function checkForm() {
 	spanError = document.getElementById('error');
 	var checkRegExp = new RegExp("^[ \t]*$");
 	var user = document.getElementById('user');
-	if ((!user.users_password.value.length || !user.users_password2.value.length)
+	if ((!user.users_password.value.length || !user.users_password_copy.value.length)
 		&& !user.users_id) {
 		spanError.innerHTML = "<?= T_('Password empty.') ?>";
 		spanError.className = "usvn_error";
 		return false;
 	}
-	if (user.users_password.value != user.users_password2.value) {
+	if (user.users_password.value != user.users_password_copy.value) {
 		spanError.innerHTML = "<?= T_('Password incorrect (not the same).') ?>";
 		spanError.className = "usvn_error";
 		return false;
@@ -39,8 +39,8 @@ function checkForm() {
 		<br />
 		<label><?= T_("New password") ?><br />
 			<?= $this->formPassword('users_new_password',  null) ?>
-			<?= $this->formPassword('users_new_password2',  null) ?>
 		</label>
+			<?= $this->formPassword('users_new_password_copy',  null) ?>
 		<br />
 		<label><?= T_("Lastname") ?><br />
 			<?= $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)) ?></label>

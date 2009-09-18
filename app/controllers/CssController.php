@@ -29,35 +29,25 @@ class CssController extends Zend_Controller_Action
 
 	public function screenAction()
 	{
-		/*
-		FIXME: Should be :
-		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';
-		But there are some modifications to do to the template system first.
-		*/
 		$this->css_directory = $this->_request->getBaseUrl().'/medias/usvn/stylesheets';
 		$this->images_directory = $this->_request->getBaseUrl().'/medias/usvn/images';
 		header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $this->_mimetype");
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/new.css');
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/bubblerights.css');
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/completion.css');
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/timeline.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/new.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/bubblerights.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/completion.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/timeline.css');
 	}
 
 	public function printAction()
 	{
-		/*
-		FIXME: Should be :
-		$this->css_directory = USVN_MEDIAS_DIR.'/'.USVN_Template::getTemplate().'/css';
-		But there are some modifications to do to the template system first.
-		*/
 		$this->css_directory = $this->_request->getBaseUrl().'/medias/usvn/stylesheets';
 		$this->images_directory = $this->_request->getBaseUrl().'/medias/usvn/images';
 		header('Cache-Control: max-age=3600, must-revalidate');
 		header("Content-type: $this->_mimetype");
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/new.css');
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/bubblerights.css');
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/completion.css');
-		include(USVN_MEDIAS_DIR.'/usvn/stylesheets/timeline.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/new.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/bubblerights.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/completion.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/timeline.css');
 	}
 }

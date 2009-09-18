@@ -29,7 +29,7 @@ class ProfileController extends USVN_Controller
 			|| !isset($data['users_email'])
 			|| !isset($data['users_password'])
 			|| !isset($data['users_new_password'])
-			|| !isset($data['users_new_password2'])
+			|| !isset($data['users_new_password_copy'])
 			) {
 			return array();
 		}
@@ -37,8 +37,8 @@ class ProfileController extends USVN_Controller
 		if (!USVN_Crypt::checkPassword($data['users_password'], $user->password)) {
 			throw new USVN_Exception(T_("Wrong password"));
 		}
-		if (!empty($data['users_new_password']) && !empty($data['users_new_password2'])) {
-			if ($data['users_new_password'] !== $data['users_new_password2']) {
+		if (!empty($data['users_new_password']) && !empty($data['users_new_password_copy'])) {
+			if ($data['users_new_password'] !== $data['users_new_password_copy']) {
 				throw new USVN_Exception(T_('Not the same password.'));
 			}
 			$data['users_password'] = $data['users_new_password'];

@@ -1,12 +1,12 @@
 <?php
 /**
- * Generate edit link
+ * Generate add link
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info
  * @license http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt CeCILL V2
  * @copyright Copyright 2007, Team USVN
- * @since 0.5
+ * @since 1.0.0
  * @package helper
  *
  * This software has been written at EPITECH <http://www.epitech.net>
@@ -16,26 +16,27 @@
  *
  * $Id$
  */
-class USVN_View_Helper_EditLink {
+class USVN_View_Helper_AddLink {
     /**
-     * Generates edit link
+     * Generates add link
      *
      * @access public
      *
-     * @param string Param name of ressource to delete (ex: login or name)
+     * @param string Param name of ressource to add (ex: login or name)
      * @param string Name of ressource
+     * @param string Text of confirmation (with %s inside to put name of ressource)
      *
      * @return string HTML link: <a href="test">Test</a>.
      */
-    public function editLink($param, $name)
+    public function addLink()
     {
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
-        $url = $view->url(array('action' => 'edit', $param => $name));
-        $img = $view->img("edit.png", T_("Edit"));
-        return <<< EOF
-        <a href="{$url}">
-            {$img}
-        </a>
+        $img = $view->img("add.png", T_("Add"));
+        $url = $view->url(array('action' => 'new'));
+				return <<< EOF
+				<a href="{$url}">
+					{$img}
+				</a>
 EOF;
-    }
+		}
 }

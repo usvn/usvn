@@ -30,7 +30,6 @@ class USVN_View_Helper_DeleteLink {
      */
     public function deleteLink($param, $name, $confirmText)
     {
-        $front = Zend_Controller_Front::getInstance();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
         $img = $view->img("delete.png", T_("Delete"));
         return $view->urlConfirm(array('action' => 'delete', $param => $name),  $img, sprintf($confirmText, $name));

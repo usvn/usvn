@@ -31,7 +31,7 @@ class USVN_View_Helper_HomeLink {
         $front = Zend_Controller_Front::getInstance();
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
         $url = $view->url(array('controller' => 'project', 'action' => null, 'project' => $name), 'project', true);
-        $img = $view->img("users.png", T_("Home"));
+        $img = $view->img("box24.png", T_("Home"));
         return <<< EOF
         <a href="{$url}">
             {$img}

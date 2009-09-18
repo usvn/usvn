@@ -731,7 +731,7 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: ../../../www//views/Timeline/index.phtml:10
-msgid "Start revision or date revision"
+msgid "Start (revision number or date)"
 msgstr "Start revisie of datum revisie"
 
 #: ../../../www//views/Timeline/index.phtml:12
@@ -739,7 +739,7 @@ msgid "You can list 100 revisions since your revision or date. The date format i
 msgstr "U kan 100 revisies weergeven sinds uw revisie of datum. Het datum formaat is: DD/MM/JJJJ"
 
 #: ../../../www//views/Timeline/index.phtml:28
-msgid "End revision or date revision"
+msgid "End (revision number or date)"
 msgstr "Eind revisie of datum revisie"
 
 #: ../../../www//views/Timeline/index.phtml:30

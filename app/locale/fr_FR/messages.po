@@ -728,16 +728,16 @@ msgid "Save"
 msgstr "Sauvegarder"
 
 #: ../../../www//views/Timeline/index.phtml:10
-msgid "Start revision or date revision"
-msgstr "Version de départ ou date"
+msgid "Start (revision number or date)"
+msgstr "Début (numero de version ou date)"
 
 #: ../../../www//views/Timeline/index.phtml:12
 msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
 msgstr "Vous pouvez afficher 100 version depuis une version donnée ou une date. Le format de date est DD/MM/YYYY."
 
 #: ../../../www//views/Timeline/index.phtml:28
-msgid "End revision or date revision"
-msgstr "Version final ou date de fin"
+msgid "End (revision number or date)"
+msgstr "Fin (numéro de version ou date)"
 
 #: ../../../www//views/Timeline/index.phtml:30
 msgid "This is optional.The listing is made between start revision/date and this one."
@@ -749,7 +749,7 @@ msgstr "Rechercher"
 
 #: ../../../www//views/Timeline/index.phtml:50
 msgid "Last hundred commit"
-msgstr "Les cent derniers commits"
+msgstr "Les cent dernières soumissions"
 
 #: ../../../www//views/Timeline/index.phtml:54
 #: ../../../www//views/project/index.phtml:87
@@ -830,7 +830,7 @@ msgstr "Voulez vous vraiment supprimer le groupe %s du projet %s?"
 
 #: ../../../www//views/project/index.phtml:79
 msgid "Last five commits"
-msgstr "Les cinq derniers commits"
+msgstr "Les cinq dernières soumissions"
 
 #: ../../../www//views/project/index.phtml:82
 msgid "Rss"

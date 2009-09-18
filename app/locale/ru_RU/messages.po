@@ -733,7 +733,7 @@ msgid "Save"
 msgstr "Сохранить"
 
 #: ../../../www//views/Timeline/index.phtml:10
-msgid "Start revision or date revision"
+msgid "Start (revision number or date)"
 msgstr "Начальная ревизия или дата ревизии"
 
 #: ../../../www//views/Timeline/index.phtml:12
@@ -741,7 +741,7 @@ msgid "You can list 100 revisions since your revision or date. The date format i
 msgstr "Вы можете видеть список из 100 изменений со времени Вашей ревизии или даты. Дата в формате:DD/MM/YYYY"
 
 #: ../../../www//views/Timeline/index.phtml:28
-msgid "End revision or date revision"
+msgid "End (revision number or date)"
 msgstr "Конечная ревизия или дата ревизии"
 
 #: ../../../www//views/Timeline/index.phtml:30

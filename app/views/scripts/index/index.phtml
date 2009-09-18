@@ -9,7 +9,7 @@
 		<li>
 			<a href="<?= $this->url(array('project' => $project->name), 'project'); ?>">
 				<div class="grid_img">
-					<img src="<?= $this->url() ?>images/icons/box_48.png" />
+					<?= $this->img('box_48.png') ?>
 				</div>
 				<div><?php
 					if (strlen($project->name) > $this->maxlen) {
@@ -39,7 +39,7 @@
 		<li>
 			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>">
 				<div>
-					<img src="<?= $this->url() ?>images/icons/users_two_48.png" />
+					<?= $this->img('users_two_48.png') ?>
 				</div>
 				<div><?php
 				 	if (strlen($group->name) > $this->maxlen) {

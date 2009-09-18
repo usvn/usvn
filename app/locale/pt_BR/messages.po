@@ -730,7 +730,7 @@ msgid "Save"
 msgstr "Salvar"
 
 #: ../../../www//views/Timeline/index.phtml:10
-msgid "Start revision or date revision"
+msgid "Start (revision number or date)"
 msgstr "Revisão inicial ou data da revisão"
 
 #: ../../../www//views/Timeline/index.phtml:12
@@ -738,7 +738,7 @@ msgid "You can list 100 revisions since your revision or date. The date format i
 msgstr "Você pode listar 100 revisões desde sua revisão ou data. O formato de data é : DD/MM/YYYY"
 
 #: ../../../www//views/Timeline/index.phtml:28
-msgid "End revision or date revision"
+msgid "End (revision number or date)"
 msgstr "Revisão final ou data da revisão"
 
 #: ../../../www//views/Timeline/index.phtml:30

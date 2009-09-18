@@ -723,7 +723,7 @@ msgid "Save"
 msgstr "Simpan"
 
 #: ../../../www//views/Timeline/index.phtml:10
-msgid "Start revision or date revision"
+msgid "Start (revision number or date)"
 msgstr "Awal revisi atau tanggal revisi"
 
 #: ../../../www//views/Timeline/index.phtml:12
@@ -731,7 +731,7 @@ msgid "You can list 100 revisions since your revision or date. The date format i
 msgstr "Andan dapat melihat daftar 100 perubahan sejak revisi anda terakhir atau menurut tanggal yang diberikan. Format tanggal adalah: DD/MM/YYYY."
 
 #: ../../../www//views/Timeline/index.phtml:28
-msgid "End revision or date revision"
+msgid "End (revision number or date)"
 msgstr "Akhir revisi atau tanggal revisi"
 
 #: ../../../www//views/Timeline/index.phtml:30

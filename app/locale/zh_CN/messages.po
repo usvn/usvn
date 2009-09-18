@@ -729,7 +729,7 @@ msgid "Save"
 msgstr "保存"
 
 #: ../../../www//views/Timeline/index.phtml:10
-msgid "Start revision or date revision"
+msgid "Start (revision number or date)"
 msgstr "开始的修订或日期"
 
 #: ../../../www//views/Timeline/index.phtml:12
@@ -737,7 +737,7 @@ msgid "You can list 100 revisions since your revision or date. The date format i
 msgstr "您能显示从您选定的修订或日期开始的 100 个修订. 日期的格式是: DD/MM/YYYY(日/月/年)"
 
 #: ../../../www//views/Timeline/index.phtml:28
-msgid "End revision or date revision"
+msgid "End (revision number or date)"
 msgstr "结束的修订或日期"
 
 #: ../../../www//views/Timeline/index.phtml:30

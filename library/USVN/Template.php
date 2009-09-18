@@ -62,18 +62,8 @@ class USVN_Template
 	 */
 	public static function isValidTemplateDirectory($directory)
 	{
-		if (!is_dir($directory)) {
+		if (!is_dir($directory))
 			return false;
-		}
-		if (!file_exists($directory . '/screen.css')) {
-			return false;
-		}
-		if (!file_exists($directory . '/print.css')) {
-			return false;
-		}
-		if (!file_exists($directory . '/script.js')) {
-			return false;
-		}
 		return true;
 	}
 
@@ -86,7 +76,6 @@ class USVN_Template
 	public static function listTemplate()
 	{
 		$res = array();
-//		echo USVN_Template::$locale_directory . "<br />\n";
 		$list = USVN_DirectoryUtils::listDirectory(USVN_Template::$locale_directory);
 		foreach ($list as $filename) {
 			if (USVN_Template::isValidTemplateDirectory(USVN_Template::$locale_directory . '/' . $filename)) {

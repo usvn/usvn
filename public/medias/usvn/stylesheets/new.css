@@ -374,17 +374,24 @@ ul#usvn_admin_section {
 }
 
 #usvn_admin_section li {
+	display: inline;
+	font-weight: bold;
+	margin: 10px;
+	float: left;
+	width: 22%;
+	text-align: center;
+}
+
+#usvn_admin_section li a {
+	display: block;
 	background-color: #F2F8FD;
 	border-color: #CCCCCC;
 	border-style: dotted;
 	border-width: 1px;
-	display: inline;
-	font-weight: bold;
-	margin: 10px;
 	padding: 6px;
-	float: left;
-	width: 45%;
+	height: 4em;
 }
+
 /* @end */
 
 .usvn_error {

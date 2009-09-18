@@ -148,11 +148,6 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
      */
 	public function insert(array $data)
 	{
-//		foreach ($data as &$value) {
-//            if ($value !== NULL) {
-//                $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-//            }
-//		}
 		return parent::insert($data);
 	}
 
@@ -165,11 +160,6 @@ abstract class USVN_Db_Table extends Zend_Db_Table {
      */
     public function update(array $data, $where)
 	{
-//		foreach ($data as &$value) {
-//            if ($value !== NULL) {
-//                $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-//            }
-//		}
 		return parent::update($data, $where);
 	}
 }

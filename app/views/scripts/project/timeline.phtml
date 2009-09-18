@@ -16,7 +16,7 @@
 
 						<td>
 							<?php
-								 echo $this->formText("number_start"); 
+								 echo $this->formText('number_start', $this->number_start); 
 						     	 echo '<br>';
 							?>
 			 			</td>
@@ -25,19 +25,19 @@
 			 		<tr>
 				 		<td>
 						<a href="#" class="usvn_tooltips">
-							<?php echo T_("End revision or date revision");?>
+							<?php echo T_('End revision or date revision');?>
 							<span>
-								<?php echo T_("This is optional.The listing is made between start revision/date and this one."); ?>
+								<?php echo T_('This is optional.The listing is made between start revision/date and this one.'); ?>
 							</span>
 						</a>:
 						</td>
 						<td>
-							<?php echo $this->formText("number_end"); ?>
+							<?php echo $this->formText('number_end', $this->number_end); ?>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<?php echo $this->formSubmit("LastHundredRequest", T_("Search")); ?>
+							<?php echo $this->formSubmit('LastHundredRequest', T_('Search')); ?>
 						</td>
 					</tr>
 

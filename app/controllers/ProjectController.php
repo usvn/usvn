@@ -389,7 +389,7 @@ class ProjectController extends USVN_Controller
 	{
 		include_once('geshi/geshi.php');
 		$this->view->project = $this->_project;
-    $config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$project_name = str_replace(USVN_URL_SEP, '/',$this->_project->name);
 		$local_project_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/");
 		$commit = $this->getRequest()->getParam('commit');
@@ -460,7 +460,6 @@ class ProjectController extends USVN_Controller
 	}
 
 	public function lasthundredrequestAction()
-//	public function lastHundredRequestAction()
     {
 		$project = $this->getRequest()->getParam('project');
 		$table = new USVN_Db_Table_Projects();
@@ -469,13 +468,18 @@ class ProjectController extends USVN_Controller
 		if ($project === null) {
 			$this->_redirect("/");
 		}		
-			$this->_project = $project;
-			$this->view->project = $this->_project;
-			$SVN = new USVN_SVN($this->_project->name);
+		$this->_project = $project;
+		$this->view->project = $this->_project;
+		$SVN = new USVN_SVN($this->_project->name);
 		try {
 			$number_start = $project = $this->getRequest()->getParam('number_start');
 			$number_end = $project = $this->getRequest()->getParam('number_end');
-			$number_end = $this->convertDate($number_end);
+			$this->view->number_start = $number_start;
+			$this->view->number_end = $number_end;
+			if (empty($number_end))
+				$number_end = null;
+			else
+				$number_end = $this->convertDate($number_end);
 			$number_start = $this->convertDate($number_start);
 			$this->view->log = $SVN->log(100, $number_start, $number_end);
 			$this->render("timeline");
@@ -490,11 +494,11 @@ class ProjectController extends USVN_Controller
 	protected function convertDate($number)
 	{
 		if (strstr($number, '/') != FALSE) {
-			$split = split("/",$number); 
-			$jour = $split[0]; 
-			$mois = $split[1]; 
-			$annee = $split[2]; 
-			return "{".$annee.$mois.$jour."}";
+			$split = explode('/', $number); 
+			$jour = $split[0];
+			$mois = $split[1];
+			$annee = $split[2];
+			return '{'.$annee.$mois.$jour.'}';
 		}
 		return $number;
 	}

@@ -409,7 +409,7 @@ EOF;
 		if (strlen($title) == 0)
 			throw new USVN_Exception(T_('Need a title.'));
 		$config = Install::_loadConfig($config_file);
-		$config->template = array('name' => 'default');
+		$config->template = array('name' => 'usvn');
 		if (!isset($config->site))
 			$config->site = array();
 		$config->site->title = strip_tags($title);

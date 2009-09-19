@@ -34,7 +34,7 @@
 			<? if ($user->login != $me): ?>
 				<?= $this->deleteLink('login', $user->login, $deletetext) ?>
 			<? else: ?>
-				<img src="/medias/usvn/images/empty.png" style="vertical-align: middle;">
+				<?= $this->img('empty.png') ?>
 			<? endif ?>
 		</td>
 	</tr>

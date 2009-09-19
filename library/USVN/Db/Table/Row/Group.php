@@ -185,7 +185,7 @@ class USVN_Db_Table_Row_Group extends USVN_Db_Table_Row
 	{
 		$type = ($type ? 1 : 0);
 		$user_groups = new USVN_Db_Table_UsersToGroups();
-		$links = $user_groups->fetchAll(array('groups_id = ?' => $group_id, 'is_leader = ?' => $type));
+		$links = $user_groups->fetchAll(array('groups_id = ?' => $group_id, '(CASE WHEN is_leader THEN 1 ELSE 0 END) = ?' => $type));
 		if (count($links) === 0) {
 			return array();
 		}

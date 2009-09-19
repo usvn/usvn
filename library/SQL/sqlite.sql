@@ -60,7 +60,7 @@ CREATE TABLE usvn_users_to_groups
 	(
 		users_id integer not null,
 		groups_id integer not null,
-		is_leader bool not null,
+		is_leader bool not null DEFAULT '0',
 		constraint fk_usvn_users_to_groups foreign key (users_id) references usvn_users (users_id) on delete restrict on update restrict,
 		constraint fk_usvn_users_to_groups2 foreign key (groups_id) references usvn_groups (groups_id) on delete restrict on update restrict
 	);

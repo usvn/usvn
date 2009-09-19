@@ -63,9 +63,9 @@ h3 {
 	padding-top: 15px;
 }
 
-input {
+#profile input {
 	line-height: 15px;
-	margin-bottom: 10px;
+	margin: 2px 0 8px 0;
 }
 
 label {
@@ -302,18 +302,6 @@ table.usvn_table tbody tr:hover, table.sortable tbody tr:hover {
 /* @end */
 
 /* @group Page d'accueil */
-
-.usvn_info {
-	background-color: #E9F5FE;
-	background-position: right 17px;
-	background-repeat: no-repeat;
-	clear: both;
-	margin: auto auto 2em;
-	min-height: 40px;
-	padding: 5px;
-	border: 1px dotted #CCCCCC;
-}
-
 #box {
 	background-color: #F6FAFD;
 	border: 1px dotted #CCCCCC;
@@ -322,12 +310,6 @@ table.usvn_table tbody tr:hover, table.sortable tbody tr:hover {
 	padding: 20px;
 	text-align: center;
 	margin-bottom: 20px;
-}
-
-.usvn_info p {
-	font-size: 95%;
-	line-height: 130%;
-	margin: 10px 0 12px 10px;
 }
 
 #usvn_index_projects ul, #usvn_index_groups ul {
@@ -363,12 +345,45 @@ form.usvn_form {
 
 /* @group Admin::Home */
 
+.usvn_info {
+	background-color: #E9F5FE;
+	clear: both;
+	margin: auto auto 2em;
+	min-height: 35px;
+	padding: 5px;
+	border: 1px dotted #CCCCCC;
+}
+
+.usvn_info p {
+	font-size: 95%;
+	line-height: 130%;
+	margin: 10px 0 12px 10px;
+}
+
 .usvn_info h1 {
 	clear: left;
 	color: #125675;
 	font-size: 180%;
 	font-weight: bold;
 	margin: 0 0 3px;
+}
+
+.usvn_subinfo {
+	background-color: #E9F5FE;
+	clear: both;
+	margin: auto auto 2em;
+	min-height: 20px;
+	padding: 5px;
+	border: 1px dotted #CCCCCC;
+}
+
+.usvn_subinfo h2 {
+	clear: left;
+	color: #125675;
+	font-size: 120%;
+	font-weight: bold;
+	margin: 0 0 3px;
+	text-align: center;
 }
 
 .usvn_info ul {

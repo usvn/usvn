@@ -1,12 +1,11 @@
 <form id="project" class="usvn_form" method="post" action="<?php echo $this->url; ?>">
 	<div>
-		<legend><?php echo T_("Project's information"); ?></legend>
-
-			<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
+		<label>
+			<?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
 			<?php echo '', $this->formText('projects_name', $this->project->name,
-			    ($this->action != 'edit' && $this->action != 'update' ?
-			      array('maxlength' => 255, 'size' => '77') :
-			      array('maxlength' => 255, 'readonly' => 'true', 'size' => '77'))); ?>
+			($this->action != 'edit' && $this->action != 'update' ?
+			array('maxlength' => 255, 'size' => '77') :
+			array('maxlength' => 255, 'readonly' => 'true', 'size' => '77'))); ?>
 		</label>
 		<br />
 		<label><?php echo T_("Description"); ?>:<br />

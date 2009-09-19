@@ -64,7 +64,7 @@ class USVN_Controller extends Zend_Controller_Action
 	{
 		$request = $this->getRequest();
 		$controller = $request->getControllerName();
-		
+
 		$dir = realpath(USVN_VIEWS_DIR . '/' . $controller);
 		if ($dir === false || !is_dir($dir))
 			throw new Zend_Controller_Exception('Controller\'s views directory not found. Controller is $controller.');
@@ -95,9 +95,15 @@ class USVN_Controller extends Zend_Controller_Action
 		
 		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
+		$this->view->isLogged = true;
 		if ($user === null && $controller != "login"  && $controller != "rss")
 		{
 			$this->_redirect("/logout/");
+			$this->view->isLogged = false;
+		}
+		if (isset($user))
+		{
+			$this->view->isAdmin = $user->is_admin;
 		}
 		$request->setParam('user', $user);
 	}

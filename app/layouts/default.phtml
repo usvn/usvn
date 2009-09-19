@@ -23,10 +23,16 @@
 	    		</div>
 	    		<div id="main-menu">
 		          <ul>
+		<? if ($this->isLogged): ?>
 		<?
-		foreach (array('index' => 'Home', 'profile' => 'Profile', 'admin' => 'Admin', 'logout' => 'Logout') as $menuLink => $menuLabel): ?>
-		            <li><a href="<?= $this->url(array('controller' => $menuLink), 'default') ?>" <?= ($menuLink == $this->area ? ' id="selected"' : '') ?>><span><?= T_($menuLabel) ?></span></a></li>
-		<? endforeach ?>
+			if ($this->isAdmin)
+				$array = array('index' => 'Home', 'profile' => 'Profile', 'admin' => 'Admin', 'logout' => 'Logout');
+			else
+				$array = array('index' => 'Home', 'profile' => 'Profile', 'logout' => 'Logout');
+			foreach ($array as $menuLink => $menuLabel): ?>
+		            <li><a href="<?= $this->url(array('controller' => $menuLink), 'default', true) ?>" <?= ($menuLink == $this->area ? ' id="selected"' : '') ?>><span><?= T_($menuLabel) ?></span></a></li>
+			<? endforeach ?>
+			<? endif ?>
 		          </ul>
 	    		</div>
 	  		</div>

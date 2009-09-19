@@ -28,6 +28,6 @@ class CheckupdateController extends Zend_Controller_Action
 		$this->_helper->viewRenderer->setNoRender();
         header('Cache-Control: max-age=3600, must-revalidate');
         header("Content-type: $this->_mimetype");
-        echo file_get_contents("views/checkupdate/empty.png");
+        echo file_get_contents(USVN_PUB_DIR . "/medias/" . 'usvn' . "/images/empty.png");
 	}
 }

@@ -345,6 +345,14 @@ form.usvn_form {
 
 /* @group Admin::Home */
 
+.usvn_update {
+	background-color: #ffeb82;
+	text-align: center;
+	padding: 10px 5px;
+	margin: 2px 10px;
+	border: 2px solid #333;
+}
+
 .usvn_info {
 	background-color: #E9F5FE;
 	clear: both;

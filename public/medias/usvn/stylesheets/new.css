@@ -283,6 +283,14 @@ table.usvn_table tbody tr:hover, table.sortable tbody tr:hover {
 	vertical-align: top;
 }
 
+.align-center {
+	text-align: center;
+}
+
+.align-right {
+	text-align: right;
+}
+
 .even {
 	background-color: white;
 }

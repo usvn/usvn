@@ -94,7 +94,7 @@ class BrowserajaxController extends USVN_Controller
 		if ($read) {
 			echo '<table class="usvn_table">';
 			echo '<thead>';
-			echo '<tr><th>', T_('Name'), '</th><th>', T_('File revision'), '</th><th>', T_('Action'), '</th></tr>';
+			echo '<tr><th>', T_('Name'), '</th><th>', T_('File revision'), '</th><th width="50px">', T_('Action'), '</th></tr>';
 			echo '</thead>';
 			echo '<tbody>';
 			$i = 0;
@@ -131,7 +131,7 @@ class BrowserajaxController extends USVN_Controller
 				} else {
 					echo "<td></td>";
 				}
-				echo "<td><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('lock.png', T_('Rights')) . "</a></td></tr>";
+				echo "<td class=\"align-center\"><a href='javascript:dumpRights(\"{$tabl['path']}\");'>" .$this->view->img('lock.png', T_('Rights')) . "</a></td></tr>";
 			}
 			echo "</tbody></table>";
 		} else {

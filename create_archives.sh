@@ -12,7 +12,7 @@ fi
 
 echo 'Suppression des fichiers inutiles ...'
 cd /tmp/usvn
-for i in `find . "(" -type d -and -name "*Test.php" ")" | grep -v Zend`; do
+for i in `find . -name "*Test.php" | grep -v Zend`; do
 	rm -f "$i"
 done
 rm -rf build.xml install* usvn.esproj create_archive.sh

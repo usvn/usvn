@@ -1,3 +1,32 @@
+<div class="usvn_info">
+	<h1>
+		<?= T_("Group's information"); ?>
+	</h1>
+</div>
+
+<?php echo $this->error($this); ?>
+
+<script type="text/javascript">
+<!--
+function checkName()
+{
+	var spanError = document.getElementById('error');
+	var checkRegExp = new RegExp("^[ \t]*$");
+	var group = document.getElementById('group');
+	if (group.groups_name.value.length == 0 || checkRegExp.test(group.groups_name.value))
+	{
+		spanError.innerHTML = "<?php echo T_('Group\'s name empty, please fill it.'); ?>";
+		spanError.className = "usvn_error";
+		return false;
+	}
+	spanError.innerHTML = '';
+	spanError.className = "";
+	return true;
+}
+-->
+</script>
+
+<div id="profile">
 <?php	
 $this->url = $this->url(array("action" => "create"));
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . "form.phtml";

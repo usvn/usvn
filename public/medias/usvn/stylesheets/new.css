@@ -333,7 +333,6 @@ table.usvn_table tr:hover, table.sortable tr:hover {
 /* @group Profile */
 
 form.usvn_form {
-	margin-bottom: 20px;
 	padding: 15px;
 }
 
@@ -343,7 +342,7 @@ form.usvn_form {
 	margin: auto;
 	width: 300px;
 	padding: 20px;
-	margin-bottom: 20px;
+	margin: 20px auto 20px auto;
 }
 
 #profile input {
@@ -453,5 +452,13 @@ ul.grid_list li a:hover {
 #sorttable_sortrevind img {
 	margin-left: 5px;
 }
-
 /* @end */
+
+#affected select {
+	width: 100%;
+}
+
+#affected-title {
+	font-weight: bold;
+	margin-bottom: 5px;
+}

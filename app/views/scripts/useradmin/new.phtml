@@ -1,22 +1,19 @@
+<div class="usvn_info">
+	<h1>
+		<?= T_("User account"); ?>
+	</h1>
+</div>
 <?php
-
 echo $this->error($this);
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'js.phtml';
 ?>
+<div id="profile">
 <form id="user" name="user" class="usvn_form" method="post" action="<?php echo $this->url(array("action" => "create")) ?>">
 <?php
-
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . "form.phtml";
-
 ?>
-		<br />
-		<label><?php echo T_("Create group"); ?>:
-			<?php echo $this->formCheckbox('create_group'); ?>
-		</label>
-		<br />
 		<br />
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')); ?>
 		<br />
-	</fieldset>
-</form>
-<br />
+	</form>
+</div>

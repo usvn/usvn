@@ -33,7 +33,7 @@ msgid "Projects"
 msgstr "Projekte"
 
 #: ../../../www//menus/projectadmin.php:53
-msgid "Add new project"
+msgid "New Project"
 msgstr "Neues Projekt hinzufügen"
 
 #: ../../../www//menus/groupadmin.php:33

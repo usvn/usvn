@@ -18,10 +18,12 @@
 <? if (!empty($this->users)): ?>
 	<? $me = Zend_Auth::getInstance()->getIdentity();
 		$me = $me['username'] ?>
+	<? $even = true ?>
 	<? foreach ($this->users as $user): ?>
+	<? $even = !$even ?>
 	<? $editurl = $this->url(array('action' => 'edit', 'login' => $user->login)) ?>
 	<? $deletetext = T_("Do you really want to delete user %s?") ?>
-	<tr>
+	<tr class="<?= ($even ? 'even' : 'odd') ?>">
 		<td><a href="<?= h_($editurl) ?>"><?= h_($user->login) ?></a></td>
 		<td><a href="<?= h_($editurl) ?>"><?= h_($user->firstname) ?></a></td>
 		<td><a href="<?= h_($editurl) ?>"><?= h_($user->lastname) ?></a></td>
@@ -41,6 +43,8 @@
 		<tr>
 			<td colspan="6" style="text-align:right;">
 				<a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("Add new user") ?></a>
+				<br />
+				<a href="<?= $this->url(array('action' => 'import')) ?>"><?= T_("Import htpasswd") ?></a>
 			</td>
 		</tr>
 	</tfoot>

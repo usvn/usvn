@@ -20,7 +20,7 @@ msgstr ""
 #: ../../../www//menus/browser.php:32
 #: ../../../www//menus/browserTest.php:47
 msgid "Browser"
-msgstr "Navigateur de fichiers"
+msgstr "Navigateur"
 
 #: ../../../www//menus/timeline.php:32
 #: ../../../www//views/Timeline/index.phtml:3
@@ -40,8 +40,8 @@ msgid "Projects"
 msgstr "Projets"
 
 #: ../../../www//menus/projectadmin.php:53
-msgid "Add new project"
-msgstr "Ajouter un nouveau projet"
+msgid "New Project"
+msgstr "Créer un projet"
 
 #: ../../../www//menus/groupadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:27

@@ -35,24 +35,4 @@ class menus_projectadmin extends USVN_AbstractMenu
 			)
 		);
 	}
-
-	/**
-	* Get menu entries in sub sub menu.
-	* By example Menu is Admin
-	* Sub menu is User
-	* Sub sub menu is New user
-	*
-	* @param Zend_Controller_Request_Abstract Request
-	* @param mixed|null Identity from Zend_Auth
-	* @return array
-	*/
-	public function getSubSubMenu()
-	{
-		return array(
-			array(
-				"title" => T_("Add new project"),
-				"link"=> "admin/project/new/",
-			)
-		);
-	}
 }

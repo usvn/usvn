@@ -41,7 +41,7 @@ msgid "Projects"
 msgstr "Projecten"
 
 #: ../../../www//menus/projectadmin.php:53
-msgid "Add new project"
+msgid "New Project"
 msgstr "Voeg nieuw project toe"
 
 #: ../../../www//menus/groupadmin.php:33

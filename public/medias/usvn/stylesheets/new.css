@@ -276,7 +276,7 @@ table.usvn_table td, table.sortable td {
 	vertical-align: top;
 }
 
-table.usvn_table tr:hover, table.sortable tr:hover {
+table.usvn_table tbody tr:hover, table.sortable tbody tr:hover {
 	background-color: #B5DCEE;
 	border: 1px solid #124361;
 	padding: 3px 4px;
@@ -288,7 +288,7 @@ table.usvn_table tr:hover, table.sortable tr:hover {
 }
 
 .odd {
-	
+	background-color: #e8f4fd;
 }
 
 /* @end */

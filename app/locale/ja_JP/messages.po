@@ -32,7 +32,7 @@ msgid "Projects"
 msgstr "プロジェクト管理"
 
 #: ../../../www//menus/projectadmin.php:53
-msgid "Add new project"
+msgid "New Project"
 msgstr "新規プロジェクトの作成"
 
 #: ../../../www//menus/groupadmin.php:33

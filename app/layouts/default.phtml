@@ -40,12 +40,12 @@
 	  	    <? foreach($this->layout()->getView()->submenu as $item): ?>
 	  	    <li>
 	  	    	<? if (isset($item['href'])): ?>
-	  	    	  <a href="<?= htmlspecialchars($this->url(array('controller' => ''), 'default') . $item['href']); ?>">
+	  	    	  <a href="<?= htmlspecialchars($this->url(array('controller' => ''), 'default', true) . $item['href']); ?>">
 	  	    	  	<?= htmlspecialchars(T_($item['label'])); ?>
 	  	    	  </a>
 	  	    	<? elseif (isset($item['url'])): ?>
 	  	    	  <? $route = (isset($item['route']) ? $item['route'] : null); ?>
-	  	    	  <a href="<?= htmlspecialchars($this->url($item['url'], $route)); ?>">
+	  	    	  <a href="<?= htmlspecialchars($this->url($item['url'], $route, true)); ?>">
 	  	    	  	<?= htmlspecialchars(T_($item['label'])); ?>
 	  	    	  </a>
 	  	    	<? else: ?>

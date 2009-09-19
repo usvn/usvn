@@ -15,7 +15,7 @@ cd /tmp/usvn
 for i in `find . -name "*Test.php" | grep -v Zend`; do
 	rm -f "$i"
 done
-rm -rf build.xml install* usvn.esproj create_archive.sh
+rm -rf build.xml install* usvn.esproj create_archives.sh
 
 echo 'Creation des archives tar.gz et zip ...'
 version=`cat config/config.ini.exemple | grep -E "^version" | cut -d'"' -f2`

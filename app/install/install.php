@@ -17,11 +17,12 @@ class Install
 	
 	private static function _loadOldConfig(&$config, $old_config_file)
 	{
+		set_time_limit(0);
 		$old_config = new USVN_Config_Ini($old_config_file['tmp_name'], USVN_CONFIG_SECTION, array('create' => false));
 		// Import subversion configuration
 		foreach ($old_config->subversion as $key => $value) {
 			if ($config->subversion->{$key} != $value && $key != 'url') {
-				if (USVN_DirectoryUtils::copyr($value, $config->subversion->{$key}) === false) {
+				if (!file_exists($value) || USVN_DirectoryUtils::copyr($value, $config->subversion->{$key}) === false) {
 					throw new USVN_Exception(T_("Can't copy the old configuration.\n"));
 				}
 			}
@@ -257,6 +258,7 @@ class Install
 			if ($old_file !== NULL && isset($old_file['size']) && $old_file['size'] > 0) {
 				Install::_loadOldConfig($config, $old_file);
 				if (is_object($config->subversion) && is_object($config->database)) {
+					$config->save();
 					return true;
 				}
 			}

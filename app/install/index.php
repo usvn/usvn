@@ -149,7 +149,7 @@ function installationOperation(&$step)
 			Install::installConfiguration(USVN_CONFIG_FILE, $_POST['title']);
 			$import = Install::installSubversion(USVN_CONFIG_FILE, $_POST['pathSubversion'], $_POST['passwdFile'], $_POST['authzFile'], $_POST['urlSubversion'], $_FILES['configFile']);
 			if ($import === true) {
-				displayWarning(T_('A copy of the old SVN repository has been made, any modification done on the old one won\'t interact on the new one. You should disable the old repository access.'));
+				displayWarning(T_("A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."));
 				$step = 7;
 			}
 		break;

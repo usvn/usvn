@@ -1188,3 +1188,5 @@ msgstr "Домой"
 #~ msgid "Manage"
 #~ msgstr "Управление"
 
+msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
+msgstr ""

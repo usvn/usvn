@@ -1179,3 +1179,5 @@ msgstr "Aanpassen"
 msgid "Home"
 msgstr "Home"
 
+msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
+msgstr ""

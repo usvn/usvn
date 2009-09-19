@@ -1190,3 +1190,5 @@ msgstr "首页"
 #~ msgid "To modify the rights on"
 #~ msgstr "修改权限 :"
 
+msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
+msgstr ""

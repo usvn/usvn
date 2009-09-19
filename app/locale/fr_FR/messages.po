@@ -1187,3 +1187,5 @@ msgstr "Recherche de Nouvelle Version"
 msgid "Installation is over"
 msgstr "Fin de l'installation"
 
+msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
+msgstr "Une copie de l'ancien dépôt a été effectuée. Toute modification effectuée sur l'ancien dépôt ne sera pas répecutée sur le nouveau. Veuillez bloquer son l'accès."

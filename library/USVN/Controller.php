@@ -104,6 +104,7 @@ class USVN_Controller extends Zend_Controller_Action
 		if (isset($user))
 		{
 			$this->view->isAdmin = $user->is_admin;
+			$this->view->login = $user->login;
 		}
 		$request->setParam('user', $user);
 	}

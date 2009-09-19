@@ -25,10 +25,12 @@
 		          <ul>
 		<? if ($this->isLogged): ?>
 		<?
+			$array = array();
+			$array['index'] = T_('Home');
+			$array['profile'] = T_('Profile');
 			if ($this->isAdmin)
-				$array = array('index' => 'Home', 'profile' => 'Profile', 'admin' => 'Admin', 'logout' => 'Logout');
-			else
-				$array = array('index' => 'Home', 'profile' => 'Profile', 'logout' => 'Logout');
+				$array['admin'] = T_('Admin');
+			$array['logout'] = T_('Logout') . ' (' . $this->login . ')';
 			foreach ($array as $menuLink => $menuLabel): ?>
 		            <li><a href="<?= $this->url(array('controller' => $menuLink), 'default', true) ?>" <?= ($menuLink == $this->area ? ' id="selected"' : '') ?>><span><?= T_($menuLabel) ?></span></a></li>
 			<? endforeach ?>

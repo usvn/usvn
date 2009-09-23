@@ -112,13 +112,13 @@ label {
 }
  
 #header #shaddow #header-wrapper #main-menu ul {
-	display: table;
+	display: inline;
 	float: right;
 	margin-top: 92px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li {
-	display: table-cell;
+	display: inline;
 	position: relative;
 	margin-top: 92px;
 }
@@ -199,7 +199,7 @@ div#sub-menu {
 	margin: 4px 0 0;
 	position: absolute;
 	width: 138px;
-	border: 1px dotted #CCCCCC;
+	border: 1px dotted #cccccc;
 	overflow: hidden;
 }
 
@@ -222,9 +222,8 @@ div#sub-menu ul li * {
 
 div#sub-menu ul li h3 {
 	font-size: 15px;
-	color: #DDEEFC;
+	color: #ddeefc;
 	background-color: #124361;
-	border-bottom: 1px solid #F0F8FD;
 	margin: 0;
 	text-align: center;
 }

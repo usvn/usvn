@@ -1,22 +1,18 @@
 #!/usr/bin/env bash
 
+cd "$(dirname $0)" && echo " $(pwd)"
+
 if [ "$#" -ne "0" ]; then
-  cmd="bash $(basename $0)"
-  if [ "$(basename "$(pwd -P)")" = "locale" ]; then
       cat <<EOF
   usage: $cmd
 EOF
-  else
-      cat <<EOF
-  usage: cd \$USVNPATH/app/locale && $cmd
-EOF
-  fi
 fi
 
 MSGFMTBIN=msgfmt
 
 if ! which "$MSGFMTBIN" >/dev/null ; then
-  echo need fmt
+  echo "$0 cannnot find $MSGFMTBIN"
+  echo "exiting"
   exit 1
 fi
 

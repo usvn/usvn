@@ -104,10 +104,10 @@ class GroupadminController extends AdminadminController
 		$group->setFromArray($data);
 		try {
 			$group->save();
-			$group->deleteAllUsers();
-			foreach ($_POST['users'] as $user) {
-				$group->addUser($user);
-			}
+//			$group->deleteAllUsers();
+//			foreach ($_POST['users'] as $user) {
+//				$group->addUser($user);
+//			}
 			$this->_redirect("/admin/group/");
 		}
 		catch (USVN_Exception $e) {

@@ -7,7 +7,7 @@ echo $this->error($this);
 		<?php echo T_("This form allow you to add to USVN all users contents into an apache password file."); ?>
 	</p>
 </div>
-<form method="post" enctype="multipart/form-data" action="<?php echo $this->url(array("action" => "importFile")); ?>">
+<form method="post" enctype="multipart/form-data" action="<?php echo $this->url(array("action" => "importfile")); ?>">
 	<div>
 		<input type="file" name="file" size="30" />
 		<input type="submit" name="upload" value="<?php echo T_('Upload');?>" />

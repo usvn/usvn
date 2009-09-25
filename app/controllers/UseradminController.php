@@ -153,7 +153,7 @@ class UseradminController extends AdminadminController
 		$this->render('import');
 	}
 
-	public function importFileAction()
+	public function importfileAction()
 	{
 		try {
 			new USVN_ImportHtpasswd($_FILES['file']['tmp_name']);

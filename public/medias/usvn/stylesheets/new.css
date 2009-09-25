@@ -196,8 +196,8 @@ label {
 /* @group Submenu */
 
 div#sub-menu {
+	float: left;
 	margin: 4px 0 0;
-	position: absolute;
 	width: 138px;
 	border: 1px dotted #cccccc;
 	overflow: hidden;
@@ -354,7 +354,7 @@ form.usvn_form {
 
 .usvn_info {
 	background-color: #E9F5FE;
-	clear: both;
+	clear: none;
 	margin: auto auto 2em;
 	min-height: 35px;
 	padding: 5px;
@@ -368,7 +368,7 @@ form.usvn_form {
 }
 
 .usvn_info h1 {
-	clear: left;
+	clear: none;
 	color: #125675;
 	font-size: 180%;
 	font-weight: bold;
@@ -377,7 +377,7 @@ form.usvn_form {
 
 .usvn_subinfo {
 	background-color: #E9F5FE;
-	clear: both;
+	clear: none;
 	margin: auto auto 2em;
 	min-height: 20px;
 	padding: 5px;
@@ -385,7 +385,7 @@ form.usvn_form {
 }
 
 .usvn_subinfo h2 {
-	clear: left;
+	clear: none;
 	color: #125675;
 	font-size: 120%;
 	font-weight: bold;

@@ -25,7 +25,7 @@ class LoginController extends USVN_Controller
 		// Check for an existing identity
 		$auth = Zend_Auth::getInstance();
 		if ($auth->hasIdentity())
-			$this->_redirect('/');
+			$this->_redirect('/' . $this->getRequest()->getParam('path'));
 		
 		// Check the authentication
 		if (!empty($_POST))
@@ -125,7 +125,7 @@ class LoginController extends USVN_Controller
 					$user->save();
 				}
 			}
-			$this->_redirect("/");
+			$this->_redirect('/' . $this->getRequest()->getParam('path'));
 		}
 	}
 }

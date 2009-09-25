@@ -729,7 +729,7 @@ msgstr "Sauvegarder"
 
 #: ../../../www//views/Timeline/index.phtml:10
 msgid "Start (revision number or date)"
-msgstr "Début (numero de version ou date)"
+msgstr "Début (numéro de version ou date)"
 
 #: ../../../www//views/Timeline/index.phtml:12
 msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"

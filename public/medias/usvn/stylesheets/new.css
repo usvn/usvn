@@ -74,6 +74,40 @@ label {
 	line-height: 20px;
 }
 
+.error {
+	color: red;
+}
+
+.warning {
+	color: orange;
+}
+
+div.error {
+	background-color: #F88;
+	color: black;
+}
+
+div.warning {
+	background-color: orange;
+}
+
+div.success {
+	text-align: center;
+	color: green;
+	font-weight: bold;
+	padding: 10px;
+	margin: 2px auto;
+}
+
+div.error, div.warning {
+	color: black;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+	margin: 2px auto;
+	border: 2px solid #444;
+}
+
 /* @end */
 
 /* @group Header */
@@ -254,6 +288,14 @@ div#sub-menu ul li a:hover {
 
 /* @group Tableaux */
 
+.even {
+	background-color: white;
+}
+
+.odd {
+	background-color: #e8f4fd;
+}
+
 table.usvn_table, table.sortable {
 	border-collapse: collapse;
 	margin: auto;
@@ -290,12 +332,15 @@ table.usvn_table tbody tr:hover, table.sortable tbody tr:hover {
 	text-align: right;
 }
 
-.even {
-	background-color: white;
+td.logname {
+	white-space: nowrap;
 }
 
-.odd {
-	background-color: #e8f4fd;
+td.date {
+	white-space: nowrap;
+}
+
+td.comment {
 }
 
 /* @end */

@@ -1,7 +1,7 @@
 <?php
 try
 {
-	require_once '../app/newBootstrap.php';
+	require_once '../app/bootstrap.php';
 	Zend_Controller_Front::getInstance()->dispatch();
 }
 catch (Exception $e)

@@ -19,6 +19,30 @@
 class USVN_Update
 {
 	/**
+	 * Run update
+	 *
+	 * @author Team USVN
+	 * @return 
+	 */
+	static public function runUpdate()
+	{
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		if ($config->version == '1.0.0')
+		{
+			$config->version = '1.0.1';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->save();
+		}
+		else if ($config->version == '1.0.1')//DONT REPLACE WITH USVN_CONFIG_VERSION
+		{
+//			$this->view->warning = 'This is already in version 1.0.1';
+		}
+		else
+		{
+			die("Cannot update from version {$config->version}");
+//			$this->view->error = 'Cannot update from this version';
+		}
+	}
+	/**
 	 * @return bool True if we need to check update
 	 */
 	static public function itsCheckForUpdateTime()

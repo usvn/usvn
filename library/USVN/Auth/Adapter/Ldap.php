@@ -41,7 +41,7 @@ class USVN_Auth_Adapter_Ldap extends Zend_Auth_Adapter_Ldap
 			}
 			foreach ($arrayOfOptions as &$options)
 			{
-				if ($options['bindDnFormat'])
+				if (array_key_exists('bindDnFormat', $options))
 				{
 					$username = sprintf($options['bindDnFormat'], $username);
 					unset($options['bindDnFormat']);

@@ -64,9 +64,8 @@ class USVN_Update
 	static public function getUSVNAvailableVersion()
 	{
 		$config = Zend_Registry::get('config');
-		if (!isset($config->update->availableversion)) {
+		if (!isset($config->update->availableversion))
 			return $config->version;
-		}
 		return $config->update->availableversion;
 	}
 
@@ -79,9 +78,11 @@ class USVN_Update
 	static private function setProxyForUpdate($config)
 	{
 		$env = getenv("HTTP_PROXY");
-		if ($env !== false) {
+		if ($env !== false)
+		{
 			$res = array();
-			if (preg_match("#http://([^:]+):([^@]+)@([^:]+):([0-9]+)#", $env, $res)) {
+			if (preg_match("#http://([^:]+):([^@]+)@([^:]+):([0-9]+)#", $env, $res))
+			{
 				$config['adapter'] = 'Zend_Http_Client_Adapter_Proxy';
 				$config['proxy_host'] = $res[3];
 				$config['proxy_port'] = $res[4];
@@ -97,27 +98,31 @@ class USVN_Update
 	 */
 	static public function updateUSVNAvailableVersionNumber()
 	{
-		if (USVN_Update::itsCheckForUpdateTime()) {
+		if (USVN_Update::itsCheckForUpdateTime())
+		{
 			$config = Zend_Registry::get('config');
-			$config->update = array("lastcheckforupdate" => time());
-			$config->save();
 			$url = 'http://www.usvn.info';
 			$http_conf = USVN_Update::setProxyForUpdate(array('maxredirects' => 0, 'timeout' => 30));
-			if (defined("PHPUnit_MAIN_METHOD")) {
+			if (defined("PHPUnit_MAIN_METHOD"))
 				$url = 'http://iceage.usvn.info';
-			}
-			$client = new Zend_Http_Client("$url/update/" . urlencode($config->version), $http_conf);
+			$client = new Zend_Http_Client($url . '/update/' . urlencode($config->version), $http_conf);
 			$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
-			try {
+			try
+			{
 				$response = $client->request('POST');
 			}
-			catch (Exception $e) { // Ugly but we don't want to display error if usvn.info is not available
+			catch (Exception $e)
+			{
+				// Ugly but we don't want to display error if usvn.info is not available
 				return;
 			}
-			if ($response->getStatus() == 200) {
+			if ($response->getStatus() == 200)
+			{
 				$config->update->availableversion = $response->getBody();
 				$config->save();
 			}
+			$config->update->lastcheckforupdate = time();
+			$config->save();
 		}
 	}
 
@@ -141,19 +146,15 @@ class USVN_Update
 		$usvn->addChild('databaseadapter', $config->database->adapterName);
 		$php = $xml->addChild('php');
 		$php->addChild('version', phpversion());
-		$ini = $php->addChild('ini');
-		foreach(ini_get_all() as $var => $value) {
-			$ini->addChild($var, htmlspecialchars((string)$value['local_value']));
-		}
-		foreach (get_loaded_extensions() as $ext) {
-			$php->addChild('extension', $ext);
-		}
-		$apache = $xml->addChild('host');
-		if (function_exists("apache_get_modules")) {
-			foreach (apache_get_modules() as $ext) {
-				$apache->addChild("module", $ext);
-			}
-		}
+		// $ini = $php->addChild('ini');
+		// foreach(ini_get_all() as $var => $value)
+		// 	$ini->addChild($var, htmlspecialchars((string)$value['local_value']));
+		// foreach (get_loaded_extensions() as $ext)
+		// 	$php->addChild('extension', $ext);
+		// $apache = $xml->addChild('host');
+		// if (function_exists("apache_get_modules"))
+		// 	foreach (apache_get_modules() as $ext)
+		// 		$apache->addChild("module", $ext);
 		return $xml->asXml();
 	}
 }

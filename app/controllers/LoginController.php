@@ -112,7 +112,9 @@ class LoginController extends USVN_Controller
 			{
 				$table = new USVN_Db_Table_Users();
 				$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
-				if (!$user && in_array("createUserInDB", get_class_methods($authAdapter)))
+				// Not very sure if we need to ask the authAdapter if we need to
+				// create user in DB, as it is redundant with the config...
+				if (!$user && in_array("createUserInDB", get_class_methods($authAdapter)) && $authAdapter->createUserInDB())
 				{
 					$data = array(
 						'users_login' => $identity['username'],

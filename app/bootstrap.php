@@ -61,11 +61,11 @@ try
 }
 catch (Exception $e)
 {
-//	header('Location: install.php');
-	echo '<pre>' . "\n";
-	echo $e;
-	echo '</pre>' . "\n";
-	exit(0);
+	header('Location: install.php');
+	// echo '<pre>' . "\n";
+	// echo $e;
+	// echo '</pre>' . "\n";
+	// exit(0);
 }
 
 /* USVN Configuration */

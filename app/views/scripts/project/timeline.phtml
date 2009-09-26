@@ -64,7 +64,7 @@
 				<td class="revision"><?= $revision ?></td>
 				<td class="logname"><?= $commit['author'] ?></td>
 				<td class="date"><?= date("Y-m-d H:i",  $commit["date"]) ?></td>
-				<td class="comment"><?= nl2br(h_($commit['msg']))?></td>
+				<td class="comment"><?= USVN_SVNLog::formatComment($commit['msg'])?></td>
 			</tr>
 		<? endforeach ?>
 		</tbody>

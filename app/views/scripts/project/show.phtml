@@ -8,7 +8,7 @@
       <th align="right">
         <form method="POST" action="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project') ?>" style="display: inline;">
           <input type="hidden" name="back" value="<?php echo '/'.dirname($this->path).'/' ?>">
-          <input type="submit" value="<?php echo T_('Back') ?>" />
+          <input type="submit" value="<?php echo T_('Browser') ?>" />
         </form>
         /
         <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path) ?>"><?php echo T_('Original') ?></a>

@@ -64,11 +64,16 @@ class USVN_SVNLog
 		$xml = new SimpleXMLElement($log);
 		foreach ($xml->logentry as $revision) {
 			$res[(int)$revision['revision']] = array(
-				'author' => htmlspecialchars((string)$revision->author),
-				'msg' => htmlspecialchars((string)$revision->msg),
+				'author' => (string)$revision->author,
+				'msg' => (string)$revision->msg,
 				'date' =>  strtotime($revision->date)
 			);
 		}
 		return $res;
+	}
+
+	public static function formatComment($comment)
+	{
+		return nl2br(h_($comment));
 	}
 }

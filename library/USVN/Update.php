@@ -34,12 +34,16 @@ class USVN_Update
 		}
 		else if ($config->version == '1.0.1')//DONT REPLACE WITH USVN_CONFIG_VERSION
 		{
+			$config->version = '1.1.0';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->save();
+		}
+		else if ($config->version == '1.1.0')//DONT REPLACE WITH USVN_CONFIG_VERSION
+		{
 //			$this->view->warning = 'This is already in version 1.0.1';
 		}
 		else
 		{
 			die("Cannot update from version {$config->version}");
-//			$this->view->error = 'Cannot update from this version';
 		}
 	}
 	/**
@@ -106,7 +110,7 @@ class USVN_Update
 			// if (defined("PHPUnit_MAIN_METHOD"))
 			// 	$url = 'http://iceage.usvn.info';
 			$client = new Zend_Http_Client($url . '/update/' . urlencode($config->version), $http_conf);
-			$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
+			$client->setParameterPost('sysinfo', USVN_Update::getShortInformationsAboutSystem());
 			try
 			{
 				$response = $client->request('POST');
@@ -131,6 +135,30 @@ class USVN_Update
 	 *
 	 * @return string XML
 	 */
+	static public function getShortInformationsAboutSystem()
+	{
+		$config = Zend_Registry::get('config');
+		$xml = new SimpleXMLElement("<informations></informations>");
+		$os = $xml->addChild('host');
+		$os->addChild('os', PHP_OS);
+		$os->addChild('uname', php_uname());
+		$subversion = $xml->addChild('subversion');
+		$subversion->addChild('version', implode(".", USVN_SVNUtils::getSvnVersion()));
+		$usvn = $xml->addChild('usvn');
+		$usvn->addChild('version', $config->version);
+		$usvn->addChild('translation', $config->translation->locale);
+		$usvn->addChild('databaseadapter', $config->database->adapterName);
+		$php = $xml->addChild('php');
+		$php->addChild('version', phpversion());
+		return $xml->asXml();
+	}
+
+
+	/**
+	 * Return informations about the system into a XML string.
+	 *
+	 * @return string XML
+	 */
 	static public function getInformationsAboutSystem()
 	{
 		$config = Zend_Registry::get('config');
@@ -146,15 +174,15 @@ class USVN_Update
 		$usvn->addChild('databaseadapter', $config->database->adapterName);
 		$php = $xml->addChild('php');
 		$php->addChild('version', phpversion());
-		// $ini = $php->addChild('ini');
-		// foreach(ini_get_all() as $var => $value)
-		// 	$ini->addChild($var, htmlspecialchars((string)$value['local_value']));
-		// foreach (get_loaded_extensions() as $ext)
-		// 	$php->addChild('extension', $ext);
-		// $apache = $xml->addChild('host');
-		// if (function_exists("apache_get_modules"))
-		// 	foreach (apache_get_modules() as $ext)
-		// 		$apache->addChild("module", $ext);
+		$ini = $php->addChild('ini');
+		foreach(ini_get_all() as $var => $value)
+			$ini->addChild($var, htmlspecialchars((string)$value['local_value']));
+		foreach (get_loaded_extensions() as $ext)
+			$php->addChild('extension', $ext);
+		$apache = $xml->addChild('host');
+		if (function_exists("apache_get_modules"))
+			foreach (apache_get_modules() as $ext)
+				$apache->addChild("module", $ext);
 		return $xml->asXml();
 	}
 }

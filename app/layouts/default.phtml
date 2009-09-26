@@ -3,22 +3,28 @@
 <? $view = $this->layout()->getView(); ?>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>USVN</title>
+		<?php $config = Zend_Registry::get("config"); ?>
+
+		<title><?= $config->site->title ?></title>
 		<link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->url(array('action' => 'screen'), 'css') ?>" />
-		<link rel="shortcut icon" href="<?= $this->url(array('type' => 'images', 'name' => 'logo_small.tiff'), 'medias') ?>" />
+		<link rel="shortcut icon" href="<?= $config->url->base . '/' . $config->site->ico ?>" />
+
 		<script type="text/javascript" src="<?php echo $this->url(array(), 'js') ?>"></script>
+
 		<? if (isset($view->csss)): foreach ($view->csss as $css): ?>
-		  <link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->url(array('type' => 'css', 'media' => 'default', 'name' => $css), 'medias') ?>" />
+		  <link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->url(array('type' => 'css', 'media' => $config->template->name, 'name' => $css), 'medias') ?>" />
 		<? endforeach; endif; ?>
+
 		<? if (isset($view->javascripts)): foreach ($view->javascripts as $js): ?>
-		  <script type="text/javascript" src="<?php echo $this->url(array('type' => 'js', 'media' => 'default', 'name' => $js), 'medias') ?>"></script>
+		  <script type="text/javascript" src="<?php echo $this->url(array('type' => 'js', 'media' => $config->template->name, 'name' => $js), 'medias') ?>"></script>
 		<? endforeach; endif; ?>
+
 	</head>
 	<body>
 		<div id="header">
 			<div id="shaddow">
 				<div id="header-wrapper">
-					<div id="logo">
+					<div id="logo" style="background: transparent url('<?= $config->url->base . '/' . $config->site->logo ?>') no-repeat 0px 0px;">
 						&nbsp;
 					</div>
 					<div id="main-menu">

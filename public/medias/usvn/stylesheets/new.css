@@ -134,7 +134,7 @@ div.error, div.warning {
 	width: 320px;
 	height: 124px;
 	float: left;
-	background: transparent url('<?php echo $this->images_directory ?>/logo_trans.png') no-repeat 0px 0px;
+/*	background: transparent url('<?php echo $this->images_directory ?>/logo_trans.png') no-repeat 0px 0px;*/
 }
  
 #header #shaddow #header-wrapper #main-menu {

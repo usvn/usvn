@@ -25,7 +25,7 @@ cd "$TMP_PATH"
 # Test files
 find . -name 'Zend' -prune -or -name "*Test.php" -exec rm -vf {} \; | sed 's/^/RM: /'
 # Misc Files
-rm -rvf build.xml install* usvn.esproj create_archives.sh | sed 's/^/RM: /'
+rm -rvf build.xml epitech usvn.esproj create_archives.sh | sed 's/^/RM: /'
 
 # Creation des Archives
 echo 'Creation des archives tar.gz et zip ...'

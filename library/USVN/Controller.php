@@ -88,7 +88,11 @@ class USVN_Controller extends Zend_Controller_Action
 			// which controllers do not need to be logged in...
 			if ($controller != "login" && $controller != "rss")
 			{
-				$this->_redirect("/login/");
+				$currentUrl = $request->getRequestUri();
+				$baseUrl = rtrim($this->getFrontController()->getBaseUrl(), '/');
+				if (strncmp($baseUrl, $currentUrl, strlen($baseUrl)) == 0)
+					$currentUrl = substr($currentUrl, strlen($baseUrl));
+				$this->_redirect('/login/' . ltrim($currentUrl, '/'));
 			}
 			return;
 		}

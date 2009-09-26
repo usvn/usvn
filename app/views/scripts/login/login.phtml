@@ -5,7 +5,7 @@
 	</p>
 </div>
 <div>
-	<form method="post" action="<?= $this->url() ?>">
+	<form method="post" action="<?= $this->request->getRequestUri() ?>">
 		<div id="box">
 			<label for="login" id="username"><?= T_("Login") ?><br />
 				<?= $this->formText('login', (isset($this->login) ? $this->login : "")) ?>

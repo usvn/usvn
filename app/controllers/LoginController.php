@@ -30,6 +30,7 @@ class LoginController extends USVN_Controller
 		// Check the authentication
 		if (!empty($_POST))
 			$this->_doLogin();
+		$this->view->request = $this->getRequest();
 	}
 
 	public function logoutAction()
@@ -126,6 +127,7 @@ class LoginController extends USVN_Controller
 				}
 			}
 			$this->_redirect('/' . $this->getRequest()->getParam('path'));
+			exit(0);
 		}
 	}
 }

@@ -103,8 +103,8 @@ class USVN_Update
 			$config = Zend_Registry::get('config');
 			$url = 'http://www.usvn.info';
 			$http_conf = USVN_Update::setProxyForUpdate(array('maxredirects' => 0, 'timeout' => 30));
-			if (defined("PHPUnit_MAIN_METHOD"))
-				$url = 'http://iceage.usvn.info';
+			// if (defined("PHPUnit_MAIN_METHOD"))
+			// 	$url = 'http://iceage.usvn.info';
 			$client = new Zend_Http_Client($url . '/update/' . urlencode($config->version), $http_conf);
 			$client->setParameterPost('sysinfo', USVN_Update::getInformationsAboutSystem());
 			try

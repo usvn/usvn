@@ -26,11 +26,12 @@ class LoginController extends USVN_Controller
 		$auth = Zend_Auth::getInstance();
 		if ($auth->hasIdentity())
 			$this->_redirect('/' . $this->getRequest()->getParam('path'));
-		
+
+		$this->view->request = $this->getRequest();
+
 		// Check the authentication
 		if (!empty($_POST))
 			$this->_doLogin();
-		$this->view->request = $this->getRequest();
 	}
 
 	public function logoutAction()

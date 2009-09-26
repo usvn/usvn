@@ -22,12 +22,13 @@ define('USVN_HTACCESS_FILE',    USVN_PUB_DIR    . '/.htaccess');
 define('USVN_LOCALE_DIRECTORY', USVN_APP_DIR    . '/locale');
 
 define('USVN_CONFIG_SECTION',   'general');
-define('USVN_CONFIG_VERSION',   '1.0.1');
+define('USVN_CONFIG_VERSION',   '1.1.0');
 
 set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());
 
-require_once 'Zend/Loader.php';
-Zend_Loader::registerAutoload();
+require_once 'Zend/Loader/Autoloader.php';
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->setFallbackAutoloader(true);
 require_once USVN_APP_DIR . '/functions.php';
 require_once USVN_APP_DIR . '/install/install.php';
 $GLOBALS['language'] = 'en_US';

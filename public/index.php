@@ -1,8 +1,32 @@
 <?php
 try
 {
-	require_once '../app/bootstrap.php';
-	Zend_Controller_Front::getInstance()->dispatch();
+  // Define path to application directory
+  defined('APPLICATION_PATH')
+      || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../app'));
+  if (!defined('USVN_BASE_DIR'))
+    define('USVN_BASE_DIR', realpath(dirname(__FILE__) . '/..'));
+
+  // Define application environment
+  defined('APPLICATION_ENV')
+      || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+
+  // Ensure library/ is on include_path
+  set_include_path(implode(PATH_SEPARATOR, array(
+      realpath(APPLICATION_PATH . '/../library'),
+      get_include_path(),
+  )));
+
+  /** Zend_Application */
+  require_once 'Zend/Application.php';
+
+  // Create application, bootstrap, and run
+  $application = new Zend_Application(
+      APPLICATION_ENV, 
+      APPLICATION_PATH . '/configs/application.ini'
+  );
+  $application->bootstrap()
+              ->run();
 }
 catch (Exception $e)
 {
@@ -16,10 +40,11 @@ catch (Exception $e)
 	<title>500 Internal Error</title>
 </head>
 <body>
-	<h1><?= $e->getMessage() ?></h1>
+	<h1>Error: <?php echo $e->getMessage() ?></h1>
+	<?php if (defined('APPLICATION_ENV') && APPLICATION_ENV == 'development' ): ?>
 	<h2>Trace:</h2>
 	<table>
-		<? foreach ($e->getTrace() as $frame): ?>
+		<?php foreach ($e->getTrace() as $frame): ?>
 		<tr>
 			<td><?= (isset($frame['file']) && isset($frame['file']) ? $frame['file'] . ':' . $frame['line'] : '?') ?></td>
 			<td><?= (isset($frame['class']) ? $frame['class'] . '::' : '') ?><?= $frame['function'] ?></td>
@@ -27,8 +52,11 @@ catch (Exception $e)
 				<? join(array_keys($frame), ', ') ?>
 			</td>
 		</tr>
-		<? endforeach ?>
+		<?php endforeach ?>
 	</table>
+  <?php else: ?>
+    <?php // message pour la prod ?>
+	<?php endif ?>
 </body>
 </html>
 <?php

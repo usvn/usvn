@@ -1,9 +1,20 @@
+SetEnv APPLICATION_ENV development
+#SetEnv APPLICATION_ENV production
+
 <Files *.ini>
-Order Allow,Deny
-Deny from all
+    Order Allow,Deny
+    Deny from all
 </Files>
+
+php_flag short_open_tag on
+php_flag magic_quotes_gpc off
+
 RewriteEngine on
-#RewriteCond 
-# Modify This !!
-RewriteBase /usvn
-RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
+
+# Put Your Base URL here
+RewriteBase "/"
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]

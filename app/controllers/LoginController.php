@@ -78,7 +78,7 @@ class LoginController extends USVN_Controller
 		{
 			$this->view->login = $_POST['login'];
 			$this->view->messages = $result->getMessages();
-			$this->render('errors');
+			$this->render('error');
 			$this->render('login');
 		}
 		else

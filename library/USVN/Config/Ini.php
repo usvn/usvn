@@ -23,7 +23,7 @@
 	private $_filename;
 
 	/**
-	* If $config['create'] = true the config will be create if he doesn't exist.
+	* If $config['create'] = true the config fike will be created if it doesn't exist.
 	*
 	* @param string Path to config file
 	* @param string Section of config file

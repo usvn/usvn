@@ -94,7 +94,7 @@ class GroupController extends USVN_Controller
                         $group->deleteUser($user);
                 }
                 if (isset($user)) {
-                    $this->_redirect("/group/{$group->name}/");
+                    $this->_redirect("/group/".str_replace('/', USVN_URL_SEP, $group->name)."/");
                 }
             }
             catch (Exception $e) {

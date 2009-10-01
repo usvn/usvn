@@ -25,13 +25,14 @@ class USVN_Crypt
 	 */
 	static public function crypt($password)
 	{
-		if (0 === strpos(PHP_OS, 'WIN')) { //Crypt doesn't exist on Windows
+		return USVN_Crypt::_cryptApr1MD5($password); //FIXME le reste est en commentaire car ne marche pas sous mac ?
+		/* if (0 === strpos(PHP_OS, 'WIN')) { //Crypt doesn't exist on Windows
 			return USVN_Crypt::_cryptApr1MD5($password);
 		}
 		if (CRYPT_BLOWFISH == 1) { // Blowfish is not support by libc on Linux
 			return crypt($password, USVN_Crypt::_genMD5Salt());
 		}
-		return crypt($password);
+		return crypt($password); */
 	}
 
 	/**

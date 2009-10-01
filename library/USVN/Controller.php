@@ -83,10 +83,12 @@ class USVN_Controller extends Zend_Controller_Action
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		if ($identity === null)
 		{
-			// TODO:
-			// It is ugly to have "magic strings" instead of an array saying
-			// which controllers do not need to be logged in...
-			if ($controller != "login" && $controller != "rss")
+			/*
+			 * That should be better than magic strings. All controller that 
+			 * needs to work without login like "login" or "rss" just need to
+			 * define a constant and set it to 'true'
+			 */
+			if (defined(get_class($this) . '::IgnoreLogin') !== true || constant(get_class($this) . '::IgnoreLogin') !== true)
 			{
 				$currentUrl = $request->getRequestUri();
 				$baseUrl = rtrim($this->getFrontController()->getBaseUrl(), '/');
@@ -100,7 +102,7 @@ class USVN_Controller extends Zend_Controller_Action
 		$table = new USVN_Db_Table_Users();
 		$user = $table->fetchRow(array("users_login = ?" => $identity['username']));
 		$this->view->isLogged = true;
-		if ($user === null && $controller != "login"  && $controller != "rss")
+		if ($user === null && (defined(get_class($this) . '::IgnoreLogin') !== true || constant(get_class($this) . '::IgnoreLogin') !== true))
 		{
 			$this->_redirect("/logout/");
 			$this->view->isLogged = false;

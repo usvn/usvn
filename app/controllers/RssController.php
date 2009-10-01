@@ -20,6 +20,8 @@
 
 class RssController extends USVN_Controller
 {
+	const IgnoreLogin = true;
+
 	/**
 	 * Project row object
 	 *

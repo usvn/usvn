@@ -22,7 +22,7 @@
 </label>
 <br />
 <label><?php echo T_("Administrator");?>:
-	<?php echo $this->formCheckbox('users_is_admin', $this->user->is_admin,  array('checked' => intval($this->user->is_admin))); ?>
+	<?php echo $this->formCheckbox('users_is_admin', '1',  array('checked' => intval($this->user->is_admin))); ?>
 </label>
 <div id="affected">
 	<div id="affected-title">

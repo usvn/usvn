@@ -11,7 +11,7 @@ class Default_Model_TicketsMapper
   static public function getInstance()
   {
     if (self::$_instance === null) {
-      self::$_instance = new Default_Model_TicketsMapper(new Default_Model_DbTable('tickets'));
+      self::$_instance = new Default_Model_TicketsMapper(new Default_Model_DbTable('usvn_tickets'));
 		}
     return self::$_instance;
   }

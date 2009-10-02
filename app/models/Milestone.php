@@ -1,6 +1,6 @@
 <?php
 
-class Default_Model_Ticket
+class Default_Model_Milestone
 {
   	protected $_id;
 		protected $_project_id;
@@ -10,14 +10,12 @@ class Default_Model_Ticket
 		protected $_modificator_id;
     protected $_title;
     protected $_description;
-		protected $_milestone_id;
-		protected $_type;
-		protected $_priority;
+		protected $_due_date;
 		protected $_status;
 
     static public function getMapper()
     {
-			return Default_Model_TicketsMapper::getInstance();
+			return Default_Model_MilestonesMapper::getInstance();
     }
 
     public function __construct($row = null)
@@ -37,24 +35,20 @@ class Default_Model_Ticket
 			$this->_modificator_id = $values['modificator_id'];
 			$this->_title = $values['title'];
 			$this->_description = $values['description'];
-			$this->_milestone_id = $values['milestone_id'];
-			$this->_type = $values['type'];
-			$this->_priority = $values['priority'];
+			$this->_due_date = new Zend_Date($values['due_date']);
 			$this->_status = $values['status'];
     }
 
     protected function _initWithRow(Zend_Db_Table_Row $row)
 		{
-			$this->_id = $row->ticket_id;
+			$this->_id = $row->milestone_id;
 			$this->_creation_date = new Zend_Date($row->creation_date);
 			$this->_creator_id = $row->creator_id;
 			$this->_modification_date = new Zend_Date($row->modification_date);
 			$this->_modificator_id = $row->modificator_id;
 			$this->_title = $row->title;
 			$this->_description = $row->description;
-			$this->_milestone_id = $row->milestone_id;
-			$this->_type = $row->type;
-			$this->_priority = $row->priority;
+			$this->_due_date = new Zend_Date($row->due_date);
 			$this->_status = $row->status;
     }
 
@@ -160,37 +154,15 @@ class Default_Model_Ticket
 			return $this->_description;
 		}
 
-		public function setMilestoneId($txt)
+		public function setDueDate($txt)
 		{
-			$this->_milestone_id = (string) $txt;
+			$this->_due_date = (string) $txt;
 			return $this;
 		}
 
-		public function getMilestoneId()
+		public function getDueDate()
 		{
-			return $this->_milestone_id;
-		}
-		
-		public function setType($txt)
-		{
-			$this->_type = (string) $txt;
-			return $this;
-		}
-
-		public function getType()
-		{
-			return $this->_type;
-		}
-		
-		public function setPriority($txt)
-		{
-			$this->_priority = (string) $txt;
-			return $this;
-		}
-
-		public function getPriority()
-		{
-			return $this->_priority;
+			return $this->_due_date;
 		}
 		
 		public function setStatus($txt)

@@ -495,6 +495,11 @@ class ProjectController extends USVN_Controller
 	{
 	   $this->view->tickets = Default_Model_Ticket::fetchAll();
 	}
+	
+	public function milestonesAction()
+	{
+	   $this->view->milestones = Default_Model_Milestone::fetchAll();
+	}
 
 	protected function convertDate($number)
 	{

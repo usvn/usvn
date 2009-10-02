@@ -1,0 +1,12 @@
+<table border="0" cellspacing="0" cellpadding="0" class="sortable">
+    <tr><th>Title</th><th>Created</th><th>Comment</th></tr>
+    <? $even = true ?>
+    <? foreach ($this->milestones as $milestone): ?>
+    <? $even = !true ?>
+    <tr class="<?= $even ? 'even' : 'odd' ?>">
+        <td><?= h_($milestone->title) ?> </td>
+        <td><?= $milestone->creationdate->toString() ?> </td>
+        <td><?= h_($milestone->description) ?> </td>
+    </tr>
+    <? endforeach ?>
+</table>

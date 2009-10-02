@@ -74,7 +74,7 @@ CREATE TABLE usvn_users_to_projects
 		constraint fk_usvn_users_to_projects2 foreign key (projects_id) references usvn_projects (projects_id) on delete restrict on update restrict
 	);
 CREATE UNIQUE INDEX users_to_projects ON usvn_users_to_projects(users_id, projects_id);
-CREATE UNIQUE INDEX groups_to_projects ON usvn_groups_to_projects(groups_id,projects_id)
+CREATE UNIQUE INDEX groups_to_projects ON usvn_groups_to_projects(groups_id,projects_id);
 
 CREATE TABLE usvn_tickets
 	(
@@ -104,7 +104,7 @@ CREATE TABLE usvn_milestones
 		creator_id integer not null,
 		modification_date date null,
 		modificator_id integer null,
-		title text not null,
+		title varchar(200) not null,
 		description text not null,
 		due_date date null,
 		status varchar(50) not null,

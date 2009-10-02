@@ -26,7 +26,7 @@ set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());
 
 require_once 'Zend/Loader.php';
 Zend_Loader::registerAutoload();
-require_once USVN_APP_DIR . '/functions.php';
+require_once USVN_APP_DIR . '/Bootstrap.php';
 require_once USVN_APP_DIR . '/install/install.class.php';
 
 $GLOBALS['language'] = 'en_US';

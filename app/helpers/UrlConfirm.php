@@ -31,6 +31,11 @@ class USVN_View_Helper_UrlConfirm extends USVN_View_Helper_Url {
      */
     public function urlConfirm($urlOptions, $text, $confirmText, $name = null)
     {
+				foreach ($urlOptions as $key => $value) {
+	    		if ($key === 'project' || $key === 'group' || $key === 'name') {
+	    			$urlOptions[$key] = str_replace('/', USVN_URL_SEP, $value);
+	    		}
+	    	}
         $url = $this->url($urlOptions, $name);
         return <<< EOF
         <a href="{$url}" onclick="return confirm('{$confirmText}')">

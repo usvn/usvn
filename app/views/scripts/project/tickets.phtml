@@ -5,7 +5,7 @@
     <? $even = !true ?>
     <tr class="<?= $even ? 'even' : 'odd' ?>">
         <td><?= h_($ticket->title) ?> </td>
-        <td><?= $ticket->created->toString() ?> </td>
+        <td><?= $ticket->creationdate->toString() ?> </td>
         <td><?= h_($ticket->description) ?> </td>
     </tr>
     <? endforeach ?>

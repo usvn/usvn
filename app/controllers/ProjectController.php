@@ -92,7 +92,7 @@ class ProjectController extends USVN_Controller
 	protected function requireAdmin()
 	{
 		if (!$this->isAdmin()) {
-			$this->_redirect("/project/{$this->_project->name}/");
+			$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
 		}
 	}
 
@@ -171,14 +171,14 @@ class ProjectController extends USVN_Controller
 			catch (Exception $e) {
 			}
 		}
-		$this->_redirect("/project/{$this->_project->name}/");
+		$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
 	}
 
 	public function deleteuserAction()
 	{
 		$this->requireAdmin();
 		$this->_project->deleteUser($this->getRequest()->getParam('users_id'));
-		$this->_redirect("/project/{$this->_project->name}/");
+		$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
 	}
 
 	public function addgroupAction()
@@ -193,7 +193,7 @@ class ProjectController extends USVN_Controller
 			catch (Exception $e) {
 			}
 		}
-		$this->_redirect("/project/{$this->_project->name}/");
+		$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
 	}
 
 	public function deletegroupAction()
@@ -201,7 +201,7 @@ class ProjectController extends USVN_Controller
 		$this->requireAdmin();
 		$this->_helper->viewRenderer->setNoRender();
 		$this->_project->deleteGroup($this->getRequest()->getParam('groups_id'));
-		$this->_redirect("/project/{$this->_project->name}/");
+		$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
 	}
 	
 	/**

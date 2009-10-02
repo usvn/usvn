@@ -10,8 +10,9 @@ class Default_Model_TicketsMapper
 
   static public function getInstance()
   {
-    if (self::$_instance === null)
+    if (self::$_instance === null) {
       self::$_instance = new Default_Model_TicketsMapper(new Default_Model_DbTable('tickets'));
+		}
     return self::$_instance;
   }
 
@@ -28,14 +29,11 @@ class Default_Model_TicketsMapper
 
   public function fetchAll()
   {
-      // $select = new Zend_Db_Select($this->getDbTable()->getAdapter());
-      // // $select->limit(1);
-      $resultSet = $this->getDbTable()->fetchAll();
-      $entries   = array();
-      foreach ($resultSet as $row)
-      {
-          $entries[] = new Default_Model_Ticket($row);
-      }
-      return $entries;
+		$resultSet = $this->getDbTable()->fetchAll();
+		$entries   = array();
+		foreach ($resultSet as $row) {
+			$entries[] = new Default_Model_Ticket($row);
+		}
+		return $entries;
   }
 }

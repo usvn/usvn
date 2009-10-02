@@ -118,13 +118,13 @@ class Default_Model_Ticket
 
 		public function setModificationDate($txt)
 		{
-			$this->_created = (string) $txt;
+			$this->_modification_date = (string) $txt;
 			return $this;
 		}
 
 		public function getModificationDate()
 		{
-			return $this->_created;
+			return $this->_modification_date;
 		}
 
 		public function setModificatorId($txt)

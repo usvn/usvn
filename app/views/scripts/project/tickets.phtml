@@ -1,12 +1,16 @@
+<div class="usvn_info">
+  <h1>Tickets</h1>
+</div>
 <table border="0" cellspacing="0" cellpadding="0" class="sortable">
-    <tr><th>Title</th><th>Created</th><th>Comment</th></tr>
+    <tr><th>Title</th><th>Created</th><th>Comment</th><th></th></tr>
     <? $even = true ?>
     <? foreach ($this->tickets as $ticket): ?>
     <? $even = !true ?>
     <tr class="<?= $even ? 'even' : 'odd' ?>">
         <td><?= h_($ticket->title) ?> </td>
-        <td><?= $ticket->creationdate->toString() ?> </td>
+        <td><?= $ticket->creationDate->toString() ?> </td>
         <td><?= h_($ticket->description) ?> </td>
+        <td><a href="<?= $this->url(array('project' => $this->project->name, 'action' => 'showticket', 'id' => $ticket->id), 'ticket') ?>"><?= T_('Show') ?></a></td>
     </tr>
     <? endforeach ?>
 </table>

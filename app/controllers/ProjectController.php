@@ -76,7 +76,8 @@ class ProjectController extends USVN_Controller
         array('label' => $shortName),
         array('label' => 'Index',    'url' => array('action' => '', 'project' => $project->name), 'route' => 'project'),
         array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
-        array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project')
+        array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project'),
+        array('label' => 'Roadmap',  'url' => array('action' => 'tickets', 'project' => $project->name), 'route' => 'project')
     );
 	}
 
@@ -493,13 +494,25 @@ class ProjectController extends USVN_Controller
 
 	public function ticketsAction()
 	{
-	   $this->view->tickets = Default_Model_Ticket::fetchAll();
+    $this->view->project = $this->_project;
+    $this->view->tickets = Default_Model_Ticket::fetchAll();
 	}
 	
 	public function milestonesAction()
 	{
 	   $this->view->milestones = Default_Model_Milestone::fetchAll();
 	}
+
+  public function showticketAction()
+  {
+    $this->view->ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
+    $this->view->ticketId = $this->getRequest()->getParam('id');
+  }
+
+  public function addticketAction()
+  {
+    
+  }
 
 	protected function convertDate($number)
 	{

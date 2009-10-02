@@ -65,12 +65,6 @@ class Default_Model_Ticket
 			return $this->$getter();
 		}
 
-		public function setId($txt)
-		{
-			$this->_id = (string) $txt;
-			return $this;
-		}
-
 		public function getId()
 		{
 			return $this->_id;
@@ -146,14 +140,24 @@ class Default_Model_Ticket
 		{
 			$this->getMapper()->save($this);
 		}
+		
+		public function delete()
+		{
+			$this->getMapper()->delete($this);
+		}
 
 		static public function find($id)
 		{
 			return self::getMapper()->find($id);
 		}
 
-		static public function fetchAll()
+		static public function fetchAll($where = null, $order = null)
 		{
-			return self::getMapper()->fetchAll();
+			return self::getMapper()->fetchAll($where, $order);
+		}
+		
+		static public function fetchRow($where = null, $order = null)
+		{
+			return self::getMapper()->fetchRow($where, $order);
 		}
 }

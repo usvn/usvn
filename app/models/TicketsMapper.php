@@ -30,12 +30,17 @@ class Default_Model_TicketsMapper
 	public function save(Default_Model_Ticket $ticket)
   {
 		$data = array(
+			'project_id'		 		=> $ticket->getProjectId(),
 			'creation_date' 		=> $ticket->getCreationDate(),
 			'creator_id' 				=> $ticket->getCreatorId(),
 			'modification_date' => $ticket->getModificationDate(),
 			'modificator_id' 		=> $ticket->getModificatorId(),
 			'title' 						=> $ticket->getTitle(),
-			'description' 			=> $ticket->getDescription()
+			'description' 			=> $ticket->getDescription(),
+			'milestone_id' 			=> $ticket->getMilestoneId(),
+			'type' 							=> $ticket->getType(),
+			'priority' 					=> $ticket->getPriority(),
+			'status'			 			=> $ticket->getStatus()
 			);
 
 		if (null === ($id = $ticket->getId())) {

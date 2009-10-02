@@ -157,15 +157,44 @@ ALTER TABLE `usvn_users` CHANGE `users_id` `users_id` INT( 11 ) NOT NULL AUTO_IN
 ALTER TABLE `usvn_files_rights` CHANGE `files_rights_id` `files_rights_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
 
 CREATE TABLE usvn_tickets
-(
-	ticket_id INT PRIMARY KEY AUTOINCREMENT NOT NULL,
-	creation_date DATETIME,
-	creator_id INT,
-	modification_date DATETIME,
-	modificator_id INT,
-	title TEXT,
-	description TEXT
-);
+	(
+		ticket_id integer primary key autoincrement not null,
+		project_id date not null,
+		creation_date date not null,
+		creator_id integer not null,
+		modification_date date null,
+		modificator_id integer null,
+		title varchar(200) not null,
+		description text not null,
+		milestone_id integer null,
+		type varchar(50) null,
+		priority varchar(50) null,
+		status varchar(50) not null,
+		constraint fk_usvn_tickets_to_users foreign key (creator_id) references usvn_users (users_id) on delete restrict on update restrict,
+		constraint fk_usvn_tickets_to_projects foreign key (project_id) references usvn_projects (projects_id) on delete restrict on update restrict,
+		constraint fk_usvn_tickets_to_users2 foreign key (modificator_id) references usvn_users (users_id) on delete restrict on update restrict,
+		constraint fk_usvn_tickets_to_milestones foreign key (milestone_id) references usvn_milestones (milestone_id) on delete restrict on update restrict
+	);
 
 CREATE INDEX usvn_tickets_creation ON usvn_tickets (creation_date);
 CREATE INDEX usvn_tickets_modification ON usvn_tickets (modification_date);
+
+CREATE TABLE usvn_milestones
+	(
+		milestone_id integer primary key autoincrement not null,
+		project_id date not null,
+		creation_date date not null,
+		creator_id integer not null,
+		modification_date date null,
+		modificator_id integer null,
+		title text not null,
+		description text not null,
+		due_date date null,
+		status varchar(50) not null,
+		constraint fk_usvn_milestones_to_users foreign key (creator_id) references usvn_users (users_id) on delete restrict on update restrict,
+		constraint fk_usvn_milestones_to_projects foreign key (project_id) references usvn_projects (projects_id) on delete restrict on update restrict,
+		constraint fk_usvn_milestones_to_users2 foreign key (modificator_id) references usvn_users (users_id) on delete restrict on update restrict
+	);
+
+CREATE INDEX usvn_milestones_creation ON usvn_milestones (creation_date);
+CREATE INDEX usvn_milestones_modification ON usvn_milestones (modification_date);

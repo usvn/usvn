@@ -3,12 +3,17 @@
 class Default_Model_Ticket
 {
   	protected $_id;
+		protected $_project_id;
 		protected $_creation_date;
 		protected $_creator_id;
 		protected $_modification_date;
 		protected $_modificator_id;
     protected $_title;
     protected $_description;
+		protected $_milestone_id;
+		protected $_type;
+		protected $_priority;
+		protected $_status;
 
     static public function getMapper()
     {
@@ -25,13 +30,17 @@ class Default_Model_Ticket
 
     protected function _initNew(array $values)
     {
-			$this->_id = $values['ticket_id'];
+			$this->_project_id = $values['project_id'];
 			$this->_creation_date = new Zend_Date($values['creation_date']);
 			$this->_creator_id = $values['creator_id'];
 			$this->_modification_date = new Zend_Date($values['modification_date']);
 			$this->_modificator_id = $values['modificator_id'];
 			$this->_title = $values['title'];
 			$this->_description = $values['description'];
+			$this->_milestone_id = $values['milestone_id'];
+			$this->_type = $values['type'];
+			$this->_priority = $values['priority'];
+			$this->_status = $values['status'];
     }
 
     protected function _initWithRow(Zend_Db_Table_Row $row)
@@ -68,6 +77,17 @@ class Default_Model_Ticket
 		public function getId()
 		{
 			return $this->_id;
+		}
+
+		public function setProjectId($txt)
+		{
+			$this->_project_id = (string) $txt;
+			return $this;
+		}
+
+		public function getProjectId()
+		{
+			return $this->_project_id;
 		}
 
 		public function setCreationDate($txt)
@@ -134,6 +154,50 @@ class Default_Model_Ticket
 		public function getDescription()
 		{
 			return $this->_description;
+		}
+
+		public function setMilestoneId($txt)
+		{
+			$this->_milestone_id = (string) $txt;
+			return $this;
+		}
+
+		public function getMilestoneId()
+		{
+			return $this->_milestone_id;
+		}
+		
+		public function setType($txt)
+		{
+			$this->_type = (string) $txt;
+			return $this;
+		}
+
+		public function getType()
+		{
+			return $this->_type;
+		}
+		
+		public function setPriority($txt)
+		{
+			$this->_priority = (string) $txt;
+			return $this;
+		}
+
+		public function getPriority()
+		{
+			return $this->_priority;
+		}
+		
+		public function setStatus($txt)
+		{
+			$this->_status = (string) $txt;
+			return $this;
+		}
+
+		public function getStatus()
+		{
+			return $this->_status;
 		}
 
 		public function save()

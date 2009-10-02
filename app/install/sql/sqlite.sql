@@ -79,11 +79,36 @@ CREATE UNIQUE INDEX groups_to_projects ON usvn_groups_to_projects(groups_id,proj
 CREATE TABLE usvn_tickets
 	(
 		ticket_id integer primary key autoincrement not null,
-		creation_date date,
-		creator_id integer,
-		modification_date date,
-		modificator_id integer,
-		title text,
-		description text
+		project_id date not null,
+		creation_date date not null,
+		creator_id integer not null,
+		modification_date date null,
+		modificator_id integer null,
+		title varchar(200) not null,
+		description text not null,
+		milestone_id integer null,
+		type varchar(50) null,
+		priority varchar(50) null,
+		status varchar(50) not null,
+		constraint fk_usvn_tickets_to_users foreign key (creator_id) references usvn_users (users_id) on delete restrict on update restrict,
+		constraint fk_usvn_tickets_to_projects foreign key (project_id) references usvn_projects (projects_id) on delete restrict on update restrict,
+		constraint fk_usvn_tickets_to_users2 foreign key (modificator_id) references usvn_users (users_id) on delete restrict on update restrict,
+		constraint fk_usvn_tickets_to_milestones foreign key (milestone_id) references usvn_milestones (milestone_id) on delete restrict on update restrict
 	);
 
+CREATE TABLE usvn_milestones
+	(
+		milestone_id integer primary key autoincrement not null,
+		project_id date not null,
+		creation_date date not null,
+		creator_id integer not null,
+		modification_date date null,
+		modificator_id integer null,
+		title text not null,
+		description text not null,
+		due_date date null,
+		status varchar(50) not null,
+		constraint fk_usvn_milestones_to_users foreign key (creator_id) references usvn_users (users_id) on delete restrict on update restrict,
+		constraint fk_usvn_milestones_to_projects foreign key (project_id) references usvn_projects (projects_id) on delete restrict on update restrict,
+		constraint fk_usvn_milestones_to_users2 foreign key (modificator_id) references usvn_users (users_id) on delete restrict on update restrict
+	);

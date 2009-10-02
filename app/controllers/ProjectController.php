@@ -491,6 +491,11 @@ class ProjectController extends USVN_Controller
 		}
 	}	
 
+	public function ticketsAction()
+	{
+	   $this->view->tickets = Default_Model_Ticket::fetchAll();
+	}
+
 	protected function convertDate($number)
 	{
 		if (strstr($number, '/') != FALSE) {

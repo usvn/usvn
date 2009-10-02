@@ -1,0 +1,12 @@
+<table border="0" cellspacing="0" cellpadding="0" class="sortable">
+    <tr><th>Title</th><th>Created</th><th>Comment</th></tr>
+    <? $even = true ?>
+    <? foreach ($this->tickets as $ticket): ?>
+    <? $even = !true ?>
+    <tr class="<?= $even ? 'even' : 'odd' ?>">
+        <td><?= h_($ticket->title) ?> </td>
+        <td><?= $ticket->created->toString() ?> </td>
+        <td><?= h_($ticket->description) ?> </td>
+    </tr>
+    <? endforeach ?>
+</table>

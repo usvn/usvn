@@ -75,3 +75,15 @@ CREATE TABLE usvn_users_to_projects
 	);
 CREATE UNIQUE INDEX users_to_projects ON usvn_users_to_projects(users_id, projects_id);
 CREATE UNIQUE INDEX groups_to_projects ON usvn_groups_to_projects(groups_id,projects_id)
+
+CREATE TABLE usvn_tickets
+	(
+		ticket_id integer primary key autoincrement not null,
+		creation_date date,
+		creator_id integer,
+		modification_date date,
+		modificator_id integer,
+		title text,
+		description text
+	);
+

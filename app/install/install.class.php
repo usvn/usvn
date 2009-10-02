@@ -5,7 +5,7 @@
  * @author Jean-Philippe Meunier <contact@usvn.info>
  * @version 1.0
  * @copyright USVN Team, 23 April, 2009
- * @package default
+ * @package install
  **/
 
 class Install
@@ -382,7 +382,7 @@ EOF;
 	}
 
 	/**
-	 * Return true if USVN is not already install.
+	 * Return true if USVN is not already installed.
 	 *
 	 * @param string Path to the USVN config file
 	 * @return boolean

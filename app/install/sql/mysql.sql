@@ -155,3 +155,17 @@ ALTER TABLE `usvn_groups` CHANGE `groups_id` `groups_id` INT( 11 ) NOT NULL AUTO
 ALTER TABLE `usvn_projects` CHANGE `projects_id` `projects_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
 ALTER TABLE `usvn_users` CHANGE `users_id` `users_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
 ALTER TABLE `usvn_files_rights` CHANGE `files_rights_id` `files_rights_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
+
+CREATE TABLE usvn_tickets
+(
+	ticket_id INT PRIMARY KEY AUTOINCREMENT NOT NULL,
+	creation_date DATETIME,
+	creator_id INT,
+	modification_date DATETIME,
+	modificator_id INT,
+	title TEXT,
+	description TEXT
+);
+
+CREATE INDEX usvn_tickets_creation ON usvn_tickets (creation_date);
+CREATE INDEX usvn_tickets_modification ON usvn_tickets (modification_date);

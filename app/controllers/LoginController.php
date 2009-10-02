@@ -20,6 +20,8 @@
 
 class LoginController extends USVN_Controller
 {
+	const IgnoreLogin = true;
+
 	public function loginAction()
 	{
 		// Check for an existing identity

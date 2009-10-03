@@ -22,7 +22,7 @@ class Default_Model_Milestone
     {
 			if ($row instanceof Zend_Db_Table_Row)
 				$this->_initWithRow($row);
-			else
+			elseif ($row !== null)
 				$this->_initNew($row);
 		}
 
@@ -199,5 +199,10 @@ class Default_Model_Milestone
 		static public function fetchRow($where = null, $order = null)
 		{
 			return self::getMapper()->fetchRow($where, $order);
+		}
+		
+		public function tickets()
+		{
+			return Default_Model_Ticket::fetchAll("milestone_id = '{$this->_id}'");
 		}
 }

@@ -24,7 +24,7 @@ class Default_Model_Ticket
     {
 			if ($row instanceof Zend_Db_Table_Row)
 				$this->_initWithRow($row);
-			else
+			elseif ($row !== null)
 				$this->_initNew($row);
 		}
 

@@ -1,0 +1,15 @@
+<div class="usvn_info">
+  <h1><?php echo T_('Create a new milestone'); ?></h1>
+</div>
+<form method="post" action="<?php echo $this->url ?>">
+<div>
+	<label><?php echo T_("Title"); ?><span class="usvn_require">*</span>:<br />
+		<?php echo $this->formText('milestone_title', $this->milestone->title, array('maxlength' => 200)); ?>
+	</label>
+	<br />
+	<label><?php echo T_("Description"); ?><span class="usvn_require">*</span>:<br />
+		<?php echo $this->formTextarea('milestone_description', $this->milestone->description); ?>
+	</label>
+	<br />
+	<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
+</div>

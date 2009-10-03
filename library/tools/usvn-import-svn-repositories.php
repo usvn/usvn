@@ -18,7 +18,25 @@
  * $Id: usvn-import-svn-repositories.php 632 2007-10-17 15:51:08Z dolean_j $
  */
 
-require_once('USVN/autoload.php');
+defined('APPLICATION_PATH')
+      || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../app'));
+defined('APPLICATION_ENV')
+			|| define('APPLICATION_ENV', 'development');
+
+// Ensure library/ is on include_path
+set_include_path(implode(PATH_SEPARATOR, array(
+    realpath(APPLICATION_PATH . '/../library'),
+    get_include_path(),
+)));
+
+/** Zend_Application */
+require_once '../Zend/Application.php';
+// Create application, bootstrap, and run
+$application = new Zend_Application(
+    APPLICATION_ENV, 
+    APPLICATION_PATH . '/configs/application.ini'
+);
+$application->bootstrap();
 
 /**
  * Get options and directories paths to check

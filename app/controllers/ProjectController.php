@@ -503,6 +503,11 @@ class ProjectController extends USVN_Controller
 	   $this->view->milestones = Default_Model_Milestone::fetchAll();
 	}
 
+	public function addmilestoneAction()
+  {
+    $this->view->milestone = new Default_Model_Milestone();
+  }
+
   public function showticketAction()
   {
     $this->view->ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));

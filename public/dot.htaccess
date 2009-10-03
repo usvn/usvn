@@ -7,3 +7,20 @@ RewriteEngine on
 # Modify This !!
 RewriteBase /usvn
 RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
+
+<Files *.ini>
+  Order Allow,Deny
+  Deny from all
+</Files>
+
+php_flag short_open_tag on
+php_flag magic_quotes_gpc off
+
+RewriteEngine on
+#RewriteCond
+RewriteBase "/usvn-working/"
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]

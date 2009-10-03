@@ -18,7 +18,10 @@
  * $Id: usvn-import-svn-repositories.php 632 2007-10-17 15:51:08Z dolean_j $
  */
 
-require_once('USVN/autoload.php');
+defined('APPLICATION_PATH')
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../app'));
+
+require_once '../../app/bootstrap.php';
 
 /**
  * Get options and directories paths to check
@@ -94,7 +97,7 @@ try {
 	}
 	Zend_Registry::set('config', $config);
 
-	USVN_Translation::initTranslation($config->translation->locale, "locale");
+	USVN_Translation::initTranslation($config->translation->locale, APPLICATION_PATH . "/locale");
 	date_default_timezone_set($config->timezone);
 
 	$db = Zend_Db::factory($config->database->adapterName, $config->database->options->toArray());

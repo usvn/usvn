@@ -18,7 +18,10 @@
  * $Id$
  */
 
-require_once 'USVN/autoload.php';
+defined('APPLICATION_PATH')
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../app'));
+
+require_once '../../app/bootstrap.php';
 
 if (!isset($argv[2]) || isset($argv[3])) {
 	echo "Usage: usvn-import-htpasswd.php config-file htpasswd-file\n";
@@ -29,8 +32,8 @@ $htpasswdfile = $argv[2];
 
 
 try {
-	USVN_Translation::initTranslation('en_US', 'locale');
 	$config = new USVN_Config_Ini($configfile, 'general');
+	USVN_Translation::initTranslation($config->translation->locale, APPLICATION_PATH . '/locale');
 	Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));
 	Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
 	USVN_Db_Table::$prefix = $config->database->prefix;

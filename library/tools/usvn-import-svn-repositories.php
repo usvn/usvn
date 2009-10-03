@@ -30,7 +30,7 @@ $results = array();
 $repos = array();
 $paths = array();
 $configFile = '';
-$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] [config-file] path1 path2 path3 [...]\n";
+$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] config-file path1 path2 path3 [...]\n";
 if (count($argv) == 1) {
 	print($usage);
 	exit(1);

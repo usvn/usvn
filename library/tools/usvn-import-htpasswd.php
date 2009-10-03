@@ -19,9 +19,13 @@
  */
 
 defined('APPLICATION_PATH')
-      || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../app'));
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../app'));
+if (!defined('USVN_BASE_DIR'))
+  define('USVN_BASE_DIR', realpath(dirname(__FILE__) . '/../../'));
+
+// Define application environment
 defined('APPLICATION_ENV')
-			|| define('APPLICATION_ENV', 'development');
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
@@ -30,13 +34,18 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 /** Zend_Application */
-require_once '../Zend/Application.php';
+require_once 'Zend/Application.php';
+
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV, 
     APPLICATION_PATH . '/configs/application.ini'
 );
 $application->bootstrap();
+
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->registerNamespace('USVN_');
+$autoloader->setFallbackAutoloader(true);
 
 if (!isset($argv[2]) || isset($argv[3])) {
 	echo "Usage: usvn-import-htpasswd.php config-file htpasswd-file\n";
@@ -47,8 +56,8 @@ $htpasswdfile = $argv[2];
 
 
 try {
-	USVN_Translation::initTranslation('en_US', 'locale');
 	$config = new USVN_Config_Ini($configfile, 'general');
+	USVN_Translation::initTranslation($config->translation->locale, APPLICATION_PATH . '/locale');
 	Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));
 	Zend_Db_Table::getDefaultAdapter()->getProfiler()->setEnabled(true);
 	USVN_Db_Table::$prefix = $config->database->prefix;

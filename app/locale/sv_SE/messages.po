@@ -1,0 +1,564 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-09-30 09:24+0200\n"
+"PO-Revision-Date: 2009-10-04 13:12+0100\n"
+"Last-Translator: Patrik Skoog <patrik.skoog@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Swedish\n"
+"X-Poedit-Country: SWEDEN\n"
+
+#: ../../app/controllers/BrowserajaxController.php:55
+#, php-format
+msgid "Checkout URL : %s"
+msgstr "URL för hämtning: %s"
+
+#: ../../app/controllers/BrowserajaxController.php:57
+#, php-format
+msgid "Apply rights on %s"
+msgstr "Tillämpa rättigheter på %s"
+
+#: ../../app/controllers/BrowserajaxController.php:97
+msgid "Name"
+msgstr "Namn"
+
+#: ../../app/controllers/BrowserajaxController.php:97
+msgid "File revision"
+msgstr "Filrevision"
+
+#: ../../app/controllers/BrowserajaxController.php:97
+msgid "Action"
+msgstr "Åtgärd"
+
+#: ../../app/controllers/BrowserajaxController.php:108
+#: ../../app/controllers/BrowserajaxController.php:117
+msgid "Folder"
+msgstr "Mapp"
+
+#: ../../app/controllers/BrowserajaxController.php:120
+msgid "File"
+msgstr "Fil"
+
+#: ../../app/controllers/BrowserajaxController.php:134
+#: ../../app/helpers/ACLLink.php:33
+msgid "Rights"
+msgstr "Rättigheter"
+
+#: ../../app/controllers/BrowserajaxController.php:138
+msgid "You don't have read access to this folder"
+msgstr "Du har inte läsrättigheter för denna mapp"
+
+#: ../../app/controllers/BrowserajaxController.php:162
+msgid "Group"
+msgstr "Grupp"
+
+#: ../../app/controllers/BrowserajaxController.php:162
+msgid "Read"
+msgstr "Läs"
+
+#: ../../app/controllers/BrowserajaxController.php:162
+msgid "Write"
+msgstr "Skriv"
+
+#: ../../app/controllers/BrowserajaxController.php:162
+msgid "Recursive"
+msgstr "Rekursiv"
+
+#: ../../app/controllers/UseradminController.php:35
+msgid "Missing fields."
+msgstr "Tomma fält."
+
+#: ../../app/controllers/UseradminController.php:46
+#: ../../app/controllers/ProfileController.php:42
+msgid "Not the same password."
+msgstr "Inte samma lösenord."
+
+#: ../../app/controllers/UseradminController.php:101
+#: ../../app/controllers/UseradminController.php:142
+#, php-format
+msgid "Invalid user %s."
+msgstr "Användaren %s är ogiltig."
+
+#: ../../app/controllers/UseradminController.php:119
+#, php-format
+msgid "User %s does not exist."
+msgstr "Användaren %s finns inte."
+
+#: ../../app/controllers/UseradminController.php:145
+msgid "You can't delete yourself."
+msgstr "Du kan inte ta bort dig själv."
+
+#: ../../app/controllers/LoginController.php:63
+msgid "The authentication adapter method set in the config file is not valid."
+msgstr "Autentiseringsadapter metoden i config-filen inte är giltig."
+
+#: ../../app/controllers/GroupadminController.php:61
+#, php-format
+msgid "Group %s already exist"
+msgstr "Gruppen %s finns redan"
+
+#: ../../app/controllers/GroupadminController.php:86
+#: ../../app/controllers/GroupadminController.php:102
+#: ../../app/controllers/GroupadminController.php:126
+#, php-format
+msgid "Invalid group %s."
+msgstr "Gruppen %s är ogiltig"
+
+#: ../../app/controllers/GroupControllerTest.php:73
+#: ../../app/controllers/GroupController.php:46
+#: ../../app/controllers/GroupController.php:107
+#: ../../app/controllers/GroupController.php:155
+msgid "Access denied."
+msgstr "Åtkomst nekad."
+
+#: ../../app/controllers/ProfileController.php:38
+msgid "Wrong password"
+msgstr "Felaktigt lösenord"
+
+#: ../../app/controllers/GroupController.php:81
+#: ../../app/controllers/GroupController.php:91
+#: ../../app/controllers/GroupController.php:128
+#: ../../app/controllers/GroupController.php:142
+#, php-format
+msgid "Unknown user %s"
+msgstr "Användaren %s är okänd"
+
+#: ../../app/controllers/ProjectController.php:251
+msgid "The requested revision does not exist. Switching to the last changed revision."
+msgstr "Den begärda revisionen finns inte. Byter till senast ändrad revision."
+
+#: ../../app/controllers/ProjectController.php:280
+#: ../../app/controllers/ProjectController.php:455
+#: ../../app/controllers/ProjectController.php:458
+#, php-format
+msgid ""
+"Can't read from subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Kan inte läsa från subversion-arkiv.\n"
+"Kommando:\n"
+"%s\n"
+"\n"
+"Felmeddelande:\n"
+"%s"
+
+#: ../../app/controllers/ProjectController.php:307
+msgid "The requested diff revision does not exist."
+msgstr "Den begärda diff-revisionen finns inte."
+
+#: ../../app/install/install.class.php:26
+msgid "Can't copy the old configuration.\n"
+msgstr "Kan inte kopiera den gamla konfigurationen.\n"
+
+#: ../../app/install/install.class.php:79
+msgid "Can't create database\n"
+msgstr "Kan inte skapa databas\n"
+
+#: ../../app/install/install.class.php:90
+msgid "Can't connect to database.\n"
+msgstr "Kan inte ansluta till databasen.\n"
+
+#: ../../app/install/install.class.php:102
+#, php-format
+msgid "Invalid adapter %s.\n"
+msgstr "Ogiltig adapter %s.\n"
+
+#: ../../app/install/install.class.php:114
+msgid "Can't load SQL file.\n"
+msgstr "Kan inte läsa in SQL fil.\n"
+
+#: ../../app/install/install.class.php:144
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "Kan inte skriva konfigurationsfilen %s.\n"
+
+#: ../../app/install/install.class.php:166
+#: ../../library/USVN/Config.php:37
+msgid "Invalid language"
+msgstr "Ogiltigt språk"
+
+#: ../../app/install/install.class.php:189
+#: ../../library/USVN/Config.php:56
+msgid "Invalid timezone"
+msgstr "Ogiltig tidszon"
+
+#: ../../app/install/install.class.php:216
+msgid ""
+"Invalide locale\n"
+"Please, install UTF-8 locale."
+msgstr ""
+"Ogiltig locale\n"
+"Vänligen installera UTF-8 locale."
+
+#: ../../app/install/install.class.php:267
+#, php-format
+msgid "Can't write access file %s.\n"
+msgstr "Kan inte skriva till htaccess-filen %s.\n"
+
+#: ../../app/install/install.class.php:270
+#, php-format
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "Ogiltig subversion-sökväg \"%s\", var vänlig kontrollera att sökvägen finns och är skrivbar."
+
+#: ../../app/install/install.class.php:318
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr "Kan inte skriva till htaccess-filen %s.\n"
+
+#: ../../app/install/install.class.php:358
+msgid "Password empty"
+msgstr "Lösenordet är tomt"
+
+#: ../../app/install/install.class.php:413
+msgid "Need a title."
+msgstr "Titel saknas."
+
+#: ../../app/install/install.class.php:462
+msgid "USVN can't run with php's safe mode."
+msgstr "USVN kan inte köras med phps safe mode."
+
+#: ../../app/install/install.class.php:465
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Subversion är inte installerat på ditt system. Om du använder Windows, installera"
+
+#: ../../app/install/install.class.php:465
+msgid ""
+" and after restart your system (WARNING it's mandatory). \n"
+"\n"
+"Otherwise under UNIX you probably need to install a package named subversion."
+msgstr ""
+"och efter att du startat om ditt system (VARNING det är obligatoriskt). \n"
+"\n"
+"Om du använder UNIX måste du förmodligen installera paketet med namnet subversion."
+
+#: ../../app/install/install.class.php:470
+msgid "mod_rewrite seems not to be loaded"
+msgstr "mod_rewrite verkar inte vara inläst"
+
+#: ../../app/install/install.class.php:472
+msgid "mod_dav_svn seems not to be loaded"
+msgstr "mod_dav_svn verkar inte vara inläst"
+
+#: ../../app/install/index.php:83
+msgid "USVN is already install."
+msgstr "USVN är redan installerat."
+
+#: ../../app/install/index.php:124
+msgid "You need to accept the licence to continue installation."
+msgstr "Du måste acceptera licensavtalet för att fortsätta installationen."
+
+#: ../../app/install/index.php:131
+msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
+msgstr "En kopia av det gamla SVN-arkivet har blivit skapad, modifikationer som görs mot det gamla arkivet kommer inte att påverka det nya arkivet. Du måste inaktivera tillgång till det gamla arkivet."
+
+#: ../../app/helpers/AddLink.php:36
+msgid "Add"
+msgstr "Lägg till"
+
+#: ../../app/helpers/EditLink.php:34
+msgid "Edit"
+msgstr "Redigera"
+
+#: ../../app/helpers/HomeLinkGroup.php:34
+#: ../../app/helpers/HomeLink.php:34
+msgid "Home"
+msgstr "Hem"
+
+#: ../../app/helpers/DeleteLink.php:34
+msgid "Delete"
+msgstr "Ta bort"
+
+#: ../../app/helpers/Error.php:7
+msgid "Hide"
+msgstr "Dölj"
+
+#: ../../library/USVN/User.php:106
+msgid "This user can't be created. A group has the same name."
+msgstr "Användaren kan inte skapas. En grupp med namnet finns redan."
+
+#: ../../library/USVN/Config/Ini.php:74
+msgid "Can't write config file."
+msgstr "Kan inte skriva konfigurationsfil."
+
+#: ../../library/USVN/DirectoryUtils.php:31
+#, php-format
+msgid "Can't delete directory %s. Permission denied."
+msgstr "Kan inte ta bort katalogen %s. Åtkomst nekad."
+
+#: ../../library/USVN/DirectoryUtils.php:50
+#, php-format
+msgid "Can't delete file %s."
+msgstr "Kan inte ta bort fil %s."
+
+#: ../../library/USVN/DirectoryUtils.php:58
+#, php-format
+msgid "Can't delete directory %s."
+msgstr "Kan inte ta bort katalogen %s."
+
+#: ../../library/USVN/DirectoryUtils.php:75
+#, php-format
+msgid "Can't read directory %s."
+msgstr "Kan inte läsa katalogen %s."
+
+#: ../../library/USVN/ImportSVNRepositories.php:35
+#, php-format
+msgid "%s must be a string: %s"
+msgstr "%s måste vara en textsträng: %s"
+
+#: ../../library/USVN/Config.php:74
+msgid "Invalid template"
+msgstr "Ogiltig mall"
+
+#: ../../library/USVN/Auth/Adapter/Database.php:55
+#: ../../library/USVN/Project.php:94
+#, php-format
+msgid "Login %s not found"
+msgstr "Kunde inte hitta användarnamnet %s"
+
+#: ../../library/USVN/Auth/Adapter/Database.php:61
+msgid "Incorrect password"
+msgstr "Felaktigt lösenord"
+
+#: ../../library/USVN/Auth/Adapter/Ldap.php:36
+msgid "LDAP options must be an array!"
+msgstr "LDAP alternativen måste vara en array!"
+
+#: ../../library/USVN/TranslationTest.php:63
+msgid "Welcome to USVN"
+msgstr "Välkommen till USVN"
+
+#: ../../library/USVN/SVN.php:32
+#, php-format
+msgid "Invalid project name %s."
+msgstr "Projektnamnet %s är ogiltigt."
+
+#: ../../library/USVN/SVNLog.php:56
+#, php-format
+msgid "Can't get subversion repository logs: %s"
+msgstr "Kan inte hämta subversion-arkivets log: %s"
+
+#: ../../library/USVN/Project.php:54
+#: ../../library/USVN/Project.php:58
+#, php-format
+msgid "Can't create subversion repository:<br />%s"
+msgstr "Kan inte skapa subversion-arkiv:<br />%s"
+
+#: ../../library/USVN/Project.php:101
+#, php-format
+msgid "Group %s already exists."
+msgstr "Gruppen %s finns redan."
+
+#: ../../library/USVN/Project.php:114
+#, php-format
+msgid "Autocreated group for project %s"
+msgstr "Skapa automatiskt grupp för projekt %s"
+
+#: ../../library/USVN/Project.php:144
+#, php-format
+msgid "Project %s doesn't exist."
+msgstr "Projekt %s finns inte."
+
+#: ../../library/USVN/Menu.php:58
+#: ../../library/USVN/Db/Utils.php:33
+#, php-format
+msgid "Can't open file %s."
+msgstr "Kan inte öppna fil %s."
+
+#: ../../library/USVN/Menu.php:97
+msgid "Sign in"
+msgstr "Logga in"
+
+#: ../../library/USVN/Menu.php:106
+#: ../../library/USVN/plugins/layout.php:81
+msgid "Homepage"
+msgstr "Startsida"
+
+#: ../../library/USVN/Menu.php:130
+msgid "Edit my profile"
+msgstr "Redigera min profil"
+
+#: ../../library/USVN/Menu.php:137
+msgid "Admin"
+msgstr "Administratör"
+
+#: ../../library/USVN/Menu.php:146
+msgid "Logout"
+msgstr "Logga ut"
+
+#: ../../library/USVN/Db/Utils.php:47
+#, php-format
+msgid ""
+"Can't load file %s at:\n"
+"%s\n"
+"\n"
+"Error: %s\n"
+msgstr ""
+"Kan inte läsa in fil %s vid:\n"
+"%s\n"
+"\n"
+"Felmeddelande: %s\n"
+
+#: ../../library/USVN/Db/Table/Row/User.php:134
+msgid "Login empty."
+msgstr "Användarnamnet är tomt."
+
+#: ../../library/USVN/Db/Table/Row/User.php:137
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
+msgstr "Användarnamnet är ogiltigt. Användarnamnet kan bara innehålla alfanumeriska tecken och '-' eller '_'."
+
+#: ../../library/USVN/Db/Table/Row/User.php:152
+msgid "Invalid email address."
+msgstr "Ogiltig e-postadress."
+
+#: ../../library/USVN/Db/Table/Row/User.php:166
+msgid "Password empty."
+msgstr "Lösenordet är tomt."
+
+#: ../../library/USVN/Db/Table/Row/User.php:203
+#: ../../library/USVN/Db/Table/Users.php:78
+#, php-format
+msgid "Login %s already exist."
+msgstr "Inloggningsnamnet %s finns redan."
+
+#: ../../library/USVN/Db/Table/Row/Group.php:138
+#, php-format
+msgid "User %s is not member of group %s"
+msgstr "Användare %s är inte en medlem av gruppen %s"
+
+#: ../../library/USVN/Db/Table/Row/Project.php:62
+#: ../../library/USVN/Db/Table/Row/Project.php:75
+#, php-format
+msgid "Invalid group %s for project %s."
+msgstr "Gruppen %s är ogiltig för projektet %s."
+
+#: ../../library/USVN/Db/Table/Row/Project.php:179
+msgid "The project's name is empty."
+msgstr "Projektets namn är tomt."
+
+#: ../../library/USVN/Db/Table/Row/Project.php:185
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Projektets namn är ogiltigt. Ett projekts namn kan bara innehålla alfanumeriska tecken och '-' eller '_'."
+
+#: ../../library/USVN/Db/Table/Row/Project.php:209
+msgid "You can't rename a project."
+msgstr "Du kan inte döpa om ett projekt."
+
+#: ../../library/USVN/Db/Table/Users.php:127
+#, php-format
+msgid "Can't create or write on htpasswd file %s."
+msgstr "Kan inte skapa eller skriva htpasswd-filen %s."
+
+#: ../../library/USVN/Db/Table/Groups.php:75
+msgid "The group's name is empty."
+msgstr "Gruppens namn är tomt."
+
+#: ../../library/USVN/Db/Table/Groups.php:78
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Gruppens namn är ogiltigt. En grupps namn kan bara innehålla alfanumeriska tecken och '-' eller '_'."
+
+#: ../../library/USVN/plugins/layout.php:83
+msgid "Logged as"
+msgstr "Loggat som"
+
+#: ../../library/USVN/FilesAccessRights.php:42
+#: ../../library/USVN/FilesAccessRights.php:83
+#, php-format
+msgid "Invalid path %s."
+msgstr "%s är en ogiltig sökväg."
+
+#: ../../library/USVN/ImportHtpasswd.php:49
+msgid "Invalid htpasswd file."
+msgstr "Ogiltig htpasswd-fil."
+
+#: ../../library/USVN/ImportHtpasswd.php:52
+#, php-format
+msgid "User %s already exist into htpasswd file."
+msgstr "Användaren %s finns redan i htpasswd-filen."
+
+#: ../../library/USVN/ImportHtpasswd.php:79
+#, php-format
+msgid "Can't add users %s. Import cancel."
+msgstr "Kan inte lägga till användarna %s. Importeringen avbruten."
+
+#: ../../library/USVN/SVNUtils.php:185
+msgid "Commit by USVN"
+msgstr "Arkiverat av USVN"
+
+#: ../../library/USVN/SVNUtils.php:188
+#, php-format
+msgid ""
+"Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Kan inte importera till subversion-arkiv.\n"
+"Kommande:\n"
+"%s\n"
+"\n"
+"Felmeddelande:\n"
+"%s"
+
+#: ../../library/USVN/SVNUtils.php:205
+#, php-format
+msgid "Can't create subversion repository: %s"
+msgstr "Kan inte skapa subversion-arkiv: %s"
+
+#: ../../library/USVN/SVNUtils.php:245
+#, php-format
+msgid "Can't checkout subversion repository: %s"
+msgstr "Kan inte hämta subversion-arkiv: %s"
+
+#: ../../library/USVN/SVNUtils.php:261
+#, php-format
+msgid "Can't list subversion repository: %s"
+msgstr "Kan inte lista subversion-arkiv: %s"
+
+#: ../../library/menus/useradmin.php:33
+msgid "Users"
+msgstr "Användare"
+
+#: ../../library/menus/projectadmin.php:33
+msgid "Projects"
+msgstr "Projekt"
+
+#: ../../library/menus/browser.php:32
+#: ../../library/menus/browserTest.php:47
+msgid "Browser"
+msgstr "Bläddra"
+
+#: ../../library/menus/groupadmin.php:33
+msgid "Groups"
+msgstr "Grupper"
+
+#: ../../library/menus/groupadmin.php:51
+msgid "Add new group"
+msgstr "Lägg till ny grupp"
+
+#: ../../library/menus/configadmin.php:33
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: ../../library/menus/timeline.php:32
+msgid "Timeline"
+msgstr "Tidslinje"
+
+#: ../../library/menus/systemreportadmin.php:33
+msgid "System report"
+msgstr "Systemrapport"
+

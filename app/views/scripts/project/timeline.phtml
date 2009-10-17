@@ -1,43 +1,41 @@
- <?php echo $this->error($this); ?>
+ <?= $this->error($this) ?>
  <div class="usvn_info">
-<h1><?php echo T_("Timeline");?> </h1> <br>
-	<form action="<?php echo $this->url(array("action" => "LastHundredRequest")); ?>" method="post">
+	<h1><?= T_("Timeline") ?> </h1>
+	<br>
+	<form action="<?= $this->url(array("action" => "LastHundredRequest")) ?>" method="post">
 			<div>
 				<table>
 					<tr>
 						<td>
 							<a href="#" class="usvn_tooltips">
-								<?php echo T_("Start (revision number or date)"); ?>
+								<?= T_("Start (revision number or date)") ?>
 								<span>
-									<?php echo T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"); ?>
+									<?= T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY") ?>
 								</span>
 							</a>:
 						</td>
 
 						<td>
-							<?php
-								 echo $this->formText('number_start', $this->number_start); 
-						     	 echo '<br>';
-							?>
+							<?= $this->formText('number_start', $this->number_start) . '<br>' ?>
 			 			</td>
 			 		</tr>
 			 		
 			 		<tr>
 				 		<td>
 						<a href="#" class="usvn_tooltips">
-							<?php echo T_('End (revision number or date)');?>
+							<?= T_('End (revision number or date)') ?>
 							<span>
-								<?php echo T_('This is optional.The listing is made between start revision/date and this one.'); ?>
+								<?= T_('This is optional.The listing is made between start revision/date and this one.') ?>
 							</span>
 						</a>:
 						</td>
 						<td>
-							<?php echo $this->formText('number_end', $this->number_end); ?>
+							<?= $this->formText('number_end', $this->number_end) ?>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<?php echo $this->formSubmit('LastHundredRequest', T_('Search')); ?>
+							<?= $this->formSubmit('LastHundredRequest', T_('Search')) ?>
 						</td>
 					</tr>
 
@@ -47,14 +45,14 @@
 </div>
 
 <div class="usvn_info">
-	<h1><?php echo T_("Last hundred commit");?></h1>
+	<h1><?= T_("Last hundred commit") ?></h1>
 	<table id="commits" class="sortable">
 		<thead>
 			<tr>
-				<th><?php echo T_("Revision");?></th>
-				<th><?php echo T_("Author");?></th>
-				<th><?php echo T_("Date");?></th>
-				<th><?php echo T_("Message");?></th>
+				<th><?= T_("Revision") ?></th>
+				<th><?= T_("Author") ?></th>
+				<th><?= T_("Date") ?></th>
+				<th><?= T_("Message") ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -64,9 +62,30 @@
 				<td class="revision"><?= $revision ?></td>
 				<td class="logname"><?= $commit['author'] ?></td>
 				<td class="date"><?= date("Y-m-d H:i",  $commit["date"]) ?></td>
-				<td class="comment"><?= USVN_SVNLog::formatComment($commit['msg'])?></td>
+				<td class="comment"><?= USVN_SVNLog::formatComment($commit['msg']) ?></td>
 			</tr>
 		<? endforeach ?>
 		</tbody>
 	</table>
+</div>
+
+<div class="usvn_info">
+	<h1><?= T_("Timeline") ?> </h1>
+	<br>
+	<?php $date = NULL; ?>
+	<? foreach (array_keys($this->log) as $revision): ?>
+		<?php
+			$commit = $this->log[$revision];
+			if ($date == NULL or strcmp($date, date('Y-m-d',  $commit['date'])) != 0)
+			{
+				$date = date('Y-m-d',  $commit['date']);
+				echo '<div style="background-color:#ccccff;">' . $date . ':</div>';
+			}
+			echo date('H:i',  $commit['date']);
+			echo 'Changeset [' . $revision . '] by ' . $commit['author'];
+			echo '<br />';
+			echo USVN_SVNLog::formatComment($commit['msg']);
+			echo '<br />';
+		?>
+	<? endforeach ?>
 </div>

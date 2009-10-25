@@ -190,7 +190,7 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	 * @param USVN_Db_Table_Row_User $user
      * @return Zend_Db_Table_Rowset_Abstract The row results per the Zend_Db_Adapter fetch mode.
 	 */
-	public function fetchAllAssignedTo(USVN_Db_Table_Row_User $user)
+	public function fetchAllAssignedTo(USVN_Db_Table_Row_User $user, $folder = null)
 	{
 		// selection tool
 		$select = $this->_db->select();
@@ -206,7 +206,12 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		$select->join($users_to_groups, "{$users_to_groups}.groups_id = {$groups_to_projects}.groups_id", array());
 
 		$select->where($this->_db->quoteInto("{$users_to_groups}.users_id = ?", $user->id));
-
+		
+		// in case of searching in a folder
+		if ($folder !== null) {
+			$select->where($this->_db->quoteInto("{$this->_name}.projects_name LIKE ?", $folder."%"));
+		}
+		
 		// the GROUP clause
 		$select->group("{$this->_name}.projects_id");
 
@@ -227,6 +232,11 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		$users_to_projects = self::$prefix . "users_to_projects";
 		$select->join($users_to_projects, "{$users_to_projects}.projects_id = {$this->_name}.projects_id", array());
 		$select->where($this->_db->quoteInto("{$users_to_projects}.users_id = ?", $user->id));
+
+		// in case of searching in a folder
+		if ($folder !== null) {
+			$select->where($this->_db->quoteInto("{$this->_name}.projects_name LIKE ?", $folder."%"));
+		}
 
 		// the ORDER clause
 		$select->order("projects_name");

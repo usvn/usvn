@@ -39,13 +39,13 @@ class IndexController extends USVN_Controller {
 		foreach ($projects as $project) {
 			$tmp_project = substr($project->name, strlen($folder));
 			if (strstr($tmp_project, '/') === false) {
-				$tmp_projects[] = $tmp_project;
+				$tmp_projects[$tmp_project] = '';
 			} elseif (preg_match('#^([^/]+/).*#', $tmp_project, $tmp) && !in_array($tmp[1], $tmp_folders)) {
-				$tmp_folders[] = $tmp[1];
+				$tmp_folders[$tmp[1]] = '';
 			}
 		}
-		sort($tmp_folders);
-		sort($tmp_projects);
+		ksort($tmp_folders);
+		ksort($tmp_projects);
 		$this->view->projects = array_merge($tmp_folders, $tmp_projects);
 		
 		$identity = Zend_Auth::getInstance()->getIdentity();

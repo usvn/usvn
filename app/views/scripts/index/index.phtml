@@ -15,7 +15,7 @@
       </a>
       </li>
 	  <?php endif ?>
-	<? foreach ($this->projects as $project): ?>
+	<? foreach ($this->projects as $project => $datas): ?>
 		<li>
 		  <?php if (substr($project, -1) == '/') { ?>
 			  <a href="<?= $this->url(array('folder' => $this->prefix.$project), 'index'); ?>">

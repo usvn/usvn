@@ -37,13 +37,37 @@ class ProjectadminController extends AdminadminController
 	public function indexAction()
 	{
 		$table = new USVN_Db_Table_Projects();
-		$this->view->projects = $table->fetchAll(null, "projects_name");
+		if ($this->_request->getParam('folder') != null) {
+			$folder = str_replace(USVN_URL_SEP, '/', $this->_request->getParam('folder'));
+			$i = strripos(substr($folder, 0, -1), '/', 2);
+			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i + 1));
+			$projects = $table->fetchAll("projects_name LIKE '{$folder}%'", "projects_name");
+		} else {
+			$folder = '';
+			$projects = $table->fetchAll(null, "projects_name");
+		}
+		$this->view->prefix = $folder;
+		$tmp_projects = array();
+		$tmp_folders = array();
+		foreach ($projects as $project) {
+			$tmp_project = substr($project->name, strlen($folder));
+			if (strstr($tmp_project, '/') === false) {
+				$tmp_projects[$tmp_project] = $project->description;
+			} elseif (preg_match('#^([^/]+/).*#', $tmp_project, $tmp) && !in_array($tmp[1], $tmp_folders)) {
+				$tmp_folders[$tmp[1]] = '';
+			}
+		}
+		ksort($tmp_folders);
+		ksort($tmp_projects);
+		$this->view->projects = array_merge($tmp_folders, $tmp_projects);
 	}
 
 	public function newAction()
 	{
 		$table = new USVN_Db_Table_Projects();
 		$this->view->project = $table->createRow();
+		$folder = str_replace(USVN_URL_SEP, '/', $this->_request->getParam('folder'));
+		$this->view->prefix = $folder;
 	}
 
 	public function createAction()

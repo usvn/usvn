@@ -2,7 +2,7 @@
 	<div>
 		<label>
 			<?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
-			<?php echo '', $this->formText('projects_name', $this->project->name,
+			<?php echo '', $this->formText('projects_name', ($this->project->name ? $this->project->name : $this->prefix),
 			($this->action != 'edit' && $this->action != 'update' ?
 			array('maxlength' => 255, 'size' => '77') :
 			array('maxlength' => 255, 'readonly' => 'true', 'size' => '77'))); ?>

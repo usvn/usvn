@@ -9,7 +9,7 @@
       <li>
       <a href="<?= $this->url(array('folder' => $this->prev), 'index'); ?>">
         <div class="grid_img">
-          <?= $this->img('folder.png') ?>
+          <?= $this->img('folder48.png') ?>
         </div>
         <div>..</div>
       </a>
@@ -20,7 +20,7 @@
 		  <?php if (substr($project, -1) == '/') { ?>
 			  <a href="<?= $this->url(array('folder' => $this->prefix.$project), 'index'); ?>">
   				<div class="grid_img">
-  					<?= $this->img('folder.png') ?>
+  					<?= $this->img('folder48.png') ?>
   				</div>
 			<?php } else { ?>
 			  <a href="<?= $this->url(array('project' => $this->prefix.$project), 'project'); ?>">

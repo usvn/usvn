@@ -89,7 +89,7 @@ class USVN_DirectoryUtils
 	*/
 	static public function getTmpDirectory()
 	{
-		$path = tempnam("", "USVN_");
+		$path = tempnam(sys_get_temp_dir(), "USVN_");
 		unlink($path);
 		mkdir($path);
 		return $path;

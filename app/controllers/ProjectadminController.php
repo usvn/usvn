@@ -38,35 +38,21 @@ class ProjectadminController extends AdminadminController
 	{
 		$table = new USVN_Db_Table_Projects();
 		if ($this->_request->getParam('folder') != null) {
-			$folder = str_replace(USVN_URL_SEP, '/', $this->_request->getParam('folder'));
-			$i = strripos(substr($folder, 0, -1), '/', 2);
+			$folder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
+			$i = strripos(substr($folder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
 			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i + 1));
-			$projects = $table->fetchAll("projects_name LIKE '{$folder}%'", "projects_name");
 		} else {
 			$folder = '';
-			$projects = $table->fetchAll(null, "projects_name");
 		}
-		$this->view->prefix = $folder;
-		$tmp_projects = array();
-		$tmp_folders = array();
-		foreach ($projects as $project) {
-			$tmp_project = substr($project->name, strlen($folder));
-			if (strstr($tmp_project, '/') === false) {
-				$tmp_projects[$tmp_project] = $project->description;
-			} elseif (preg_match('#^([^/]+/).*#', $tmp_project, $tmp) && !in_array($tmp[1], $tmp_folders)) {
-				$tmp_folders[$tmp[1]] = '';
-			}
-		}
-		ksort($tmp_folders);
-		ksort($tmp_projects);
-		$this->view->projects = array_merge($tmp_folders, $tmp_projects);
+		$this->view->prefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $folder);
+		$this->view->projects = $this->displayDirectories($table->fetchAll("projects_name LIKE '{$folder}%'", "projects_name"), $folder);
 	}
 
 	public function newAction()
 	{
 		$table = new USVN_Db_Table_Projects();
 		$this->view->project = $table->createRow();
-		$folder = str_replace(USVN_URL_SEP, '/', $this->_request->getParam('folder'));
+		$folder = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
 		$this->view->prefix = $folder;
 	}
 
@@ -78,12 +64,16 @@ class ProjectadminController extends AdminadminController
 		}
 		try {
 			$identity = Zend_Auth::getInstance()->getIdentity();
+			$data['projects_name'] = str_replace(USVN_DIRECTORY_SEPARATOR, '#', $data['projects_name']);
+			$data['projects_name'] = str_replace(DIRECTORY_SEPARATOR, USVN_DIRECTORY_SEPARATOR, $data['projects_name']);
 			USVN_Project::createProject($data, $identity['username'], $_POST['creategroup'], $_POST['addmetogroup'], $_POST['admin'], $_POST['createsvndir']);
 			$this->_redirect("/admin/project/");
 		}
 		catch (USVN_Exception $e) {
 			$this->view->message = nl2br($e->getMessage());
 			$this->newAction();
+			$data['projects_name'] = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $data['projects_name']);
+			$data['projects_name'] = str_replace('#', USVN_DIRECTORY_SEPARATOR, $data['projects_name']);
 			$this->view->project->setFromArray($data);
 			$this->render('new');
 		}
@@ -98,7 +88,7 @@ class ProjectadminController extends AdminadminController
 		$users = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 
 		$table = new USVN_Db_Table_Projects();
-		$this->view->project = $table->fetchRow(array('projects_name = ?' => str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'))));
+		$this->view->project = $table->fetchRow(array('projects_name = ?' => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
 
 		$table = new USVN_Db_Table_UsersToProjects();
 		$UserToProject = $table->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $this->view->project->projects_id));
@@ -118,7 +108,7 @@ class ProjectadminController extends AdminadminController
 			$this->_redirect("/admin/project/new");
 		}
 		$table = new USVN_Db_Table_Projects();
-		$project = $table->fetchRow(array("projects_name = ?" => str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'))));
+		$project = $table->fetchRow(array("projects_name = ?" => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
 		if ($project === null) {
 			$this->_redirect("/admin/project/");
 		}
@@ -148,7 +138,27 @@ class ProjectadminController extends AdminadminController
 
 	public function deleteAction()
 	{
-		USVN_Project::deleteProject(str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name')));
+		USVN_Project::deleteProject(str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name')));
 		$this->_redirect("/admin/project/");
+	}
+	
+	private function displayDirectories($prtgrps, $folder)
+	{
+		$tmp_projects = array();
+		$tmp_folders = array();
+		foreach ($prtgrps as $prtgrp) {
+			$tmp_project = substr($prtgrp->name, strlen($folder));
+			if (strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
+				$tmp_projects[$tmp_project] = $prtgrp->description;
+			} elseif (preg_match('#^([^'.USVN_DIRECTORY_SEPARATOR.']+['.USVN_DIRECTORY_SEPARATOR.']).*#', $tmp_project, $tmp)) {
+				$tmp_project = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $tmp[1]);
+				if (!in_array($tmp_project, $tmp_folders)) {
+					$tmp_folders[$tmp_project] = '';
+				}
+			}
+		}
+		ksort($tmp_folders);
+		ksort($tmp_projects);
+		return array_merge($tmp_folders, $tmp_projects);
 	}
 }

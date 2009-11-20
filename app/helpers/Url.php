@@ -30,8 +30,8 @@ class USVN_View_Helper_Url extends Zend_View_Helper_Url {
     public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true)
     {
     	foreach ($urlOptions as $key => $value) {
-    		if ($key === 'project' || $key === 'group' || $key === 'name' || $key === 'folder') {
-    			$urlOptions[$key] = str_replace('/', USVN_URL_SEP, $value);
+    		if ($key === 'project' || $key === 'group' || $key === 'name' || $key === 'folder' || $key === 'grpfolder') {
+    			$urlOptions[$key] = str_replace(DIRECTORY_SEPARATOR, USVN_URL_SEP, $value);
     		}
     	}
         $url = parent::url($urlOptions, $name, $reset, $encode);

@@ -208,7 +208,7 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 		$select->where($this->_db->quoteInto("{$users_to_groups}.users_id = ?", $user->id));
 		
 		// in case of searching in a folder
-		if ($folder !== null) {
+		if ($folder != null) {
 			$select->where($this->_db->quoteInto("{$this->_name}.projects_name LIKE ?", $folder."%"));
 		}
 		

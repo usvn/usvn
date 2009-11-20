@@ -28,10 +28,10 @@ class USVN_View_Helper_DeleteLink {
      *
      * @return string HTML link: <a href="test">Test</a>.
      */
-    public function deleteLink($param, $name, $confirmText)
+    public function deleteLink($controller, $param, $name, $confirmText)
     {
         $view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
         $img = $view->img("delete.png", T_("Delete"));
-        return $view->urlConfirm(array('controller' => 'project', 'action' => 'delete', $param => $name), $img, sprintf($confirmText, $name), 'admin');
+        return $view->urlConfirm(array('controller' => $controller, 'action' => 'delete', $param => $name), $img, sprintf($confirmText, $name), 'admin');
     }
 }

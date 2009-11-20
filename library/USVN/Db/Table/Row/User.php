@@ -92,10 +92,14 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	 *
 	 * @return Zend_Db_Table_Rowset
 	 */
-	public function listGroups()
+	public function listGroups($folder = null)
 	{
 		$groupTable = new USVN_Db_Table_Groups();
 		$select = $groupTable->select();
+		// in case of searching in a folder
+		if ($folder != null) {
+			$select->where("groups_name LIKE ?", $folder."%");
+		}
 		$select->order('groups_name');
 		return $this->findManyToManyRowset('USVN_Db_Table_Groups',
 		 'USVN_Db_Table_UsersToGroups',

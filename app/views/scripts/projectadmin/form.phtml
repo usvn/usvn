@@ -20,13 +20,6 @@
 				echo '<label for="admin">' . T_('Add me as admin of the project:') . '</label>'. $this->formCheckbox('admin', 1,  array('checked' => true));
 				echo '<label for="createsvndir">' . T_('Create SVN standard directories (/trunk, /branches and /tags):') . '</label>'. $this->formCheckbox('createsvndir', 1,  array('checked' => true));
 			}
-			else if ($this->action == 'edit')
-			{
-				if ($this->AdminProject != 1)
-					echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin">';
-				else
-					echo '<label>' . T_('Add me as admin of the project:') . '<input type = "checkbox" name="admin" value="admin" checked >';
-			}
 		?>
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>
 		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>

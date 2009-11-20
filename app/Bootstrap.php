@@ -29,6 +29,7 @@ define('USVN_CONFIG_VERSION',     '1.1.0');
 
 /* Misc */
 define('USVN_URL_SEP', ':');
+define('USVN_DIRECTORY_SEPARATOR', '+');
 error_reporting(E_ALL | E_STRICT);
 
 

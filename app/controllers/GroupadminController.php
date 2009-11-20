@@ -37,7 +37,15 @@ class GroupadminController extends AdminadminController
 	public function indexAction()
 	{
 		$table = new USVN_Db_Table_Groups();
-		$this->view->groups = $table->fetchAll(null, "groups_name");
+		if ($this->_request->getParam('folder') != null) {
+			$folder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
+			$i = strripos(substr($folder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
+			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i + 1));
+		} else {
+			$folder = '';
+		}
+		$this->view->prefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $folder);
+		$this->view->groups = $this->displayDirectories($table->fetchAll("groups_name LIKE '{$folder}%'", "groups_name"), $folder);
 	}
 
 	public function newAction()
@@ -79,7 +87,7 @@ class GroupadminController extends AdminadminController
 
 	public function editAction()
 	{
-		$group_name = str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'));
+		$group_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
 		$table = new USVN_Db_Table_Groups();
 		$this->view->group = $table->fetchRow(array('groups_name = ?' => $group_name));
 		if ($this->view->group === null) {
@@ -95,7 +103,7 @@ class GroupadminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/group/");
 		}
-		$group_name = str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'));
+		$group_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array("groups_name = ?" => $group_name));
 		if ($group === null) {
@@ -120,12 +128,32 @@ class GroupadminController extends AdminadminController
 	public function deleteAction()
 	{
 		$table = new USVN_Db_Table_Groups();
-		$group_name = str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('name'));
+		$group_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
 		$group = $table->fetchRow(array('groups_name = ?' => $group_name));
 		if ($group === null) {
 			throw new USVN_Exception(T_("Invalid group %s."), $group_name);
 		}
 		$group->delete();
 		$this->_redirect("/admin/group/");
+	}
+	
+	private function displayDirectories($prtgrps, $folder)
+	{
+		$tmp_projects = array();
+		$tmp_folders = array();
+		foreach ($prtgrps as $prtgrp) {
+			$tmp_project = substr($prtgrp->name, strlen($folder));
+			if (strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
+				$tmp_projects[$tmp_project] = $prtgrp->description;
+			} elseif (preg_match('#^([^'.USVN_DIRECTORY_SEPARATOR.']+['.USVN_DIRECTORY_SEPARATOR.']).*#', $tmp_project, $tmp)) {
+				$tmp_project = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $tmp[1]);
+				if (!in_array($tmp_project, $tmp_folders)) {
+					$tmp_folders[$tmp_project] = '';
+				}
+			}
+		}
+		ksort($tmp_folders);
+		ksort($tmp_projects);
+		return array_merge($tmp_folders, $tmp_projects);
 	}
 }

@@ -7,7 +7,7 @@
     <ul class="grid_list">
     <?php if ($this->prefix != null): ?>
       <li>
-      <a href="<?= $this->url(array('folder' => $this->prev), 'index'); ?>">
+      <a href="<?= $this->url(array('folder' => ($this->prev ? $this->prev : USVN_DIRECTORY_SEPARATOR), 'grpfolder' => ($this->grpprefix ? $this->grpprefix : USVN_DIRECTORY_SEPARATOR)), 'index'); ?>">
         <div class="grid_img">
           <?= $this->img('folder48.png') ?>
         </div>
@@ -17,8 +17,8 @@
 	  <?php endif ?>
 	<? foreach ($this->projects as $project => $datas): ?>
 		<li>
-		  <?php if (substr($project, -1) == '/') { ?>
-			  <a href="<?= $this->url(array('folder' => $this->prefix.$project), 'index'); ?>">
+		  <?php if (substr($project, -1) == DIRECTORY_SEPARATOR) { ?>
+			  <a href="<?= $this->url(array('folder' => $this->prefix.$project, 'grpfolder' => ($this->grpprefix ? $this->grpprefix : USVN_DIRECTORY_SEPARATOR)), 'index'); ?>">
   				<div class="grid_img">
   					<?= $this->img('folder48.png') ?>
   				</div>
@@ -52,22 +52,39 @@
 	<h3><?= T_("Your groups"); ?>:</h3>
 <? if (count($this->groups)): ?>
 	<ul class="grid_list">
-	<? foreach ($this->groups as $group): ?>
+	  <?php if ($this->grpprefix != null): ?>
+      <li>
+      <a href="<?= $this->url(array('folder' => ($this->prefix ? $this->prefix : USVN_DIRECTORY_SEPARATOR), 'grpfolder' => ($this->grpprev ? $this->grpprev : USVN_DIRECTORY_SEPARATOR)), 'index'); ?>">
+        <div class="grid_img">
+          <?= $this->img('folder48.png') ?>
+        </div>
+        <div>..</div>
+      </a>
+      </li>
+	  <?php endif ?>
+	<? foreach ($this->groups as $group => $datas): ?>
 		<li>
-			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>">
-				<div class="grid_img">
-					<?= $this->img('group48.png') ?>
-				</div>
+		  <?php if (substr($group, -1) == DIRECTORY_SEPARATOR) { ?>
+			  <a href="<?= $this->url(array('folder' => ($this->prefix ? $this->prefix : USVN_DIRECTORY_SEPARATOR), 'grpfolder' => $this->grpprefix.$group), 'index'); ?>">
+  				<div class="grid_img">
+  					<?= $this->img('folder48.png') ?>
+  				</div>
+			<?php } else { ?>
+			  <a href="<?= $this->url(array('group' => $group), 'group'); ?>">
+			    <div class="grid_img">
+				    <?= $this->img('group48.png') ?>
+			    </div>
+      <?php } ?>
 				<div><?php
-				 	if (strlen($group->name) > $this->maxlen) {
-						echo substr($group->name, 0, $this->maxlen), '<br />';
-						if (strlen($group->name) > ($this->maxlen * 2 - 3)) {
-							echo substr($group->name, $this->maxlen, $this->maxlen - 3), '...';
+				 	if (strlen($group) > $this->maxlen) {
+						echo substr($group, 0, $this->maxlen), '<br />';
+						if (strlen($group) > ($this->maxlen * 2 - 3)) {
+							echo substr($group, $this->maxlen, $this->maxlen - 3), '...';
 						} else {
-							echo substr($group->name, $this->maxlen);
+							echo substr($group, $this->maxlen);
 						}
 					} else {
-				 		echo $group->name;
+				 		echo $group;
 					}
 				?></div>
 			</a>

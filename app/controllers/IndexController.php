@@ -23,39 +23,54 @@ class IndexController extends USVN_Controller {
 	 *
 	 */
 	public function indexAction() {
-		$projects = new USVN_Db_Table_Projects();
-		if ($this->_request->getParam('folder') != null) {
-			$folder = str_replace(USVN_URL_SEP, '/', $this->_request->getParam('folder'));
-			$i = strripos(substr($folder, 0, -1), '/', 2);
-			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i + 1));
-			$projects = $projects->fetchAllAssignedTo($this->getRequest()->getParam('user'), $folder);
-		} else {
-			$folder = '';
-			$projects = $projects->fetchAllAssignedTo($this->getRequest()->getParam('user'));
-		}
-		$this->view->prefix = $folder;
-		$tmp_projects = array();
-		$tmp_folders = array();
-		foreach ($projects as $project) {
-			$tmp_project = substr($project->name, strlen($folder));
-			if (strstr($tmp_project, '/') === false) {
-				$tmp_projects[$tmp_project] = '';
-			} elseif (preg_match('#^([^/]+/).*#', $tmp_project, $tmp) && !in_array($tmp[1], $tmp_folders)) {
-				$tmp_folders[$tmp[1]] = '';
-			}
-		}
-		ksort($tmp_folders);
-		ksort($tmp_projects);
-		$this->view->projects = array_merge($tmp_folders, $tmp_projects);
-		
 		$identity = Zend_Auth::getInstance()->getIdentity();
 		$user_table = new USVN_Db_Table_Users();
 		$user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
-		$this->view->groups = $user->listGroups();
+		
+		$projects = new USVN_Db_Table_Projects();
+		if ($this->_request->getParam('folder') != null && $this->_request->getParam('folder') != USVN_DIRECTORY_SEPARATOR) {
+			$folder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
+			$i = strripos(substr($folder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
+			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i + 1));
+		} else {
+			$folder = null;
+		}
+		$this->view->prefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $folder);
+		$this->view->projects = $this->displayDirectories($projects->fetchAllAssignedTo($this->getRequest()->getParam('user'), $folder), $folder);
+		
+		if ($this->_request->getParam('grpfolder') != null && $this->_request->getParam('grpfolder') != USVN_DIRECTORY_SEPARATOR) {
+			$grpfolder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('grpfolder'));
+			$i = strripos(substr($grpfolder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
+			$this->view->grpprev = ($i === false ? '' : substr($grpfolder, 0, $i + 1));
+		} else {
+			$grpfolder = null;
+		}
+		$this->view->grpprefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $grpfolder);
+		$this->view->groups = $this->displayDirectories($user->listGroups($grpfolder), $grpfolder);
 		$this->view->maxlen = 12;
 	}
 
 	public function errorAction()
 	{
+	}
+	
+	private function displayDirectories($prtgrps, $folder)
+	{
+		$tmp_projects = array();
+		$tmp_folders = array();
+		foreach ($prtgrps as $prtgrp) {
+			$tmp_project = substr($prtgrp->name, strlen($folder));
+			if (strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
+				$tmp_projects[$tmp_project] = $prtgrp->description;
+			} elseif (preg_match('#^([^'.USVN_DIRECTORY_SEPARATOR.']+['.USVN_DIRECTORY_SEPARATOR.']).*#', $tmp_project, $tmp)) {
+				$tmp_project = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $tmp[1]);
+				if (!in_array($tmp_project, $tmp_folders)) {
+					$tmp_folders[$tmp_project] = '';
+				}
+			}
+		}
+		ksort($tmp_folders);
+		ksort($tmp_projects);
+		return array_merge($tmp_folders, $tmp_projects);
 	}
 }

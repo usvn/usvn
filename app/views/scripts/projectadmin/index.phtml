@@ -24,7 +24,7 @@
     </tr>
 	<?php endif ?>
 	<? foreach ($this->projects as $project => $datas): ?>
-	  <?php if (substr($project, -1) == '/') { ?>
+	  <?php if (substr($project, -1) == DIRECTORY_SEPARATOR): ?>
 	    <tr>
         <td><a href="<?= $this->url(array('action' => 'index', 'folder' => $this->prefix.$project)); ?>">
           <span class="grid_img">
@@ -33,7 +33,7 @@
           <?= $project ?>
         </a></td><td>&nbsp;</td><td>&nbsp;</td>
       </tr>
-    <?php } else { ?>
+    <?php else: ?>
       <? $editurl = $this->url(array('controller' => 'project', 'action' => 'edit', 'name' => $this->prefix.$project), 'admin', true); ?>
       <tr>
         <td><a href="<?= $this->url(array('action' => null, 'project' => $this->prefix.$project), 'project', true) ?>">
@@ -45,12 +45,12 @@
         <td><a href="<?= $editurl ?>"><?= nl2br(htmlspecialchars($datas)) ?></a></td>
         <td class="align-right">
           <?= $this->homeLink($this->prefix.$project) ?>
-          <?= $this->editLink('name', $this->prefix.$project) ?>
-          <?= $this->deleteLink('name', $this->prefix.$project, $deletetext) ?>
+          <?= $this->editLink('project', 'name', $this->prefix.$project) ?>
+          <?= $this->deleteLink('project', 'name', $this->prefix.$project, $deletetext) ?>
           <?= $this->ACLLink($this->prefix.$project) ?>
         </td>
       </tr>
-    <?php } ?>
+    <?php endif ?>
 	<? endforeach ?>
 	<? endif ?>
 	</tbody>

@@ -74,7 +74,7 @@ class USVN_Db_Table_Groups extends USVN_Db_TableAuthz {
 		if (empty($name) || preg_match('/^\s+$/', $name)) {
 			throw new USVN_Exception(T_('The group\'s name is empty.'));
 		}
-		if (!preg_match('/^[0-9a-zA-Z_\-\/]+$/', $name)) {
+		if (!preg_match('/^[0-9a-zA-Z_\.\+\-]+$/', $name)) {
 			throw new USVN_Exception(T_('The group\'s name is invalid. The group\'s name can only include alpha-numeric characters and \'-\' or \'_\'.'));
 		}
 	}

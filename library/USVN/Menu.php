@@ -112,7 +112,7 @@ class USVN_Menu
 			if ($this->_request->getParam('area') === "project") {
 				array_push($menu,
 					array(
-						"title" => str_replace(USVN_URL_SEP, '/', $this->_request->getParam('project')),
+						"title" => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('project')),
 						"link"=> "project/{$this->_request->getParam('project')}",
 					)
 				);
@@ -120,7 +120,7 @@ class USVN_Menu
 			else if ($this->_request->getParam('area') === "group") {
 				array_push($menu,
 					array(
-						"title" => str_replace(USVN_URL_SEP, '/', $this->_request->getParam('group')),
+						"title" => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('group')),
 						"link"=> "group/{$this->_request->getParam('group')}",
 					)
 				);

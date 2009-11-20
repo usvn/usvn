@@ -34,7 +34,7 @@ class GroupController extends USVN_Controller
 	{
 		parent::preDispatch();
 
-		$group_name = str_replace(USVN_URL_SEP, '/', $this->getRequest()->getParam('group'));
+		$group_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('group'));
 		$table = new USVN_Db_Table_Groups();
 		$group = $table->fetchRow(array("groups_name = ?" => $group_name));
 		$identity = Zend_Auth::getInstance()->getIdentity();
@@ -68,7 +68,7 @@ class GroupController extends USVN_Controller
             /* @var $request USVN_Controller_Request_Http */
 
             $table = new USVN_Db_Table_Groups();
-            $group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, '/', $request->getParam('group'))));
+            $group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $request->getParam('group'))));
             /* @var $group USVN_Db_Table_Row_Group */
 
             try {
@@ -116,7 +116,7 @@ class GroupController extends USVN_Controller
 		/* @var $request USVN_Controller_Request_Http */
 
 		$table = new USVN_Db_Table_Groups();
-		$group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, '/', $request->getParam('group'))));
+		$group = $table->fetchRow(array("groups_name = ?" => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $request->getParam('group'))));
 		/* @var $group USVN_Db_Table_Row_Group */
 
 		try {

@@ -25,8 +25,8 @@ try
       APPLICATION_ENV, 
       APPLICATION_PATH . '/configs/application.ini'
   );
-  $application->bootstrap()
-              ->run();
+  $toto = $application->bootstrap()
+                      ->run();
 }
 catch (Exception $e)
 {

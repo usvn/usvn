@@ -1,91 +1,59 @@
- <?= $this->error($this) ?>
+<?= $this->error($this) ?>
  <div class="usvn_info">
 	<h1><?= T_("Timeline") ?> </h1>
 	<br>
 	<form action="<?= $this->url(array("action" => "LastHundredRequest")) ?>" method="post">
-			<div>
-				<table>
-					<tr>
-						<td>
-							<a href="#" class="usvn_tooltips">
-								<?= T_("Start (revision number or date)") ?>
-								<span>
-									<?= T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY") ?>
-								</span>
-							</a>:
-						</td>
-
-						<td>
-							<?= $this->formText('number_start', $this->number_start) . '<br>' ?>
-			 			</td>
-			 		</tr>
-			 		
-			 		<tr>
-				 		<td>
+		<div>
+	    	<table>
+				<tr>
+					<td>
 						<a href="#" class="usvn_tooltips">
-							<?= T_('End (revision number or date)') ?>
+							<?= T_("Start (revision number or date)") ?>
 							<span>
-								<?= T_('This is optional.The listing is made between start revision/date and this one.') ?>
+								<?= T_("You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY") ?>
 							</span>
 						</a>:
-						</td>
-						<td>
-							<?= $this->formText('number_end', $this->number_end) ?>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<?= $this->formSubmit('LastHundredRequest', T_('Search')) ?>
-						</td>
-					</tr>
-
-				</table>
-			</div>
-		</form>		
+					</td>
+					<td>
+						<?= $this->formText('number_start', $this->number_start) . '<br>' ?>
+		 			</td>
+		 		</tr>
+		 		<tr>
+			 		<td>
+					<a href="#" class="usvn_tooltips">
+						<?= T_('End (revision number or date)') ?>
+						<span>
+							<?= T_('This is optional.The listing is made between start revision/date and this one.') ?>
+						</span>
+					</a>:
+					</td>
+					<td>
+						<?= $this->formText('number_end', $this->number_end) ?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?= $this->formSubmit('LastHundredRequest', T_('Search')) ?>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</form>
 </div>
-
 <div class="usvn_info">
-	<h1><?= T_("Last hundred commit") ?></h1>
-	<table id="commits" class="sortable">
-		<thead>
-			<tr>
-				<th><?= T_("Revision") ?></th>
-				<th><?= T_("Author") ?></th>
-				<th><?= T_("Date") ?></th>
-				<th><?= T_("Message") ?></th>
-			</tr>
-		</thead>
-		<tbody>
-		<? foreach (array_keys($this->log) as $revision): ?>
-			<? $commit = $this->log[$revision]; ?>
-			<tr onClick="window.location='<?= $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') ?>'">
-				<td class="revision"><?= $revision ?></td>
-				<td class="logname"><?= $commit['author'] ?></td>
-				<td class="date"><?= date("Y-m-d H:i",  $commit["date"]) ?></td>
-				<td class="comment"><?= USVN_SVNLog::formatComment($commit['msg']) ?></td>
-			</tr>
-		<? endforeach ?>
-		</tbody>
-	</table>
-</div>
-
-<div class="usvn_info">
-	<h1><?= T_("Timeline") ?> </h1>
+	<h1><?= T_("Timeline") ?></h1>
 	<br>
 	<?php $date = NULL; ?>
 	<? foreach (array_keys($this->log) as $revision): ?>
-		<?php
-			$commit = $this->log[$revision];
+		<?php $commit = $this->log[$revision];
 			if ($date == NULL or strcmp($date, date('Y-m-d',  $commit['date'])) != 0)
 			{
 				$date = date('Y-m-d',  $commit['date']);
-				echo '<div style="background-color:#ccccff;">' . $date . ':</div>';
+				echo '<div class="commit-date">' . $date . ':</div>';
 			}
-			echo date('H:i',  $commit['date']);
-			echo 'Changeset [' . $revision . '] by ' . $commit['author'];
-			echo '<br />';
-			echo USVN_SVNLog::formatComment($commit['msg']);
-			echo '<br />';
+			echo '<span class="commit-time">' . date('H:i',  $commit['date']) . '</span>';
+			echo '<a href="' . $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') . '">Changeset [' . $revision . ']</a> <span class="commit-by">by</span> <span class="commit-author">' . $commit['author'] . '</span>';
+			echo '<p class="commit-message">' . USVN_SVNLog::formatComment($commit['msg']) . '</p>';
 		?>
 	<? endforeach ?>
 </div>

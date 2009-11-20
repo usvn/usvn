@@ -537,3 +537,31 @@ ul.grid_list li a:hover {
 	font-weight: bold;
 	margin-bottom: 5px;
 }
+
+/* @group Commit */
+
+.commit-date {
+	border-bottom: 1px dotted #CCCCCC;
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.commit-time {
+	color: #888888;
+	margin-right: 5px;
+}
+
+.commit-by {
+	color: #000000;
+}
+
+.commit-author {
+    color: #aa0000;
+}
+
+.usvn_info p.commit-message {
+	color: #333333;
+	margin-left: 43px;
+}
+
+/* @end */

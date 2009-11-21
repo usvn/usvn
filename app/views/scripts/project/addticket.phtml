@@ -1,0 +1,46 @@
+<div class="usvn_info">
+	<h1><?= T_('Ajouter un Ticket') ?></h1>
+</div>
+<div id="profile">
+	<form action="" method="POST">
+		<label for="ticket[title]"><?= T_('Title') ?></label>
+		<input name="ticket[title]" type="text" value="<?= (isset($this->ticket) ? $this->ticket->title : '') ?>" />
+		<label for="ticket[description]"><?= T_('Description') ?></label>
+		<textarea name="ticket[description]"><?= (isset($this->ticket) ? $this->ticket->description : '') ?></textarea>
+		<input  name="ticket[project_id]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->projectId : $this->project->projects_id) ?>" />
+		<input  name="ticket[milestone_id]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->milestoneId : '') ?>" />
+		<input  name="ticket[type]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->type : '') ?>" />
+		<input  name="ticket[priority]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->priority : '') ?>" />
+		<input  name="ticket[status]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->status : '') ?>" />
+<!-- 
+			$this->_creator_id = $values['creator_id'];
+			$this->_title = $values['title'];
+			$this->_description = $values['description'];
+			$this->_milestone_id = $values['milestone_id'];
+			$this->_type = $values['type'];
+			$this->_priority = $values['priority'];
+			$this->_status = $values['status'];
+
+-->
+		<input type="submit" value="<?= T_('Enregistrer') ?>" />
+		<div style="clear:both"></div>
+	</form>
+</div>
+<? if (isset($this->truc)): ?>
+<pre style="overflow:auto">
+$this->truc
+<? print_r($this->truc) ?>
+</pre>
+<? endif ?>
+<? if (isset($_POST['ticket'])): ?>
+$_POST['ticket']
+<pre style="overflow:auto">
+<? print_r($_POST['ticket']) ?>
+</pre>
+<? endif ?>
+<? if (false && isset($this->project)): ?>
+$this->project
+<pre style="overflow:auto">
+<? print_r($this->project) ?>
+</pre>
+<? endif ?>

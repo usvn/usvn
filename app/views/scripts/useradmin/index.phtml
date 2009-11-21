@@ -30,9 +30,9 @@
 		<td><a href="mailto:<?= h_($user->email) ?>"><?= h_($user->email) ?></a></td>
 		<td><a href="<?= h_($editurl) ?>"><?= T_($user->is_admin ? "yes" : "no") ?></a></td>
 		<td class="align-right">
-			<?= $this->editLink('login', $user->login) ?>
+			<?= $this->editLink('user', 'login', $user->login) ?>
 			<? if ($user->login != $me): ?>
-				<?= $this->deleteLink('login', $user->login, $deletetext) ?>
+				<?= $this->deleteLink('user', 'login', $user->login, $deletetext) ?>
 			<? else: ?>
 				<?= $this->img('empty.png') ?>
 			<? endif ?>

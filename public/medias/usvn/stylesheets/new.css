@@ -551,7 +551,7 @@ ul.grid_list li a:hover {
 	margin-right: 5px;
 }
 
-.commit-by {
+.commit-black {
 	color: #000000;
 }
 
@@ -562,6 +562,10 @@ ul.grid_list li a:hover {
 .usvn_info p.commit-message {
 	color: #333333;
 	margin-left: 43px;
+}
+
+.commit a:hover {
+	background: #9ECFF1;
 }
 
 /* @end */

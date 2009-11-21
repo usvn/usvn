@@ -79,30 +79,18 @@
 	</ul>
 </div>
 <div class="usvn_info">
-	<h1><?php echo T_("Last five commits"); ?>
-<? /*	echo "<link rel='alternate' type='application/rss+xml' href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."' />";
-	if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
-		echo "  <a href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."'>".$this->img('rss.png', T_('Rss'))."</a>"; */
-	 ?></h1>
-	<table class="sortable">
-		<thead>
-			<tr>
-				<th><?php echo T_("Revision");?></th>
-				<th><?php echo T_("Author");?></th>
-				<th><?php echo T_("Date");?></th>
-				<th><?php echo T_("Message");?></th>
-			</tr>
-		</thead>
-		<tbody>
-		<? foreach (array_keys($this->log) as $revision): ?>
-			<? $commit = $this->log[$revision]; ?>
-			<tr onClick="window.location='<?= $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') ?>'">
-				<td class="revision"><?= $revision ?></td>
-				<td class="logname"><?= $commit['author'] ?></td>
-				<td class="date"><?= date("Y-m-d H:i",  $commit["date"]) ?></td>
-				<td class="comment"><?= USVN_SVNLog::formatComment($commit['msg']) ?></td>
-			</tr>
-		<? endforeach ?>
-		</tbody>
-	</table>
+	<h1><?php echo T_("Last five commits"); ?></h1>
+	<br>
+	<?php $date = NULL; ?>
+	<? foreach (array_keys($this->log) as $revision): ?>
+		<?php $commit = $this->log[$revision];
+			if ($date == NULL or strcmp($date, date('Y-m-d',  $commit['date'])) != 0)
+			{
+				$date = date('Y-m-d',  $commit['date']);
+				echo '<div class="commit-date">' . $date . ':</div>';
+			}
+			echo '<span class="commit"><a href="' . $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') . '"><span class="commit-time">' . date('H:i',  $commit['date']) . '</span><span class="commit-black">Changeset</span> [' . $revision . '] <span class="commit-black">by</span> <span class="commit-author">' . $commit['author'] . '</span></a></span>';
+			echo '<p class="commit-message">' . USVN_SVNLog::formatComment($commit['msg']) . '</p>';
+		?>
+	<? endforeach ?>
 </div>

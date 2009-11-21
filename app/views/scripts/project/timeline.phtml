@@ -41,7 +41,7 @@
 	</form>
 </div>
 <div class="usvn_info">
-	<h1><?= T_("Timeline") ?></h1>
+	<h1><?php echo T_("Last five commits"); ?></h1>
 	<br>
 	<?php $date = NULL; ?>
 	<? foreach (array_keys($this->log) as $revision): ?>
@@ -51,8 +51,7 @@
 				$date = date('Y-m-d',  $commit['date']);
 				echo '<div class="commit-date">' . $date . ':</div>';
 			}
-			echo '<span class="commit-time">' . date('H:i',  $commit['date']) . '</span>';
-			echo '<a href="' . $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') . '">Changeset [' . $revision . ']</a> <span class="commit-by">by</span> <span class="commit-author">' . $commit['author'] . '</span>';
+			echo '<span class="commit"><a href="' . $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') . '"><span class="commit-time">' . date('H:i',  $commit['date']) . '</span><span class="commit-black">Changeset</span> [' . $revision . '] <span class="commit-black">by</span> <span class="commit-author">' . $commit['author'] . '</span></a></span>';
 			echo '<p class="commit-message">' . USVN_SVNLog::formatComment($commit['msg']) . '</p>';
 		?>
 	<? endforeach ?>

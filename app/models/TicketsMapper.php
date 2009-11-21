@@ -45,9 +45,9 @@ class Default_Model_TicketsMapper
 
 		if (null === ($id = $ticket->getId())) {
 			unset($data['id']);
-			$this->getDbTable()->insert($data);
+			return $this->getDbTable()->insert($data);
 		} else {
-			$this->getDbTable()->update($data, array('ticket_id = ?' => $id));
+			return $this->getDbTable()->update($data, array('ticket_id = ?' => $id));
 		}
   }
 

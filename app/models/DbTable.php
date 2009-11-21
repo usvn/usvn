@@ -5,7 +5,7 @@
 */
 class Default_Model_DbTable extends Zend_Db_Table_Abstract
 {
-    function __construct($model)
+	    function __construct($model)
 		{
 			$this->_name = $model;
 			parent::__construct();

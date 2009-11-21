@@ -519,7 +519,21 @@ public function timelineAction()
 
 	public function addticketAction()
 	{
-
+//		$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => '0'), 'ticket', true));
+		if (isset($_POST['ticket']) && !empty($_POST['ticket']))
+		{
+			$data = $_POST['ticket'];
+			$data['creator_id'] = $this->view->user->users_id;
+			$ticket = new Default_Model_Ticket($data);
+			if (1/* validate */)
+			{
+				if ($ticket->save())
+					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'ticket', true), array('prependBase' => false));
+//				$this->redirect($this);
+			}
+			$this->view->ticket = $ticket;
+		}
+		$this->view->project = $this->_project;
 	}
 
 	protected function convertDate($number)

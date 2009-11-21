@@ -5,7 +5,14 @@
 <? else: ?>
 <div class="usvn_info">
   <h1>Ticket: <?= $this->ticket->title ?></h1>
-  <?= sprintf(T_('Created %s by %s'), $this->ticket->creationDate, $this->ticket->creatorId) ?>
+  <?= sprintf(T_('Created the %1$s at %2$s by %3$s'),
+  		$this->ticket->creationDate->toString(Zend_Date::DATE_MEDIUM),
+  		$this->ticket->creationDate->toString(Zend_Date::TIME_MEDIUM),
+  		$this->ticket->creatorId) ?><br />
+  <?= sprintf(T_('Edited the %1$s at %2$s by %3$s'),
+  		$this->ticket->modificationDate->toString(Zend_Date::DATE_MEDIUM),
+  		$this->ticket->modificationDate->toString(Zend_Date::TIME_MEDIUM),
+  		$this->ticket->modificatorId) ?><br />
 </div>
   <?= nl2br(h_($this->ticket->description)) ?>
 <? endif ?>

@@ -2,18 +2,23 @@
 
 class Default_Model_Ticket
 {
-  	protected $_id;
+		/* Fields */
+		protected $_id;
 		protected $_project_id;
 		protected $_creation_date;
 		protected $_creator_id;
 		protected $_modification_date;
 		protected $_modificator_id;
-    protected $_title;
-    protected $_description;
+		protected $_title;
+		protected $_description;
 		protected $_milestone_id;
 		protected $_type;
 		protected $_priority;
 		protected $_status;
+
+		/* Fields */
+		protected $_creator;
+		protected $_modificator;
 
     static public function getMapper()
     {
@@ -31,10 +36,17 @@ class Default_Model_Ticket
     protected function _initNew(array $values)
     {
 			$this->_project_id = $values['project_id'];
-			$this->_creation_date = new Zend_Date($values['creation_date']);
+			$this->_creation_date = new Zend_Date((isset($values['creation_date']) ? $values['creation_date'] : null));
 			$this->_creator_id = $values['creator_id'];
-			$this->_modification_date = new Zend_Date($values['modification_date']);
-			$this->_modificator_id = $values['modificator_id'];
+  		if (isset($values['modificator_id']) && isset($values['modification_date']))
+  		{
+				$this->_modification_date = new Zend_Date($values['modification_date']);
+				$this->_modificator_id = $values['modificator_id'];
+  		}
+  		else
+  		{
+				$this->_modificator_id = $this->_creator_id;
+			}
 			$this->_title = $values['title'];
 			$this->_description = $values['description'];
 			$this->_milestone_id = $values['milestone_id'];
@@ -76,6 +88,11 @@ class Default_Model_Ticket
 				throw new Exception('Try to get an invalid property "' . $name . '" for class "' . get_class($this) . '"');
 			}
 			return $this->$getter();
+		}
+
+		public function isNew()
+		{
+			return empty($this->_id);
 		}
 
 		public function getId()
@@ -206,12 +223,16 @@ class Default_Model_Ticket
 
 		public function save()
 		{
-			$this->getMapper()->save($this);
+			$newId = $this->getMapper()->save($this);
+			if ($newId === null || $newId === false)
+				return false;
+			$this->_id = $newId;
+			return true;
 		}
 		
 		public function delete()
 		{
-			$this->getMapper()->delete($this);
+			return $this->getMapper()->delete($this);
 		}
 
 		static public function find($id)

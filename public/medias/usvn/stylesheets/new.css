@@ -379,7 +379,7 @@ form.usvn_form {
 	margin: 20px auto 20px auto;
 }
 
-#profile input {
+#profile input, #profile textarea {
 	width: 260px;
 }
 

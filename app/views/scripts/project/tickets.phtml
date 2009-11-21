@@ -1,16 +1,37 @@
 <div class="usvn_info">
-  <h1>Tickets</h1>
+  <h1><?= T_('Roadmap') ?></h1>
 </div>
+	<style>
+	a.atd {
+	display: block;
+}
+	</style>
 <table border="0" cellspacing="0" cellpadding="0" class="sortable">
-    <tr><th>Title</th><th>Created</th><th>Comment</th><th></th></tr>
+    <tr>
+    	<th><?= T_('Title') ?></th>
+    	<th><?= T_('Created') ?></th>
+    	<th><?= T_('Edited') ?></th>
+    	<th><?= T_('Type')?></th>
+    	<th><?= T_('Status')?></th>
+    	<th><?= T_('Priority')?></th>
+    </tr>
     <? $even = true ?>
     <? foreach ($this->tickets as $ticket): ?>
     <? $even = !true ?>
+    <? $showUrl = $this->url(array('project' => $this->project->name, 'action' => 'showticket', 'id' => $ticket->id), 'ticket') ?>
     <tr class="<?= $even ? 'even' : 'odd' ?>">
-        <td><?= h_($ticket->title) ?> </td>
-        <td><?= $ticket->creationDate->toString() ?> </td>
-        <td><?= h_($ticket->description) ?> </td>
-        <td><a href="<?= $this->url(array('project' => $this->project->name, 'action' => 'showticket', 'id' => $ticket->id), 'ticket') ?>"><?= T_('Show') ?></a></td>
+        <td><a class="atd" href="<?= $showUrl ?>"><?= h_($ticket->title) ?> </a></td>
+	      <td><a class="atd" href="<?= $showUrl ?>"><?= $ticket->creationDate->toString(Zend_Date::DATETIME_SHORT) ?> </a></td>
+  	    <td><a class="atd" href="<?= $showUrl ?>"><?= $ticket->modificationDate->toString(Zend_Date::DATETIME_SHORT) ?> </a></td>
+    	  <!-- td><a class="atd" href="<?= $showUrl ?>"><?= h_($ticket->description) ?></a></td -->
+      	<td><a class="atd" href="<?= $showUrl ?>"><?= h_($ticket->type) ?>&nbsp;</a></td>
+        <td><a class="atd" href="<?= $showUrl ?>"><?= h_($ticket->status) ?> </a></td>
+	      <td><a class="atd" href="<?= $showUrl ?>"><?= h_($ticket->priority) ?> </a></td>
     </tr>
     <? endforeach ?>
+    <tfoot>
+	    <tr class="">
+	    	<td colspan="6"><a href="<?= $this->url(array('project' => $this->project->name, 'action' => 'addticket'), 'ticket') ?>"><?= $this->img('add.png') ?></a></td>
+	    </tr>
+    </tfoot>
 </table>

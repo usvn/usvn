@@ -64,16 +64,14 @@ class ProjectadminController extends AdminadminController
 		}
 		try {
 			$identity = Zend_Auth::getInstance()->getIdentity();
-			$data['projects_name'] = str_replace(USVN_DIRECTORY_SEPARATOR, '#', $data['projects_name']);
-			$data['projects_name'] = str_replace(DIRECTORY_SEPARATOR, USVN_DIRECTORY_SEPARATOR, $data['projects_name']);
+			$data['projects_name'] = $this->modifName($data['projects_name'], 1);
 			USVN_Project::createProject($data, $identity['username'], $_POST['creategroup'], $_POST['addmetogroup'], $_POST['admin'], $_POST['createsvndir']);
 			$this->_redirect("/admin/project/");
 		}
 		catch (USVN_Exception $e) {
 			$this->view->message = nl2br($e->getMessage());
 			$this->newAction();
-			$data['projects_name'] = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $data['projects_name']);
-			$data['projects_name'] = str_replace('#', USVN_DIRECTORY_SEPARATOR, $data['projects_name']);
+			$data['projects_name'] = $this->modifName($data['projects_name'], -1);
 			$this->view->project->setFromArray($data);
 			$this->render('new');
 		}
@@ -89,6 +87,7 @@ class ProjectadminController extends AdminadminController
 
 		$table = new USVN_Db_Table_Projects();
 		$this->view->project = $table->fetchRow(array('projects_name = ?' => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
+		$this->view->project->name = $this->modifName($this->view->project->name, -1);
 
 		$table = new USVN_Db_Table_UsersToProjects();
 		$UserToProject = $table->fetchRow(array('users_id = ?' => $users->users_id, 'projects_id = ?' => $this->view->project->projects_id));
@@ -107,8 +106,10 @@ class ProjectadminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/project/new");
 		}
+		$data['projects_name'] = $this->modifName($data['projects_name'], 1);
+		
 		$table = new USVN_Db_Table_Projects();
-		$project = $table->fetchRow(array("projects_name = ?" => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
+		$project = $table->fetchRow(array("projects_name = ?" => $data['projects_name']));
 		if ($project === null) {
 			$this->_redirect("/admin/project/");
 		}
@@ -160,5 +161,17 @@ class ProjectadminController extends AdminadminController
 		ksort($tmp_folders);
 		ksort($tmp_projects);
 		return array_merge($tmp_folders, $tmp_projects);
+	}
+	
+	private function modifName($name, $inout)
+	{
+		if ($inout > 0) {
+			$name = str_replace(USVN_DIRECTORY_SEPARATOR, '#', $name);
+			$name = str_replace(DIRECTORY_SEPARATOR, USVN_DIRECTORY_SEPARATOR, $name);
+		} elseif ($inout < 0) {
+			$name = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $name);
+			$name = str_replace('#', USVN_DIRECTORY_SEPARATOR, $name);
+		}
+		return $name;
 	}
 }

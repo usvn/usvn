@@ -54,6 +54,8 @@ class GroupadminController extends AdminadminController
 		$this->view->group = $table->createRow();
 		$table = new USVN_Db_Table_Users();
 		$this->view->users = $table->fetchAll(null, "users_login");
+		$folder = str_replace(USVN_URL_SEP, DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
+		$this->view->prefix = $folder;
 	}
 
 	public function createAction()
@@ -63,6 +65,7 @@ class GroupadminController extends AdminadminController
 			$this->_redirect("/admin/group/new");
 		}
 		$table = new USVN_Db_Table_Groups();
+		$data['groups_name'] = $this->modifName($data['groups_name'], 1);
 		$group = $table->createRow($data);
 		$this->view->group = $group;
 		if ($table->isAGroup($data['groups_name'])) {
@@ -81,6 +84,7 @@ class GroupadminController extends AdminadminController
 			$this->view->message = $e->getMessage();
 			$table = new USVN_Db_Table_Users();
 			$this->view->users = $table->fetchAll(null, "users_login");
+			$data['groups_name'] = $this->modifName($data['groups_name'], -1);
 			$this->render('new');
 		}
 	}
@@ -90,6 +94,7 @@ class GroupadminController extends AdminadminController
 		$group_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
 		$table = new USVN_Db_Table_Groups();
 		$this->view->group = $table->fetchRow(array('groups_name = ?' => $group_name));
+		$this->view->group->name = $this->modifName($this->view->group->name, -1);
 		if ($this->view->group === null) {
 			throw new USVN_Exception(T_("Invalid group %s."), $group_name);
 		}
@@ -103,11 +108,12 @@ class GroupadminController extends AdminadminController
 		if (empty($data)) {
 			$this->_redirect("/admin/group/");
 		}
-		$group_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'));
+		$data['groups_name'] = $this->modifName($data['groups_name'], 1);
+		
 		$table = new USVN_Db_Table_Groups();
-		$group = $table->fetchRow(array("groups_name = ?" => $group_name));
+		$group = $table->fetchRow(array("groups_name = ?" => $data['groups_name']));
 		if ($group === null) {
-			throw new USVN_Exception(T_("Invalid group %s."), $group_name);
+			throw new USVN_Exception(T_("Invalid group %s."), $data['groups_name']);
 		}
 		$group->setFromArray($data);
 		try {
@@ -155,5 +161,17 @@ class GroupadminController extends AdminadminController
 		ksort($tmp_folders);
 		ksort($tmp_projects);
 		return array_merge($tmp_folders, $tmp_projects);
+	}
+	
+	private function modifName($name, $inout)
+	{
+		if ($inout > 0) {
+			$name = str_replace(USVN_DIRECTORY_SEPARATOR, '#', $name);
+			$name = str_replace(DIRECTORY_SEPARATOR, USVN_DIRECTORY_SEPARATOR, $name);
+		} elseif ($inout < 0) {
+			$name = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $name);
+			$name = str_replace('#', USVN_DIRECTORY_SEPARATOR, $name);
+		}
+		return $name;
 	}
 }

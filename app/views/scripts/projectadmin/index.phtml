@@ -6,7 +6,7 @@
 		<tr>
 			<th><?= T_('Name') ?></th>
 			<th><?= T_('Description') ?></th>
-			<th class="sorttable_nosort" width="112px"><?= T_('Action') ?></th>
+			<th class="sorttable_nosort" width="84px"><?= T_('Action') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -44,7 +44,6 @@
         </a></td>
         <td><a href="<?= $editurl ?>"><?= nl2br(htmlspecialchars($datas)) ?></a></td>
         <td class="align-right">
-          <?= $this->homeLink($this->prefix.$project) ?>
           <?= $this->editLink('project', 'name', $this->prefix.$project) ?>
           <?= $this->deleteLink('project', 'name', $this->prefix.$project, $deletetext) ?>
           <?= $this->ACLLink($this->prefix.$project) ?>

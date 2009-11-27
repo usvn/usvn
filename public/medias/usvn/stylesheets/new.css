@@ -83,6 +83,7 @@ label {
 }
 
 div.error {
+	margin-right: 5px;
 	background-color: #F88;
 	color: black;
 }
@@ -469,6 +470,7 @@ ul#usvn_admin_section {
 /* @end */
 
 .usvn_error {
+	margin-bottom: 15px;
 	color: black;
 	font-weight: bold;
 	background-color: #FF9F9F;

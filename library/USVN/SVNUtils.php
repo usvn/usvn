@@ -262,23 +262,34 @@ class USVN_SVNUtils
 		}
 		$res = array();
 		$xml = new SimpleXMLElement($lists);
-		foreach ($xml->list->entry as $list) {
+		foreach ($xml->list->entry as $list)
+		{
 			if ($list['kind'] == 'file') {
 				array_push($res, array(
-																"name" => (string)$list->name,
-																"isDirectory" => false,
-																"path" => str_replace('//', '/', $path . "/" . $list->name),
-																"size" => $list->size,
-																"revision" => $list->commit['revision'],
-																"author" => $list->commit->author,
-																"date" => $list->commit->date
-															));
+								'name' => (string)$list->name,
+								'isDirectory' => false,
+								'path' => str_replace('//', '/', $path . '/' . $list->name),
+								'size' => $list->size,
+								'revision' => $list->commit['revision'],
+								'author' => $list->commit->author,
+								'date' => $list->commit->date
+								)
+							);
 			}
-			else {
-				array_push($res, array("name" => (string)$list->name, "isDirectory" => true, "path" => str_replace('//', '/', $path . "/" . $list->name  . '/')));
+			else
+			{
+				array_push($res, array(
+								'name' => (string)$list->name,
+								'isDirectory' => true,
+								'path' => str_replace('//', '/', $path . '/' . $list->name  . '/'),
+								'revision' =>  $list->commit['revision'],
+								'author' => $list->commit->author,
+								'date' => $list->commit->date
+								)
+							) ;
 			}
 		}
-		$sortfunc = create_function('$a,$b', 'return (strcasecmp($a["name"], $b["name"]));');
+		$sortfunc = create_function('$a, $b', 'return (strcasecmp($a["name"], $b["name"]));');
 		usort($res, $sortfunc);
 		return $res;
 	}

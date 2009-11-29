@@ -1,6 +1,6 @@
 /* @override 
-	http://localhost/usvn-new/medias/usvn/stylesheets/new.css
-	http://localhost/usvn-hook/css
+    http://localhost/usvn-new/medias/usvn/stylesheets/new.css
+    http://localhost/usvn-hook/css
 */
 
 /*
@@ -15,42 +15,42 @@
 
 * {
   padding: 0px;
-	margin: 0px;
+    margin: 0px;
 }
 
 html {
-	background: #ffffff;
-	height: 100%;
-	margin-bottom: 0px;
+    background: #ffffff;
+    height: 100%;
+    margin-bottom: 0px;
 }
 
 body {
-	color: #000000;
-	font: 100% "Lucida Grande", Lucida, Verdana, sans-serif;
+    color: #000000;
+    font: 100% "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 
 fieldset {
-	border: 1px dotted #CCCCCC;
+    border: 1px dotted #CCCCCC;
 }
 
 li, p {
-	font-size: 14px;
-	list-style-type: none;
-	text-align: middle;
+    font-size: 14px;
+    list-style-type: none;
+    text-align: middle;
 }
 
 img {
-	border: none;
+    border: none;
 }
  
 a {
-	color: #100076;
-	text-decoration: none;
+    color: #100076;
+    text-decoration: none;
 }
 
 a:hover {
-	color: #0D62B9;
-	text-decoration: none;
+    color: #0D62B9;
+    text-decoration: none;
 }
 
 ol {
@@ -58,172 +58,172 @@ ol {
 }
 
 h3 {
-	color: #2ABBF5;
-	margin-bottom: 5px;
-	padding-top: 15px;
+    color: #2ABBF5;
+    margin-bottom: 5px;
+    padding-top: 15px;
 }
 
 #profile input {
-	line-height: 15px;
-	margin: 2px 0 8px 0;
+    line-height: 15px;
+    margin: 2px 0 8px 0;
 }
 
 label {
-	text-align: left;
-	font-weight: bold;
-	line-height: 20px;
+    text-align: left;
+    font-weight: bold;
+    line-height: 20px;
 }
 
 .error {
-	color: red;
+    color: red;
 }
 
 .warning {
-	color: orange;
+    color: orange;
 }
 
 div.error {
-	margin-right: 5px;
-	background-color: #F88;
-	color: black;
+    margin-right: 5px;
+    background-color: #F88;
+    color: black;
 }
 
 div.warning {
-	background-color: orange;
+    background-color: orange;
 }
 
 div.success {
-	text-align: center;
-	color: green;
-	font-weight: bold;
-	padding: 10px;
-	margin: 2px auto;
+    text-align: center;
+    color: green;
+    font-weight: bold;
+    padding: 10px;
+    margin: 2px auto;
 }
 
 div.error, div.warning {
-	color: black;
-	font-weight: bold;
-	text-align: center;
-	padding: 10px;
-	margin: 2px auto;
-	border: 2px solid #444;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    margin: 2px auto;
+    border: 2px solid #444;
 }
 
 /* @end */
 
 /* @group Header */
 #header {
-	background: #172933 url('<?php echo $this->images_directory ?>/header_bg2.png') repeat-x;
-	min-height: 124px;
+    background: #172933 url('<?php echo $this->images_directory ?>/header_bg2.png') repeat-x;
+    min-height: 124px;
 }
  
 #header #shaddow {
-	min-height: 124px;
-	min-width: 950px;
-	margin-left: auto;
-	margin-right: auto;
-	background: transparent url('<?php echo $this->images_directory ?>/header_back.png') no-repeat 0px 0px;  
+    min-height: 124px;
+    min-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    background: transparent url('<?php echo $this->images_directory ?>/header_back.png') no-repeat 0px 0px;  
 }
  
 #header #shaddow #header-wrapper {
-	width: 1000px;
-	margin-left: auto;
-	margin-right: auto;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
  
 #header #shaddow #header-wrapper #logo {
-	width: 320px;
-	height: 124px;
-	float: left;
-/*	background: transparent url('<?php echo $this->images_directory ?>/logo_trans.png') no-repeat 0px 0px;*/
+    width: 320px;
+    height: 124px;
+    float: left;
+/*    background: transparent url('<?php echo $this->images_directory ?>/logo_trans.png') no-repeat 0px 0px;*/
 }
  
 #header #shaddow #header-wrapper #main-menu {
-	height: 124px;
-	width: 530px;
-	float: left;
-	text-align: center;
-	vertical-align: bottom;
+    height: 124px;
+    width: 530px;
+    float: left;
+    text-align: center;
+    vertical-align: bottom;
 }
  
 #header #shaddow #header-wrapper #main-menu ul {
-	display: inline;
-	float: right;
-	margin-top: 92px;
+    display: inline;
+    float: right;
+    margin-top: 92px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li {
-	display: inline;
-	position: relative;
-	margin-top: 92px;
+    display: inline;
+    position: relative;
+    margin-top: 92px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a {
-	height: 32px;
-	float: left;
-	text-decoration: none;
+    height: 32px;
+    float: left;
+    text-decoration: none;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a span {
-	float: left;
-	margin-top: 0px;
-	padding: 1px 10px 10px 10px;
-	color: #ffffff;
+    float: left;
+    margin-top: 0px;
+    padding: 1px 10px 10px 10px;
+    color: #ffffff;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a:hover {
-	background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
+    background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a:hover span {
-	color: #ffffff;
+    color: #ffffff;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a#selected {
-	background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
+    background: transparent url('<?php echo $this->images_directory ?>/up_arrow.png') repeat-x center -50px;
 }
  
 #header #shaddow #header-wrapper #main-menu ul li a#selected span {
-	font-weight: bold;
-	color: #2ABBF5;
+    font-weight: bold;
+    color: #2ABBF5;
 }
 
 /* @end */
 
 /* @group Container */
 #container {
-/*	background: url('<?php echo $this->images_directory ?>/container_bg.png') repeat-x; */
-	min-height: 340px;
+/*    background: url('<?php echo $this->images_directory ?>/container_bg.png') repeat-x; */
+    min-height: 340px;
 }
  
 #container #container-wrapper {
-	width: 998px;
-	margin-left: auto;
-	margin-right: auto;
+    width: 998px;
+    margin-left: auto;
+    margin-right: auto;
 }
  
 #container #container-wrapper #sub-menu {
-	background-color: #E4F2FD;
+    background-color: #E4F2FD;
 }
  
 #container #container-wrapper #main {
-	border: 1px dotted #d6d6d6;
-	border-top: none;
-	padding: 5px;
-	font-size: 13px;
-	font-family: 'Verdana', 'Helvetica';
-	margin-left: 145px;
-	margin-right: 145px;
+    border: 1px dotted #d6d6d6;
+    border-top: none;
+    padding: 5px;
+    font-size: 13px;
+    font-family: 'Verdana', 'Helvetica';
+    margin-left: 145px;
+    margin-right: 145px;
 }
  
 #container #container-wrapper #hspacer {
 }
  
 #container #container-wrapper #footer {
-	display: none;
-	height: 50px;
-	background-color: #d3d9c6;
-	padding: 1px;
+    display: none;
+    height: 50px;
+    background-color: #d3d9c6;
+    padding: 1px;
 }
 
 /* @end */
@@ -231,40 +231,40 @@ div.error, div.warning {
 /* @group Submenu */
 
 div#sub-menu {
-	float: left;
-	margin: 4px 0 0;
-	width: 138px;
-	border: 1px dotted #cccccc;
-	overflow: hidden;
+    float: left;
+    margin: 4px 0 0;
+    width: 138px;
+    border: 1px dotted #cccccc;
+    overflow: hidden;
 }
 
 div#sub-menu ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 2px;
+    list-style-type: none;
+    margin: 0;
+    padding: 2px;
 }
 
 div#sub-menu ul li {
-	padding: 0;
-	width: 100%;
-	margin: 0;
-	font-size: 13px;
+    padding: 0;
+    width: 100%;
+    margin: 0;
+    font-size: 13px;
 }
 
 div#sub-menu ul li * {
-	padding: 3px 3px 4px;
+    padding: 3px 3px 4px;
 }
 
 div#sub-menu ul li h3 {
-	font-size: 15px;
-	color: #ddeefc;
-	background-color: #124361;
-	margin: 0;
-	text-align: center;
+    font-size: 15px;
+    color: #ddeefc;
+    background-color: #124361;
+    margin: 0;
+    text-align: center;
 }
 
 div#sub-menu ul li a {
-	display: block;
+    display: block;
 }
 
 div#sub-menu ul li a:hover {
@@ -277,10 +277,10 @@ div#sub-menu ul li a:hover {
 /* @group Styles spécifiques */
 
 .usvn_require {
-	color: red;
-	float: none;
-	font-weight: bold;
-	margin-left: 3px;
+    color: red;
+    float: none;
+    font-weight: bold;
+    margin-left: 3px;
 }
 
 
@@ -290,55 +290,55 @@ div#sub-menu ul li a:hover {
 /* @group Tableaux */
 
 .even {
-	background-color: white;
+    background-color: white;
 }
 
 .odd {
-	background-color: #e8f4fd;
+    background-color: #e8f4fd;
 }
 
 table.usvn_table, table.sortable {
-	border-collapse: collapse;
-	margin: auto;
-	min-width: 300px;
-	text-decoration: none;
-	width: 90%;
+    border-collapse: collapse;
+    margin: auto;
+    min-width: 300px;
+    text-decoration: none;
+    width: 90%;
 }
 
 table.usvn_table th, table.sortable th {
-	background-color: #124361;
-	border: 1px solid #124361;
-	padding: 3px 4px;
-	color: #E4F2FD;
+    background-color: #124361;
+    border: 1px solid #124361;
+    padding: 3px 4px;
+    color: #E4F2FD;
 }
 
 table.usvn_table td, table.sortable td {
-	border: 1px solid #124361;
-	padding: 3px 4px;
-	vertical-align: top;
+    border: 1px solid #124361;
+    padding: 3px 4px;
+    vertical-align: middle;
 }
 
 table.usvn_table tbody tr:hover, table.sortable tbody tr:hover {
-	background-color: #B5DCEE;
-	border: 1px solid #124361;
-	padding: 3px 4px;
-	vertical-align: top;
+    background-color: #B5DCEE;
+    border: 1px solid #124361;
+    padding: 3px 4px;
+    vertical-align: top;
 }
 
 .align-center {
-	text-align: center;
+    text-align: center;
 }
 
 .align-right {
-	text-align: right;
+    text-align: right;
 }
 
 td.logname {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 td.date {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 td.comment {
@@ -348,17 +348,17 @@ td.comment {
 
 /* @group Page d'accueil */
 #box {
-	background-color: #F6FAFD;
-	border: 1px dotted #CCCCCC;
-	margin: auto;
-	width: 200px;
-	padding: 20px;
-	text-align: center;
-	margin-bottom: 20px;
+    background-color: #F6FAFD;
+    border: 1px dotted #CCCCCC;
+    margin: auto;
+    width: 200px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 #usvn_index_projects ul, #usvn_index_groups ul {
-	padding-left: 20px;
+    padding-left: 20px;
 }
 
 
@@ -368,20 +368,20 @@ td.comment {
 /* @group Profile */
 
 form.usvn_form {
-	padding: 15px;
+    padding: 15px;
 }
 
 #profile {
-	background-color: #F2F8FD;
-	border: 1px dotted #CCCCCC;
-	margin: auto;
-	width: 300px;
-	padding: 20px;
-	margin: 20px auto 20px auto;
+    background-color: #F2F8FD;
+    border: 1px dotted #CCCCCC;
+    margin: auto;
+    width: 300px;
+    padding: 20px;
+    margin: 20px auto 20px auto;
 }
 
 #profile input, #profile textarea {
-	width: 260px;
+    width: 260px;
 }
 
 /* @end */
@@ -391,96 +391,96 @@ form.usvn_form {
 /* @group Admin::Home */
 
 .usvn_update {
-	background-color: #ffeb82;
-	text-align: center;
-	padding: 10px 5px;
-	margin: 2px 10px;
-	border: 2px solid #333;
+    background-color: #ffeb82;
+    text-align: center;
+    padding: 10px 5px;
+    margin: 2px 10px;
+    border: 2px solid #333;
 }
 
 .usvn_info {
-	background-color: #E9F5FE;
-	clear: none;
-	margin: auto auto 2em;
-	min-height: 35px;
-	padding: 5px;
-	border: 1px dotted #CCCCCC;
+    background-color: #E9F5FE;
+    clear: none;
+    margin: auto auto 2em;
+    min-height: 35px;
+    padding: 5px;
+    border: 1px dotted #CCCCCC;
 }
 
 .usvn_info p {
-	font-size: 95%;
-	line-height: 130%;
-	margin: 10px 0 12px 10px;
+    font-size: 95%;
+    line-height: 130%;
+    margin: 10px 0 12px 10px;
 }
 
 .usvn_info h1 {
-	clear: none;
-	color: #125675;
-	font-size: 180%;
-	font-weight: bold;
-	margin: 0 0 3px;
+    clear: none;
+    color: #125675;
+    font-size: 180%;
+    font-weight: bold;
+    margin: 0 0 3px;
 }
 
 .usvn_subinfo {
-	background-color: #E9F5FE;
-	clear: none;
-	margin: auto auto 2em;
-	min-height: 20px;
-	padding: 5px;
-	border: 1px dotted #CCCCCC;
+    background-color: #E9F5FE;
+    clear: none;
+    margin: auto auto 2em;
+    min-height: 20px;
+    padding: 5px;
+    border: 1px dotted #CCCCCC;
 }
 
 .usvn_subinfo h2 {
-	clear: none;
-	color: #125675;
-	font-size: 120%;
-	font-weight: bold;
-	margin: 0 0 3px;
-	text-align: center;
+    clear: none;
+    color: #125675;
+    font-size: 120%;
+    font-weight: bold;
+    margin: 0 0 3px;
+    text-align: center;
 }
 
 .usvn_info ul {
-	padding-left: 40px;
+    padding-left: 40px;
 }
 
 
 ul#usvn_admin_section {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 #usvn_admin_section li {
-	display: inline;
-	font-weight: bold;
-	margin: 10px;
-	float: left;
-	width: 22%;
-	text-align: center;
+    display: inline;
+    font-weight: bold;
+    margin: 10px;
+    float: left;
+    width: 22%;
+    text-align: center;
 }
 
 #usvn_admin_section li a {
-	display: block;
-	background-color: #F2F8FD;
-	border-color: #CCCCCC;
-	border-style: dotted;
-	border-width: 1px;
-	padding: 6px;
-	height: 4em;
+    display: block;
+    background-color: #F2F8FD;
+    border-color: #CCCCCC;
+    border-style: dotted;
+    border-width: 1px;
+    padding: 6px;
+    height: 4em;
 }
 
 /* @end */
 
 .usvn_error {
-	margin-bottom: 15px;
-	color: black;
-	font-weight: bold;
-	background-color: #FF9F9F;
-	border : solid 1px #CF0000;
-	background-position: 10px;
-	background-repeat: no-repeat;
-	vertical-align: middle;
-	text-align: center;
-	padding: 15px 0;
-	margin-top: 15px;
+    margin-bottom: 15px;
+    color: black;
+    font-weight: bold;
+    background-color: #FF9F9F;
+    border : solid 1px #CF0000;
+    background-position: 10px;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 15px;
 }
 
 /* @end */
@@ -488,73 +488,74 @@ ul#usvn_admin_section {
 /* @group Index */
 
 .usvn_index_box {
-	clear: both;
+    clear: both;
 }
 
 /* @end */
 
 /* @group Grid */
 ul.grid_list {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 ul.grid_list li {
-	min-width: 100px;
-	padding: 2px;
-	margin: 2px;
-	text-align: center;
-	float: left;
-	list-style-type: none;
+    min-width: 100px;
+    padding: 2px;
+    margin: 2px;
+    text-align: center;
+    float: left;
+    list-style-type: none;
 }
 
 ul.grid_list li a {
-	height: 100px;
-	display: block;
-	color: #0D62B9;
+    height: 100px;
+    display: block;
+    color: #0D62B9;
 }
 
 ul.grid_list li a:hover {
-	color: #1074FE;
-	background-color: #E9F5FE;
+    color: #1074FE;
+    background-color: #E9F5FE;
 }
 
 .grid_img {
-	height: 64px;
+    height: 64px;
 }
 
 #sorttable_sortfwdind img {
-	margin-left: 5px;
+    margin-left: 5px;
 }
 
 #sorttable_sortrevind img {
-	margin-left: 5px;
+    margin-left: 5px;
 }
 /* @end */
 
 #affected select {
-	width: 100%;
+    width: 100%;
 }
 
 #affected-title {
-	font-weight: bold;
-	margin-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 /* @group Commit */
 
 .commit-date {
-	border-bottom: 1px dotted #CCCCCC;
-	font-weight: bold;
-	margin-bottom: 8px;
+    border-bottom: 1px dotted #CCCCCC;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 10px;
 }
 
 .commit-time {
-	color: #888888;
-	margin-right: 5px;
+    color: #888888;
+    margin-right: 5px;
 }
 
 .commit-black {
-	color: #000000;
+    color: #000000;
 }
 
 .commit-author {
@@ -562,12 +563,17 @@ ul.grid_list li a:hover {
 }
 
 .usvn_info p.commit-message {
-	color: #333333;
-	margin-left: 43px;
+    color: #333333;
+    border-left: 2px dotted #ffb909;
+    border-bottom: 2px dotted #ffb909;
+    background: #f2ffe6;
+    margin:5px 5px 5px 20px;
+    padding:2px 5px;
+<!-- #FFFF00 #FFFFED -->
 }
 
 .commit a:hover {
-	background: #9ECFF1;
+    background: #9ECFF1;
 }
 
 /* @end */

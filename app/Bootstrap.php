@@ -114,6 +114,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         /* USVN Configuration */
         date_default_timezone_set($config->timezone);
 
+        $locale = new Zend_Locale($config->translation->locale);
+        Zend_Registry::set('Zend_Locale', $locale);
+
         USVN_ConsoleUtils::setLocale($config->system->locale);
         USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIR);
         USVN_Template::initTemplate($config->template->name, USVN_MEDIAS_DIR);

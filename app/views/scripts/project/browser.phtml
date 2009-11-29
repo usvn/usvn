@@ -6,12 +6,12 @@ var items_nbgroup;
 function getUrlForAction(action)
 {
 	return <?= '"'
-. $this->url(array('controller' => 'browserajax',
-//				   'project' => $this->project->name,
-				   'action' => '"+action+"'),
-			 'default', true, false)
-. '?project=' . addslashes($this->project->name)
-. '&"' ?>;
+	. $this->url(array('controller' => 'browserajax',
+	//		'project' => $this->project->name,
+			'action' => '"+action+"'),
+			'default', true, false)
+	. '?project=' . addslashes($this->project->name)
+	. '&"' ?>;
 
 }
 
@@ -51,7 +51,9 @@ function get_groupe_text()
 	for (i = 0; i < items_nbgroup; i++)
 	{
 		var grp = document.getElementById('Lb' + i).innerHTML;
-		text += document.getElementById('checkRead' + grp).checked + "," + document.getElementById('checkWrite' + grp).checked + "," + document.getElementById('recursive' + grp).checked + ",";
+		text += document.getElementById('checkRead' + grp).checked + "," +
+		document.getElementById('checkWrite' + grp).checked + "," +
+		document.getElementById('recursive' + grp).checked + ",";
 	}
 	return text;
 }
@@ -130,7 +132,7 @@ function alert_ajax(xhr, index)
 			document.getElementById('bulle').style.visibility = 'visible';
 			document.getElementById('bulle').innerHTML = bulle;
 			document.getElementById('bulle').style.left = (mouse_x + 10) + "px";
-  		document.getElementById('bulle').style.top = (mouse_y + 10) + "px";
+			document.getElementById('bulle').style.top = (mouse_y + 10) + "px";
 		}
 		if (index == 2)
 		{
@@ -142,25 +144,100 @@ function alert_ajax(xhr, index)
 		}
 		if (index == 3)
 		{
-      var txthtml2 = document.getElementById('txthtml2');
-      var txthtml = docXML.getElementsByTagName("txthtml").item(0);
-      txthtml2.innerHTML = txthtml.firstChild.data;
+			var txthtml2 = document.getElementById('txthtml2');
+			var txthtml = docXML.getElementsByTagName("txthtml").item(0);
+			txthtml2.innerHTML = txthtml.firstChild.data;
 		}
 	}
 }
 -->
 </script>
+
 <div class="usvn_info">
-<h1><?php echo T_("Files list"); ?></h1>
+<h1><?= T_("Files list") ?></h1>
 </div>
+
+<div class="usvn_info" style="vertical-align: middle;">
+	<?= $this->path . '<br />' ?>
+	<br />
+	<table class="usvn_table">
+		<tr>
+			<th><?= T_('Name') ?></th>
+			<th><?= T_('Revision') ?></th>
+			<th><?= T_('Author') ?></th>
+			<th><?= T_('Date') ?></th>
+			<th><?= T_('Action') ?></th>
+		</tr>
+	
+		<? if ($this->path != ''): ?>
+		<tr>
+			<td colspan="5">
+				<a href="<?= $this->url(array('controller' => $this->controller,
+					'project' => $this->project->name,
+					'action' => $this->action,
+					'path' => dirname($this->path)
+					),
+					'browser', true, false) ?>">
+					<span style="display: block;">..</span>
+				</a>
+			</td>
+		</tr>
+		<? endif ?>
+
+		<? foreach ($this->files as $file): ?>
+		<tr>
+			<? if ($file['isDirectory'] === False): ?>
+				<td>
+					<a href="<?= $this->url(array('controller' => $this->controller,
+						'area' => 'project',
+						'project' => $this->project->name,
+						'action' => $this->action,
+						'file' => $file['path']
+						),
+						'show', true, false) ?>" style="display: block;">
+						<?= $this->img('file.png', T_('Folder')) . ' ' . $file['name'] ?>
+						<span style="color: #444444">(<?= $this->fileSize($file['size'], 0, 'si') ?>)</span>
+					</a>
+				</td>
+			<? else: ?>
+				<td>
+					<a href="<?= $this->url(array('controller' => $this->controller,
+						'project' => $this->project->name,
+						'action' => $this->action,
+						'path' => $file['path']
+						),
+						'browser', true, false) ?>" style="display: block;">
+						<?= $this->img('folder.png', T_('Folder')) . ' ' . $file['name'] ?>
+					</a>
+				</td>
+			<? endif ?>
+
+			<td class="align-center">
+				<a href="<?= $this->url(array('controller' => $this->controller,
+					'project' => $this->project->name,
+					'action' => 'commit',
+					'commit' => $file['revision']
+					),
+					'commit', true, false) ?>" style="display: block;">
+					<?= $file['revision'] ?>
+				</a>
+			</td>
+			<td class="align-center"><?= array_key_exists('author', $file) ? $file['author'] : '' ?></td>
+			<?php $date = new Zend_Date($file['date']); ?>
+			<td class="align-center"><?= $date->toString(Zend_Date::DATETIME_SHORT) ?></td>
+			<td class="align-center"><?= $this->img('lock.png', T_('Rights')) ?></td>
+		</tr>
+		<? endforeach ?>
+	</table>
+</div>
+<!--
 <div class="usvn_info">
   <div id="txthtml2">
   </div>
 </div>
 <div id="bulle" class="bubblerights" align="center"></div>
 <script type="text/javascript">
-<!--
 register_position();
 getListFile('<?php echo $this->back ?>');
--->
 </script>
+-->

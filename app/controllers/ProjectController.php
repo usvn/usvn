@@ -25,111 +25,107 @@ class ProjectController extends USVN_Controller
 	*
 	* @var USVN_Db_Table_Row_Project
 	*/
-protected $_project;
+	protected $_project;
 
-/**
-* Pre-dispatch routines
-*
-* Called before action method. If using class with
-* {@link Zend_Controller_Front}, it may modify the
-* {@link $_request Request object} and reset its dispatched flag in order
-* to skip processing the current action.
-*
-* @return void
-*/
-public function preDispatch()
-{
-	parent::preDispatch();
+	/**
+	* Pre-dispatch routines
+	*
+	* Called before action method. If using class with
+	* {@link Zend_Controller_Front}, it may modify the
+	* {@link $_request Request object} and reset its dispatched flag in order
+	* to skip processing the current action.
+	*
+	* @return void
+	*/
+	public function preDispatch()
+	{
+		parent::preDispatch();
+		$project = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('project'));
+		$table = new USVN_Db_Table_Projects();
+		$project = $table->fetchRow(array("projects_name = ?" => $project));
+		/* @var $project USVN_Db_Table_Row_Project */
+		if ($project === null)
+			$this->_redirect("/");
+		$this->_project = $project;
+	
+		$this->view->isAdmin = $this->isAdmin();
 
-	$project = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('project'));
-	$table = new USVN_Db_Table_Projects();
-	$project = $table->fetchRow(array("projects_name = ?" => $project));
-	/* @var $project USVN_Db_Table_Row_Project */
-	if ($project === null) {
-		$this->_redirect("/");
-	}
-	$this->_project = $project;
-
-	$this->view->isAdmin = $this->isAdmin();
-
-	$user = $this->getRequest()->getParam('user');
-	$this->view->user = $user;
-	$this->view->secret_id = $user->secret_id;
-	/* @var $user USVN_Db_Table_Row_User */
-	$groups = $user->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_UsersToGroups");
-	$find = false;
-	foreach ($groups as $group) {
-		if ($project->groupIsMember($group)) {
-			$find = true;
-			break;
-		}
-	}
-	if (!$find && !$this->isAdmin()) {
-		$this->_redirect("/");
-	}
-	if (strlen($project->name) > 12) {
-		$shortName = substr($project->name, 0, 12) . '..';
-	} else {
-		$shortName = $project->name;
-	}
-	$this->view->submenu = array(
-		array('label' => $shortName),
-		array('label' => 'Index',    'url' => array('action' => '', 'project' => $project->name), 'route' => 'project'),
-		array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
-		array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project'),
-		array('label' => 'Roadmap',  'url' => array('action' => 'tickets', 'project' => $project->name), 'route' => 'project')
-		);
-}
-
-protected function isAdmin()
-{
-	if (!isset($this->view->isAdmin)) {
 		$user = $this->getRequest()->getParam('user');
-		$this->view->isAdmin = $this->_project->userIsAdmin($user) || $user->is_admin;
+		$this->view->user = $user;
+		$this->view->secret_id = $user->secret_id;
+		/* @var $user USVN_Db_Table_Row_User */
+		$groups = $user->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_UsersToGroups");
+		$find = false;
+		foreach ($groups as $group)
+		{
+			if ($project->groupIsMember($group))
+			{
+				$find = true;
+				break;
+			}
+		}
+		if (!$find && !$this->isAdmin())
+			$this->_redirect("/");
+		if (strlen($project->name) > 12)
+			$shortName = substr($project->name, 0, 12) . '..';
+		else
+			$shortName = $project->name;
+		$this->view->submenu = array(
+			array('label' => $shortName),
+			array('label' => 'Index',    'url' => array('action' => '', 'project' => $project->name), 'route' => 'project'),
+			array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
+			array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project'),
+			array('label' => 'Roadmap',  'url' => array('action' => 'tickets', 'project' => $project->name), 'route' => 'project')
+			);
 	}
-	return $this->view->isAdmin;
-}
 
-protected function requireAdmin()
-{
-	if (!$this->isAdmin()) {
-		$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
+	protected function isAdmin()
+	{
+		if (!isset($this->view->isAdmin))
+		{
+			$user = $this->getRequest()->getParam('user');
+			$this->view->isAdmin = $this->_project->userIsAdmin($user) || $user->is_admin;
+		}
+		return $this->view->isAdmin;
 	}
-}
 
-public function indexAction()
-{
-	$this->view->project = $this->_project;
-	$SVN = new USVN_SVN($this->_project->name);
-	$config = Zend_Registry::get('config');
-	$this->view->subversion_url = $config->subversion->url . $this->_project->name;
-	foreach ($SVN->listFile('/') as $dir) {
-		if ($dir['name'] == 'trunk')
-			$this->view->subversion_url .= '/trunk';
+	protected function requireAdmin()
+	{
+		if (!$this->isAdmin())
+			$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
 	}
-	$this->view->log = $SVN->log(5);
-}
 
+	public function indexAction()
+	{
+		$this->view->project = $this->_project;
+		$SVN = new USVN_SVN($this->_project->name);
+		$config = Zend_Registry::get('config');
+		$this->view->subversion_url = $config->subversion->url . $this->_project->name;
+		foreach ($SVN->listFile('/') as $dir)
+		{
+			if ($dir['name'] == 'trunk')
+				$this->view->subversion_url .= '/trunk';
+		}
+		$this->view->log = $SVN->log(5);
+	}
 
-public function browserAction()
-{
-	$this->view->project = $this->_project;
-	$this->view->back = $this->getRequest()->getParam('back');
-	if (!preg_match('#/.*/#', $this->view->back)) {
+	public function browserAction()
+	{
+		$this->view->project = $this->_project;
+		$this->view->back = $this->getRequest()->getParam('back');
+		if (!preg_match('#/.*/#', $this->view->back))
 		$this->view->back = 'nop';
+		$project = $this->getRequest()->getParam('project');
+		$path = $this->getRequest()->getParam('path');
+		if ($path[0] == '/')
+			$path = substr($path, 1);
+		$this->view->path = $path;
+		$SVN = new USVN_SVN($project);
+		$this->view->files = $SVN->listFile($path);
 	}
-}
 
-public function timelineAction()
-{
-	//		$project = $this->getRequest()->getParam('project');
-	//		$table = new USVN_Db_Table_Projects();
-	//		$project = $table->fetchRow(array("projects_name = ?" => $project));
-	//		/* @var $project USVN_Db_Table_Row_Project */
-	//		if ($project === null) {
-		//			$this->_redirect("/");
-		//		}
-		//		$this->_project = $project;
+	public function timelineAction()
+	{
 		$project = $this->_project;
 
 		//get the identity of the user
@@ -138,22 +134,10 @@ public function timelineAction()
 		$user_table = new USVN_Db_Table_Users();
 		$user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 
-		//		$table = new USVN_Db_Table_Projects();
-		//		$this->view->project = $table->fetchRow(array('projects_name = ?' => $project->name));
-
 		$table = new USVN_Db_Table_UsersToProjects();
 		$userToProject = $table->fetchRow(array(
 			'users_id = ?' => $user->users_id,
 			'projects_id = ?' => $project->projects_id));
-
-		if ($userToProject == null)
-		{
-			//search project
-			//			$this->view->project = $project;
-			//			$this->view->user = $user;
-			//			$this->render('accesdenied');
-			//			return;
-		}
 
 		$this->view->project = $project;
 		$SVN = new USVN_SVN($this->_project->name);
@@ -352,9 +336,7 @@ public function timelineAction()
 							else
 							{
 								if ($diff_char == '+')
-								{
 									$diff_lines[$count_line] = '+';
-								}
 								array_push($new_source, array_shift($source));
 								$source_line++;
 							}
@@ -384,11 +366,11 @@ public function timelineAction()
 		}
 	}
 
-/**
-* Display a file using appropriate highlighting
-*
-* @return void
-*/
+	/**
+	* Display a file using appropriate highlighting
+	*
+	* @return void
+	*/
 	public function commitAction()
 	{
 		include_once('geshi/geshi.php');
@@ -400,10 +382,12 @@ public function timelineAction()
 		$base = $commit - 1;
 		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --revision {$commit} $local_project_path");
 		$log = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-		if (!$return) {
+		if (!$return)
+		{
 			$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision ".($commit - 1).":{$commit} $local_project_path");
 			$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-			if (!$return) {
+			if (!$return)
+			{
 				$diff = explode("\n", $diff);
 				array_pop($diff); // Skip the final "\n"
 				$file = NULL;
@@ -411,13 +395,18 @@ public function timelineAction()
 				$indiff = FALSE;
 				$tab_diff = array();
 				$tab_index = NULL;
-				foreach ($diff as $line) {
-					if (strpos($line, 'Index: ') === 0) {
+				foreach ($diff as $line)
+				{
+					if (strpos($line, 'Index: ') === 0)
+					{
 						$file = substr($line, 7);
 						$tab_diff[$file] = array();
 						$indiff = FALSE;
-					} elseif (!$indiff) {
-						if (preg_match('#^@@ \-([0-9]+)(,([0-9]+))? \+([0-9]+)(,([0-9]+))? @@$#', $line, $tmp)) {
+					}
+					elseif (!$indiff)
+					{
+						if (preg_match('#^@@ \-([0-9]+)(,([0-9]+))? \+([0-9]+)(,([0-9]+))? @@$#', $line, $tmp))
+						{
 							$tab_index = count($tab_diff[$file]);
 							$tab_diff[$file][$tab_index] = array(
 								$base => array('begin' => $tmp[1], 'end' => (empty($tmp[3]) ? $tmp[1] : $tmp[3]), 'content' => array()),
@@ -427,55 +416,68 @@ public function timelineAction()
 							$count = 0;
 							$indiff = TRUE;
 						}
-					} else {
+					}
+					else
+					{
 						$diff_char = substr($line, 0, 1);
-						if ($diff_char == '\\') {
+						if ($diff_char == '\\')
+						{
 							continue;
 						}
 						$line = htmlentities(substr($line, 1));
-						if ($diff_char == '-') {
+						if ($diff_char == '-')
+						{
 							$tab_diff[$file][$tab_index][$base]['content'][$count++] = $line;
-							} elseif ($diff_char == '+') {
-								$tab_diff[$file][$tab_index][$commit]['content'][$count++] = $line;
-							} else {
-								$tab_diff[$file][$tab_index]['common'][$count++] = $line;
-							}
+						}
+						elseif ($diff_char == '+')
+						{
+							$tab_diff[$file][$tab_index][$commit]['content'][$count++] = $line;
+						}
+						else
+						{
+							$tab_diff[$file][$tab_index]['common'][$count++] = $line;
 						}
 					}
-					$this->view->diff = $tab_diff;
-					$this->view->commit = $commit;
-					$this->view->base = $base;
-					unset($tab_diff);
-					$log = explode("\n", $log);
-					if (preg_match('#^r[0-9]* \| (.*) \| ([0-9-]+ [0-9:]+) [^\|]* \| ([0-9]*)[^\|]*$#', $log[1], $tmp)) {
-						$this->view->author = $tmp[1];
-						$this->view->date = $tmp[2];
-						$this->view->log = NULL;
-						for ($i = 0; $i < $tmp[3]; ++$i) {
-							$this->view->log .= ($this->view->log != NULL ? "\n" : '').$log[3 + $i];
-						}
-					}
-				} else {
-					throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 				}
-			} else {
+				$this->view->diff = $tab_diff;
+				$this->view->commit = $commit;
+				$this->view->base = $base;
+				unset($tab_diff);
+				$log = explode("\n", $log);
+				if (preg_match('#^r[0-9]* \| (.*) \| ([0-9-]+ [0-9:]+) [^\|]* \| ([0-9]*)[^\|]*$#', $log[1], $tmp))
+				{
+					$this->view->author = $tmp[1];
+					$this->view->date = $tmp[2];
+					$this->view->log = NULL;
+					for ($i = 0; $i < $tmp[3]; ++$i)
+					{
+						$this->view->log .= ($this->view->log != NULL ? "\n" : '').$log[3 + $i];
+					}
+				}
+			}
+			else
+			{
 				throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 			}
 		}
+		else
+		{
+			throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
+		}
+	}
 
 	public function lasthundredrequestAction()
 	{
 		$project = $this->getRequest()->getParam('project');
 		$table = new USVN_Db_Table_Projects();
 		$project = $table->fetchRow(array("projects_name = ?" => $project));
-		/* @var $project USVN_Db_Table_Row_Project */
-		if ($project === null) {
+		if ($project === null)
 			$this->_redirect("/");
-		}		
 		$this->_project = $project;
 		$this->view->project = $this->_project;
 		$SVN = new USVN_SVN($this->_project->name);
-		try {
+		try
+		{
 			$number_start = $project = $this->getRequest()->getParam('number_start');
 			$number_end = $project = $this->getRequest()->getParam('number_end');
 			$this->view->number_start = $number_start;
@@ -488,7 +490,8 @@ public function timelineAction()
 			$this->view->log = $SVN->log(100, $number_start, $number_end);
 			$this->render("timeline");
 		}
-		catch(USVN_Exception $e) {
+		catch(USVN_Exception $e)
+		{
 			$this->view->message = "No such revision found";
 			$this->view->log = $SVN->log(100);
 			$this->render("timeline");
@@ -538,8 +541,9 @@ public function timelineAction()
 
 	protected function convertDate($number)
 	{
-		if (strstr($number, '/') != FALSE) {
-			$split = explode('/', $number); 
+		if (strstr($number, '/') != FALSE)
+		{
+			$split = explode('/', $number);
 			$jour = $split[0];
 			$mois = $split[1];
 			$annee = $split[2];

@@ -1,96 +1,108 @@
 <?php echo $this->completion(1, $this->project->name); ?>
 <div class="usvn_info">
-	<h1><?php echo $this->project->name;?></h1>
-	<p><?php echo $this->project->description;?><br /><br />
+    <h1><?php echo $this->project->name;?></h1>
+    <p><?php echo $this->project->description;?><br /><br />
 <?php echo sprintf(T_("Checkout URL : %s"), '<a href="' . $this->subversion_url . '">' . $this->subversion_url . '</a>');?>
 </p>
 </div>
 <div class="usvn_info">
-	<?php if ($this->isAdmin) : ?>
-		<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "adduser")); ?>" method="post">
-			<div>
-				<table>
-					<tr>
-						<td>
-							<?php echo $this->formText("users_login", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion', 'users_login')", "onfocus" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "onblur" => "setTimeout('document.getElementById(\\'completion\\').style.visibility=\\'hidden\\';', 200)")); ?>
-						</td>
-						<td>
-							<?php echo $this->formSubmit("adduser", T_("Add")); ?>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div id="completion" class="_list_autocomplete_ajax" style="visibility:hidden"></div>
-						</td>
-						<td>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</form>
-	<?php endif; ?>
+    <?php if ($this->isAdmin) : ?>
+        <form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "adduser")); ?>" method="post">
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <?php echo $this->formText("users_login", null, array("onkeyup" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion', 'users_login')", "onfocus" => "javascript:ajax_completion(1, 'completion', 'users_login', event)", "onblur" => "setTimeout('document.getElementById(\\'completion\\').style.visibility=\\'hidden\\';', 200)")); ?>
+                        </td>
+                        <td>
+                            <?php echo $this->formSubmit("adduser", T_("Add")); ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="completion" class="_list_autocomplete_ajax" style="visibility:hidden"></div>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    <?php endif; ?>
 
-	<h1><?php echo T_("Admins users");?></h1>
-	<ul>
-		<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToProjects") as $user) :?>
-			<li>
-				<?php if ($this->isAdmin) : ?>
-					<?php echo $this->urlConfirm(array("action" => "deleteuser", "users_id" => $user->id), $this->img("delete.png", T_("Delete")),
-					sprintf(T_("Do you really want to remove user %s as admin of project %s?"), $user->login, $this->project->name));
-					?>
-				<?php endif; ?>
-				<?php echo $user->login; ?>
-			</li>
-		<?php endforeach; ?>
-	</ul>
+    <h1><?php echo T_("Admins users");?></h1>
+    <ul>
+        <?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Users", "USVN_Db_Table_UsersToProjects") as $user) :?>
+            <li>
+                <?php if ($this->isAdmin) : ?>
+                    <?php echo $this->urlConfirm(array("action" => "deleteuser", "users_id" => $user->id), $this->img("delete.png", T_("Delete")),
+                    sprintf(T_("Do you really want to remove user %s as admin of project %s?"), $user->login, $this->project->name));
+                    ?>
+                <?php endif; ?>
+                <?php echo $user->login; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </div>
 <div class="usvn_info">
-	<?php if ($this->isAdmin) : ?>
-		<form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "addgroup")); ?>" method="post">
-			<div>
-				<table>
-					<tr><td>
-						<?php echo $this->formText("groups_name", null, array("onkeyup" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion1', 'groups_name')", "onfocus" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "onblur" => "setTimeout('document.getElementById(\\'completion1\\').style.visibility=\\'hidden\\';', 200)")); ?>
-					</td><td>
-						<?php echo $this->formSubmit("addgroup", T_("Add")); ?>
-					</td></tr>
-					<tr><td><div id="completion1" class="_list_autocomplete_ajax" style="visibility:hidden"></div></td><td></td></tr>
-				</table>
-			</div>
-		</form>
-	<?php endif; ?>
+    <?php if ($this->isAdmin) : ?>
+        <form style="float: right; text-align: right;" action="<?php echo $this->url(array("action" => "addgroup")); ?>" method="post">
+            <div>
+                <table>
+                    <tr><td>
+                        <?php echo $this->formText("groups_name", null, array("onkeyup" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "autocomplete" => "off", "onkeyDown" => "javascript:geretouche(event, 'completion1', 'groups_name')", "onfocus" => "javascript:ajax_completion(2, 'completion1', 'groups_name', event)", "onblur" => "setTimeout('document.getElementById(\\'completion1\\').style.visibility=\\'hidden\\';', 200)")); ?>
+                    </td><td>
+                        <?php echo $this->formSubmit("addgroup", T_("Add")); ?>
+                    </td></tr>
+                    <tr><td><div id="completion1" class="_list_autocomplete_ajax" style="visibility:hidden"></div></td><td></td></tr>
+                </table>
+            </div>
+        </form>
+    <?php endif; ?>
 
-	<h1><?php echo T_("Affected groups");?></h1>
-	<ul>
-		<?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_GroupsToProjects") as $group) :?>
-			<li>
-				<?php if ($this->isAdmin) : ?>
-					<?php echo $this->urlConfirm(array("action" => "deletegroup", "groups_id" => $group->id), $this->img("delete.png", T_("Delete")),
-					sprintf(T_("Do you really want to remove group %s from project %s?"), $group->name, $this->project->name));
-					 ?>
-					<?php endif; ?>
-				<?php if ($group->hasUser($this->user)) : ?>
-					<a href="<?php echo $this->url(array("group" => $group->name), "group"); ?>"><?php echo $group->name; ?></a>
-				<?php else : ?>
-					<?php echo $group->name; ?>
-				<?php endif; ?>
-			</li>
-		<?php endforeach; ?>
-	</ul>
+    <h1><?php echo T_("Affected groups");?></h1>
+    <ul>
+        <?php foreach ($this->project->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_GroupsToProjects") as $group) :?>
+            <li>
+                <?php if ($this->isAdmin) : ?>
+                    <?php echo $this->urlConfirm(array("action" => "deletegroup", "groups_id" => $group->id), $this->img("delete.png", T_("Delete")),
+                    sprintf(T_("Do you really want to remove group %s from project %s?"), $group->name, $this->project->name));
+                     ?>
+                    <?php endif; ?>
+                <?php if ($group->hasUser($this->user)) : ?>
+                    <a href="<?php echo $this->url(array("group" => $group->name), "group"); ?>"><?php echo $group->name; ?></a>
+                <?php else : ?>
+                    <?php echo $group->name; ?>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </div>
 <div class="usvn_info">
-	<h1><?php echo T_("Last five commits"); ?></h1>
-	<br>
-	<?php $date = NULL; ?>
-	<? foreach (array_keys($this->log) as $revision): ?>
-		<?php $commit = $this->log[$revision];
-			if ($date == NULL or strcmp($date, date('Y-m-d',  $commit['date'])) != 0)
-			{
-				$date = date('Y-m-d',  $commit['date']);
-				echo '<div class="commit-date">' . $date . ':</div>';
-			}
-			echo '<span class="commit"><a href="' . $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') . '"><span class="commit-time">' . date('H:i',  $commit['date']) . '</span><span class="commit-black">Changeset</span> [' . $revision . '] <span class="commit-black">by</span> <span class="commit-author">' . $commit['author'] . '</span></a></span>';
-			echo '<p class="commit-message">' . USVN_SVNLog::formatComment($commit['msg']) . '</p>';
-		?>
-	<? endforeach ?>
+    <h1><?php echo T_("Last five commits"); ?></h1>
+    <?php $date = NULL; ?>
+    <? foreach (array_keys($this->log) as $revision): ?>
+        <?php $commit = $this->log[$revision];
+            if ($date == NULL or strcmp($date, date('Y-m-d',  $commit['date'])) != 0)
+            {
+                $date = date('Y-m-d',  $commit['date']);
+                $zdate = new Zend_Date($commit['date']);
+                $zdate = $zdate->toString(Zend_Date::DATES);
+                echo '<div class="commit-date">' . $zdate . ':</div>';
+            }
+            $zdate = new Zend_Date($commit['date']);
+            echo '<span class="commit"><a href="' .
+                    $this->url(array(
+                        'project' => $this->project->name,
+                        'action' => 'commit',
+                        'commit' => $revision),
+                        'commit'
+                        ) . '"><span class="commit-time">' .
+                    //date('H:i',  $commit['date']) .
+                    $zdate->toString(Zend_Date::TIME_SHORT) . 
+                    '</span><span class="commit-black">Changeset</span> [' . $revision . '] <span class="commit-black">by</span> <span class="commit-author">' .
+                    $commit['author'] . '</span></a></span>';
+            echo '<p class="commit-message">' . USVN_SVNLog::formatComment($commit['msg']) . '</p>';
+        ?>
+    <? endforeach ?>
 </div>

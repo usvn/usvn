@@ -196,14 +196,15 @@ class ProjectController extends USVN_Controller
 	*/
 	public function showAction()
 	{
+
+		$svn_file_path = $this->getRequest()->getParam('file');
+		$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
 		include_once('geshi/geshi.php');
 		$this->view->project = $this->_project;
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$project_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR,$this->_project->name);
-		$svn_file_path = $this->getRequest()->getParam('file');
 		$this->view->path = $svn_file_path;
 		$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$svn_file_path);
-		$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
 		$revision = $this->getRequest()->getParam('rev');
 		$file_rev = '';
 		if (!empty($revision))
@@ -282,6 +283,11 @@ class ProjectController extends USVN_Controller
 			}
 			$geshi = new Geshi();
 			$lang_name = $geshi->get_language_name_from_extension($file_ext);
+			if ($geshi->error())
+			{
+				$this->view->message = T_('The file type is known.');
+				return ;
+			}
 			$this->view->language = $lang_name;
 			$geshi->set_language(($this->view->color_view ? $lang_name : NULL), true);
 			$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
@@ -355,6 +361,11 @@ class ProjectController extends USVN_Controller
 			$geshi->set_source($source);
 			$geshi->set_header_type(GESHI_HEADER_DIV);
 			$this->view->highlighted_source = $geshi->parse_code();
+			if ($geshi->error())
+			{
+				$this->view->highlighted_source = T_('Unkown file type, can\'t display');
+				return ;
+			}
 			if ($this->view->diff_view)
 			{
 				if (preg_match('#^<div ([^>]*)><ol>(.*)</ol></div>(\s*)$#s', $this->view->highlighted_source, $tmp))

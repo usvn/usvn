@@ -27,9 +27,8 @@ class GroupadminController extends AdminadminController
 		if (!isset($data["groups_name"]) || !isset($data["groups_description"])) {
 			return array();
 		}
-
 		$group = array();
-		$group["groups_name"] = $data["groups_name"];
+		$group["groups_name"] = $data['prefix'].$data["groups_name"];
 		$group["groups_description"] = $data["groups_description"];
 		return $group;
 	}
@@ -37,15 +36,19 @@ class GroupadminController extends AdminadminController
 	public function indexAction()
 	{
 		$table = new USVN_Db_Table_Groups();
+		$tablep = new USVN_Db_Table_Projects();
 		if ($this->_request->getParam('folder') != null) {
 			$folder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
 			$i = strripos(substr($folder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
-			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i + 1));
+			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i));
 		} else {
 			$folder = '';
 		}
-		$this->view->prefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $folder);
-		$this->view->groups = $this->displayDirectories($table->fetchAll("groups_name LIKE '{$folder}%'", "groups_name"), $folder);
+		$this->view->prev = $this->modifName($this->view->prev, -1);
+		$this->view->prefix = $this->modifName($folder ? $folder.USVN_DIRECTORY_SEPARATOR : '', -1);
+		$groups = $table->fetchAll("groups_name LIKE '{$folder}%'", "groups_name");
+		$projects = $tablep->fetchAll("projects_name LIKE '{$folder}%'", "projects_name");
+		$this->view->groups = $this->displayDirectories($groups, $projects, $folder);
 	}
 
 	public function newAction()
@@ -143,24 +146,35 @@ class GroupadminController extends AdminadminController
 		$this->_redirect("/admin/group/");
 	}
 	
-	private function displayDirectories($prtgrps, $folder)
+	private function displayDirectories($groups, $projects, $folder)
 	{
-		$tmp_projects = array();
 		$tmp_folders = array();
-		foreach ($prtgrps as $prtgrp) {
-			$tmp_project = substr($prtgrp->name, strlen($folder));
-			if (strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
-				$tmp_projects[$tmp_project] = $prtgrp->description;
-			} elseif (preg_match('#^([^'.USVN_DIRECTORY_SEPARATOR.']+['.USVN_DIRECTORY_SEPARATOR.']).*#', $tmp_project, $tmp)) {
-				$tmp_project = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $tmp[1]);
-				if (!in_array($tmp_project, $tmp_folders)) {
-					$tmp_folders[$tmp_project] = '';
+		foreach ($projects as $project) {
+			if (!$folder) {
+				$tmp_project = $project->name;
+			} elseif (substr($project->name, strlen($folder), 1) == USVN_DIRECTORY_SEPARATOR) {
+				$tmp_project = substr($project->name, strlen($folder) + 1);
+			}
+			if (!empty($tmp_project) && strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
+				if ($project->folder) {
+					$tmp_folders[$tmp_project] = $project;
 				}
+			}
+		}
+		$tmp_projects = array();
+		foreach ($groups as $group) {
+			if (!$folder) {
+				$tmp_project = $group->name;
+			} elseif (substr($group->name, strlen($folder), 1) == USVN_DIRECTORY_SEPARATOR) {
+				$tmp_project = substr($group->name, strlen($folder) + 1);
+			}
+			if (!empty($tmp_project) && strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
+				$tmp_projects[$tmp_project] = $group;
 			}
 		}
 		ksort($tmp_folders);
 		ksort($tmp_projects);
-		return array_merge($tmp_folders, $tmp_projects);
+		return $tmp_folders + $tmp_projects;
 	}
 	
 	private function modifName($name, $inout)

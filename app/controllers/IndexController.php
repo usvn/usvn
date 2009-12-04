@@ -27,6 +27,22 @@ class IndexController extends USVN_Controller {
 		$user_table = new USVN_Db_Table_Users();
 		$user = $user_table->fetchRow(array('users_login = ?' => $identity['username']));
 		
+		$table = new USVN_Db_Table_Projects();
+		if ($this->_request->getParam('folder') != null) {
+			$folder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
+			$i = strripos(substr($folder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
+			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i));
+		} else {
+			$folder = '';
+		}
+		$this->view->prev = $this->modifName($this->view->prev, -1);
+		$this->view->prefix = $this->modifName($folder ? $folder.USVN_DIRECTORY_SEPARATOR : '', -1);
+		$this->view->projects = $this->displayDirectories(array(), $table->fetchAllAssignedTo($this->getRequest()->getParam('user'), $folder), $folder);
+		
+		$projects = $table->fetchAll("projects_name LIKE '{$folder}%'", "projects_name");
+		$this->view->groups = $this->displayDirectories($user->listGroups($folder), $projects, $folder);
+		
+		/*
 		$projects = new USVN_Db_Table_Projects();
 		if ($this->_request->getParam('folder') != null && $this->_request->getParam('folder') != USVN_DIRECTORY_SEPARATOR) {
 			$folder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
@@ -37,7 +53,9 @@ class IndexController extends USVN_Controller {
 		}
 		$this->view->prefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $folder);
 		$this->view->projects = $this->displayDirectories($projects->fetchAllAssignedTo($this->getRequest()->getParam('user'), $folder), $folder);
+		*/
 		
+		/*
 		if ($this->_request->getParam('grpfolder') != null && $this->_request->getParam('grpfolder') != USVN_DIRECTORY_SEPARATOR) {
 			$grpfolder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('grpfolder'));
 			$i = strripos(substr($grpfolder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
@@ -47,6 +65,8 @@ class IndexController extends USVN_Controller {
 		}
 		$this->view->grpprefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $grpfolder);
 		$this->view->groups = $this->displayDirectories($user->listGroups($grpfolder), $grpfolder);
+		*/
+		
 		$this->view->maxlen = 12;
 	}
 
@@ -54,23 +74,48 @@ class IndexController extends USVN_Controller {
 	{
 	}
 	
-	private function displayDirectories($prtgrps, $folder)
+	private function displayDirectories($groups, $projects, $folder)
 	{
-		$tmp_projects = array();
 		$tmp_folders = array();
-		foreach ($prtgrps as $prtgrp) {
-			$tmp_project = substr($prtgrp->name, strlen($folder));
-			if (strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
-				$tmp_projects[$tmp_project] = $prtgrp->description;
-			} elseif (preg_match('#^([^'.USVN_DIRECTORY_SEPARATOR.']+['.USVN_DIRECTORY_SEPARATOR.']).*#', $tmp_project, $tmp)) {
-				$tmp_project = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $tmp[1]);
-				if (!in_array($tmp_project, $tmp_folders)) {
-					$tmp_folders[$tmp_project] = '';
+		$tmp_projects = array();
+		foreach ($projects as $project) {
+			if (!$folder) {
+				$tmp_project = $project->name;
+			} elseif (substr($project->name, strlen($folder), 1) == USVN_DIRECTORY_SEPARATOR) {
+				$tmp_project = substr($project->name, strlen($folder) + 1);
+			}
+			if (!empty($tmp_project) && strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
+				if ($project->folder) {
+					$tmp_folders[$tmp_project] = $project;
+				} else {
+					$tmp_projects[$tmp_project] = $project;
 				}
+			}
+		}
+		foreach ($groups as $group) {
+			if (!$folder) {
+				$tmp_project = $group->name;
+			} elseif (substr($group->name, strlen($folder), 1) == USVN_DIRECTORY_SEPARATOR) {
+				$tmp_project = substr($group->name, strlen($folder) + 1);
+			}
+			if (!empty($tmp_project) && strstr($tmp_project, USVN_DIRECTORY_SEPARATOR) === false) {
+				$tmp_projects[$tmp_project] = $group;
 			}
 		}
 		ksort($tmp_folders);
 		ksort($tmp_projects);
-		return array_merge($tmp_folders, $tmp_projects);
+		return $tmp_folders + $tmp_projects;
+	}
+	
+	private function modifName($name, $inout)
+	{
+		if ($inout > 0) {
+			$name = str_replace(USVN_DIRECTORY_SEPARATOR, '#', $name);
+			$name = str_replace(DIRECTORY_SEPARATOR, USVN_DIRECTORY_SEPARATOR, $name);
+		} elseif ($inout < 0) {
+			$name = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $name);
+			$name = str_replace('#', USVN_DIRECTORY_SEPARATOR, $name);
+		}
+		return $name;
 	}
 }

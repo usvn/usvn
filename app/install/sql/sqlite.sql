@@ -112,3 +112,5 @@ CREATE TABLE usvn_milestones
 		constraint fk_usvn_milestones_to_projects foreign key (project_id) references usvn_projects (projects_id) on delete restrict on update restrict,
 		constraint fk_usvn_milestones_to_users2 foreign key (modificator_id) references usvn_users (users_id) on delete restrict on update restrict
 	);
+
+ALTER TABLE `usvn_projects` ADD `projects_folder` bool not null default 0;

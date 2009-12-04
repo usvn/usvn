@@ -1,6 +1,9 @@
 <div class="usvn_info">
 	<h1><?= T_("Groups") ?> <?= ($this->prefix != null ? '('.$this->prefix.')' : '') ?></h1>
 </div>
+
+<?php echo $this->error($this); ?>
+
 <table class="sortable" id="grps">
 	<thead>
 		<tr>
@@ -11,9 +14,8 @@
 	</thead>
 	<tbody>
 
-    <? if (!empty($this->groups)): ?>
-  	<? $deletetext = T_("Do you really want to delete group %s?"); ?>
-  	<?php if ($this->prefix != null): ?>
+    <? $deletetext = T_("Do you really want to delete group %s?"); ?>
+  	<?php if ($this->prefix): ?>
   	  <tr>
         <td><a href="<?= $this->url(array('action' => 'index', 'folder' => $this->prev)); ?>">
           <span class="grid_img">
@@ -23,15 +25,18 @@
         </a></td><td>&nbsp;</td><td>&nbsp;</td>
       </tr>
   	<?php endif ?>
+  	<? if (!empty($this->groups)): ?>
   	<? foreach ($this->groups as $group => $datas): ?>
-  	  <?php if (substr($group, -1) == DIRECTORY_SEPARATOR): ?>
+	    <?php if ($datas instanceof USVN_Db_Table_Row_Project): ?>
   	    <tr>
           <td><a href="<?= $this->url(array('action' => 'index', 'folder' => $this->prefix.$group)); ?>">
             <span class="grid_img">
     					<?= $this->img('folder.png') ?>
     				</span>
             <?= $group ?>
-          </a></td><td>&nbsp;</td><td>&nbsp;</td>
+          </a></td>
+          <td><a href="<?= $editurl ?>"><?= nl2br($this->escape($datas->description)) ?></a></td>
+          <td>&nbsp;</td>
         </tr>
       <?php else: ?>
         <? $editurl = $this->url(array('controller' => 'group', 'action' => 'edit', 'name' => $this->prefix.$group), 'admin', true); ?>
@@ -42,7 +47,7 @@
     				</span>
             <?= $group ?>
           </a></td>
-          <td><a href="<?= $editurl ?>"><?= nl2br(htmlspecialchars($datas)) ?></a></td>
+          <td><a href="<?= $editurl ?>"><?= nl2br($this->escape($datas->description)) ?></a></td>
           <td class="align-right">
             <?= $this->editLink('group', 'name', $this->prefix.$group) ?>
             <?= $this->deleteLink('group', 'name', $this->prefix.$group, $deletetext) ?>

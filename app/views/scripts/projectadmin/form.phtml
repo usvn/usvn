@@ -1,11 +1,16 @@
 <form id="project" class="usvn_form" method="post" action="<?php echo $this->url; ?>">
 	<div>
+	  <?php echo '', $this->formHidden('prefix', $this->prefix); ?>
+	  <?php echo '', $this->formHidden('nf', $this->nf); ?>
 		<label>
 			<?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
-			<?php echo '', $this->formText('projects_name', ($this->project->name ? $this->project->name : $this->prefix),
-			($this->action != 'edit' && $this->action != 'update' ?
-			array('maxlength' => 255, 'size' => '77') :
-			array('maxlength' => 255, 'readonly' => 'true', 'size' => '77'))); ?>
+			<?php
+			  if ($this->prefix) {
+			    echo $this->prefix, ' ', $this->formText('projects_name', $this->project->name, ($this->action != 'edit' && $this->action != 'update' ? array('maxlength' => 255, 'size' => '77') : array('maxlength' => 255, 'readonly' => 'true', 'size' => '77')));
+			  } else {
+			    echo '', $this->formText('projects_name', $this->project->name, ($this->action != 'edit' && $this->action != 'update' ? array('maxlength' => 255, 'size' => '77') : array('maxlength' => 255, 'readonly' => 'true', 'size' => '77')));
+			  }
+			?>
 		</label>
 		<br />
 		<label><?php echo T_("Description"); ?>:<br />
@@ -18,7 +23,9 @@
 				echo '<label for="creategroup">' . T_('Create group for project:') . '</label>'. $this->formCheckbox('creategroup', 1,  array('checked' => true));
 				echo '<label for="addmetogroup">' . T_('Add me to project group:') . '</label>'. $this->formCheckbox('addmetogroup', 1,  array('checked' => true));
 				echo '<label for="admin">' . T_('Add me as admin of the project:') . '</label>'. $this->formCheckbox('admin', 1,  array('checked' => true));
-				echo '<label for="createsvndir">' . T_('Create SVN standard directories (/trunk, /branches and /tags):') . '</label>'. $this->formCheckbox('createsvndir', 1,  array('checked' => true));
+				if (!$this->nf) {
+				  echo '<label for="createsvndir">' . T_('Create SVN standard directories (/trunk, /branches and /tags):') . '</label>'. $this->formCheckbox('createsvndir', 1,  array('checked' => true));
+				}
 			}
 		?>
 		<?php if (isset($this->group)) echo $this->formHidden('groups_id', $this->group->id); ?>

@@ -198,3 +198,5 @@ CREATE TABLE usvn_milestones
 
 CREATE INDEX usvn_milestones_creation ON usvn_milestones (creation_date);
 CREATE INDEX usvn_milestones_modification ON usvn_milestones (modification_date);
+
+ALTER TABLE `usvn_projects` ADD `projects_folder` bool not null default 0;

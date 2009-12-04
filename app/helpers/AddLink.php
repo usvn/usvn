@@ -30,8 +30,11 @@ class USVN_View_Helper_AddLink
 	*
 	* @return string HTML link: <a href="test">Test</a>.
 	*/
-	public function addLink()
+	public function addLink($folder = false)
 	{
+		if ($folder) {
+			return $this->addFolderLink();
+		}
 		$view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
 		$img = $view->img("add.png", T_("Add"));
 		$url = $view->url(array('action' => 'new'));
@@ -40,5 +43,17 @@ class USVN_View_Helper_AddLink
 			{$img}
 		</a>
 EOF;
-		}
+	}
+	
+	private function addFolderLink()
+	{
+		$view = Zend_Controller_Action_HelperBroker::getExistingHelper('viewRenderer')->view;
+		$img = $view->img("add.png", T_("Add"));
+		$url = $view->url(array('action' => 'new', 'nf' => '1'));
+		return <<< EOF
+		<a href="{$url}">
+			{$img}
+		</a>
+EOF;
+	}
 }

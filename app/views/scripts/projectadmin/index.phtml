@@ -1,19 +1,21 @@
 <div class="usvn_info">
-	<h1><?= T_("Projects") ?> <?= ($this->prefix != null ? '('.$this->prefix.')' : '') ?></h1>
+	<h1><?= T_("Projects") ?> <?= ($this->prefix ? '('.$this->prefix.')' : '') ?></h1>
 </div>
+
+<?php echo $this->error($this); ?>
+
 <table class="sortable" id="projects">
 	<thead>
 		<tr>
 			<th><?= T_('Name') ?></th>
 			<th><?= T_('Description') ?></th>
-			<th class="sorttable_nosort" width="84px"><?= T_('Action') ?></th>
+			<th class="sorttable_nosort" width="82px"><?= T_('Action') ?></th>
 		</tr>
 	</thead>
 	<tbody>
 	
-	<? if (!empty($this->projects)): ?>
 	<? $deletetext = T_("Do you really want to delete project %s?"); ?>
-	<?php if ($this->prefix != null): ?>
+	<?php if ($this->prefix): ?>
 	  <tr>
       <td><a href="<?= $this->url(array('action' => 'index', 'folder' => $this->prev)); ?>">
         <span class="grid_img">
@@ -23,18 +25,24 @@
       </a></td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
 	<?php endif ?>
+	<? if (!empty($this->projects)): ?>
 	<? foreach ($this->projects as $project => $datas): ?>
-	  <?php if (substr($project, -1) == DIRECTORY_SEPARATOR): ?>
+	  <? $editurl = $this->url(array('controller' => 'project', 'action' => 'edit', 'name' => $this->prefix.$project), 'admin', true); ?>
+	  <?php if ($datas->folder): ?>
 	    <tr>
         <td><a href="<?= $this->url(array('action' => 'index', 'folder' => $this->prefix.$project)); ?>">
           <span class="grid_img">
   					<?= $this->img('folder.png') ?>
   				</span>
           <?= $project ?>
-        </a></td><td>&nbsp;</td><td>&nbsp;</td>
+        </a></td>
+        <td><a href="<?= $editurl ?>"><?= nl2br($this->escape($datas->description)) ?></a></td>
+        <td class="align-left">
+          <?= $this->editLink('project', 'name', $this->prefix.$project) ?>
+          <?= $this->deleteLink('project', 'name', $this->prefix.$project, $deletetext) ?>
+        </td>
       </tr>
     <?php else: ?>
-      <? $editurl = $this->url(array('controller' => 'project', 'action' => 'edit', 'name' => $this->prefix.$project), 'admin', true); ?>
       <tr>
         <td><a href="<?= $this->url(array('action' => null, 'project' => $this->prefix.$project), 'project', true) ?>">
           <span class="grid_img">
@@ -42,7 +50,7 @@
   				</span>
           <?= $project ?>
         </a></td>
-        <td><a href="<?= $editurl ?>"><?= nl2br(htmlspecialchars($datas)) ?></a></td>
+        <td><a href="<?= $editurl ?>"><?= nl2br($this->escape($datas->description)) ?></a></td>
         <td class="align-right">
           <?= $this->editLink('project', 'name', $this->prefix.$project) ?>
           <?= $this->deleteLink('project', 'name', $this->prefix.$project, $deletetext) ?>
@@ -56,6 +64,8 @@
 	<tfoot>
 		<tr>
 			<td colspan="3" class="align-right">
+			  <a href="<?= $this->url(array('action' => 'new', 'nf' => '1')) ?>"><?= T_("New Folder") ?></a>
+				<?= $this->addLink('folder') ?>
 				<a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("New Project") ?></a>
 				<?= $this->addLink() ?>
 			</td>

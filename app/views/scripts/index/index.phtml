@@ -3,11 +3,11 @@
 </div>
 <div id="usvn_index_projects" class="usvn_index_box">
 	<h3><?= T_("Your projects") ?> <?= ($this->prefix != null ? '('.$this->prefix.')' : '') ?> :</h3>
-<? if (count($this->projects)): ?>
+  <? if (count($this->projects)): ?>
     <ul class="grid_list">
     <?php if ($this->prefix != null): ?>
       <li>
-      <a href="<?= $this->url(array('folder' => ($this->prev ? $this->prev : USVN_DIRECTORY_SEPARATOR), 'grpfolder' => ($this->grpprefix ? $this->grpprefix : USVN_DIRECTORY_SEPARATOR)), 'index'); ?>">
+      <a href="<?= $this->url(array('folder' => $this->prev), 'index'); ?>">
         <div class="grid_img">
           <?= $this->img('folder48.png') ?>
         </div>
@@ -17,17 +17,17 @@
 	  <?php endif ?>
 	<? foreach ($this->projects as $project => $datas): ?>
 		<li>
-		  <?php if (substr($project, -1) == DIRECTORY_SEPARATOR) { ?>
-			  <a href="<?= $this->url(array('folder' => $this->prefix.$project, 'grpfolder' => ($this->grpprefix ? $this->grpprefix : USVN_DIRECTORY_SEPARATOR)), 'index'); ?>">
+      <?php if ($datas->folder): ?>
+			  <a href="<?= $this->url(array('folder' => $this->prefix.$project), 'index'); ?>">
   				<div class="grid_img">
   					<?= $this->img('folder48.png') ?>
   				</div>
-			<?php } else { ?>
+			<?php else: ?>
 			  <a href="<?= $this->url(array('project' => $this->prefix.$project), 'project'); ?>">
 			    <div class="grid_img">
 				    <?= $this->img('box48.png') ?>
 			    </div>
-      <?php } ?>
+      <?php endif ?>
 				<div><?php
 					if (strlen($project) > $this->maxlen) {
 						echo substr($project, 0, $this->maxlen), '<br />';
@@ -52,9 +52,9 @@
 	<h3><?= T_("Your groups"); ?>:</h3>
 <? if (count($this->groups)): ?>
 	<ul class="grid_list">
-	  <?php if ($this->grpprefix != null): ?>
+	  <?php if ($this->prefix != null): ?>
       <li>
-      <a href="<?= $this->url(array('folder' => ($this->prefix ? $this->prefix : USVN_DIRECTORY_SEPARATOR), 'grpfolder' => ($this->grpprev ? $this->grpprev : USVN_DIRECTORY_SEPARATOR)), 'index'); ?>">
+      <a href="<?= $this->url(array('folder' => $this->prev), 'index'); ?>">
         <div class="grid_img">
           <?= $this->img('folder48.png') ?>
         </div>
@@ -64,17 +64,17 @@
 	  <?php endif ?>
 	<? foreach ($this->groups as $group => $datas): ?>
 		<li>
-		  <?php if (substr($group, -1) == DIRECTORY_SEPARATOR) { ?>
-			  <a href="<?= $this->url(array('folder' => ($this->prefix ? $this->prefix : USVN_DIRECTORY_SEPARATOR), 'grpfolder' => $this->grpprefix.$group), 'index'); ?>">
+	    <?php if ($datas instanceof USVN_Db_Table_Row_Project): ?>
+			  <a href="<?= $this->url(array('folder' => $this->prefix), 'index'); ?>">
   				<div class="grid_img">
   					<?= $this->img('folder48.png') ?>
   				</div>
-			<?php } else { ?>
+			<?php else: ?>
 			  <a href="<?= $this->url(array('group' => $group), 'group'); ?>">
 			    <div class="grid_img">
 				    <?= $this->img('group48.png') ?>
 			    </div>
-      <?php } ?>
+      <?php endif ?>
 				<div><?php
 				 	if (strlen($group) > $this->maxlen) {
 						echo substr($group, 0, $this->maxlen), '<br />';

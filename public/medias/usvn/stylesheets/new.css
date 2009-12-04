@@ -564,12 +564,11 @@ ul.grid_list li a:hover {
 
 .usvn_info p.commit-message {
     color: #333333;
-    border-left: 2px dotted #ffb909;
-    border-bottom: 2px dotted #ffb909;
-    background: #f2ffe6;
+    border-left: 1px dotted #FFCC00;
+    border-bottom: 1px dotted #FFCC00;
+    background: #FFFFCC;
     margin:5px 5px 5px 20px;
     padding:2px 5px;
-<!-- #FFFF00 #FFFFED -->
 }
 
 .commit a:hover {

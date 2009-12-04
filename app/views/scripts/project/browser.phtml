@@ -178,7 +178,7 @@ function alert_ajax(xhr, index)
 					'path' => dirname($this->path)
 					),
 					'browser', true, false) ?>">
-					<span style="display: block;">..</span>
+					<span style="display: block;"><?= $this->img('folder_up.png', T_('Folder')) . ' ..' ?></span>
 				</a>
 			</td>
 		</tr>

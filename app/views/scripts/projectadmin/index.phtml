@@ -9,7 +9,7 @@
 		<tr>
 			<th><?= T_('Name') ?></th>
 			<th><?= T_('Description') ?></th>
-			<th class="sorttable_nosort" width="82px"><?= T_('Action') ?></th>
+			<th class="sorttable_nosort" width="55px"><?= T_('Action') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -32,12 +32,12 @@
 	    <tr>
         <td><a href="<?= $this->url(array('action' => 'index', 'folder' => $this->prefix.$project)); ?>">
           <span class="grid_img">
-  					<?= $this->img('folder.png') ?>
-  				</span>
+            <?= $this->img('folder.png') ?>
+            </span>
           <?= $project ?>
         </a></td>
         <td><a href="<?= $editurl ?>"><?= nl2br($this->escape($datas->description)) ?></a></td>
-        <td class="align-left">
+        <td class="align-right">
           <?= $this->editLink('project', 'name', $this->prefix.$project) ?>
           <?= $this->deleteLink('project', 'name', $this->prefix.$project, $deletetext) ?>
         </td>
@@ -46,15 +46,14 @@
       <tr>
         <td><a href="<?= $this->url(array('action' => null, 'project' => $this->prefix.$project), 'project', true) ?>">
           <span class="grid_img">
-  					<?= $this->img('box24.png') ?>
-  				</span>
+            <?= $this->img('box32.png') ?>
+            </span>
           <?= $project ?>
         </a></td>
         <td><a href="<?= $editurl ?>"><?= nl2br($this->escape($datas->description)) ?></a></td>
         <td class="align-right">
           <?= $this->editLink('project', 'name', $this->prefix.$project) ?>
           <?= $this->deleteLink('project', 'name', $this->prefix.$project, $deletetext) ?>
-          <?= $this->ACLLink($this->prefix.$project) ?>
         </td>
       </tr>
     <?php endif ?>

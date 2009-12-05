@@ -1,0 +1,30 @@
+({
+	insertTableTitle: "Táblázat beszúrása",
+	modifyTableTitle: "Táblázat módosítása",
+	rows: "Sorok:",
+	columns: "Oszlopok:",
+	align: "Igazítás:",
+	cellPadding: "Cellakitöltés:",
+	cellSpacing: "Cellatávolság:",
+	tableWidth: "Táblázat szélessége:",
+	backgroundColor: "Háttérszín:",
+	borderColor: "Szegélyszín:",
+	borderThickness: "Szegélyvastagság",
+	pixels: "Pixel",
+	percent: "százalék",
+	pixels: "pixel",
+	"default": "alapértelmezés",
+	left: "balra",
+	center: "középre",
+	right: "jobbra",
+	buttonSet: "Beállítás", // translated elsewhere?
+	buttonInsert: "Beszúrás",
+
+	selectTableLabel: "Táblázat kiválasztása",
+	insertTableRowBeforeLabel: "Sor hozzáadása elé",
+	insertTableRowAfterLabel: "Sor hozzáadása utána",
+	insertTableColumnBeforeLabel: "Oszlop hozzáadása elé",
+	insertTableColumnAfterLabel: "Oszlop hozzáadása utána",
+	deleteTableRowLabel: "Sor törlése",
+	deleteTableColumnLabel: "Oszlop törlése"
+})

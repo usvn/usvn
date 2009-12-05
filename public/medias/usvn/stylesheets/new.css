@@ -357,7 +357,8 @@ td.comment {
     margin-bottom: 20px;
 }
 
-#usvn_index_projects ul, #usvn_index_groups ul {
+#usvn_index_projects ul,
+#usvn_index_groups ul {
     padding-left: 20px;
 }
 
@@ -573,6 +574,74 @@ ul.grid_list li a:hover {
 
 .commit a:hover {
     background: #9ECFF1;
+}
+
+/* @end */
+
+/* @group browser path */
+
+.browser-path {
+    position: relative;
+    background: #F9F9F9 url('<?php echo $this->images_directory ?>/browser-path.png') 0 0 repeat-x;
+    border: 1px solid #DDD;
+    border-bottom-color: #CCC;
+    overflow: hidden;
+    height: 27px;
+}
+
+* html .browser-path {
+    height: 28px;
+}
+
+.browser-path a,
+.browser-path strong {
+    position: relative;
+    float: left;
+    margin-left: -8px;
+    color: #666;
+    text-shadow: #FFF 1px 1px 0px;
+    text-decoration: none !important;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.browser-path a {
+    cursor: pointer;
+}
+
+.browser-path a span,
+.browser-path strong span {
+    float: left;
+    padding: 4px 5px 10px 15px;
+    background: url('<?php echo $this->images_directory ?>/browser-path-l.png') 0 0 no-repeat;
+}
+
+.browser-path a b,
+.browser-path strong b {
+    float: left;
+    background: url('<?php echo $this->images_directory ?>/browser-path-r.png') 100% 0 no-repeat;
+    width: 9px;
+    height: 28px;
+}
+
+.browser-path strong span,
+.browser-path a:hover span {
+    padding: 5px 5px 10px 15px;
+    background-position: 0 -28px;
+}
+
+.browser-path strong b,
+.browser-path a:hover b {
+    background-position: 100% -28px;
+}
+
+.browser-path strong.selected span {
+    background: url('<?php echo $this->images_directory ?>/browser-path-l.png') 0 0 no-repeat;
+}
+
+.browser-path strong.selected b
+{
+    background: url('<?php echo $this->images_directory ?>/browser-path-r.png') 100% 0 no-repeat;
 }
 
 /* @end */

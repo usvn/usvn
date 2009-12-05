@@ -49,20 +49,18 @@ class USVN_View_Helper_FileSize
             $locale = null;
         }
         
-        
         if ($isLocaleSet) {
             /**
              * @see Zend_Locale_Math
              */
             require_once 'Zend/Locale/Format.php';
             //get localised input value 
-            $fileSize = Zend_Locale_Format::getFloat($fileSize, array('locale' => $locale));    
+            $fileSize = Zend_Locale_Format::getFloat($fileSize, array('locale' => $locale));
         } else {
             $fileSize = floatval($fileSize);
         }
         
         $m = new Zend_Measure_Binary($fileSize, null, $locale);
-        
         $m->setType('BYTE');
         
         if (null === $norm) {
@@ -102,7 +100,7 @@ class USVN_View_Helper_FileSize
                 $m->setType(Zend_Measure_Binary::KIBIBYTE);
             }
         }
-        return $m->toString($precision);
+        return str_replace(' ', '&nbsp;', $m->toString($precision));
     }
 
     /**

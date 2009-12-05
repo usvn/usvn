@@ -1,0 +1,30 @@
+({
+	insertTableTitle: "Indsæt tabel",
+	modifyTableTitle: "Revidér tabel",
+	rows: "Rækker:",
+	columns: "Kolonner:",
+	align: "Justér:",
+	cellPadding: "Cellemargen:",
+	cellSpacing: "Celleafstand:",
+	tableWidth: "Tabelbredde:",
+	backgroundColor: "Baggrundsfarve:",
+	borderColor: "Kantfarve:",
+	borderThickness: "Kanttykkelse",
+	pixels: "Pixel",
+	percent: "percent",
+	pixels: "pixel",
+	"default": "standard",
+	left: "venstre",
+	center: "centreret",
+	right: "højre",
+	buttonSet: "Definér", // translated elsewhere?
+	buttonInsert: "Indsæt",
+
+	selectTableLabel: "Markér tabel",
+	insertTableRowBeforeLabel: "Tilføj række før",
+	insertTableRowAfterLabel: "Tilføj række efter",
+	insertTableColumnBeforeLabel: "Tilføj kolonne før",
+	insertTableColumnAfterLabel: "Tilføj kolonne efter",
+	deleteTableRowLabel: "Slet række",
+	deleteTableColumnLabel: "Slet kolonne"
+})

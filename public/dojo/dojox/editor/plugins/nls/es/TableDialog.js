@@ -1,0 +1,30 @@
+({
+	insertTableTitle: "Insertar tabla",
+	modifyTableTitle: "Modificar tabla",
+	rows: "Filas:",
+	columns: "Columnas:",
+	align: "Alinear:",
+	cellPadding: "Relleno de celda:",
+	cellSpacing: "Espaciado de celda:",
+	tableWidth: "Ancho de tabla:",
+	backgroundColor: "Color de fondo:",
+	borderColor: "Color del borde:",
+	borderThickness: "Grosor del borde",
+	pixels: "Píxeles",
+	percent: "porcentaje",
+	pixels: "píxeles",
+	"default": "predeterminado",
+	left: "izquierda",
+	center: "centro",
+	right: "derecha",
+	buttonSet: "Establecer", // translated elsewhere?
+	buttonInsert: "Insertar",
+
+	selectTableLabel: "Seleccionar tabla",
+	insertTableRowBeforeLabel: "Añadir tabla delante",
+	insertTableRowAfterLabel: "Añadir tabla detrás",
+	insertTableColumnBeforeLabel: "Añadir columna delante",
+	insertTableColumnAfterLabel: "Añadir columna detrás",
+	deleteTableRowLabel: "Suprimir fila",
+	deleteTableColumnLabel: "Suprimir columna"
+})

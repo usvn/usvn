@@ -121,6 +121,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIR);
         USVN_Template::initTemplate($config->template->name, USVN_MEDIAS_DIR);
 
+        /* Dojo */
+        $this->bootstrap('view');
+        $view = $this->getResource('view');
+        $view->addHelperPath('Zend/Dojo/View/Helper', 'Zend_Dojo_View_Helper');
+        $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
+        $viewRenderer->setView($view);
+        Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+
         /* Zend Configuration */
         Zend_Registry::set('config', $config);
         Zend_Db_Table::setDefaultAdapter(Zend_Db::factory($config->database->adapterName, $config->database->options->toArray()));

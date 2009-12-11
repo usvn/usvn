@@ -1,181 +1,184 @@
-<script type="text/javascript">
-<!--
-
-var items_nbgroup;
-
-function getUrlForAction(action)
-{
-    return <?= '"'
-    . $this->url(array('controller' => 'browserajax',
-    //        'project' => $this->project->name,
-            'action' => '"+action+"'),
-            'default', true, false)
-    . '?project=' . addslashes($this->project->name)
-    . '&"' ?>;
-
-}
-
-function register_position()
-{
-    mouse_x = 0;
-    mouse_y = 0;
-    document.onmousemove = position;
-}
-
-function position(evt){
-    if (!evt)
-        evt = window.event;
-    mouse_x = evt.clientX;
-    mouse_y = evt.clientY;
-}
-
-function cancel()
-{
-    document.getElementById('bulle').style.visibility = 'hidden';
-}
-
-function get_groupe()
-{
-    var groupe = "";
-    for (i = 0; i < items_nbgroup; i++)
-    {
-        var grp = document.getElementById('Lb'+i).innerHTML;
-        groupe += grp + ",";
-    }
-    return groupe;
-}
-
-function get_groupe_text()
-{
-    var text = "";
-    for (i = 0; i < items_nbgroup; i++)
-    {
-        var grp = document.getElementById('Lb' + i).innerHTML;
-        text += document.getElementById('checkRead' + grp).checked + "," +
-        document.getElementById('checkWrite' + grp).checked + "," +
-        document.getElementById('recursive' + grp).checked + ",";
-    }
-    return text;
-}
-
-function get_ajax(index)
-{
-    var xhr=null;
-    if (window.XMLHttpRequest)
-        xhr = new XMLHttpRequest();
-    else if (window.ActiveXObject)
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    xhr.onreadystatechange = function() { alert_ajax(xhr, index); };
-    return xhr;
-}
-
-function dumpRights(file)
-{
-    file = encodeURIComponent(file);
-    var groupe = get_groupe();
-    var xhr = get_ajax(1);
-    xhr.open("GET", getUrlForAction("dump-rights")
-        + "name=" + file
-        + "&group=" + groupe.substring(0, groupe.length - 1), true);
-    xhr.send(null);
-}
-
-function updateOrInsertRights(file)
-{
-    file = encodeURIComponent(file);
-    var groupe = get_groupe();
-    var xhr = get_ajax(2);
-    var text = get_groupe_text();
-    xhr.open("GET", getUrlForAction("update-or-insert-rights")
-        + "name=" + file
-        + "&rights=" + text.substring(0, text.length - 1)
-        + "&group=" + groupe.substring(0, groupe.length - 1), true);
-    xhr.send(null);
-}
-
-function getListFile(file)
-{
-    file = encodeURIComponent(file);
-    var xhr = get_ajax(3);
-    xhr.open("GET", getUrlForAction("get-list-file")+"name="+file, true);
-    xhr.send(null);
-}
-
-function fctWrite(group)
-{
-    if (document.getElementById('checkWrite'+group).checked == true)
-        document.getElementById('checkRead'+group).checked = true;
-}
-
-function fctRead(group)
-{
-    if (document.getElementById('checkWrite'+group).checked == true)
-        document.getElementById('checkRead'+group).checked = true;
-}
-
-function alert_ajax(xhr, index)
-{
-    var docXML = xhr.responseXML;
-    if (docXML)
-    {
-        if (index == 1)
-        {
-            var items_groups = docXML.getElementsByTagName("groups").item(0).firstChild.data;
-            items_nbgroup = docXML.getElementsByTagName("nbgroup").item(0).firstChild.data;
-            if (docXML.getElementsByTagName("basename").item(0).firstChild) {
-                basename = docXML.getElementsByTagName("basename").item(0).firstChild.data;
-            } else {
-                basename = "/";
-            }
-            var bulle = "<br /><h3>&nbsp;<?php echo T_('Acces rights for'); ?>" + " " + basename + "&nbsp;</h3>";
-            bulle += items_groups;
-            document.getElementById('bulle').style.visibility = 'visible';
-            document.getElementById('bulle').innerHTML = bulle;
-            document.getElementById('bulle').style.left = (mouse_x + 10) + "px";
-            document.getElementById('bulle').style.top = (mouse_y + 10) + "px";
-        }
-        if (index == 2)
-        {
-            var items_msg = docXML.getElementsByTagName("msg").item(0).firstChild.data;
-            if (items_msg == "Ok")
-                cancel();
-            else
-                document.getElementById('labelError').innerHTML = items_msg;
-        }
-        if (index == 3)
-        {
-            var txthtml2 = document.getElementById('txthtml2');
-            var txthtml = docXML.getElementsByTagName("txthtml").item(0);
-            txthtml2.innerHTML = txthtml.firstChild.data;
-        }
-    }
-}
--->
-</script>
-
 <? $this->dojo()->enable()
-        ->requireModule('dijit.Dialog'); ?>
+        ->requireModule('dijit.Dialog')->requireModule('dojox.fx.easing'); ?>
 
 <script type="text/javascript">
-    dojo.require("dijit.form.Button");
-    dojo.require("dijit.Dialog");
-    var secondDlg;
 
-    dojo.addOnLoad(function()
-    {
-        secondDlg = new dijit.Dialog(
+    var dlg;
+    var div = document.createElement("div");
+    div.id = "dlg";
+    var nbGroups = 0;
+
+    dojo.addOnLoad(
+        function()
         {
-            title: "<?= T_('Rights') ?>",
-            id: "dlgDiv",
-            style: "width: 300px;height: 250px"
-        });
-        var div1 = document.createElement("div");
-        secondDlg.setContent(div1);
-    });
-    function showDialogTwo()
+            dlg = new dijit.Dialog(
+            {
+                title: "<?= T_('Rights') ?>",
+                id: "dlgDiv",
+            });
+        }
+    );
+
+    function updateRights(path)
     {
-        dijit.byId("dlgDiv").show();
+        for (i = 0; i < nbGroups; i++)
+        {
+            // get the values
+            var group = document.getElementById('group' + i).innerHTML;
+            var read = (document.getElementById('read' + group).checked == true ? '1' : '0');
+            var write = (document.getElementById('write' + group).checked == true ? '1' : '0');
+            // send it
+            dojo.xhrPost(
+                {
+                    url: "<?= $this->url(array('controller' => 'browserajax',
+                                               'project' => $this->project->name,
+                                               'action' => 'updaterights',
+                                               'path' => '" + path + "',
+                                              ),
+                                              'browserajax', true, false) ?>",
+                    timeout: 5000,
+                    content: {'newRights' : group + ',' + read + ',' + write},
+                }
+            );
+        }
+/*
+        var anim = dojo.fx.slideTo({
+            node: 'dlgDiv', left:"500", top:"-100", unit:"px" }).play()
+*/
+        dlg.onCancel();
+
     }
+
+    function addHeaderToTable(table)
+    {
+        row = table.insertRow(0);
+        col = document.createElement('th');
+        col = row.appendChild(col);
+        col.innerHTML = '<?= T_('Group') ?>';
+        col = document.createElement('th');
+        col = row.appendChild(col);
+        col.setAttribute('width', '3%');
+        col.innerHTML = '<?= T_('Read') ?>';
+        col = document.createElement('th');
+        col = row.appendChild(col);
+        col.setAttribute('width', '3%');
+        col.innerHTML = '<?= T_('Write') ?>';
+        col = document.createElement('th');
+        col = row.appendChild(col);
+        col.setAttribute('width', '3%');
+        col.innerHTML = '<?= T_('Recursive') ?>';
+    }
+
+    function addToTable(i, table, name, disabled, read, write)
+    {
+        row = table.insertRow(i + 1);
+        col = row.insertCell(0);
+        col.setAttribute('id', 'group' + i)
+        col.innerHTML = name;
+        // read
+        col = row.insertCell(1);
+        col.setAttribute('style', 'text-align:center');
+        str = '<?= '<input id="read'; ?>' + name + '<?= '" type="checkbox"'; ?>';
+        if (read == 1)
+            str += '<?= ' checked="checked" '; ?>';
+        if (disabled == 1)
+            str += '<?= ' disabled'; ?>';
+        str += '>';
+        col.innerHTML = str;
+        // write
+        col = row.insertCell(2);
+        col.setAttribute('style', 'text-align:center');
+        str = '<?= '<input id="write'; ?>' + name + '<?= '" type="checkbox"'; ?>';
+        if (write == 1)
+            str += '<?= ' checked="checked" '; ?>';
+        if (disabled == 1)
+            str += '<?= ' disabled'; ?>';
+        str += '>';
+        col.innerHTML = str;
+        // recursive
+        col = row.insertCell(3);
+        col.setAttribute('style', 'text-align:center');
+        col.innerHTML = '-';
+    }
+
+    function parseXml(xml, path)
+    {
+        if (div.hasChildNodes('rights'))
+        {
+            var oldRights = document.getElementById('rights');
+            div.removeChild(oldRights);
+        }
+        divRights = document.createElement('div');
+        divRights.setAttribute('id', 'rights');
+        var table = document.createElement('table');
+        table.setAttribute('class', 'usvn_table');
+        divRights.appendChild(table);
+        div.appendChild(divRights)
+        addHeaderToTable(table);
+        var root = xml.getElementsByTagName('root')[0];
+        for (var i = 0; i < root.childNodes.length; i++)
+        {
+            if (root.hasChildNodes('group'))
+                var group = root.getElementsByTagName('group')[i];
+            if (group == null)
+                break;
+            var name = group.getElementsByTagName('name')[0].childNodes[0].nodeValue;
+            var disabled = group.getElementsByTagName('disabled')[0].childNodes[0].nodeValue;
+            var read = group.getElementsByTagName('read')[0].childNodes[0].nodeValue;
+            var write = group.getElementsByTagName('write')[0].childNodes[0].nodeValue;
+            addToTable(i, table, name, disabled, read, write);
+        }
+        nbGroups = i;
+        confirm = document.createElement('a');
+        confirm.setAttribute('href', '#');
+        confirm.setAttribute('onclick', 'updateRights(' + path + ')');
+        confirm.setAttribute('style', 'border: 1px solid #135675; float: right; margin: 7px 19px 0 0; padding: 2px 10px;');
+        confirm.innerHTML = 'OK';
+        divRights.appendChild(confirm);
+        dlg.setAttribute('style', 'width: 400px; height: ' + (65 + (i + 1) * 30) + 'px');
+        dlg.attr('content', div);
+        dlg.attr('draggable', false);
+        dlg.show();
+    }
+
+    function showDialog(path)
+    {
+        dojo.xhrGet(
+            {
+                url: "<?= $this->url(array('controller' => 'browserajax',
+                                           'project' => $this->project->name,
+                                           'action' => 'dumprights',
+                                           'path' => '" + path + "',
+                                          ),
+                                          'browserajax', true, false) ?>",
+                handleAs: "xml",
+                timeout: 5000,
+                load: function(response, ioArgs)
+                    {
+                        if (response == null)
+                        {
+                            var parser = new DOMParser();
+                            var response = parser.parseFromString(ioArgs.xhr.responseText, 'text/xml');
+                        }
+                        parseXml(response, path);
+                        dojo.byId("replace").innerHTML = response;
+                    },
+            }
+        );
+    }
+/*
+        function()
+        {
+            dojo.animateProperty({
+                node: "dlgDiv",
+                easing: dojox.fx.easing.elasticOut,
+                properties: {
+                    top: { end: 100 },
+                    left: { end: 100 }
+                }
+            }).play();
+        }
+*/
 </script>
 
 <div class="usvn_info">
@@ -209,7 +212,8 @@ function alert_ajax(xhr, index)
                         'path' => ($path)
                         ),
                         'browser', true, false) ?>">
-                        <span><?= $folder ?></span><b></b></a>
+                        <span><?= $folder ?></span><b></b>
+                    </a>
                 <? endif ?>
             <? elseif ($folder != ''): ?>
                 <strong><span><?= $folder ?></span><b></b></strong>
@@ -227,18 +231,18 @@ function alert_ajax(xhr, index)
         </tr>
 
         <? if ($this->path != '/'): ?>
-        <tr>
-            <td colspan="5">
-                <a href="<?= $this->url(array('controller' => $this->controller,
-                    'project' => $this->project->name,
-                    'action' => $this->action,
-                    'path' => (dirname($this->path) == '/' ? '' : dirname($this->path))
-                    ),
-                    'browser', true, false) ?>">
-                    <span style="display: block;"><?= $this->img('folder_up.png', T_('Folder')) . ' ..' ?></span>
-                </a>
-            </td>
-        </tr>
+            <tr>
+                <td colspan="5">
+                    <a href="<?= $this->url(array('controller' => $this->controller,
+                        'project' => $this->project->name,
+                        'action' => $this->action,
+                        'path' => (dirname($this->path) == '/' ? '' : dirname($this->path))
+                        ),
+                        'browser', true, false) ?>">
+                        <span style="display: block;"><?= $this->img('folder_up.png', T_('Folder')) . ' ..' ?></span>
+                    </a>
+                </td>
+            </tr>
         <? endif ?>
 
         <? foreach ($this->files as $file): ?>
@@ -282,7 +286,7 @@ function alert_ajax(xhr, index)
             <td class="align-center"><?= array_key_exists('author', $file) ? $file['author'] : '' ?></td>
             <?php $date = new Zend_Date($file['date']); ?>
             <td class="align-center"><?= $date->toString(Zend_Date::DATETIME_SHORT) ?></td>
-            <td class="align-center"><a href="#" onClick="showDialogTwo()"><?= $this->img('lock.png', T_('Rights'))?></a></td>
+            <td class="align-center"><a href="#" onClick="showDialog(<?= "'" . $file['path'] . "'" ?>)"><?= $this->img('lock.png', T_('Rights'))?></a></td>
         </tr>
         <? endforeach ?>
     </table>

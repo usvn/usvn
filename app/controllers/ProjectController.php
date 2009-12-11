@@ -43,9 +43,8 @@ class ProjectController extends USVN_Controller
         $project = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('project'));
         $table = new USVN_Db_Table_Projects();
         $project = $table->fetchRow(array("projects_name = ?" => $project));
-        /* @var $project USVN_Db_Table_Row_Project */
         if ($project === null)
-            $this->_redirect("/");
+            $this->_redirect('/');
         $this->_project = $project;
     
         $this->view->isAdmin = $this->isAdmin();
@@ -53,8 +52,7 @@ class ProjectController extends USVN_Controller
         $user = $this->getRequest()->getParam('user');
         $this->view->user = $user;
         $this->view->secret_id = $user->secret_id;
-        /* @var $user USVN_Db_Table_Row_User */
-        $groups = $user->findManyToManyRowset("USVN_Db_Table_Groups", "USVN_Db_Table_UsersToGroups");
+        $groups = $user->findManyToManyRowset('USVN_Db_Table_Groups', 'USVN_Db_Table_UsersToGroups');
         $find = false;
         foreach ($groups as $group)
         {
@@ -65,7 +63,7 @@ class ProjectController extends USVN_Controller
             }
         }
         if (!$find && !$this->isAdmin())
-            $this->_redirect("/");
+            $this->_redirect('/');
         if (strlen($project->name) > 12)
             $shortName = substr($project->name, 0, 12) . '..';
         else

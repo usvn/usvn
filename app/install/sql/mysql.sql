@@ -158,7 +158,7 @@ ALTER TABLE `usvn_files_rights` CHANGE `files_rights_id` `files_rights_id` INT( 
 
 CREATE TABLE usvn_tickets
 	(
-		ticket_id integer primary key autoincrement not null,
+		ticket_id integer primary key auto_increment not null,
 		project_id date not null,
 		creation_date date not null,
 		creator_id integer not null,
@@ -181,7 +181,7 @@ CREATE INDEX usvn_tickets_modification ON usvn_tickets (modification_date);
 
 CREATE TABLE usvn_milestones
 	(
-		milestone_id integer primary key autoincrement not null,
+		milestone_id integer primary key auto_increment not null,
 		project_id date not null,
 		creation_date date not null,
 		creator_id integer not null,

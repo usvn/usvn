@@ -16,7 +16,7 @@
             {
                 $this->dojo()->setDjConfigOption('usePlainJson', true)
                     ->addStylesheetModule('dijit.themes.tundra')
-                    ->setLocalPath('/dojo/dojo/dojo.js');
+                    ->setLocalPath($config->url->base . '/dojo/dojo/dojo.js');
                 echo $this->dojo();
             }
         ?>

@@ -376,13 +376,13 @@ form.usvn_form {
     background-color: #F2F8FD;
     border: 1px dotted #CCCCCC;
     margin: auto;
-    width: 300px;
+    width: auto;
     padding: 20px;
     margin: 20px auto 20px auto;
 }
 
-#profile input, #profile textarea {
-    width: 260px;
+.profile_input {
+    width: 600px;
 }
 
 /* @end */

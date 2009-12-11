@@ -132,10 +132,10 @@
         confirm = document.createElement('a');
         confirm.setAttribute('href', '#');
         confirm.setAttribute('onclick', 'updateRights(' + path + ')');
-        confirm.setAttribute('style', 'border: 1px solid #135675; float: right; margin: 7px 19px 0 0; padding: 2px 10px;');
+        confirm.setAttribute('style', 'border: 1px solid #135675; float: right; margin: 7px 19px; padding: 2px 10px;');
         confirm.innerHTML = 'OK';
         divRights.appendChild(confirm);
-        dlg.setAttribute('style', 'width: 400px; height: ' + (65 + (i + 1) * 30) + 'px');
+        dlg.setAttribute('style', 'width: 400px');
         dlg.attr('content', div);
         dlg.attr('draggable', false);
         dlg.show();

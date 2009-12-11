@@ -109,17 +109,14 @@ class ProjectController extends USVN_Controller
 
     public function browserAction()
     {
-        $this->view->project = $this->_project;
-        $this->view->back = $this->getRequest()->getParam('back');
-        if (!preg_match('#/.*/#', $this->view->back))
-            $this->view->back = 'nop';
-        $project = $this->getRequest()->getParam('project');
+        $project = $this->_project;
         $path = $this->getRequest()->getParam('path');
         if ($path[0] != '/')
             $path = '/' . $path;
-        $this->view->path = $path;
-        $SVN = new USVN_SVN($project);
+        $SVN = new USVN_SVN($project->name);
         $this->view->files = $SVN->listFile($path);
+        $this->view->project = $project;
+        $this->view->path = $path;
     }
 
     public function timelineAction()

@@ -227,7 +227,9 @@
             <th><?= T_('Revision') ?></th>
             <th><?= T_('Author') ?></th>
             <th><?= T_('Date') ?></th>
-            <th><?= T_('Action') ?></th>
+            <? if ($this->isAdmin): ?>
+                <th><?= T_('Action') ?></th>
+            <? endif ?>
         </tr>
 
         <? if ($this->path != '/'): ?>
@@ -286,7 +288,9 @@
             <td class="align-center"><?= array_key_exists('author', $file) ? $file['author'] : '' ?></td>
             <?php $date = new Zend_Date($file['date']); ?>
             <td class="align-center"><?= $date->toString(Zend_Date::DATETIME_SHORT) ?></td>
-            <td class="align-center"><a href="#" onClick="showDialog(<?= "'" . $file['path'] . "'" ?>)"><?= $this->img('lock.png', T_('Rights'))?></a></td>
+            <? if ($this->isAdmin): ?>
+                <td class="align-center"><a href="#" onClick="showDialog(<?= "'" . $file['path'] . "'" ?>)"><?= $this->img('lock.png', T_('Rights'))?></a></td>
+            <? endif ?>
         </tr>
         <? endforeach ?>
     </table>

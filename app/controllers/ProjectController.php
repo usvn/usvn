@@ -20,12 +20,13 @@
 
 class ProjectController extends USVN_Controller
 {
-    /**
-    * Project row object
-    *
-    * @var USVN_Db_Table_Row_Project
-    */
-    protected $_project;
+
+	/**
+	* Project row object
+	*
+	* @var USVN_Db_Table_Row_Project
+	*/
+	protected $_project;
 
     /**
     * Pre-dispatch routines
@@ -68,12 +69,13 @@ class ProjectController extends USVN_Controller
             $shortName = substr($project->name, 0, 12) . '..';
         else
             $shortName = $project->name;
+        $this->view->project = $this->_project;
         $this->view->submenu = array(
             array('label' => $shortName),
             array('label' => 'Index',    'url' => array('action' => '', 'project' => $project->name), 'route' => 'project'),
             array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
             array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project'),
-            array('label' => 'Roadmap',  'url' => array('action' => 'tickets', 'project' => $project->name), 'route' => 'project')
+            array('label' => 'Roadmap',  'url' => array('action' => 'milestones', 'project' => $project->name), 'route' => 'project')
             );
     }
 
@@ -504,21 +506,45 @@ class ProjectController extends USVN_Controller
         }
     }    
 
-    public function ticketsAction()
-    {
-        $this->view->project = $this->_project;
-        $this->view->tickets = Default_Model_Ticket::fetchAll();
-    }
+	public function ticketsAction()
+	{
+		$this->view->project = $this->_project;
+		$this->view->tickets = Default_Model_Ticket::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
+		$ticketsByMilestoneId = array();
+    // foreach ($tickets as $ticket)
+    // {
+    // }
+	}
 
     public function milestonesAction()
     {
+        $this->view->project = $this->_project;
         $this->view->milestones = Default_Model_Milestone::fetchAll();
     }
 
-    public function addmilestoneAction()
+	public function addmilestoneAction()
+	{
+    // $milestone = new Default_Model_Milestone(array('project_id' => 1, 'title' => 'My first Milestone', 'description' => 'Blah', 'creator_id' => 1, 'status' => 'new'));
+    // //$milestone->save();
+    // $this->view->milestone = $milestone;
+    // return true;
+		
+    if (!empty($_POST['milestone']))
     {
-        $this->view->milestone = new Default_Model_Milestone();
+      $data = $_POST['milestone'];
+      $data['creator_id'] = $this->view->user->users_id;
+      $data['creation_date'] = null;
+      $data['modificator_id'] = $this->view->user->users_id;
+      $data['modification_date'] = null;
+      $milestone = new Default_Model_Milestone($data);
+      if (1/* validate */)
+      {
+        if ($milestone->save())
+          $this->_redirect($this->view->url(array('action' => 'milestones', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
+      }
+      $this->view->milestone = $milestone;
     }
+	}
 
     public function showticketAction()
     {
@@ -526,35 +552,43 @@ class ProjectController extends USVN_Controller
         $this->view->ticketId = $this->getRequest()->getParam('id');
     }
 
-    public function addticketAction()
-    {
-//        $this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => '0'), 'ticket', true));
-        if (isset($_POST['ticket']) && !empty($_POST['ticket']))
-        {
-            $data = $_POST['ticket'];
-            $data['creator_id'] = $this->view->user->users_id;
-            $ticket = new Default_Model_Ticket($data);
-            if (1/* validate */)
-            {
-                if ($ticket->save())
-                    $this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'ticket', true), array('prependBase' => false));
-//                $this->redirect($this);
-            }
-            $this->view->ticket = $ticket;
-        }
-        $this->view->project = $this->_project;
-    }
+	public function addticketAction()
+	{
+//		$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => '0'), 'ticket', true));
+		if (!empty($_POST['ticket']))
+		{
+			$data = $_POST['ticket'];
+			$data['creator_id'] = $this->view->user->users_id;
+			$data['creation_date'] = null;
+			$data['modificator_id'] = $this->view->user->users_id;
+			$data['modification_date'] = null;
+			$ticket = new Default_Model_Ticket($data);
+			if (1/* validate */)
+			{
+				if ($ticket->save())
+					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'ticket', true), array('prependBase' => false));
+			}
+			$this->view->ticket = $ticket;
+		}
+		$this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
+	}
 
-    protected function convertDate($number)
-    {
-        if (strstr($number, '/') != FALSE)
-        {
-            $split = explode('/', $number);
-            $jour = $split[0];
-            $mois = $split[1];
-            $annee = $split[2];
-            return '{'.$annee.$mois.$jour.'}';
-        }
-        return $number;
-    }
+	public function deleteticketAction()
+	{
+		Default_Model_Ticket::deleteId($this->getRequest()->getParam('id'));
+		$this->_redirect($this->view->url(array('action' => 'tickets', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
+	}
+
+	protected function convertDate($number)
+	{
+		if (strstr($number, '/') != FALSE)
+		{
+			$split = explode('/', $number);
+			$jour = $split[0];
+			$mois = $split[1];
+			$annee = $split[2];
+			return '{'.$annee.$mois.$jour.'}';
+		}
+		return $number;
+	}
 }

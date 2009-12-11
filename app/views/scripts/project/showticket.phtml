@@ -4,12 +4,15 @@
   </div>
 <? else: ?>
 <div class="usvn_info">
-  <h1>Ticket: <?= $this->ticket->title ?></h1>
+  <h1>Ticket: <?= h_($this->ticket->title) ?></h1>
+  <? if ($this->ticket->milestoneId): ?>
+  <h2><?= $this->ticket->milestone->title ?></h2>
+  <? endif ?>
   <?= sprintf(T_('Created the %1$s at %2$s by %3$s'),
   		$this->ticket->creationDate->toString(Zend_Date::DATE_MEDIUM),
   		$this->ticket->creationDate->toString(Zend_Date::TIME_MEDIUM),
   		$this->ticket->creatorId) ?><br />
-  <?= sprintf(T_('Edited the %1$s at %2$s by %3$s'),
+  <?= sprintf(T_('Last modification %1$s at %2$s by %3$s'),
   		$this->ticket->modificationDate->toString(Zend_Date::DATE_MEDIUM),
   		$this->ticket->modificationDate->toString(Zend_Date::TIME_MEDIUM),
   		$this->ticket->modificatorId) ?><br />

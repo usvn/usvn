@@ -74,7 +74,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     public function _bootstrap($resource = null)
     {
-        USVNLogObject('resource', $resource);
+        //USVNLogObject('resource', $resource);
         parent::_bootstrap($resource);
     }
 

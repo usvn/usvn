@@ -3,7 +3,7 @@
 /**
 * 
 */
-class Default_Model_MilestonesMapper
+class Default_Model_UsersMapper
 {
   static private $_instance = null;
   protected $_dbTable;
@@ -43,9 +43,9 @@ class Default_Model_MilestonesMapper
 
 		if (null === ($id = $milestone->getId())) {
 			unset($data['id']);
-			return $this->getDbTable()->insert($data);
+			$this->getDbTable()->insert($data);
 		} else {
-			return $this->getDbTable()->update($data, array('milestone_id = ?' => $id));
+			$this->getDbTable()->update($data, array('milestone_id = ?' => $id));
 		}
   }
 

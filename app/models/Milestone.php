@@ -2,6 +2,7 @@
 
 class Default_Model_Milestone
 {
+  /* Properties */
   	protected $_id;
 		protected $_project_id;
 		protected $_creation_date;
@@ -12,6 +13,9 @@ class Default_Model_Milestone
     protected $_description;
 		protected $_due_date;
 		protected $_status;
+
+  /* Relations */
+    protected $_tickets = null;
 
     static public function getMapper()
     {
@@ -29,13 +33,22 @@ class Default_Model_Milestone
     protected function _initNew(array $values)
     {
 			$this->_project_id = $values['project_id'];
-			$this->_creation_date = new Zend_Date($values['creation_date']);
-			$this->_creator_id = $values['creator_id'];
-			$this->_modification_date = new Zend_Date($values['modification_date']);
-			$this->_modificator_id = $values['modificator_id'];
 			$this->_title = $values['title'];
 			$this->_description = $values['description'];
-			$this->_due_date = new Zend_Date($values['due_date']);
+			$this->_creator_id = $values['creator_id'];
+			$this->_creation_date = new Zend_Date((isset($values['creation_date']) ? $values['creation_date'] : null));
+  		if (isset($values['modificator_id']) && isset($values['modification_date']))
+  		{
+				$this->_modificator_id = $values['modificator_id'];
+				$this->_modification_date = new Zend_Date($values['modification_date']);
+			}
+			else
+			{
+				$this->_modificator_id = $this->_creator_id;
+				$this->_modification_date = $this->_creation_date;
+			}
+			if (isset($values['due_date']))
+				$this->_due_date = new Zend_Date($values['due_date']);
 			$this->_status = $values['status'];
     }
 
@@ -112,13 +125,13 @@ class Default_Model_Milestone
 
 		public function setModificationDate($txt)
 		{
-			$this->_created = (string) $txt;
+			$this->_modification_date = (string) $txt;
 			return $this;
 		}
 
 		public function getModificationDate()
 		{
-			return $this->_created;
+			return $this->_modification_date;
 		}
 
 		public function setModificatorId($txt)
@@ -178,7 +191,11 @@ class Default_Model_Milestone
 
 		public function save()
 		{
-			$this->getMapper()->save($this);
+			$newId = $this->getMapper()->save($this);
+			if ($newId === null || $newId === false)
+				return false;
+			$this->_id = $newId;
+			return true;
 		}
 		
 		public function delete()
@@ -201,8 +218,12 @@ class Default_Model_Milestone
 			return self::getMapper()->fetchRow($where, $order);
 		}
 		
-		public function tickets()
+		public function getTickets()
 		{
-			return Default_Model_Ticket::fetchAll("milestone_id = '{$this->_id}'");
+		  if ($this->_tickets === null)
+		  {
+		    $this->_tickets = Default_Model_Ticket::fetchAll("milestone_id = '{$this->_id}'");
+		  }
+			return $this->_tickets;
 		}
 }

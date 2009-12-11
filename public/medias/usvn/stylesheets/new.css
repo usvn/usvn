@@ -1,7 +1,4 @@
-/* @override 
-    http://localhost/usvn-new/medias/usvn/stylesheets/new.css
-    http://localhost/usvn-hook/css
-*/
+/* @override http://localhost/usvn-current/css */
 
 /*
    new.css
@@ -312,6 +309,14 @@ table.usvn_table th, table.sortable th {
     color: #E4F2FD;
 }
 
+table.usvn_table tfoot th a, table.sortable tfoot th a {
+	color: #FFF;
+}
+
+table.usvn_table tfoot th a:hover, table.sortable tfoot th a:hover {
+	color: #CCC;
+}
+
 table.usvn_table td, table.sortable td {
     border: 1px solid #124361;
     padding: 3px 4px;
@@ -366,7 +371,7 @@ td.comment {
 
 /* @end */
 
-/* @group Profile */
+/* @group Forms */
 
 form.usvn_form {
     padding: 15px;
@@ -381,8 +386,19 @@ form.usvn_form {
     margin: 20px auto 20px auto;
 }
 
-.profile_input {
+#profile select {
+  width: 600px;
+}
+
+#profile input[type=text], #profile input[type=password], #profile textarea {
     width: 600px;
+}
+
+#profile input[type=submit] {
+	margin-top: 20px;
+}
+
+#profile select {
 }
 
 /* @end */
@@ -578,6 +594,25 @@ ul.grid_list li a:hover {
 
 /* @end */
 
+/* @group Debug */
+
+table.debuglog {
+	margin: 10px auto;
+	border-collapse: collapse;
+}
+
+table.debuglog td, table.debuglog th {
+	border: 1px solid black;
+	padding: 5px;
+}
+
+table.debuglog th {
+	color: white;
+	background-color: #444;
+}
+
+/* @end */
+
 
 
 /* @group browser path */
@@ -645,5 +680,49 @@ ul.grid_list li a:hover {
 {
     background: url('<?php echo $this->images_directory ?>/browser-path-r.png') 100% 0 no-repeat;
 }
+
+/* @end */
+
+/* @group Roadmap */
+
+/* @group Milestone */
+
+li.milestone {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	padding: 4px;
+}
+
+li.milestone h2 {
+	margin-bottom: 4px;
+	border-bottom: 1px dashed silver;
+	margin-top: 4px;
+}
+
+li.milestone h2 a {
+	float: right;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+li.milestone p {
+	margin-bottom: 4px;
+	padding-left: 15px;
+	margin-top: 4px;
+	padding-top: 0;
+}
+
+li.milestone ul {
+	margin: 10px;
+}
+
+li.milestone ul li {
+	color: #333333;
+    background-color: #efeeee;
+	padding: 2px 5px;
+	margin: 1px;
+}
+
+/* @end */
 
 /* @end */

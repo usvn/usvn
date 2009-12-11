@@ -34,7 +34,7 @@ class USVN_View_Helper_FormTextarea extends Zend_View_Helper_FormTextarea {
      */
     public function formTextarea($name, $value = null, $attribs = null)
     {
-		$value = htmlspecialchars_decode($value, ENT_QUOTES);
+//		$value = htmlspecialchars_decode($value, ENT_QUOTES);
 		return parent::formTextarea($name, $value, $attribs);
 	}
 }

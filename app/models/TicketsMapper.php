@@ -57,6 +57,11 @@ class Default_Model_TicketsMapper
 		$this->getDbTable()->delete(array('ticket_id = ?' => $id));
 	}
 
+	public function deleteId($id)
+	{
+		$this->getDbTable()->delete(array('ticket_id = ?' => $id));
+	}
+
   public function find($id)
   {
 		$result = $this->getDbTable()->find($id);

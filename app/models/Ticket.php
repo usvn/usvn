@@ -16,13 +16,14 @@ class Default_Model_Ticket
 		protected $_priority;
 		protected $_status;
 
-		/* Fields */
+		/* Relations */
+		protected $_milestone;
 		protected $_creator;
 		protected $_modificator;
 
     static public function getMapper()
     {
-			return Default_Model_TicketsMapper::getInstance();
+      return Default_Model_TicketsMapper::getInstance();
     }
 
     public function __construct($row = null)
@@ -45,6 +46,7 @@ class Default_Model_Ticket
   		}
   		else
   		{
+	  		$this->_modification_date = $this->_creation_date;
 				$this->_modificator_id = $this->_creator_id;
 			}
 			$this->_title = $values['title'];
@@ -188,6 +190,15 @@ class Default_Model_Ticket
 			return $this->_milestone_id;
 		}
 		
+		public function getMilestone()
+		{
+			if ($this->_milestone_id === null)
+				return null;
+			if ($this->_milestone === null)
+				$this->_milestone = Default_Model_Milestone::find($this->_milestone_id);
+			return $this->_milestone;
+		}
+		
 		public function setType($txt)
 		{
 			$this->_type = (string) $txt;
@@ -199,6 +210,23 @@ class Default_Model_Ticket
 			return $this->_type;
 		}
 		
+		static public function types()
+		{
+		  return array(
+		    0 => 'new feature',
+		    1 => 'improvement',
+		    2 => 'bug',
+		    3 => 'other');
+		}
+
+		public function getTypeText()
+		{
+		  $t = self::types();
+		  if (array_key_exists($this->_type, $t))
+		    return $t[$this->_type];
+		  return $this->_type;
+		}
+
 		public function setPriority($txt)
 		{
 			$this->_priority = (string) $txt;
@@ -209,7 +237,25 @@ class Default_Model_Ticket
 		{
 			return $this->_priority;
 		}
-		
+    
+		static public function priorities()
+		{
+		  return array(
+		    2 => 'Urgent',
+		    1 => 'Important',
+		    0 => 'Normal',
+		    -1 => 'Secondary'
+		    );
+		}
+
+		public function getPriorityText()
+		{
+		  $p = self::priorities();
+		  if (array_key_exists($this->_priority, $p))
+		    return $p[$this->_priority];
+		  return $this->_priority;
+		}
+
 		public function setStatus($txt)
 		{
 			$this->_status = (string) $txt;
@@ -233,6 +279,11 @@ class Default_Model_Ticket
 		public function delete()
 		{
 			return $this->getMapper()->delete($this);
+		}
+
+		static public function deleteId($id)
+		{
+			return self::getMapper()->deleteId($id);
 		}
 
 		static public function find($id)

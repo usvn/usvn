@@ -90,6 +90,7 @@ CREATE TABLE usvn_tickets
 		type varchar(50) null,
 		priority varchar(50) null,
 		status varchar(50) not null,
+		assigned_to_id integer null,
 		constraint fk_usvn_tickets_to_users foreign key (creator_id) references usvn_users (users_id) on delete restrict on update restrict,
 		constraint fk_usvn_tickets_to_projects foreign key (project_id) references usvn_projects (projects_id) on delete restrict on update restrict,
 		constraint fk_usvn_tickets_to_users2 foreign key (modificator_id) references usvn_users (users_id) on delete restrict on update restrict,

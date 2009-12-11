@@ -1,15 +1,29 @@
 <div class="usvn_info">
   <h1><?php echo T_('Create a new milestone'); ?></h1>
 </div>
-<form method="post" action="<?php echo $this->url ?>">
-<div>
-	<label><?php echo T_("Title"); ?><span class="usvn_require">*</span>:<br />
-		<?php echo $this->formText('milestone_title', $this->milestone->title, array('maxlength' => 200)); ?>
-	</label>
+<div id="profile">
+<form method="post" action="<?php echo $this->url ?>" class="usvn_form">
+	<label for="milestone[title]"><?php echo T_("Title"); ?><span class="usvn_require">*</span>:</label><br />
+	<?php echo $this->formText('milestone[title]', (isset($this->milestone) ? $this->milestone->title : ''), array('maxlength' => 200)); ?>
 	<br />
-	<label><?php echo T_("Description"); ?><span class="usvn_require">*</span>:<br />
-		<?php echo $this->formTextarea('milestone_description', $this->milestone->description); ?>
-	</label>
+
+	<label><?php echo T_("Project"); ?>:</label><br />
+	<?= $this->project->name ?>
+	<input type="hidden" name="milestone[project_id]" value="<?= (isset($this->milestone) ? $this->milestone->projectId : $this->project->id) ?>" id="milestone[project_id]" />
 	<br />
+
+	<label for="milestone[description]"><?php echo T_("Description"); ?><span class="usvn_require">*</span>:</label><br />
+	<?php echo $this->formTextarea('milestone[description]', (isset($this->milestone) ? $this->milestone->description : '')); ?>
+	<br />
+
+	<input type="hidden" name="milestone[status]" value="<?= (isset($this->milestone) ? $this->milestone->status : '') ?>" id="milestone[status]" />
+	<input type="hidden" name="milestone[due_date]" value="<?= (isset($this->milestone) ? $this->milestone->dueDate : 0) ?>" id="milestone[due_date]" />
+
 	<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
+	<?
+	/* 
+	protected $_due_date;
+	protected $_status;
+	*/
+	?>
 </div>

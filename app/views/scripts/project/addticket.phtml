@@ -2,16 +2,38 @@
 	<h1><?= T_('Ajouter un Ticket') ?></h1>
 </div>
 <div id="profile">
-	<form action="" method="POST">
-		<label for="ticket[title]"><?= T_('Title') ?></label>
+	<form action="" method="POST" class="usvn_form">
+
+		<label for="ticket[title]"><?= T_('Title') ?></label><br />
 		<input name="ticket[title]" type="text" value="<?= (isset($this->ticket) ? $this->ticket->title : '') ?>" />
-		<label for="ticket[description]"><?= T_('Description') ?></label>
-		<textarea name="ticket[description]"><?= (isset($this->ticket) ? $this->ticket->description : '') ?></textarea>
+
+		<label for="ticket[description]"><?= T_('Description') ?></label><br />
+		<?= $this->formTextArea('ticket[description]', (isset($this->ticket) ? $this->ticket->description : ''), array('rows' => '15', 'cols' => ' ')) ?><br />
+
+		<label for="ticket[project_id]"><?= T_('Project') ?></label><br />
 		<input  name="ticket[project_id]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->projectId : $this->project->projects_id) ?>" />
-		<input  name="ticket[milestone_id]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->milestoneId : '') ?>" />
-		<input  name="ticket[type]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->type : '') ?>" />
-		<input  name="ticket[priority]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->priority : '') ?>" />
-		<input  name="ticket[status]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->status : '') ?>" />
+		<?= $this->project->name ?><br />
+
+<?
+		$milestonesById = array();
+		foreach ($this->milestones as $ms)
+			$milestonesById[$ms->id] = $ms->title;
+?>
+		<label for="ticket[milestone_id]"><?= T_('Milestone') ?></label><br />
+		<!-- input  name="ticket[milestone_id]" type="hidden" value="<?= (isset($this->ticket) ? $this->ticket->milestoneId : '') ?>" /><br / -->
+		<?= $this->formSelect('ticket[milestone_id]', (isset($this->ticket) ? $this->ticket->milestoneId : ''), array(), $milestonesById); ?><br />
+
+		<label for="ticket[status]"><?= T_('Status') ?></label><br />
+		<? $opts = array('new' => 'new', 'assigned' => 'assigned', 'closed' => 'closed', 'reopened' => 'reopened') ?>
+		<?= $this->formSelect('ticket[status]', (isset($this->ticket) ? $this->ticket->status : ''), array(), $opts); ?><br />
+
+		<label for="ticket[type]"><?= T_('Type') ?></label><br />
+		<? $types = Default_Model_Ticket::types() ?>
+		<?= $this->formSelect('ticket[type]', (isset($this->ticket) ? $this->ticket->type : ''), array(), $types); ?><br />
+
+		<label for="ticket[priority]"><?= T_('Priority') ?></label><br />
+		<? $priorities = Default_Model_Ticket::priorities() ?>
+		<?= $this->formSelect('ticket[priority]', (isset($this->ticket) ? $this->ticket->priority : 0), array(), $priorities); ?><br />
 <!-- 
 			$this->_creator_id = $values['creator_id'];
 			$this->_title = $values['title'];

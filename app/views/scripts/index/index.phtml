@@ -3,7 +3,7 @@
 </div>
 <div id="usvn_index_projects" class="usvn_index_box">
 	<h3><?= T_("Your projects") ?> <?= ($this->prefix != null ? '('.$this->prefix.')' : '') ?> :</h3>
-  <? if (count($this->projects)): ?>
+  <? if (count($this->projects) || $this->prefix != null): ?>
     <ul class="grid_list">
     <?php if ($this->prefix != null): ?>
       <li>
@@ -50,7 +50,7 @@
 </div>
 <div id="usvn_index_groups" class="usvn_index_box">
 	<h3><?= T_("Your groups"); ?>:</h3>
-<? if (count($this->groups)): ?>
+<? if (count($this->groups) || $this->prefix != null): ?>
 	<ul class="grid_list">
 	  <?php if ($this->prefix != null): ?>
       <li>
@@ -92,7 +92,7 @@
 	<? endforeach ?>
 	</ul>
 <? else: ?>
-	<p><?= T_("You are not assign to a group.") ?></p>
+	<p><?= T_("You are not assigned to a group.") ?></p>
 <? endif ?>
 </div>
 <div style="clear: both;">

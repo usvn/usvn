@@ -40,32 +40,7 @@ class IndexController extends USVN_Controller {
 		$this->view->projects = $this->displayDirectories(array(), $table->fetchAllAssignedTo($this->getRequest()->getParam('user'), $folder), $folder);
 		
 		$projects = $table->fetchAll("projects_name LIKE '{$folder}%'", "projects_name");
-		$this->view->groups = $this->displayDirectories($user->listGroups($folder), $projects, $folder);
-		
-		/*
-		$projects = new USVN_Db_Table_Projects();
-		if ($this->_request->getParam('folder') != null && $this->_request->getParam('folder') != USVN_DIRECTORY_SEPARATOR) {
-			$folder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('folder'));
-			$i = strripos(substr($folder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
-			$this->view->prev = ($i === false ? '' : substr($folder, 0, $i + 1));
-		} else {
-			$folder = null;
-		}
-		$this->view->prefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $folder);
-		$this->view->projects = $this->displayDirectories($projects->fetchAllAssignedTo($this->getRequest()->getParam('user'), $folder), $folder);
-		*/
-		
-		/*
-		if ($this->_request->getParam('grpfolder') != null && $this->_request->getParam('grpfolder') != USVN_DIRECTORY_SEPARATOR) {
-			$grpfolder = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->_request->getParam('grpfolder'));
-			$i = strripos(substr($grpfolder, 0, -1), USVN_DIRECTORY_SEPARATOR, 2);
-			$this->view->grpprev = ($i === false ? '' : substr($grpfolder, 0, $i + 1));
-		} else {
-			$grpfolder = null;
-		}
-		$this->view->grpprefix = str_replace(USVN_DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $grpfolder);
-		$this->view->groups = $this->displayDirectories($user->listGroups($grpfolder), $grpfolder);
-		*/
+		$this->view->groups = $this->displayDirectories($user->listGroups($folder), array(), $folder);
 		
 		$this->view->maxlen = 12;
 	}

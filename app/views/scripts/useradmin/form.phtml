@@ -1,28 +1,28 @@
 <label><?php echo T_("Login"); ?><span class="usvn_require">*</span>:<br />
-	<?php echo $this->formText('users_login', $this->user->login, array('maxlength' => 255)); ?>
+	<?php echo $this->formText('users_login', $this->user->login, array('maxlength' => 255, 'class' => 'profile_input')); ?>
 </label>
 <br />
 <label><?php echo T_("Password"); ?><span class="usvn_require">*</span>:<br />
-	<?php echo $this->formPassword('users_password',  null); ?>
+	<?php echo $this->formPassword('users_password',  null, array('class' => 'profile_input')); ?>
 </label>
 <br />
 <label><?php echo T_("Confirm password"); ?><span class="usvn_require">*</span>:<br />
-	<?php echo $this->formPassword('users_password2',  null); ?>
+	<?php echo $this->formPassword('users_password2',  null, array('class' => 'profile_input')); ?>
 </label>
 <br />
 <label><?php echo T_("Lastname"); ?>:<br />
-	<?php echo $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)); ?></label>
+	<?php echo $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100, 'class' => 'profile_input')); ?></label>
 <br />
 <label><?php echo T_("Firstname"); ?>:<br />
-	<?php echo $this->formText('users_firstname', $this->user->firstname , array('maxlength' => 100)); ?>
+	<?php echo $this->formText('users_firstname', $this->user->firstname , array('maxlength' => 100, 'class' => 'profile_input')); ?>
 </label>
 <br />
 <label><?php echo T_("Email"); ?>:<br />
-	<?php echo $this->formText('users_email', $this->user->email, array('maxlength' => 150)); ?>
+	<?php echo $this->formText('users_email', $this->user->email, array('maxlength' => 150, 'class' => 'profile_input')); ?>
 </label>
 <br />
 <label><?php echo T_("Administrator");?>:
-	<?php echo $this->formCheckbox('users_is_admin', '1',  array('checked' => intval($this->user->is_admin))); ?>
+	<?php echo $this->formCheckbox('users_is_admin', '1',  array('checked' => intval($this->user->is_admin), 'class' => 'profile_input')); ?>
 </label>
 <div id="affected">
 	<div id="affected-title">

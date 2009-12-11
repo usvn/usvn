@@ -34,23 +34,23 @@ function checkForm() {
 <div id="profile">
 	<form id="user" class="usvn_form" method="post" action="<?= $this->url(array("action" => "save")) ?>">
 		<label for="users_password"><?= T_("Actual password") ?><span class="usvn_require">*</span><br />
-			<?= $this->formPassword('users_password',  null) ?>
+			<?= $this->formPassword('users_password',  null, array('class' => 'profile_input')) ?>
 		</label>
 		<br />
 		<label><?= T_("New password") ?><br />
-			<?= $this->formPassword('users_new_password',  null) ?>
+			<?= $this->formPassword('users_new_password',  null, array('class' => 'profile_input')) ?>
 		</label>
-			<?= $this->formPassword('users_new_password_copy',  null) ?>
+			<?= $this->formPassword('users_new_password_copy',  null, array('class' => 'profile_input')) ?>
 		<br />
 		<label><?= T_("Lastname") ?><br />
-			<?= $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)) ?></label>
+			<?= $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100, 'class' => 'profile_input')) ?></label>
 		<br />
 		<label><?= T_("Firstname") ?><br />
-			<?= $this->formText('users_firstname', $this->user->firstname, array('maxlength' => 100)) ?>
+			<?= $this->formText('users_firstname', $this->user->firstname, array('maxlength' => 100, 'class' => 'profile_input')) ?>
 		</label>
 		<br />
 		<label><?= T_("Email") ?><br />
-			<?= $this->formText('users_email', $this->user->email, array('maxlength' => 150)) ?>
+			<?= $this->formText('users_email', $this->user->email, array('maxlength' => 150, 'class' => 'profile_input')) ?>
 		</label>
 		<br />
 		<?= $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')) ?>

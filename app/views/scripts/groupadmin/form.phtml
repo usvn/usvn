@@ -4,15 +4,15 @@
 		<label><?php echo T_("Name"); ?><span class="usvn_require">*</span>:<br />
 			<?php
 			  if ($this->prefix) {
-			    echo $this->prefix, ' ', $this->formText('groups_name', $this->group->name, array('maxlength' => 255, 'size' => '77'));
+			    echo $this->prefix, ' ', $this->formText('groups_name', $this->group->name, array('maxlength' => 255, 'size' => '77', 'class' => 'profile_input'));
 			  } else {
-			    echo '', $this->formText('groups_name', $this->group->name, array('maxlength' => 255, 'size' => '77'));
+			    echo '', $this->formText('groups_name', $this->group->name, array('maxlength' => 255, 'size' => '77', 'class' => 'profile_input'));
 			  }
 			?>
 		</label>
 		<br />
 		<label><?php echo T_("Description"); ?>:<br />
-			<?php echo $this->formTextarea('groups_description', $this->group->description, array('rows' => 8, 'cols' => 35)); ?>
+			<?php echo $this->formTextarea('groups_description', $this->group->description, array('rows' => 8, 'cols' => 35, 'class' => 'profile_input')); ?>
 		</label>
 		<br/>
 		<?php

@@ -386,4 +386,69 @@ class USVN_SVNUtils
 		$url .= $project . $path;
 		return $url;
 	}
+	
+	public static function delExternals($folder, $proj)
+	{
+		$config = Zend_Registry::get('config');
+		try {
+			$local = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$folder.DIRECTORY_SEPARATOR.$proj);
+			$cmd = USVN_SVNUtils::svnCommand("del {$local} -m 'Delete external folder {$proj}'");
+			$del = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+			if ($return) {
+				throw new USVN_Exception(T_("Can\'t delete the external folder : %s"), $del);
+			}
+		}
+		catch (Exception $e) {
+			//TODO verifier que ca a bien marche;
+		}
+	}
+	
+	public static function setExternals($folder, $proj)
+	{
+		$config = Zend_Registry::get('config');
+		$local = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$folder.DIRECTORY_SEPARATOR.$proj);
+		$cmd = USVN_SVNUtils::svnCommand("mkdir {$local} -m 'Creating external folder {$proj}'");
+		$mkdir = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if ($return) {
+			throw new USVN_Exception(T_('Can\'t create the external folder'));
+		}
+		$tmp = tempnam(sys_get_temp_dir(), 'USVN_Tmp');
+		unlink($tmp);
+		$cmd = USVN_SVNUtils::svnCommand("co {$local} {$tmp}");
+		$message = USVN_ConsoleUtils::runCmdCaptureMessage($cmd, $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't checkout subversion repository: %s"), $message);
+		}
+		$cmd = USVN_SVNUtils::svnCommand("pset --non-interactive svn:externals '{$proj} {$config->subversion->url}{$proj}' '{$tmp}'");
+		$pset = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't set the svn:externals property"));
+		}
+		$cmd = USVN_SVNUtils::svnCommand("ci --non-interactive '{$tmp}' -m 'Commiting external folder {$proj}'");
+		$ci = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't commit the svn:externals property : %s"), $ci);
+		}
+		USVN_SVNUtils::delFolder($tmp);
+	}
+	
+	public static function delFolder($folder)
+	{
+		if (($dir = opendir($folder)) !== false) {
+			return;
+		}
+		while (($file = readdir($dir))) {
+			if ($file == '.' || $file == '..') {
+				continue;
+			}
+			$tmp = $dir.DIRECTORY_SEPARATOR.$file;
+			if (is_dir($tmp)) {
+				USVN_SVNUtils::delFolder($tmp);
+				rmdir($tmp);
+			} else {
+				unlink($tmp);
+			}
+		}
+		closedir($dir);
+	}
 }

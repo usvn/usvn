@@ -108,6 +108,10 @@ class USVN_Project
 			$project->save();
 
 			USVN_Project::createProjectSVN($data['projects_name'], $create_svn_directories);
+			
+			if (preg_match('#^(.+)\\'.USVN_DIRECTORY_SEPARATOR.'([^'.USVN_DIRECTORY_SEPARATOR.']+)$#', $data['projects_name'], $tmp)) {
+				USVN_SVNUtils::setExternals($tmp[1], $tmp[2]);
+			}
 				
 			if ($create_group) {
 				$group = $groups->createRow();
@@ -156,6 +160,9 @@ class USVN_Project
 		. 'svn'
 		. DIRECTORY_SEPARATOR
 		. $project_name);
-
+		
+		if (preg_match('#^(.+)\\'.USVN_DIRECTORY_SEPARATOR.'([^'.USVN_DIRECTORY_SEPARATOR.']+)$#', $project_name, $tmp)) {
+			USVN_SVNUtils::delExternals($tmp[1], $tmp[2]);
+		}
 	}
 }

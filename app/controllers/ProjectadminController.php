@@ -28,7 +28,7 @@ class ProjectadminController extends AdminadminController
 			return array();
 		}
 		$project = array();
-		$project["projects_name"] = $data['prefix'].$data["projects_name"];
+		$project["projects_name"] = $data['prefix'].DIRECTORY_SEPARATOR.$data["projects_name"];
 		$project["projects_description"] = $data["projects_description"];
 		$project["projects_folder"] = ($data['nf'] ? '1' : '0');
 		return $project;

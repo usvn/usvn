@@ -42,6 +42,14 @@ class LoginController extends USVN_Controller
 		Zend_Session::destroy();
 		$this->_redirect('/');
 	}
+	
+	protected function _loginError($errorMessage, $login = '')
+	{
+		$this->view->login = $login;
+		$this->view->messages = $errorMessage;
+		$this->render('error');
+		$this->render('login');
+	}
 
 	protected function _doLogin()
 	{
@@ -72,16 +80,20 @@ class LoginController extends USVN_Controller
 		}
 		// Set up the authentication adapter
 		$authAdapter = new $authAdapterClass($_POST['login'], $_POST['password'], $authOptions);
-		
+
 		// Attempt authentication, saving the result
-		$result = $auth->authenticate($authAdapter);
+		try
+		{
+			$result = $auth->authenticate($authAdapter);
+		}
+		catch (Exception $e)
+		{
+			return $this->_loginError(array($e->getMessage()));
+		}
 
 		if (!$result->isValid())
 		{
-			$this->view->login = $_POST['login'];
-			$this->view->messages = $result->getMessages();
-			$this->render('error');
-			$this->render('login');
+			$this->_loginError($result->getMessages(), $_POST['login']);
 		}
 		else
 		{

@@ -1,5 +1,9 @@
 <? $this->dojo()->enable()
-        ->requireModule('dijit.Dialog')->requireModule('dojox.fx.easing')->requireModule('dojo._base.html'); ?>
+        ->requireModule('dijit.Dialog')
+        ->requireModule('dojox.fx.easing')
+        ->requireModule('dojo._base.html')
+        ->requireModule("dijit.form.Button");
+?>
 
 <script type="text/javascript">
 
@@ -13,7 +17,8 @@
             {
                 title: '<?= T_('Rights') ?>',
                 id: 'dlgDiv',
-                style: 'width: 400px;'
+                style: 'width: 400px; background: white;',
+                easing: null
             });
         }
     );
@@ -41,10 +46,11 @@
                 }
             );
         }
+        var vp = dijit.getViewport();
         var anim = dojo.fx.slideTo({
             node: 'dlgDiv',
-            left: (document.width / 2) - 200,
-            top:"-100",
+            left: (vp.w / 2) - 200,
+            top:"-150",
             unit:"px"
         }).play()
         dlg.onCancel();
@@ -136,22 +142,12 @@
             addToTable(i, tableRights, name, disabled, read, write);
         }
         nbGroups = i;
-        var confirmLink = dojo.create('a');
-        dojo.attr(confirmLink, {
-            href: '#',
-            onclick: function(e){
-                updateRights(path)
-            },
-            style:{
-                border: '1px solid',
-                solid: '#135675',
-                float: 'right',
-                margin: '7px 19px',
-                padding: '2px 10px'
-            }
+        var button = new dijit.form.Button({
+                label: "OK",
+                onClick: function() { updateRights(path) },
+                style: 'float: right; margin: 7px 19px; padding: 5px 0 0 0;'
         });
-        confirmLink.innerHTML = 'OK';
-        divRights.appendChild(confirmLink);
+        divRights.appendChild(button.domNode);
         dlg.attr('content', div);
     }
 
@@ -182,7 +178,7 @@
         dlg.attr('draggable', false);
         dlg.show();
 /*
-    var anim = dojo.fx.slideTo({
+        var anim = dojo.fx.slideTo({
             node: 'dlgDiv',
             left: (document.width / 2) - 200,
             top: '150',

@@ -14,7 +14,8 @@
         <?
             if ($this->dojo()->isEnabled())
             {
-                $this->dojo()->setDjConfigOption('usePlainJson', true)
+                $this->dojo()
+                    ->setDjConfigOption('usePlainJson', true)
                     ->addStylesheetModule('dijit.themes.nihilo')
                     ->setLocalPath($config->url->base . '/dojo/dojo/dojo.js');
                 echo $this->dojo();

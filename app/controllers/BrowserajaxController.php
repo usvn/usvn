@@ -24,7 +24,7 @@ class BrowserajaxController extends USVN_Controller
     {
         parent::preDispatch();
         $this->_helper->layout()->disableLayout();
-        $this->_project = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('project'));
+        $this->_project = $this->getRequest()->getParam('project');
         $this->_path = $this->getRequest()->getParam('path');
     }
 
@@ -108,6 +108,7 @@ class BrowserajaxController extends USVN_Controller
         $group = $tabNewRights[0];
         $read = $tabNewRights[1];
         $write = $tabNewRights[2];
+        $resursive = $tabNewRights[3];
 
         $res_groups = $table_group->findByGroupsName($group);
         $access_rights->setRightByPath(
@@ -115,7 +116,7 @@ class BrowserajaxController extends USVN_Controller
             $this->_path,
             ($read == '1' ? True : False),
             ($write == '1' ? True : False),
-            (false)
+            ($recursive == '1' ? True : False)
         );
     }
 }

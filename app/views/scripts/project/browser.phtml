@@ -1,11 +1,9 @@
 <? $this->dojo()->enable()
-        ->requireModule('dijit.Dialog')->requireModule('dojox.fx.easing'); ?>
+        ->requireModule('dijit.Dialog')->requireModule('dojox.fx.easing')->requireModule('dojo._base.html'); ?>
 
 <script type="text/javascript">
 
     var dlg;
-    var div = document.createElement("div");
-    div.id = "dlg";
     var nbGroups = 0;
 
     dojo.addOnLoad(
@@ -13,8 +11,9 @@
         {
             dlg = new dijit.Dialog(
             {
-                title: "<?= T_('Rights') ?>",
-                id: "dlgDiv",
+                title: '<?= T_('Rights') ?>',
+                id: 'dlgDiv',
+                style: 'width: 400px;'
             });
         }
     );
@@ -27,26 +26,28 @@
             var group = document.getElementById('group' + i).innerHTML;
             var read = (document.getElementById('read' + group).checked == true ? '1' : '0');
             var write = (document.getElementById('write' + group).checked == true ? '1' : '0');
+            var recursive = (document.getElementById('recursive' + group).checked == true ? '1' : '0');
             // send it
             dojo.xhrPost(
                 {
                     url: "<?= $this->url(array('controller' => 'browserajax',
-                                               'project' => $this->project->name,
+                                               'project' => urlencode($this->project->name),
                                                'action' => 'updaterights',
                                                'path' => '" + path + "',
                                               ),
                                               'browserajax', true, false) ?>",
                     timeout: 5000,
-                    content: {'newRights' : group + ',' + read + ',' + write},
+                    content: {'newRights' : group + ',' + read + ',' + write + ',' + recursive}
                 }
             );
         }
-/*
         var anim = dojo.fx.slideTo({
-            node: 'dlgDiv', left:"500", top:"-100", unit:"px" }).play()
-*/
+            node: 'dlgDiv',
+            left: (document.width / 2) - 200,
+            top:"-100",
+            unit:"px"
+        }).play()
         dlg.onCancel();
-
     }
 
     function addHeaderToTable(table)
@@ -98,47 +99,60 @@
         // recursive
         col = row.insertCell(3);
         col.setAttribute('style', 'text-align:center');
-        col.innerHTML = '-';
+        str = '<?= '<input id="recursive'; ?>' + name + '<?= '" type="checkbox">'; ?>';
+        col.innerHTML = str;
     }
 
     function parseXml(xml, path)
     {
-        if (div.hasChildNodes('rights'))
-        {
-            var oldRights = document.getElementById('rights');
-            div.removeChild(oldRights);
-        }
-        divRights = document.createElement('div');
-        divRights.setAttribute('id', 'rights');
-        var table = document.createElement('table');
-        table.setAttribute('class', 'usvn_table');
-        divRights.appendChild(table);
+        var div;
+
+        dojo.destroy('dlg');
+
+        div = dojo.create('div');
+        dojo.attr(div, 'id', 'dlg');
+
+        var divRights = dojo.create('div');
+        dojo.attr(divRights, 'id', 'rights');
+
+        var tableRights = dojo.create('table');
+        dojo.addClass(tableRights, 'usvn_table');
+
+        divRights.appendChild(tableRights);
         div.appendChild(divRights)
-        addHeaderToTable(table);
+        addHeaderToTable(tableRights);
         var root = xml.getElementsByTagName('root')[0];
+        var group = null;
         for (var i = 0; i < root.childNodes.length; i++)
         {
-            if (root.hasChildNodes('group'))
-                var group = root.getElementsByTagName('group')[i];
+            if (root.hasChildNodes())
+                group = root.getElementsByTagName('group')[i];
             if (group == null)
                 break;
             var name = group.getElementsByTagName('name')[0].childNodes[0].nodeValue;
             var disabled = group.getElementsByTagName('disabled')[0].childNodes[0].nodeValue;
             var read = group.getElementsByTagName('read')[0].childNodes[0].nodeValue;
             var write = group.getElementsByTagName('write')[0].childNodes[0].nodeValue;
-            addToTable(i, table, name, disabled, read, write);
+            addToTable(i, tableRights, name, disabled, read, write);
         }
         nbGroups = i;
-        confirm = document.createElement('a');
-        confirm.setAttribute('href', '#');
-        confirm.setAttribute('onclick', 'updateRights(' + path + ')');
-        confirm.setAttribute('style', 'border: 1px solid #135675; float: right; margin: 7px 19px; padding: 2px 10px;');
-        confirm.innerHTML = 'OK';
-        divRights.appendChild(confirm);
-        dlg.setAttribute('style', 'width: 400px');
+        var confirmLink = dojo.create('a');
+        dojo.attr(confirmLink, {
+            href: '#',
+            onclick: function(e){
+                updateRights(path)
+            },
+            style:{
+                border: '1px solid',
+                solid: '#135675',
+                float: 'right',
+                margin: '7px 19px',
+                padding: '2px 10px'
+            }
+        });
+        confirmLink.innerHTML = 'OK';
+        divRights.appendChild(confirmLink);
         dlg.attr('content', div);
-        dlg.attr('draggable', false);
-        dlg.show();
     }
 
     function showDialog(path)
@@ -146,7 +160,7 @@
         dojo.xhrGet(
             {
                 url: "<?= $this->url(array('controller' => 'browserajax',
-                                           'project' => $this->project->name,
+                                           'project' => urlencode($this->project->name),
                                            'action' => 'dumprights',
                                            'path' => '" + path + "',
                                           ),
@@ -162,23 +176,20 @@
                         }
                         parseXml(response, path);
                         dojo.byId("replace").innerHTML = response;
-                    },
+                    }
             }
         );
-    }
+        dlg.attr('draggable', false);
+        dlg.show();
 /*
-        function()
-        {
-            dojo.animateProperty({
-                node: "dlgDiv",
-                easing: dojox.fx.easing.elasticOut,
-                properties: {
-                    top: { end: 100 },
-                    left: { end: 100 }
-                }
-            }).play();
-        }
+    var anim = dojo.fx.slideTo({
+            node: 'dlgDiv',
+            left: (document.width / 2) - 200,
+            top: '150',
+            unit:'px'
+        }).play()
 */
+    }
 </script>
 
 <div class="usvn_info">
@@ -197,7 +208,7 @@
             <? if ($i < $tabLen): ?>
                 <? if ($i == 0): ?>
                     <a href="<?= $this->url(array('controller' => $this->controller,
-                        'project' => $this->project->name,
+                        'project' => urlencode($this->project->name),
                         'action' => $this->action,
                         'path' => ('')
                         ),
@@ -207,7 +218,7 @@
                 <? else: ?>
                     <? $path = $path . $folder . '/' ?>
                     <a href="<?= $this->url(array('controller' => $this->controller,
-                        'project' => $this->project->name,
+                        'project' => urlencode($this->project->name),
                         'action' => $this->action,
                         'path' => ($path)
                         ),
@@ -236,7 +247,7 @@
             <tr>
                 <td colspan="5">
                     <a href="<?= $this->url(array('controller' => $this->controller,
-                        'project' => $this->project->name,
+                        'project' => urlencode($this->project->name),
                         'action' => $this->action,
                         'path' => (dirname($this->path) == '/' ? '' : dirname($this->path))
                         ),
@@ -253,7 +264,7 @@
                 <td>
                     <a href="<?= $this->url(array('controller' => $this->controller,
                         'area' => 'project',
-                        'project' => $this->project->name,
+                        'project' => urlencode($this->project->name),
                         'action' => $this->action,
                         'file' => ($file['path'][0] == '/' ? substr($file['path'], 1) : $file['path'])
                         ),
@@ -265,7 +276,7 @@
             <? else: ?>
                 <td>
                     <a href="<?= $this->url(array('controller' => $this->controller,
-                        'project' => $this->project->name,
+                        'project' => urlencode($this->project->name),
                         'action' => $this->action,
                         'path' => ($file['path'][0] == '/' ? substr($file['path'], 1) : $file['path'])
                         ),
@@ -277,7 +288,7 @@
 
             <td class="align-center">
                 <a href="<?= $this->url(array('controller' => $this->controller,
-                    'project' => $this->project->name,
+                    'project' => urlencode($this->project->name),
                     'action' => 'commit',
                     'commit' => $file['revision']
                     ),
@@ -295,15 +306,3 @@
         <? endforeach ?>
     </table>
 </div>
-
-<!--
-<div class="usvn_info">
-  <div id="txthtml2">
-  </div>
-</div>
-<div id="bulle" class="bubblerights" align="center"></div>
-<script type="text/javascript">
-register_position();
-getListFile('<?php echo $this->back ?>');
-</script>
--->

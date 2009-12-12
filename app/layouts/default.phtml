@@ -15,7 +15,7 @@
             if ($this->dojo()->isEnabled())
             {
                 $this->dojo()->setDjConfigOption('usePlainJson', true)
-                    ->addStylesheetModule('dijit.themes.tundra')
+                    ->addStylesheetModule('dijit.themes.nihilo')
                     ->setLocalPath($config->url->base . '/dojo/dojo/dojo.js');
                 echo $this->dojo();
             }
@@ -30,7 +30,7 @@
         <? endforeach; endif; ?>
 
     </head>
-    <body <? if ($this->dojo()->isEnabled()) echo 'class="tundra"'; ?>>
+    <body <? if ($this->dojo()->isEnabled()) echo 'class="nihilo"'; ?>>
         <div id="header">
             <div id="shaddow">
                 <div id="header-wrapper">

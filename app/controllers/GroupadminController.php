@@ -28,7 +28,7 @@ class GroupadminController extends AdminadminController
 			return array();
 		}
 		$group = array();
-		$group["groups_name"] = $data['prefix'].DIRECTORY_SEPARATOR.$data["groups_name"];
+		$group["groups_name"] = ($data['prefix'] ? $data['prefix'].DIRECTORY_SEPARATOR : '').$data["groups_name"];
 		$group["groups_description"] = $data["groups_description"];
 		return $group;
 	}

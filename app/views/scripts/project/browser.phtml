@@ -188,7 +188,7 @@
 <div class="usvn_info" style="vertical-align: middle;">
     <div class="browser-path">
         <?
-            $tabPath = explode('/', $this->path);
+            $tabPath = preg_split('|/+|', $this->path);
             $tabLen = count($tabPath) - 1;
             $i = 0;
             $path = '';

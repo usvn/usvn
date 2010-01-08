@@ -4,14 +4,18 @@
   <br />
   <table width="100%">
     <tr>
-      <th align="left"><?php echo T_("Language:")." ".(empty($this->language) ? T_('text') : $this->language) ?></th>
+      <th align="left"><?php echo T_("Language:") . " " . (empty($this->language) ? T_('text') : $this->language) ?></th>
       <th align="right">
-        <form method="POST" action="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project') ?>" style="display: inline;">
-          <input type="hidden" name="back" value="<?php echo '/'.dirname($this->path).'/' ?>">
-          <input type="submit" value="<?php echo T_('Browser') ?>" />
-        </form>
+        <a href="<?= $this->url(array('controller' => 'browser',
+            'project' => urlencode($this->project->name),
+            'action' => '',
+            'path' => dirname($this->path)
+            ),
+            'browser', true, false) ?>">
+            <span><?= T_('Browser') ?></span><b></b>
+        </a>
         /
-        <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path) ?>"><?php echo T_('Original') ?></a>
+        <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, '/' . $this->path) ?>"><?php echo T_('Original') ?></a>
       </th>
     </tr>
     <tr>

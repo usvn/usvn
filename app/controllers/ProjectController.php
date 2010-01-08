@@ -180,7 +180,7 @@ class ProjectController extends USVN_Controller
 		$this->view->project = $this->_project;
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$project_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR,$this->_project->name);
-		$this->view->path = $svn_file_path;
+		$this->view->path = '/' . $svn_file_path;
 		$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$svn_file_path);
 		$revision = $this->getRequest()->getParam('rev');
 		$file_rev = '';

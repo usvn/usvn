@@ -808,7 +808,7 @@ msgstr ""
 #: ../../../www//views/project/index.phtml:5
 #, php-format
 msgid "Checkout URL : %s"
-msgstr ""
+msgstr "Checkout URL: %s"
 
 #: ../../../www//views/project/index.phtml:33
 msgid "Admins users"

@@ -1,7 +1,9 @@
 <?= $this->error($this) ?>
  <div class="usvn_info">
     <h1><?= T_("Timeline") ?> </h1>
-    <br>
+    <br />
+</div>
+<div class="usvn_info">
     <form action="<?= $this->url(array("action" => "LastHundredRequest")) ?>" method="post">
         <div>
             <table>
@@ -15,7 +17,7 @@
                         </a>:
                     </td>
                     <td>
-                        <?= $this->formText('number_start', $this->number_start) . '<br>' ?>
+                        <?= $this->formText('number_start', $this->number_start) . '<br />' ?>
                      </td>
                  </tr>
                  <tr>

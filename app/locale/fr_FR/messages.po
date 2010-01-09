@@ -229,11 +229,11 @@ msgstr "Le groupe %s est invalide pour le projet %s."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
-msgstr "Le nom du projet est vide."
+msgstr "Le nom du projet est requis."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:178
 msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
-msgstr "Le nom du projet est invalide. Un nom de projet ne peut contenir que des caractères alpha-numérique et les '-' ou '_'."
+msgstr "Le nom du projet est invalide. Un nom de projet ne peut contenir que des caractères alphanumériques et les '-' ou '_'."
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
@@ -243,7 +243,7 @@ msgstr "Vous ne pouvez pas renommer un projet."
 #: ../../../www//views/useradmin/js.phtml:9
 #: ../../../www//install/views/step6.html:7
 msgid "Login empty."
-msgstr "Identifiant vide"
+msgstr "Identifiant requis"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
 msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
@@ -258,7 +258,7 @@ msgstr "Adresse email invalide."
 #: ../../../www//views/useradmin/js.phtml:15
 #: ../../../www//install/views/step6.html:18
 msgid "Password empty."
-msgstr "Mot de passe vide"
+msgstr "Mot de passe requis"
 
 #: ../../../www//USVN/Db/Table/Row/User.php:164
 #: ../../../www//views/profile/index.phtml:21
@@ -276,11 +276,11 @@ msgstr "L'identifiant %s existe déjà."
 
 #: ../../../www//USVN/Db/Table/Groups.php:75
 msgid "The group's name is empty."
-msgstr "Le nom du groupe est vide."
+msgstr "Le nom du groupe est requis."
 
 #: ../../../www//USVN/Db/Table/Groups.php:78
 msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
-msgstr "Le nom du groupe est invalide. Un nom de groupe ne peut contenir que des caractères alpha-numérique et les '-' ou '_'."
+msgstr "Le nom du groupe est invalide. Un nom de groupe ne peut contenir que des caractères alphanumériques et les '-' ou '_'."
 
 #: ../../../www//USVN/Db/Table/Users.php:127
 #, php-format
@@ -453,7 +453,7 @@ msgstr "Une version %s de USVN est disponible sur <a href=\"http://www.usvn.info
 #: ../../../www//views/useradmin/js.phtml:26
 #: ../../../www//install/views/step6.html:23
 msgid "Password incorrect (not the same)."
-msgstr "Les deux mot de passe sont différents."
+msgstr "Les deux mots de passe sont différents."
 
 #: ../../../www//views/profile/index.phtml:34
 msgid "My account"
@@ -515,7 +515,7 @@ msgstr "Traduction:"
 
 #: ../../../www//views/systemreportadmin/index.phtml:6
 msgid "Database:"
-msgstr "Base de donnée:"
+msgstr "Base de données:"
 
 #: ../../../www//views/systemreportadmin/index.phtml:7
 msgid "Subversion version:"
@@ -551,7 +551,7 @@ msgstr "Voulez vous vraiment supprimer le projet %s?"
 
 #: ../../../www//views/projectadmin/form.phtml:10
 msgid "Project's name empty, please fill it."
-msgstr "Le nom du projet est vide."
+msgstr "Le nom du projet est requis."
 
 #: ../../../www//views/projectadmin/form.phtml:22
 msgid "Project's information"
@@ -590,7 +590,7 @@ msgstr "Voulez vous vraiment supprimer le groupe %s?"
 
 #: ../../../www//views/groupadmin/form.phtml:10
 msgid "Group's name empty, please fill it."
-msgstr "Le nom du groupe est vide."
+msgstr "Le nom du groupe est requis."
 
 #: ../../../www//views/groupadmin/form.phtml:22
 msgid "Group's information"
@@ -627,7 +627,7 @@ msgstr "Mot de passe"
 
 #: ../../../www//views/useradmin/import.phtml:4
 msgid "This form allow you to add to USVN all users contents into an apache password file."
-msgstr "Ce formulaire vous pemettra d'ajouter à USVN tous les utilisateurs contenus dans un fichier de mots de passe apache."
+msgstr "Ce formulaire vous permettra d'ajouter à USVN tous les utilisateurs contenus dans un fichier de mots de passe apache."
 
 #: ../../../www//views/useradmin/import.phtml:10
 msgid "Upload"
@@ -741,7 +741,7 @@ msgstr "Fin (numéro de version ou date)"
 
 #: ../../../www//views/Timeline/index.phtml:30
 msgid "This is optional.The listing is made between start revision/date and this one."
-msgstr "Ceci est optionnel. La liste des versions commence à la première version/date jusqua celle si."
+msgstr "Ceci est optionnel. La liste des versions commence à la première version/date jusqu'à celle-ci."
 
 #: ../../../www//views/Timeline/index.phtml:40
 msgid "Search"
@@ -812,7 +812,7 @@ msgstr "Utilisateurs affectés"
 #: ../../../www//views/project/index.phtml:5
 #, php-format
 msgid "Checkout URL : %s"
-msgstr "Url du Subversion: %s"
+msgstr "Url du Subversion : %s"
 
 #: ../../../www//views/project/index.phtml:33
 msgid "Admins users"
@@ -920,7 +920,7 @@ msgstr "Dépot subversion"
 
 #: ../../../www//install/views/step4.html:31
 msgid "Location where usvn will create subversion repository."
-msgstr "L'emplacement où usvn créera les dépots Subversion."
+msgstr "L'emplacement où usvn créera les dépôts Subversion."
 
 #: ../../../www//install/views/step4.html:45
 msgid "Subversion password file "
@@ -952,7 +952,7 @@ msgstr "Vous pouvez désormais utiliser USVN"
 
 #: ../../../www//install/views/step8.html:7
 msgid "Apache configuration"
-msgstr "Configuration de Apache"
+msgstr "Configuration d'Apache"
 
 #: ../../../www//install/views/step8.html:8
 msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
@@ -996,9 +996,9 @@ msgid ""
 "</p>\n"
 msgstr ""
 "\n"
-"<p>Lors des vérifications de mises à jour, USVN enverra des informationsconcernant votre installation.</p>\n"
+"<p>Lors des vérifications de mises à jour, USVN enverra des informations concernant votre installation.</p>\n"
 "<p>\n"
-"Ces informations ne sont collectées qu'à des fins de statistiques pournous permettre de mieux connaitre les plateformes sur lesquelles USVNest installé.</p>\n"
+"Ces informations ne sont collectées qu'à des fins de statistiques pour nous permettre de mieux connaitre les plateformes sur lesquelles USVNest installé.</p>\n"
 "<p>\n"
 "Voici la liste des informations que nous souhaitons collecter:\n"
 "<ul>\n"
@@ -1007,12 +1007,12 @@ msgstr ""
 "<li>La version de Subversion</li>\n"
 "<li>La version de USVN</li>\n"
 "<li>Le contenu de phpinfo()</li>\n"
-"<li>Le driver de base de donnée</li>\n"
+"<li>Le driver de base de données</li>\n"
 "<li>La traduction</li>\n"
 "</ul>\n"
 "</p>\n"
 "<p>\n"
-"Si vous ne souhaitez pas que ces informations soit collectées, vouspourrez désactiver la notification des mises à jour.</p>\n"
+"Si vous ne souhaitez pas que ces informations soient collectées, vouspourrez désactiver la notification des mises à jour.</p>\n"
 
 #: ../../../www//install/views/step7.html:33
 msgid "Allow check update and send statistics informations"
@@ -1024,7 +1024,7 @@ msgstr "Ne pas vérifier les mises à jour"
 
 #: ../../../www//install/views/step5.html:33
 msgid "Database installation"
-msgstr "Installation de la base de donnée"
+msgstr "Installation de la base de données"
 
 #: ../../../www//install/views/step5.html:34
 msgid "Configuration of database's access."
@@ -1032,7 +1032,7 @@ msgstr "Configuration de l'accès à la base de donnée"
 
 #: ../../../www//install/views/step5.html:41
 msgid "Database Type"
-msgstr "Type de base de donnée"
+msgstr "Type de base de données"
 
 #: ../../../www//install/views/step5.html:53
 msgid "Host"
@@ -1040,11 +1040,11 @@ msgstr "Serveur"
 
 #: ../../../www//install/views/step5.html:93
 msgid "Database"
-msgstr "Base de donnée"
+msgstr "Base de données"
 
 #: ../../../www//install/views/step5.html:109
 msgid "Create database ?"
-msgstr "Créer la base de donnée ?"
+msgstr "Créer la base de données ?"
 
 #: ../../../www//install/views/step5.html:117
 msgid "Table prefix"
@@ -1052,7 +1052,7 @@ msgstr "Préfixe des tables"
 
 #: ../../../www//install/views/step6.html:13
 msgid "Lastname empty."
-msgstr "Nom vide"
+msgstr "Nom requis"
 
 #: ../../../www//install/views/step6.html:39
 msgid "Create administrator user"
@@ -1073,16 +1073,16 @@ msgstr "Vous devez accepter la licence pour pouvoir continuer l'installation."
 
 #: ../../../www//install/Install.php:64
 msgid "Can't create database\n"
-msgstr "Impossible de créer la base de donnée.\n"
+msgstr "Impossible de créer la base de données.\n"
 
 #: ../../../www//install/Install.php:73
 msgid "Can't connect to database.\n"
-msgstr "Impossible de se connecter à la base de donnée.\n"
+msgstr "Impossible de se connecter à la base de données.\n"
 
 #: ../../../www//install/Install.php:86
 #, php-format
 msgid "Invalid adapter %s.\n"
-msgstr "Le driver de base de donnée %s est invalide.\n"
+msgstr "Le driver de base de données %s est invalide.\n"
 
 #: ../../../www//install/Install.php:96
 msgid "Can't load SQL file.\n"
@@ -1118,7 +1118,7 @@ msgstr "Impossible d'écrire le fichier htaccess %s\n"
 
 #: ../../../www//install/Install.php:330
 msgid "Password empty"
-msgstr "Le mot de passe est vide"
+msgstr "Le mot de passe est requis"
 
 #: ../../../www//install/Install.php:388
 msgid "Need a title."
@@ -1138,7 +1138,7 @@ msgid ""
 "\n"
 "Otherwise under UNIX you probably need to install a package named subversion."
 msgstr ""
-"et après redémarrer votre système (ATTENTION c'est obligatoire). \n"
+"et après redémarrez votre système (ATTENTION c'est obligatoire). \n"
 "\n"
 "Sinon sous UNIX vous devez probablement installer un package appelé subversion."
 
@@ -1176,7 +1176,7 @@ msgid "USVN Configuration"
 msgstr "Configuration d'USVN"
 
 msgid "Database Installation"
-msgstr "Installation de la Base de Donnée"
+msgstr "Installation de la Base de Données"
 
 msgid "Administrator User Creation"
 msgstr "Creation d'un Compte Administrateur"
@@ -1188,4 +1188,4 @@ msgid "Installation is over"
 msgstr "Fin de l'installation"
 
 msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
-msgstr "Une copie de l'ancien dépôt a été effectuée. Toute modification effectuée sur l'ancien dépôt ne sera pas répecutée sur le nouveau. Veuillez bloquer son l'accès."
+msgstr "Une copie de l'ancien dépôt a été effectuée. Toute modification effectuée sur l'ancien dépôt ne sera pas répercutée sur le nouveau. Veuillez bloquer son l'accès."

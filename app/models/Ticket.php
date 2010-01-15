@@ -92,6 +92,15 @@ class Default_Model_Ticket
 			return $this->$getter();
 		}
 
+		/**
+		 * return an array with an error for each invalid field
+		 * if return is empty => good to save
+		 */
+		public function validate()
+		{
+			return array();
+		}
+
 		public function isNew()
 		{
 			return empty($this->_id);
@@ -248,6 +257,19 @@ class Default_Model_Ticket
 		    );
 		}
 
+		public function getPriorityImage()
+		{
+		  $imgs = array(
+		    2 => 'red-priority.png',
+		    1 => 'yellow-priority.png',
+		    0 => 'green-priority.png',
+		    -1 => 'blue-priority.png'
+		    );
+		    if (array_key_exists($this->_priority, $imgs))
+		      return $imgs[$this->_priority];
+		    return 'blue-priority.png';
+		}
+		
 		public function getPriorityText()
 		{
 		  $p = self::priorities();

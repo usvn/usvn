@@ -60,7 +60,7 @@ class ProjectController extends USVN_Controller
 			array('label' => 'Index',    'url' => array('action' => '', 'project' => $project->name), 'route' => 'project'),
 			array('label' => 'Timeline', 'url' => array('action' => 'timeline', 'project' => $project->name), 'route' => 'project'),
 			array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project'),
-			array('label' => 'Roadmap',  'url' => array('action' => 'milestones', 'project' => $project->name), 'route' => 'project')
+			array('label' => 'Roadmap',  'url' => array('action' => 'roadmap', 'project' => $project->name), 'route' => 'project')
 			);
 	}
 
@@ -497,10 +497,10 @@ class ProjectController extends USVN_Controller
 			// }
 	}
 
-	public function milestonesAction()
+	public function roadmapAction()
 	{
-		$this->view->project = $this->_project;
-		$this->view->milestones = Default_Model_Milestone::fetchAll();
+	  $this->view->project = $this->_project;
+	  $this->view->milestones = Default_Model_Milestone::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
 	}
 
 	public function addmilestoneAction()
@@ -527,6 +527,12 @@ class ProjectController extends USVN_Controller
 		}
 	}
 
+	public function milestoneAction()
+	{
+		$this->view->milestone = Default_Model_Milestone::find($this->getRequest()->getParam('id'));
+		$this->view->milestoneId = $this->getRequest()->getParam('id');
+	}
+
 	public function showticketAction()
 	{
 		$this->view->ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
@@ -544,7 +550,7 @@ class ProjectController extends USVN_Controller
 			$data['modificator_id'] = $this->view->user->users_id;
 			$data['modification_date'] = null;
 			$ticket = new Default_Model_Ticket($data);
-			if (1/* validate */)
+			if (!empty($_POST['save']) && $ticket !== null)
 			{
 				if ($ticket->save())
 					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'ticket', true), array('prependBase' => false));

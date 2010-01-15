@@ -1,6 +1,6 @@
 <?php
 
-class Default_Model_Milestone
+class Default_Model_Milestone extends Default_Model_Abstract
 {
   /* Properties */
   	protected $_id;
@@ -55,13 +55,13 @@ class Default_Model_Milestone
     protected function _initWithRow(Zend_Db_Table_Row $row)
 		{
 			$this->_id = $row->milestone_id;
-			$this->_creation_date = new Zend_Date($row->creation_date);
+			$this->_creation_date = new Zend_Date($row->creation_date, Zend_Date::W3C);
 			$this->_creator_id = $row->creator_id;
-			$this->_modification_date = new Zend_Date($row->modification_date);
+			$this->_modification_date = new Zend_Date($row->modification_date, Zend_Date::W3C);
 			$this->_modificator_id = $row->modificator_id;
 			$this->_title = $row->title;
 			$this->_description = $row->description;
-			$this->_due_date = new Zend_Date($row->due_date);
+			$this->_due_date = (empty($row->due_date) ? null : new Zend_Date($row->due_date, Zend_Date::W3C));
 			$this->_status = $row->status;
     }
 
@@ -85,6 +85,10 @@ class Default_Model_Milestone
 			return $this->$getter();
 		}
 
+		public function __isset($param)
+		{
+			return parent::__isset($param);
+		}
 		public function getId()
 		{
 			return $this->_id;
@@ -169,7 +173,7 @@ class Default_Model_Milestone
 
 		public function setDueDate($txt)
 		{
-			$this->_due_date = (string) $txt;
+			$this->_due_date = $txt;
 			return $this;
 		}
 

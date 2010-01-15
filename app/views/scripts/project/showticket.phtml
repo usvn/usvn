@@ -1,10 +1,12 @@
 <? if ($this->ticket === null): ?>
-  <div class="error">
-    Le Ticket #<?= $this->ticketId ?> n'existe pas
-  </div>
+<div class="error">
+  Le Ticket #<?= $this->ticketId ?> n'existe pas
+</div>
 <? else: ?>
 <div class="usvn_info">
-  <h1>Ticket: <?= h_($this->ticket->title) ?></h1>
+  <h1><?= h_($this->ticket->title) ?></h1>
+</div>
+<div class="ticket">
   <? if ($this->ticket->milestoneId): ?>
   <h2><?= $this->ticket->milestone->title ?></h2>
   <? endif ?>
@@ -16,6 +18,8 @@
   		$this->ticket->modificationDate->toString(Zend_Date::DATE_MEDIUM),
   		$this->ticket->modificationDate->toString(Zend_Date::TIME_MEDIUM),
   		$this->ticket->modificatorId) ?><br />
+  <p>
+	  <?= nl2br(h_($this->ticket->description)) ?>
+  </p>
 </div>
-  <?= nl2br(h_($this->ticket->description)) ?>
 <? endif ?>

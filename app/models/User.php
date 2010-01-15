@@ -5,47 +5,18 @@ class Default_Model_User extends Default_Model_Abstract
   static public function getDbTableConfig()
   {
     $config = parent::getDbTableConfig();
-    case self::ADAPTER:
-         $this->_setAdapter($value);
-         break;
-     case self::DEFINITION:
-         $this->setDefinition($value);
-         break;
-     case self::DEFINITION_CONFIG_NAME:
-         $this->setDefinitionConfigName($value);
-         break;
-     case self::SCHEMA:
-         $this->_schema = (string) $value;
-         break;
-     case self::NAME:
-         $this->_name = (string) $value;
-         break;
-     case self::PRIMARY:
-         $this->_primary = (array) $value;
-         break;
-     case self::ROW_CLASS:
-         $this->setRowClass($value);
-         break;
-     case self::ROWSET_CLASS:
-         $this->setRowsetClass($value);
-         break;
-     case self::REFERENCE_MAP:
-         $this->setReferences($value);
-         break;
-     case self::DEPENDENT_TABLES:
-         $this->setDependentTables($value);
-         break;
-     case self::METADATA_CACHE:
-         $this->_setMetadataCache($value);
-         break;
-     case self::METADATA_CACHE_IN_CLASS:
-         $this->setMetadataCacheInClass($value);
-         break;
-     case self::SEQUENCE:
-         $this->_setSequence($value);
-         break;
-    
+    $config[self::PRIMARY] = array('users_id');
+     // case self::ROW_CLASS:
+     //     $this->setRowClass($value);
+     //     break;
+     // case self::REFERENCE_MAP:
+     //     $this->setReferences($value);
+     //     break;
+     // case self::DEPENDENT_TABLES:
+     //     $this->setDependentTables($value);
+     //     break;
   }
+
   static public function getFields()
   {
     return array_push(

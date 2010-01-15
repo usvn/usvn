@@ -1176,3 +1176,6 @@ msgstr "P&aacute;gina principal"
 
 msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
 msgstr ""
+
+msgid "Unknown file type, can't display"
+msgstr ""

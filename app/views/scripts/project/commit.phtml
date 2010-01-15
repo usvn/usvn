@@ -1,7 +1,7 @@
 <?php function spaceToNbsp($text) { return str_replace(array(' ', "\t"), array('&nbsp; ', '&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; '), $text); } ?>
 <?php echo $this->error($this); ?>
 <div class="usvn_info">
-  <h1><?php echo T_('Commit').': '.$this->commit ?></h1>
+  <h1><?php echo T_('Commit').': '.$this->commit ?> <span style="float: right"><a href="<?= ($this->commit - 1) ?>">&lt;=</a><a href="<?= ($this->commit + 1) ?>">=&gt;</a></span></h1>
   <table style="width: 100%;">
     <tr>
       <td><?php echo T_('Author') ?>:</td>

@@ -1160,6 +1160,10 @@ msgstr "Editer"
 msgid "Home"
 msgstr "Page d'accueil"
 
+
+msgid "Unknown file type, can't display"
+msgstr "Type de fichier inconnu, impossible à afficher"
+
 ##############
 ## INSTALLER #
 ##############
@@ -1189,3 +1193,6 @@ msgstr "Fin de l'installation"
 
 msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
 msgstr "Une copie de l'ancien dépôt a été effectuée. Toute modification effectuée sur l'ancien dépôt ne sera pas répercutée sur le nouveau. Veuillez bloquer son l'accès."
+
+msgid "Due:"
+msgstr "Pour le :"

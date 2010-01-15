@@ -11,7 +11,8 @@ class Default_Model_MilestonesMapper
   static public function getInstance()
   {
     if (self::$_instance === null) {
-      self::$_instance = new Default_Model_MilestonesMapper(new Default_Model_DbTable('usvn_milestones'));
+      // self::$_instance = new Default_Model_MilestonesMapper(new Default_Model_DbTable('usvn_milestones'));
+      self::$_instance = new Default_Model_MilestonesMapper(Default_Model_Milestone::getDbTable());
 		}
     return self::$_instance;
   }

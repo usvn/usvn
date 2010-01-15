@@ -1,0 +1,41 @@
+<? $milestone = $this->milestone ?>
+<div class="usvn_info">
+	<h1><?= h_($milestone->title) ?></h1>
+	<? if ($milestone->dueDate != null): ?>
+		<p><?= T_('Due:') ?> <?= $milestone->dueDate->toString(Zend_Date::DATE_LONG) ?></p>
+	<? endif ?>
+	<? $desc = $milestone->description ?>
+	<? if (!empty($desc)): ?>
+		<p><?= h_($milestone->description) ?> </p>
+	<? endif ?>
+</div>
+<div class="milestone">
+  <ul>
+	  <li class="shortform">
+	  	<form style="float:right;" action="<?= $this->url(array('project' => $this->project->name, 'action' => 'addmilestone'), 'roadmap') ?>" method="POST">
+	  		<input type="submit" name="" value="<?= T_('create milestone') ?>"></input>
+	  	</form>
+	  </li>
+<? $tickets = $milestone->tickets ?>
+<? if (empty($tickets)): ?>
+	  <div style="text-align: center;"><?= T_('No Ticket') ?></div>
+<? else: ?>
+  <? foreach ($tickets as $ticket): ?>
+  <? $showUrl = $this->url(array('project' => $this->project->name, 'action' => 'showticket', 'id' => $ticket->id), 'roadmap') ?>
+    <li class="ticket">
+    	<h2><a href="<?= $showUrl ?>"><?= $ticket->title ?></a></h2>
+    	<p>
+	     	<?= $ticket->typeText ?> - <?= $ticket->priorityText ?>
+	    </p>
+	    <p>
+	  		<?= nl2br(h_($ticket->description)) ?>
+  		</p>
+      <!-- <p>
+        type: <?= $ticket->getTypeText() ?><br />
+        priority: <?= $ticket->getPriorityText() ?><br />
+      </p> -->
+    </li>
+  <? endforeach ?>
+<? endif ?>
+  </ul>
+</div>

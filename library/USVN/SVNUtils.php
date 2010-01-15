@@ -161,7 +161,17 @@ class USVN_SVNUtils
 	{
 		return "svn --config-dir /USVN/fake $cmd";
 	}
-
+	
+	/**
+	* Get the command svn
+	*
+	* @param string Parameters
+	*/
+	public static function svnlookCommand($cmd)
+	{
+		return "svnlook $cmd";
+	}
+	
 	/**
 	* Get the command svnadmin
 	*

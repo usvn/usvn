@@ -190,6 +190,19 @@ class ProjectController extends USVN_Controller
 		{
 			if (is_numeric($revision) && $revision > 0)
 			{
+				if ($revision) {
+					$local_svn_path = escapeshellarg($config->subversion->path."/svn/".$project_name);
+					$cmd = USVN_SVNUtils::svnlookCommand("history {$local_svn_path} {$svn_file_path}");
+					$history = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+					if (preg_match_all('#\s*([0-9]+)\s+(.*)#', $history, $tmp)) {
+						foreach ($tmp[1] as $k => $rev) {
+							if ($revision >= $rev) {
+								$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$tmp[2][$k]);
+								break;
+							}
+						}
+					}
+				}
 				$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --quiet {$local_file_path}".($revision ? "@{$revision}" : ''));
 				$verif = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
 				if (!$return)
@@ -213,6 +226,7 @@ class ProjectController extends USVN_Controller
 				if (!isset($infos['Last Changed Rev'])) {
 					throw new USVN_Exception(T_("There is a problem with the file info."));
 				}
+				// $this->view->revision = ($infos['Last Changed Rev'] > $infos['Revision'] ? $infos['Last Changed Rev'] : $infos['Revision']);
 				$this->view->revision = $infos['Last Changed Rev'];
 				if ($revision) {
 					$this->view->message = T_("The requested revision does not exist. Switching to the last changed revision.");
@@ -231,10 +245,6 @@ class ProjectController extends USVN_Controller
 			$this->view->prev_revision = NULL;
 			$this->view->next_revision = NULL;
 			foreach ($tmp[1] as $k => $rev) {
-				if (!$k && $revision != $rev) {
-					$this->view->revision = $rev;
-					$revision = $this->view->revision;
-				}
 				if ($this->view->prev_revision === NULL && intval($rev) < intval($this->view->revision)) {
 					$this->view->prev_revision = $rev;
 				}

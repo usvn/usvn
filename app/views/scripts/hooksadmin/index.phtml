@@ -1,0 +1,47 @@
+<div class="usvn_info">
+	<h1><?= T_("Hooks") ?></h1>
+</div>
+
+<table class="sortable" id="hooks">
+	<thead>
+		<tr>
+			<th><?= T_('Path') ?></th>
+			<th><?= T_('Type') ?></th>
+			<th class="sorttable_nosort" width="56px"><?= T_('Action') ?></th>
+		</tr>
+	</thead>
+	<tbody>
+
+<? if (!empty($this->hooks)): ?>
+	<? $even = true ?>
+	<? foreach ($this->hooks as $hook): ?>
+	<? $even = !$even ?>
+	<? $editurl = $this->url(array('action' => 'edit', 'id' => $user->id)) ?>
+	<? $deletetext = T_("Do you really want to delete user %s?") ?>
+	<tr class="<?= ($even ? 'even' : 'odd') ?>">
+		<td><a href="<?= h_($editurl) ?>"><?= h_($hook->path) ?></a></td>
+		<td><a href="<?= h_($editurl) ?>"><?= h_($hook->type . '-' . $hook->event) ?></a></td>
+		<td class="align-right">
+			<?= $this->editLink('hooks', 'login', $user->login) ?>
+			<? if ($user->login != $me): ?>
+				<?= $this->deleteLink('hooks', 'login', $user->login, $deletetext) ?>
+			<? else: ?>
+				<?= $this->img('empty.png') ?>
+			<? endif ?>
+		</td>
+	</tr>
+<? endforeach ?>
+<? endif ?>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="6" class="align-right">
+				<div>
+					<a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("Add hooks") ?></a>
+					<?= $this->addLink() ?>
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<br />

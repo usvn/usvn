@@ -63,7 +63,7 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	 *
 	 * @var array
 	 */
-	protected $_dependentTables = array("USVN_Db_Table_FilesRights", "USVN_Db_Table_UsersToProjects", "USVN_Db_Table_GroupsToProjects");
+	protected $_dependentTables = array("USVN_Db_Table_FilesRights", "USVN_Db_Table_UsersToProjects", "USVN_Db_Table_GroupsToProjects", "USVN_Db_Table_ProjectsToHooks");
 
 	/**
 	 * Return the project by his name

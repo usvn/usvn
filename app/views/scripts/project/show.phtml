@@ -95,7 +95,7 @@
     }
     else
     { ?>
-        <div <?php echo $this->diff_div ?>><table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;"><tr><?php if ($diff_rev > 0) { ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $diff_rev ?></th><?php } ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->revision ?></th><th style="background-color: #EEEEEE;">&nbsp;</th></tr>
+        <div <?php echo $this->diff_div ?>><table border="0" cellspacing="1px" cellpadding="0" style="width: 100%; padding: 2px;"><tr><?php if ($diff_rev > 0) { ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $diff_rev ?></th><?php } ?><th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->revision ?></th><th style="background-color: #EEEEEE;">&nbsp;</th></tr>
         <?php
             $source = explode("\n", $this->highlighted_source);
             $r1_line = 1;

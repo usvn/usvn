@@ -62,7 +62,18 @@ class ProjectController extends USVN_Controller
 			array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project'),
 			array('label' => 'Roadmap',  'url' => array('action' => 'roadmap', 'project' => $project->name), 'route' => 'project')
 			);
-		$this->imagesTab = array('jpg', 'jpeg', 'jp2', 'pict', 'pct', 'ico', 'icns', 'png', 'gif', 'tiff', 'bmp');
+		$this->imagesTab = array('jpg' => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'jpe' => 'image/jpeg',
+			'jp2' => 'image/jpeg',
+			'pict' => 'image/pict',
+			'pct' => 'image/pict',
+			'ico' => 'image/x-icon',
+			'icns' => 'image/x-icon',
+			'png' => 'image/png',
+			'gif' => 'image/gif',
+			'tiff' => 'image/tiff',
+			'bmp' => 'image/bmp');
 		$this->txtTab = array('txt');
 	}
 
@@ -330,7 +341,7 @@ class ProjectController extends USVN_Controller
 				$this->view->diff_lines = $diff_lines;
 			}
 		}
-		if (in_array($file_ext, $this->imagesTab)) {
+		if (isset($this->imagesTab[$file_ext])) {
 			$this->view->highlighted_source = '<p style="text-align:center;"><img src="' . $this->view->url(array('project' => $this->view->project->name, 'action' => 'file'), 'project')."/".str_replace('%2F', '/', urlencode($this->view->path)).'?rev='.$this->view->revision . '" /></p>';
 			$this->view->nodiff = true;
 			$this->render();
@@ -391,19 +402,17 @@ class ProjectController extends USVN_Controller
 						$tab_diff[$file] = array();
 						$indiff = FALSE;
 					}
-					elseif (!$indiff) {
-						if (preg_match('#^@@ \-([0-9]+)(,([0-9]+))? \+([0-9]+)(,([0-9]+))? @@$#', $line, $tmp)) {
-							$tab_index = count($tab_diff[$file]);
-							$tab_diff[$file][$tab_index] = array(
-								$base => array('begin' => $tmp[1], 'end' => (empty($tmp[3]) ? $tmp[1] : $tmp[3]), 'content' => array()),
-								$commit => array('begin' => $tmp[4], 'end' => (empty($tmp[6]) ? $tmp[4] : $tmp[6]), 'content' => array()),
-								'common' => array()
-								);
-							$count = 0;
-							$indiff = TRUE;
-						}
+					elseif (preg_match('#^@@ \-([0-9]+)(,([0-9]+))? \+([0-9]+)(,([0-9]+))? @@$#', $line, $tmp)) {
+						$tab_index = count($tab_diff[$file]);
+						$tab_diff[$file][$tab_index] = array(
+							$base => array('begin' => $tmp[1], 'end' => (empty($tmp[3]) ? $tmp[1] : $tmp[3]), 'content' => array()),
+							$commit => array('begin' => $tmp[4], 'end' => (empty($tmp[6]) ? $tmp[4] : $tmp[6]), 'content' => array()),
+							'common' => array()
+							);
+						$count = 0;
+						$indiff = TRUE;
 					}
-					else {
+					elseif ($indiff) {
 						$diff_char = substr($line, 0, 1);
 						if ($diff_char == '\\') {
 							continue;
@@ -454,8 +463,8 @@ class ProjectController extends USVN_Controller
 		ob_end_clean();
 		$this->getResponse ()->clearHeaders ();
 		// Ce code est bizard, oui, mais IE est vraiment un mauvais navigateur ...
-		if (in_array($file_ext, $this->imagesTab)) {
-			header("Content-Type: image/".$file_ext);
+		if (isset($this->imagesTab[$file_ext])) {
+			header("Content-Type: ".$this->imagesTab[$file_ext]);
 		}
 		else {
 			header("Pragma: public");

@@ -445,7 +445,7 @@ class GeSHi {
      *  The style for the actual code
      * @var string
      */
-    var $code_style = 'font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;';
+    var $code_style = 'font: normal normal 12px monospace; margin:0; padding:0; background:none; vertical-align:top;';
 
     /**
      * The overall class for this code block

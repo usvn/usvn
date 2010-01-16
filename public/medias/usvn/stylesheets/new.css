@@ -693,6 +693,10 @@ li.shortform {
 	padding: 4px;
 }
 
+li.shortform form {
+  float: right;
+}
+
 li.milestone {
 	margin-top: 5px;
 	margin-bottom: 10px;

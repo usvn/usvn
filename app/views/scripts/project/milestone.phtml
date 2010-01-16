@@ -12,9 +12,10 @@
 <div class="milestone">
   <ul>
 	  <li class="shortform">
-	  	<form style="float:right;" action="<?= $this->url(array('project' => $this->project->name, 'action' => 'addmilestone'), 'roadmap') ?>" method="POST">
-	  		<input type="submit" name="" value="<?= T_('create milestone') ?>"></input>
-	  	</form>
+			<form action="<?= $this->url(array('project' => $this->project->name, 'action' => 'addticket'), 'roadmap') ?>" method="POST">
+				<input type="hidden" name="ticket[milestone_id]" value="<?= $milestone->id ?>" />
+				<input type="submit" name="" value="<?= T_('create ticket') ?>"></input>
+			</form>
 	  </li>
 <? $tickets = $milestone->tickets ?>
 <? if (empty($tickets)): ?>

@@ -42,6 +42,9 @@ class Default_Model_MilestonesMapper
 			'status'			 			=> $milestone->getStatus()
 			);
 
+		foreach ($data as &$value)
+			if ($value instanceof Zend_Date)
+				$value = $value->toString(Zend_Date::W3C);
 		if (null === ($id = $milestone->getId())) {
 			unset($data['id']);
 			return $this->getDbTable()->insert($data);

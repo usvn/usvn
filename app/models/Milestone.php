@@ -47,7 +47,7 @@ class Default_Model_Milestone extends Default_Model_Abstract
 				$this->_modificator_id = $this->_creator_id;
 				$this->_modification_date = $this->_creation_date;
 			}
-			if (isset($values['due_date']))
+			if (!empty($values['due_date']))
 				$this->_due_date = new Zend_Date($values['due_date']);
 			$this->_status = $values['status'];
     }

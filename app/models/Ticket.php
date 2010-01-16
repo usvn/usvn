@@ -36,9 +36,11 @@ class Default_Model_Ticket
 
     protected function _initNew(array $values)
     {
-			$this->_project_id = $values['project_id'];
+    	if (isset($values['project_id']))
+				$this->_project_id = $values['project_id'];
 			$this->_creation_date = new Zend_Date((isset($values['creation_date']) ? $values['creation_date'] : null));
-			$this->_creator_id = $values['creator_id'];
+    	if (isset($values['creator_id']))
+				$this->_creator_id = $values['creator_id'];
   		if (isset($values['modificator_id']) && isset($values['modification_date']))
   		{
 				$this->_modification_date = new Zend_Date($values['modification_date']);
@@ -49,12 +51,18 @@ class Default_Model_Ticket
 	  		$this->_modification_date = $this->_creation_date;
 				$this->_modificator_id = $this->_creator_id;
 			}
-			$this->_title = $values['title'];
-			$this->_description = $values['description'];
-			$this->_milestone_id = $values['milestone_id'];
-			$this->_type = $values['type'];
-			$this->_priority = $values['priority'];
-			$this->_status = $values['status'];
+    	if (isset($values['title']))
+				$this->_title = $values['title'];
+    	if (isset($values['description']))
+				$this->_description = $values['description'];
+    	if (isset($values['milestone_id']))
+				$this->_milestone_id = $values['milestone_id'];
+    	if (isset($values['type']))
+				$this->_type = $values['type'];
+    	if (isset($values['priority']))
+				$this->_priority = $values['priority'];
+    	if (isset($values['status']))
+				$this->_status = $values['status'];
     }
 
     protected function _initWithRow(Zend_Db_Table_Row $row)

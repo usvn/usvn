@@ -12,7 +12,7 @@
 	<input type="hidden" name="milestone[project_id]" value="<?= (isset($this->milestone) ? $this->milestone->projectId : $this->project->id) ?>" id="milestone[project_id]" />
 	<br />
 
-	<label for="milestone[description]"><?php echo T_("Description"); ?><span class="usvn_require">*</span>:</label><br />
+	<label for="milestone[description]"><?php echo T_("Description"); ?>:</label><br />
 	<?php echo $this->formTextarea('milestone[description]', (isset($this->milestone) ? $this->milestone->description : '')); ?>
 	<br />
 

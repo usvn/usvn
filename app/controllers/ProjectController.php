@@ -531,7 +531,7 @@ class ProjectController extends USVN_Controller
 			if (1/* validate */)
 			{
 				if ($milestone->save())
-					$this->_redirect($this->view->url(array('action' => 'milestones', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
+					$this->_redirect($this->view->url(array('action' => 'roadmap', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
 			}
 			$this->view->milestone = $milestone;
 		}
@@ -563,7 +563,7 @@ class ProjectController extends USVN_Controller
 			if (!empty($_POST['save']) && $ticket !== null)
 			{
 				if ($ticket->save())
-					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'ticket', true), array('prependBase' => false));
+					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'roadmap', true), array('prependBase' => false));
 			}
 			$this->view->ticket = $ticket;
 		}

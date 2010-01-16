@@ -40,7 +40,7 @@
     <br />
     <table width="100%">
     <tr>
-        <th align="left"><?php echo T_("Language:") . " " . (empty($this->language) ? T_('text') : $this->language) ?></th>
+        <th align="left"><?php echo T_("Language:") . " " . (empty($this->language) ? T_('text') : ucwords($this->language)) ?></th>
         <th align="right">
         <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, $this->path) ?>"><?php echo T_('Original') ?></a>
         </th>

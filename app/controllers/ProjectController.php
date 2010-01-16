@@ -173,22 +173,16 @@ class ProjectController extends USVN_Controller
 		$this->_redirect("/project/".str_replace('/', USVN_URL_SEP, $this->_project->name)."/");
 	}
 
-	public function showAction()
+	private function _getSvnFile(&$local_file_path, &$revision, &$revisions)
 	{
 		/*
 		** Configuration basique
 		*/
-		include_once('geshi/geshi.php');
 		$this->view->project = $this->_project;
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$project_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR,$this->_project->name);
 		$svn_file_path = $this->getRequest()->getParam('file');
 		$revision = $this->getRequest()->getParam('rev');
-		$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
-		$this->view->path = $svn_file_path;
-		if ($this->view->path[0] != '/') {
-			$this->view->path = '/' . $this->view->path;
-		}
 
 		/*
 		** Recuperation des differents paths du fichier
@@ -203,7 +197,7 @@ class ProjectController extends USVN_Controller
 			}
 		}
 		$revisions = array_keys($rev_path);
-
+		
 		/*
 		** Recuperation de la version
 		*/
@@ -219,6 +213,31 @@ class ProjectController extends USVN_Controller
 		$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$rev_path[$revision]);
 		$this->view->revision = $revision;
 		
+		/*
+		** Recuperation du contenu du fichier
+		*/
+		$cmd = USVN_SVNUtils::svnCommand("cat --non-interactive {$local_file_path}@{$revision}");
+		$source = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if ($return) {
+			throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
+		}
+		return $source;
+	}
+
+	public function showAction()
+	{
+		/*
+		** Configuration basique
+		*/
+		include_once('geshi/geshi.php');
+		$svn_file_path = $this->getRequest()->getParam('file');
+		$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
+		$this->view->path = $svn_file_path;
+		if ($this->view->path[0] != '/') {
+			$this->view->path = '/' . $this->view->path;
+		}
+		$source = $this->_getSvnFile($local_file_path, $revision, $revisions);
+
 		/*
 		** Navigation dans les revisions
 		*/
@@ -237,110 +256,98 @@ class ProjectController extends USVN_Controller
 		/*
 		** Recuperation du contenu du fichier
 		*/
-		$cmd = USVN_SVNUtils::svnCommand("cat --non-interactive {$local_file_path}@{$revision}");
-		$source = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-		if ($return) {
-			throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
+		$this->view->color_view = $this->getRequest()->getParam('color');
+		$this->view->diff_view = $this->getRequest()->getParam('diff');
+		$this->view->diff_revision = $this->getRequest()->getParam('drev');
+		if ($this->view->diff_revision >= $this->view->revision) {
+			$this->view->diff_revision = $this->view->prev_revision;
 		}
-		else {
-			$this->view->color_view = $this->getRequest()->getParam('color');
-			$this->view->diff_view = $this->getRequest()->getParam('diff');
-			$this->view->diff_revision = $this->getRequest()->getParam('drev');
-			if ($this->view->diff_revision >= $this->view->revision) {
-				$this->view->diff_revision = $this->view->prev_revision;
+		if ($this->getRequest()->getParam('post') === NULL) {
+			$this->view->color_view = 1;
+		}
+		$geshi = new Geshi();
+		$lang_name = $geshi->get_language_name_from_extension($file_ext);
+		if ($geshi->error()) {
+			$this->view->message = T_('The file type is known.');
+			return ;
+		}
+		$this->view->language = $lang_name;
+		$geshi->set_language(($this->view->color_view ? $lang_name : NULL), true);
+		$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+		if ($this->view->diff_view && ($this->view->diff_revision || $this->view->prev_revision)) {
+			$d_revs = ($this->view->diff_revision ? $this->view->diff_revision : $this->view->prev_revision).':'.$this->view->revision;
+			$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision {$d_revs} {$local_file_path}@{$revision}");
+			$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+			if ($return) {
+				$this->view->message = T_('The requested diff revision does not exist.');
 			}
-			if ($this->getRequest()->getParam('post') === NULL) {
-				$this->view->color_view = 1;
-			}
-			$geshi = new Geshi();
-			$lang_name = $geshi->get_language_name_from_extension($file_ext);
-			if ($geshi->error()) {
-				$this->view->message = T_('The file type is known.');
-				return ;
-			}
-			$this->view->language = $lang_name;
-			$geshi->set_language(($this->view->color_view ? $lang_name : NULL), true);
-			$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-			if ($this->view->diff_view && ($this->view->diff_revision || $this->view->prev_revision)) {
-				$d_revs = ($this->view->diff_revision ? $this->view->diff_revision : $this->view->prev_revision).':'.$this->view->revision;
-				$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision {$d_revs} {$local_file_path}@{$revision}");
-				$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-				if ($return) {
-					$this->view->message = T_('The requested diff revision does not exist.');
-				}
-				else {
-					$new_source = array();
-					$source = explode("\n", $source);
-					array_pop($source); // Skip the final "\n"
-					$diff = explode("\n", $diff);
-					array_pop($diff); // Skip the final "\n"
-					$source_line = NULL;
-					$count_line = 0;
-					$diff_lines = array();
-					while (($line = array_shift($diff)) !== NULL) {
-						$line = trim($line);
-						if (preg_match('#^@@ \-[0-9,]+ \+([0-9]+),[0-9]+ @@$#', $line, $tmp)) {
-							if ($source_line === NULL) {
-								$source_line = 1;
-							}
-							while (intval($source_line) < intval($tmp[1])) {
-								array_push($new_source, array_shift($source));
-								$source_line++;
-								$count_line++;
-							}
-							continue;
+			else {
+				$new_source = array();
+				$source = explode("\n", $source);
+				array_pop($source); // Skip the final "\n"
+				$diff = explode("\n", $diff);
+				array_pop($diff); // Skip the final "\n"
+				$source_line = NULL;
+				$count_line = 0;
+				$diff_lines = array();
+				while (($line = array_shift($diff)) !== NULL) {
+					$line = trim($line);
+					if (preg_match('#^@@ \-[0-9,]+ \+([0-9]+),[0-9]+ @@$#', $line, $tmp)) {
+						if ($source_line === NULL) {
+							$source_line = 1;
 						}
-						if ($source_line !== NULL) {
-							$diff_char = substr($line, 0, 1);
-							if ($diff_char == '\\') {
-								continue;
-							}
-							elseif ($diff_char == '-') {
-								array_push($new_source, substr($line, 1));
-								$diff_lines[$count_line] = '-';
-							}
-							else {
-								if ($diff_char == '+') {
-									$diff_lines[$count_line] = '+';
-								}
-								array_push($new_source, array_shift($source));
-								$source_line++;
-							}
+						while (intval($source_line) < intval($tmp[1])) {
+							array_push($new_source, array_shift($source));
+							$source_line++;
 							$count_line++;
 						}
+						continue;
 					}
-					if (count($source)) {
-						$new_source = array_merge($new_source, $source);
+					if ($source_line !== NULL) {
+						$diff_char = substr($line, 0, 1);
+						if ($diff_char == '\\') {
+							continue;
+						}
+						elseif ($diff_char == '-') {
+							array_push($new_source, substr($line, 1));
+							$diff_lines[$count_line] = '-';
+						}
+						else {
+							if ($diff_char == '+') {
+								$diff_lines[$count_line] = '+';
+							}
+							array_push($new_source, array_shift($source));
+							$source_line++;
+						}
+						$count_line++;
 					}
-					$source = implode("\n", $new_source);
-					unset($new_source);
-					$this->view->diff_lines = $diff_lines;
 				}
-			}
-			if (in_array($file_ext, $this->imagesTab))
-			{
-			    $this->view->highlighted_source = '<p style="text-align:center;"><img src="' . USVN_SVNUtils::getSubversionUrl($this->view->project->name, $this->view->path) . '" /></p>';
-			    $this->render();
-			    return;
-            }
-			if (in_array($file_ext, $this->txtTab))
-			{
-			    $this->view->highlighted_source = $source;
-			    $this->render();
-			    return;
-            }
-			$geshi->set_source($source);
-			$geshi->set_header_type(GESHI_HEADER_DIV);
-			$this->view->highlighted_source = $geshi->parse_code();
-			if ($geshi->error() && !$lang_name) {
-				$this->view->highlighted_source = T_('Unknown file type, can\'t display');
-				return ;
-			}
-			if ($this->view->diff_view) {
-				if (preg_match('#^<div ([^>]*)><ol>(.*)</ol></div>(\s*)$#s', $this->view->highlighted_source, $tmp)) {
-					$this->view->diff_div = $tmp[1];
-					$this->view->highlighted_source = $tmp[2];
+				if (count($source)) {
+					$new_source = array_merge($new_source, $source);
 				}
+				$source = implode("\n", $new_source);
+				unset($new_source);
+				$this->view->diff_lines = $diff_lines;
+			}
+		}
+		if (in_array($file_ext, $this->imagesTab)) {
+			$this->view->highlighted_source = '<p style="text-align:center;"><img src="' . $this->view->url(array('project' => $this->view->project->name, 'action' => 'file'), 'project')."/".str_replace('%2F', '/', urlencode($this->view->path)).'?rev='.$this->view->revision . '" /></p>';
+			$this->view->nodiff = true;
+			$this->render();
+			return;
+		}
+		$geshi->set_source($source);
+		$geshi->set_header_type(GESHI_HEADER_DIV);
+		$this->view->highlighted_source = $geshi->parse_code();
+		if ($geshi->error() && !$lang_name) {
+			$this->view->highlighted_source = T_('Unknown file type, can\'t display');
+			$this->view->nodiff = true;
+			return ;
+		}
+		if ($this->view->diff_view) {
+			if (preg_match('#^<div ([^>]*)><ol>(.*)</ol></div>(\s*)$#s', $this->view->highlighted_source, $tmp)) {
+				$this->view->diff_div = $tmp[1];
+				$this->view->highlighted_source = $tmp[2];
 			}
 		}
 	}
@@ -353,15 +360,24 @@ class ProjectController extends USVN_Controller
 		$project_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR,$this->_project->name);
 		$local_project_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/");
 		$commit = $this->getRequest()->getParam('commit');
+		$cmd = USVN_SVNUtils::svnCommand("info --non-interactive $local_project_path");
+		$info = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if (preg_match('#Revision: ([0-9]+)#', $info, $tmp)) {
+			$this->view->last_rev = $tmp[1];
+		}
+		if ($commit < 1) {
+			$commit = 1;
+		}
+		elseif ($this->view->last_rev && $commit > $this->view->last_rev) {
+			$commit = $this->view->last_rev;
+		}
 		$base = $commit - 1;
 		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --revision {$commit} $local_project_path");
 		$log = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-		if (!$return)
-		{
+		if (!$return) {
 			$cmd = USVN_SVNUtils::svnCommand("diff --non-interactive --revision ".($commit - 1).":{$commit} $local_project_path");
 			$diff = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-			if (!$return)
-			{
+			if (!$return) {
 				$diff = explode("\n", $diff);
 				array_pop($diff); // Skip the final "\n"
 				$file = NULL;
@@ -369,18 +385,14 @@ class ProjectController extends USVN_Controller
 				$indiff = FALSE;
 				$tab_diff = array();
 				$tab_index = NULL;
-				foreach ($diff as $line)
-				{
-					if (strpos($line, 'Index: ') === 0)
-					{
+				foreach ($diff as $line) {
+					if (strpos($line, 'Index: ') === 0) {
 						$file = substr($line, 7);
 						$tab_diff[$file] = array();
 						$indiff = FALSE;
 					}
-					elseif (!$indiff)
-					{
-						if (preg_match('#^@@ \-([0-9]+)(,([0-9]+))? \+([0-9]+)(,([0-9]+))? @@$#', $line, $tmp))
-						{
+					elseif (!$indiff) {
+						if (preg_match('#^@@ \-([0-9]+)(,([0-9]+))? \+([0-9]+)(,([0-9]+))? @@$#', $line, $tmp)) {
 							$tab_index = count($tab_diff[$file]);
 							$tab_diff[$file][$tab_index] = array(
 								$base => array('begin' => $tmp[1], 'end' => (empty($tmp[3]) ? $tmp[1] : $tmp[3]), 'content' => array()),
@@ -391,24 +403,19 @@ class ProjectController extends USVN_Controller
 							$indiff = TRUE;
 						}
 					}
-					else
-					{
+					else {
 						$diff_char = substr($line, 0, 1);
-						if ($diff_char == '\\')
-						{
+						if ($diff_char == '\\') {
 							continue;
 						}
 						$line = htmlentities(substr($line, 1));
-						if ($diff_char == '-')
-						{
+						if ($diff_char == '-') {
 							$tab_diff[$file][$tab_index][$base]['content'][$count++] = $line;
 						}
-						elseif ($diff_char == '+')
-						{
+						elseif ($diff_char == '+') {
 							$tab_diff[$file][$tab_index][$commit]['content'][$count++] = $line;
 						}
-						else
-						{
+						else {
 							$tab_diff[$file][$tab_index]['common'][$count++] = $line;
 						}
 					}
@@ -418,26 +425,51 @@ class ProjectController extends USVN_Controller
 				$this->view->base = $base;
 				unset($tab_diff);
 				$log = explode("\n", $log);
-				if (preg_match('#^r[0-9]* \| (.*) \| ([0-9-]+ [0-9:]+) [^\|]* \| ([0-9]*)[^\|]*$#', $log[1], $tmp))
-				{
+				if (preg_match('#^r[0-9]* \| (.*) \| ([0-9-]+ [0-9:]+) [^\|]* \| ([0-9]*)[^\|]*$#', $log[1], $tmp)) {
 					$this->view->author = $tmp[1];
 					$this->view->date = $tmp[2];
 					$this->view->log = NULL;
-					for ($i = 0; $i < $tmp[3]; ++$i)
-					{
+					for ($i = 0; $i < $tmp[3]; ++$i) {
 						$this->view->log .= ($this->view->log != NULL ? "\n" : '').$log[3 + $i];
 					}
 				}
 			}
-			else
-			{
+			else {
 				throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 			}
 		}
-		else
-		{
+		else {
 			throw new USVN_Exception(T_("Can't read from subversion repository.\nCommand:\n%s\n\nError:\n%s"), $cmd, $message);
 		}
+	}
+	
+	public function fileAction()
+	{
+		/*
+		** Configuration basique
+		*/
+		$svn_file_path = $this->getRequest()->getParam('file');
+		$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
+		$source = $this->_getSvnFile($local_file_path, $revision, $revisions);
+		ob_end_clean();
+		$this->getResponse ()->clearHeaders ();
+		// Ce code est bizard, oui, mais IE est vraiment un mauvais navigateur ...
+		if (in_array($file_ext, $this->imagesTab)) {
+			header("Content-Type: image/".$file_ext);
+		}
+		else {
+			header("Pragma: public");
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Content-Type: application/force-download");
+			header("Content-Type: application/octet-stream");
+			header("Content-Type: application/download");
+			header("Content-Transfer-Encoding: binary");
+			header("Content-Disposition: attachment; filename=".basename($svn_file_path).";");
+			header("Content-Length: ".strlen($source));
+		}
+		echo $source;
+		exit(0);
 	}
 
 	public function lasthundredrequestAction()

@@ -42,7 +42,7 @@
     <tr>
         <th align="left"><?php echo T_("Language:") . " " . (empty($this->language) ? T_('text') : ucwords($this->language)) ?></th>
         <th align="right">
-        <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, $this->path) ?>"><?php echo T_('Original') ?></a>
+        <a href="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'file'), 'project')."/".str_replace('%2F', '/', urlencode($this->path)).'?rev='.$this->revision ?>"><?php echo T_('Download') ?></a>
         </th>
     </tr>
     <tr>
@@ -68,7 +68,7 @@
         </td>
         <td align="left">
         <label><input onChange="document.revisions.submit();" type="checkbox" name="color" style="vertical-align: middle;" <?php echo ($this->color_view ? 'checked' : '') ?> /> <?php echo T_('Color view') ?></label><br />
-        <label><input onChange="document.revisions.submit();" type="checkbox" name="diff" style="vertical-align: middle;" <?php echo ($this->diff_view ? 'checked' : '') ?> /> <?php echo T_('Diff view') ?></label>
+        <label><input onChange="document.revisions.submit();" type="checkbox" name="diff" style="vertical-align: middle;"<?php echo ($this->diff_view ? ' checked' : ''), ($this->nodiff ? ' disabled' : '') ?> /> <?php echo T_('Diff view') ?></label>
         <input type="hidden" name="drev" value="<?php echo $this->diff_revision ?>" id="drev" />
         <select onChange="document.getElementById('drev').value=this.value;document.revisions.submit();" <?php echo ($this->diff_view ? '' : 'disabled') ?>>
             <?php foreach ($this->select_revisions as $rev) {

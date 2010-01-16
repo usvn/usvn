@@ -62,6 +62,8 @@ class ProjectController extends USVN_Controller
 			array('label' => 'Browser',  'url' => array('action' => 'browser', 'project' => $project->name), 'route' => 'project'),
 			array('label' => 'Roadmap',  'url' => array('action' => 'roadmap', 'project' => $project->name), 'route' => 'project')
 			);
+		$this->imagesTab = array('jpg', 'jpeg', 'jp2', 'pict', 'pct', 'ico', 'icns', 'png', 'gif', 'tiff', 'bmp');
+		$this->txtTab = array('txt');
 	}
 
 	protected function isAdmin()
@@ -315,11 +317,23 @@ class ProjectController extends USVN_Controller
 					$this->view->diff_lines = $diff_lines;
 				}
 			}
+			if (in_array($file_ext, $this->imagesTab))
+			{
+			    $this->view->highlighted_source = '<p style="text-align:center;"><img src="' . USVN_SVNUtils::getSubversionUrl($this->view->project->name, $this->view->path) . '" /></p>';
+			    $this->render();
+			    return;
+            }
+			if (in_array($file_ext, $this->txtTab))
+			{
+			    $this->view->highlighted_source = $source;
+			    $this->render();
+			    return;
+            }
 			$geshi->set_source($source);
 			$geshi->set_header_type(GESHI_HEADER_DIV);
 			$this->view->highlighted_source = $geshi->parse_code();
 			if ($geshi->error() && !$lang_name) {
-				$this->view->highlighted_source = T_('Unkown file type, can\'t display');
+				$this->view->highlighted_source = T_('Unknown file type, can\'t display');
 				return ;
 			}
 			if ($this->view->diff_view) {

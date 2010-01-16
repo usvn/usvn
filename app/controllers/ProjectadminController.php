@@ -134,6 +134,38 @@ class ProjectadminController extends AdminadminController
 		}
 	}
 
+    public function updatehooksAction()
+    {
+        try
+        {
+            $hooksDb = new USVN_Db_Table_Hooks();
+            $projectsDb = new USVN_Db_Table_Projects();
+            $projectsToHooksDb = new USVN_Db_Table_ProjectsToHooks();
+            $projects = $projectsDb->fetchRow(array('projects_name = ?' => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
+            $where = $projectsToHooksDb->getAdapter()->quoteInto('projects_id = ?', $projects->projects_id);
+            $projectsToHooksDb->delete($where);
+            $data = $this->_request->getParam('hooks_activated');
+            if (!empty($data))
+            {
+                foreach ($data as $hooksPath => $value)
+                {
+                    $hooks = $hooksDb->fetchRow(array('hooks_path = ?' => $hooksPath));
+                    $data = array(
+                        'hooks_id'    => $hooks->hooks_id,
+                        'projects_id' => $projects->projects_id
+                    );
+                    $projectsToHooksDb->insert($data);
+                }
+            }
+            $this->_redirect("/admin/project/");
+        }
+        catch (Exception $e)
+        {
+            $this->view->message = nl2br($e->getMessage());
+            $this->_redirect("/admin/project/");
+        }
+    }
+
 	public function deleteAction()
 	{
 		$table = new USVN_Db_Table_Projects();
@@ -146,6 +178,23 @@ class ProjectadminController extends AdminadminController
 			USVN_Project::deleteProject(str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name')));
 			$this->_redirect("/admin/project/");
 		}
+	}
+	
+	public function hooksAction()
+	{
+        $projects = new USVN_Db_Table_Projects();
+		$project = $projects->fetchRow(array('projects_name = ?' => str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR, $this->getRequest()->getParam('name'))));
+        $this->view->project = $project;
+        $this->view->project->name = $this->modifName($project->name, -1);
+        $hooksDb = new USVN_Db_Table_Hooks();
+        $hooksTab = array();
+        $hooks = $hooksDb->fetchAll();
+        foreach ($hooks as $hook)
+            $hooksTab[$hook->hooks_path] = false;
+        $hooks = $project->findManyToManyRowset('USVN_Db_Table_Hooks', 'USVN_Db_Table_ProjectsToHooks');
+        foreach ($hooks as $hook)
+            $hooksTab[$hook->hooks_path] = true;
+        $this->view->hooks = $hooksTab;
 	}
 	
 	private function displayDirectories($projects, $folder)

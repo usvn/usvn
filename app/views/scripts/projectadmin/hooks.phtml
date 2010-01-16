@@ -1,0 +1,28 @@
+<div class="usvn_info">
+	<h1><?= T_("Hooks") . ' (' . $this->project->name . ')' ?></h1>
+</div>
+
+<form id="project" name="project" class="usvn_form" method="post" action="<?php echo $this->url(array("action" => "updatehooks")) ?>">
+    <table class="sortable" id="projects">
+    	<thead>
+    		<tr>
+    			<th><?= T_('Name') ?></th>
+    			<th class="sorttable_nosort" width="80px"><?= T_('Activer') ?></th>
+    		</tr>
+    	</thead>
+    	<tbody>
+            <? foreach ($this->hooks as $path => $activated): ?>
+    	    <tr>
+    	        <td><?= $path ?></td>
+    	        <td style="text-align: center;">
+            	    <input type="checkbox" name="hooks_activated[<?= $path ?>]" id="hooks_activated" value="1" <?= $activated ? 'checked="checked"' : ''; ?> class="profile_input">
+                </td>
+    	    </tr>
+            <? endforeach ?>
+    	</tbody>
+    	<tfoot>
+	        <td></td>
+	        <td style="text-align: center;"><input type="submit" name="submit" id="submit" value="Valider" onclick="return"></td>
+    	</tfoot>
+    </table>
+</form>

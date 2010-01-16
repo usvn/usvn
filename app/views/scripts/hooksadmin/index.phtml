@@ -20,7 +20,7 @@
 	<? $deletetext = T_("Do you really want to delete user %s?") ?>
 	<tr class="<?= ($even ? 'even' : 'odd') ?>">
 		<td><a href="<?= h_($editurl) ?>"><?= h_($hook->path) ?></a></td>
-		<td><a href="<?= h_($editurl) ?>"><?= h_($hook->type . '-' . $hook->event) ?></a></td>
+		<td><a href="<?= h_($editurl) ?>"><?= h_($hook->event) ?></a></td>
 		<td class="align-right">
 			<?= $this->editLink('hooks', 'login', $user->login) ?>
 			<? if ($user->login != $me): ?>

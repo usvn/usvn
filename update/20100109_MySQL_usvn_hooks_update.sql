@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS `usvn_hooks` (
     `hooks_id` int(11) NOT NULL AUTO_INCREMENT,
-    `hooks_type` enum('pre', 'post', 'start') NOT NULL DEFAULT 'pre',
-    `hooks_event` enum('commit', 'lock', 'revprop-change', 'unlock') NOT NULL DEFAULT 'commit',
+    `hooks_event` char(255) NOT NULL,
     `hooks_path` char(255) NOT NULL,
     PRIMARY KEY (`hooks_id`)
 ) type = innodb;

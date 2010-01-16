@@ -40,7 +40,8 @@ class Default_Model_TicketsMapper
 			'milestone_id' 			=> $ticket->getMilestoneId(),
 			'type' 							=> $ticket->getType(),
 			'priority' 					=> $ticket->getPriority(),
-			'status'			 			=> $ticket->getStatus()
+			'status'			 			=> $ticket->getStatus(),
+			'assigned_to_id'    => $ticket->getAssignedToId()
 			);
 
 		if (null === ($id = $ticket->getId())) {

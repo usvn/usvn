@@ -186,9 +186,9 @@ class ProjectController extends USVN_Controller
 
 	private function _getSvnFile(&$local_file_path, &$revision, &$revisions)
 	{
-		/*
-		** Configuration basique
-		*/
+
+		$svn_file_path = $this->getRequest()->getParam('file');
+		$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
 		$this->view->project = $this->_project;
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$project_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR,$this->_project->name);
@@ -218,8 +218,11 @@ class ProjectController extends USVN_Controller
 				$revision = null;
 			}
 		}
-		if (!$revision) {
-			$revision = $revisions[0];
+		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --quiet {$local_file_path}");
+		$revs = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if (!preg_match_all('#^\s*r([0-9]+)\s*\|#m', $revs, $tmp)) {
+			$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --quiet {$local_file_path}@{$revision}");
+			$revs = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
 		}
 		$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$rev_path[$revision]);
 		$this->view->revision = $revision;
@@ -258,15 +261,8 @@ class ProjectController extends USVN_Controller
 			if ($this->view->prev_revision === NULL && intval($rev) < intval($this->view->revision)) {
 				$this->view->prev_revision = $rev;
 			}
-			if ($rev > $this->view->revision) {
-				$this->view->next_revision = $rev;
-			}
+			$this->view->select_revisions = $revs;
 		}
-		$this->view->select_revisions = $revisions;
-		
-		/*
-		** Recuperation du contenu du fichier
-		*/
 		$this->view->color_view = $this->getRequest()->getParam('color');
 		$this->view->diff_view = $this->getRequest()->getParam('diff');
 		$this->view->diff_revision = $this->getRequest()->getParam('drev');
@@ -585,6 +581,29 @@ class ProjectController extends USVN_Controller
 		}
 		$this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
 	}
+
+  public function editticketAction()
+  {
+    //		$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => '0'), 'ticket', true));
+  	$ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
+    if (!empty($_POST['ticket']))
+    {
+    	$data = $_POST['ticket'];
+    	$data['modificator_id'] = $this->view->user->users_id;
+    	$ticket->updateWithValues($data);
+    	if (!empty($_POST['save']) && $ticket !== null)
+    	{
+    	  //scotch
+  		  $ticketId = $ticket->id;
+    		if ($ticket->save())
+    		{
+    			$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticketId), 'roadmap', true), array('prependBase' => false));
+    		}
+    	}
+    }
+  	$this->view->ticket = $ticket;
+    $this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
+  }
 
 	public function deleteticketAction()
 	{

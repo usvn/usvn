@@ -757,6 +757,19 @@ li.ticket p {
 	padding-left: 15px;
 }
 
+div.ticket {
+  font-size: 1em;
+}
+
+div.ticket li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  font-size: 1em;
+}
+
+div.ticket li.comment {
+}
 
 /* @end */
 

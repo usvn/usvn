@@ -15,11 +15,13 @@ class Default_Model_Ticket
 		protected $_type;
 		protected $_priority;
 		protected $_status;
+		protected $_assigned_to_id;
 
 		/* Relations */
 		protected $_milestone;
 		protected $_creator;
 		protected $_modificator;
+		protected $_assigned_to;
 
     static public function getMapper()
     {
@@ -63,6 +65,8 @@ class Default_Model_Ticket
 				$this->_priority = $values['priority'];
     	if (isset($values['status']))
 				$this->_status = $values['status'];
+			if (isset($values['assigned_to_id']))
+				$this->_assigned_to_id = $values['assigned_to_id'];
     }
 
     protected function _initWithRow(Zend_Db_Table_Row $row)
@@ -72,12 +76,44 @@ class Default_Model_Ticket
 			$this->_creator_id = $row->creator_id;
 			$this->_modification_date = new Zend_Date($row->modification_date);
 			$this->_modificator_id = $row->modificator_id;
+			$this->_project_id = $row->project_id;
 			$this->_title = $row->title;
 			$this->_description = $row->description;
 			$this->_milestone_id = $row->milestone_id;
 			$this->_type = $row->type;
 			$this->_priority = $row->priority;
 			$this->_status = $row->status;
+			$this->_assigned_to_id = $row->assigned_to_id;
+    }
+
+    public function updateWithValues($values)
+    {
+      if (!empty($values['project_id']))
+      	$this->_project_id = $values['project_id'];
+      if (!empty($values['modificator_id']))
+      {
+      	$this->_modification_date = new Zend_Date(null);
+      	$this->_modificator_id = $values['modificator_id'];
+      }
+      else
+      {
+        //$this->_modification_date = null;
+        //$this->_modificator_id = null;
+      }
+      if (!empty($values['title']))
+      	$this->_title = $values['title'];
+      if (!empty($values['description']))
+      	$this->_description = $values['description'];
+      if (!empty($values['milestone_id']))
+      	$this->_milestone_id = $values['milestone_id'];
+      if (!empty($values['type']))
+      	$this->_type = $values['type'];
+      if (!empty($values['priority']))
+      	$this->_priority = $values['priority'];
+      if (!empty($values['status']))
+      	$this->_status = $values['status'];
+      if (isset($values['assigned_to_id']) && $values['assigned_to_id'] !== null)
+      	$this->_assigned_to_id = ($values['assigned_to_id'] == 0 ? null : $values['assigned_to_id']);
     }
 
 		public function __set($name, $value)
@@ -152,6 +188,18 @@ class Default_Model_Ticket
 			return $this->_creator_id;
 		}
 
+    public function getCreator()
+    {
+      if (empty($this->_creator_id))
+        return null;
+      if ($this->_creator === null || $this->_creator_id !== $this->_creator->users_id)
+      {
+        $table = new USVN_Db_Table_Users();
+        $this->_creator = $table->fetchRow(array('users_id = ?' => $this->_creator_id));
+      }
+      return $this->_creator;
+    }
+
 		public function setModificationDate($txt)
 		{
 			$this->_modification_date = (string) $txt;
@@ -174,6 +222,17 @@ class Default_Model_Ticket
 			return $this->_modificator_id;
 		}
 
+    public function getModificator()
+    {
+      if (empty($this->_modificator_id))
+        return null;
+      if ($this->_modificator === null || $this->_modificator_id !== $this->_modificator->users_id)
+      {
+        $table = new USVN_Db_Table_Users();
+        $this->_modificator = $table->fetchRow(array('users_id = ?' => $this->_modificator_id));
+      }
+      return $this->_modificator;
+    }
 		public function setTitle($txt)
 		{
 			$this->_title = (string) $txt;
@@ -296,6 +355,29 @@ class Default_Model_Ticket
 		{
 			return $this->_status;
 		}
+
+		public function setAssignedToId($userId)
+		{
+			$this->_assigned_to_id = $userId;
+			return $this;
+		}
+
+		public function getAssignedToId()
+		{
+			return $this->_assigned_to_id;
+		}
+
+    public function getAssignedTo()
+    {
+      if (empty($this->_assigned_to_id))
+        return null;
+      if ($this->_assigned_to === null || $this->_assigned_to_id !== $this->_assigned_to->users_id)
+      {
+        $table = new USVN_Db_Table_Users();
+        $this->_assigned_to = $table->fetchRow(array('users_id = ?' => $this->_assigned_to_id));
+      }
+    	return $this->_assigned_to;
+    }
 
 		public function save()
 		{

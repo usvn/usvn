@@ -63,6 +63,10 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 		$user_groups->delete($where);
 	}
 
+  public function fullname()
+  {
+    return sprintf('%s %s (%s)', $this->firstname, $this->lastname, $this->login);
+  }
 	/**
 	 * Check if an user is in the group
 	 *

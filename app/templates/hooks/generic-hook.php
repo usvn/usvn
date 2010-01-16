@@ -81,11 +81,26 @@ $projectId = '5';
 $hooksPath = '/Users/naixn/Sites/usvn/files/hooks/';
 //
 
+$argv = $_SERVER['argv'];
+array_shift($argv);
+array_walk($argv, create_function('&$item', '$item = \'"\' . $item . \'"\';'));
+$arguments = join(' ', $argv);
+
 $table = new USVN_Db_Table_Projects();
 $project = $table->find($projectId)->current();
 $hooks = $project->findManyToManyRowset('USVN_Db_Table_Hooks', 'USVN_Db_Table_ProjectsToHooks');
 foreach ($hooks as $hook)
 {
-	$hook = "$hooksPath/$hook->path";
-	echo `$hook`;
+	$hook = $hooksPath . DIRECTORY_SEPARATOR . $hook->path;
+	if (file_exists($hook) && is_executable($hook))
+	{
+	    $cmd = "$hook $arguments";
+	    $returnValue = USVN_ConsoleUtils::runCmd($cmd);
+	    if ($returnValue != 0)
+	    {
+	        exit($returnValue);
+	    }
+	}
 }
+
+exit(0);

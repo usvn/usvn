@@ -19,15 +19,7 @@
  */
 class USVN_SVNUtils
 {
-    public static $hooks = array('post-commit',
-                                        'post-unlock',
-                                        'pre-revprop-change',
-                                        'post-lock',
-                                        'pre-commit',
-                                        'pre-unlock',
-                                        'post-revprop-change',
-                                        'pre-lock',
-                                        'start-commit');
+    public static $hooks = array('pre-commit', 'pre-lock', 'pre-revprop-change', 'pre-unlock', 'post-commit', 'post-lock', 'post-revprop-change', 'post-unlock', 'start-commit');
 
 	/**
 	* @param string Path of subversion repository

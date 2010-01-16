@@ -235,22 +235,29 @@ class Install
 	 *
 	 * @param string Path to the USVN config file
 	 * @param string Path to subversion directory
+	 * @param string Path to the files where hooks are stored
 	 * @param string Path to subversion password file
 	 * @param string Path to subversion access file
 	 * @param string Url of subversion repository
 	 */
-	static public function installSubversion($config_file, $path, $passwd, $authz, $url, $old_file = NULL)
+	static public function installSubversion($config_file, $path, $hooksPath, $passwd, $authz, $url, $old_file = NULL)
 	{
 		if (substr($path, -1) != DIRECTORY_SEPARATOR && substr($path, -1) != '/')
 			$path .= DIRECTORY_SEPARATOR;
+		if (substr($hooksPath, -1) != DIRECTORY_SEPARATOR && substr($hooksPath, -1) != '/')
+			$hooksPath .= DIRECTORY_SEPARATOR;
 		if (substr($url, -1) != '/')
 			$url .= '/';
 		$path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
+		$hooksPath = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $hooksPath);
 		$config = Install::_loadConfig($config_file);
-		if (file_exists($path) && is_writable($path) && (file_exists($path . DIRECTORY_SEPARATOR . 'svn') || mkdir($path . DIRECTORY_SEPARATOR . 'svn')))
+		if (file_exists($path) && is_writable($path)
+			&& ((file_exists($hooksPath) && is_writable($path)) || mkdir($hooksPath))
+			&& (file_exists($path . DIRECTORY_SEPARATOR . 'svn') || mkdir($path . DIRECTORY_SEPARATOR . 'svn')))
 		{
 			$config->subversion = array(
 				'path' => $path,
+				'hooksPath' => $hooksPath,
 				'passwd' => $passwd,
 				'authz' => $authz,
 				'url' => $url

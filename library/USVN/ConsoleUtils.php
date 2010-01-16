@@ -93,9 +93,10 @@ class USVN_ConsoleUtils
 	{
 		USVN_ConsoleUtils::prepareLang();
 		ob_start();
-		system($command . " 2>&1", $return);
+		$returnValue = 0;
+		system($command . " 2>&1", $returnValue);
 		ob_end_clean();
 		USVN_ConsoleUtils::restoreLang();
-		return($return);
+		return($returnValue);
 	}
 }

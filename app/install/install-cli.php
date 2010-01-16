@@ -186,7 +186,7 @@ try
     Install::installConfiguration(USVN_CONFIG_FILE, $config->site->title);
     echo 'Done!' . "\n";
     echo 'Configuring subversion... ';
-    Install::installSubversion(USVN_CONFIG_FILE, $config->subversion->path, $config->subversion->passwd, $config->subversion->authz, $config->subversion->url);
+    Install::installSubversion(USVN_CONFIG_FILE, $config->subversion->path, $config->subversion->hooksPath, $config->subversion->passwd, $config->subversion->authz, $config->subversion->url);
     echo 'Done!' . "\n";
     echo 'Configuring database... ';
     Install::installDb(USVN_CONFIG_FILE, $options['database-path'], $config->database->options->host, $config->database->options->username, $config->database->options->password, $config->database->options->dbname, $config->database->prefix, $config->database->adapterName, true);

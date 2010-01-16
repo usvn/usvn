@@ -1,0 +1,54 @@
+<?php
+echo $this->error($this);
+include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'js.phtml';
+?>
+<div class="usvn_info">
+	<h1>
+		<?= T_("Manage hook associations"); ?>
+	</h1>
+</div>
+<div id="profile">
+	<form id="hook" name="hook" class="usvn_form" method="post" action="<?php echo $this->url(array("action" => "update")) ?>">
+		<label>
+			<?php echo T_("Path"); ?>:
+			<br />
+			<?php echo $this->formText('hooks_path', $this->hook->path, array('maxlength' => 255, 'class' => 'profile_input', 'disabled' => 'disabled')); ?>
+		</label>
+		<br />
+		<label>
+			<?php echo T_("Event"); ?>:
+			<br />
+			<select name="hooks_event">
+				<?php
+					foreach (USVN_SVNUtils::$hooks as $hook_event)
+					{
+						if ($hook_event == $this->hook->event)
+							echo "<option selected=\"selected\">$hook_event</option>";
+						else
+							echo "<option>$hook_event</option>";
+					}
+				?>
+			</select>
+		</label>
+		<br />
+		<br />
+		<div id="affected">
+			<div id="affected-title">
+				<?php echo T_("Hooked projects"); ?>:
+			</div>
+			<select multiple="multiple" name="projects[]">
+			<?php foreach ($this->projects as $project) : ?>
+				<option value="<?= $project->id; ?>"
+				<?php
+					if (in_array($project->name, $this->hookedProjectsNames))
+						echo 'selected="selected"';
+				?>
+				><?php echo $project->name ?></option>
+			<?php endforeach; ?>
+			</select>
+		</div>
+		<br />
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')); ?>
+		<br />
+	</form>
+</div>

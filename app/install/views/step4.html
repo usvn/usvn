@@ -34,6 +34,19 @@
 		</tr>
 		<tr>
 			<td>
+				<label class="usvn_label" for="hooksPath">
+					<a href="#" class="usvn_tooltips">
+						<?php echo  T_('Hooks path') ; ?>:
+						<span><?php echo  T_('Location where hooks are uploaded and executed from by SVN.') ; ?></span>
+					</a>
+				</label>
+			</td>
+			<td>
+				<input type="text" size="67" name="hooksPath" value="<?php echo  USVN_BASE_DIR . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR ; ?>" />
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<label class="usvn_label" for="passwdFile">
 					<a href="#" class="usvn_tooltips">
 						<?php echo  T_('Subversion password file') ; ?>:

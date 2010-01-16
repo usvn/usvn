@@ -12,23 +12,6 @@ header("Content-encoding: UTF-8");
 
 require_once realpath(dirname(__FILE__) . '/install.includes.php');
 
-// define('USVN_CONFIG_FILE',      USVN_CONFIG_DIR . '/config.ini');
-// define('USVN_HTACCESS_FILE',    USVN_PUB_DIR    . '/.htaccess');
-// define('USVN_LOCALE_DIRECTORY', USVN_APP_DIR    . '/locale');
-// 
-// define('USVN_CONFIG_SECTION',   'general');
-// define('USVN_CONFIG_VERSION',   '1.1.0');
-// 
-// set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());
-// 
-// require_once 'Zend/Loader/Autoloader.php';
-// $autoloader = Zend_Loader_Autoloader::getInstance();
-// $autoloader->setFallbackAutoloader(true);
-// require_once USVN_APP_DIR . '/functions.php';
-// require_once USVN_APP_DIR . '/install/install.php';
-// $GLOBALS['language'] = 'en_US';
-
-
 if (file_exists(USVN_CONFIG_FILE))
 {
 	try
@@ -143,7 +126,7 @@ function installationOperation(&$step)
 
 		case 5:
 			Install::installConfiguration(USVN_CONFIG_FILE, $_POST['title']);
-			$import = Install::installSubversion(USVN_CONFIG_FILE, $_POST['pathSubversion'], $_POST['passwdFile'], $_POST['authzFile'], $_POST['urlSubversion'], $_FILES['configFile']);
+			$import = Install::installSubversion(USVN_CONFIG_FILE, $_POST['pathSubversion'], $_POST['hooksPath'], $_POST['passwdFile'], $_POST['authzFile'], $_POST['urlSubversion'], $_FILES['configFile']);
 			if ($import === true) {
 				displayWarning(T_("A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."));
 				$step = 7;

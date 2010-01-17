@@ -1,6 +1,6 @@
 <? $now = new Zend_Date(null) ?>
 <div class="usvn_info">
-  <h1><?php echo T_('Create a new milestone'); ?></h1>
+  <h1><?php echo T_('Edit milestone'); ?></h1>
 </div>
 <div id="profile">
   <form method="post" action="<?php echo $this->url ?>" class="usvn_form">
@@ -15,7 +15,7 @@
   
     <label><?php echo T_("Due date"); ?>:(<?= $now->toString(Zend_Date::DATE_LONG) ?>)</label><br />
     <input type="text" name="milestone[due_date]" value="<?= (isset($this->milestone) && $this->milestone->dueDate !== null ? $this->milestone->dueDate->toString(Zend_Date::DATE_LONG) : '') ?>" id="milestone[due_date]" />
-  
+
   	<label for="milestone[description]"><?php echo T_("Description"); ?>:</label><br />
   	<?php echo $this->formTextarea('milestone[description]', (isset($this->milestone) ? $this->milestone->description : '')); ?>
   	<br />

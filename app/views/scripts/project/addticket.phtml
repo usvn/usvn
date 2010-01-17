@@ -47,25 +47,7 @@
 		<? $priorities = Default_Model_Ticket::priorities() ?>
 		<?= $this->formSelect('ticket[priority]', (isset($this->ticket) ? $this->ticket->priority : 0), array(), $priorities); ?><br />
 
-		<input type="submit" name="save" value="<?= T_('Enregistrer') ?>" />
+		<input type="submit" name="save" value="<?= T_('Save') ?>" />
 		<div style="clear:both"></div>
 	</form>
 </div>
-<!--<? if (isset($this->truc)): ?>
-<pre style="overflow:auto">
-$this->truc
-<? print_r($this->truc) ?>
-</pre>
-<? endif ?>
-<? if (isset($_POST['ticket'])): ?>
-$_POST['ticket']
-<pre style="overflow:auto">
-<? print_r($_POST['ticket']) ?>
-</pre>
-<? endif ?>
-<? if (false && isset($this->project)): ?>
-$this->project
-<pre style="overflow:auto">
-<? print_r($this->project) ?>
-</pre>
-<? endif ?>-->

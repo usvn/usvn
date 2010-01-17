@@ -522,7 +522,7 @@ class ProjectController extends USVN_Controller
 	public function roadmapAction()
 	{
 	  $this->view->project = $this->_project;
-	  $this->view->milestones = Default_Model_Milestone::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
+	  $this->view->milestones = Default_Model_Milestone::fetchAll(sprintf('project_id = %d', $this->_project->projects_id), array('due_date ASC NULLS FIRST', 'title ASC'));
 	}
 
 	public function addmilestoneAction()
@@ -539,15 +539,32 @@ class ProjectController extends USVN_Controller
 			$data['creation_date'] = null;
 			$data['modificator_id'] = $this->view->user->users_id;
 			$data['modification_date'] = null;
-			$milestone = new Default_Model_Milestone($data);
+    	$milestone = new Default_Model_Milestone($data);
 			if (1/* validate */)
 			{
 				if ($milestone->save())
-					$this->_redirect($this->view->url(array('action' => 'roadmap', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
+    			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
 			}
-			$this->view->milestone = $milestone;
+  		$this->view->milestone = $milestone;
 		}
 	}
+
+  public function editmilestoneAction()
+  {
+    $milestone = Default_Model_Milestone::find($this->getRequest()->getParam('id'));
+    if (!empty($_POST['milestone']))
+    {
+    	$data = $_POST['milestone'];
+    	$data['modificator_id'] = $this->view->user->users_id;
+			$milestone->updateWithValues($data);
+    	if (1/* validate */)
+    	{
+    		if ($milestone->save())
+    			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
+    	}
+    }
+  	$this->view->milestone = $milestone;
+  }
 
 	public function milestoneAction()
 	{
@@ -593,11 +610,9 @@ class ProjectController extends USVN_Controller
     	$ticket->updateWithValues($data);
     	if (!empty($_POST['save']) && $ticket !== null)
     	{
-    	  //scotch
-  		  $ticketId = $ticket->id;
     		if ($ticket->save())
     		{
-    			$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticketId), 'roadmap', true), array('prependBase' => false));
+    			$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->id), 'roadmap', true), array('prependBase' => false));
     		}
     	}
     }

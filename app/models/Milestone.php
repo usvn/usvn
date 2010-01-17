@@ -16,6 +16,8 @@ class Default_Model_Milestone extends Default_Model_Abstract
 
   /* Relations */
     protected $_tickets = null;
+    protected $_creator = null;
+    protected $_modificator = null;
 
     static public function getMapper()
     {
@@ -48,7 +50,7 @@ class Default_Model_Milestone extends Default_Model_Abstract
 				$this->_modification_date = $this->_creation_date;
 			}
 			if (!empty($values['due_date']))
-				$this->_due_date = new Zend_Date($values['due_date']);
+				$this->_due_date = new Zend_Date($values['due_date'], Zend_Date::DATE_LONG);
 			$this->_status = $values['status'];
     }
 
@@ -60,10 +62,33 @@ class Default_Model_Milestone extends Default_Model_Abstract
 			$this->_modification_date = new Zend_Date($row->modification_date, Zend_Date::W3C);
 			$this->_modificator_id = $row->modificator_id;
 			$this->_title = $row->title;
+			$this->_project_id = $row->project_id;
 			$this->_description = $row->description;
 			$this->_due_date = (empty($row->due_date) ? null : new Zend_Date($row->due_date, Zend_Date::W3C));
 			$this->_status = $row->status;
     }
+
+		public function updateWithValues($values)
+		{
+		  if (!empty($values['title']))
+  		  $this->_title = $values['title'];
+  		if (!empty($values['modificator_id']))
+  		{
+  		  $this->_modification_date = new Zend_Date(null);
+  		  $this->_modificator_id = $values['modificator_id'];
+  		}
+  		else
+  		{
+        $this->_modification_date = null;
+        $this->_modificator_id = null;
+  		}
+		  if (!empty($values['description']))
+  		  $this->_description = $values['description'];
+		  if (!empty($values['due_date']))
+  		  $this->_due_date = new Zend_Date($values['due_date'], Zend_Date::DATE_LONG);
+		  if (!empty($values['status']))
+  		  $this->_status = $values['status'];
+		}
 
 		public function __set($name, $value)
 		{
@@ -127,6 +152,18 @@ class Default_Model_Milestone extends Default_Model_Abstract
 			return $this->_creator_id;
 		}
 
+    public function getCreator()
+    {
+      if (empty($this->_creator_id))
+        return null;
+      if ($this->_creator === null || $this->_creator_id !== $this->_creator->users_id)
+      {
+        $table = new USVN_Db_Table_Users();
+        $this->_creator = $table->fetchRow(array('users_id = ?' => $this->_creator_id));
+      }
+      return $this->_creator;
+    }
+    
 		public function setModificationDate($txt)
 		{
 			$this->_modification_date = (string) $txt;
@@ -148,6 +185,18 @@ class Default_Model_Milestone extends Default_Model_Abstract
 		{
 			return $this->_modificator_id;
 		}
+
+    public function getModificator()
+    {
+      if (empty($this->_modificator_id))
+        return null;
+      if ($this->_modificator === null || $this->_modificator_id !== $this->_modificator->users_id)
+      {
+        $table = new USVN_Db_Table_Users();
+        $this->_modificator = $table->fetchRow(array('users_id = ?' => $this->_modificator_id));
+      }
+      return $this->_modificator;
+    }
 
 		public function setTitle($txt)
 		{
@@ -198,7 +247,8 @@ class Default_Model_Milestone extends Default_Model_Abstract
 			$newId = $this->getMapper()->save($this);
 			if ($newId === null || $newId === false)
 				return false;
-			$this->_id = $newId;
+			if ($this->_id === null)
+  			$this->_id = $newId;
 			return true;
 		}
 		

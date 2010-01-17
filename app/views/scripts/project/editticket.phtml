@@ -47,7 +47,7 @@
 		<? $priorities = Default_Model_Ticket::priorities() ?>
 		<?= $this->formSelect('ticket[priority]', (isset($this->ticket) ? $this->ticket->priority : 0), array(), $priorities); ?><br />
 
-    <input type="button" name="" value="<?= T_('Cancel')?>" onClick="document.url = '<?= '' ?>'" />
+    <input type="button" name="" value="<?= T_('Cancel')?>" onClick="document.location.href = '<?= $this->url(array('action' => 'showticket', 'id' => $this->ticket->id), 'roadmap') ?>'" />
 		<input type="submit" name="save" value="<?= T_('Save') ?>" />
 		<div style="clear:both"></div>
 	</form>

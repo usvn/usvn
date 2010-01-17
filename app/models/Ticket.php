@@ -97,8 +97,8 @@ class Default_Model_Ticket
       }
       else
       {
-        //$this->_modification_date = null;
-        //$this->_modificator_id = null;
+        $this->_modification_date = null;
+        $this->_modificator_id = null;
       }
       if (!empty($values['title']))
       	$this->_title = $values['title'];
@@ -233,6 +233,7 @@ class Default_Model_Ticket
       }
       return $this->_modificator;
     }
+
 		public function setTitle($txt)
 		{
 			$this->_title = (string) $txt;
@@ -313,16 +314,6 @@ class Default_Model_Ticket
 		{
 			return $this->_priority;
 		}
-    
-		static public function priorities()
-		{
-		  return array(
-		    2 => 'Urgent',
-		    1 => 'Important',
-		    0 => 'Normal',
-		    -1 => 'Secondary'
-		    );
-		}
 
 		public function getPriorityImage()
 		{
@@ -336,6 +327,16 @@ class Default_Model_Ticket
 		      return $imgs[$this->_priority];
 		    return 'blue-priority.png';
 		}
+
+    static public function priorities()
+    {
+      return array(
+        2 => 'Urgent',
+        1 => 'Important',
+        0 => 'Normal',
+        -1 => 'Secondary'
+        );
+    }
 		
 		public function getPriorityText()
 		{
@@ -347,7 +348,7 @@ class Default_Model_Ticket
 
 		public function setStatus($txt)
 		{
-			$this->_status = (string) $txt;
+			$this->_status = $txt;
 			return $this;
 		}
 
@@ -355,6 +356,23 @@ class Default_Model_Ticket
 		{
 			return $this->_status;
 		}
+
+    public function getStatusText()
+    {
+      $s = self::statuses();
+      if (array_key_exists($this->_status, $s))
+        return $s[$this->_status];
+      return $this->_status;
+    }
+
+    static public function statuses()
+    {
+      return array(
+        0 => 'Open',
+        1 => 'Resolved',
+        2 => 'Close'
+        );
+    }
 
 		public function setAssignedToId($userId)
 		{
@@ -384,7 +402,8 @@ class Default_Model_Ticket
 			$newId = $this->getMapper()->save($this);
 			if ($newId === null || $newId === false)
 				return false;
-			$this->_id = $newId;
+			else if ($this->_id === null)
+  			$this->_id = $newId;
 			return true;
 		}
 		

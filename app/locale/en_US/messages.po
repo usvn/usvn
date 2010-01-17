@@ -18,24 +18,24 @@ msgstr ""
 #: ../../../www//menus/browser.php:32
 #: ../../../www//menus/browserTest.php:47
 msgid "Browser"
-msgstr "Browser"
+msgstr ""
 
 #: ../../../www//menus/timeline.php:32
 #: ../../../www//views/Timeline/index.phtml:3
 msgid "Timeline"
-msgstr "Timeline"
+msgstr ""
 
 #: ../../../www//menus/configadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:15
 #: ../../../www//views/configadmin/index.phtml:2
 msgid "Configuration"
-msgstr "Configuration"
+msgstr ""
 
 #: ../../../www//menus/projectadmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:21
 #: ../../../www//views/projectadmin/index.phtml:2
 msgid "Projects"
-msgstr "Projects"
+msgstr ""
 
 #: ../../../www//menus/projectadmin.php:53
 msgid "New Project"
@@ -45,22 +45,22 @@ msgstr ""
 #: ../../../www//views/adminadmin/index.phtml:27
 #: ../../../www//views/groupadmin/index.phtml:2
 msgid "Groups"
-msgstr "Groups"
+msgstr ""
 
 #: ../../../www//menus/groupadmin.php:51
 msgid "Add new group"
-msgstr "Add a new group"
+msgstr ""
 
 #: ../../../www//menus/systemreportadmin.php:33
 #: ../../../www//views/systemreportadmin/index.phtml:1
 msgid "System report"
-msgstr "System report"
+msgstr ""
 
 #: ../../../www//menus/useradmin.php:33
 #: ../../../www//views/adminadmin/index.phtml:33
 #: ../../../www//views/useradmin/index.phtml:2
 msgid "Users"
-msgstr "Users"
+msgstr ""
 
 #: ../../../www//menus/useradmin.php:53
 msgid "Add new user"
@@ -89,13 +89,13 @@ msgstr "Importing users from the password file has been cancelled because an err
 #: ../../../www//USVN/FilesAccessRights.php:83
 #, php-format
 msgid "Invalid path %s."
-msgstr "Invalid path %s."
+msgstr ""
 
 #: ../../../www//USVN/plugins/layout.php:81
 #: ../../../www//USVN/Menu.php:106
 #: ../../../www//views/index/index.phtml:2
 msgid "Homepage"
-msgstr "Homepage"
+msgstr ""
 
 #: ../../../www//USVN/plugins/layout.php:83
 msgid "Logged as"
@@ -109,15 +109,15 @@ msgstr "Can't create config file."
 #: ../../../www//USVN/Project.php:91
 #, php-format
 msgid "Login %s not found"
-msgstr "Login %s not found"
+msgstr ""
 
 #: ../../../www//USVN/Auth/Adapter/Db.php:59
 msgid "Incorrect password"
-msgstr "Incorrect password"
+msgstr ""
 
 #: ../../../www//USVN/SVNUtils.php:174
 msgid "Commit by USVN"
-msgstr "Commit by USVN"
+msgstr ""
 
 #: ../../../www//USVN/SVNUtils.php:177
 #, php-format
@@ -140,64 +140,64 @@ msgstr ""
 #: ../../../www//USVN/Project.php:54
 #, php-format
 msgid "Can't create subversion repository: %s"
-msgstr "Can't create subversion repository: %s"
+msgstr ""
 
 #: ../../../www//USVN/SVNUtils.php:234
 #, php-format
 msgid "Can't checkout subversion repository: %s"
-msgstr "Can't checkout subversion repository: %s"
+msgstr ""
 
 #: ../../../www//USVN/SVNUtils.php:250
 #, php-format
 msgid "Can't list subversion repository: %s"
-msgstr "Can't list subversion repository: %s"
+msgstr ""
 
 #: ../../../www//USVN/Menu.php:58
 #: ../../../www//USVN/Db/Utils.php:33
 #, php-format
 msgid "Can't open file %s."
-msgstr "Can't open file %s."
+msgstr ""
 
 #: ../../../www//USVN/Menu.php:97
 msgid "Sign in"
-msgstr "Sign in"
+msgstr ""
 
 #: ../../../www//USVN/Menu.php:130
 msgid "Edit my profile"
-msgstr "Edit my profile"
+msgstr ""
 
 #: ../../../www//USVN/Menu.php:137
 msgid "Admin"
-msgstr "Admin"
+msgstr ""
 
 #: ../../../www//USVN/Menu.php:146
 msgid "Logout"
-msgstr "Logout"
+msgstr ""
 
 #: ../../../www//USVN/DirectoryUtils.php:31
 #, php-format
 msgid "Can't delete directory %s. Permission denied."
-msgstr "Can't delete directory %s. Permission denied."
+msgstr ""
 
 #: ../../../www//USVN/DirectoryUtils.php:50
 #, php-format
 msgid "Can't delete file %s."
-msgstr "Can't delete file %s."
+msgstr ""
 
 #: ../../../www//USVN/DirectoryUtils.php:58
 #, php-format
 msgid "Can't delete directory %s."
-msgstr "Can't delete directory %s."
+msgstr ""
 
 #: ../../../www//USVN/DirectoryUtils.php:75
 #, php-format
 msgid "Can't read directory %s."
-msgstr "Can't read directory %s."
+msgstr ""
 
 #: ../../../www//USVN/ImportSVNRepositories.php:35
 #, php-format
 msgid "%s must be a string: %s"
-msgstr "%s must be a string: %s"
+msgstr ""
 
 #: ../../../www//USVN/Project.php:105
 #, php-format
@@ -223,7 +223,7 @@ msgstr "The user %s is not a member of the %s group"
 #: ../../../www//USVN/Db/Table/Row/Project.php:68
 #, php-format
 msgid "Invalid group %s for project %s."
-msgstr "Invalid group %s for project %s."
+msgstr ""
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:172
 msgid "The project's name is empty."
@@ -235,13 +235,13 @@ msgstr "Invalid project name. A valid project name can only include alphanumeric
 
 #: ../../../www//USVN/Db/Table/Row/Project.php:202
 msgid "You can't rename a project."
-msgstr "You can't rename a project."
+msgstr ""
 
 #: ../../../www//USVN/Db/Table/Row/User.php:129
 #: ../../../www//views/useradmin/js.phtml:9
 #: ../../../www//install/views/step6.html:7
 msgid "Login empty."
-msgstr "Login empty."
+msgstr ""
 
 #: ../../../www//USVN/Db/Table/Row/User.php:132
 msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
@@ -1172,4 +1172,67 @@ msgid "A copy of the old SVN repository has been made, any modification done on 
 msgstr ""
 
 msgid "Unknown file type, can't display"
+msgstr ""
+
+msgid "Due"
+msgstr ""
+
+msgid "Due date"
+msgstr ""
+
+msgid "Roadmap"
+msgstr ""
+
+msgid "create milestone"
+msgstr ""
+
+msgid "create ticket"
+msgstr ""
+
+msgid "No Ticket"
+msgstr ""
+
+msgid "Create a new milestone"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Create ticket"
+msgstr ""
+
+msgid "Nobody"
+msgstr ""
+
+msgid "Assigned to"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Priority"
+msgstr ""
+
+msgid "Edit milestone"
+msgstr ""
+
+msgid "Edit ticket"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "edit"
+msgstr ""
+
+msgid "Created by"
+msgstr ""
+
+msgid "Last modification by"
+msgstr ""
+
+msgid "Activated"
 msgstr ""

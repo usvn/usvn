@@ -1194,5 +1194,65 @@ msgstr "Fin de l'installation"
 msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
 msgstr "Une copie de l'ancien dépôt a été effectuée. Toute modification effectuée sur l'ancien dépôt ne sera pas répercutée sur le nouveau. Veuillez bloquer son l'accès."
 
-msgid "Due:"
-msgstr "Pour le :"
+msgid "Due"
+msgstr "Pour le"
+
+msgid "Due date"
+msgstr "Pour le"
+
+msgid "Roadmap"
+msgstr "Planification"
+
+msgid "create milestone"
+msgstr "créer une milestone"
+
+msgid "create ticket"
+msgstr "créer un ticket"
+
+msgid "No Ticket"
+msgstr "Pas de ticket"
+
+msgid "Create a milestone"
+msgstr "Créer une milestone"
+
+msgid "Project"
+msgstr "Projet"
+
+msgid "Create ticket"
+msgstr "Créer un ticket"
+
+msgid "Nobody"
+msgstr "Personne"
+
+msgid "Assigned to"
+msgstr "Assigné à"
+
+msgid "Status"
+msgstr "Etat"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Priority"
+msgstr "Priorité"
+
+msgid "Edit milestone"
+msgstr "Modifier un milestone"
+
+msgid "Edit ticket"
+msgstr "Modifier un ticket"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "edit"
+msgstr "modifier"
+
+msgid "Created by"
+msgstr "Créé par"
+
+msgid "Last modification by"
+msgstr "Dernière modification par"
+
+msgid "Activated"
+msgstr "Activé"

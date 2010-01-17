@@ -22,7 +22,7 @@
     </h2>
     <? $due = $milestone->dueDate ?>
     <? if (!empty($due)): ?>
-    <p><?= T_('Due:') ?> <?= h_($due->toString(Zend_Date::DATE_MEDIUM)) ?> </p>
+    <p><?= T_('Due') ?> <?= h_($due->toString(Zend_Date::DATE_MEDIUM)) ?> </p>
     <? endif ?>
     <? $tickets = $milestone->tickets ?>
     <? if (empty($tickets)): ?>

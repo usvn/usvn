@@ -7,7 +7,7 @@
 	  </form>
   </h1>
 	<? if ($milestone->dueDate !== null): ?>
-		<p><?= T_('Due:') ?> <?= $milestone->dueDate->toString(Zend_Date::DATE_LONG) ?></p>
+		<p><?= T_('Due') ?> <?= $milestone->dueDate->toString(Zend_Date::DATE_LONG) ?></p>
 	<? endif ?>
 	<? $desc = $milestone->description ?>
 	<? if (!empty($desc)): ?>

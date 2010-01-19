@@ -39,7 +39,7 @@ class IndexController extends USVN_Controller {
 		$this->view->prefix = $this->modifName($folder ? $folder.USVN_DIRECTORY_SEPARATOR : '', -1);
 		$this->view->projects = $this->displayDirectories(array(), $table->fetchAllAssignedTo($this->getRequest()->getParam('user'), $folder), $folder);
 		
-		$projects = $table->fetchAll("projects_name LIKE '{$folder}%'", "projects_name");
+		$projects = $table->fetchAll(array("projects_name LIKE ?" => $folder.'%'), "projects_name");
 		$this->view->groups = $this->displayDirectories($user->listGroups($folder), array(), $folder);
 		
 		$this->view->maxlen = 12;

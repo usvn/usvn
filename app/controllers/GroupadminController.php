@@ -46,8 +46,8 @@ class GroupadminController extends AdminadminController
 		}
 		$this->view->prev = $this->modifName($this->view->prev, -1);
 		$this->view->prefix = $this->modifName($folder ? $folder.USVN_DIRECTORY_SEPARATOR : '', -1);
-		$groups = $table->fetchAll("groups_name LIKE '{$folder}%'", "groups_name");
-		$projects = $tablep->fetchAll("projects_name LIKE '{$folder}%'", "projects_name");
+		$groups = $table->fetchAll(array("groups_name LIKE ?" => $folder.'%'), "groups_name");
+		$projects = $tablep->fetchAll(array("projects_name LIKE ?" => $folder.'%'), "projects_name");
 		$this->view->groups = $this->displayDirectories($groups, $projects, $folder);
 	}
 

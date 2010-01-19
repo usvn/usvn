@@ -5,6 +5,10 @@
 <div id="profile">
   <form method="post" action="<?php echo $this->url ?>" class="usvn_form">
   	<label for="milestone[title]"><?php echo T_("Title"); ?><span class="usvn_require">*</span></label><br />
+  	<?
+  	if (isset($this->errors) && !empty($this->errors['title']))
+    	echo '<span class="error">' . $this->errors['title'] . '</span><br />';
+  	?>
   	<?php echo $this->formText('milestone[title]', (isset($this->milestone) ? $this->milestone->title : ''), array('maxlength' => 200)); ?>
   	<br />
   

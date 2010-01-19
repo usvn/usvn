@@ -512,7 +512,7 @@ class ProjectController extends USVN_Controller
 	public function ticketsAction()
 	{
 		$this->view->project = $this->_project;
-		$this->view->tickets = Default_Model_Ticket::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
+		$this->view->tickets = Default_Model_Ticket::fetchAll(array('project_id = ?' => $this->_project->projects_id));
 		$ticketsByMilestoneId = array();
 		// foreach ($tickets as $ticket)
 		// {
@@ -522,7 +522,7 @@ class ProjectController extends USVN_Controller
 	public function roadmapAction()
 	{
 	  $this->view->project = $this->_project;
-	  $this->view->milestones = Default_Model_Milestone::fetchAll(sprintf('project_id = %d', $this->_project->projects_id), array('due_date ASC NULLS FIRST', 'title ASC'));
+	  $this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->projects_id), array('due_date ASC NULLS FIRST', 'title ASC'));
 	}
 
 	public function addmilestoneAction()
@@ -540,11 +540,12 @@ class ProjectController extends USVN_Controller
 			$data['modificator_id'] = $this->view->user->users_id;
 			$data['modification_date'] = null;
     	$milestone = new Default_Model_Milestone($data);
-			if (1/* validate */)
+			if ($milestone->save())
 			{
-				if ($milestone->save())
-    			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
+  			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
+  			return;
 			}
+			$this->view->errors = $milestone->getLastSaveErrors();
   		$this->view->milestone = $milestone;
 		}
 	}
@@ -557,11 +558,12 @@ class ProjectController extends USVN_Controller
     	$data = $_POST['milestone'];
     	$data['modificator_id'] = $this->view->user->users_id;
 			$milestone->updateWithValues($data);
-    	if (1/* validate */)
-    	{
-    		if ($milestone->save())
-    			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
-    	}
+  		if ($milestone->save())
+  		{
+  			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
+  			return;
+			}
+			$this->view->errors = $milestone->getLastSaveErrors();
     }
   	$this->view->milestone = $milestone;
   }

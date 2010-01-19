@@ -5,14 +5,12 @@
 */
 class Default_Model_Abstract
 {
-  static private $_db_tables = array();
-  protected $_values = array();
+  const SQL_DATE_FORMAT = Zend_Date::W3C;
 
-  static public function getDbTableColumns()
-  {
-    return array();
-    // return array_push(parent::getFields(), 'id', 'title', ...);
-  }
+  static private $_db_tables = array();
+  private $_values = array();
+  private $_relations = array();
+  private $_lastSaveErrors = null;
 
   static public function getDbTableConfig()
   {
@@ -40,6 +38,87 @@ class Default_Model_Abstract
     return self::$_db_tables[$class];
   }
 
+  public function getLastSaveErrors()
+  {
+    return $this->_lastSaveErrors;
+  }
+
+  public function validateBeforeSave()
+  {
+    return array();
+  }
+
+  public function save()
+  {
+    $errors = $this->validateBeforeSave();
+    if (!empty($errors))
+    {
+      $this->_lastSaveErrors = $errors;
+      return false;
+    }
+    $values = $this->toArray();
+    $t = $this->getDbTable();
+    if ($this->isNew())
+    {
+    	return $t->insert($values);
+    }
+    else
+    {
+      $where = $this->where();
+      $pKey = $this->getDbTable()->info(Zend_Db_Table::PRIMARY);
+      foreach ($pKey as $i)
+        unset($values[$i]);
+    	return $t->update($values, $where);
+    }
+  }
+
+  public function where()
+  {
+    $pKey = $this->getDbTable()->info(Zend_Db_Table::PRIMARY);
+    $where = array();
+    foreach ($pKey as $i)
+      $where["{$i} = ?"] = $this->_values[$i];
+    return $where;
+  }
+
+  public function getId()
+  {
+    $pKey = $this->getDbTable()->info(Zend_Db_Table::PRIMARY);
+    if (count($pKey) == 1)
+      return (isset($this->_values[$pKey[1]]) ? $this->_values[$pKey[1]] : null);
+    $id = array();
+    foreach ($pKey as $ik => $k)
+    {
+      $id[$ik] = $this->_values[$k];
+    }
+    return (empty($id) == 0 ? null : $id);
+  }
+
+  public function isNew()
+  {
+    return ($this->getId() === null);
+  }
+
+  public function toArray()
+  {
+    $values = array();
+    foreach ($this->_values as $key => $value)
+    {
+      if ($value instanceof Zend_Date)
+        $value = $value->toString(self::SQL_DATE_FORMAT);
+      $values[$key] = $value;
+    }
+    return $values;
+  }
+
+  public function updateWithValues($values)
+  {
+    foreach ($values as $name => $value)
+    {
+      $this->_values[$name] = $value;
+    }
+  }
+
   public function __construct($row = null)
   {
     if ($row instanceof Zend_Db_Table_Row)
@@ -50,19 +129,50 @@ class Default_Model_Abstract
 
   protected function _initNew(array $theValues)
   {
-    foreach ($theValues as $name => $value)
-      $this->_values[$field] = $value;
+    foreach ($theValues as $name => $value) {
+      $this->_values[$name] = $value;
+    }
   }
 
   protected function _initWithRow(Zend_Db_Table_Row $row)
   {
-    foreach ($row->toArray() as $name => $value)
-      $this->_values[$field] = $value;
+    $metadata = $this->getDbTable()->info(Zend_Db_Table::METADATA);
+    $row = $row->toArray();
+    foreach ($metadata as $col => $desc)
+    {
+      if (array_key_exists($col, $row))
+      {
+        $value = $row[$col];
+        switch ($desc['DATA_TYPE'])
+        {
+          case 'date':
+          case 'datetime':
+            $this->_values[$col] = (empty($value) ? null : new Zend_Date($value, self::SQL_DATE_FORMAT));
+            break;
+          
+          default:
+            $this->_values[$col] = $value;
+            break;
+        }
+      }
+    }
+  }
+  
+  public function accToCol($name)
+  {
+    preg_match_all('!^[a-z]+|[A-Z][a-z]*!', $name, &$match);
+    foreach ($match[0] as &$value)
+      $value = strtolower($value);
+    $name = join($match[0], '_');
+    USVNLogObject('name', $name);
+    return $name;
   }
 
   public function __isset($name)
   {
-    return isset($_values[$name]);
+    if ($name[0] == '_')
+      $name = substr($name, 1);
+    return isset($this->_values[$name]);
   }
 
   public function __set($name, $value)
@@ -76,7 +186,7 @@ class Default_Model_Abstract
     }
     if (method_exists($this, $setter))
       $this->$setter($value);
-    $this->_values[$field] = $value;
+    $this->_values[$this->accToCol($name)] = $value;
   }
 
   public function __get($name)
@@ -90,7 +200,40 @@ class Default_Model_Abstract
     }
     if (method_exists($this, $getter))
       return $this->$getter();
-    return $this->_values[$field];
+    return $this->_values[$this->accToCol($name)];
   }
+
+
+  public function delete()
+	{
+		return self::getDbTable()->delete($this->where());
+	}
   
+  static public function find($id)
+  {
+		$result = self::getDbTable()->find($id);
+		if (0 == count($result)) {
+			return null;
+		}
+		return new Default_Model_Milestone($result->current());
+  }
+
+  static public function fetchAll($where = null, $order = null)
+  {
+		$resultSet = self::getDbTable()->fetchAll($where, $order);
+		$entries   = array();
+		foreach ($resultSet as $row) {
+			$entries[] = new Default_Model_Milestone($row);
+		}
+		return $entries;
+  }
+
+	static public function fetchRow($where = null, $order = null)
+  {
+		$row = self::getDbTable()->fetchRow($where, $order);
+		if ($row === null) {
+			return null;
+		}
+		return new Default_Model_Milestone($row);
+  }
 }

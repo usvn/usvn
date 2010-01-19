@@ -1,7 +1,10 @@
 <?php
 
-class Default_Model_Ticket
+class Default_Model_Ticket extends Default_Model_Abstract
 {
+    /* */
+    protected $_last_save_errors;
+
 		/* Fields */
 		protected $_id;
 		protected $_project_id;
@@ -136,19 +139,15 @@ class Default_Model_Ticket
 			return $this->$getter();
 		}
 
-		/**
-		 * return an array with an error for each invalid field
-		 * if return is empty => good to save
-		 */
-		public function validate()
-		{
-			return array();
-		}
-
 		public function isNew()
 		{
 			return empty($this->_id);
 		}
+
+    public function getLastSaveErrors()
+    {
+      return $this->_last_save_errors;
+    }
 
 		public function getId()
 		{
@@ -266,7 +265,7 @@ class Default_Model_Ticket
 		{
 			return $this->_milestone_id;
 		}
-		
+
 		public function getMilestone()
 		{
 			if ($this->_milestone_id === null)
@@ -397,8 +396,21 @@ class Default_Model_Ticket
     	return $this->_assigned_to;
     }
 
+		public function validateSave()
+		{
+		  $errors = array();
+		  if (empty($this->title))
+		    $errors['title'] = T_('title can\' be empty');
+		  return $errors;
+		}
+
 		public function save()
 		{
+		  $errors = $this->validateSave();
+		  if (!empty($errors)) {
+		    $this->_last_save_errors = $errors;
+		    return false;
+		  }
 			$newId = $this->getMapper()->save($this);
 			if ($newId === null || $newId === false)
 				return false;

@@ -46,7 +46,7 @@ class ProjectadminController extends AdminadminController
 		}
 		$this->view->prev = $this->modifName($this->view->prev, -1);
 		$this->view->prefix = $this->modifName($folder ? $folder.USVN_DIRECTORY_SEPARATOR : '', -1);
-		$this->view->projects = $this->displayDirectories($table->fetchAll("projects_name LIKE '{$folder}%'", "projects_name"), $folder);
+		$this->view->projects = $this->displayDirectories($table->fetchAll(array("projects_name LIKE ?" => $folder.'%'), "projects_name"), $folder);
 	}
 
 	public function newAction()

@@ -114,4 +114,21 @@ CREATE TABLE usvn_milestones
 		constraint fk_usvn_milestones_to_users2 foreign key (modificator_id) references usvn_users (users_id) on delete restrict on update restrict
 	);
 
-ALTER TABLE `usvn_projects` ADD `projects_folder` bool not null default 0;
+CREATE TABLE usvn_hooks
+	(
+		hooks_id          integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+		hooks_event       VARCHAR(255) NOT NULL,
+		hooks_path        char(255) NOT NULL
+	);
+
+
+CREATE TABLE usvn_projects_to_hooks
+	(
+		projects_id        integer NOT NULL,
+		hooks_id           integer NOT NULL,
+		PRIMARY KEY (projects_id, hooks_id),
+		CONSTRAINT fk_usvn_projects_to_hooks  FOREIGN KEY (projects_id) REFERENCES usvn_projects (projects_id) on DELETE RESTRICT on UPDATE RESTRICT,
+		CONSTRAINT fk_usvn_projects_to_hooks2 FOREIGN KEY (hooks_id)    REFERENCES usvn_hooks (hooks_id)       on DELETE RESTRICT on UPDATE RESTRICT
+	);
+
+ALTER TABLE usvn_projects ADD projects_folder bool not null default 0;

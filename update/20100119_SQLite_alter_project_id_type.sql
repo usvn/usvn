@@ -1,4 +1,4 @@
-RENAME TABLE usvn_milestones RENAME TO tmp_usvn_milestones;
+ALTER TABLE usvn_milestones RENAME TO tmp_usvn_milestones;
 CREATE TABLE usvn_milestones
 	(
 		milestone_id      integer primary key autoincrement not null,

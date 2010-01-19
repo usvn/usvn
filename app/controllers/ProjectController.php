@@ -587,18 +587,19 @@ class ProjectController extends USVN_Controller
 		{
 			$data = $_POST['ticket'];
 			$data['creator_id'] = $this->view->user->users_id;
-			$data['creation_date'] = null;
-			$data['modificator_id'] = $this->view->user->users_id;
-			$data['modification_date'] = null;
 			$ticket = new Default_Model_Ticket($data);
 			if (!empty($_POST['save']) && $ticket !== null)
 			{
 				if ($ticket->save())
+				{
 					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'roadmap', true), array('prependBase' => false));
+					return;
+				}
+  			$this->view->errors = $ticket->getLastSaveErrors();
 			}
 			$this->view->ticket = $ticket;
 		}
-		$this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
+		$this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->id), 'title ASC');
 	}
 
   public function editticketAction()
@@ -616,6 +617,7 @@ class ProjectController extends USVN_Controller
     		{
     			$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->id), 'roadmap', true), array('prependBase' => false));
     		}
+  			$this->view->errors = $ticket->getLastSaveErrors();
     	}
     }
   	$this->view->ticket = $ticket;

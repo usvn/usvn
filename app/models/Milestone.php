@@ -15,7 +15,7 @@ class Default_Model_Milestone extends Default_Model_Abstract
   protected function _initNew(array $values)
   {
     if (empty($values['creator_id']))
-	    throw new Exception("Need the modificator_id");
+	    throw new Exception("Need the creator_id");
     $values['modificator_id'] = $values['creator_id'];
     $values['creation_date'] = new Zend_Date(null);
     $values['modification_date'] = new Zend_Date(null);

@@ -58,16 +58,22 @@ class Default_Model_Abstract
     }
     $values = $this->toArray();
     $t = $this->getDbTable();
+    $pKey = $t->info(Zend_Db_Table::PRIMARY);
     if ($this->isNew())
     {
-    	return $t->insert($values);
+    	$key = $t->insert($values);
+    	if (is_array($key))
+        foreach ($pKey as $k)
+      	  $this->_values[$k] = $key[$k];
+  	  else
+  	    $this->_values[$pKey[1]] = $key;
+    	return true;
     }
     else
     {
       $where = $this->where();
-      $pKey = $this->getDbTable()->info(Zend_Db_Table::PRIMARY);
-      foreach ($pKey as $i)
-        unset($values[$i]);
+      foreach ($pKey as $k)
+        unset($values[$k]);
     	return $t->update($values, $where);
     }
   }
@@ -117,6 +123,12 @@ class Default_Model_Abstract
     {
       $this->_values[$name] = $value;
     }
+  }
+
+  static public function create($row = null)
+  {
+    $class = get_called_class();
+    return new $class($row);
   }
 
   public function __construct($row = null)
@@ -172,6 +184,7 @@ class Default_Model_Abstract
   {
     if ($name[0] == '_')
       $name = substr($name, 1);
+    $name = $this->accToCol($name);
     return isset($this->_values[$name]);
   }
 
@@ -200,7 +213,12 @@ class Default_Model_Abstract
     }
     if (method_exists($this, $getter))
       return $this->$getter();
-    return $this->_values[$this->accToCol($name)];
+    $col = $this->accToCol($name);
+    if (isset($this->_values[$col]))
+      return $this->_values[$col];
+    if (!in_array($col, self::getDbTable()->info(Zend_Db_Table::COLS)))
+      throw new Exception(sprintf("Unknown column %s in table %s", $col, self::getDbTable()->info(Zend_Db_Table::NAME)));
+    return null;
   }
 
 
@@ -215,7 +233,7 @@ class Default_Model_Abstract
 		if (0 == count($result)) {
 			return null;
 		}
-		return new Default_Model_Milestone($result->current());
+		return self::create($result->current());
   }
 
   static public function fetchAll($where = null, $order = null)
@@ -223,7 +241,7 @@ class Default_Model_Abstract
 		$resultSet = self::getDbTable()->fetchAll($where, $order);
 		$entries   = array();
 		foreach ($resultSet as $row) {
-			$entries[] = new Default_Model_Milestone($row);
+			$entries[] = self::create($row);
 		}
 		return $entries;
   }
@@ -234,6 +252,6 @@ class Default_Model_Abstract
 		if ($row === null) {
 			return null;
 		}
-		return new Default_Model_Milestone($row);
+		return self::create($row);
   }
 }

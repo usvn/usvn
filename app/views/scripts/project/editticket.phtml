@@ -5,6 +5,9 @@
 	<form action="" method="POST" class="usvn_form">
 
 		<label for="ticket[title]"><?= T_('Title') ?></label><br />
+    <? if (!empty($this->errors['title'])): ?>
+    <span class="error"><?= $this->errors['title'] ?></span>
+    <? endif ?>
 		<input name="ticket[title]" type="text" value="<?= (isset($this->ticket) ? $this->ticket->title : '') ?>" />
 
 		<label for="ticket[description]"><?= T_('Description') ?></label><br />

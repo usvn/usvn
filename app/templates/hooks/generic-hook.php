@@ -8,7 +8,7 @@
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../../app'));
 if (!defined('USVN_BASE_DIR'))
 {
-  define('USVN_BASE_DIR', realpath(dirname(__FILE__) . '/../../../'));
+	define('USVN_BASE_DIR', realpath(dirname(__FILE__) . '/../../../'));
 }
 
 define('USVN_APP_DIR',          USVN_BASE_DIR   . '/app');
@@ -28,8 +28,8 @@ define('USVN_BASE_DIR',         realpath(dirname(__FILE__) . '/../..'));
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library'),
-    get_include_path(),
+	realpath(APPLICATION_PATH . '/../library'),
+	get_include_path(),
 )));
 
 /** Zend_Application */
@@ -77,8 +77,9 @@ if (file_exists(USVN_CONFIG_FILE))
 // Begin code
 
 // Auto-generated
-$projectId = '5';
-$hooksPath = '/Users/naixn/Sites/usvn/files/hooks/';
+$projectId = '${USVN_project_id}';
+$hooksPath = '${USVN_hooks_path}';
+$hookEvent = '${USVN_hook_event}';
 //
 
 $argv = $_SERVER['argv'];
@@ -91,15 +92,17 @@ $project = $table->find($projectId)->current();
 $hooks = $project->findManyToManyRowset('USVN_Db_Table_Hooks', 'USVN_Db_Table_ProjectsToHooks');
 foreach ($hooks as $hook)
 {
-	$hook = $hooksPath . DIRECTORY_SEPARATOR . $hook->path;
-	if (file_exists($hook) && is_executable($hook))
-	{
-	    $cmd = "$hook $arguments";
-	    $returnValue = USVN_ConsoleUtils::runCmd($cmd);
-	    if ($returnValue != 0)
-	    {
-	        exit($returnValue);
-	    }
+	if ($hook->event == $hookEvent) {
+		$hook = $hooksPath . DIRECTORY_SEPARATOR . $hook->path;
+		if (file_exists($hook) && is_executable($hook))
+		{
+			$cmd = "$hook $arguments";
+			$returnValue = USVN_ConsoleUtils::runCmd($cmd);
+			if ($returnValue != 0)
+			{
+				exit($returnValue);
+			}
+		}
 	}
 }
 

@@ -25,7 +25,7 @@ class USVN_Project
 	 * @param string Project name
 	 * @param bool Create standard directories (/trunk, /tags, /branches)
 	 */
-	static private function createProjectSVN($project_name, $create_dir)
+	static private function createProjectSVN($project_name, $project_id, $create_dir)
 	{
 		$config = Zend_Registry::get('config');
 		$path = $config->subversion->path
@@ -49,6 +49,34 @@ class USVN_Project
 				if ($create_dir) {
 					USVN_SVNUtils::createStandardDirectories($path);
 				}
+				//
+				$hook_template_path = implode(DIRECTORY_SEPARATOR, array(APPLICATION_PATH, 'templates', 'hooks', 'generic-hook.php'));
+				$template = file_get_contents($hook_template_path);
+				$hooks_path = Zend_Registry::get("config")->subversion->hooksPath;
+				$svn_hooks_path = $path . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR;
+				foreach (USVN_SVNUtils::$hooks as $hook_event)
+				{
+					if ($hook_event == 'pre-revprop-change')
+					{
+						// pre-revprop-change not handled right now
+						continue;
+					}
+					$hook_file_name = $svn_hooks_path . DIRECTORY_SEPARATOR . $hook_event;
+					$hook_tpl = '';
+					$hook_tpl = preg_replace('!\${USVN_project_id}!', $project_id, $template);
+					$hook_tpl = preg_replace('!\${USVN_hooks_path}!', $hooks_path, $hook_tpl);
+					$hook_tpl = preg_replace('!\${USVN_hook_event}!', $hook_event, $hook_tpl);
+					if (file_put_contents($hook_file_name, $hook_tpl) === false)
+					{
+						throw new USVN_Exception(T_("Can't create subversion hook:<br />%s"), $hook_file_name);
+					}
+					if (chmod($hook_file_name, 0744) === false)
+					{
+						throw new USVN_Exception(T_("Can't chmod hook file:<br />%s"), $hook_file_name);
+					}
+				}
+				
+				//
 			} else {
 				$message = "One of these repository's subfolders is a subversion repository.";
 				throw new USVN_Exception(T_("Can't create subversion repository:<br />%s"), $message);
@@ -107,7 +135,7 @@ class USVN_Project
 			$project = $table->createRow($data);
 			$project->save();
 
-			USVN_Project::createProjectSVN($data['projects_name'], $create_svn_directories);
+			USVN_Project::createProjectSVN($project->name, $project->id, $create_svn_directories);
 				
 			if ($create_group) {
 				$group = $groups->createRow();

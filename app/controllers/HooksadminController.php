@@ -56,7 +56,7 @@ class HooksadminController extends AdminadminController
 			{
 				throw new USVN_Exception(sprintf(T_("Hook #%s does not exist."), $hookId));
 			}
-			// Update hook status if different
+			// Update hook event if different
 			if ($_POST['hooks_event'] != $hook->event)
 			{
 				if (!in_array($_POST['hooks_event'], USVN_SVNUtils::$hooks))

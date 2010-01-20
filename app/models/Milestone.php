@@ -7,11 +7,6 @@ class Default_Model_Milestone extends Default_Model_Abstract
   protected $_creator = null;
   protected $_modificator = null;
 
-  public function dateColumns()
-  {
-    return array_merge(parent::dateColumns(), array('creation_date', 'modification_date', 'due_date'));
-  }
-
   protected function _initNew(array $values)
   {
     if (empty($values['creator_id']))
@@ -20,7 +15,7 @@ class Default_Model_Milestone extends Default_Model_Abstract
     $values['creation_date'] = new Zend_Date(null);
     $values['modification_date'] = new Zend_Date(null);
     if (!empty($values['due_date']))
-    	$this->_due_date = new Zend_Date($values['due_date'], Zend_Date::DATE_LONG);
+    	$values['due_date'] = new Zend_Date($values['due_date'], Zend_Date::DATE_LONG);
     parent::_initNew($values);
   }
 

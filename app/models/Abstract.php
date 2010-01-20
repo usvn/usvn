@@ -82,8 +82,8 @@ class Default_Model_Abstract
   {
     $pKey = $this->getDbTable()->info(Zend_Db_Table::PRIMARY);
     $where = array();
-    foreach ($pKey as $i)
-      $where["{$i} = ?"] = $this->_values[$i];
+    foreach ($pKey as $k)
+      $where["{$k} = ?"] = $this->_values[$k];
     return $where;
   }
 
@@ -121,7 +121,7 @@ class Default_Model_Abstract
   {
     foreach ($values as $name => $value)
     {
-      $this->_values[$name] = $value;
+      $this->__set($name, $value);
     }
   }
 
@@ -139,10 +139,11 @@ class Default_Model_Abstract
       $this->_initNew($row);
   }
 
-  protected function _initNew(array $theValues)
+  protected function _initNew(array $values)
   {
-    foreach ($theValues as $name => $value) {
-      $this->_values[$name] = $value;
+    foreach ($values as $name => $value)
+    {
+      $this->__set($name, $value);
     }
   }
 
@@ -172,11 +173,23 @@ class Default_Model_Abstract
   
   public function accToCol($name)
   {
-    preg_match_all('!^[a-z]+|[A-Z][a-z]*!', $name, &$match);
+    if ($name[0] == '_')
+      $name = substr($name, 1);
+    preg_match_all('!^[^A-Z]+|[A-Z][^A-Z]*!', $name, &$match);
     foreach ($match[0] as &$value)
       $value = strtolower($value);
     $name = join($match[0], '_');
-    USVNLogObject('name', $name);
+    return $name;
+  }
+
+  public function colToAcc($name)
+  {
+    if ($name[0] == '_')
+      $name = substr($name, 1);
+    $tab = explode('_', $name);
+    $name = array_shift($tab);
+    foreach($tab as $n)
+      $name .= ucfirst($n);
     return $name;
   }
 
@@ -190,6 +203,7 @@ class Default_Model_Abstract
 
   public function __set($name, $value)
   {
+    USVNLog('set '.$name.' => '.$value);
     if ($name[0] != '_') {
       $setter = 'set' . ucfirst($name);
     }
@@ -199,11 +213,16 @@ class Default_Model_Abstract
     }
     if (method_exists($this, $setter))
       $this->$setter($value);
-    $this->_values[$this->accToCol($name)] = $value;
+    $col = $this->accToCol($name);
+    if (!in_array($col, self::getDbTable()->info(Zend_Db_Table::COLS)))
+      throw new Exception(sprintf("Unknown column '%s' in table '%s'", $col, self::getDbTable()->info(Zend_Db_Table::NAME)));
+    $this->_values[$col] = $value;
+    USVNLog(' values => ' . print_r($this->_values, true));
   }
 
   public function __get($name)
   {
+    USVNLog('get '.$name);
     if ($name[0] != '_') {
       $getter = 'get' . ucfirst($name);
     }
@@ -214,10 +233,10 @@ class Default_Model_Abstract
     if (method_exists($this, $getter))
       return $this->$getter();
     $col = $this->accToCol($name);
-    if (isset($this->_values[$col]))
-      return $this->_values[$col];
     if (!in_array($col, self::getDbTable()->info(Zend_Db_Table::COLS)))
       throw new Exception(sprintf("Unknown column %s in table %s", $col, self::getDbTable()->info(Zend_Db_Table::NAME)));
+    if (isset($this->_values[$col]))
+      return $this->_values[$col];
     return null;
   }
 

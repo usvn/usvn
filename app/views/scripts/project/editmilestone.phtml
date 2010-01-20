@@ -9,23 +9,24 @@
   	if (isset($this->errors) && !empty($this->errors['title']))
     	echo '<span class="error">' . $this->errors['title'] . '</span><br />';
   	?>
-  	<?php echo $this->formText('milestone[title]', (isset($this->milestone) ? $this->milestone->title : ''), array('maxlength' => 200)); ?>
+  	<?php echo $this->formText('milestone[title]', (isset($this->milestone->title) ? $this->milestone->title : ''), array('maxlength' => 200)); ?>
   	<br />
   
   	<label><?php echo T_("Project"); ?></label><br />
   	<?= $this->project->name ?>
-  	<input type="hidden" name="milestone[project_id]" value="<?= (isset($this->milestone) ? $this->milestone->projectId : $this->project->id) ?>" id="milestone[project_id]" />
+  	<input type="hidden" name="milestone[project_id]" value="<?= (isset($this->milestone->projectId) ? $this->milestone->projectId : $this->project->id) ?>" id="milestone[project_id]" />
   	<br />
   
-    <label><?php echo T_("Due date"); ?> (<?= $now->toString(Zend_Date::DATE_LONG) ?>)</label><br />
-    <input type="text" name="milestone[due_date]" value="<?= (isset($this->milestone) && $this->milestone->dueDate !== null ? $this->milestone->dueDate->toString(Zend_Date::DATE_LONG) : '') ?>" id="milestone[due_date]" />
+    <label><?php echo T_("Due date"); ?> (<?= T_('Ex:') ?> <?= $now->toString(Zend_Date::DATE_LONG) ?>)</label><br />
+    <input type="text" name="milestone[due_date]" value="<?= (isset($this->milestone->dueDate) && $this->milestone->dueDate !== null ? $this->milestone->dueDate->toString(Zend_Date::DATE_LONG) : '') ?>" id="milestone[due_date]" />
 
   	<label for="milestone[description]"><?php echo T_("Description"); ?></label><br />
-  	<?php echo $this->formTextarea('milestone[description]', (isset($this->milestone) ? $this->milestone->description : '')); ?>
+  	<?php echo $this->formTextarea('milestone[description]', (isset($this->milestone->description) ? $this->milestone->description : '')); ?>
   	<br />
   
-  	<input type="hidden" name="milestone[status]" value="<?= (isset($this->milestone) ? $this->milestone->status : '') ?>" id="milestone[status]" />
+  	<input type="hidden" name="milestone[status]" value="<?= (isset($this->milestone->status) ? $this->milestone->status : '') ?>" id="milestone[status]" />
   
+    <input type="button" name="" value="<?= T_('Cancel') ?>" onClick="document.location.href = '<?= $this->url(array('action' => 'milestone', 'id' => $this->milestone->id), 'roadmap') ?>'" />
   	<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
   	<?
   	/* 

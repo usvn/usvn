@@ -159,9 +159,9 @@ class Default_Model_Ticket extends Default_Model_Abstract
     static public function statuses()
     {
       return array(
-        0 => 'Open',
-        1 => 'Resolved',
-        2 => 'Close'
+        0 => T_('Open'),
+        1 => T_('Resolved'),
+        2 => T_('Close')
         );
     }
 

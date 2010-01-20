@@ -25,7 +25,7 @@
   	<input type="hidden" name="milestone[project_id]" value="<?= (isset($this->milestone) ? $this->milestone->projectId : $this->project->id) ?>" id="milestone[project_id]" />
   	<br />
   
-    <label><?php echo T_("Due date"); ?> (<?= $now->toString(Zend_Date::DATE_LONG) ?>)</label><br />
+    <label><?php echo T_("Due date"); ?> (<?= T_('Ex:') ?> <?= $now->toString(Zend_Date::DATE_LONG) ?>)</label><br />
     <input type="text" name="milestone[due_date]" value="<?= (isset($this->milestone) && $this->milestone->dueDate !== null ? $this->milestone->dueDate->toString(Zend_Date::DATE_LONG) : '') ?>" id="milestone[due_date]" />
   
   	<label for="milestone[description]"><?php echo T_("Description"); ?></label><br />

@@ -32,14 +32,13 @@ define('USVN_URL_SEP', '+');
 define('USVN_DIRECTORY_SEPARATOR', '+');
 error_reporting(E_ALL | E_STRICT);
 
-
-$USVNLogArray = array();
-function USVNLogObject($name, $value)
+function USVNLog($str)
 {
     if (APPLICATION_ENV == 'development')
     {
-        global $USVNLogArray;
-        $USVNLogArray[] = array('name' => $name, 'value' => $value);
+        $fd = fopen('/tmp/usvn.log', 'a');
+        fwrite($fd, $str . "\n");
+        fclose($fd);
     }
 }
 

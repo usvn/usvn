@@ -513,16 +513,6 @@ class ProjectController extends USVN_Controller
 		}
 	}    
 
-	public function ticketsAction()
-	{
-		$this->view->project = $this->_project;
-		$this->view->tickets = Default_Model_Ticket::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
-		$ticketsByMilestoneId = array();
-		// foreach ($tickets as $ticket)
-		// {
-			// }
-	}
-
 	public function roadmapAction()
 	{
 	  $this->view->project = $this->_project;
@@ -543,15 +533,34 @@ class ProjectController extends USVN_Controller
 			$data['creation_date'] = null;
 			$data['modificator_id'] = $this->view->user->users_id;
 			$data['modification_date'] = null;
-			$milestone = new Default_Model_Milestone($data);
-			if (1/* validate */)
+    	$milestone = new Default_Model_Milestone($data);
+			if ($milestone->save())
 			{
-				if ($milestone->save())
-					$this->_redirect($this->view->url(array('action' => 'roadmap', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
+  			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
+  			return;
 			}
-			$this->view->milestone = $milestone;
+			$this->view->errors = $milestone->getLastSaveErrors();
+  		$this->view->milestone = $milestone;
 		}
 	}
+
+  public function editmilestoneAction()
+  {
+    $milestone = Default_Model_Milestone::find($this->getRequest()->getParam('id'));
+    if (!empty($_POST['milestone']))
+    {
+    	$data = $_POST['milestone'];
+    	$data['modificator_id'] = $this->view->user->users_id;
+			$milestone->updateWithValues($data);
+  		if ($milestone->save())
+  		{
+  			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
+  			return;
+			}
+			$this->view->errors = $milestone->getLastSaveErrors();
+    }
+  	$this->view->milestone = $milestone;
+  }
 
 	public function milestoneAction()
 	{
@@ -572,41 +581,42 @@ class ProjectController extends USVN_Controller
 		{
 			$data = $_POST['ticket'];
 			$data['creator_id'] = $this->view->user->users_id;
-			$data['creation_date'] = null;
-			$data['modificator_id'] = $this->view->user->users_id;
-			$data['modification_date'] = null;
 			$ticket = new Default_Model_Ticket($data);
 			if (!empty($_POST['save']) && $ticket !== null)
 			{
 				if ($ticket->save())
+				{
 					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'roadmap', true), array('prependBase' => false));
+					return;
+				}
+  			$this->view->errors = $ticket->getLastSaveErrors();
 			}
 			$this->view->ticket = $ticket;
 		}
-		$this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
+		$this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->id), 'title ASC');
 	}
 
-	public  function  editticketAction()
-	{
-		$ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
-		if  (!empty($_POST['ticket']))
-		{
-			$data = $_POST['ticket'];
-			$data['modificator_id'] = $this->view->user->users_id;
-			$ticket->updateWithValues($data);
-			if (!empty($_POST['save']) && $ticket !== null)
-			{
-				//scotch
-				$ticketId = $ticket->id;
-				if ($ticket->save())
-				{
-					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticketId),  'roadmap', true), array('prependBase' => false));
-				}
-			}
-		}
-		$this->view->ticket = $ticket;
-		$this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
-	}
+  public function editticketAction()
+  {
+    //		$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => '0'), 'ticket', true));
+  	$ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
+    if (!empty($_POST['ticket']))
+    {
+    	$data = $_POST['ticket'];
+    	$data['modificator_id'] = $this->view->user->users_id;
+    	$ticket->updateWithValues($data);
+    	if (!empty($_POST['save']) && $ticket !== null)
+    	{
+    		if ($ticket->save())
+    		{
+    			$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->id), 'roadmap', true), array('prependBase' => false));
+    		}
+  			$this->view->errors = $ticket->getLastSaveErrors();
+    	}
+    }
+  	$this->view->ticket = $ticket;
+    $this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
+  }
 
 	public function deleteticketAction()
 	{

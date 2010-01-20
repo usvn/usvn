@@ -186,9 +186,9 @@ class ProjectController extends USVN_Controller
 
 	private function _getSvnFile(&$local_file_path, &$revision, &$revisions)
 	{
-
-		$svn_file_path = $this->getRequest()->getParam('file');
-		$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
+		/*
+		** Configuration basique
+		*/
 		$this->view->project = $this->_project;
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$project_name = str_replace(USVN_URL_SEP, USVN_DIRECTORY_SEPARATOR,$this->_project->name);
@@ -218,11 +218,8 @@ class ProjectController extends USVN_Controller
 				$revision = null;
 			}
 		}
-		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --quiet {$local_file_path}");
-		$revs = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
-		if (!preg_match_all('#^\s*r([0-9]+)\s*\|#m', $revs, $tmp)) {
-			$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --quiet {$local_file_path}@{$revision}");
-			$revs = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe($cmd, $return);
+		if (!$revision) {
+			$revision = $revisions[0];
 		}
 		$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$rev_path[$revision]);
 		$this->view->revision = $revision;
@@ -261,8 +258,15 @@ class ProjectController extends USVN_Controller
 			if ($this->view->prev_revision === NULL && intval($rev) < intval($this->view->revision)) {
 				$this->view->prev_revision = $rev;
 			}
-			$this->view->select_revisions = $revs;
+			if ($rev > $this->view->revision) {
+				$this->view->next_revision = $rev;
+			}
 		}
+		$this->view->select_revisions = $revisions;
+		
+		/*
+		** Recuperation du contenu du fichier
+		*/
 		$this->view->color_view = $this->getRequest()->getParam('color');
 		$this->view->diff_view = $this->getRequest()->getParam('diff');
 		$this->view->diff_revision = $this->getRequest()->getParam('drev');
@@ -512,7 +516,7 @@ class ProjectController extends USVN_Controller
 	public function ticketsAction()
 	{
 		$this->view->project = $this->_project;
-		$this->view->tickets = Default_Model_Ticket::fetchAll(array('project_id = ?' => $this->_project->projects_id));
+		$this->view->tickets = Default_Model_Ticket::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
 		$ticketsByMilestoneId = array();
 		// foreach ($tickets as $ticket)
 		// {
@@ -522,7 +526,7 @@ class ProjectController extends USVN_Controller
 	public function roadmapAction()
 	{
 	  $this->view->project = $this->_project;
-	  $this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->projects_id), array('due_date ASC NULLS FIRST', 'title ASC'));
+	  $this->view->milestones = Default_Model_Milestone::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
 	}
 
 	public function addmilestoneAction()
@@ -539,34 +543,15 @@ class ProjectController extends USVN_Controller
 			$data['creation_date'] = null;
 			$data['modificator_id'] = $this->view->user->users_id;
 			$data['modification_date'] = null;
-    	$milestone = new Default_Model_Milestone($data);
-			if ($milestone->save())
+			$milestone = new Default_Model_Milestone($data);
+			if (1/* validate */)
 			{
-  			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
-  			return;
+				if ($milestone->save())
+					$this->_redirect($this->view->url(array('action' => 'roadmap', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
 			}
-			$this->view->errors = $milestone->getLastSaveErrors();
-  		$this->view->milestone = $milestone;
+			$this->view->milestone = $milestone;
 		}
 	}
-
-  public function editmilestoneAction()
-  {
-    $milestone = Default_Model_Milestone::find($this->getRequest()->getParam('id'));
-    if (!empty($_POST['milestone']))
-    {
-    	$data = $_POST['milestone'];
-    	$data['modificator_id'] = $this->view->user->users_id;
-			$milestone->updateWithValues($data);
-  		if ($milestone->save())
-  		{
-  			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
-  			return;
-			}
-			$this->view->errors = $milestone->getLastSaveErrors();
-    }
-  	$this->view->milestone = $milestone;
-  }
 
 	public function milestoneAction()
 	{
@@ -587,42 +572,41 @@ class ProjectController extends USVN_Controller
 		{
 			$data = $_POST['ticket'];
 			$data['creator_id'] = $this->view->user->users_id;
+			$data['creation_date'] = null;
+			$data['modificator_id'] = $this->view->user->users_id;
+			$data['modification_date'] = null;
 			$ticket = new Default_Model_Ticket($data);
 			if (!empty($_POST['save']) && $ticket !== null)
 			{
 				if ($ticket->save())
-				{
 					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'roadmap', true), array('prependBase' => false));
-					return;
-				}
-  			$this->view->errors = $ticket->getLastSaveErrors();
 			}
 			$this->view->ticket = $ticket;
 		}
-		$this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->id), 'title ASC');
+		$this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
 	}
 
-  public function editticketAction()
-  {
-    //		$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => '0'), 'ticket', true));
-  	$ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
-    if (!empty($_POST['ticket']))
-    {
-    	$data = $_POST['ticket'];
-    	$data['modificator_id'] = $this->view->user->users_id;
-    	$ticket->updateWithValues($data);
-    	if (!empty($_POST['save']) && $ticket !== null)
-    	{
-    		if ($ticket->save())
-    		{
-    			$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->id), 'roadmap', true), array('prependBase' => false));
-    		}
-  			$this->view->errors = $ticket->getLastSaveErrors();
-    	}
-    }
-  	$this->view->ticket = $ticket;
-    $this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
-  }
+	public  function  editticketAction()
+	{
+		$ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
+		if  (!empty($_POST['ticket']))
+		{
+			$data = $_POST['ticket'];
+			$data['modificator_id'] = $this->view->user->users_id;
+			$ticket->updateWithValues($data);
+			if (!empty($_POST['save']) && $ticket !== null)
+			{
+				//scotch
+				$ticketId = $ticket->id;
+				if ($ticket->save())
+				{
+					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticketId),  'roadmap', true), array('prependBase' => false));
+				}
+			}
+		}
+		$this->view->ticket = $ticket;
+		$this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
+	}
 
 	public function deleteticketAction()
 	{

@@ -4,7 +4,7 @@
 <div id="profile">
 	<form action="" method="POST" class="usvn_form">
 
-		<label for="ticket[title]"><?= T_('Title') ?></label><br />
+		<label for="ticket[title]"><?= T_('Title') ?><span class="usvn_require">*</span></label><br />
 		<? if (!empty($this->errors['title'])): ?>
 		<span class="error"><?= $this->errors['title'] ?></span>
 		<? endif ?>

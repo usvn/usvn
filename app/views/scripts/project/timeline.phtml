@@ -45,14 +45,15 @@
     <?php $date = NULL; ?>
     <? foreach (array_keys($this->log) as $revision): ?>
         <?php $commit = $this->log[$revision];
+            $zdate = (empty($commit['date']) ? null : new Zend_Date($commit['date']));
             if ($date == NULL or strcmp($date, date('Y-m-d',  $commit['date'])) != 0)
             {
-                $date = date('Y-m-d',  $commit['date']);
-                $zdate = new Zend_Date($commit['date']);
-                $zdate = $zdate->toString(Zend_Date::DATES);
-                echo '<div class="commit-date">' . $zdate . ':</div>';
+                if ($zdate !== null)
+                {
+                    $date = date('Y-m-d',  $commit['date']);
+                    echo '<div class="commit-date">' . $zdate->toString(Zend_Date::DATES) . ':</div>';
+                }
             }
-            $zdate = new Zend_Date($commit['date']);
             echo '<span class="commit"><a href="' .
                     $this->url(array(
                         'project' => $this->project->name,
@@ -61,7 +62,7 @@
                         'commit'
                         ) . '"><span class="commit-time">' .
                     //date('H:i',  $commit['date']) .
-                    $zdate->toString(Zend_Date::TIME_SHORT) . 
+                    ($zdate !== null ? $zdate->toString(Zend_Date::TIME_SHORT) : '-' ) . 
                     '</span><span class="commit-black">Changeset</span> [' . $revision . '] <span class="commit-black">by</span> <span class="commit-author">' .
                     $commit['author'] . '</span></a></span>';
             echo '<p class="commit-message">' . USVN_SVNLog::formatComment($commit['msg']) . '</p>';

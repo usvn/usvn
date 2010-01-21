@@ -20,6 +20,7 @@
     	<span class="error"><?= $errors['due_date'] ?></span><br />
     <? endif ?>
     <input type="text" id="date_begin" name="milestone[due_date]" value="<?php echo (isset($data['due_date']) ? $data['due_date'] : (!empty($milestone->dueDate) ? $milestone->dueDate->toString(Zend_Date::DATE_LONG) : '')); ?>" style="width: 50%;" />
+		<?php /*
 		<script type="text/javascript">
 			// <![CDATA[       
 	  	var opts = {                            
@@ -28,7 +29,7 @@
 	  	};      
 	  	datePickerController.createDatePicker(opts);
 			// ]]>
-		</script>
+		</script> */ ?>
     <div><?= (!empty($milestone->dueDate) ? $milestone->dueDate->toString(Zend_Date::DATETIME_LONG) : '') ?></div>
 
   	<label for="milestone[description]"><?php echo T_("Description"); ?></label><br />

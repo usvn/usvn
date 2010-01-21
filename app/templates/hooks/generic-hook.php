@@ -5,11 +5,8 @@
 /* Include USVN */
 /****************/
 
-defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../../app'));
-if (!defined('USVN_BASE_DIR'))
-{
-	define('USVN_BASE_DIR', realpath(dirname(__FILE__) . '/../../../'));
-}
+define('APPLICATION_PATH', '${USVN_app_path}');
+define('USVN_BASE_DIR', '${USVN_base_dir}');
 
 define('USVN_APP_DIR',          USVN_BASE_DIR   . '/app');
 define('USVN_LIB_DIR',          USVN_BASE_DIR   . '/library');
@@ -24,11 +21,9 @@ define('USVN_LOCALE_DIRECTORY', USVN_APP_DIR    . '/locale');
 // Define application environment
 define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
 
-define('USVN_BASE_DIR',         realpath(dirname(__FILE__) . '/../..'));
-
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-	realpath(APPLICATION_PATH . '/../library'),
+	realpath(USVN_LIB_DIR),
 	get_include_path(),
 )));
 

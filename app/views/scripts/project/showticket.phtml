@@ -7,7 +7,7 @@
   <h1>
     <?= h_($this->ticket->title) ?>
     <? if ($this->ticket->milestoneId): ?>
-    (<a href="<?= $this->url(array('action' => 'milestone', 'id' => $this->ticket->milestoneId)) ?>"><?= $this->ticket->milestone->title ?></a>)
+    (<a href="<?= $this->url(array('action' => 'milestone', 'id' => $this->ticket->milestoneId)) ?>"><?= h_($this->ticket->milestone->title) ?></a>)
     <? endif ?>
     <form style="float:right;" action="<?= $this->url(array('project' => $this->project->name, 'action' => 'editticket', 'id' => $this->ticket->id), 'roadmap') ?>" method="POST">
     	<input type="submit" name="" value="<?= T_('edit') ?>"></input>

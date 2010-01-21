@@ -37,6 +37,7 @@ class CssController extends Zend_Controller_Action
 		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/bubblerights.css');
 		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/completion.css');
 		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/timeline.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/datepicker.css');
 	}
 
 	public function printAction()
@@ -49,5 +50,6 @@ class CssController extends Zend_Controller_Action
 		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/bubblerights.css');
 		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/completion.css');
 		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/timeline.css');
+		include(USVN_MEDIAS_DIR.'/' . USVN_Template::getTemplate() . '/stylesheets/datepicker.css');
 	}
 }

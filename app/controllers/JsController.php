@@ -42,5 +42,7 @@ class JsController extends Zend_Controller_Action
 		include(USVN_MEDIAS_DIR . '/' . USVN_Template::getTemplate() . '/js/usvn.js');
  		include(USVN_MEDIAS_DIR . '/' . USVN_Template::getTemplate() . '/script.js');
  		include(USVN_MEDIAS_DIR . '/' . USVN_Template::getTemplate() . '/js/tools/sortable.js');
+		include(USVN_MEDIAS_DIR . '/' . USVN_Template::getTemplate() . '/js/datepicker.js');
+
 	}
 }

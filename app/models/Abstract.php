@@ -5,7 +5,7 @@
 */
 class Default_Model_Abstract
 {
-  const SQL_DATE_FORMAT = Zend_Date::W3C;
+  const SQL_DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 
   static private $_db_tables = array();
   private $_values = array();
@@ -125,8 +125,9 @@ class Default_Model_Abstract
     $values = array();
     foreach ($this->_values as $key => $value)
     {
-      if ($value instanceof Zend_Date)
+      if ($value instanceof Zend_Date) {
         $value = $value->toString(self::SQL_DATE_FORMAT);
+			}
       $values[$key] = $value;
     }
     return $values;

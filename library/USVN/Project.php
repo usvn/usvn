@@ -80,7 +80,7 @@ class USVN_Project
 					{
 						$bat_mobile = '';
 						$bat_mobile = preg_replace('!\${USVN_hook_file}!', $bat_template, $bat_template);
-						$bat_man = $hook_file_name . '.bat';
+						$batman = $hook_file_name . '.bat';
 						if (file_put_contents($batman, $bat_mobile) === false)
 						{
 							throw new USVN_Exception(T_("Can't create Windows subversion hook:<br />%s"), $batman);

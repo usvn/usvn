@@ -1,0 +1,42 @@
+<div class="usvn_info">
+	<h1><?= T_("New hook") ?></h1>
+</div>
+
+<form action="" method="POST">
+<table class="sortable" id="hooks">
+	<thead>
+		<tr>
+			<th><?= T_('Hook') ?></th>
+			<th><?= T_('Event') ?></th>			
+			<th><?= T_('Action') ?></th>
+		</tr>
+	</thead>
+	<tbody>
+	  
+    <tr>
+      <? if (count($this->hooks)): ?>
+      <td>
+        <select name="hookfile">
+          <option value=""></option>          
+          <?foreach ($this->hooks as $hook): ?>
+            <option value="<?= h_($hook) ?>"><?= h_($hook) ?></option>
+          <? endforeach ?>
+        </select>
+      </td>
+      <td>
+        <select name="hookevent">
+          <?foreach ($this->hookevents as $event): ?>
+            <option value="<?= h_($event) ?>"><?= h_($event) ?></option>
+          <? endforeach ?>
+        </select>
+      </td>
+      <td><input type="submit" value="<?= T_('Add') ?>"></td>
+      <? else: ?>
+        <td colspan="3" style="text-align: center;"><?= T_('There is no new hooks to add') ?></td>
+      <? endif ?>
+    </tr>
+	  
+  </tbody>
+</table>
+</form>
+<br />

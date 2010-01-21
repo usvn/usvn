@@ -97,7 +97,43 @@ class HooksadminController extends AdminadminController
 
 	public function newAction()
 	{
-		
+		if (($hookfile = $this->getRequest()->getParam('hookfile')) != '') {
+			$hookevent = $this->getRequest()->getParam('hookevent');
+			if (!in_array($hookevent, USVN_SVNUtils::$hooks)) {
+				throw new USVN_Exception(T_("This is an invalid hook event"));
+			}
+			$htable = new USVN_Db_Table_Hooks();
+			$data = array('hooks_event' => $hookevent, 'hooks_path' => $hookfile);
+			$htable->insert($data);
+			$this->_redirect("/admin/hooks/");
+		}
+		$this->view->hooks = array();
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, 'general');
+		if (is_dir($config->subversion->hooksPath) && ($dir = opendir($config->subversion->hooksPath))) {
+			while (($file = readdir($dir)) !== false) {
+				if (substr($file, 0, 1) != '.' && !preg_match('/^.*(#|~)$/', $file) && !is_dir($config->subversion->hooksPath.'/'.$file)) {
+					$this->view->hooks[] = $file;
+				}
+			}
+		}
+		$table = new USVN_Db_Table_Hooks();
+		foreach ($table->fetchAll() as $hook) {
+			if (($key = array_search($hook->path, $this->view->hooks)) !== false) {
+				unset($this->view->hooks[$key]);
+			}
+		}
+		$this->view->hookevents = USVN_SVNUtils::$hooks;
+	}
+	
+	public function deleteAction()
+	{
+		if (($id = $this->getRequest()->getParam('id'))) {
+			$htable = new USVN_Db_Table_Hooks();
+			if (($hook = $htable->find($id))) {
+				$hook->current()->delete();
+			}
+		}
+		$this->_redirect("/admin/hooks/");
 	}
 }
 

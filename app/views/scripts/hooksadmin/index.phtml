@@ -16,16 +16,16 @@
 	<? $even = true ?>
 	<? foreach ($this->hooks as $hook): ?>
 		<? $even = !$even ?>
-		<? $editurl = $this->url(array('action' => 'edit', 'id' => $hook->id)) ?>
-		<? $deletetext = T_("Do you really want to delete hook %s?") ?>
-		<tr class="<?= ($even ? 'even' : 'odd') ?>">
-			<td><a href="<?= h_($editurl) ?>"><?= h_($hook->path) ?></a></td>
-			<td><a href="<?= h_($editurl) ?>"><?= h_($hook->event) ?></a></td>
-			<td class="align-right">
-				<?= $this->editLink('hooks', 'id', $hook->id) ?>
-				<?= $this->deleteLink('hooks', 'id', $hook->id, $deletetext) ?>
-			</td>
-		</tr>
+    <tr class="<?= ($even ? 'even' : 'odd') ?>">
+      <? $deletetext = T_("Do you really want to delete hook %s?") ?>
+      <? $editurl = $this->url(array('action' => 'edit', 'id' => $hook->id)) ?>
+      <td><a href="<?= h_($editurl) ?>"><?= h_($hook->path) ?></a></td>
+      <td><a href="<?= h_($editurl) ?>"><?= h_($hook->event) ?></a></td>
+      <td class="align-right">
+        <?= $this->editLink('hooks', 'id', $hook->id) ?>
+        <?= $this->deleteLink('hooks', 'id', $hook->id, $deletetext) ?>
+      </td>
+    </tr>
 	<? endforeach ?>
 <? endif ?>
 	</tbody>

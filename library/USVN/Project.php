@@ -66,7 +66,7 @@ class USVN_Project
 					$hook_file_name = $svn_hooks_path . DIRECTORY_SEPARATOR . $hook_event;
 					$hook_tpl = '';
 					$hook_tpl = preg_replace('!\${USVN_project_id}!', $project_id, $template);
-					$hook_tpl = preg_replace('!\${USVN_hooks_path}!', $hooks_path, $hook_tpl);
+					$hook_tpl = preg_replace('!\${USVN_hooks_path}!', addslashes($hooks_path), $hook_tpl);
 					$hook_tpl = preg_replace('!\${USVN_hook_event}!', $hook_event, $hook_tpl);
 					if (file_put_contents($hook_file_name, $hook_tpl) === false)
 					{

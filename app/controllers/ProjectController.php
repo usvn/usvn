@@ -516,31 +516,25 @@ class ProjectController extends USVN_Controller
 	public function roadmapAction()
 	{
 	  $this->view->project = $this->_project;
-	  $this->view->milestones = Default_Model_Milestone::fetchAll(sprintf('project_id = %d', $this->_project->projects_id));
+	  $this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->projects_id));
 	}
 
 	public function addmilestoneAction()
 	{
-		// $milestone = new Default_Model_Milestone(array('project_id' => 1, 'title' => 'My first Milestone', 'description' => 'Blah', 'creator_id' => 1, 'status' => 'new'));
-		// //$milestone->save();
-		// $this->view->milestone = $milestone;
-		// return true;
-
 		if (!empty($_POST['milestone']))
 		{
 			$data = $_POST['milestone'];
 			$data['creator_id'] = $this->view->user->users_id;
 			$data['creation_date'] = null;
-			$data['modificator_id'] = $this->view->user->users_id;
-			$data['modification_date'] = null;
     	$milestone = new Default_Model_Milestone($data);
 			if ($milestone->save())
 			{
   			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
   			return;
 			}
-			$this->view->errors = $milestone->getLastSaveErrors();
+			$this->view->errors = $milestone->getInputErrors();
   		$this->view->milestone = $milestone;
+  		$this->view->data = $data;
 		}
 	}
 
@@ -557,7 +551,8 @@ class ProjectController extends USVN_Controller
   			$this->_redirect($this->view->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap'), array('prependBase' => false));
   			return;
 			}
-			$this->view->errors = $milestone->getLastSaveErrors();
+			$this->view->errors = $milestone->getInputErrors();
+  		$this->view->data = $data;
     }
   	$this->view->milestone = $milestone;
   }
@@ -617,12 +612,6 @@ class ProjectController extends USVN_Controller
   	$this->view->ticket = $ticket;
     $this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
   }
-
-	public function deleteticketAction()
-	{
-		Default_Model_Ticket::deleteId($this->getRequest()->getParam('id'));
-		$this->_redirect($this->view->url(array('action' => 'tickets', 'project' => $this->_project->name), 'project', true), array('prependBase' => false));
-	}
 
 	protected function convertDate($number)
 	{

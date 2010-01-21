@@ -36,9 +36,9 @@ function USVNLog($str)
 {
     if (APPLICATION_ENV == 'development')
     {
-        $fd = fopen('/tmp/usvn.log', 'a');
-        fwrite($fd, $str . "\n");
-        fclose($fd);
+//        $fd = fopen('/tmp/usvn.log', 'a');
+//        fwrite($fd, $str . "\n");
+//        fclose($fd);
     }
 }
 
@@ -51,7 +51,6 @@ function h_($string)
 {
 	return htmlspecialchars($string);
 }
-
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {

@@ -14,8 +14,6 @@ class Default_Model_Milestone extends Default_Model_Abstract
     $values['modificator_id'] = $values['creator_id'];
     $values['creation_date'] = new Zend_Date(null);
     $values['modification_date'] = new Zend_Date(null);
-    if (!empty($values['due_date']))
-    	$values['due_date'] = new Zend_Date($values['due_date'], Zend_Date::DATE_LONG);
     parent::_initNew($values);
   }
 
@@ -24,12 +22,11 @@ class Default_Model_Milestone extends Default_Model_Abstract
 	  parent::_initWithRow($row);
   }
 
-  public function validateBeforeSave()
+  public function validateTitle()
   {
-    $errors = parent::validateBeforeSave();
     if (empty($this->title))
-      $errors['title'] = T_('Title can\'t be empty');
-    return $errors;
+      return T_('Title can\'t be empty');
+    return null;
   }
 
 	public function updateWithValues($values)
@@ -39,10 +36,22 @@ class Default_Model_Milestone extends Default_Model_Abstract
 	  if (empty($values['modificator_id']))
 	    throw new Exception("Need the modificator_id");
 	  $values['modification_date'] = new Zend_Date(null);
-	  if (!empty($values['due_date']) && !($values['due_date'] instanceof Zend_Date))
-		  $values['due_date'] = new Zend_Date($values['due_date'], Zend_Date::DATE_LONG);
 		parent::updateWithValues($values);
 	}
+
+  public function setDueDate($date)
+  {
+    if ($date instanceof Zend_Date)
+      $this->_dueDate = $date;
+    else if (empty($date))
+      $this->_dueDate = null;
+    else if (($date = $this->dateValue($date)) !== null)
+      $this->_dueDate = $date;
+    else
+    {
+      $this->addErrorForCol('due_date', T_('Invalid format'));
+    }
+  }
 
   public function getCreator()
   {

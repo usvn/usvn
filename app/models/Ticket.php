@@ -37,12 +37,11 @@ class Default_Model_Ticket extends Default_Model_Abstract
     }
 
 
-		public function validateBeforeSave()
+		public function validateTitle()
 		{
-		  $errors = parent::validateBeforeSave();
-		  if (empty($this->title))
-		    $errors['title'] = T_('Title can\'t be empty');
-		  return $errors;
+		  if (empty($this->_title))
+		    return T_('Title can\'t be empty');
+		  return null;
 		}
 
     public function getCreator()
@@ -95,17 +94,6 @@ class Default_Model_Ticket extends Default_Model_Abstract
 		  return $this->_type;
 		}
 
-//		public function setPriority($txt)
-//		{
-//			$this->_priority = (string) $txt;
-//			return $this;
-//		}
-//
-//		public function getPriority()
-//		{
-//			return $this->_priority;
-//		}
-//
 		public function getPriorityImage()
 		{
 		  $imgs = array(
@@ -136,17 +124,6 @@ class Default_Model_Ticket extends Default_Model_Abstract
 		    return $p[$this->_priority];
 		  return $this->_priority;
 		}
-
-//		public function setStatus($txt)
-//		{
-//			$this->_status = $txt;
-//			return $this;
-//		}
-//
-//		public function getStatus()
-//		{
-//			return $this->_status;
-//		}
 
     public function getStatusText()
     {

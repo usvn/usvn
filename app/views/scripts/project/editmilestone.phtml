@@ -1,38 +1,4 @@
-<? $now = new Zend_Date(null) ?>
 <div class="usvn_info">
   <h1><?php echo T_('Edit milestone'); ?></h1>
 </div>
-<div id="profile">
-  <form method="post" action="<?php echo $this->url ?>" class="usvn_form">
-  	<label for="milestone[title]"><?php echo T_("Title"); ?><span class="usvn_require">*</span></label><br />
-  	<?
-  	if (isset($this->errors) && !empty($this->errors['title']))
-    	echo '<span class="error">' . $this->errors['title'] . '</span><br />';
-  	?>
-  	<?php echo $this->formText('milestone[title]', (isset($this->milestone->title) ? $this->milestone->title : ''), array('maxlength' => 200)); ?>
-  	<br />
-  
-  	<label><?php echo T_("Project"); ?></label><br />
-  	<?= $this->project->name ?>
-  	<input type="hidden" name="milestone[project_id]" value="<?= (isset($this->milestone->projectId) ? $this->milestone->projectId : $this->project->id) ?>" id="milestone[project_id]" />
-  	<br />
-  
-    <label><?php echo T_("Due date"); ?> (<?= T_('Ex:') ?> <?= $now->toString(Zend_Date::DATE_LONG) ?>)</label><br />
-    <input type="text" name="milestone[due_date]" value="<?= (isset($this->milestone->dueDate) && $this->milestone->dueDate !== '' ? $this->milestone->dueDate->toString(Zend_Date::DATE_LONG) : '') ?>" id="milestone[due_date]" />
-
-  	<label for="milestone[description]"><?php echo T_("Description"); ?></label><br />
-  	<?php echo $this->formTextarea('milestone[description]', (isset($this->milestone->description) ? $this->milestone->description : '')); ?>
-  	<br />
-  
-  	<input type="hidden" name="milestone[status]" value="<?= (isset($this->milestone->status) ? $this->milestone->status : '') ?>" id="milestone[status]" />
-  
-    <input type="button" name="" value="<?= T_('Cancel') ?>" onClick="document.location.href = '<?= $this->url(array('action' => 'milestone', 'id' => $this->milestone->id), 'roadmap') ?>'" />
-  	<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
-  	<?
-  	/* 
-  	protected $_due_date;
-  	protected $_status;
-  	*/
-  	?>
-	</form>
-</div>
+<? include dirname(__FILE__) . DIRECTORY_SEPARATOR . '_milestoneform.phtml' ?>

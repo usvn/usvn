@@ -10,7 +10,7 @@ class Default_Model_Abstract
   static private $_db_tables = array();
   private $_values = array();
   private $_relations = array();
-  private $_lastSaveErrors = null;
+  private $_inputErrors = null;
 
   static public function getDbTableConfig()
   {
@@ -38,24 +38,39 @@ class Default_Model_Abstract
     return self::$_db_tables[$class];
   }
 
-  public function getLastSaveErrors()
+  public function getInputErrors()
   {
-    return $this->_lastSaveErrors;
+    return $this->_inputErrors;
   }
 
-  public function validateBeforeSave()
+  public function addErrorForCol($name, $error)
   {
-    return array();
+    $name = $this->accToCol($name);
+    if (!isset($this->_inputErrors[$name]))
+      $this->_inputErrors[$name] = $error;
+  }
+
+  public function validateAllCols()
+  {
+    $cols = self::getDbTable()->info(Zend_Db_Table::COLS);
+    foreach ($cols as $col)
+    {
+      if (!empty($this->_inputErrors[$col]))
+        continue;
+      $validateMethod = 'validate' . ucfirst($this->colToAcc($col));
+      if (!method_exists($this, $validateMethod))
+        continue;
+      $err = $this->$validateMethod();
+      if (!empty($err))
+        $this->addErrorForCol($col, $err);
+    }
+    return empty($this->_inputErrors);
   }
 
   public function save()
   {
-    $errors = $this->validateBeforeSave();
-    if (!empty($errors))
-    {
-      $this->_lastSaveErrors = $errors;
+    if ($this->validateAllCols() == false)
       return false;
-    }
     $values = $this->toArray();
     $t = $this->getDbTable();
     $pKey = $t->info(Zend_Db_Table::PRIMARY);
@@ -117,12 +132,17 @@ class Default_Model_Abstract
     return $values;
   }
 
-  public function updateWithValues($values)
+  public function setValues($values)
   {
     foreach ($values as $name => $value)
     {
-      $this->__set($name, $value);
+      $this->__set($this->colToAcc($name), $value);
     }
+  }
+
+  public function updateWithValues($values)
+  {
+    $this->setValues($values);
   }
 
   static public function create($row = null)
@@ -141,10 +161,7 @@ class Default_Model_Abstract
 
   protected function _initNew(array $values)
   {
-    foreach ($values as $name => $value)
-    {
-      $this->__set($name, $value);
-    }
+    $this->setValues($values);
   }
 
   protected function _initWithRow(Zend_Db_Table_Row $row)
@@ -211,13 +228,20 @@ class Default_Model_Abstract
       $name = substr($name, 1);
       $setter = '_set' . ucfirst($name);
     }
-    if (method_exists($this, $setter))
-      $this->$setter($value);
     $col = $this->accToCol($name);
-    if (!in_array($col, self::getDbTable()->info(Zend_Db_Table::COLS)))
-      throw new Exception(sprintf("Unknown column '%s' in table '%s'", $col, self::getDbTable()->info(Zend_Db_Table::NAME)));
-    $this->_values[$col] = $value;
-    USVNLog(' values => ' . print_r($this->_values, true));
+    if (method_exists($this, $setter))
+    {
+      USVNLog('  call ' . $setter);
+      $this->$setter($value);
+    }
+    else
+    {
+      if (!in_array($col, self::getDbTable()->info(Zend_Db_Table::COLS)))
+        throw new Exception(sprintf("Unknown column '%s' in table '%s'", $col, self::getDbTable()->info(Zend_Db_Table::NAME)));
+      USVNLog('  direct set ' . $col);
+      $this->_values[$col] = $value;
+    }
+    USVNLog('  => ' . (isset($this->_values[$col]) ? '"' . $this->_values[$col] . "'" : '(null)'));
   }
 
   public function __get($name)
@@ -272,5 +296,14 @@ class Default_Model_Abstract
 			return null;
 		}
 		return self::create($row);
+  }
+
+  public function dateValue($date)
+  {
+    $formats = array(Zend_Date::DATETIME_LONG, Zend_Date::DATE_LONG, Zend_Date::DATETIME_SHORT, Zend_Date::DATE_SHORT, Zend_Date::W3C);
+    foreach ($formats as $format)
+      if (Zend_Date::isDate($date, $format))
+        return new Zend_Date($date, $format);
+    return null;
   }
 }

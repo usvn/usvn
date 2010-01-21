@@ -1,0 +1,34 @@
+<? $milestone = (isset($this->milestone) ? $this->milestone : null) ?>
+<? $data = (isset($this->data) ? $this->data : null) ?>
+<? $errors = (isset($this->errors) ? $this->errors : array()) ?>
+<div id="profile">
+  <form method="post" action="<?php echo $this->url ?>" class="usvn_form">
+  	<label for="milestone[title]"><?php echo T_("Title"); ?><span class="usvn_require">*</span></label><br />
+  	<? if (!empty($errors['title'])): ?>
+    	<span class="error"><?= $errors['title'] ?></span><br />
+  	<? endif ?>
+  	<?= $this->formText('milestone[title]', (isset($milestone->title) ? $milestone->title : ''), array('maxlength' => 200)); ?>
+  	<br />
+  
+  	<label><?php echo T_("Project"); ?></label><br />
+  	<?= $this->project->name ?>
+  	<?= $this->formHidden('milestone[project_id]', (isset($milestone->projectId) ? $milestone->projectId : $this->project->id)) ?>
+  	<br />
+  
+    <label><?php echo T_("Due date"); ?> (<?= T_('Ex:') ?> <?= Zend_Date::now()->toString(Zend_Date::DATE_LONG) ?>)</label><br />
+    <? if (!empty($errors['due_date'])): ?>
+    	<span class="error"><?= $errors['due_date'] ?></span><br />
+    <? endif ?>
+    <?= $this->formText('milestone[due_date]', (isset($data['due_date']) ? $data['due_date'] : (!empty($milestone->dueDate) ? $milestone->dueDate->toString(Zend_Date::DATE_LONG) : ''))) ?>
+    <div><?= (!empty($milestone->dueDate) ? $milestone->dueDate->toString(Zend_Date::DATETIME_LONG) : '') ?></div>
+
+  	<label for="milestone[description]"><?php echo T_("Description"); ?></label><br />
+  	<?= $this->formTextarea('milestone[description]', (isset($milestone->description) ? $milestone->description : '')) ?>
+  	<br />
+  
+  	<?= $this->formHidden('milestone[status]', (isset($milestone->status) ? $milestone->status : '')) ?>
+  
+    <input type="button" name="" value="<?= T_('Cancel') ?>" onClick="document.location.href = '<?= $this->url(array('action' => 'milestone', 'id' => $milestone->id), 'roadmap') ?>'" />
+  	<?= $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkName();')); ?>
+	</form>
+</div>

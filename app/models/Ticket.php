@@ -80,10 +80,10 @@ class Default_Model_Ticket extends Default_Model_Abstract
 		static public function types()
 		{
 		  return array(
-		    0 => 'new feature',
-		    1 => 'improvement',
-		    2 => 'bug',
-		    3 => 'other');
+		    0 => T_('Feature'),
+		    1 => T_('Improvement'),
+		    2 => T_('Bug'),
+		    3 => T_('Other'));
 		}
 
 		public function getTypeText()
@@ -110,10 +110,10 @@ class Default_Model_Ticket extends Default_Model_Abstract
     static public function priorities()
     {
       return array(
-        2 => 'Urgent',
-        1 => 'Important',
-        0 => 'Normal',
-        -1 => 'Secondary'
+         2 => T_('Urgent'),
+         1 => T_('Important'),
+         0 => T_('Normal'),
+        -1 => T_('Secondary')
         );
     }
 		

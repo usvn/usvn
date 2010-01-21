@@ -1141,6 +1141,43 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
+#
+# Roadmap
+#
+msgid "Feature"
+msgstr "Fonction"
+
+msgid "Improvement"
+msgstr "Amélioration"
+
+msgid "Bug"
+msgstr "Défaut"
+
+msgid "Other"
+msgstr "Autre"
+
+msgid "Open"
+msgstr "Ouvert"
+
+msgid "Resolved"
+msgstr "Résolu"
+
+msgid "Close"
+msgstr "Fermé"
+
+
+msgid "Urgent"
+msgstr "Urgent"
+
+msgid "Important"
+msgstr "Important"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Secondary"
+msgstr "Secondaire"
+
 #############
 # INSTALLER #
 #############

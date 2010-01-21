@@ -44,8 +44,9 @@
 <div class="usvn_info">
     <?php $date = NULL; ?>
     <? foreach (array_keys($this->log) as $revision): ?>
-        <?php $commit = $this->log[$revision];
-            $zdate = (empty($commit['date']) ? null : new Zend_Date($commit['date']));
+        <?php $commit = $this->log[$revision]; ?>
+        <?php if (empty($commit['date']) && empty($commit['author']) && empty($commit['msg'])) { continue; } ?>
+            <?php $zdate = (empty($commit['date']) ? null : new Zend_Date($commit['date']));
             if ($date == NULL or strcmp($date, date('Y-m-d',  $commit['date'])) != 0)
             {
                 if ($zdate !== null)
@@ -62,7 +63,7 @@
                         'commit'
                         ) . '"><span class="commit-time">' .
                     //date('H:i',  $commit['date']) .
-                    ($zdate !== null ? $zdate->toString(Zend_Date::TIME_SHORT) : '-' ) . 
+                    ($zdate !== null ? $zdate->toString(Zend_Date::TIME_SHORT) : '??:??' ) . 
                     '</span><span class="commit-black">Changeset</span> [' . $revision . '] <span class="commit-black">by</span> <span class="commit-author">' .
                     $commit['author'] . '</span></a></span>';
             echo '<p class="commit-message">' . USVN_SVNLog::formatComment($commit['msg']) . '</p>';

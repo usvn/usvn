@@ -79,7 +79,7 @@ class USVN_Project
 					if (strtoupper(substr(php_uname('s'), 0, 3)) === 'WIN')
 					{
 						$bat_mobile = '';
-						$bat_mobile = preg_replace('!\${USVN_hook_file}!', $bat_template, $bat_template);
+						$bat_mobile = preg_replace('!\${USVN_hook_file}!', $hook_file_name, $bat_template);
 						$batman = $hook_file_name . '.bat';
 						if (file_put_contents($batman, $bat_mobile) === false)
 						{

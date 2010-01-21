@@ -590,7 +590,7 @@ class ProjectController extends USVN_Controller
 					$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->getId()), 'roadmap', true), array('prependBase' => false));
 					return;
 				}
-  			$this->view->errors = $ticket->getLastSaveErrors();
+  			$this->view->errors = $ticket->getInputErrors();
 			}
 			$this->view->ticket = $ticket;
 		}
@@ -612,7 +612,7 @@ class ProjectController extends USVN_Controller
     		{
     			$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => $ticket->id), 'roadmap', true), array('prependBase' => false));
     		}
-  			$this->view->errors = $ticket->getLastSaveErrors();
+  			$this->view->errors = $ticket->getInputErrors();
     	}
     }
   	$this->view->ticket = $ticket;

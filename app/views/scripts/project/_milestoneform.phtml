@@ -29,7 +29,6 @@
 	  	datePickerController.createDatePicker(opts);
 			// ]]>
 		</script>
-    <div><?= (!empty($milestone->dueDate) ? $milestone->dueDate->toString(Zend_Date::DATETIME_LONG) : '') ?></div>
 
   	<label for="milestone[description]"><?php echo T_("Description"); ?></label><br />
   	<?= $this->formTextarea('milestone[description]', (isset($milestone->description) ? $milestone->description : '')) ?>

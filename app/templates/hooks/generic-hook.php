@@ -88,10 +88,10 @@ $hooks = $project->findManyToManyRowset('USVN_Db_Table_Hooks', 'USVN_Db_Table_Pr
 foreach ($hooks as $hook)
 {
 	if ($hook->event == $hookEvent) {
-		$hook = $hooksPath . DIRECTORY_SEPARATOR . $hook->path;
-		if (file_exists($hook) && is_executable($hook))
+		$hookexec = $hooksPath . DIRECTORY_SEPARATOR . $hook->path;
+		if (file_exists($hookexec))
 		{
-			$cmd = "$hook $arguments";
+			$cmd = "$hookexec $arguments";
 			$returnValue = USVN_ConsoleUtils::runCmd($cmd);
 			if ($returnValue != 0)
 			{

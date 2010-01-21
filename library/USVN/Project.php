@@ -65,8 +65,8 @@ class USVN_Project
 					}
 					$hook_file_name = $svn_hooks_path . DIRECTORY_SEPARATOR . $hook_event;
 					$hook_tpl = '';
-					$hook_tpl = preg_replace('!\${USVN_app_path}!'  , APPLICATION_PATH, $template);
-					$hook_tpl = preg_replace('!\${USVN_base_dir}!'  , USVN_BASE_DIR,    $hook_tpl);
+					$hook_tpl = preg_replace('!\${USVN_app_path}!'  , addslashes(addslashes(APPLICATION_PATH)), $template);
+					$hook_tpl = preg_replace('!\${USVN_base_dir}!'  , addslashes(addslashes(USVN_BASE_DIR)),    $hook_tpl);
 					$hook_tpl = preg_replace('!\${USVN_project_id}!', $project_id, $hook_tpl);
 					$hook_tpl = preg_replace('!\${USVN_hooks_path}!', $hooks_path, $hook_tpl);
 					$hook_tpl = preg_replace('!\${USVN_hook_event}!', $hook_event, $hook_tpl);

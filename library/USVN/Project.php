@@ -51,7 +51,9 @@ class USVN_Project
 				}
 				//
 				$hook_template_path = implode(DIRECTORY_SEPARATOR, array(APPLICATION_PATH, 'templates', 'hooks', 'generic-hook.php'));
+				$bat_template_path = implode(DIRECTORY_SEPARATOR, array(APPLICATION_PATH, 'templates', 'hooks', 'generic-bat.bat'));
 				$template = file_get_contents($hook_template_path);
+				$bat_template = file_get_contents($bat_template_path);
 				$hooks_path = Zend_Registry::get("config")->subversion->hooksPath;
 				$svn_hooks_path = $path . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR;
 				foreach (USVN_SVNUtils::$hooks as $hook_event)
@@ -73,6 +75,16 @@ class USVN_Project
 					if (chmod($hook_file_name, 0744) === false)
 					{
 						throw new USVN_Exception(T_("Can't chmod hook file:<br />%s"), $hook_file_name);
+					}
+					if (strtoupper(substr(php_uname('s'), 0, 3)) === 'WIN')
+					{
+						$bat_mobile = '';
+						$bat_mobile = preg_replace('!\${USVN_hook_file}!', $bat_template, $bat_template);
+						$bat_man = $hook_file_name . '.bat';
+						if (file_put_contents($batman, $bat_mobile) === false)
+						{
+							throw new USVN_Exception(T_("Can't create Windows subversion hook:<br />%s"), $batman);
+						}
 					}
 				}
 				

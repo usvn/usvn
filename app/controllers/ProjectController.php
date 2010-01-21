@@ -350,7 +350,7 @@ class ProjectController extends USVN_Controller
 		$geshi->set_source($source);
 		$geshi->set_header_type(GESHI_HEADER_DIV);
 		$this->view->highlighted_source = $geshi->parse_code();
-		if ($geshi->error() && !$lang_name) {
+		if ($geshi->error() && !$lang_name && $file_ext != 'txt') {
 			$this->view->highlighted_source = T_('Unknown file type, can\'t display');
 			$this->view->nodiff = true;
 			return ;

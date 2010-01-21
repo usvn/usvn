@@ -52,7 +52,7 @@
         </a></td>
         <td><a href="<?= $editurl ?>"><?= nl2br($this->escape($datas->description)) ?></a></td>
         <td class="align-right">
-          <?= '<a href="/admin/project/hooks/name/' . $this->prefix.$project . '">' . $this->img('hooks24.png') ?></a>
+          <a href="<?= $this->url(array('controller' => 'project', 'action' => 'hooks', 'name' => $this->prefix.$project), 'admin', true) ?>"><?= $this->img('hooks24.png') ?></a>
           <?= $this->editLink('project', 'name', $this->prefix.$project) ?>
           <?= $this->deleteLink('project', 'name', $this->prefix.$project, $deletetext) ?>
         </td>

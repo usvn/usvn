@@ -525,6 +525,9 @@ class ProjectController extends USVN_Controller
 		{
 			$data = $_POST['milestone'];
 			$data['creator_id'] = $this->view->user->users_id;
+			if (preg_match('#^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$#', $data['due_date'])) {
+				$data['due_date'] = new Zend_Date($data['due_date'], 'yyyy-MM-dd');
+			}
 			$data['creation_date'] = null;
     	$milestone = new Default_Model_Milestone($data);
 			if ($milestone->save())
@@ -544,6 +547,9 @@ class ProjectController extends USVN_Controller
     if (!empty($_POST['milestone']))
     {
     	$data = $_POST['milestone'];
+			if (preg_match('#^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$#', $data['due_date'])) {
+				$data['due_date'] = new Zend_Date($data['due_date'], 'yyyy-MM-dd');
+			}
     	$data['modificator_id'] = $this->view->user->users_id;
 			$milestone->updateWithValues($data);
   		if ($milestone->save())

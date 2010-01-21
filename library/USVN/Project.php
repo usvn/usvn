@@ -54,7 +54,7 @@ class USVN_Project
 				$bat_template_path = implode(DIRECTORY_SEPARATOR, array(APPLICATION_PATH, 'templates', 'hooks', 'generic-bat.bat'));
 				$template = file_get_contents($hook_template_path);
 				$bat_template = file_get_contents($bat_template_path);
-				$hooks_path = Zend_Registry::get("config")->subversion->hooksPath;
+				$hooks_path = addslashes(addslashes(Zend_Registry::get("config")->subversion->hooksPath));
 				$svn_hooks_path = $path . DIRECTORY_SEPARATOR . 'hooks' . DIRECTORY_SEPARATOR;
 				foreach (USVN_SVNUtils::$hooks as $hook_event)
 				{
@@ -66,7 +66,7 @@ class USVN_Project
 					$hook_file_name = $svn_hooks_path . DIRECTORY_SEPARATOR . $hook_event;
 					$hook_tpl = '';
 					$hook_tpl = preg_replace('!\${USVN_project_id}!', $project_id, $template);
-					$hook_tpl = preg_replace('!\${USVN_hooks_path}!', addslashes($hooks_path), $hook_tpl);
+					$hook_tpl = preg_replace('!\${USVN_hooks_path}!', $hooks_path, $hook_tpl);
 					$hook_tpl = preg_replace('!\${USVN_hook_event}!', $hook_event, $hook_tpl);
 					if (file_put_contents($hook_file_name, $hook_tpl) === false)
 					{
@@ -79,7 +79,7 @@ class USVN_Project
 					if (strtoupper(substr(php_uname('s'), 0, 3)) === 'WIN')
 					{
 						$bat_mobile = '';
-						$bat_mobile = preg_replace('!\${USVN_hook_file}!', addslashes($hook_file_name), $bat_template);
+						$bat_mobile = preg_replace('!\${USVN_hook_file}!', $hook_file_name, $bat_template);
 						$batman = $hook_file_name . '.bat';
 						if (file_put_contents($batman, $bat_mobile) === false)
 						{

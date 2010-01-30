@@ -8,6 +8,11 @@ class Default_Model_Ticket extends Default_Model_Abstract
 		protected $_modificator;
 		protected $_assignedTo;
 
+    public function getMapper()
+    {
+      return Default_Model_Mapper::getTicketMapper();
+    }
+  
     public function __construct($row = null)
     {
 			if ($row instanceof Zend_Db_Table_Row)
@@ -73,7 +78,7 @@ class Default_Model_Ticket extends Default_Model_Abstract
 			if ($this->_milestoneId === null)
 				return null;
 			if ($this->_milestone === null)
-				$this->_milestone = Default_Model_Milestone::find($this->_milestoneId);
+				$this->_milestone = Default_Model_Mapper::getMilestoneMapper()->find($this->_milestoneId);
 			return $this->_milestone;
 		}
 

@@ -516,7 +516,7 @@ class ProjectController extends USVN_Controller
 	public function roadmapAction()
 	{
 	  $this->view->project = $this->_project;
-	  $this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->projects_id));
+	  $this->view->milestones = Default_Model_Mapper::getMilestoneMapper()->fetchAll(array('project_id = ?' => $this->_project->projects_id));
 	}
 
 	public function addmilestoneAction()
@@ -565,13 +565,13 @@ class ProjectController extends USVN_Controller
 
 	public function milestoneAction()
 	{
-		$this->view->milestone = Default_Model_Milestone::find($this->getRequest()->getParam('id'));
+		$this->view->milestone = Default_Model_Mapper::getMilestoneMapper()->find($this->getRequest()->getParam('id'));
 		$this->view->milestoneId = $this->getRequest()->getParam('id');
 	}
 
 	public function showticketAction()
 	{
-		$this->view->ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
+		$this->view->ticket = Default_Model_Mapper::getTicketMapper()->find($this->getRequest()->getParam('id'));
 		$this->view->ticketId = $this->getRequest()->getParam('id');
 	}
 
@@ -594,13 +594,13 @@ class ProjectController extends USVN_Controller
 			}
 			$this->view->ticket = $ticket;
 		}
-		$this->view->milestones = Default_Model_Milestone::fetchAll(array('project_id = ?' => $this->_project->id), 'title ASC');
+		$this->view->milestones = Default_Model_Mapper::getMilestoneMapper()->fetchAll(array('project_id = ?' => $this->_project->id), 'title ASC');
 	}
 
   public function editticketAction()
   {
     //		$this->_redirect($this->view->url(array('action' => 'showticket', 'project' => $this->_project->name, 'id' => '0'), 'ticket', true));
-  	$ticket = Default_Model_Ticket::find($this->getRequest()->getParam('id'));
+  	$ticket = Default_Model_Mapper::getTicketMapper()->find($this->getRequest()->getParam('id'));
     if (!empty($_POST['ticket']))
     {
     	$data = $_POST['ticket'];
@@ -616,7 +616,7 @@ class ProjectController extends USVN_Controller
     	}
     }
   	$this->view->ticket = $ticket;
-    $this->view->milestones = Default_Model_Milestone::fetchAll(null, 'title ASC');
+    $this->view->milestones = Default_Model_Mapper::getMilestoneMapper()->fetchAll(null, 'title ASC');
   }
 
 	protected function convertDate($number)

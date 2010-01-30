@@ -3,7 +3,7 @@
 /**
 * 
 */
-class Default_Model_Abstract
+abstract class Default_Model_Abstract
 {
   const SQL_DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 
@@ -12,30 +12,11 @@ class Default_Model_Abstract
   private $_relations = array();
   private $_inputErrors = null;
 
-  static public function getDbTableConfig()
-  {
-    $tmp = explode('_', get_called_class());
-    $baseName = strtolower(array_pop($tmp));
-    $config = array();
-    $config[Zend_Db_Table::NAME] = 'usvn_' . $baseName . 's';
-    $config[Zend_Db_Table::PRIMARY] = array($baseName . '_id');
-    return $config;
-  }
+  public abstract function getMapper();
 
-  static public function getDbTableClass()
+  public function getDbTable()
   {
-    return 'Default_Model_DbTable';
-  }
-
-  final static public function getDbTable()
-  {
-    $class = get_called_class();
-    if (!array_key_exists($class, self::$_db_tables))
-    {
-      $tableClass = self::getDbTableClass();
-      self::$_db_tables[$class] = new $tableClass(self::getDbTableConfig());
-    }
-    return self::$_db_tables[$class];
+    return $this->getMapper()->getDbTable();
   }
 
   public function getInputErrors()
@@ -146,12 +127,6 @@ class Default_Model_Abstract
     $this->setValues($values);
   }
 
-  static public function create($row = null)
-  {
-    $class = get_called_class();
-    return new $class($row);
-  }
-
   public function __construct($row = null)
   {
     if ($row instanceof Zend_Db_Table_Row)
@@ -221,7 +196,6 @@ class Default_Model_Abstract
 
   public function __set($name, $value)
   {
-    USVNLog('set '.$name.' => '.$value);
     if ($name[0] != '_') {
       $setter = 'set' . ucfirst($name);
     }
@@ -232,22 +206,18 @@ class Default_Model_Abstract
     $col = $this->accToCol($name);
     if (method_exists($this, $setter))
     {
-      USVNLog('  call ' . $setter);
       $this->$setter($value);
     }
     else
     {
       if (!in_array($col, self::getDbTable()->info(Zend_Db_Table::COLS)))
         throw new Exception(sprintf("Unknown column '%s' in table '%s'", $col, self::getDbTable()->info(Zend_Db_Table::NAME)));
-      USVNLog('  direct set ' . $col);
       $this->_values[$col] = $value;
     }
-    USVNLog('  => ' . (isset($this->_values[$col]) ? '"' . $this->_values[$col] . "'" : '(null)'));
   }
 
   public function __get($name)
   {
-    USVNLog('get '.$name);
     if ($name[0] != '_') {
       $getter = 'get' . ucfirst($name);
     }
@@ -270,41 +240,4 @@ class Default_Model_Abstract
 	{
 		return self::getDbTable()->delete($this->where());
 	}
-  
-  static public function find($id)
-  {
-		$result = self::getDbTable()->find($id);
-		if (0 == count($result)) {
-			return null;
-		}
-		return self::create($result->current());
-  }
-
-  static public function fetchAll($where = null, $order = null)
-  {
-		$resultSet = self::getDbTable()->fetchAll($where, $order);
-		$entries   = array();
-		foreach ($resultSet as $row) {
-			$entries[] = self::create($row);
-		}
-		return $entries;
-  }
-
-	static public function fetchRow($where = null, $order = null)
-  {
-		$row = self::getDbTable()->fetchRow($where, $order);
-		if ($row === null) {
-			return null;
-		}
-		return self::create($row);
-  }
-
-  public function dateValue($date)
-  {
-    $formats = array(Zend_Date::DATETIME_LONG, Zend_Date::DATE_LONG, Zend_Date::DATETIME_SHORT, Zend_Date::DATE_SHORT, Zend_Date::W3C);
-    foreach ($formats as $format)
-      if (Zend_Date::isDate($date, $format))
-        return new Zend_Date($date, $format);
-    return null;
-  }
 }

@@ -7,6 +7,11 @@ class Default_Model_Milestone extends Default_Model_Abstract
   protected $_creator = null;
   protected $_modificator = null;
 
+  public function getMapper()
+  {
+    return Default_Model_Mapper::getMilestoneMapper();
+  }
+
   protected function _initNew(array $values)
   {
     if (empty($values['creator_id']))
@@ -81,7 +86,7 @@ class Default_Model_Milestone extends Default_Model_Abstract
 	{
 	  if ($this->_tickets === null)
 	  {
-	    $this->_tickets = Default_Model_Ticket::fetchAll(array("milestone_id = ?" => $this->getId()));
+	    $this->_tickets = Default_Model_Mapper::getTicketMapper()->fetchAll(array("milestone_id = ?" => $this->getId()));
 	  }
 		return $this->_tickets;
 	}

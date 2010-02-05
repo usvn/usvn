@@ -1145,38 +1145,38 @@ msgstr ""
 # Roadmap
 #
 msgid "Feature"
-msgstr "Fonction"
+msgstr ""
 
 msgid "Improvement"
-msgstr "Amélioration"
+msgstr ""
 
 msgid "Bug"
-msgstr "Défaut"
+msgstr ""
 
 msgid "Other"
-msgstr "Autre"
+msgstr ""
 
 msgid "Open"
-msgstr "Ouvert"
+msgstr ""
 
 msgid "Resolved"
-msgstr "Résolu"
+msgstr ""
 
 msgid "Close"
-msgstr "Fermé"
+msgstr ""
 
 
 msgid "Urgent"
-msgstr "Urgent"
+msgstr ""
 
 msgid "Important"
-msgstr "Important"
+msgstr ""
 
 msgid "Normal"
-msgstr "Normal"
+msgstr ""
 
 msgid "Secondary"
-msgstr "Secondaire"
+msgstr ""
 
 #############
 # INSTALLER #

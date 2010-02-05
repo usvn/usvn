@@ -1168,6 +1168,7 @@ msgstr "Type de fichier inconnu, impossible à afficher"
 #
 # Roadmap
 #
+# type
 msgid "Feature"
 msgstr "Fonction"
 
@@ -1180,6 +1181,7 @@ msgstr "Défaut"
 msgid "Other"
 msgstr "Autre"
 
+# status
 msgid "Open"
 msgstr "Ouvert"
 
@@ -1189,7 +1191,7 @@ msgstr "Résolu"
 msgid "Close"
 msgstr "Fermé"
 
-
+# priority
 msgid "Urgent"
 msgstr "Urgent"
 

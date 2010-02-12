@@ -17,18 +17,20 @@
 <div class="ticket">
   <ul>
     <li>
-      <?= T_('Created by') ?> <?= $this->ticket->creator->fullname() ?><br />
-      <?= $this->ticket->creationDate->toString(Zend_Date::DATETIME_MEDIUM) ?>
+        <p style="font-weight: bold;"><?= T_('Created by') ?> <?= $this->ticket->creator->fullname() ?></p>
+        &nbsp;&nbsp;&nbsp;<?= $this->ticket->creationDate->toString(Zend_Date::DATETIME_MEDIUM) ?>
     </li>
+    <p style="border-bottom: 1px dashed silver;"></p>
     <li>
-      <?= T_('Last modification by') ?> <?= $this->ticket->modificator->fullname() ?><br />
-      <?= $this->ticket->modificationDate->toString(Zend_Date::DATETIME_MEDIUM) ?>
+        <p style="font-weight: bold;"><?= T_('Last modification by') ?> <?= $this->ticket->modificator->fullname() ?></p>
+        &nbsp;&nbsp;&nbsp;<?= $this->ticket->modificationDate->toString(Zend_Date::DATETIME_MEDIUM) ?>
     </li>
-	<? $u = $this->ticket->assignedTo; ?>
-	<? if ($u !== null): ?>
-	  <li>
-      <?= T_('Assigned to') ?> <?= $u->fullname() ?>
-    </li>
+    <? $u = $this->ticket->assignedTo; ?>
+    <? if ($u !== null): ?>
+        <p style="border-bottom: 1px dashed silver;"></p>
+        <li>
+            <p style="font-weight: bold;"><?= T_('Assigned to') ?> <?= $u->fullname() ?></p>
+        </li>
   <? endif ?>
   </ul>
   <p class="comment">

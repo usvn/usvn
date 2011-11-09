@@ -1,0 +1,1212 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-12-12 10:26+0100\n"
+"PO-Revision-Date: 2009-09-11 22:45+0100\n"
+"Last-Translator: Péter Szládovics\n"
+"Language-Team: PtY <peti@szladovics.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../www//menus/browser.php:32
+#: ../../../www//menus/browserTest.php:47
+msgid "Browser"
+msgstr "Böngésző"
+
+#: ../../../www//menus/timeline.php:32
+#: ../../../www//views/Timeline/index.phtml:3
+msgid "Timeline"
+msgstr "Idővonal"
+
+#: ../../../www//menus/configadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:15
+#: ../../../www//views/configadmin/index.phtml:2
+msgid "Configuration"
+msgstr "Konfiguráció"
+
+#: ../../../www//menus/projectadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:21
+#: ../../../www//views/projectadmin/index.phtml:2
+msgid "Projects"
+msgstr "Projektek"
+
+#: ../../../www//menus/projectadmin.php:53
+msgid "New Project"
+msgstr "Új projekt"
+
+#: ../../../www//menus/groupadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:27
+#: ../../../www//views/groupadmin/index.phtml:2
+msgid "Groups"
+msgstr "Csoportok"
+
+#: ../../../www//menus/groupadmin.php:51
+msgid "Add new group"
+msgstr "Új csoport"
+
+#: ../../../www//menus/systemreportadmin.php:33
+#: ../../../www//views/systemreportadmin/index.phtml:1
+msgid "System report"
+msgstr "Rendszerinformációk"
+
+#: ../../../www//menus/useradmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:33
+#: ../../../www//views/useradmin/index.phtml:2
+msgid "Users"
+msgstr "Felhasználók"
+
+#: ../../../www//menus/useradmin.php:53
+msgid "Add new user"
+msgstr "Új felhasználó"
+
+#: ../../../www//menus/useradmin.php:57
+#: ../../../www//views/useradmin/import.phtml:2
+msgid "Import htpasswd"
+msgstr "Jelszófájl import"
+
+#: ../../../www//USVN/ImportHtpasswd.php:49
+msgid "Invalid htpasswd file."
+msgstr "Hibás jelszófájl."
+
+#: ../../../www//USVN/ImportHtpasswd.php:52
+#, php-format
+msgid "User %s already exist into htpasswd file."
+msgstr "\"%s\" felhasználó már szerepel a jelszófájlban."
+
+#: ../../../www//USVN/ImportHtpasswd.php:79
+#, php-format
+msgid "Can't add users %s. Import cancel."
+msgstr "A felhasználók importja a jelszófájlból hibára futott, és megszakadt. (%s)"
+
+#: ../../../www//USVN/FilesAccessRights.php:42
+#: ../../../www//USVN/FilesAccessRights.php:83
+#, php-format
+msgid "Invalid path %s."
+msgstr "Hibás útvonal: %s."
+
+#: ../../../www//USVN/plugins/layout.php:81
+#: ../../../www//USVN/Menu.php:106
+#: ../../../www//views/index/index.phtml:2
+msgid "Homepage"
+msgstr "Kezdőlap"
+
+#: ../../../www//USVN/plugins/layout.php:83
+msgid "Logged as"
+msgstr "Belépve mint"
+
+#: ../../../www//USVN/Config/Ini.php:72
+msgid "Can't write config file."
+msgstr "A konfigurációs fájl nem írható."
+
+#: ../../../www//USVN/Auth/Adapter/Db.php:54
+#: ../../../www//USVN/Project.php:91
+#, php-format
+msgid "Login %s not found"
+msgstr "%s nem található"
+
+#: ../../../www//USVN/Auth/Adapter/Db.php:59
+msgid "Incorrect password"
+msgstr "Hibás jelszó"
+
+#: ../../../www//USVN/SVNUtils.php:174
+msgid "Commit by USVN"
+msgstr "USVN felületen létrehozva"
+
+#: ../../../www//USVN/SVNUtils.php:177
+#, php-format
+msgid ""
+"Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Subversion adatbázis nem importálható.\n"
+"Parancs:\n"
+"%s\n"
+"\n"
+"Hiba:\n"
+"%s"
+
+#: ../../../www//USVN/SVNUtils.php:194
+#: ../../../www//USVN/Project.php:54
+#, php-format
+msgid "Can't create subversion repository: %s"
+msgstr "Subversion adatbázis nem létesíthető: %s"
+
+#: ../../../www//USVN/SVNUtils.php:234
+#, php-format
+msgid "Can't checkout subversion repository: %s"
+msgstr "Subversion adatbázis nem kérhető le: %s"
+
+#: ../../../www//USVN/SVNUtils.php:250
+#, php-format
+msgid "Can't list subversion repository: %s"
+msgstr "Subversion adatbázis nem listázható: %s"
+
+#: ../../../www//USVN/Menu.php:58
+#: ../../../www//USVN/Db/Utils.php:33
+#, php-format
+msgid "Can't open file %s."
+msgstr "Fájl nem nyitható meg: %s."
+
+#: ../../../www//USVN/Menu.php:97
+msgid "Sign in"
+msgstr "Aláírás"
+
+msgid "Profile"
+msgstr "Profil"
+
+#: ../../../www//USVN/Menu.php:130
+msgid "Edit my profile"
+msgstr "Profil szerkesztése"
+
+#: ../../../www//USVN/Menu.php:137
+msgid "Admin"
+msgstr "Adminisztráció"
+
+#: ../../../www//USVN/Menu.php:146
+msgid "Logout"
+msgstr "Kilépés"
+
+#: ../../../www//USVN/DirectoryUtils.php:31
+#, php-format
+msgid "Can't delete directory %s. Permission denied."
+msgstr "Mappa nem törölhető: %s. Hozzáférés megtagadva."
+
+#: ../../../www//USVN/DirectoryUtils.php:50
+#, php-format
+msgid "Can't delete file %s."
+msgstr "Fájl nem törölhető: %s."
+
+#: ../../../www//USVN/DirectoryUtils.php:58
+#, php-format
+msgid "Can't delete directory %s."
+msgstr "Mappa nem törölhető: %s."
+
+#: ../../../www//USVN/DirectoryUtils.php:75
+#, php-format
+msgid "Can't read directory %s."
+msgstr "Mappa nem olvasható: %s."
+
+#: ../../../www//USVN/ImportSVNRepositories.php:35
+#, php-format
+msgid "%s must be a string: %s"
+msgstr "%s csak szöveg lehet: %s"
+
+#: ../../../www//USVN/Project.php:105
+#, php-format
+msgid "Autocreated group for project %s"
+msgstr "Csoport automatikus létrehozása a projekthez: %s"
+
+#: ../../../www//USVN/Project.php:135
+#, php-format
+msgid "Project %s doesn't exist."
+msgstr "Nincs %s projekt"
+
+#: ../../../www//USVN/SVN.php:32
+#, php-format
+msgid "Invalid project name %s."
+msgstr "%s hibás projektnév"
+
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
+#, php-format
+msgid "User %s is not member of group %s"
+msgstr "%s felhasználó nem tagja a %s csoportnak"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:62
+#: ../../../www//USVN/Db/Table/Row/Project.php:68
+#, php-format
+msgid "Invalid group %s for project %s."
+msgstr "%s csoport nem megfelelő a %s projekthez."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
+msgid "The project's name is empty."
+msgstr "Üres projektnév."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
+msgid "The project's name is invalid. A project's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Hibás projektnév. A név csak az angol ABC kis- és nagybetűiből, számokból, illetve kötőjelből ('-') és aláhúzásból ('_') állhat."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
+msgid "You can't rename a project."
+msgstr "Nem nevezheted át a projektet."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:129
+#: ../../../www//views/useradmin/js.phtml:9
+#: ../../../www//install/views/step6.html:7
+msgid "Login empty."
+msgstr "Üres azonosító."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:132
+msgid "Login invalid.  The login can only include alpha-numeric characters and '-' or '_'."
+msgstr "Az azonosító hibás. Csak az angol ABC kis- és nagybetűit, kötőjelet ('-') és aláhúzást ('_') használhatsz."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:147
+msgid "Invalid email address."
+msgstr "Hibás email cím."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:161
+#: ../../../www//views/profile/index.phtml:10
+#: ../../../www//views/useradmin/js.phtml:15
+#: ../../../www//install/views/step6.html:18
+msgid "Password empty."
+msgstr "Üres jelszó."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:164
+#: ../../../www//views/profile/index.phtml:21
+#: ../../../www//views/useradmin/profile.phtml:12
+#: ../../../www//views/useradmin/js.phtml:21
+#: ../../../www//install/views/step6.html:28
+msgid "Password incorrect (need more 8 characters)."
+msgstr "Hibás jelszó. Legalább 8 karaktert adj meg."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:195
+#: ../../../www//USVN/Db/Table/Users.php:78
+#, php-format
+msgid "Login %s already exist."
+msgstr "%s azonosító már létezik."
+
+#: ../../../www//USVN/Db/Table/Groups.php:75
+msgid "The group's name is empty."
+msgstr "Üres a csoportnév."
+
+#: ../../../www//USVN/Db/Table/Groups.php:78
+msgid "The group's name is invalid. The group's name can only include alpha-numeric characters and '-' or '_'."
+msgstr "Hibás csoportnév. Csak az angol ABC kis- és nagybetűit, kötőjelet ('-') és aláhúzást ('_') használhatsz."
+
+#: ../../../www//USVN/Db/Table/Users.php:127
+#, php-format
+msgid "Can't create or write on htpasswd file %s."
+msgstr "A jelszófájl nem hozható létre/írható (%s)."
+
+#: ../../../www//USVN/Db/Utils.php:46
+#, php-format
+msgid ""
+"Can't load file %s at:\n"
+"%s"
+msgstr "Nem olvasható be a %s fájl itt:\n"
+"%s"
+
+#: ../../../www//USVN/TranslationTest.php:63
+#: ../../../www//views/login/login.phtml:2
+msgid "Welcome to USVN"
+msgstr "Üdvözlünk az USVN-ben"
+
+#: ../../../www//USVN/Config.php:37
+#: ../../../www//install/Install.php:144
+msgid "Invalid language"
+msgstr "Hibás nyelv"
+
+#: ../../../www//USVN/Config.php:56
+#: ../../../www//install/Install.php:166
+msgid "Invalid timezone"
+msgstr "Hibás időzóna"
+
+#: ../../../www//USVN/Config.php:74
+msgid "Invalid template"
+msgstr "Hibás sablon"
+
+#: ../../../www//USVN/User.php:106
+msgid "This user can't be created. A group has the same name."
+msgstr "Rossz felhasználónév. Ilyen néven csoport már van a rendszerben."
+
+#: ../../../www//USVN/SVNLog.php:56
+#, php-format
+msgid "Can't get subversion repository logs: %s"
+msgstr "Subversion adatbázisnaplók nem érhetők el: %s"
+
+#: ../../../www//controllers/ProfileController.php:38
+msgid "Wrong password"
+msgstr "Hibás jelszó"
+
+#: ../../../www//controllers/ProfileController.php:42
+#: ../../../www//controllers/UseradminController.php:46
+msgid "Not the same password."
+msgstr "A jelszavak nem egyeznek."
+
+#: ../../../www//controllers/UseradminController.php:35
+msgid "Missing fields."
+msgstr "Hiányzó mezők."
+
+#: ../../../www//controllers/UseradminController.php:101
+#: ../../../www//controllers/UseradminController.php:142
+#, php-format
+msgid "Invalid user %s."
+msgstr "%s hibás felhasználó"
+
+#: ../../../www//controllers/UseradminController.php:119
+#, php-format
+msgid "User %s does not exist."
+msgstr "%s felhasználó nem létezik."
+
+#: ../../../www//controllers/UseradminController.php:145
+msgid "You can't delete yourself."
+msgstr "Nem törölheted Magad."
+
+#: ../../../www//controllers/GroupadminController.php:61
+#, php-format
+msgid "Group %s already exist"
+msgstr "%s néven már van csoport"
+
+#: ../../../www//controllers/GroupadminController.php:86
+#: ../../../www//controllers/GroupadminController.php:102
+#: ../../../www//controllers/GroupadminController.php:130
+#, php-format
+msgid "Invalid group %s."
+msgstr "Hibás csoport: %s"
+
+#: ../../../www//controllers/BrowserajaxController.php:55
+#, php-format
+msgid "Apply rights on %s"
+msgstr "Jogok alkalmazása itt: %s"
+
+#: ../../../www//controllers/BrowserajaxController.php:95
+#: ../../../www//views/projectadmin/index.phtml:8
+#: ../../../www//views/projectadmin/form.phtml:24
+#: ../../../www//views/groupadmin/index.phtml:8
+#: ../../../www//views/groupadmin/form.phtml:23
+msgid "Name"
+msgstr "Név"
+
+#: ../../../www//controllers/BrowserajaxController.php:95
+#: ../../../www//views/projectadmin/index.phtml:10
+#: ../../../www//views/groupadmin/index.phtml:10
+#: ../../../www//views/useradmin/index.phtml:13
+msgid "Action"
+msgstr "Művelet"
+
+#: ../../../www//controllers/BrowserajaxController.php:104
+#: ../../../www//controllers/BrowserajaxController.php:113
+msgid "Folder"
+msgstr "Mappa"
+
+#: ../../../www//controllers/BrowserajaxController.php:116
+msgid "File"
+msgstr "Fájl"
+
+#: ../../../www//controllers/BrowserajaxController.php:124
+#: ../../../www//helpers/ACLLink.php:33
+msgid "Rights"
+msgstr "Jogok"
+
+#: ../../../www//controllers/BrowserajaxController.php:128
+msgid "You don't have read access to this folder"
+msgstr "Nincs jogod olvasni ezt a mappát"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Group"
+msgstr "Csoport"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Read"
+msgstr "Olvasás"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Write"
+msgstr "Írás"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Recursive"
+msgstr "Rekurzív"
+
+#: ../../../www//controllers/GroupController.php:45
+#: ../../../www//controllers/GroupController.php:104
+#: ../../../www//controllers/GroupController.php:151
+#: ../../../www//views/Timeline/accesdenied.phtml:1
+msgid "Access denied."
+msgstr "Hozzáférés megtagadva."
+
+#: ../../../www//controllers/GroupController.php:78
+#: ../../../www//controllers/GroupController.php:88
+#: ../../../www//controllers/GroupController.php:124
+#: ../../../www//controllers/GroupController.php:138
+#, php-format
+msgid "Unknown user %s"
+msgstr "Ismeretlen felhasználó: %s"
+
+#: ../../../www//views/adminadmin/index.phtml:2
+msgid "Administration"
+msgstr "Adminisztráció"
+
+#: ../../../www//views/adminadmin/index.phtml:3
+msgid "USVN version: "
+msgstr "USVN verzió: "
+
+#: ../../../www//views/adminadmin/index.phtml:7
+#, php-format
+msgid ""
+"Your version of USVN is out of date. A new version %s is available on\n"
+"\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
+msgstr "Az USVN példányod elavult. Új verzió (%s) érhető el a\n"
+"\thivatalos <a href=\"http://www.usvn.info\">oldalon</a>."
+
+#: ../../../www//views/profile/index.phtml:15
+#: ../../../www//views/useradmin/profile.phtml:6
+#: ../../../www//views/useradmin/js.phtml:26
+#: ../../../www//install/views/step6.html:23
+msgid "Password incorrect (not the same)."
+msgstr "Hibás jelszó (nem azonos)."
+
+#: ../../../www//views/profile/index.phtml:34
+msgid "My account"
+msgstr "Hozzáférésem"
+
+#: ../../../www//views/profile/index.phtml:36
+msgid "Actual password"
+msgstr "Aktuális jelszó"
+
+#: ../../../www//views/profile/index.phtml:40
+msgid "New password"
+msgstr "Új jelszó"
+
+#: ../../../www//views/profile/index.phtml:45
+#: ../../../www//views/useradmin/index.phtml:10
+#: ../../../www//views/useradmin/profile.phtml:35
+#: ../../../www//views/useradmin/form.phtml:31
+#: ../../../www//install/views/step6.html:84
+msgid "Lastname"
+msgstr "Utónév"
+
+#: ../../../www//views/profile/index.phtml:48
+#: ../../../www//views/useradmin/index.phtml:9
+#: ../../../www//views/useradmin/profile.phtml:39
+#: ../../../www//views/useradmin/form.phtml:34
+#: ../../../www//install/views/step6.html:67
+msgid "Firstname"
+msgstr "Keresztnév"
+
+#: ../../../www//views/profile/index.phtml:52
+#: ../../../www//views/useradmin/index.phtml:11
+#: ../../../www//views/useradmin/profile.phtml:43
+#: ../../../www//views/useradmin/form.phtml:38
+#: ../../../www//install/views/step6.html:121
+msgid "Email"
+msgstr "Email cím"
+
+#: ../../../www//views/profile/index.phtml:56
+#: ../../../www//views/projectadmin/form.phtml:49
+#: ../../../www//views/groupadmin/form.phtml:36
+#: ../../../www//views/login/login.phtml:23
+#: ../../../www//views/useradmin/edit.phtml:13
+#: ../../../www//views/useradmin/profile.phtml:48
+#: ../../../www//views/useradmin/new.phtml:18
+msgid "Submit"
+msgstr "Kész"
+
+#: ../../../www//views/systemreportadmin/index.phtml:3
+msgid "PHP version:"
+msgstr "PHP verzió:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:4
+msgid "USVN version:"
+msgstr "USVN verzió:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:5
+msgid "Translation:"
+msgstr "Nyelvezet"
+
+#: ../../../www//views/systemreportadmin/index.phtml:6
+msgid "Database:"
+msgstr "Adatbázis:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:7
+msgid "Subversion version:"
+msgstr "Subversion verzió:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:8
+msgid "OS:"
+msgstr "Operációs rendszer:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:10
+msgid "Get full report"
+msgstr "Operációs rendszer azonosító"
+
+#: ../../../www//views/systemreportadmin/index.phtml:11
+msgid "PHP extensions"
+msgstr "PHP kiegészítők"
+
+#: ../../../www//views/systemreportadmin/index.phtml:18
+msgid "Apache modules"
+msgstr "Apache modulok"
+
+#: ../../../www//views/projectadmin/index.phtml:9
+#: ../../../www//views/projectadmin/form.phtml:28
+#: ../../../www//views/groupadmin/index.phtml:9
+#: ../../../www//views/groupadmin/form.phtml:27
+msgid "Description"
+msgstr "Leírás"
+
+#: ../../../www//views/projectadmin/index.phtml:16
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr "Biztos, hogy törlöd a projektet (%s)?"
+
+#: ../../../www//views/projectadmin/form.phtml:10
+msgid "Project's name empty, please fill it."
+msgstr "Üres projektnév, adj meg egyet."
+
+#: ../../../www//views/projectadmin/form.phtml:22
+msgid "Project's information"
+msgstr "Projekt információk"
+
+#: ../../../www//views/projectadmin/form.phtml:35
+msgid "Create group for project:"
+msgstr "Csoport létrehozása a projekthez:"
+
+#: ../../../www//views/projectadmin/form.phtml:36
+msgid "Add me to project group:"
+msgstr "Hozzárendelésem a projekthez:"
+
+#: ../../../www//views/projectadmin/form.phtml:37
+#: ../../../www//views/projectadmin/form.phtml:42
+#: ../../../www//views/projectadmin/form.phtml:44
+msgid "Add me as admin of the project:"
+msgstr "A projekt adminisztrátora legyek:"
+
+#: ../../../www//views/projectadmin/form.phtml:38
+msgid "Create SVN standard directories (/trunk, /branches and /tags):"
+msgstr "SVN alapmappák létrehozása (/trunk, /branches és /tags):"
+
+#: ../../../www//views/browser/index.phtml:133
+msgid "Acces rights for"
+msgstr "Jogok adása neki"
+
+#: ../../../www//views/browser/index.phtml:160
+msgid "Files list"
+msgstr "Fájllista"
+
+#: ../../../www//views/groupadmin/index.phtml:16
+#, php-format
+msgid "Do you really want to delete group %s?"
+msgstr "Biztos, hogy törlöd ezt a csoportot (%s)?"
+
+#: ../../../www//views/groupadmin/form.phtml:10
+msgid "Group's name empty, please fill it."
+msgstr "Üres csoportnév, adj meg egyet."
+
+#: ../../../www//views/groupadmin/form.phtml:22
+msgid "Group's information"
+msgstr "Csoportinformációk"
+
+#: ../../../www//views/groupadmin/form.phtml:33
+msgid "Managing group"
+msgstr "Csoportkezelés"
+
+#: ../../../www//views/login/login.phtml:5
+msgid "Please enter your login and your password to connect to USVN."
+msgstr "Add meg a neved és a jelszavad az USVN-be lépéshez."
+
+#: ../../../www//views/login/login.phtml:11
+msgid "Authentication"
+msgstr "Azonosítás"
+
+#: ../../../www//views/login/login.phtml:15
+#: ../../../www//views/useradmin/index.phtml:8
+#: ../../../www//views/useradmin/profile.phtml:27
+#: ../../../www//views/useradmin/form.phtml:19
+#: ../../../www//install/views/step5.html:68
+#: ../../../www//install/views/step6.html:50
+msgid "Login"
+msgstr "Azonosító"
+
+#: ../../../www//views/login/login.phtml:19
+#: ../../../www//views/useradmin/profile.phtml:30
+#: ../../../www//views/useradmin/form.phtml:23
+#: ../../../www//install/views/step5.html:84
+#: ../../../www//install/views/step6.html:101
+msgid "Password"
+msgstr "Jelszó"
+
+#: ../../../www//views/useradmin/import.phtml:4
+msgid "This form allow you to add to USVN all users contents into an apache password file."
+msgstr "Az űrlap segítségével az USVN felhasználók Apache jelszófájlból vehetők fel."
+
+#: ../../../www//views/useradmin/import.phtml:10
+msgid "Upload"
+msgstr "Feltöltés"
+
+#: ../../../www//views/useradmin/index.phtml:12
+#: ../../../www//views/useradmin/form.phtml:42
+#: ../../../www//install/views/step6.html:92
+msgid "Administrator"
+msgstr "Adminisztrátor"
+
+#: ../../../www//views/useradmin/index.phtml:26
+msgid "yes"
+msgstr "igen"
+
+#: ../../../www//views/useradmin/index.phtml:28
+msgid "no"
+msgstr "nem"
+
+#: ../../../www//views/useradmin/index.phtml:31
+#, php-format
+msgid "Do you really want to delete user %s?"
+msgstr "Biztos törlöd %s felhasználót?"
+
+#: ../../../www//views/useradmin/profile.phtml:23
+#: ../../../www//views/useradmin/form.phtml:17
+msgid "User account"
+msgstr "Felhasználó"
+
+#: ../../../www//views/useradmin/form.phtml:4
+#: ../../../www//views/project/index.phtml:63
+msgid "Affected groups"
+msgstr "Érintett csoportok"
+
+#: ../../../www//views/useradmin/form.phtml:27
+#: ../../../www//install/views/step6.html:111
+msgid "Confirm password"
+msgstr "Jelszóellenőrzés"
+
+#: ../../../www//views/useradmin/js.phtml:33
+msgid "Email incorrect."
+msgstr "Hibás email cím."
+
+#: ../../../www//views/useradmin/new.phtml:13
+msgid "Create group"
+msgstr "Csoport létrehozása"
+
+#: ../../../www//views/configadmin/index.phtml:6
+msgid "General settings"
+msgstr "Alapbeállítások"
+
+#: ../../../www//views/configadmin/index.phtml:9
+#: ../../../www//install/views/step2.html:8
+msgid "Default language"
+msgstr "Alapnyelvezet"
+
+#: ../../../www//views/configadmin/index.phtml:27
+#: ../../../www//install/views/step2.html:32
+msgid "Default timezone"
+msgstr "Alap időzóna"
+
+#: ../../../www//views/configadmin/index.phtml:45
+msgid "Default template"
+msgstr "Alap sablon"
+
+#: ../../../www//views/configadmin/index.phtml:62
+msgid "Check for update"
+msgstr "Verziófigyelő"
+
+#: ../../../www//views/configadmin/index.phtml:67
+#: ../../../www//views/configadmin/index.phtml:71
+msgid "Yes"
+msgstr "Igen"
+
+#: ../../../www//views/configadmin/index.phtml:68
+#: ../../../www//views/configadmin/index.phtml:72
+msgid "No"
+msgstr "Nem"
+
+#: ../../../www//views/configadmin/index.phtml:81
+msgid "Site's information"
+msgstr "Oldalinformációk"
+
+#: ../../../www//views/configadmin/index.phtml:84
+msgid "Title"
+msgstr "Cím"
+
+#: ../../../www//views/configadmin/index.phtml:90
+msgid "Icone"
+msgstr "Ikon"
+
+#: ../../../www//views/configadmin/index.phtml:96
+msgid "Logo"
+msgstr "Logó"
+
+#: ../../../www//views/configadmin/index.phtml:104
+msgid "Save"
+msgstr "Mentés"
+
+#: ../../../www//views/Timeline/index.phtml:10
+msgid "Start (revision number or date)"
+msgstr "Indítás (revíziószám vagy dátum)"
+
+#: ../../../www//views/Timeline/index.phtml:12
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
+msgstr "100 revíziót listázhatsz dátumtól vagy revíziószámtól. Dátumformátum: NN/HH/ÉÉÉÉ"
+
+#: ../../../www//views/Timeline/index.phtml:28
+msgid "End (revision number or date)"
+msgstr "Befejezés (revíziószám vagy dátum)"
+
+#: ../../../www//views/Timeline/index.phtml:30
+msgid "This is optional.The listing is made between start revision/date and this one."
+msgstr "Opcionális. A lista a két revízió/dátum közötti elemekről szól."
+
+#: ../../../www//views/Timeline/index.phtml:40
+msgid "Search"
+msgstr "Keresés"
+
+#: ../../../www//views/Timeline/index.phtml:50
+msgid "Last hundred commit"
+msgstr "Utolsó száz beküldés"
+
+#: ../../../www//views/Timeline/index.phtml:54
+#: ../../../www//views/project/index.phtml:87
+#: ../../../www//views/rss/index.phtml:19
+msgid "Revision"
+msgstr "Revízió"
+
+#: ../../../www//views/Timeline/index.phtml:55
+#: ../../../www//views/project/index.phtml:88
+#: ../../../www//views/rss/index.phtml:19
+msgid "Author"
+msgstr "Szerző"
+
+#: ../../../www//views/Timeline/index.phtml:56
+#: ../../../www//views/project/index.phtml:89
+#: ../../../www//views/rss/index.phtml:19
+msgid "Date"
+msgstr "Dátum"
+
+#: ../../../www//views/Timeline/index.phtml:57
+#: ../../../www//views/project/index.phtml:90
+#: ../../../www//views/rss/index.phtml:20
+msgid "Message"
+msgstr "Üzenet"
+
+#: ../../../www//views/group/index.phtml:5
+#, php-format
+msgid "Managing group %s"
+msgstr "%s csoport kezelése"
+
+#: ../../../www//views/group/index.phtml:17
+#: ../../../www//views/group/index.phtml:45
+#: ../../../www//views/project/index.phtml:18
+#: ../../../www//views/project/index.phtml:55
+msgid "Add"
+msgstr "Felvesz"
+
+#: ../../../www//views/group/index.phtml:24
+msgid "Leader Users"
+msgstr "Vezető felhasználók"
+
+#: ../../../www//views/group/index.phtml:29
+#: ../../../www//views/group/index.phtml:57
+#: ../../../www//views/project/index.phtml:38
+#: ../../../www//views/project/index.phtml:68
+#: ../../../www//helpers/DeleteLink.php:35
+msgid "Delete"
+msgstr "Töröl"
+
+#: ../../../www//views/group/index.phtml:30
+#: ../../../www//views/group/index.phtml:58
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "Biztosan törlöd %s felhasználót a %s csoportból?"
+
+#: ../../../www//views/group/index.phtml:52
+msgid "Affected Users"
+msgstr "Érintett felhasználók"
+
+#: ../../../www//views/project/index.phtml:5
+#, php-format
+msgid "Checkout URL : %s"
+msgstr "Beküldési URL: %s"
+
+#: ../../../www//views/project/index.phtml:33
+msgid "Admins users"
+msgstr "Fő felhasználók"
+
+#: ../../../www//views/project/index.phtml:39
+#, php-format
+msgid "Do you really want to remove user %s as admin of project %s?"
+msgstr "Biztosan megvonod /5 user adminisztrátori jogait a %s csoporton?"
+
+#: ../../../www//views/project/index.phtml:69
+#, php-format
+msgid "Do you really want to remove group %s from project %s?"
+msgstr "Biztos eltávolítod a %s csoportot a %s projektből?"
+
+#: ../../../www//views/project/index.phtml:79
+msgid "Last five commits"
+msgstr "Utolsó öt beküldés"
+
+#: ../../../www//views/project/index.phtml:82
+msgid "Rss"
+msgstr "RSS"
+
+#: ../../../www//views/index/index.phtml:5
+msgid "Your projects"
+msgstr "Projektjeid"
+
+#: ../../../www//views/index/index.phtml:15
+msgid "You don't have any project."
+msgstr "Nincsenek projektjeid"
+
+#: ../../../www//views/index/index.phtml:20
+msgid "Your groups"
+msgstr "Csoportjaid"
+
+#: ../../../www//views/index/index.phtml:30
+msgid "You are not assign to a group."
+msgstr "Nincsenek csoportjaid"
+
+#: ../../../www//views/index/error.phtml:2
+msgid "This page doesn't exist."
+msgstr "Ez a lap nem található."
+
+#: ../../../www//install/install-commandline.php:36
+#: ../../../www//install/index.php:87
+#: ../../../www//install/index.php:95
+msgid "Error"
+msgstr "Hiba"
+
+#: ../../../www//install/install-commandline.php:36
+#: ../../../www//install/index.php:87
+msgid "USVN is already install."
+msgstr "Az USVN beállítása már megtörtént."
+
+#: ../../../www//install/views/footer.html:3
+msgid "Copyright USVN"
+msgstr ""
+
+#: ../../../www//install/views/install_error.html:12
+msgid "Force installation"
+msgstr "Erőltetett beállítás"
+
+#: ../../../www//install/views/step3.html:2
+#: ../../../www//install/views/step4.html:2
+#: ../../../www//install/views/step8.html:2
+#: ../../../www//install/views/step7.html:2
+#: ../../../www//install/views/step5.html:33
+#: ../../../www//install/views/step6.html:39
+#: ../../../www//install/views/step2.html:2
+msgid "Step"
+msgstr "Lépés"
+
+#: ../../../www//install/views/step3.html:2
+msgid "Agreement of the licence"
+msgstr "Licenc elfogadás"
+
+#: ../../../www//install/views/step3.html:3
+msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
+msgstr "Olvasd, és fogadd el a CeCILL FREE SOFTVARE LICENCE-et."
+
+#: ../../../www//install/views/step3.html:1966
+msgid "I understand and accept this license."
+msgstr "Megértettem, és elfogadom a leírtakat."
+
+#: ../../../www//install/views/step3.html:1969
+#: ../../../www//install/views/step1.html:16
+#: ../../../www//install/views/step4.html:97
+#: ../../../www//install/views/step5.html:133
+#: ../../../www//install/views/step6.html:135
+#: ../../../www//install/views/step2.html:57
+msgid "Next step"
+msgstr "Következő"
+
+#: ../../../www//install/views/step4.html:2
+msgid "Configure USVN"
+msgstr "USVN beállítása"
+
+#: ../../../www//install/views/step4.html:3
+msgid "Settings of general configuration of USVN. You can keep default settings."
+msgstr "Az USVN alapvető beállításai. Ha megfelel, ne változtass."
+
+#: ../../../www//install/views/step4.html:12
+msgid "Page title"
+msgstr "Az oldal neve"
+
+#: ../../../www//install/views/step4.html:30
+msgid "Subversion repository"
+msgstr "Subversion adatbázis"
+
+#: ../../../www//install/views/step4.html:31
+msgid "Location where usvn will create subversion repository."
+msgstr "Az a hely, ahol a Subversion adatbázist tároljuk."
+
+#: ../../../www//install/views/step4.html:45
+msgid "Subversion password file "
+msgstr "Subversion jelszófájl "
+
+#: ../../../www//install/views/step4.html:46
+msgid "Location where usvn will create password file."
+msgstr "Az a hely, ahol a Subversion jelszófájlt tároljuk."
+
+#: ../../../www//install/views/step4.html:60
+msgid "Subversion access file"
+msgstr "Subversion hozzáférési fájl"
+
+#: ../../../www//install/views/step4.html:61
+msgid "Location where usvn will create access file."
+msgstr "Az a hely, ahol a Subversion hozzáférési fájlt tároljuk."
+
+#: ../../../www//install/views/step4.html:75
+msgid "Subversion url"
+msgstr "Subversion URL"
+
+#: ../../../www//install/views/step4.html:76
+msgid "The url used by users to checkout projects."
+msgstr "Az az URL, amin keresztül a projektek elérhetőek."
+
+#: ../../../www//install/views/step8.html:3
+msgid "You can now enjoy of USVN."
+msgstr "Már használható az USVN."
+
+#: ../../../www//install/views/step8.html:7
+msgid "Apache configuration"
+msgstr "Apache beállítások"
+
+#: ../../../www//install/views/step8.html:8
+msgid "Last step is to configure subversion into apache. Copy past following lines at the end of your <em>httpd.conf</em>:"
+msgstr "Az utolsó lépés az Apache beállítása. Az alábbi sorokat vidd a vágólapra és illeszd be a <em>httpd.conf</em> megfelelő helyére"
+
+#: ../../../www//install/views/step8.html:14
+msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
+msgstr "Ezután indítsd újra a webszervered <kbd>apache2ctl restart</kbd>."
+
+#: ../../../www//install/views/step8.html:18
+msgid "Connect to USVN"
+msgstr "Kapcsolódás az USVN-hez"
+
+#: ../../../www//install/views/head.html:201
+msgid "USVN installation"
+msgstr "USVN telepítő"
+
+#: ../../../www//install/views/step7.html:2
+msgid "Check for new version"
+msgstr "Új verzió figyelése"
+
+#: ../../../www//install/views/step7.html:6
+msgid ""
+"\n"
+"<p>During update checks, USVN will send information regarding of your installation.</p>\n"
+"<p>\n"
+"This information is only collected for statistical purposes and allow\n"
+"us to better know the platforms on which USVN is installed.\n"
+"</p>\n"
+"<p>\n"
+"Here is a list of what we want to collect:\n"
+"<ul>\n"
+"<li>IP (to get geographical position statistics of USVN in the world)</li>\n"
+"<li>The PHP version</li>\n"
+"<li>The SVN version</li>\n"
+"<li>The USVN version</li>\n"
+"<li>The contents of phpinfo()</li>\n"
+"<li>The used database driver</li>\n"
+"<li>The used translation</li>\n"
+"</ul>\n"
+"</p>\n"
+"<p>\n"
+"If you do not want this information to be collected, you juste have to\n"
+"disable the update notification.\n"
+"</p>\n"
+msgstr "\n"
+"<p>Verziókeresés közben az USVN információkat küld a telepítésről.</p>\n"
+"<p>\n"
+"Ezek az információk csak statisztikai célt szolgálnak, hogy megtudjuk, mely rendszerek\n"
+"a legkedveltebbek az USVN telepítéséhez és használatához.\n"
+"</p>\n"
+"<p>\n"
+"Ezeket az adatokat küldjük el:\n"
+"<ul>\n"
+"<li>IP cím (a világ mely részén teleült az USVN)</li>\n"
+"<li>PHP verzió</li>\n"
+"<li>SVN verzió</li>\n"
+"<li>USVN verzió</li>\n"
+"<li>phpinfo() kimenete</li>\n"
+"<li>Választott adatbázismotor</li>\n"
+"<li>Választott nyelvezet</li>\n"
+"</ul>\n"
+"</p>\n"
+"<p>\n"
+"Ha nem akarod, hogy ezeket az információkat elküldjük, kapcsold ki a\n"
+"verziófigyelőt és értesítőt.\n"
+"</p>\n"
+
+#: ../../../www//install/views/step7.html:33
+msgid "Allow check update and send statistics informations"
+msgstr "Frissítések figyelése és statisztikák küldése"
+
+#: ../../../www//install/views/step7.html:38
+msgid "Don't check update"
+msgstr "Ne figyeld a verziót"
+
+#: ../../../www//install/views/step5.html:33
+msgid "Database installation"
+msgstr "Adatbázis beállítása"
+
+#: ../../../www//install/views/step5.html:34
+msgid "Configuration of database's access."
+msgstr "Adatbázis elérésének beállítása."
+
+#: ../../../www//install/views/step5.html:41
+msgid "Database Type"
+msgstr "Adatbázis típusa"
+
+#: ../../../www//install/views/step5.html:53
+msgid "Host"
+msgstr "Kiszolgáló"
+
+#: ../../../www//install/views/step5.html:93
+msgid "Database"
+msgstr "Adatbázis"
+
+#: ../../../www//install/views/step5.html:109
+msgid "Create database ?"
+msgstr "Hozzunk létre adatbázist?"
+
+#: ../../../www//install/views/step5.html:117
+msgid "Table prefix"
+msgstr "Név előtag"
+
+#: ../../../www//install/views/step6.html:13
+msgid "Lastname empty."
+msgstr "Üres keresztnév"
+
+#: ../../../www//install/views/step6.html:39
+msgid "Create administrator user"
+msgstr "Adminisztrátor létrehozása"
+
+#: ../../../www//install/views/step6.html:40
+msgid "Creation of the first administrator of USVN."
+msgstr "Az első adminisztrátor létrehozása."
+
+#: ../../../www//install/views/step6.html:75
+msgid "System"
+msgstr "Rendszer"
+
+#: ../../../www//install/index.php:111
+#: ../../../www//install/index.php:125
+msgid "You need to accept the licence to continue installation."
+msgstr "El kell fogadnod a licencet a folytatáshoz."
+
+#: ../../../www//install/Install.php:64
+msgid "Can't create database\n"
+msgstr "Nem lehet adatbázist létrehozni\n"
+
+#: ../../../www//install/Install.php:73
+msgid "Can't connect to database.\n"
+msgstr "Nem lehet az adatbázishoz kapcsolódni\n"
+
+#: ../../../www//install/Install.php:86
+#, php-format
+msgid "Invalid adapter %s.\n"
+msgstr "Hibás illesztő %s.\n"
+
+#: ../../../www//install/Install.php:96
+msgid "Can't load SQL file.\n"
+msgstr "SQL fájl nem tölthető be.\n"
+
+#: ../../../www//install/Install.php:123
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "Konfigurációs fájl nem írható: %s \n"
+
+#: ../../../www//install/Install.php:191
+msgid ""
+"Invalide locale\n"
+"Please, install UTF-8 locale."
+msgstr ""
+"Hibás 'locale'\n"
+"A 'locale' UTF-8 legyen."
+
+#: ../../../www//install/Install.php:237
+#, php-format
+msgid "Can't write access file %s.\n"
+msgstr "Hozzáférésfájl nem írható: %s.\n"
+
+#: ../../../www//install/Install.php:241
+#, php-format
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "Subversion útvonal hibás \"%s\", ellenőrizd, hogy a mappa írható legyen."
+
+#: ../../../www//install/Install.php:286
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr "Apache helyi konfiguráció nem írható: %s.\n"
+
+#: ../../../www//install/Install.php:330
+msgid "Password empty"
+msgstr "Üres jelszó"
+
+#: ../../../www//install/Install.php:388
+msgid "Need a title."
+msgstr "Adj meg címet"
+
+#: ../../../www//install/Install.php:441
+msgid "USVN can't run with php's safe mode."
+msgstr "Az USVN nem futtatható 'safe' módban."
+
+#: ../../../www//install/Install.php:445
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Nem található a gépen telepített Subversion. Windows telepítés esetén "
+
+#: ../../../www//install/Install.php:445
+msgid ""
+" and after restart your system (WARNING it's mandatory). \n"
+"\n"
+"Otherwise under UNIX you probably need to install a package named subversion."
+msgstr ""
+" ha már újraindítottad (kötelező) a rendszert,\n"
+"\n"
+"Linux alatt a 'subversion' csomag telepítése szükséges"
+
+#: ../../../www//install/Install.php:457
+#: ../../../www//install/Install.php:465
+msgid "mod_rewrite seems not to be loaded"
+msgstr "A 'mod_rewrite' modul nem elérhető"
+
+#: ../../../www//install/Install.php:474
+msgid "mod_dav_svn seems not to be loaded"
+msgstr "A 'mod_dav_svn' nem elérhető"
+
+#: ../../../www//helpers/EditLink.php:35
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: ../../../www//helpers/HomeLinkGroup.php:34
+#: ../../../www//helpers/HomeLink.php:34
+msgid "Home"
+msgstr "Kezdőlap"
+
+#############
+# INSTALLER #
+#############
+msgid "System Check"
+msgstr "Rendszerellenőrzés"
+
+msgid "Language Selection"
+msgstr "Nyelvválasztás"
+
+msgid "License Agreement"
+msgstr "Licencfeltételek"
+
+msgid "USVN Configuration"
+msgstr "USVN beállítás"
+
+msgid "Database Installation"
+msgstr "Adatbázis beállítás"
+
+msgid "Administrator User Creation"
+msgstr "Adminisztratív felhasználó létrehozása"
+
+msgid "Check for a Newer Version"
+msgstr "Új verzió keresése"
+
+msgid "Installation is over"
+msgstr "A telepítés kész"
+
+msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
+msgstr "A régi SVN adatbázisról másolat készült, bármi módosítás a régi adatbázison nem lesz érvényes az újon. A régi adatbázis elérését letilthatod."
+
+msgid "Authentication Settings"
+msgstr "Hitelesítési beállítások"
+
+msgid "Authentication method"
+msgstr "Hitelesítési mód"
+
+msgid "Always use database for login"
+msgstr "Mindig adatbázisból olvasd ezeket a felhasználókat"

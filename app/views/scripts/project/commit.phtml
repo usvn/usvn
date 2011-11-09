@@ -48,7 +48,7 @@
           <? if (isset($d[$this->base]['content'][$i])): ?>
             <tr>
               <td style="background-color: #EEEEEE;"><?= ($basei++) ?></td>
-	          <td style="background-color: #EEEEEE;">&nbsp;</td>'
+	          <td style="background-color: #EEEEEE;">&nbsp;</td>
 	          <td style="background-color: #FFDDDD;">
 	            <span><?= spaceToNbsp($d[$this->base]['content'][$i]) ?></span>
 	          </td>
@@ -63,8 +63,8 @@
 	        </tr>
           <? elseif (isset($d['common'][$i])): ?>
             <tr>
-              <td style="background-color: #EEEEEE;">'.($basei++).'</td>
-	          <td style="background-color: #EEEEEE;">'.($commiti++).'</td>
+              <td style="background-color: #EEEEEE;"><?= ($basei++) ?></td>
+	          <td style="background-color: #EEEEEE;"><?=($commiti++) ?></td>
 	          <td><span><?= spaceToNbsp($d['common'][$i]) ?></span></td>
 	        </tr>
           <? else: ?>

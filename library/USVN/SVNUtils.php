@@ -278,9 +278,23 @@ class USVN_SVNUtils
 				array_push($res, array("name" => (string)$list->name, "isDirectory" => true, "path" => str_replace('//', '/', $path . "/" . $list->name  . '/')));
 			}
 		}
-		$sortfunc = create_function('$a,$b', 'return (strcasecmp($a["name"], $b["name"]));');
-		usort($res, $sortfunc);
+		
+		usort($res, array("USVN_SVNUtils", "listSvnSort"));
 		return $res;
+	}
+
+	private static function listSvnSort($a,$b){
+		if($a["isDirectory"]){
+			if($b["isDirectory"]){
+				return (strcasecmp($a["name"], $b["name"]));
+			}else{
+				return -1;
+			}
+		}
+		if($b["isDirectory"]){
+			return 1;
+		}
+		return (strcasecmp($a["name"], $b["name"]));
 	}
 
 	/**

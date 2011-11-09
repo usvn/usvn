@@ -1,6 +1,6 @@
 #!/bin/sh
 TMP_ROOT='/tmp'
-USVN='usvn-1.0'
+USVN='usvn-1.0.2'
 TMP_PATH="$TMP_ROOT/$USVN"
 CHECKOUT_URL='https://svn.usvn.info/usvn/trunk'
 
@@ -29,7 +29,7 @@ rm -rvf build.xml epitech usvn.esproj create_archives.sh | sed 's/^/RM: /'
 
 # Creation des Archives
 echo 'Creation des archives tar.gz et zip ...'
-version=`cat config/config.ini.exemple | grep -E "^version" | cut -d'"' -f2`
+version=`cat config/config.ini.example | grep -E "^version" | cut -d'"' -f2`
 cd "$TMP_ROOT"
 tar cvzf "$old_pwd/usvn-$version.tgz" "$USVN" | sed 's/^/TAR: /'
 zip -r "$old_pwd/usvn-$version.zip" "$USVN" | sed 's/^/ZIP: /'

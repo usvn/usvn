@@ -1,0 +1,918 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: USVN\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-19 12:14+0100\n"
+"PO-Revision-Date: 2011-11-19 12:48+0100\n"
+"Last-Translator: Walter Dal Mut <walter.dalmut@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: T_\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ../..\n"
+
+#: ../../controllers/BrowserajaxController.php:55
+#, php-format
+msgid "Checkout URL : %s"
+msgstr "Indirizzo Checkout: %s"
+
+#: ../../controllers/BrowserajaxController.php:57
+#, php-format
+msgid "Apply rights on %s"
+msgstr "Applica regole su %s"
+
+#: ../../controllers/BrowserajaxController.php:97
+msgid "Name"
+msgstr "Nome"
+
+#: ../../controllers/BrowserajaxController.php:97
+msgid "File revision"
+msgstr "Revisione file"
+
+#: ../../controllers/BrowserajaxController.php:97
+msgid "Action"
+msgstr "Azione"
+
+#: ../../controllers/BrowserajaxController.php:108
+#: ../../controllers/BrowserajaxController.php:117
+msgid "Folder"
+msgstr "Cartella"
+
+#: ../../controllers/BrowserajaxController.php:120
+msgid "File"
+msgstr "File"
+
+#: ../../controllers/BrowserajaxController.php:134
+msgid "Rights"
+msgstr "Diritti"
+
+#: ../../controllers/BrowserajaxController.php:138
+msgid "You don't have read access to this folder"
+msgstr "Non hai l'accesso in lettura su questa cartella"
+
+#: ../../controllers/BrowserajaxController.php:162
+msgid "Group"
+msgstr "Gruppo"
+
+#: ../../controllers/BrowserajaxController.php:162
+msgid "Read"
+msgstr "Leggi"
+
+#: ../../controllers/BrowserajaxController.php:162
+msgid "Write"
+msgstr "Scrivi"
+
+#: ../../controllers/BrowserajaxController.php:162
+msgid "Recursive"
+msgstr "Ricorsivo"
+
+#: ../../controllers/GroupadminController.php:61
+#, php-format
+msgid "Group %s already exist"
+msgstr "Il gruppo %s esiste già"
+
+#: ../../controllers/GroupadminController.php:86
+#: ../../controllers/GroupadminController.php:102
+#: ../../controllers/GroupadminController.php:126
+#, php-format
+msgid "Invalid group %s."
+msgstr "Gruppo %s non valido"
+
+#: ../../controllers/GroupController.php:46
+#: ../../controllers/GroupController.php:107
+#: ../../controllers/GroupController.php:155
+#: ../../controllers/GroupControllerTest.php:73
+msgid "Access denied."
+msgstr "Accesso negato."
+
+#: ../../controllers/GroupController.php:81
+#: ../../controllers/GroupController.php:91
+#: ../../controllers/GroupController.php:128
+#: ../../controllers/GroupController.php:142
+#, php-format
+msgid "Unknown user %s"
+msgstr "Utente %s sconosciuto"
+
+#: ../../controllers/LoginController.php:65
+msgid "The authentication adapter method set in the config file is not valid."
+msgstr "L'adapter method di autenticazione impostato nella configurazione non è valido."
+
+#: ../../controllers/ProfileController.php:38
+msgid "Wrong password"
+msgstr "Password errata"
+
+#: ../../controllers/ProfileController.php:42
+#: ../../controllers/UseradminController.php:46
+msgid "Not the same password."
+msgstr "Non è la stessa password"
+
+#: ../../controllers/ProjectController.php:251
+msgid "The requested revision does not exist. Switching to the last changed revision."
+msgstr "La revisione richiesta non esiste. Cambio sull'ultima revisione modificata"
+
+#: ../../controllers/ProjectController.php:280
+#: ../../controllers/ProjectController.php:455
+#: ../../controllers/ProjectController.php:458
+#, php-format
+msgid ""
+"Can't read from subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Non posso leggere dal repository subversion.\n"
+"Comando:\n"
+"%s\n"
+"\n"
+"Errore:\n"
+"%s"
+
+#: ../../controllers/ProjectController.php:307
+msgid "The requested diff revision does not exist."
+msgstr "La richiesta di diff sulla revisione non esiste."
+
+#: ../../controllers/UseradminController.php:35
+msgid "Missing fields."
+msgstr "Campi mancanti."
+
+#: ../../controllers/UseradminController.php:101
+#: ../../controllers/UseradminController.php:142
+#, php-format
+msgid "Invalid user %s."
+msgstr "Utente %s non valido."
+
+#: ../../controllers/UseradminController.php:119
+#, php-format
+msgid "User %s does not exist."
+msgstr "Utente %s non esiste."
+
+#: ../../controllers/UseradminController.php:145
+msgid "You can't delete yourself."
+msgstr "Non puoi cancellare te stesso."
+
+#: ../../helpers/AddLink.php:36
+msgid "Add"
+msgstr "Aggiungi"
+
+#: ../../helpers/DeleteLink.php:34
+msgid "Delete"
+msgstr "Rimuovi"
+
+#: ../../helpers/EditLink.php:34
+msgid "Edit"
+msgstr "Modifica"
+
+#: ../../helpers/Error.php:7
+msgid "Hide"
+msgstr "Nascondi"
+
+#: ../../helpers/HomeLink.php:34
+#: ../../helpers/HomeLinkGroup.php:34
+#: ../../layouts/default.phtml:35
+msgid "Home"
+msgstr "Home"
+
+#: ../../install/index.php:83
+msgid "USVN is already install."
+msgstr "USVN è già installato"
+
+#: ../../install/index.php:124
+msgid "You need to accept the licence to continue installation."
+msgstr "Devi accettare la licenza per continuare con l'installazione"
+
+#: ../../install/index.php:131
+msgid "A copy of the old SVN repository has been made, any modification done on the old one won't interact on the new one. You should disable the old repository access."
+msgstr "Una copia del vecchio repository SVN è stata fatta, qualunque modifica fatta sul vecchio repository non intaccherà quello nuovo. Dovresti disabilitare l'accesso al vecchio repository."
+
+#: ../../install/install.class.php:26
+msgid "Can't copy the old configuration.\n"
+msgstr "Non puoi copiare la vecchia configurazione.\n"
+
+#: ../../install/install.class.php:79
+msgid "Can't create database\n"
+msgstr "Non posso creare il database\n"
+
+#: ../../install/install.class.php:90
+msgid "Can't connect to database.\n"
+msgstr "Non riesco a collegarmi al database.\n"
+
+#: ../../install/install.class.php:102
+#, php-format
+msgid "Invalid adapter %s.\n"
+msgstr "Adapter %s non valido.\n"
+
+#: ../../install/install.class.php:114
+msgid "Can't load SQL file.\n"
+msgstr "Non riesco a caricare il file SQL.\n"
+
+#: ../../install/install.class.php:144
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "Non riesco a scrivere sulla configurazione %s.\n"
+
+#: ../../install/install.class.php:166
+msgid "Invalid language"
+msgstr "Lingua non valida"
+
+#: ../../install/install.class.php:189
+msgid "Invalid timezone"
+msgstr "Timezone non valida"
+
+#: ../../install/install.class.php:216
+msgid ""
+"Invalide locale\n"
+"Please, install UTF-8 locale."
+msgstr ""
+"Locale non valido\n"
+"Per favore, installa il locale UTF-8"
+
+#: ../../install/install.class.php:267
+#, php-format
+msgid "Can't write access file %s.\n"
+msgstr "Non riesco a scrivere il file di accesso %s.\n"
+
+#: ../../install/install.class.php:270
+#, php-format
+msgid "Invalid subversion path \"%s\", please check if directory exist and is writable."
+msgstr "Percorso subversion \"%s\" non valido, per favore controlla se la directory esiste ed ha i permessi di scrittura."
+
+#: ../../install/install.class.php:318
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr "Non riesco a scrivere il file htaccess %s.\n"
+
+#: ../../install/install.class.php:358
+msgid "Password empty"
+msgstr "Password vuota"
+
+#: ../../install/install.class.php:413
+msgid "Need a title."
+msgstr "Necessito di un titolo."
+
+#: ../../install/install.class.php:462
+msgid "USVN can't run with php's safe mode."
+msgstr "USVN non può funzionare con il safe mode PHP attivo."
+
+#: ../../install/install.class.php:465
+msgid "Subversion is not install on your system. If you are under Windows install "
+msgstr "Subversion non è installato sul tuo sistema. Se sei su una installazione Windows."
+
+#: ../../install/install.class.php:465
+msgid ""
+" and after restart your system (WARNING it's mandatory). \n"
+"\n"
+"Otherwise under UNIX you probably need to install a package named subversion."
+msgstr ""
+" e dopo un riavvio il tuo sistema (ATTENZIONE è obbligatorio). \n"
+"\n"
+"Altrimenti sotto UNIX probabilmente hai bisogno di installare un pacchetto chiamato subversion."
+
+#: ../../install/install.class.php:470
+msgid "mod_rewrite seems not to be loaded"
+msgstr "mod_rewrite sembra non essere caricato"
+
+#: ../../install/install.class.php:472
+msgid "mod_dav_svn seems not to be loaded"
+msgstr "mod_dav_svn sembra non essere caricato"
+
+#: ../../layouts/default.phtml:36
+msgid "Profile"
+msgstr "Profilo"
+
+#: ../../layouts/default.phtml:38
+msgid "Admin"
+msgstr "Amministratore"
+
+#: ../../layouts/default.phtml:39
+msgid "Logout"
+msgstr "Esci"
+
+#: ../../views/scripts/adminadmin/index.phtml:2
+msgid "Administration"
+msgstr "Amministrazione"
+
+#: ../../views/scripts/adminadmin/index.phtml:3
+msgid "USVN version: "
+msgstr "Versione USVN:"
+
+#: ../../views/scripts/adminadmin/index.phtml:7
+#, php-format
+msgid ""
+"Your version of USVN is out of date. A new version %s is available on\n"
+"\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
+msgstr ""
+"La tua versione di USVN è vecchia. Una nuova versione %s è disponibile su\n"
+"\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
+
+#: ../../views/scripts/adminadmin/index.phtml:15
+msgid "Users"
+msgstr "Utenti"
+
+#: ../../views/scripts/adminadmin/index.phtml:21
+#: ../../views/scripts/groupadmin/index.phtml:2
+msgid "Groups"
+msgstr "Gruppi"
+
+#: ../../views/scripts/adminadmin/index.phtml:27
+msgid "Projects"
+msgstr "Progetti"
+
+#: ../../views/scripts/adminadmin/index.phtml:33
+#: ../../views/scripts/configadmin/index.phtml:2
+msgid "Configuration"
+msgstr "Configurazioni"
+
+#: ../../views/scripts/configadmin/index.phtml:9
+msgid "General settings"
+msgstr "Impostazioni generali"
+
+#: ../../views/scripts/configadmin/index.phtml:13
+msgid "Default language"
+msgstr "Lingua di default"
+
+#: ../../views/scripts/configadmin/index.phtml:31
+msgid "Default timezone"
+msgstr "Timezone di default"
+
+#: ../../views/scripts/configadmin/index.phtml:49
+msgid "Default template"
+msgstr "Tema di default"
+
+#: ../../views/scripts/configadmin/index.phtml:64
+msgid "Check for update"
+msgstr "Controlla per aggiornamenti"
+
+#: ../../views/scripts/configadmin/index.phtml:70
+#: ../../views/scripts/configadmin/index.phtml:75
+#: ../../views/scripts/configadmin/index.phtml:177
+#: ../../views/scripts/configadmin/index.phtml:181
+#: ../../views/scripts/configadmin/index.phtml:194
+#: ../../views/scripts/configadmin/index.phtml:198
+#: ../../views/scripts/configadmin/index.phtml:253
+#: ../../views/scripts/configadmin/index.phtml:257
+#: ../../views/scripts/configadmin/index.phtml:316
+#: ../../views/scripts/configadmin/index.phtml:321
+#: ../../views/scripts/configadmin/index.phtml:335
+#: ../../views/scripts/configadmin/index.phtml:340
+msgid "Yes"
+msgstr "Si"
+
+#: ../../views/scripts/configadmin/index.phtml:71
+#: ../../views/scripts/configadmin/index.phtml:76
+#: ../../views/scripts/configadmin/index.phtml:178
+#: ../../views/scripts/configadmin/index.phtml:182
+#: ../../views/scripts/configadmin/index.phtml:195
+#: ../../views/scripts/configadmin/index.phtml:199
+#: ../../views/scripts/configadmin/index.phtml:254
+#: ../../views/scripts/configadmin/index.phtml:258
+#: ../../views/scripts/configadmin/index.phtml:317
+#: ../../views/scripts/configadmin/index.phtml:322
+#: ../../views/scripts/configadmin/index.phtml:336
+#: ../../views/scripts/configadmin/index.phtml:341
+msgid "No"
+msgstr "No"
+
+#: ../../views/scripts/configadmin/index.phtml:89
+msgid "Site's information"
+msgstr "Informazioni sul sito"
+
+#: ../../views/scripts/configadmin/index.phtml:93
+msgid "Title"
+msgstr "Titolo"
+
+#: ../../views/scripts/configadmin/index.phtml:99
+msgid "Icone"
+msgstr "Icone"
+
+#: ../../views/scripts/configadmin/index.phtml:105
+msgid "Logo"
+msgstr "Logo"
+
+#: ../../views/scripts/configadmin/index.phtml:117
+msgid "Authentication Settings"
+msgstr "Impostazioni autenticazione"
+
+#: ../../views/scripts/configadmin/index.phtml:121
+msgid "Authentication method"
+msgstr "Metodo autenticazione"
+
+#: ../../views/scripts/configadmin/index.phtml:135
+#: ../../views/scripts/configadmin/index.phtml:140
+msgid "Database"
+msgstr "Database"
+
+#: ../../views/scripts/configadmin/index.phtml:136
+#: ../../views/scripts/configadmin/index.phtml:141
+msgid "LDAP"
+msgstr "LDAP"
+
+#: ../../views/scripts/configadmin/index.phtml:148
+msgid "Always use database for login"
+msgstr "Utilizza sempre il database per il login"
+
+#: ../../views/scripts/configadmin/index.phtml:160
+msgid "LDAP Settings"
+msgstr "Impostazioni LDAP"
+
+#: ../../views/scripts/configadmin/index.phtml:165
+msgid "These settings are based on Zend LDAP settings. You can find their meaning on <a target=\"_blank\" href=\"http://framework.zend.com/manual/en/zend.ldap.html\">Zend's website</a>"
+msgstr "Questi impostazioni sono basate su Zend LDAP. Puoi trovare il maggiori informazioni su <a target=\"_blank\" href=\"http://framework.zend.com/manual/en/zend.ldap.html\">Zend's website</a>"
+
+#: ../../views/scripts/configadmin/index.phtml:172
+msgid "Create DB user from LDAP on login"
+msgstr "Crea un DB utente da un LDAP al login"
+
+#: ../../views/scripts/configadmin/index.phtml:189
+msgid "Also create a group for this user"
+msgstr "Crea anche un gruppo per questo utente"
+
+#: ../../views/scripts/configadmin/index.phtml:209
+msgid "Host"
+msgstr "Host"
+
+#: ../../views/scripts/configadmin/index.phtml:215
+msgid "Port"
+msgstr "Porta"
+
+#: ../../views/scripts/configadmin/index.phtml:221
+msgid "Encryption method"
+msgstr "Metodo crittografico"
+
+#: ../../views/scripts/configadmin/index.phtml:228
+msgid "TLS (SSLv2)"
+msgstr "TLS (SSLv2)"
+
+#: ../../views/scripts/configadmin/index.phtml:229
+msgid "SSL"
+msgstr "SSL"
+
+#: ../../views/scripts/configadmin/index.phtml:230
+msgid "None"
+msgstr "Nessuno"
+
+#: ../../views/scripts/configadmin/index.phtml:236
+#: ../../views/scripts/configadmin/index.phtml:284
+msgid "Username"
+msgstr "Nome utente"
+
+#: ../../views/scripts/configadmin/index.phtml:242
+msgid "Password"
+msgstr "Password"
+
+#: ../../views/scripts/configadmin/index.phtml:248
+msgid "Bind requires DN"
+msgstr "Bind vuole DN"
+
+#: ../../views/scripts/configadmin/index.phtml:265
+msgid "Bind DN format"
+msgstr "Controlla il formato DN"
+
+#: ../../views/scripts/configadmin/index.phtml:271
+msgid "Base DN"
+msgstr "Base DN"
+
+#: ../../views/scripts/configadmin/index.phtml:277
+msgid "Account canonical form"
+msgstr "Account canonical form"
+
+#: ../../views/scripts/configadmin/index.phtml:282
+msgid "Default"
+msgstr "Default"
+
+#: ../../views/scripts/configadmin/index.phtml:283
+msgid "Domain name"
+msgstr "Nome dominio"
+
+#: ../../views/scripts/configadmin/index.phtml:285
+msgid "Backslash"
+msgstr "Backslash"
+
+#: ../../views/scripts/configadmin/index.phtml:286
+msgid "Principal"
+msgstr "Principale"
+
+#: ../../views/scripts/configadmin/index.phtml:292
+msgid "Account domain name"
+msgstr "Account nome dominio"
+
+#: ../../views/scripts/configadmin/index.phtml:298
+msgid "Short account domain name"
+msgstr "Account nome dominio breve"
+
+#: ../../views/scripts/configadmin/index.phtml:304
+msgid "Account filter format"
+msgstr "Formato filtro account"
+
+#: ../../views/scripts/configadmin/index.phtml:310
+msgid "Allow empty password"
+msgstr "Ammetti password vuote"
+
+#: ../../views/scripts/configadmin/index.phtml:329
+msgid "Follow referrals"
+msgstr "Segui i referrals"
+
+#: ../../views/scripts/configadmin/index.phtml:350
+msgid "Save"
+msgstr "Salva"
+
+#: ../../views/scripts/group/index.phtml:5
+#, php-format
+msgid "Managing group %s"
+msgstr "Organizza il gruppo %s"
+
+#: ../../views/scripts/group/index.phtml:33
+msgid "Leader Users"
+msgstr "Utenti Leader"
+
+#: ../../views/scripts/group/index.phtml:39
+#: ../../views/scripts/group/index.phtml:76
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "Se proprio sicuro di voler rimuovere l'utente %s dal gruppo %s?"
+
+#: ../../views/scripts/group/index.phtml:70
+msgid "Affected Users"
+msgstr "Utenti interessati"
+
+#: ../../views/scripts/groupadmin/edit.phtml:3
+#: ../../views/scripts/groupadmin/new.phtml:3
+msgid "Group's information"
+msgstr "Informazioni sul gruppo"
+
+#: ../../views/scripts/groupadmin/edit.phtml:17
+#: ../../views/scripts/groupadmin/new.phtml:18
+msgid "Group's name empty, please fill it."
+msgstr "Nome del gruppo vuoto, per favore riempilo."
+
+#: ../../views/scripts/groupadmin/form.phtml:7
+#: ../../views/scripts/groupadmin/index.phtml:8
+msgid "Description"
+msgstr "Descrizione"
+
+#: ../../views/scripts/groupadmin/form.phtml:13
+msgid "Managing group"
+msgstr "Organizza il gruppo"
+
+#: ../../views/scripts/groupadmin/form.phtml:16
+msgid "Submit"
+msgstr "Invia"
+
+#: ../../views/scripts/groupadmin/index.phtml:15
+#, php-format
+msgid "Do you really want to delete group %s?"
+msgstr "Se proprio sicuro di voler cancellare il gruppo %s?"
+
+#: ../../views/scripts/groupadmin/index.phtml:33
+msgid "Add new group"
+msgstr "Aggiungi un nuovo gruppo"
+
+#: ../../views/scripts/index/error.phtml:2
+msgid "This page doesn't exist."
+msgstr "Questa pagina non esiste."
+
+#: ../../views/scripts/index/index.phtml:2
+msgid "Homepage"
+msgstr "Homepage"
+
+#: ../../views/scripts/index/index.phtml:5
+msgid "Your projects"
+msgstr "I tuoi progetti"
+
+#: ../../views/scripts/index/index.phtml:31
+msgid "You don't have any project."
+msgstr "Non hai nessun progetto."
+
+#: ../../views/scripts/index/index.phtml:35
+msgid "Your groups"
+msgstr "I tuoi gruppi"
+
+#: ../../views/scripts/index/index.phtml:61
+msgid "You are not assign to a group."
+msgstr "Non sei assegnato a nessun gruppo."
+
+#: ../../views/scripts/login/login.phtml:2
+msgid "Welcome to USVN"
+msgstr "Benvenuto in USVN"
+
+#: ../../views/scripts/login/login.phtml:4
+msgid "Please enter your login and your password to connect to USVN."
+msgstr "Prego inserisci il tuo nome utente e password per collegarti a USVN."
+
+#: ../../views/scripts/login/login.phtml:10
+msgid "Login"
+msgstr "Accesso"
+
+#: ../../views/scripts/profile/index.phtml:10
+msgid "Password empty."
+msgstr "Password vuota."
+
+#: ../../views/scripts/profile/index.phtml:15
+msgid "Password incorrect (not the same)."
+msgstr "Password non corretta (non è la stessa)."
+
+#: ../../views/scripts/profile/index.phtml:21
+msgid "Password incorrect (need more 8 characters)."
+msgstr "Password non corretta (necessita di più di 8 caratteri)."
+
+#: ../../views/scripts/profile/index.phtml:32
+msgid "My account"
+msgstr "Il mio account"
+
+#: ../../views/scripts/profile/index.phtml:36
+msgid "Actual password"
+msgstr "Password attuale"
+
+#: ../../views/scripts/profile/index.phtml:40
+msgid "New password"
+msgstr "Nuova password"
+
+#: ../../views/scripts/profile/index.phtml:45
+msgid "Lastname"
+msgstr "Cognome"
+
+#: ../../views/scripts/profile/index.phtml:48
+msgid "Firstname"
+msgstr "Nome"
+
+#: ../../views/scripts/profile/index.phtml:52
+msgid "Email"
+msgstr "Email"
+
+#: ../../views/scripts/project/browser.phtml:128
+msgid "Acces rights for"
+msgstr "Diritto di accesso per"
+
+#: ../../views/scripts/project/browser.phtml:154
+msgid "Files list"
+msgstr "Lista di file"
+
+#: ../../views/scripts/project/commit.phtml:4
+msgid "Commit"
+msgstr "Commit"
+
+#: ../../views/scripts/project/commit.phtml:7
+#: ../../views/scripts/project/index.phtml:91
+#: ../../views/scripts/project/timeline.phtml:55
+#: ../../views/scripts/rss/index.phtml:18
+msgid "Author"
+msgstr "Autore"
+
+#: ../../views/scripts/project/commit.phtml:11
+#: ../../views/scripts/project/index.phtml:92
+#: ../../views/scripts/project/timeline.phtml:56
+#: ../../views/scripts/rss/index.phtml:18
+msgid "Date"
+msgstr "Data"
+
+#: ../../views/scripts/project/commit.phtml:15
+msgid "Files"
+msgstr "File"
+
+#: ../../views/scripts/project/commit.phtml:23
+msgid "Comment"
+msgstr "Commenti"
+
+#: ../../views/scripts/project/index.phtml:33
+msgid "Admins users"
+msgstr "Utenti amministratori"
+
+#: ../../views/scripts/project/index.phtml:39
+#, php-format
+msgid "Do you really want to remove user %s as admin of project %s?"
+msgstr "Per proprio sicuro di voler rimuovere l'utente %s come amministratore del progetto %s?"
+
+#: ../../views/scripts/project/index.phtml:63
+msgid "Affected groups"
+msgstr "Gruppi interessati"
+
+#: ../../views/scripts/project/index.phtml:69
+#, php-format
+msgid "Do you really want to remove group %s from project %s?"
+msgstr "Sei proprio sicuro di voler rimuovere il gruppo %s dal progetto %s?"
+
+#: ../../views/scripts/project/index.phtml:82
+msgid "Last five commits"
+msgstr "Ultime cinque commit"
+
+#: ../../views/scripts/project/index.phtml:90
+#: ../../views/scripts/project/timeline.phtml:54
+#: ../../views/scripts/rss/index.phtml:18
+msgid "Revision"
+msgstr "Revisione"
+
+#: ../../views/scripts/project/index.phtml:93
+#: ../../views/scripts/project/timeline.phtml:57
+#: ../../views/scripts/rss/index.phtml:19
+msgid "Message"
+msgstr "Messaggio"
+
+#: ../../views/scripts/project/show.phtml:7
+msgid "Language:"
+msgstr "Lingua:"
+
+#: ../../views/scripts/project/show.phtml:7
+msgid "text"
+msgstr "testo"
+
+#: ../../views/scripts/project/show.phtml:11
+msgid "Browser"
+msgstr "Browser"
+
+#: ../../views/scripts/project/show.phtml:14
+msgid "Original"
+msgstr "Originale"
+
+#: ../../views/scripts/project/show.phtml:22
+#: ../../views/scripts/project/show.phtml:24
+msgid "Previous"
+msgstr "Precedente"
+
+#: ../../views/scripts/project/show.phtml:26
+msgid "Revision: "
+msgstr "Revisione:"
+
+#: ../../views/scripts/project/show.phtml:31
+#: ../../views/scripts/project/show.phtml:33
+msgid "Next"
+msgstr "Successivo"
+
+#: ../../views/scripts/project/show.phtml:36
+msgid "View the full commit."
+msgstr "Guarda tutta la commit."
+
+#: ../../views/scripts/project/show.phtml:39
+msgid "Color view"
+msgstr "Vista a colori"
+
+#: ../../views/scripts/project/show.phtml:40
+msgid "Diff view"
+msgstr "Vista a diff"
+
+#: ../../views/scripts/project/show.phtml:46
+msgid "Prev"
+msgstr "Prec"
+
+#: ../../views/scripts/project/timeline.phtml:3
+msgid "Timeline"
+msgstr "Timeline"
+
+#: ../../views/scripts/project/timeline.phtml:10
+msgid "Start (revision number or date)"
+msgstr "Inizio (numero revisione o data)"
+
+#: ../../views/scripts/project/timeline.phtml:12
+msgid "You can list 100 revisions since your revision or date. The date format is : DD/MM/YYYY"
+msgstr "Puoi fare il list di 100 revisione fino alla tua data o alla revisione. La data è nel formato: DD/MM/YYYY"
+
+#: ../../views/scripts/project/timeline.phtml:28
+msgid "End (revision number or date)"
+msgstr "Fine (numero revisione o data)"
+
+#: ../../views/scripts/project/timeline.phtml:30
+msgid "This is optional.The listing is made between start revision/date and this one."
+msgstr "Questo è facoltativo. Il listing è fatto tra un inizio revisione/data e questo"
+
+#: ../../views/scripts/project/timeline.phtml:40
+msgid "Search"
+msgstr "Cerca"
+
+#: ../../views/scripts/project/timeline.phtml:50
+msgid "Last hundred commit"
+msgstr "Ultime cento commit"
+
+#: ../../views/scripts/projectadmin/edit.phtml:3
+#: ../../views/scripts/projectadmin/new.phtml:3
+msgid "Project's information"
+msgstr "Informazioni sul progetto"
+
+#: ../../views/scripts/projectadmin/edit.phtml:18
+#: ../../views/scripts/projectadmin/new.phtml:18
+msgid "Project's name empty, please fill it."
+msgstr "Nome progetto vuoto, per favore riempilo"
+
+#: ../../views/scripts/projectadmin/form.phtml:18
+msgid "Create group for project:"
+msgstr "Crea un gruppo per il progetto:"
+
+#: ../../views/scripts/projectadmin/form.phtml:19
+msgid "Add me to project group:"
+msgstr "Aggiungimi al gruppo:"
+
+#: ../../views/scripts/projectadmin/form.phtml:20
+#: ../../views/scripts/projectadmin/form.phtml:26
+#: ../../views/scripts/projectadmin/form.phtml:28
+msgid "Add me as admin of the project:"
+msgstr "Aggiungimi come amministratore del progetto:"
+
+#: ../../views/scripts/projectadmin/form.phtml:21
+msgid "Create SVN standard directories (/trunk, /branches and /tags):"
+msgstr "Crea le directory standard SVN (/trunk, /branches e /tags):"
+
+#: ../../views/scripts/projectadmin/index.phtml:15
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr "Sei proprio sicuro di voler cancellare il progetto %s?"
+
+#: ../../views/scripts/projectadmin/index.phtml:34
+msgid "New Project"
+msgstr "Nuovo Progetto"
+
+#: ../../views/scripts/rss/index.phtml:16
+msgid "revision"
+msgstr "revisione"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:2
+msgid "System report"
+msgstr "Rapporto di sistema"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:6
+msgid "PHP version:"
+msgstr "Versione PHP:"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:7
+msgid "USVN version:"
+msgstr "Versione USVN:"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:8
+msgid "Translation:"
+msgstr "Traduzione:"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:9
+msgid "Database:"
+msgstr "Database:"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:10
+msgid "Subversion version:"
+msgstr "Versione subversion:"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:11
+msgid "OS:"
+msgstr "SO:"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:15
+msgid "Get full report"
+msgstr "Prendi tutto il report"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:19
+msgid "PHP extensions"
+msgstr "Estensioni PHP"
+
+#: ../../views/scripts/systemreportadmin/index.phtml:31
+msgid "Apache modules"
+msgstr "Moduli Apache"
+
+#: ../../views/scripts/useradmin/edit.phtml:7
+#: ../../views/scripts/useradmin/new.phtml:3
+msgid "User account"
+msgstr "Account utente"
+
+#: ../../views/scripts/useradmin/form.phtml:9
+msgid "Confirm password"
+msgstr "Conferma password"
+
+#: ../../views/scripts/useradmin/form.phtml:24
+#: ../../views/scripts/useradmin/index.phtml:12
+msgid "Administrator"
+msgstr "Amministratore"
+
+#: ../../views/scripts/useradmin/import.phtml:5
+#: ../../views/scripts/useradmin/index.phtml:52
+msgid "Import htpasswd"
+msgstr "Importa htpasswd"
+
+#: ../../views/scripts/useradmin/import.phtml:7
+msgid "This form allow you to add to USVN all users contents into an apache password file."
+msgstr "Questo form ti consente di aggiungere tutti gli utenti USVN dentro un file password di Apache."
+
+#: ../../views/scripts/useradmin/import.phtml:13
+msgid "Upload"
+msgstr "Carica"
+
+#: ../../views/scripts/useradmin/index.phtml:25
+#, php-format
+msgid "Do you really want to delete user %s?"
+msgstr "Sei proprio sicuro di voler cancellare l'utente %s?"
+
+#: ../../views/scripts/useradmin/index.phtml:31
+msgid "yes"
+msgstr "si"
+
+#: ../../views/scripts/useradmin/index.phtml:48
+msgid "Add new user"
+msgstr "Aggiungi un nuovo utente"
+
+#: ../../views/scripts/useradmin/js.phtml:9
+msgid "Login empty."
+msgstr "Login vuoto."
+
+#: ../../views/scripts/useradmin/js.phtml:33
+msgid "Email incorrect."
+msgstr "Email non corretta."
+

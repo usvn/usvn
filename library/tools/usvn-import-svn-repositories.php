@@ -18,10 +18,16 @@
  * $Id: usvn-import-svn-repositories.php 632 2007-10-17 15:51:08Z dolean_j $
  */
 
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../../app'));
+//require_once('USVN/autoload.php');
 
-require_once '../../app/bootstrap.php';
+set_include_path(implode(PATH_SEPARATOR, array(
+get_include_path(),
+realpath(dirname(__FILE__).'/../'),
+realpath(dirname(__FILE__).'/../../app'),
+)));
+require_once 'Zend/Loader.php';
+Zend_Loader::registerAutoload();
+require_once 'functions.php';
 
 /**
  * Get options and directories paths to check
@@ -30,7 +36,7 @@ $results = array();
 $repos = array();
 $paths = array();
 $configFile = '';
-$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] config-file path1 path2 path3 [...]\n";
+$usage = "Usage: $argv[0] [--recursive] [--verbose] [--creategroup] [--addmetogroup] [--admin] [--noimport] [login] [config-file] path1 path2 path3 [...]\n";
 if (count($argv) == 1) {
 	print($usage);
 	exit(1);
@@ -97,7 +103,7 @@ try {
 	}
 	Zend_Registry::set('config', $config);
 
-	USVN_Translation::initTranslation($config->translation->locale, APPLICATION_PATH . "/locale");
+	USVN_Translation::initTranslation($config->translation->locale, dirname(__FILE__)."/../../app/locale");
 	date_default_timezone_set($config->timezone);
 
 	$db = Zend_Db::factory($config->database->adapterName, $config->database->options->toArray());

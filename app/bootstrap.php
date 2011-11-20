@@ -40,8 +40,8 @@ require_once 'Zend/Loader/Autoloader.php';
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->registerNamespace("Zend_");
 $autoloader->registerNamespace("USVN_");
-// require_once 'Zend/Loader.php';
-// Zend_Loader::registerAutoload();
+$autoloader->registerNamespace("menus_");
+
 require_once 'functions.php';
 
 /* Config Loading or Installation */

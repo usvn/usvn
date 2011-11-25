@@ -29,12 +29,18 @@ class USVN_Update
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		if ($config->version == '1.0.0')
 		{
-			$config->version = '1.0.1';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->version = '1.0.3';//DONT REPLACE WITH USVN_CONFIG_VERSION
 			$config->save();
 		}
 		else if ($config->version == '1.0.1')//DONT REPLACE WITH USVN_CONFIG_VERSION
 		{
-//			$this->view->warning = 'This is already in version 1.0.1';
+			$config->version = '1.0.3';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->save();
+		}
+		else if ($config->version == '1.0.2')//DONT REPLACE WITH USVN_CONFIG_VERSION
+		{
+			$config->version = '1.0.3';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->save();
 		}
 		else
 		{

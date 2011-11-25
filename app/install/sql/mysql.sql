@@ -5,7 +5,7 @@ create table usvn_files_rights
    files_rights_path            text,
    primary key (files_rights_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 create index to_belong_fk on usvn_files_rights
 (
@@ -20,7 +20,7 @@ create table usvn_groups
    CONSTRAINT GROUPS_NAME_UNQ UNIQUE (groups_name),
    primary key (groups_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 create table usvn_groups_to_files_rights
 (
@@ -30,7 +30,7 @@ create table usvn_groups_to_files_rights
    files_rights_is_writable       bool					not null,
    primary key (files_rights_id, groups_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 create index usvn_groups_to_files_rights_fk on usvn_groups_to_files_rights
 (
@@ -48,7 +48,7 @@ create table usvn_groups_to_projects
    groups_id                      int                            not null,
    primary key (projects_id, groups_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 create index usvn_groups_to_projects_fk on usvn_groups_to_projects
 (
@@ -69,7 +69,7 @@ create table usvn_projects
    CONSTRAINT PROJECTS_NAME_UNQ UNIQUE (projects_name),
    primary key (projects_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 create table usvn_users
 (
@@ -84,7 +84,7 @@ create table usvn_users
    CONSTRAINT USERS_LOGIN_UNQ UNIQUE (users_login),
    primary key (users_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 
 create table usvn_users_to_groups
@@ -94,7 +94,7 @@ create table usvn_users_to_groups
    is_leader				      bool							not null,
    primary key (users_id, groups_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 create index usvn_users_to_groups_fk on usvn_users_to_groups
 (
@@ -112,7 +112,7 @@ create table usvn_users_to_projects
    users_id                       int                            not null,
    primary key (projects_id, users_id)
 )
-type = innodb;
+ENGINE=InnoDB;
 
 create index usvn_users_to_projects_fk on usvn_users_to_projects
 (

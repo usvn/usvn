@@ -15,20 +15,20 @@ die()
 old_pwd=`pwd`
 
 # Exportation
-echo 'Exportation du projet dans /tmp/usvn ...'
-rm -rf "$TMP_PATH" || die "Erreur de supression de $TMP_PATH"
-svn export "$CHECKOUT_URL" "$TMP_PATH" | sed 's/^/EXPORT: /' || die "Erreur d'exportation $CHECKOUT_URL dans $TMP_PATH"
+echo 'Exportation to /tmp/usvn ...'
+rm -rf "$TMP_PATH" || die "Error can't delete $TMP_PATH"
+svn export "$CHECKOUT_URL" "$TMP_PATH" | sed 's/^/EXPORT: /' || die "Error can't export $CHECKOUT_URL to $TMP_PATH"
 
-# Nettoyage
-echo 'Suppression des fichiers inutiles ...'
+# Cleanup
+echo 'Remove unused files...'
 cd "$TMP_PATH"
 # Test files
 find . -name 'Zend' -prune -or -name "*Test.php" -exec rm -vf {} \; | sed 's/^/RM: /'
 # Misc Files
-rm -rvf build.xml epitech usvn.esproj create_archives.sh | sed 's/^/RM: /'
+rm -rvf build.xml create_archives.sh | sed 's/^/RM: /'
 
-# Creation des Archives
-echo 'Creation des archives tar.gz et zip ...'
+# Creation archives
+echo 'Creating tar.gz and zip ...'
 version=`cat config/config.ini.example | grep -E "^version" | cut -d'"' -f2`
 cd "$TMP_ROOT"
 tar cvzf "$old_pwd/usvn-$version.tgz" "$USVN" | sed 's/^/TAR: /'

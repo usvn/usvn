@@ -36,8 +36,12 @@ error_reporting(E_ALL | E_STRICT);
 /* Necessary Includes */
 set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());
 
-require_once 'Zend/Loader.php';
-Zend_Loader::registerAutoload();
+require_once 'Zend/Loader/Autoloader.php';
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->registerNamespace("Zend_");
+$autoloader->registerNamespace("USVN_");
+$autoloader->registerNamespace("menus_");
+
 require_once 'functions.php';
 
 /* Config Loading or Installation */

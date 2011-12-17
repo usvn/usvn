@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -32,9 +32,9 @@ require_once 'Zend/Registry.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ActionStack.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: ActionStack.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 {
@@ -52,11 +52,19 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
      * @var array
      */
     protected $_validKeys = array(
-        'module', 
+        'module',
         'controller',
         'action',
         'params'
     );
+
+    /**
+     * Flag to determine whether request parameters are cleared between actions, or whether new parameters
+     * are added to existing request parameters.
+     *
+     * @var Bool
+     */
+    protected $_clearRequestParams = false;
 
     /**
      * Constructor
@@ -83,8 +91,8 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 
     /**
      * Set registry object
-     * 
-     * @param  Zend_Registry $registry 
+     *
+     * @param  Zend_Registry $registry
      * @return Zend_Controller_Plugin_ActionStack
      */
     public function setRegistry(Zend_Registry $registry)
@@ -95,7 +103,7 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 
     /**
      * Retrieve registry object
-     * 
+     *
      * @return Zend_Registry
      */
     public function getRegistry()
@@ -126,8 +134,30 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
     }
 
     /**
+     *  Set clearRequestParams flag
+     *
+     *  @param  bool $clearRequestParams
+     *  @return Zend_Controller_Plugin_ActionStack
+     */
+    public function setClearRequestParams($clearRequestParams)
+    {
+        $this->_clearRequestParams = (bool) $clearRequestParams;
+        return $this;
+    }
+
+    /**
+     * Retrieve clearRequestParams flag
+     *
+     * @return bool
+     */
+    public function getClearRequestParams()
+    {
+        return $this->_clearRequestParams;
+    }
+
+    /**
      * Retrieve action stack
-     * 
+     *
      * @return array
      */
     public function getStack()
@@ -139,8 +169,8 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 
     /**
      * Save stack to registry
-     * 
-     * @param  array $stack 
+     *
+     * @param  array $stack
      * @return Zend_Controller_Plugin_ActionStack
      */
     protected function _saveStack(array $stack)
@@ -152,8 +182,8 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 
     /**
      * Push an item onto the stack
-     * 
-     * @param  Zend_Controller_Request_Abstract $next 
+     *
+     * @param  Zend_Controller_Request_Abstract $next
      * @return Zend_Controller_Plugin_ActionStack
      */
     public function pushStack(Zend_Controller_Request_Abstract $next)
@@ -165,7 +195,7 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 
     /**
      * Pop an item off the action stack
-     * 
+     *
      * @return false|Zend_Controller_Request_Abstract
      */
     public function popStack()
@@ -209,7 +239,7 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
      */
     public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
-        // Don't move on to next request if this is already an attempt to 
+        // Don't move on to next request if this is already an attempt to
         // forward
         if (!$request->isDispatched()) {
             return;
@@ -230,16 +260,21 @@ class Zend_Controller_Plugin_ActionStack extends Zend_Controller_Plugin_Abstract
 
     /**
      * Forward request with next action
-     * 
-     * @param  array $next 
+     *
+     * @param  array $next
      * @return void
      */
     public function forward(Zend_Controller_Request_Abstract $next)
     {
-        $this->getRequest()->setModuleName($next->getModuleName())
-                           ->setControllerName($next->getControllerName())
-                           ->setActionName($next->getActionName())
-                           ->setParams($next->getParams())
-                           ->setDispatched(false);
+        $request = $this->getRequest();
+        if ($this->getClearRequestParams()) {
+            $request->clearParams();
+        }
+
+        $request->setModuleName($next->getModuleName())
+                ->setControllerName($next->getControllerName())
+                ->setActionName($next->getActionName())
+                ->setParams($next->getParams())
+                ->setDispatched(false);
     }
 }

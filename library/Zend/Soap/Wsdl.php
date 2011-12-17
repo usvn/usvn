@@ -14,14 +14,19 @@
  *
  * @category   Zend
  * @package    Zend_Soap
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Wsdl.php 12622 2008-11-13 15:43:54Z alexander $
+ * @version    $Id: Wsdl.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-require_once 'Zend/Server/Exception.php';
-
+/**
+ * @see Zend_Soap_Wsdl_Strategy_Interface
+ */
 require_once "Zend/Soap/Wsdl/Strategy/Interface.php";
+
+/**
+ * @see Zend_Soap_Wsdl_Strategy_Abstract
+ */
 require_once "Zend/Soap/Wsdl/Strategy/Abstract.php";
 
 /**
@@ -93,6 +98,7 @@ class Zend_Soap_Wsdl
                     xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'></definitions>";
         $this->_dom = new DOMDocument();
         if (!$this->_dom->loadXML($wsdl)) {
+            require_once 'Zend/Server/Exception.php';
             throw new Zend_Server_Exception('Unable to create DomDocument');
         } else {
             $this->_wsdl = $this->_dom->documentElement;
@@ -176,6 +182,8 @@ class Zend_Soap_Wsdl
      * @param string $name Name for the {@link http://www.w3.org/TR/wsdl#_messages message}
      * @param array $parts An array of {@link http://www.w3.org/TR/wsdl#_message parts}
      *                     The array is constructed like: 'name of part' => 'part xml schema data type'
+     *                     or 'name of part' => array('type' => 'part xml schema type')
+     *                     or 'name of part' => array('element' => 'part xml element name')
      * @return object The new message's XML_Tree_Node for use in {@link function addDocumentation}
      */
     public function addMessage($name, $parts)
@@ -188,7 +196,13 @@ class Zend_Soap_Wsdl
             foreach ($parts as $name => $type) {
                 $part = $this->_dom->createElement('part');
                 $part->setAttribute('name', $name);
-                $part->setAttribute('type', $type);
+                if (is_array($type)) {
+                    foreach ($type as $key => $value) {
+                        $part->setAttribute($key, $value);
+                    }
+                } else {
+                    $part->setAttribute('type', $type);
+                }
                 $message->appendChild($part);
             }
         }
@@ -391,11 +405,15 @@ class Zend_Soap_Wsdl
     }
 
     /**
-     * Add a {@link http://www.w3.org/TR/wsdl#_documentation document} element to any element in the WSDL
+     * Add a documentation element to any element in the WSDL.
      *
-     * @param object $input_node An XML_Tree_Node returned by another method to add the document to
-     * @param string $document Human readable documentation for the node
-     * @return boolean
+     * Note that the WSDL {@link http://www.w3.org/TR/wsdl#_documentation specification} uses 'document',
+     * but the WSDL {@link http://schemas.xmlsoap.org/wsdl/ schema} uses 'documentation' instead.
+     * The {@link http://www.ws-i.org/Profiles/BasicProfile-1.1-2004-08-24.html#WSDL_documentation_Element WS-I Basic Profile 1.1} recommends using 'documentation'.
+     *
+     * @param object $input_node An XML_Tree_Node returned by another method to add the documentation to
+     * @param string $documentation Human readable documentation for the node
+     * @return DOMElement The documentation element
      */
     public function addDocumentation($input_node, $documentation)
     {
@@ -405,11 +423,15 @@ class Zend_Soap_Wsdl
             $node = $input_node;
         }
 
-        /** @todo Check if 'documentation' is a correct name for the element (WSDL spec uses 'document') */
         $doc = $this->_dom->createElement('documentation');
         $doc_cdata = $this->_dom->createTextNode($documentation);
         $doc->appendChild($doc_cdata);
-        $node->appendChild($doc);
+
+        if($node->hasChildNodes()) {
+            $node->insertBefore($doc, $node->firstChild);
+        } else {
+            $node->appendChild($doc);
+        }
 
         return $doc;
     }
@@ -461,6 +483,10 @@ class Zend_Soap_Wsdl
      */
     public function getSchema()
     {
+        if($this->_schema == null) {
+            $this->addSchemaTypeSection();
+        }
+
         return $this->_schema;
     }
 
@@ -575,5 +601,66 @@ class Zend_Soap_Wsdl
         $strategy->setContext($this);
         // delegates the detection of a complex type to the current strategy
         return $strategy->addComplexType($type);
+    }
+
+    /**
+     * Parse an xsd:element represented as an array into a DOMElement.
+     *
+     * @param array $element an xsd:element represented as an array
+     * @return DOMElement parsed element
+     */
+    private function _parseElement($element)
+    {
+        if (!is_array($element)) {
+            require_once "Zend/Soap/Wsdl/Exception.php";
+            throw new Zend_Soap_Wsdl_Exception("The 'element' parameter needs to be an associative array.");
+        }
+
+        $elementXml = $this->_dom->createElement('xsd:element');
+        foreach ($element as $key => $value) {
+            if (in_array($key, array('sequence', 'all', 'choice'))) {
+                if (is_array($value)) {
+                    $complexType = $this->_dom->createElement('xsd:complexType');
+                    if (count($value) > 0) {
+                        $container = $this->_dom->createElement('xsd:' . $key);
+                        foreach ($value as $subelement) {
+                            $subelementXml = $this->_parseElement($subelement);
+                            $container->appendChild($subelementXml);
+                        }
+                        $complexType->appendChild($container);
+                    }
+                    $elementXml->appendChild($complexType);
+                }
+            } else {
+                $elementXml->setAttribute($key, $value);
+            }
+        }
+        return $elementXml;
+    }
+
+    /**
+     * Add an xsd:element represented as an array to the schema.
+     *
+     * Array keys represent attribute names and values their respective value.
+     * The 'sequence', 'all' and 'choice' keys must have an array of elements as their value,
+     * to add them to a nested complexType.
+     *
+     * Example: array( 'name' => 'MyElement',
+     *                 'sequence' => array( array('name' => 'myString', 'type' => 'string'),
+     *                                      array('name' => 'myInteger', 'type' => 'int') ) );
+     * Resulting XML: <xsd:element name="MyElement"><xsd:complexType><xsd:sequence>
+     *                  <xsd:element name="myString" type="string"/>
+     *                  <xsd:element name="myInteger" type="int"/>
+     *                </xsd:sequence></xsd:complexType></xsd:element>
+     *
+     * @param array $element an xsd:element represented as an array
+     * @return string xsd:element for the given element array
+     */
+    public function addElement($element)
+    {
+        $schema = $this->getSchema();
+        $elementXml = $this->_parseElement($element);
+        $schema->appendChild($elementXml);
+        return 'tns:' . $element['name'];
     }
 }

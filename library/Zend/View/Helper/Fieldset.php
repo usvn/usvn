@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Fieldset.php 11301 2008-09-08 20:09:10Z matthew $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Fieldset.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Fieldset extends Zend_View_Helper_FormElement
@@ -51,7 +51,7 @@ class Zend_View_Helper_Fieldset extends Zend_View_Helper_FormElement
         if (isset($attribs['legend'])) {
             $legendString = trim($attribs['legend']);
             if (!empty($legendString)) {
-                $legend = '<legend>' 
+                $legend = '<legend>'
                         . (($escape) ? $this->view->escape($legendString) : $legendString)
                         . '</legend>' . PHP_EOL;
             }

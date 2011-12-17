@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Health
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ccr.php 13122 2008-12-10 02:45:49Z tjohns $
+ * @version    $Id: Ccr.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Gdata/App/Extension/Element.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Health
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Health_Extension_Ccr extends Zend_Gdata_App_Extension_Element
@@ -77,27 +77,26 @@ class Zend_Gdata_Health_Extension_Ccr extends Zend_Gdata_App_Extension_Element
      */
     public function getDOM($doc = null, $majorVersion = 1, $minorVersion = null)
     {
-        if (is_null($doc)) {
+        if ($doc === null) {
             $doc = new DOMDocument('1.0', 'utf-8');
         }
         $domElement = $doc->importNode($this->_ccrDom, true);
         return $domElement;
-    } 
+    }
 
     /**
-     * Magic helper that allows drilling down and returning specific elements 
+     * Magic helper that allows drilling down and returning specific elements
      * in the CCR. For example, to retrieve the users medications
      * (/ContinuityOfCareRecord/Body/Medications) from the entry's CCR, call
      * $entry->getCcr()->getMedications().  Similarly, getConditions() would
      * return extract the user's conditions.
      *
      * @param string $name Name of the function to call
-     * @return array.<DOMElement> A list of the appropriate CCR data 
+     * @param unknown $args
+     * @return array.<DOMElement> A list of the appropriate CCR data
      */
     public function __call($name, $args)
     {
-        $matches = array();
-
         if (substr($name, 0, 3) === 'get') {
             $category = substr($name, 3);
 

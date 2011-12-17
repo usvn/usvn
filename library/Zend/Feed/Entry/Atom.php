@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Atom.php 10383 2008-07-24 19:46:15Z matthew $
+ * @version    $Id: Atom.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -32,11 +32,16 @@ require_once 'Zend/Feed/Entry/Abstract.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
 {
+    /**
+     * Content-Type
+     */
+    const CONTENT_TYPE = 'application/atom+xml';
+
     /**
      * Root XML element for Atom entries.
      *
@@ -71,7 +76,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
         // Look for link rel="edit" in the entry object.
         $deleteUri = $this->link('edit');
         if (!$deleteUri) {
-            /** 
+            /**
              * @see Zend_Feed_Exception
              */
             require_once 'Zend/Feed/Exception.php';
@@ -99,7 +104,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
                     continue;
                 // Error
                 default:
-                    /** 
+                    /**
                      * @see Zend_Feed_Exception
                      */
                     require_once 'Zend/Feed/Exception.php';
@@ -136,7 +141,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             // entry object and PUT.
             $editUri = $this->link('edit');
             if (!$editUri) {
-                /** 
+                /**
                  * @see Zend_Feed_Exception
                  */
                 require_once 'Zend/Feed/Exception.php';
@@ -147,16 +152,16 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             $client->setUri($editUri);
             if (Zend_Feed::getHttpMethodOverride()) {
                 $client->setHeaders(array('X-HTTP-Method-Override: PUT',
-                    'Content-Type: application/atom+xml'));
+                    'Content-Type: ' . self::CONTENT_TYPE));
                 $client->setRawData($this->saveXML());
                 $response = $client->request('POST');
             } else {
-                $client->setHeaders('Content-Type', 'application/atom+xml');
+                $client->setHeaders('Content-Type', self::CONTENT_TYPE);
                 $client->setRawData($this->saveXML());
                 $response = $client->request('PUT');
             }
             if ($response->getStatus() !== 200) {
-                /** 
+                /**
                  * @see Zend_Feed_Exception
                  */
                 require_once 'Zend/Feed/Exception.php';
@@ -164,7 +169,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             }
         } else {
             if ($postUri === null) {
-                /** 
+                /**
                  * @see Zend_Feed_Exception
                  */
                 require_once 'Zend/Feed/Exception.php';
@@ -172,11 +177,12 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             }
             $client = Zend_Feed::getHttpClient();
             $client->setUri($postUri);
+            $client->setHeaders('Content-Type', self::CONTENT_TYPE);
             $client->setRawData($this->saveXML());
             $response = $client->request('POST');
 
             if ($response->getStatus() !== 201) {
-                /** 
+                /**
                  * @see Zend_Feed_Exception
                  */
                 require_once 'Zend/Feed/Exception.php';
@@ -201,7 +207,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
                 }
             }
 
-            /** 
+            /**
              * @see Zend_Feed_Exception
              */
             require_once 'Zend/Feed/Exception.php';
@@ -210,7 +216,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
 
         $newEntry = $newEntry->getElementsByTagName($this->_rootElement)->item(0);
         if (!$newEntry) {
-            /** 
+            /**
              * @see Zend_Feed_Exception
              */
             require_once 'Zend/Feed/Exception.php';
@@ -261,7 +267,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
 
         foreach ($links as $link) {
             if (empty($link['rel'])) {
-                continue;
+                $link['rel'] = 'alternate'; // see Atom 1.0 spec
             }
             if ($rel == $link['rel']) {
                 return $link['href'];

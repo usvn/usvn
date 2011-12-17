@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Utf8Num.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -28,7 +29,7 @@ require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common.php';
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Analysis
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -100,12 +101,12 @@ class Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num extends Zend_Search_Lu
 
             // matched string
             $matchedWord = $match[0][0];
-            
+
             // binary position of the matched word in the input stream
             $binStartPos = $match[0][1];
-            
+
             // character position of the matched word in the input stream
-            $startPos = $this->_position + 
+            $startPos = $this->_position +
                         iconv_strlen(substr($this->_input,
                                             $this->_bytePosition,
                                             $binStartPos - $this->_bytePosition),

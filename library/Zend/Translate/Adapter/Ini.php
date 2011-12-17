@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Ini.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,23 +28,12 @@ require_once 'Zend/Translate/Adapter.php';
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_Ini extends Zend_Translate_Adapter
 {
-    /**
-     * Generates the adapter
-     *
-     * @param  array               $data     Translation data
-     * @param  string|Zend_Locale  $locale   OPTIONAL Locale/Language to set, identical with locale identifier,
-     *                                       see Zend_Locale for more information
-     * @param  array               $options  OPTIONAL Options to set
-     */
-    public function __construct($data, $locale = null, array $options = array())
-    {
-        parent::__construct($data, $locale, $options);
-    }
+    private $_data = array();
 
     /**
      * Load translation data
@@ -53,20 +42,24 @@ class Zend_Translate_Adapter_Ini extends Zend_Translate_Adapter
      * @param  string        $locale  Locale/Language to add data for, identical with locale identifier,
      *                                see Zend_Locale for more information
      * @param  array         $options OPTIONAL Options to use
+     * @throws Zend_Translate_Exception Ini file not found
+     * @return array
      */
     protected function _loadTranslationData($data, $locale, array $options = array())
     {
+        $this->_data = array();
         if (!file_exists($data)) {
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception("Ini file '".$data."' not found");
         }
-        $inidata = parse_ini_file($data, false);
 
-        $options = array_merge($this->_options, $options);
-        if (($options['clear'] == true) ||  !isset($this->_translate[$locale])) {
-            $this->_translate[$locale] = array();
+        $inidata = parse_ini_file($data, false);
+        if (!isset($this->_data[$locale])) {
+            $this->_data[$locale] = array();
         }
-        $this->_translate[$locale] = array_merge($this->_translate[$locale], $inidata);
+
+        $this->_data[$locale] = array_merge($this->_data[$locale], $inidata);
+        return $this->_data;
     }
 
     /**

@@ -12,26 +12,29 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: FontDescriptor.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
+
+
+/** Internally used classes */
+require_once 'Zend/Pdf/Element/Array.php';
+require_once 'Zend/Pdf/Element/Dictionary.php';
+require_once 'Zend/Pdf/Element/Name.php';
+require_once 'Zend/Pdf/Element/Numeric.php';
 
 /** Zend_Pdf_Font */
 require_once 'Zend/Pdf/Font.php';
-
-/** Zend_Pdf_Resource_Font */
-require_once 'Zend/Pdf/Resource/Font.php';
-
-/** Zend_Pdf_FileParser_Font_OpenType */
-require_once 'Zend/Pdf/FileParser/Font/OpenType.php';
 
 
 /**
  * FontDescriptor implementation
  *
- * A font descriptor specifies metrics and other attributes of a simple font or a 
+ * A font descriptor specifies metrics and other attributes of a simple font or a
  * CIDFont as a whole, as distinct from the metrics of individual glyphs. These font
  * metrics provide information that enables a viewer application to synthesize a
  * substitute font or select a similar font when the font program is unavailable. The
@@ -39,7 +42,7 @@ require_once 'Zend/Pdf/FileParser/Font/OpenType.php';
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Font_FontDescriptor
@@ -50,12 +53,13 @@ class Zend_Pdf_Resource_Font_FontDescriptor
      */
     public function __construct()
     {
+        require_once 'Zend/Pdf/Exception.php';
         throw new Zend_Pdf_Exception('Zend_Pdf_Resource_Font_FontDescriptor is not intended to be instantiated');
-    } 
-    
+    }
+
     /**
      * Object constructor
-     * 
+     *
      * The $embeddingOptions parameter allows you to set certain flags related
      * to font embedding. You may combine options by OR-ing them together. See
      * the EMBED_ constants defined in {@link Zend_Pdf_Font} for the list of
@@ -65,8 +69,8 @@ class Zend_Pdf_Resource_Font_FontDescriptor
      * to use them. If the recipient of the PDF has the font installed on their
      * computer, they will see the correct fonts in the document. If they don't,
      * the PDF viewer will substitute or synthesize a replacement.
-     * 
-     * 
+     *
+     *
      * @param Zend_Pdf_Resource_Font $font Font
      * @param Zend_Pdf_FileParser_Font_OpenType $fontParser Font parser object containing parsed TrueType file.
      * @param integer $embeddingOptions Options for font embedding.
@@ -127,7 +131,7 @@ class Zend_Pdf_Resource_Font_FontDescriptor
          * @todo Calculate value for StemV.
          */
         $fontDescriptor->StemV        = new Zend_Pdf_Element_Numeric(0);
-        
+
         $fontDescriptor->MissingWidth = new Zend_Pdf_Element_Numeric($fontParser->glyphWidths[0]);
 
         /* Set up font embedding. This is where the actual font program itself
@@ -162,6 +166,7 @@ class Zend_Pdf_Resource_Font_FontDescriptor
                     $message = 'This font cannot be embedded in the PDF document. If you would like to use '
                              . 'it anyway, you must pass Zend_Pdf_Font::EMBED_SUPPRESS_EMBED_EXCEPTION '
                              . 'in the $options parameter of the font constructor.';
+                    require_once 'Zend/Pdf/Exception.php';
                     throw new Zend_Pdf_Exception($message, Zend_Pdf_Exception::FONT_CANT_BE_EMBEDDED);
                 }
 

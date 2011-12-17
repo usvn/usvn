@@ -15,15 +15,16 @@
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Response.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Server_Response
@@ -60,8 +61,8 @@ class Zend_Json_Server_Response
 
     /**
      * Set result
-     * 
-     * @param  mixed $value 
+     *
+     * @param  mixed $value
      * @return Zend_Json_Server_Response
      */
     public function setResult($value)
@@ -72,7 +73,7 @@ class Zend_Json_Server_Response
 
     /**
      * Get result
-     * 
+     *
      * @return mixed
      */
     public function getResult()
@@ -83,8 +84,8 @@ class Zend_Json_Server_Response
     // RPC error, if response results in fault
     /**
      * Set result error
-     * 
-     * @param  Zend_Json_Server_Error $error 
+     *
+     * @param  Zend_Json_Server_Error $error
      * @return Zend_Json_Server_Response
      */
     public function setError(Zend_Json_Server_Error $error)
@@ -95,7 +96,7 @@ class Zend_Json_Server_Response
 
     /**
      * Get response error
-     * 
+     *
      * @return null|Zend_Json_Server_Error
      */
     public function getError()
@@ -105,7 +106,7 @@ class Zend_Json_Server_Response
 
     /**
      * Is the response an error?
-     * 
+     *
      * @return bool
      */
     public function isError()
@@ -115,8 +116,8 @@ class Zend_Json_Server_Response
 
     /**
      * Set request ID
-     * 
-     * @param  mixed $name 
+     *
+     * @param  mixed $name
      * @return Zend_Json_Server_Response
      */
     public function setId($name)
@@ -127,7 +128,7 @@ class Zend_Json_Server_Response
 
     /**
      * Get request ID
-     * 
+     *
      * @return mixed
      */
     public function getId()
@@ -137,8 +138,8 @@ class Zend_Json_Server_Response
 
     /**
      * Set JSON-RPC version
-     * 
-     * @param  string $version 
+     *
+     * @param  string $version
      * @return Zend_Json_Server_Response
      */
     public function setVersion($version)
@@ -155,7 +156,7 @@ class Zend_Json_Server_Response
 
     /**
      * Retrieve JSON-RPC version
-     * 
+     *
      * @return string
      */
     public function getVersion()
@@ -165,20 +166,22 @@ class Zend_Json_Server_Response
 
     /**
      * Cast to JSON
-     * 
+     *
      * @return string
      */
     public function toJson()
     {
         if ($this->isError()) {
             $response = array(
-                'error' => $this->getError()->toArray(),
-                'id'    => $this->getId(),
+                'result' => null,
+                'error'  => $this->getError()->toArray(),
+                'id'     => $this->getId(),
             );
         } else {
             $response = array(
                 'result' => $this->getResult(),
                 'id'     => $this->getId(),
+                'error'  => null,
             );
         }
 
@@ -236,7 +239,7 @@ class Zend_Json_Server_Response
 
     /**
      * Cast to string (JSON)
-     * 
+     *
      * @return string
      */
     public function __toString()

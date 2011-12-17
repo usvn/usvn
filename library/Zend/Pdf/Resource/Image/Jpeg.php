@@ -12,30 +12,27 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Jpeg.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
+
+
+/** Internally used classes */
+require_once 'Zend/Pdf/Element/Name.php';
+require_once 'Zend/Pdf/Element/Numeric.php';
 
 
 /** Zend_Pdf_Resource_Image */
 require_once 'Zend/Pdf/Resource/Image.php';
 
-/** Zend_Pdf_Exception */
-require_once 'Zend/Pdf/Exception.php';
-
-/** Zend_Pdf_Element_Numeric */
-require_once 'Zend/Pdf/Element/Numeric.php';
-
-/** Zend_Pdf_Element_Name */
-require_once 'Zend/Pdf/Element/Name.php';
-
-
 /**
  * JPEG image
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
@@ -54,18 +51,23 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
     public function __construct($imageFileName)
     {
         if (!function_exists('gd_info')) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Image extension is not installed.');
         }
 
         $gd_options = gd_info();
-        if (!$gd_options['JPG Support'] ) {
+        if ( (!isset($gd_options['JPG Support'])  || $gd_options['JPG Support']  != true)  &&
+             (!isset($gd_options['JPEG Support']) || $gd_options['JPEG Support'] != true)  ) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('JPG support is not configured properly.');
         }
 
         if (($imageInfo = getimagesize($imageFileName)) === false) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Corrupted image or image doesn\'t exist.');
         }
         if ($imageInfo[2] != IMAGETYPE_JPEG && $imageInfo[2] != IMAGETYPE_JPEG2000) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('ImageType is not JPG');
         }
 
@@ -95,6 +97,7 @@ class Zend_Pdf_Resource_Image_Jpeg extends Zend_Pdf_Resource_Image
         }
 
         if (($imageFile = @fopen($imageFileName, 'rb')) === false ) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception( "Can not open '$imageFileName' file for reading." );
         }
         $byteCount = filesize($imageFileName);

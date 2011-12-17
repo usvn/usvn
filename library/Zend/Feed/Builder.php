@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Builder.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Builder.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -44,7 +44,7 @@ require_once 'Zend/Feed/Builder/Entry.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
@@ -212,7 +212,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
      * @throws Zend_Feed_Builder_Exception
      * @return void
      */
-    private function _createHeader(array $data)
+    protected function _createHeader(array $data)
     {
         $mandatories = array('title', 'link', 'charset');
         foreach ($mandatories as $mandatory) {
@@ -340,7 +340,7 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
      * @throws Zend_Feed_Builder_Exception
      * @return void
      */
-    private function _createEntries(array $data)
+    protected function _createEntries(array $data)
     {
         foreach ($data as $row) {
             $mandatories = array('title', 'link', 'description');
@@ -354,6 +354,9 @@ class Zend_Feed_Builder implements Zend_Feed_Builder_Interface
                 }
             }
             $entry = new Zend_Feed_Builder_Entry($row['title'], $row['link'], $row['description']);
+            if (isset($row['author'])) {
+                $entry->setAuthor($row['author']);
+            }
             if (isset($row['guid'])) {
                 $entry->setId($row['guid']);
             }

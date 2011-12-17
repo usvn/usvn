@@ -15,15 +15,16 @@
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Request.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Server_Request
@@ -50,10 +51,10 @@ class Zend_Json_Server_Request
      * Regex for method
      * @var string
      */
-    protected $_methodRegex = '/^[a-z][a-z0-9_]*$/i';
+    protected $_methodRegex = '/^[a-z][a-z0-9_.]*$/i';
 
     /**
-     * Request parameters 
+     * Request parameters
      * @var array
      */
     protected $_params = array();
@@ -66,8 +67,8 @@ class Zend_Json_Server_Request
 
     /**
      * Set request state
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return Zend_Json_Server_Request
      */
     public function setOptions(array $options)
@@ -86,9 +87,9 @@ class Zend_Json_Server_Request
 
     /**
      * Add a parameter to the request
-     * 
-     * @param  mixed $value 
-     * @param  string $key 
+     *
+     * @param  mixed $value
+     * @param  string $key
      * @return Zend_Json_Server_Request
      */
     public function addParam($value, $key = null)
@@ -105,8 +106,8 @@ class Zend_Json_Server_Request
 
     /**
      * Add many params
-     * 
-     * @param  array $params 
+     *
+     * @param  array $params
      * @return Zend_Json_Server_Request
      */
     public function addParams(array $params)
@@ -119,8 +120,8 @@ class Zend_Json_Server_Request
 
     /**
      * Overwrite params
-     * 
-     * @param  array $params 
+     *
+     * @param  array $params
      * @return Zend_Json_Server_Request
      */
     public function setParams(array $params)
@@ -131,8 +132,8 @@ class Zend_Json_Server_Request
 
     /**
      * Retrieve param by index or key
-     * 
-     * @param  int|string $index 
+     *
+     * @param  int|string $index
      * @return mixed|null Null when not found
      */
     public function getParam($index)
@@ -145,8 +146,8 @@ class Zend_Json_Server_Request
     }
 
     /**
-     * Retrieve parameters 
-     * 
+     * Retrieve parameters
+     *
      * @return array
      */
     public function getParams()
@@ -156,8 +157,8 @@ class Zend_Json_Server_Request
 
     /**
      * Set request method
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return Zend_Json_Server_Request
      */
     public function setMethod($name)
@@ -172,7 +173,7 @@ class Zend_Json_Server_Request
 
     /**
      * Get request method name
-     * 
+     *
      * @return string
      */
     public function getMethod()
@@ -181,8 +182,8 @@ class Zend_Json_Server_Request
     }
 
     /**
-     * Was a bad method provided? 
-     * 
+     * Was a bad method provided?
+     *
      * @return bool
      */
     public function isMethodError()
@@ -192,8 +193,8 @@ class Zend_Json_Server_Request
 
     /**
      * Set request identifier
-     * 
-     * @param  mixed $name 
+     *
+     * @param  mixed $name
      * @return Zend_Json_Server_Request
      */
     public function setId($name)
@@ -204,7 +205,7 @@ class Zend_Json_Server_Request
 
     /**
      * Retrieve request identifier
-     * 
+     *
      * @return mixed
      */
     public function getId()
@@ -214,8 +215,8 @@ class Zend_Json_Server_Request
 
     /**
      * Set JSON-RPC version
-     * 
-     * @param  string $version 
+     *
+     * @param  string $version
      * @return Zend_Json_Server_Request
      */
     public function setVersion($version)
@@ -230,7 +231,7 @@ class Zend_Json_Server_Request
 
     /**
      * Retrieve JSON-RPC version
-     * 
+     *
      * @return string
      */
     public function getVersion()
@@ -240,8 +241,8 @@ class Zend_Json_Server_Request
 
     /**
      * Set request state based on JSON
-     * 
-     * @param  string $json 
+     *
+     * @param  string $json
      * @return void
      */
     public function loadJson($json)
@@ -253,7 +254,7 @@ class Zend_Json_Server_Request
 
     /**
      * Cast request to JSON
-     * 
+     *
      * @return string
      */
     public function toJson()
@@ -278,7 +279,7 @@ class Zend_Json_Server_Request
 
     /**
      * Cast request to string (JSON)
-     * 
+     *
      * @return string
      */
     public function __toString()

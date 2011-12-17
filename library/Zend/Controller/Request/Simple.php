@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Request
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Simple.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Controller_Request_Abstract */
@@ -26,29 +27,29 @@ require_once 'Zend/Controller/Request/Abstract.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Request
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Request_Simple extends Zend_Controller_Request_Abstract
 {
-    
+
     public function __construct($action = null, $controller = null, $module = null, array $params = array())
     {
         if ($action) {
             $this->setActionName($action);
         }
-        
+
         if ($controller) {
             $this->setControllerName($controller);
         }
-        
+
         if ($module) {
             $this->setModuleName($module);
         }
-        
+
         if ($params) {
             $this->setParams($params);
         }
     }
-    
+
 }

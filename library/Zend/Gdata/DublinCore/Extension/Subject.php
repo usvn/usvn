@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage DublinCore
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc.
- * (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Subject.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -32,8 +32,7 @@ require_once 'Zend/Gdata/Extension.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage DublinCore
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc.
- * (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_DublinCore_Extension_Subject extends Zend_Gdata_Extension

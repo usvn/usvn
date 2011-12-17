@@ -15,27 +15,27 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: $
+ * @version    $Id: Editor.php 20116 2010-01-07 14:18:34Z matthew $
  */
 
-/** Zend_Dojo_View_Helper_Textarea */
-require_once 'Zend/Dojo/View/Helper/Textarea.php';
+/** Zend_Dojo_View_Helper_Dijit */
+require_once 'Zend/Dojo/View/Helper/Dijit.php';
 
 /** Zend_Json */
 require_once 'Zend/Json.php';
 
 /**
  * Dojo Editor dijit
- * 
+ *
  * @uses       Zend_Dojo_View_Helper_Textarea
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Textarea
+class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
 {
     /**
      * @param string Dijit type
@@ -48,6 +48,19 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Textarea
     protected $_module = 'dijit.Editor';
 
     /**
+     * @var array Maps non-core plugin to module basename
+     */
+    protected $_pluginsModules = array(
+        'createLink' => 'LinkDialog',
+        'insertImage' => 'LinkDialog',
+        'fontName' => 'FontChoice',
+        'fontSize' => 'FontChoice',
+        'formatBlock' => 'FontChoice',
+        'foreColor' => 'TextColor',
+        'hiliteColor' => 'TextColor'
+    );
+
+    /**
      * JSON-encoded parameters
      * @var array
      */
@@ -55,15 +68,28 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Textarea
 
     /**
      * dijit.Editor
-     * 
-     * @param  string $id 
-     * @param  string $value 
-     * @param  array $params 
-     * @param  array $attribs 
+     *
+     * @param  string $id
+     * @param  string $value
+     * @param  array $params
+     * @param  array $attribs
      * @return string
      */
     public function editor($id, $value = null, $params = array(), $attribs = array())
     {
+        if (isset($params['plugins'])) {
+            foreach ($this->_getRequiredModules($params['plugins']) as $module) {
+                $this->dojo->requireModule($module);
+            }
+        }
+
+        // Previous versions allowed specifying "degrade" to allow using a 
+        // textarea instead of a div -- but this is insecure. Removing the 
+        // parameter if set to prevent its injection in the dijit.
+        if (isset($params['degrade'])) {
+            unset($params['degrade']);
+        }
+
         $hiddenName = $id;
         if (array_key_exists('id', $attribs)) {
             $hiddenId = $attribs['id'];
@@ -86,16 +112,45 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Textarea
         $this->_createGetParentFormFunction();
         $this->_createEditorOnSubmit($hiddenId, $textareaId);
 
-        $html = '<input' . $this->_htmlAttribs($hiddenAttribs) . $this->getClosingBracket()
-              . $this->textarea($textareaName, $value, $params, $attribs);
+        $attribs = $this->_prepareDijit($attribs, $params, 'textarea');
+
+        $html  = '<input' . $this->_htmlAttribs($hiddenAttribs) . $this->getClosingBracket();
+        $html .= '<div' . $this->_htmlAttribs($attribs) . '>'
+               . $value
+               . "</div>\n";
+
+        // Embed a textarea in a <noscript> tag to allow for graceful 
+        // degradation
+        $html .= '<noscript>'
+               . $this->view->formTextarea($hiddenId, $value, $attribs)
+               . '</noscript>';
 
         return $html;
     }
 
     /**
+     * Generates the list of required modules to include, if any is needed.
+     *
+     * @param array $plugins plugins to include
+     * @return array
+     */
+    protected function _getRequiredModules(array $plugins)
+    {
+        $modules = array();
+        foreach ($plugins as $commandName) {
+            if (isset($this->_pluginsModules[$commandName])) {
+                $pluginName = $this->_pluginsModules[$commandName];
+                $modules[] = 'dijit._editor.plugins.' . $pluginName;
+            }
+        }
+
+        return array_unique($modules);
+    }
+
+    /**
      * Normalize editor element name
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return string
      */
     protected function _normalizeEditorName($name)
@@ -111,9 +166,9 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Textarea
 
     /**
      * Create onSubmit binding for element
-     * 
-     * @param  string $hiddenId 
-     * @param  string $editorId 
+     *
+     * @param  string $hiddenId
+     * @param  string $editorId
      * @return void
      */
     protected function _createEditorOnSubmit($hiddenId, $editorId)
@@ -122,7 +177,7 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Textarea
         echo <<<EOJ
 function() {
     var form = zend.findParentForm(dojo.byId('$hiddenId'));
-    dojo.connect(form, 'onsubmit', function () {
+    dojo.connect(form, 'submit', function(e) {
         dojo.byId('$hiddenId').value = dijit.byId('$editorId').getValue(false);
     });
 }

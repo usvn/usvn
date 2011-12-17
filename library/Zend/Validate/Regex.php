@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,34 +14,35 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Regex.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Regex.php 22697 2010-07-26 21:14:47Z alexander $
  */
-
 
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'Zend/Validate/Abstract.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Regex extends Zend_Validate_Abstract
 {
-
+    const INVALID   = 'regexInvalid';
     const NOT_MATCH = 'regexNotMatch';
+    const ERROROUS  = 'regexErrorous';
 
     /**
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_MATCH => "'%value%' does not match against pattern '%pattern%'"
+        self::INVALID   => "Invalid type given, value should be string, integer or float",
+        self::NOT_MATCH => "'%value%' does not match against pattern '%pattern%'",
+        self::ERROROUS  => "There was an internal error while using the pattern '%pattern%'",
     );
 
     /**
@@ -62,11 +62,25 @@ class Zend_Validate_Regex extends Zend_Validate_Abstract
     /**
      * Sets validator options
      *
-     * @param  string $pattern
+     * @param  string|Zend_Config $pattern
+     * @throws Zend_Validate_Exception On missing 'pattern' parameter
      * @return void
      */
     public function __construct($pattern)
     {
+        if ($pattern instanceof Zend_Config) {
+            $pattern = $pattern->toArray();
+        }
+
+        if (is_array($pattern)) {
+            if (array_key_exists('pattern', $pattern)) {
+                $pattern = $pattern['pattern'];
+            } else {
+                require_once 'Zend/Validate/Exception.php';
+                throw new Zend_Validate_Exception("Missing option 'pattern'");
+            }
+        }
+
         $this->setPattern($pattern);
     }
 
@@ -84,11 +98,19 @@ class Zend_Validate_Regex extends Zend_Validate_Abstract
      * Sets the pattern option
      *
      * @param  string $pattern
+     * @throws Zend_Validate_Exception if there is a fatal error in pattern matching
      * @return Zend_Validate_Regex Provides a fluent interface
      */
     public function setPattern($pattern)
     {
         $this->_pattern = (string) $pattern;
+        $status         = @preg_match($this->_pattern, "Test");
+
+        if (false === $status) {
+            require_once 'Zend/Validate/Exception.php';
+            throw new Zend_Validate_Exception("Internal error while using the pattern '$this->_pattern'");
+        }
+
         return $this;
     }
 
@@ -98,28 +120,28 @@ class Zend_Validate_Regex extends Zend_Validate_Abstract
      * Returns true if and only if $value matches against the pattern option
      *
      * @param  string $value
-     * @throws Zend_Validate_Exception if there is a fatal error in pattern matching
      * @return boolean
      */
     public function isValid($value)
     {
-        $valueString = (string) $value;
-
-        $this->_setValue($valueString);
-
-        $status = @preg_match($this->_pattern, $valueString);
-        if (false === $status) {
-            /**
-             * @see Zend_Validate_Exception
-             */
-            require_once 'Zend/Validate/Exception.php';
-            throw new Zend_Validate_Exception("Internal error matching pattern '$this->_pattern' against value '$valueString'");
-        }
-        if (!$status) {
-            $this->_error();
+        if (!is_string($value) && !is_int($value) && !is_float($value)) {
+            $this->_error(self::INVALID);
             return false;
         }
+
+        $this->_setValue($value);
+
+        $status = @preg_match($this->_pattern, $value);
+        if (false === $status) {
+            $this->_error(self::ERROROUS);
+            return false;
+        }
+
+        if (!$status) {
+            $this->_error(self::NOT_MATCH);
+            return false;
+        }
+
         return true;
     }
-
 }

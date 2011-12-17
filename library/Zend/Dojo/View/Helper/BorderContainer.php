@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BorderContainer.php 12378 2008-11-07 18:39:20Z matthew $
+ * @version    $Id: BorderContainer.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Dojo_View_Helper_DijitContainer */
@@ -25,11 +25,11 @@ require_once 'Zend/Dojo/View/Helper/DijitContainer.php';
 
 /**
  * Dojo BorderContainer dijit
- * 
+ *
  * @uses       Zend_Dojo_View_Helper_DijitContainer
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_BorderContainer extends Zend_Dojo_View_Helper_DijitContainer
@@ -54,9 +54,9 @@ class Zend_Dojo_View_Helper_BorderContainer extends Zend_Dojo_View_Helper_DijitC
 
     /**
      * dijit.layout.BorderContainer
-     * 
-     * @param  string $id 
-     * @param  string $content 
+     *
+     * @param  string $id
+     * @param  string $content
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @return string

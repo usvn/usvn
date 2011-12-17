@@ -16,8 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage YouTube
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: UserProfileEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -131,7 +132,7 @@ require_once 'Zend/Gdata/Media/Extension/MediaThumbnail.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage YouTube
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
@@ -159,7 +160,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      * @var string
      */
     protected $_description = null;
-    
+
     /**
      * The contents of the 'About Me' field.
      *
@@ -257,14 +258,14 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      * @var string
      */
     protected $_firstName = null;
-    
+
     /**
      * Last name
      *
      * @var string
      */
     protected $_lastName = null;
-    
+
     /**
      * Statistics
      *
@@ -625,7 +626,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
             return $this->_statistics;
         }
     }
-    
+
     /**
      * Returns the thumbnail
      *
@@ -994,7 +995,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      */
     public function getPlaylistListFeedUrl()
     {
-        return getFeedLinkHref(Zend_Gdata_YouTube::USER_PLAYLISTS_REL);
+        return $this->getFeedLinkHref(Zend_Gdata_YouTube::USER_PLAYLISTS_REL);
     }
 
     /**
@@ -1004,7 +1005,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      */
     public function getUploadsFeedUrl()
     {
-        return getFeedLinkHref(Zend_Gdata_YouTube::USER_UPLOADS_REL);
+        return $this->getFeedLinkHref(Zend_Gdata_YouTube::USER_UPLOADS_REL);
     }
 
     /**
@@ -1014,7 +1015,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      */
     public function getSubscriptionsFeedUrl()
     {
-        return getFeedLinkHref(Zend_Gdata_YouTube::USER_SUBSCRIPTIONS_REL);
+        return $this->getFeedLinkHref(Zend_Gdata_YouTube::USER_SUBSCRIPTIONS_REL);
     }
 
     /**
@@ -1024,7 +1025,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      */
     public function getContactsFeedUrl()
     {
-        return getFeedLinkHref(Zend_Gdata_YouTube::USER_CONTACTS_REL);
+        return $this->getFeedLinkHref(Zend_Gdata_YouTube::USER_CONTACTS_REL);
     }
 
     /**
@@ -1034,7 +1035,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
      */
     public function getFavoritesFeedUrl()
     {
-        return getFeedLinkHref(Zend_Gdata_YouTube::USER_FAVORITES_REL);
+        return $this->getFeedLinkHref(Zend_Gdata_YouTube::USER_FAVORITES_REL);
     }
 
 }

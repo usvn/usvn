@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,14 +29,14 @@ require_once 'Zend/Controller/Plugin/Abstract.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Plugins
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Layout.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Layout.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstract
 {
     protected $_layoutActionHelper = null;
-    
+
     /**
      * @var Zend_Layout
      */
@@ -44,8 +44,8 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
 
     /**
      * Constructor
-     * 
-     * @param  Zend_Layout $layout 
+     *
+     * @param  Zend_Layout $layout
      * @return void
      */
     public function __construct(Zend_Layout $layout = null)
@@ -79,8 +79,8 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
 
     /**
      * Set layout action helper
-     * 
-     * @param  Zend_Layout_Controller_Action_Helper_Layout $layoutActionHelper 
+     *
+     * @param  Zend_Layout_Controller_Action_Helper_Layout $layoutActionHelper
      * @return Zend_Layout_Controller_Plugin_Layout
      */
     public function setLayoutActionHelper(Zend_Layout_Controller_Action_Helper_Layout $layoutActionHelper)
@@ -91,14 +91,14 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
 
     /**
      * Retrieve layout action helper
-     * 
+     *
      * @return Zend_Layout_Controller_Action_Helper_Layout
      */
     public function getLayoutActionHelper()
     {
         return $this->_layoutActionHelper;
     }
-    
+
     /**
      * postDispatch() plugin hook -- render layout
      *
@@ -111,9 +111,10 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
         $helper = $this->getLayoutActionHelper();
 
         // Return early if forward detected
-        if (!$request->isDispatched() 
-            || ($layout->getMvcSuccessfulActionOnly() 
-                && (!empty($helper) && !$helper->isActionControllerSuccessful()))) 
+        if (!$request->isDispatched()
+            || $this->getResponse()->isRedirect()
+            || ($layout->getMvcSuccessfulActionOnly()
+                && (!empty($helper) && !$helper->isActionControllerSuccessful())))
         {
             return;
         }
@@ -135,7 +136,7 @@ class Zend_Layout_Controller_Plugin_Layout extends Zend_Controller_Plugin_Abstra
         }
 
         $layout->assign($content);
-        
+
         $fullContent = null;
         $obStartLevel = ob_get_level();
         try {

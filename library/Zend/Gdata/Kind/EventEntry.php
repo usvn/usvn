@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -16,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: EventEntry.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -71,11 +71,6 @@ require_once 'Zend/Gdata/Extension/Transparency.php';
 require_once 'Zend/Gdata/Extension/Visibility.php';
 
 /**
- * @see Zend_Gdata_Extension_RecurrenceException
- */
-require_once 'Zend/Gdata/Extension/RecurrenceException.php';
-
-/**
  * @see Zend_Gdata_Extension_ExtendedProperty
  */
 require_once 'Zend/Gdata/Extension/ExtendedProperty.php';
@@ -97,7 +92,7 @@ require_once 'Zend/Gdata/Extension/EntryLink.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
@@ -215,6 +210,7 @@ class Zend_Gdata_Kind_EventEntry extends Zend_Gdata_Entry
             $this->_visibility = $visiblity;
             break;
         case $this->lookupNamespace('gd') . ':' . 'recurrenceException';
+            require_once 'Zend/Gdata/Extension/RecurrenceException.php';
             $recurrenceException = new Zend_Gdata_Extension_RecurrenceException();
             $recurrenceException ->transferFromDOM($child);
             $this->_recurrenceException[] = $recurrenceException;

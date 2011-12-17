@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,27 +14,24 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: LessThan.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: LessThan.php 20182 2010-01-10 21:12:01Z thomas $
  */
-
 
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'Zend/Validate/Abstract.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_LessThan extends Zend_Validate_Abstract
 {
-
     const NOT_LESS = 'notLessThan';
 
     /**
@@ -62,11 +58,24 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
     /**
      * Sets validator options
      *
-     * @param  mixed $max
+     * @param  mixed|Zend_Config $max
      * @return void
      */
     public function __construct($max)
     {
+        if ($max instanceof Zend_Config) {
+            $max = $max->toArray();
+        }
+
+        if (is_array($max)) {
+            if (array_key_exists('max', $max)) {
+                $max = $max['max'];
+            } else {
+                require_once 'Zend/Validate/Exception.php';
+                throw new Zend_Validate_Exception("Missing option 'max'");
+            }
+        }
+
         $this->setMax($max);
     }
 
@@ -104,7 +113,7 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
     {
         $this->_setValue($value);
         if ($this->_max <= $value) {
-            $this->_error();
+            $this->_error(self::NOT_LESS);
             return false;
         }
         return true;

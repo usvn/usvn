@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -16,15 +15,10 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: HttpClient.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-
-/**
- * Zend_Exception
- */
-require_once 'Zend/Exception.php';
 
 /**
  * Zend_Http_Client
@@ -40,7 +34,7 @@ require_once 'Zend/Http/Client.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gdata
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_HttpClient extends Zend_Http_Client
@@ -51,12 +45,12 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      * This key is used for AuthSub authentication.  If this value is set,
      * it is assuemd that secure AuthSub is desired.
      *
-     * @var resource 
+     * @var resource
      */
     private $_authSubPrivateKeyId = null;
 
     /**
-     * Token for AuthSub authentication.  
+     * Token for AuthSub authentication.
      * If this token is set, AuthSub authentication is used.
      *
      * @var string
@@ -64,7 +58,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
     private $_authSubToken = null;
 
     /**
-     * Token for ClientLogin authentication.  
+     * Token for ClientLogin authentication.
      * If only this token is set, ClientLogin authentication is used.
      *
      * @var string
@@ -81,6 +75,14 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
     private $_clientLoginKey = null;
 
     /**
+     * True if this request is being made with data supplied by
+     * a stream object instead of a raw encoded string.
+     *
+     * @var bool
+     */
+    protected $_streamingRequest = null;
+
+    /**
      * Sets the PEM formatted private key, as read from a file.
      *
      * This method reads the file and then calls setAuthSubPrivateKey()
@@ -88,13 +90,18 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *
      * @param string $file The location of the file containing the PEM key
      * @param string $passphrase The optional private key passphrase
-     * @param bool $useIncludePath Whether to search the include_path 
+     * @param bool $useIncludePath Whether to search the include_path
      *                             for the file
      * @return void
      */
-    public function setAuthSubPrivateKeyFile($file, $passphrase = null, 
+    public function setAuthSubPrivateKeyFile($file, $passphrase = null,
                                              $useIncludePath = false) {
-        $fp = fopen($file, "r", $useIncludePath);
+        $fp = @fopen($file, "r", $useIncludePath);
+        if (!$fp) {
+            require_once 'Zend/Gdata/App/InvalidArgumentException.php';
+            throw new Zend_Gdata_App_InvalidArgumentException('Failed to open private key file for AuthSub.');
+        }
+
         $key = '';
         while (!feof($fp)) {
             $key .= fread($fp, 8192);
@@ -135,7 +142,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
     public function getAuthSubPrivateKeyId() {
         return $this->_authSubPrivateKeyId;
     }
-    
+
     /**
      * Gets the AuthSub token used for authentication
      *
@@ -148,7 +155,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
     /**
      * Sets the AuthSub token used for authentication
      *
-     * @param string $token The token 
+     * @param string $token The token
      * @return Zend_Gdata_HttpClient Provides a fluent interface
      */
     public function setAuthSubToken($token) {
@@ -159,7 +166,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
     /**
      * Gets the ClientLogin token used for authentication
      *
-     * @return string The token 
+     * @return string The token
      */
     public function getClientLoginToken() {
         return $this->_clientLoginToken;
@@ -168,7 +175,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
     /**
      * Sets the ClientLogin token used for authentication
      *
-     * @param string $token The token 
+     * @param string $token The token
      * @return Zend_Gdata_HttpClient Provides a fluent interface
      */
     public function setClientLoginToken($token) {
@@ -189,12 +196,12 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *
      * @param string $method The HTTP method
      * @param string $url The URL
-     * @param array $headers An associate array of headers to be 
+     * @param array $headers An associate array of headers to be
      *                       sent with the request or null
      * @param string $body The body of the request or null
      * @param string $contentType The MIME content type of the body or null
      * @throws Zend_Gdata_App_Exception if there was a signing failure
-     * @return array The processed values in an associative array, 
+     * @return array The processed values in an associative array,
      *               using the same names as the params
      */
     public function filterHttpRequest($method, $url, $headers = array(), $body = null, $contentType = null) {
@@ -208,7 +215,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
 
                 // compute signature
                 $pKeyId = $this->getAuthSubPrivateKeyId();
-                $signSuccess = openssl_sign($dataToSign, $signature, $pKeyId, 
+                $signSuccess = openssl_sign($dataToSign, $signature, $pKeyId,
                                             OPENSSL_ALGO_SHA1);
                 if (!$signSuccess) {
                     require_once 'Zend/Gdata/App/Exception.php';
@@ -242,6 +249,104 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      */
     public function filterHttpResponse($response) {
         return $response;
+    }
+
+    /**
+     * Return the current connection adapter
+     *
+     * @return Zend_Http_Client_Adapter_Interface|string $adapter
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+   /**
+     * Load the connection adapter
+     *
+     * @param Zend_Http_Client_Adapter_Interface $adapter
+     * @return void
+     */
+    public function setAdapter($adapter)
+    {
+        if ($adapter == null) {
+            $this->adapter = $adapter;
+        } else {
+              parent::setAdapter($adapter);
+        }
+    }
+
+    /**
+     * Set the streamingRequest variable which controls whether we are
+     * sending the raw (already encoded) POST data from a stream source.
+     *
+     * @param boolean $value The value to set.
+     * @return void
+     */
+    public function setStreamingRequest($value)
+    {
+        $this->_streamingRequest = $value;
+    }
+
+    /**
+     * Check whether the client is set to perform streaming requests.
+     *
+     * @return boolean True if yes, false otherwise.
+     */
+    public function getStreamingRequest()
+    {
+        if ($this->_streamingRequest()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Prepare the request body (for POST and PUT requests)
+     *
+     * @return string
+     * @throws Zend_Http_Client_Exception
+     */
+    protected function _prepareBody()
+    {
+        if($this->_streamingRequest) {
+            $this->setHeaders(self::CONTENT_LENGTH,
+                $this->raw_post_data->getTotalSize());
+            return $this->raw_post_data;
+        }
+        else {
+            return parent::_prepareBody();
+        }
+    }
+
+    /**
+     * Clear all custom parameters we set.
+     *
+     * @return Zend_Http_Client
+     */
+    public function resetParameters($clearAll = false)
+    {
+        $this->_streamingRequest = false;
+
+        return parent::resetParameters($clearAll);
+    }
+
+    /**
+     * Set the raw (already encoded) POST data from a stream source.
+     *
+     * This is used to support POSTing from open file handles without
+     * caching the entire body into memory. It is a wrapper around
+     * Zend_Http_Client::setRawData().
+     *
+     * @param string $data The request data
+     * @param string $enctype The encoding type
+     * @return Zend_Http_Client
+     */
+    public function setRawDataStream($data, $enctype = null)
+    {
+        $this->_streamingRequest = true;
+        return $this->setRawData($data, $enctype);
     }
 
 }

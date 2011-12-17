@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AjaxContext.php 9098 2008-03-30 19:29:10Z thomas $
+ * @version    $Id: AjaxContext.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Controller/Action/Helper/ContextSwitch.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_Helper_ContextSwitch
@@ -47,7 +47,7 @@ class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_H
      * Constructor
      *
      * Add HTML context
-     * 
+     *
      * @return void
      */
     public function __construct()
@@ -60,8 +60,8 @@ class Zend_Controller_Action_Helper_AjaxContext extends Zend_Controller_Action_H
      * Initialize AJAX context switching
      *
      * Checks for XHR requests; if detected, attempts to perform context switch.
-     * 
-     * @param  string $format 
+     *
+     * @param  string $format
      * @return void
      */
     public function initContext($format = null)

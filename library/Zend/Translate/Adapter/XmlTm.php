@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Date.php 2498 2006-12-23 22:13:38Z thomas $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: XmlTm.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,7 +30,7 @@ require_once 'Zend/Translate/Adapter.php';
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
@@ -40,21 +40,7 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
     private $_lang        = null;
     private $_content     = null;
     private $_tag         = null;
-
-    /**
-     * Generates the xmltm adapter
-     * This adapter reads with php's xml_parser
-     *
-     * @param  string              $data     Translation data
-     * @param  string|Zend_Locale  $locale   OPTIONAL Locale/Language to set, identical with locale identifier,
-     *                                       see Zend_Locale for more information
-     * @param  array               $options  OPTIONAL Options to set
-     */
-    public function __construct($data, $locale = null, array $options = array())
-    {
-        parent::__construct($data, $locale, $options);
-    }
-
+    private $_data        = array();
 
     /**
      * Load translation data (XMLTM file reader)
@@ -64,22 +50,18 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
      * @param  string  $filename  XMLTM file to add, full path must be given for access
      * @param  array   $option    OPTIONAL Options to use
      * @throws Zend_Translation_Exception
+     * @return array
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
-        $options = $options + $this->_options;
+        $this->_data = array();
         $this->_lang = $locale;
-
-        if ($options['clear']  ||  !isset($this->_translate[$locale])) {
-            $this->_translate[$locale] = array();
-        }
-
         if (!is_readable($filename)) {
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Translation file \'' . $filename . '\' is not readable.');
         }
 
-        $encoding = $this->_findEncoding($filename);
+        $encoding    = $this->_findEncoding($filename);
         $this->_file = xml_parser_create($encoding);
         xml_set_object($this->_file, $this);
         xml_parser_set_option($this->_file, XML_OPTION_CASE_FOLDING, 0);
@@ -94,6 +76,8 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
         }
+
+        return $this->_data;
     }
 
     private function _startElement($file, $name, $attrib)
@@ -113,8 +97,8 @@ class Zend_Translate_Adapter_XmlTm extends Zend_Translate_Adapter {
         switch (strtolower($name)) {
             case 'tm:tu':
                 if (!empty($this->_tag) and !empty($this->_content) or
-                    (isset($this->_translate[$this->_lang][$this->_tag]) === false)) {
-                    $this->_translate[$this->_lang][$this->_tag] = $this->_content;
+                    (isset($this->_data[$this->_lang][$this->_tag]) === false)) {
+                    $this->_data[$this->_lang][$this->_tag] = $this->_content;
                 }
                 $this->_tag     = null;
                 $this->_content = null;

@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: HtmlList.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -32,7 +33,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
@@ -50,7 +51,9 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
     {
         if (!is_array($items)) {
             require_once 'Zend/View/Exception.php';
-            throw new Zend_View_Exception('First param must be an array', $this);
+            $e = new Zend_View_Exception('First param must be an array');
+            $e->setView($this->view);
+            throw $e;
         }
 
         $list = '';
@@ -62,8 +65,8 @@ class Zend_View_Helper_HtmlList extends Zend_View_Helper_FormElement
                 }
                 $list .= '<li>' . $item . '</li>' . self::EOL;
             } else {
-                if (5 < strlen($list)) {
-                    $list = substr($list, 0, strlen($list) - 5)
+                if (6 < strlen($list)) {
+                    $list = substr($list, 0, strlen($list) - 6)
                      . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>' . self::EOL;
                 } else {
                     $list .= '<li>' . $this->htmlList($item, $ordered, $attribs, $escape) . '</li>' . self::EOL;

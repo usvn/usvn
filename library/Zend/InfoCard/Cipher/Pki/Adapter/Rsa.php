@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Cipher
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rsa.php 9094 2008-03-30 18:36:55Z thomas $
+ * @version    $Id: Rsa.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -37,7 +37,7 @@ require_once 'Zend/InfoCard/Cipher/Pki/Rsa/Interface.php';
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Cipher
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_InfoCard_Cipher_Pki_Adapter_Rsa
@@ -55,6 +55,7 @@ class Zend_InfoCard_Cipher_Pki_Adapter_Rsa
         // Can't test this..
         // @codeCoverageIgnoreStart
         if(!extension_loaded('openssl')) {
+            require_once 'Zend/InfoCard/Cipher/Exception.php';
             throw new Zend_InfoCard_Cipher_Exception("Use of this PKI RSA Adapter requires the openssl extension loaded");
         }
         // @codeCoverageIgnoreEnd
@@ -77,10 +78,11 @@ class Zend_InfoCard_Cipher_Pki_Adapter_Rsa
         $private_key = openssl_pkey_get_private(array($privateKey, $password));
 
         if(!$private_key) {
+            require_once 'Zend/InfoCard/Cipher/Exception.php';
             throw new Zend_InfoCard_Cipher_Exception("Failed to load private key");
         }
 
-        if(!is_null($padding)) {
+        if($padding !== null) {
             try {
                 $this->setPadding($padding);
             } catch(Exception $e) {
@@ -103,6 +105,7 @@ class Zend_InfoCard_Cipher_Pki_Adapter_Rsa
         openssl_free_key($private_key);
 
         if(!$result) {
+            require_once 'Zend/InfoCard/Cipher/Exception.php';
             throw new Zend_InfoCard_Cipher_Exception("Unable to Decrypt Value using provided private key");
         }
 

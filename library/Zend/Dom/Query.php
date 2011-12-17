@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Dom
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Query.php 21157 2010-02-23 17:52:15Z matthew $
  */
 
 /**
@@ -30,16 +31,16 @@ require_once 'Zend/Dom/Query/Result.php';
 
 /**
  * Query DOM structures based on CSS selectors and/or XPath
- * 
+ *
  * @package    Zend_Dom
  * @subpackage Query
- * @copyright  Copyright (C) 2008 - Present, Zend Technologies, Inc.
- * @license    New BSD {@link http://framework.zend.com/license/new-bsd}
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Dom_Query
 {
     /**#@+
-     * @const string Document types
+     * Document types
      */
     const DOC_XML   = 'docXml';
     const DOC_HTML  = 'docHtml';
@@ -52,6 +53,12 @@ class Zend_Dom_Query
     protected $_document;
 
     /**
+     * DOMDocument errors, if any
+     * @var false|array
+     */
+    protected $_documentErrors = false;
+
+    /**
      * Document type
      * @var string
      */
@@ -59,26 +66,28 @@ class Zend_Dom_Query
 
     /**
      * Constructor
-     * 
-     * @param  null|string $document 
+     *
+     * @param  null|string $document
      * @return void
      */
     public function __construct($document = null)
     {
-        if (null !== $document) {
-            $this->setDocument($document);
-        }
+        $this->setDocument($document);
     }
 
     /**
      * Set document to query
-     * 
-     * @param  string $document 
+     *
+     * @param  string $document
      * @return Zend_Dom_Query
      */
     public function setDocument($document)
     {
-        if ('<?xml' == substr(trim($document), 0, 5)) {
+        if (0 === strlen($document)) {
+            return $this;
+        }
+        // breaking XML declaration to make syntax highlighting work
+        if ('<' . '?xml' == substr(trim($document), 0, 5)) {
             return $this->setDocumentXml($document);
         }
         if (strstr($document, 'DTD XHTML')) {
@@ -88,9 +97,9 @@ class Zend_Dom_Query
     }
 
     /**
-     * Register HTML document 
-     * 
-     * @param  string $document 
+     * Register HTML document
+     *
+     * @param  string $document
      * @return Zend_Dom_Query
      */
     public function setDocumentHtml($document)
@@ -102,8 +111,8 @@ class Zend_Dom_Query
 
     /**
      * Register XHTML document
-     * 
-     * @param  string $document 
+     *
+     * @param  string $document
      * @return Zend_Dom_Query
      */
     public function setDocumentXhtml($document)
@@ -115,8 +124,8 @@ class Zend_Dom_Query
 
     /**
      * Register XML document
-     * 
-     * @param  string $document 
+     *
+     * @param  string $document
      * @return Zend_Dom_Query
      */
     public function setDocumentXml($document)
@@ -128,7 +137,7 @@ class Zend_Dom_Query
 
     /**
      * Retrieve current document
-     * 
+     *
      * @return string
      */
     public function getDocument()
@@ -138,7 +147,7 @@ class Zend_Dom_Query
 
     /**
      * Get document type
-     * 
+     *
      * @return string
      */
     public function getDocumentType()
@@ -147,9 +156,19 @@ class Zend_Dom_Query
     }
 
     /**
-     * Perform a CSS selector query
+     * Get any DOMDocument errors found
      * 
-     * @param  string $query 
+     * @return false|array
+     */
+    public function getDocumentErrors()
+    {
+        return $this->_documentErrors;
+    }
+
+    /**
+     * Perform a CSS selector query
+     *
+     * @param  string $query
      * @return Zend_Dom_Query_Result
      */
     public function query($query)
@@ -160,8 +179,8 @@ class Zend_Dom_Query
 
     /**
      * Perform an XPath query
-     * 
-     * @param  string $xpathQuery
+     *
+     * @param  string|array $xpathQuery
      * @param  string $query CSS selector query
      * @return Zend_Dom_Query_Result
      */
@@ -172,18 +191,25 @@ class Zend_Dom_Query
             throw new Zend_Dom_Exception('Cannot query; no document registered');
         }
 
+        libxml_use_internal_errors(true);
         $domDoc = new DOMDocument;
         $type   = $this->getDocumentType();
         switch ($type) {
             case self::DOC_XML:
-                $success = @$domDoc->loadXML($document);
+                $success = $domDoc->loadXML($document);
                 break;
             case self::DOC_HTML:
             case self::DOC_XHTML:
             default:
-                $success = @$domDoc->loadHTML($document);
+                $success = $domDoc->loadHTML($document);
                 break;
         }
+        $errors = libxml_get_errors();
+        if (!empty($errors)) {
+            $this->_documentErrors = $errors;
+            libxml_clear_errors();
+        }
+        libxml_use_internal_errors(false);
 
         if (!$success) {
             require_once 'Zend/Dom/Exception.php';
@@ -196,7 +222,7 @@ class Zend_Dom_Query
 
     /**
      * Prepare node list
-     * 
+     *
      * @param  DOMDocument $document
      * @param  string|array $xpathQuery
      * @return array

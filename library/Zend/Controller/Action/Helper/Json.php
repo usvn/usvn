@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Json.php 9098 2008-03-30 19:29:10Z thomas $
+ * @version    $Id: Json.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Controller/Action/Helper/Abstract.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_Helper_Json extends Zend_Controller_Action_Helper_Abstract
@@ -46,12 +46,19 @@ class Zend_Controller_Action_Helper_Json extends Zend_Controller_Action_Helper_A
     /**
      * Create JSON response
      *
-     * Encodes and returns data to JSON. Content-Type header set to 
-     * 'application/json', and disables layouts and viewRenderer (if being 
+     * Encodes and returns data to JSON. Content-Type header set to
+     * 'application/json', and disables layouts and viewRenderer (if being
      * used).
      *
      * @param  mixed   $data
      * @param  boolean $keepLayouts
+     * @param  boolean|array $keepLayouts
+     * NOTE:   if boolean, establish $keepLayouts to true|false
+     *         if array, admit params for Zend_Json::encode as enableJsonExprFinder=>true|false
+     *         if $keepLayouts and parmas for Zend_Json::encode are required
+     *         then, the array can contains a 'keepLayout'=>true|false
+     *         that will not be passed to Zend_Json::encode method but will be passed
+     *         to Zend_View_Helper_Json
      * @throws Zend_Controller_Action_Helper_Json
      * @return string
      */
@@ -77,9 +84,15 @@ class Zend_Controller_Action_Helper_Json extends Zend_Controller_Action_Helper_A
 
     /**
      * Encode JSON response and immediately send
-     * 
-     * @param  mixed   $data 
-     * @param  boolean $keepLayouts 
+     *
+     * @param  mixed   $data
+     * @param  boolean|array $keepLayouts
+     * NOTE:   if boolean, establish $keepLayouts to true|false
+     *         if array, admit params for Zend_Json::encode as enableJsonExprFinder=>true|false
+     *         if $keepLayouts and parmas for Zend_Json::encode are required
+     *         then, the array can contains a 'keepLayout'=>true|false
+     *         that will not be passed to Zend_Json::encode method but will be passed
+     *         to Zend_View_Helper_Json
      * @return string|void
      */
     public function sendJson($data, $keepLayouts = false)
@@ -99,12 +112,12 @@ class Zend_Controller_Action_Helper_Json extends Zend_Controller_Action_Helper_A
     /**
      * Strategy pattern: call helper as helper broker method
      *
-     * Allows encoding JSON. If $sendNow is true, immediately sends JSON 
-     * response. 
-     * 
-     * @param  mixed   $data 
-     * @param  boolean $sendNow 
-     * @param  boolean $keepLayouts 
+     * Allows encoding JSON. If $sendNow is true, immediately sends JSON
+     * response.
+     *
+     * @param  mixed   $data
+     * @param  boolean $sendNow
+     * @param  boolean $keepLayouts
      * @return string|void
      */
     public function direct($data, $sendNow = true, $keepLayouts = false)

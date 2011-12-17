@@ -12,18 +12,24 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Font.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Pdf_Resource */
 require_once 'Zend/Pdf/Resource.php';
 
-/** Zend_Pdf_Exception */
-require_once 'Zend/Pdf/Exception.php';
-
+/**
+ * Zend_Pdf_Font
+ *
+ * Zend_Pdf_Font class constants are used within Zend_Pdf_Resource_Font
+ * and its subclusses.
+ */
+require_once 'Zend/Pdf/Font.php';
 
 /**
  * Abstract class which manages PDF fonts.
@@ -38,7 +44,7 @@ require_once 'Zend/Pdf/Exception.php';
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
@@ -235,13 +241,13 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
         }
         /* If the preferred language could not be found, use whatever is first.
          */
-        if (is_null($name)) {
+        if ($name === null) {
             $names = $this->_fontNames[$nameType];
             $name  = reset($names);
         }
         /* Convert the character set if requested.
          */
-        if ((! is_null($characterSet)) && ($characterSet != 'UTF-16BE') && PHP_OS != 'AIX') { // AIX knows not this charset
+        if (($characterSet !== null) && ($characterSet != 'UTF-16BE') && PHP_OS != 'AIX') { // AIX knows not this charset
             $name = iconv('UTF-16BE', $characterSet, $name);
         }
         return $name;
@@ -249,14 +255,14 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
 
     /**
      * Returns whole set of font names.
-     * 
+     *
      * @return array
      */
     public function getFontNames()
     {
         return $this->_fontNames;
     }
-    
+
     /**
      * Returns true if font is bold.
      *
@@ -276,7 +282,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
     {
         return $this->_isItalic;
     }
-    
+
     /**
      * Returns true if font is monospace.
      *
@@ -481,8 +487,8 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
 
     /**
      * Convert string to the font encoding.
-     * 
-     * The method is used to prepare string for text drawing operators 
+     *
+     * The method is used to prepare string for text drawing operators
      *
      * @param string $string
      * @param string $charEncoding Character encoding of source text.

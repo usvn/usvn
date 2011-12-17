@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Boolean.php 9096 2008-03-30 19:04:05Z thomas $
+ * @version    $Id: Boolean.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -31,7 +31,7 @@ require_once 'Zend/XmlRpc/Value/Scalar.php';
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Value_Boolean extends Zend_XmlRpc_Value_Scalar
@@ -60,25 +60,4 @@ class Zend_XmlRpc_Value_Boolean extends Zend_XmlRpc_Value_Scalar
     {
         return (bool)$this->_value;
     }
-
-    /**
-     * Return the XML-RPC serialization of the boolean value
-     *
-     * @return string
-     */
-    public function saveXML()
-    {
-        if (! $this->_as_xml) {   // The XML was not generated yet
-            $dom   = new DOMDocument('1.0', 'UTF-8');
-            $value = $dom->appendChild($dom->createElement('value'));
-            $type  = $value->appendChild($dom->createElement($this->_type));
-            $type->appendChild($dom->createTextNode($this->_value));
-
-            $this->_as_dom = $value;
-            $this->_as_xml = $this->_stripXmlDeclaration($dom);
-        }
-
-        return $this->_as_xml;
-    }
 }
-

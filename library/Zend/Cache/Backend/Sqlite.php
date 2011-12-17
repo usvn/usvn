@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Sqlite.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -33,7 +34,7 @@ require_once 'Zend/Cache/Backend.php';
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
@@ -83,7 +84,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
     public function __construct(array $options = array())
     {
         parent::__construct($options);
-        if (is_null($this->_options['cache_db_complete_path'])) {
+        if ($this->_options['cache_db_complete_path'] === null) {
             Zend_Cache::throwException('cache_db_complete_path option has to set');
         }
         if (!extension_loaded('sqlite')) {
@@ -161,7 +162,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
         $lifetime = $this->getLifetime($specificLifetime);
         $data = @sqlite_escape_string($data);
         $mktime = time();
-        if (is_null($lifetime)) {
+        if ($lifetime === null) {
             $expire = 0;
         } else {
             $expire = $mktime + $lifetime;
@@ -175,7 +176,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
         }
         $res = true;
         foreach ($tags as $tag) {
-            $res = $res && $this->_registerTag($id, $tag);
+            $res = $this->_registerTag($id, $tag) && $res;
         }
         return $res;
     }
@@ -221,10 +222,10 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
         $this->_automaticVacuum();
         return $return;
     }
-    
+
     /**
      * Return an array of stored cache ids
-     * 
+     *
      * @return array array of stored cache ids (string)
      */
     public function getIds()
@@ -237,7 +238,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
         }
         return $result;
     }
-    
+
     /**
      * Return an array of stored tags
      *
@@ -253,10 +254,10 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
         }
         return $result;
     }
-    
+
     /**
      * Return an array of stored cache ids which match given tags
-     * 
+     *
      * In case of multiple tags, a logical AND is made between tags
      *
      * @param array $tags array of tags
@@ -292,12 +293,12 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
 
     /**
      * Return an array of stored cache ids which don't match given tags
-     * 
+     *
      * In case of multiple tags, a logical OR is made between tags
      *
      * @param array $tags array of tags
      * @return array array of not matching cache ids (string)
-     */    
+     */
     public function getIdsNotMatchingTags($tags = array())
     {
         $res = $this->_query("SELECT id FROM cache");
@@ -322,10 +323,10 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
         }
         return $result;
     }
-    
+
     /**
      * Return an array of stored cache ids which match any given tags
-     * 
+     *
      * In case of multiple tags, a logical AND is made between tags
      *
      * @param array $tags array of tags
@@ -387,7 +388,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * - expire : the expire timestamp
      * - tags : a string array of tags
      * - mtime : timestamp of last modification time
-     * 
+     *
      * @param string $id cache id
      * @return array array of metadatas (false if the cache id is not found)
      */
@@ -413,7 +414,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
             'expire' => $row['expire']
         );
     }
-    
+
     /**
      * Give (if possible) an extra lifetime to the given cache id
      *
@@ -437,10 +438,10 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
             return false;
         }
     }
-    
+
     /**
      * Return an associative array of capabilities (booleans) of the backend
-     * 
+     *
      * The array must include these keys :
      * - automatic_cleaning (is automating cleaning necessary)
      * - tags (are tags supported)
@@ -449,7 +450,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * - priority does the backend deal with priority when saving
      * - infinite_lifetime (is infinite lifetime can work with this backend)
      * - get_list (is it possible to get the list of cache ids and the complete list of tags)
-     * 
+     *
      * @return array associative of with capabilities
      */
     public function getCapabilities()
@@ -629,7 +630,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
                 $ids = $this->getIdsMatchingTags($tags);
                 $result = true;
                 foreach ($ids as $id) {
-                    $result = $result && ($this->remove($id));
+                    $result = $this->remove($id) && $result;
                 }
                 return $result;
                 break;
@@ -637,7 +638,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
                 $ids = $this->getIdsNotMatchingTags($tags);
                 $result = true;
                 foreach ($ids as $id) {
-                    $result = $result && ($this->remove($id));
+                    $result = $this->remove($id) && $result;
                 }
                 return $result;
                 break;
@@ -645,7 +646,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
                 $ids = $this->getIdsMatchingAnyTags($tags);
                 $result = true;
                 foreach ($ids as $id) {
-                    $result = $result && ($this->remove($id));
+                    $result = $this->remove($id) && $result;
                 }
                 return $result;
                 break;

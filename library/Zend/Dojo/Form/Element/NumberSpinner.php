@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,13 +24,13 @@ require_once 'Zend/Dojo/Form/Element/ValidationTextBox.php';
 
 /**
  * NumberSpinner dijit
- * 
+ *
  * @uses       Zend_Dojo_Form_Element_ValidationTextBox
  * @package    Zend_Dojo
  * @subpackage Form_Element
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: NumberSpinner.php 10069 2008-07-12 23:48:03Z matthew $
+ * @version    $Id: NumberSpinner.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Dojo_Form_Element_NumberSpinner extends Zend_Dojo_Form_Element_ValidationTextBox
 {
@@ -177,8 +177,8 @@ class Zend_Dojo_Form_Element_NumberSpinner extends Zend_Dojo_Form_Element_Valida
 
     /**
      * Set minimum value
-     * 
-     * @param  int $value 
+     *
+     * @param  int $value
      * @return Zend_Dojo_Form_Element_NumberSpinner
      */
     public function setMin($value)
@@ -194,7 +194,7 @@ class Zend_Dojo_Form_Element_NumberSpinner extends Zend_Dojo_Form_Element_Valida
 
     /**
      * Get minimum value
-     * 
+     *
      * @return null|int
      */
     public function getMin()
@@ -211,8 +211,8 @@ class Zend_Dojo_Form_Element_NumberSpinner extends Zend_Dojo_Form_Element_Valida
 
     /**
      * Set maximum value
-     * 
-     * @param  int $value 
+     *
+     * @param  int $value
      * @return Zend_Dojo_Form_Element_NumberSpinner
      */
     public function setMax($value)
@@ -228,7 +228,7 @@ class Zend_Dojo_Form_Element_NumberSpinner extends Zend_Dojo_Form_Element_Valida
 
     /**
      * Get maximum value
-     * 
+     *
      * @return null|int
      */
     public function getMax()

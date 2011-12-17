@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Collection.php 9096 2008-03-30 19:04:05Z thomas $
+ * @version    $Id: Collection.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -31,7 +31,7 @@ require_once 'Zend/XmlRpc/Value.php';
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_XmlRpc_Value_Collection extends Zend_XmlRpc_Value
@@ -66,14 +66,8 @@ abstract class Zend_XmlRpc_Value_Collection extends Zend_XmlRpc_Value
         $values = (array)$this->_value;
         foreach ($values as $key => $value) {
             /* @var $value Zend_XmlRpc_Value */
-
-            if (!$value instanceof parent) {
-                throw new Zend_XmlRpc_Value_Exception('Values of '. get_class($this) .' type must be Zend_XmlRpc_Value objects');
-            }
             $values[$key] = $value->getValue();
         }
         return $values;
     }
-
 }
-

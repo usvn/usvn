@@ -12,24 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Container.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-/** Zend_Memory_Exception */
-require_once 'Zend/Memory/Exception.php';
 
 /** Zend_Memory_Container_Interface */
 require_once 'Zend/Memory/Container/Interface.php';
-
 
 /**
  * Memory value container
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Memory_Container implements Zend_Memory_Container_Interface

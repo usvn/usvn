@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Null.php 10792 2008-08-08 03:11:03Z mratzloff $
+ * @version    $Id: Null.php 21151 2010-02-23 16:34:14Z matthew $
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Paginator/Adapter/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
@@ -38,10 +38,10 @@ class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
      * @var integer
      */
     protected $_count = null;
-    
+
     /**
      * Constructor.
-     * 
+     *
      * @param array $count Total item count
      */
     public function __construct($count = 0)
@@ -58,7 +58,14 @@ class Zend_Paginator_Adapter_Null implements Zend_Paginator_Adapter_Interface
      */
     public function getItems($offset, $itemCountPerPage)
     {
-        return array_fill(0, $itemCountPerPage, null);
+        if ($offset >= $this->count()) {
+            return array();
+        }
+
+        $remainItemCount  = $this->count() - $offset;
+        $currentItemCount = $remainItemCount > $itemCountPerPage ? $itemCountPerPage : $remainItemCount;
+
+        return array_fill(0, $currentItemCount, null);
     }
 
     /**

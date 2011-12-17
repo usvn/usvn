@@ -15,19 +15,19 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: GetInfoResult.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: GetInfoResult.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
 /**
  * Represents a single Technorati GetInfo query result object.
- * 
+ *
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Technorati_GetInfoResult
@@ -84,7 +84,7 @@ class Zend_Service_Technorati_GetInfoResult
 
     /**
      * Returns the author associated with queried username.
-     * 
+     *
      * @return  Zend_Service_Technorati_Author
      */
     public function getAuthor() {
@@ -93,7 +93,7 @@ class Zend_Service_Technorati_GetInfoResult
 
     /**
      * Returns the collection of weblogs authored by queried username.
-     * 
+     *
      * @return  array of Zend_Service_Technorati_Weblog
      */
     public function getWeblogs() {

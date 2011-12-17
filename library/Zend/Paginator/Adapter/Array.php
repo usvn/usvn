@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Array.php 10013 2008-07-09 21:08:06Z norm2782 $
+ * @version    $Id: Array.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -27,28 +27,28 @@ require_once 'Zend/Paginator/Adapter/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_Adapter_Array implements Zend_Paginator_Adapter_Interface
 {
     /**
      * Array
-     * 
+     *
      * @var array
      */
     protected $_array = null;
-    
+
     /**
      * Item count
      *
      * @var integer
      */
     protected $_count = null;
-    
+
     /**
      * Constructor.
-     * 
+     *
      * @param array $array Array to paginate
      */
     public function __construct(array $array)

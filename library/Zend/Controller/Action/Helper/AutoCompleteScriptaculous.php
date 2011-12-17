@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AutoCompleteScriptaculous.php 9098 2008-03-30 19:29:10Z thomas $
+ * @version    $Id: AutoCompleteScriptaculous.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -32,15 +32,15 @@ require_once 'Zend/Controller/Action/Helper/AutoComplete/Abstract.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Action_Helper_AutoCompleteScriptaculous extends Zend_Controller_Action_Helper_AutoComplete_Abstract
 {
     /**
      * Validate data for autocompletion
-     * 
-     * @param  mixed $data 
+     *
+     * @param  mixed $data
      * @return bool
      */
     public function validateData($data)
@@ -54,9 +54,9 @@ class Zend_Controller_Action_Helper_AutoCompleteScriptaculous extends Zend_Contr
 
     /**
      * Prepare data for autocompletion
-     * 
-     * @param  mixed   $data 
-     * @param  boolean $keepLayouts 
+     *
+     * @param  mixed   $data
+     * @param  boolean $keepLayouts
      * @throws Zend_Controller_Action_Exception
      * @return string
      */

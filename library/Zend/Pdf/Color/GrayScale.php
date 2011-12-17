@@ -14,27 +14,25 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: GrayScale.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
-/** Zend_Pdf_Exception */
-require_once 'Zend/Pdf/Exception.php';
+/** Internally used classes */
+require_once 'Zend/Pdf/Element/Numeric.php';
+
 
 /** Zend_Pdf_Color */
 require_once 'Zend/Pdf/Color.php';
-
-/** Zend_Pdf_Element_Numeric */
-require_once 'Zend/Pdf/Element/Numeric.php';
-
 
 /**
  * GrayScale color implementation
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
@@ -54,15 +52,10 @@ class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
      */
     public function __construct($grayLevel)
     {
+        if ($grayLevel < 0) { $grayLevel = 0; }
+        if ($grayLevel > 1) { $grayLevel = 1; }
+
         $this->_grayLevel = new Zend_Pdf_Element_Numeric($grayLevel);
-
-        if ($this->_grayLevel->value < 0) {
-            $this->_grayLevel->value = 0;
-        }
-
-        if ($this->_grayLevel->value > 1) {
-            $this->_grayLevel->value = 1;
-        }
     }
 
     /**
@@ -76,6 +69,16 @@ class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
     public function instructions($stroking)
     {
         return $this->_grayLevel->toString() . ($stroking? " G\n" : " g\n");
+    }
+
+    /**
+     * Get color components (color space dependent)
+     *
+     * @return array
+     */
+    public function getComponents()
+    {
+        return array($this->_grayLevel->value);
     }
 }
 

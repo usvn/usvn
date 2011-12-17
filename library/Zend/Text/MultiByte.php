@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Text
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id$
+ * @version   $Id: MultiByte.php 21933 2010-04-18 15:37:03Z dasprid $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category  Zend
  * @package   Zend_Text
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Text_MultiByte
@@ -41,33 +41,76 @@ class Zend_Text_MultiByte
      */
     public static function wordWrap($string, $width = 75, $break = "\n", $cut = false, $charset = 'UTF-8')
     {
-        if ($cut === false) {
-            $regexp = '#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){' . $width . ',}\b#U';
-        } else {
-            $regexp = '#^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){' . $width . '}#';
-        }
+        $result     = array();
+        $breakWidth = iconv_strlen($break, $charset);
 
-        $lines  = explode($break, $string);
-        $return = array();
+        while (($stringLength = iconv_strlen($string, $charset)) > 0) {
+            $breakPos = iconv_strpos($string, $break, 0, $charset);
 
-        foreach ($lines as $line) {
-            $whileWhat = ceil(iconv_strlen($line, $charset) / $width);
-            $i         = 1;
-            $result    = '';
+            if ($breakPos !== false && $breakPos < $width) {
+                if ($breakPos === $stringLength - $breakWidth) {
+                    $subString = $string;
+                    $cutLength = null;
+                } else {
+                    $subString = iconv_substr($string, 0, $breakPos, $charset);
+                    $cutLength = $breakPos + $breakWidth;
+                }
+            } else {
+                $subString = iconv_substr($string, 0, $width, $charset);
 
-            while ($i < $whileWhat) {
-                preg_match($regexp, $line, $matches);
+                if ($subString === $string) {
+                    $cutLength = null;
+                } else {
+                    $nextChar = iconv_substr($string, $width, 1, $charset);
+                    
+                    if ($breakWidth === 1) {
+                        $nextBreak = $nextChar;
+                    } else {
+                        $nextBreak = iconv_substr($string, $breakWidth, 1, $charset);
+                    }
 
-                $result .= $matches[0] . $break;
-                $line    = substr($string, strlen($matches[0]));
+                    if ($nextChar === ' ' || $nextBreak === $break) {
+                        $afterNextChar = iconv_substr($string, $width + 1, 1, $charset);
 
-                $i++;
+                        if ($afterNextChar === false) {
+                            $subString .= $nextChar;
+                        }
+
+                        $cutLength = iconv_strlen($subString, $charset) + 1;
+                    } else {
+                        $spacePos = iconv_strrpos($subString, ' ', $charset);
+
+                        if ($spacePos !== false) {
+                            $subString = iconv_substr($subString, 0, $spacePos, $charset);
+                            $cutLength = $spacePos + 1;
+                        } else if ($cut === false) {
+                            $spacePos = iconv_strpos($string, ' ', 0, $charset);
+
+                            if ($spacePos !== false) {
+                                $subString = iconv_substr($string, 0, $spacePos, $charset);
+                                $cutLength = $spacePos + 1;
+                            } else {
+                                $subString = $string;
+                                $cutLength = null;
+                            }
+                        } else {
+                            $subString = iconv_substr($subString, 0, $width, $charset);
+                            $cutLength = $width;
+                        }
+                    }
+                }
             }
 
-            $return[] = $result . $line;
+            $result[] = $subString;
+
+            if ($cutLength !== null) {
+                $string = iconv_substr($string, $cutLength, ($stringLength - $cutLength), $charset);
+            } else {
+                break;
+            }
         }
 
-        return implode($break, $return);
+        return implode($break, $result);
     }
 
     /**

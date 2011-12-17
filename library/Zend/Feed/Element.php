@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Element.php 20104 2010-01-06 21:26:01Z matthew $
  */
 
 
@@ -26,7 +26,7 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Element implements ArrayAccess
@@ -36,6 +36,11 @@ class Zend_Feed_Element implements ArrayAccess
      * @var DOMElement
      */
     protected $_element;
+
+    /**
+     * @var string Character encoding to utilize
+     */
+    protected $_encoding = 'UTF-8';
 
     /**
      * @var Zend_Feed_Element
@@ -148,6 +153,27 @@ class Zend_Feed_Element implements ArrayAccess
         return $this->_element->ownerDocument->saveXML($this->_element);
     }
 
+    /**
+     * Get encoding
+     *
+     * @return string
+     */
+    public function getEncoding()
+    {
+        return $this->_encoding;
+    }
+
+    /**
+     * Set encoding
+     *
+     * @param  string $value Encoding to use
+     * @return Zend_Feed_Element
+     */
+    public function setEncoding($value)
+    {
+        $this->_encoding = (string) $value;
+        return $this;
+    }
 
     /**
      * Map variable access onto the underlying entry representation.
@@ -204,14 +230,16 @@ class Zend_Feed_Element implements ArrayAccess
         if (!$nodes) {
             if (strpos($var, ':') !== false) {
                 list($ns, $elt) = explode(':', $var, 2);
-                $node = $this->_element->ownerDocument->createElementNS(Zend_Feed::lookupNamespace($ns), $var, $val);
+                $node = $this->_element->ownerDocument->createElementNS(Zend_Feed::lookupNamespace($ns),
+                    $var, htmlspecialchars($val, ENT_NOQUOTES, $this->getEncoding()));
                 $this->_element->appendChild($node);
             } else {
-                $node = $this->_element->ownerDocument->createElement($var, $val);
+                $node = $this->_element->ownerDocument->createElement($var,
+                    htmlspecialchars($val, ENT_NOQUOTES, $this->getEncoding()));
                 $this->_element->appendChild($node);
             }
         } elseif (count($nodes) > 1) {
-            /** 
+            /**
              * @see Zend_Feed_Exception
              */
             require_once 'Zend/Feed/Exception.php';
@@ -382,7 +410,8 @@ class Zend_Feed_Element implements ArrayAccess
 
         if (strpos($offset, ':') !== false) {
             list($ns, $attr) = explode(':', $offset, 2);
-            return $this->_element->setAttributeNS(Zend_Feed::lookupNamespace($ns), $attr, $value);
+            // DOMElement::setAttributeNS() requires $qualifiedName to have a prefix
+            return $this->_element->setAttributeNS(Zend_Feed::lookupNamespace($ns), $offset, $value);
         } else {
             return $this->_element->setAttribute($offset, $value);
         }

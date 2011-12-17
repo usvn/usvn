@@ -15,24 +15,21 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simple.php 10725 2008-08-06 16:01:05Z cadorn $
+ * @version    $Id: Simple.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Log_Formatter_Interface */
 require_once 'Zend/Log/Formatter/Interface.php';
 
-/** Zend_Log_Exception */
-require_once 'Zend/Log/Exception.php';
-
 /**
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Formatter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Simple.php 10725 2008-08-06 16:01:05Z cadorn $
+ * @version    $Id: Simple.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Log_Formatter_Simple implements Zend_Log_Formatter_Interface
 {
@@ -56,6 +53,7 @@ class Zend_Log_Formatter_Simple implements Zend_Log_Formatter_Interface
         }
 
         if (! is_string($format)) {
+            require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception('Format must be a string');
         }
 
@@ -76,7 +74,7 @@ class Zend_Log_Formatter_Simple implements Zend_Log_Formatter_Interface
             if ((is_object($value) && !method_exists($value,'__toString'))
                 || is_array($value)) {
 
-                $value = gettype($value);  
+                $value = gettype($value);
             }
 
             $output = str_replace("%$name%", $value, $output);

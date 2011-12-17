@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PregReplace.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: PregReplace.php 21086 2010-02-18 21:10:39Z thomas $
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Filter/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_PregReplace implements Zend_Filter_Interface
@@ -43,7 +43,7 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
      * @var mixed
      */
     protected $_replacement = '';
-    
+
     /**
      * Is unicode enabled?
      *
@@ -61,10 +61,10 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
         if (self::$_unicodeSupportEnabled === null) {
             self::_determineUnicodeSupport();
         }
-        
+
         return self::$_unicodeSupportEnabled;
     }
-    
+
     /**
      * Method to cache the regex needed to determine if unicode support is available
      *
@@ -74,25 +74,43 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
     {
         self::$_unicodeSupportEnabled = (@preg_match('/\pL/u', 'a')) ? true : false;
     }
-    
+
     /**
      * Constructor
-     * 
-     * @param  string $match 
-     * @param  string $replace 
+     * Supported options are
+     *     'match'   => matching pattern
+     *     'replace' => replace with this
+     *
+     * @param  string|array $options
      * @return void
      */
-    public function __construct($matchPattern = null, $replacement = null)
+    public function __construct($options = null)
     {
-        if ($matchPattern) {
-            $this->setMatchPattern($matchPattern);
+        if ($options instanceof Zend_Config) {
+            $options = $options->toArray();
+        } else if (!is_array($options)) {
+            $options = func_get_args();
+            $temp    = array();
+            if (!empty($options)) {
+                $temp['match'] = array_shift($options);
+            }
+
+            if (!empty($options)) {
+                $temp['replace'] = array_shift($options);
+            }
+
+            $options = $temp;
         }
-        
-        if ($replacement) {
-            $this->setReplacement($replacement);
+
+        if (array_key_exists('match', $options)) {
+            $this->setMatchPattern($options['match']);
+        }
+
+        if (array_key_exists('replace', $options)) {
+            $this->setReplacement($options['replace']);
         }
     }
-    
+
     /**
      * Set the match pattern for the regex being called within filter()
      *
@@ -107,14 +125,14 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
 
     /**
      * Get currently set match pattern
-     * 
+     *
      * @return string
      */
     public function getMatchPattern()
     {
         return $this->_matchPattern;
     }
-    
+
     /**
      * Set the Replacement pattern/string for the preg_replace called in filter
      *
@@ -129,18 +147,18 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
 
     /**
      * Get currently set replacement value
-     * 
+     *
      * @return string
      */
     public function getReplacement()
     {
         return $this->_replacement;
     }
-    
+
     /**
      * Perform regexp replacement as filter
-     * 
-     * @param  string $value 
+     *
+     * @param  string $value
      * @return string
      */
     public function filter($value)
@@ -149,8 +167,8 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
             require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception(get_class($this) . ' does not have a valid MatchPattern set.');
         }
-        
-        return preg_replace($this->_matchPattern, $this->_replacement, $value);    
+
+        return preg_replace($this->_matchPattern, $this->_replacement, $value);
     }
-    
+
 }

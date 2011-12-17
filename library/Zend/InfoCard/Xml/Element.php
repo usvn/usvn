@@ -15,15 +15,10 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 9094 2008-03-30 18:36:55Z thomas $
+ * @version    $Id: Element.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-/**
- * Zend_InfoCard_Xml_Exception
- */
-require_once 'Zend/InfoCard/Xml/Exception.php';
 
 /**
  * Zend_InfoCard_Xml_Element_Interface
@@ -31,17 +26,12 @@ require_once 'Zend/InfoCard/Xml/Exception.php';
 require_once 'Zend/InfoCard/Xml/Element/Interface.php';
 
 /**
- * Zend_Loader
- */
-require_once 'Zend/Loader.php';
-
-/**
  * An abstract class representing a an XML data block
  *
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_InfoCard_Xml_Element
@@ -72,6 +62,7 @@ abstract class Zend_InfoCard_Xml_Element
         if(!($dom instanceof DOMElement)) {
             // Zend_InfoCard_Xml_Element exntes SimpleXMLElement, so this should *never* fail
             // @codeCoverageIgnoreStart
+            require_once 'Zend/InfoCard/Xml/Exception.php';
             throw new Zend_InfoCard_Xml_Exception("Failed to convert between SimpleXML and DOM");
             // @codeCoverageIgnoreEnd
         }
@@ -89,12 +80,15 @@ abstract class Zend_InfoCard_Xml_Element
      */
     static public function convertToObject(DOMElement $e, $classname)
     {
-
-        Zend_Loader::loadClass($classname);
+        if (!class_exists($classname)) {
+            require_once 'Zend/Loader.php';
+            Zend_Loader::loadClass($classname);
+        }
 
         $reflection = new ReflectionClass($classname);
 
         if(!$reflection->isSubclassOf('Zend_InfoCard_Xml_Element')) {
+            require_once 'Zend/InfoCard/Xml/Exception.php';
             throw new Zend_InfoCard_Xml_Exception("DOM element must be converted to an instance of Zend_InfoCard_Xml_Element");
         }
 
@@ -103,6 +97,7 @@ abstract class Zend_InfoCard_Xml_Element
         if(!($sxe instanceof Zend_InfoCard_Xml_Element)) {
             // Since we just checked to see if this was a subclass of Zend_infoCard_Xml_Element this shoudl never fail
             // @codeCoverageIgnoreStart
+            require_once 'Zend/InfoCard/Xml/Exception.php';
             throw new Zend_InfoCard_Xml_Exception("Failed to convert between DOM and SimpleXML");
             // @codeCoverageIgnoreEnd
         }

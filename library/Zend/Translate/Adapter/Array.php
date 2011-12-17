@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Array.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,22 +30,12 @@ require_once 'Zend/Translate/Adapter.php';
 /**
  * @category   Zend
  * @package    Zend_Translate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter {
-    /**
-     * Generates the adapter
-     *
-     * @param  array               $data     Translation data
-     * @param  string|Zend_Locale  $locale   OPTIONAL Locale/Language to set, identical with locale identifier,
-     *                                       see Zend_Locale for more information
-     * @param  array               $options  OPTIONAL Options to set
-     */
-    public function __construct($data, $locale = null, array $options = array())
-    {
-        parent::__construct($data, $locale, $options);
-    }
+class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
+{
+    private $_data = array();
 
     /**
      * Load translation data
@@ -54,9 +44,11 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter {
      * @param  string        $locale  Locale/Language to add data for, identical with locale identifier,
      *                                see Zend_Locale for more information
      * @param  array         $options OPTIONAL Options to use
+     * @return array
      */
     protected function _loadTranslationData($data, $locale, array $options = array())
     {
+        $this->_data = array();
         if (!is_array($data)) {
             if (file_exists($data)) {
                 ob_start();
@@ -69,12 +61,12 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter {
             throw new Zend_Translate_Exception("Error including array or file '".$data."'");
         }
 
-        $options = $options + $this->_options;
-        if (($options['clear'] == true) ||  !isset($this->_translate[$locale])) {
-            $this->_translate[$locale] = array();
+        if (!isset($this->_data[$locale])) {
+            $this->_data[$locale] = array();
         }
 
-        $this->_translate[$locale] = $data + $this->_translate[$locale];
+        $this->_data[$locale] = $data + $this->_data[$locale];
+        return $this->_data;
     }
 
     /**

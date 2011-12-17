@@ -14,23 +14,24 @@
  *
  * @category   Zend
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Request.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-/** Zend_Amf_Parse_InputStream */
+/** @see Zend_Amf_Parse_InputStream */
 require_once 'Zend/Amf/Parse/InputStream.php';
 
-/** Zend_Amf_Parse_Amf0_Deserializer */
+/** @see Zend_Amf_Parse_Amf0_Deserializer */
 require_once 'Zend/Amf/Parse/Amf0/Deserializer.php';
 
-/** Zend_Amf_Constants */
+/** @see Zend_Amf_Constants */
 require_once 'Zend/Amf/Constants.php';
 
-/** Zend_Amf_Value_MessageHeader */
+/** @see Zend_Amf_Value_MessageHeader */
 require_once 'Zend/Amf/Value/MessageHeader.php';
 
-/** Zend_Amf_Value_MessageBody */
+/** @see Zend_Amf_Value_MessageBody */
 require_once 'Zend/Amf/Value/MessageBody.php';
 
 /**
@@ -39,7 +40,7 @@ require_once 'Zend/Amf/Value/MessageBody.php';
  *
  * @todo       Currently not checking if the object needs to be Type Mapped to a server object.
  * @package    Zend_Amf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Request
@@ -89,7 +90,7 @@ class Zend_Amf_Request
     public function initialize($request)
     {
         $this->_inputStream  = new Zend_Amf_Parse_InputStream($request);
-        $this->_deserializer = new Zend_Amf_Parse_AMF0_Deserializer($this->_inputStream);
+        $this->_deserializer = new Zend_Amf_Parse_Amf0_Deserializer($this->_inputStream);
         $this->readMessage($this->_inputStream);
         return $this;
     }
@@ -105,6 +106,7 @@ class Zend_Amf_Request
         $clientVersion = $stream->readUnsignedShort();
         if (($clientVersion != Zend_Amf_Constants::AMF0_OBJECT_ENCODING)
             && ($clientVersion != Zend_Amf_Constants::AMF3_OBJECT_ENCODING)
+            && ($clientVersion != Zend_Amf_Constants::FMS_OBJECT_ENCODING)
         ) {
             require_once 'Zend/Amf/Exception.php';
             throw new Zend_Amf_Exception('Unknown Player Version ' . $clientVersion);
@@ -149,7 +151,7 @@ class Zend_Amf_Request
             $data = $this->_deserializer->readTypeMarker();
         } catch (Exception $e) {
             require_once 'Zend/Amf/Exception.php';
-            throw new Zend_Amf_Exception('Unable to parse ' . $name . ' header data: ' . $e->getMessage() . ' '. $e->getLine());
+            throw new Zend_Amf_Exception('Unable to parse ' . $name . ' header data: ' . $e->getMessage() . ' '. $e->getLine(), 0, $e);
         }
 
         $header = new Zend_Amf_Value_MessageHeader($name, $mustRead, $data, $length);
@@ -171,7 +173,7 @@ class Zend_Amf_Request
             $data = $this->_deserializer->readTypeMarker();
         } catch (Exception $e) {
             require_once 'Zend/Amf/Exception.php';
-            throw new Zend_Amf_Exception('Unable to parse ' . $targetURI . ' body data ' . $e->getMessage());
+            throw new Zend_Amf_Exception('Unable to parse ' . $targetURI . ' body data ' . $e->getMessage(), 0, $e);
         }
 
         // Check for AMF3 objectEncoding
@@ -181,7 +183,7 @@ class Zend_Amf_Request
              * an AMF0 array called Content. The following code gets the object
              * out of the content array and sets it as the message data.
              */
-            if(is_array($data) && is_object($data[0])){
+            if(is_array($data) && $data[0] instanceof Zend_Amf_Value_Messaging_AbstractMessage){
                 $data = $data[0];
             }
 

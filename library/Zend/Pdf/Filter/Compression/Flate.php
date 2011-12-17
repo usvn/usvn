@@ -12,21 +12,22 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Flate.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
 /** Zend_Pdf_Filter_Compression */
 require_once 'Zend/Pdf/Filter/Compression.php';
 
-
 /**
  * Flate stream filter
  *
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
@@ -51,11 +52,13 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
 
             if (($output = @gzcompress($data)) === false) {
                 ini_set('track_errors', $trackErrors);
+                require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception($php_errormsg);
             }
 
             ini_set('track_errors', $trackErrors);
         } else {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Not implemented yet. You have to use zlib extension.');
         }
 
@@ -80,11 +83,13 @@ class Zend_Pdf_Filter_Compression_Flate extends Zend_Pdf_Filter_Compression
 
             if (($output = @gzuncompress($data)) === false) {
                 ini_set('track_errors', $trackErrors);
+                require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception($php_errormsg);
             }
 
             ini_set('track_errors', $trackErrors);
         } else {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Not implemented yet');
         }
 

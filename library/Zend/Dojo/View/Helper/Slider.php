@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Slider.php 13658 2009-01-15 23:37:30Z matthew $
+ * @version    $Id: Slider.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -25,11 +25,11 @@ require_once 'Zend/Dojo/View/Helper/Dijit.php';
 
 /**
  * Abstract class for Dojo Slider dijits
- * 
+ *
  * @uses       Zend_Dojo_View_Helper_Dijit
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
@@ -54,9 +54,9 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
 
     /**
      * dijit.form.Slider
-     * 
-     * @param  int $id 
-     * @param  mixed $value 
+     *
+     * @param  int $id
+     * @param  mixed $value
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @return string
@@ -137,10 +137,10 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
 
     /**
      * Prepare slider decoration
-     * 
-     * @param  string $position 
-     * @param  string $id 
-     * @param  array $decInfo 
+     *
+     * @param  string $position
+     * @param  string $id
+     * @param  array $decInfo
      * @return string
      */
     protected function _prepareDecoration($position, $id, $decInfo)
@@ -149,7 +149,7 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
             return '';
         }
 
-        if (!is_array($decInfo) 
+        if (!is_array($decInfo)
             || !array_key_exists('labels', $decInfo)
             || !is_array($decInfo['labels'])
         ) {
@@ -233,11 +233,11 @@ abstract class Zend_Dojo_View_Helper_Slider extends Zend_Dojo_View_Helper_Dijit
 
     /**
      * Prepare slider label list
-     * 
-     * @param  string $id 
-     * @param  array $params 
-     * @param  array $attribs 
-     * @param  array $labels 
+     *
+     * @param  string $id
+     * @param  array $params
+     * @param  array $attribs
+     * @param  array $labels
      * @return string
      */
     protected function _prepareLabelsList($id, array $params, array $attribs, array $labels)

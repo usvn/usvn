@@ -15,15 +15,10 @@
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EncryptedData.php 9094 2008-03-30 18:36:55Z thomas $
+ * @version    $Id: EncryptedData.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
-/**
- * Zend_InfoCard_Xml_EncryptedData
- */
-require_once 'Zend/InfoCard/Xml/Exception.php';
 
 /**
  * A factory class for producing Zend_InfoCard_Xml_EncryptedData objects based on
@@ -32,7 +27,7 @@ require_once 'Zend/InfoCard/Xml/Exception.php';
  * @category   Zend
  * @package    Zend_InfoCard
  * @subpackage Zend_InfoCard_Xml
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 final class Zend_InfoCard_Xml_EncryptedData
@@ -61,6 +56,7 @@ final class Zend_InfoCard_Xml_EncryptedData
         } else if (is_string($xmlData)) {
             $strXmlData = $xmlData;
         } else {
+            require_once 'Zend/InfoCard/Xml/Exception.php';
             throw new Zend_InfoCard_Xml_Exception("Invalid Data provided to create instance");
         }
 
@@ -71,7 +67,9 @@ final class Zend_InfoCard_Xml_EncryptedData
                 include_once 'Zend/InfoCard/Xml/EncryptedData/XmlEnc.php';
                 return simplexml_load_string($strXmlData, 'Zend_InfoCard_Xml_EncryptedData_XmlEnc');
             default:
+                require_once 'Zend/InfoCard/Xml/Exception.php';
                 throw new Zend_InfoCard_Xml_Exception("Unknown EncryptedData type found");
+                break;
         }
     }
 }

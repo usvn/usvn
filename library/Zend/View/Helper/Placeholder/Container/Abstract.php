@@ -12,10 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Abstract.php 9099 2008-03-30 19:35:47Z thomas $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Abstract.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -23,8 +24,8 @@
  * Abstract class representing container for placeholder values
  *
  * @package    Zend_View
- * @subpackage Helpers
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Helper
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObject
@@ -70,7 +71,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * @var string
      */
     protected $_indent = '';
-    
+
     /**
      * Whether or not we're already capturing for this given container
      * @var bool
@@ -88,7 +89,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * @var string
      */
     protected $_captureKey;
-    
+
     /**
      * Constructor - This is needed so that we can attach a class member as the ArrayObject container
      *
@@ -98,7 +99,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     {
         parent::__construct(array(), parent::ARRAY_AS_PROPS);
     }
-    
+
     /**
      * Set a single value
      *
@@ -112,8 +113,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
 
     /**
      * Prepend a value to the top of the container
-     * 
-     * @param  mixed $value 
+     *
+     * @param  mixed $value
      * @return void
      */
     public function prepend($value)
@@ -235,8 +236,8 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
 
     /**
      * Retrieve whitespace representation of $indent
-     * 
-     * @param  int|string $indent 
+     *
+     * @param  int|string $indent
      * @return string
      */
     public function getWhitespace($indent)
@@ -247,7 +248,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
 
         return (string) $indent;
     }
-   
+
     /**
      * Start capturing content to push into placeholder
      *
@@ -259,7 +260,9 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
     {
         if ($this->_captureLock) {
             require_once 'Zend/View/Helper/Placeholder/Container/Exception.php';
-            throw new Zend_View_Helper_Placeholder_Container_Exception('Cannot nest placeholder captures for the same placeholder');
+            $e = new Zend_View_Helper_Placeholder_Container_Exception('Cannot nest placeholder captures for the same placeholder');
+            $e->setView($this->view);
+            throw $e;
         }
 
         $this->_captureLock = true;
@@ -304,10 +307,10 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
             case self::APPEND:
             default:
                 if (null !== $key) {
-                    if (empty($this[$key])) {                                                       
-                        $this[$key] = $data;                                                       
-                    } else {                                                                       
-                        $this[$key] .= $data;                                                      
+                    if (empty($this[$key])) {
+                        $this[$key] = $data;
+                    } else {
+                        $this[$key] .= $data;
                     }
                 } else {
                     $this[$this->nextIndex()] = $data;
@@ -318,7 +321,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
 
     /**
      * Get keys
-     * 
+     *
      * @return array
      */
     public function getKeys()
@@ -342,7 +345,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
 
         return $nextIndex = max($keys) + 1;
     }
-    
+
     /**
      * Render the placeholder
      *
@@ -350,12 +353,12 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      */
     public function toString($indent = null)
     {
-        $indent = ($indent !== null) 
-                ? $this->getWhitespace($indent) 
+        $indent = ($indent !== null)
+                ? $this->getWhitespace($indent)
                 : $this->getIndent();
-        
+
         $items  = $this->getArrayCopy();
-        $return = $indent 
+        $return = $indent
                 . $this->getPrefix()
                 . implode($this->getSeparator(), $items)
                 . $this->getPostfix();

@@ -16,8 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: FeedEntryParent.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -76,7 +77,7 @@ require_once 'Zend/Version.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage App
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
@@ -132,21 +133,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
     {
         if (!($element instanceof DOMElement)) {
             if ($element) {
-                // Load the feed as an XML DOMDocument object
-                @ini_set('track_errors', 1);
-                $doc = new DOMDocument();
-                $success = @$doc->loadXML($element);
-                @ini_restore('track_errors');
-                if (!$success) {
-                    require_once 'Zend/Gdata/App/Exception.php';
-                    throw new Zend_Gdata_App_Exception("DOMDocument cannot parse XML: $php_errormsg");
-                }
-                $element = $doc->getElementsByTagName($this->_rootElement)->item(0);
-                if (!$element) {
-                    require_once 'Zend/Gdata/App/Exception.php';
-                    throw new Zend_Gdata_App_Exception('No root <' . $this->_rootElement . '> element found, cannot parse feed.');
-                }
-                $this->transferFromDOM($element);
+                $this->transferFromXML($element);
             }
         } else {
             $this->transferFromDOM($element);
@@ -161,7 +148,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * @deprecated Deprecated as of Zend Framework 1.7. Use
      *             setService() instead.
      * @param  Zend_Http_Client $httpClient
-     * @return Zend_Gdata_App_Feed Provides a fluent interface
+     * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setHttpClient(Zend_Http_Client $httpClient)
     {
@@ -547,7 +534,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * an atom:title element in a feed or entry
      *
      * @param Zend_Gdata_App_Extension_Title $value
-     * @return Zend_Gdata_App_Feed_Entry_Parent Provides a fluent interface
+     * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setTitle($value)
     {
@@ -565,7 +552,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
 
     /**
      * @param Zend_Gdata_App_Extension_Updated $value
-     * @return Zend_Gdata_App_Feed_Entry_Parent Provides a fluent interface
+     * @return Zend_Gdata_App_FeedEntryParent Provides a fluent interface
      */
     public function setUpdated($value)
     {
@@ -605,7 +592,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      */
     public function setMajorProtocolVersion($value)
     {
-        if (!($value >= 1) && !is_null($value)) {
+        if (!($value >= 1) && ($value !== null)) {
             require_once('Zend/Gdata/App/InvalidArgumentException.php');
             throw new Zend_Gdata_App_InvalidArgumentException(
                     'Major protocol version must be >= 1');
@@ -662,7 +649,7 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
      * namespaces and returns the full namespace URI if
      * available. Returns the prefix, unmodified, if it's not
      * registered.
-     * 
+     *
      * The current entry or feed's version will be used when performing the
      * namespace lookup unless overridden using $majorVersion and
      * $minorVersion. If the entry/fee has a null version, then the latest
@@ -680,13 +667,13 @@ abstract class Zend_Gdata_App_FeedEntryParent extends Zend_Gdata_App_Base
                                     $minorVersion = null)
     {
         // Auto-select current version
-        if (is_null($majorVersion)) {
+        if ($majorVersion === null) {
             $majorVersion = $this->getMajorProtocolVersion();
         }
-        if (is_null($minorVersion)) {
+        if ($minorVersion === null) {
             $minorVersion = $this->getMinorProtocolVersion();
         }
-        
+
         // Perform lookup
         return parent::lookupNamespace($prefix, $majorVersion, $minorVersion);
     }

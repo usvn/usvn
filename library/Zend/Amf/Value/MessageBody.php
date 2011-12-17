@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Amf
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: MessageBody.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -32,7 +33,7 @@
  *
  * @package    Zend_Amf
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Amf_Value_MessageBody
@@ -53,7 +54,7 @@ class Zend_Amf_Value_MessageBody
      * contains the connection state information. Passing/specifying this
      * provides a convenient mechanism for the client/server to share access
      * to an object that is managing the state of the shared connection.
-     * 
+     *
      * Since the server will use this field in the event of an error,
      * this field is required even if a successful server request would
      * not be expected to return a value to the client.
@@ -79,10 +80,10 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Constructor
-     * 
-     * @param  string $targetUri 
-     * @param  string $responseUri 
-     * @param  string $data 
+     *
+     * @param  string $targetUri
+     * @param  string $responseUri
+     * @param  string $data
      * @return void
      */
     public function __construct($targetUri, $responseUri, $data)
@@ -94,7 +95,7 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Retrieve target Uri
-     * 
+     *
      * @return string
      */
     public function getTargetUri()
@@ -104,8 +105,8 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Set target Uri
-     * 
-     * @param  string $targetUri 
+     *
+     * @param  string $targetUri
      * @return Zend_Amf_Value_MessageBody
      */
     public function setTargetUri($targetUri)
@@ -119,7 +120,7 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Get target Uri
-     * 
+     *
      * @return string
      */
     public function getResponseUri()
@@ -129,8 +130,8 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Set response Uri
-     * 
-     * @param  string $responseUri 
+     *
+     * @param  string $responseUri
      * @return Zend_Amf_Value_MessageBody
      */
     public function setResponseUri($responseUri)
@@ -144,7 +145,7 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Retrieve response data
-     * 
+     *
      * @return string
      */
     public function getData()
@@ -154,8 +155,8 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Set response data
-     * 
-     * @param  mixed $data 
+     *
+     * @param  mixed $data
      * @return Zend_Amf_Value_MessageBody
      */
     public function setData($data)
@@ -166,8 +167,8 @@ class Zend_Amf_Value_MessageBody
 
     /**
      * Set reply method
-     * 
-     * @param  string $methodName 
+     *
+     * @param  string $methodName
      * @return Zend_Amf_Value_MessageBody
      */
     public function setReplyMethod($methodName)

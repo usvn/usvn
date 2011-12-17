@@ -11,13 +11,13 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
- * 
+ *
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pop3.php 9099 2008-03-30 19:35:47Z thomas $
+ * @version    $Id: Pop3.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 
@@ -41,7 +41,7 @@ require_once 'Zend/Mail/Message.php';
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Storage
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
@@ -244,7 +244,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             }
             $count = $this->countMessages();
             if ($count < 1) {
-                return array(); 
+                return array();
             }
             $range = range(1, $count);
             return array_combine($range, $range);

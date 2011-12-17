@@ -12,10 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Registry.php 9099 2008-03-30 19:35:47Z thomas $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Registry.php 20096 2010-01-06 02:05:09Z bkarwin $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -33,9 +34,9 @@ require_once 'Zend/View/Helper/Placeholder/Container.php';
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */ 
+ */
 class Zend_View_Helper_Placeholder_Registry
 {
     /**
@@ -58,7 +59,7 @@ class Zend_View_Helper_Placeholder_Registry
 
     /**
      * Retrieve or create registry instnace
-     * 
+     *
      * @return void
      */
     public static function getRegistry()
@@ -74,10 +75,10 @@ class Zend_View_Helper_Placeholder_Registry
     }
 
     /**
-     * createContainer 
-     * 
-     * @param  string $key 
-     * @param  array $value 
+     * createContainer
+     *
+     * @param  string $key
+     * @param  array $value
      * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     public function createContainer($key, array $value = array())
@@ -90,8 +91,8 @@ class Zend_View_Helper_Placeholder_Registry
 
     /**
      * Retrieve a placeholder container
-     * 
-     * @param  string $key 
+     *
+     * @param  string $key
      * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     public function getContainer($key)
@@ -108,8 +109,8 @@ class Zend_View_Helper_Placeholder_Registry
 
     /**
      * Does a particular container exist?
-     * 
-     * @param  string $key 
+     *
+     * @param  string $key
      * @return bool
      */
     public function containerExists($key)
@@ -121,9 +122,9 @@ class Zend_View_Helper_Placeholder_Registry
 
     /**
      * Set the container for an item in the registry
-     * 
-     * @param  string $key 
-     * @param  Zend_View_Placeholder_Container_Abstract $container 
+     *
+     * @param  string $key
+     * @param  Zend_View_Placeholder_Container_Abstract $container
      * @return Zend_View_Placeholder_Registry
      */
     public function setContainer($key, Zend_View_Helper_Placeholder_Container_Abstract $container)
@@ -135,8 +136,8 @@ class Zend_View_Helper_Placeholder_Registry
 
     /**
      * Delete a container
-     * 
-     * @param  string $key 
+     *
+     * @param  string $key
      * @return bool
      */
     public function deleteContainer($key)
@@ -152,19 +153,23 @@ class Zend_View_Helper_Placeholder_Registry
 
     /**
      * Set the container class to use
-     * 
-     * @param  string $name 
+     *
+     * @param  string $name
      * @return Zend_View_Helper_Placeholder_Registry
      */
     public function setContainerClass($name)
     {
-        require_once 'Zend/Loader.php';
-        Zend_Loader::loadClass($name);
+        if (!class_exists($name)) {
+            require_once 'Zend/Loader.php';
+            Zend_Loader::loadClass($name);
+        }
 
         $reflection = new ReflectionClass($name);
         if (!$reflection->isSubclassOf(new ReflectionClass('Zend_View_Helper_Placeholder_Container_Abstract'))) {
             require_once 'Zend/View/Helper/Placeholder/Registry/Exception.php';
-            throw new Zend_View_Helper_Placeholder_Registry_Exception('Invalid Container class specified');
+            $e = new Zend_View_Helper_Placeholder_Registry_Exception('Invalid Container class specified');
+            $e->setView($this->view);
+            throw $e;
         }
 
         $this->_containerClass = $name;
@@ -173,7 +178,7 @@ class Zend_View_Helper_Placeholder_Registry
 
     /**
      * Retrieve the container class
-     * 
+     *
      * @return string
      */
     public function getContainerClass()

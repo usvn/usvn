@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Dispatcher
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Standard.php 22039 2010-04-28 18:56:43Z matthew $
  */
 
 /** Zend_Loader */
@@ -29,7 +30,7 @@ require_once 'Zend/Controller/Dispatcher/Abstract.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Dispatcher
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abstract
@@ -134,8 +135,8 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
 
     /**
      * Remove a controller directory by module name
-     * 
-     * @param  string $module 
+     *
+     * @param  string $module
      * @return bool
      */
     public function removeControllerDirectory($module)
@@ -205,7 +206,13 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
             return false;
         }
 
-        if (class_exists($className, false)) {
+        $finalClass  = $className;
+        if (($this->_defaultModule != $this->_curModule)
+            || $this->getParam('prefixDefaultModule'))
+        {
+            $finalClass = $this->formatClassName($this->_curModule, $className);
+        }
+        if (class_exists($finalClass, false)) {
             return true;
         }
 
@@ -259,9 +266,12 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
          * arguments; throw exception if it's not an action controller
          */
         $controller = new $className($request, $this->getResponse(), $this->getParams());
-        if (!$controller instanceof Zend_Controller_Action) {
+        if (!($controller instanceof Zend_Controller_Action_Interface) &&
+            !($controller instanceof Zend_Controller_Action)) {
             require_once 'Zend/Controller/Dispatcher/Exception.php';
-            throw new Zend_Controller_Dispatcher_Exception("Controller '$className' is not an instance of Zend_Controller_Action");
+            throw new Zend_Controller_Dispatcher_Exception(
+                'Controller "' . $className . '" is not an instance of Zend_Controller_Action_Interface'
+            );
         }
 
         /**
@@ -292,7 +302,6 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
                     $curObLevel = ob_get_level();
                 } while ($curObLevel > $obLevel);
             }
-
             throw $e;
         }
 
@@ -319,8 +328,8 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
     public function loadClass($className)
     {
         $finalClass  = $className;
-        if (($this->_defaultModule != $this->_curModule) 
-            || $this->getParam('prefixDefaultModule')) 
+        if (($this->_defaultModule != $this->_curModule)
+            || $this->getParam('prefixDefaultModule'))
         {
             $finalClass = $this->formatClassName($this->_curModule, $className);
         }
@@ -331,7 +340,9 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         $dispatchDir = $this->getDispatchDirectory();
         $loadFile    = $dispatchDir . DIRECTORY_SEPARATOR . $this->classToFilename($className);
 
-        if (!include_once $loadFile) {
+        if (Zend_Loader::isReadable($loadFile)) {
+            include_once $loadFile;
+        } else {
             require_once 'Zend/Controller/Dispatcher/Exception.php';
             throw new Zend_Controller_Dispatcher_Exception('Cannot load controller class "' . $className . '" from file "' . $loadFile . "'");
         }

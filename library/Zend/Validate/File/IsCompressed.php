@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id: $
+ * @version   $Id: IsCompressed.php 22697 2010-07-26 21:14:47Z alexander $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Validate/File/MimeType.php';
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
@@ -45,89 +45,105 @@ class Zend_Validate_File_IsCompressed extends Zend_Validate_File_MimeType
      * @var array Error message templates
      */
     protected $_messageTemplates = array(
-        self::FALSE_TYPE   => "The file '%value%' is not compressed, '%type%' detected",
-        self::NOT_DETECTED => "The mimetype of file '%value%' has not been detected",
-        self::NOT_READABLE => "The file '%value%' can not be read"
+        self::FALSE_TYPE   => "File '%value%' is not compressed, '%type%' detected",
+        self::NOT_DETECTED => "The mimetype of file '%value%' could not been detected",
+        self::NOT_READABLE => "File '%value%' can not be read",
     );
 
     /**
      * Sets validator options
      *
-     * @param  string|array $compression
+     * @param  string|array|Zend_Config $compression
      * @return void
      */
     public function __construct($mimetype = array())
     {
-        if (empty($mimetype)) {
-            $mimetype = array(
-                'application/x-tar',
-                'application/x-cpio',
-                'application/x-debian-package',
-                'application/x-archive',
-                'application/x-arc',
-                'application/x-arj',
-                'application/x-lharc',
-                'application/x-lha',
-                'application/x-rar',
-                'application/zip',
-                'application/zoo',
-                'application/x-eet',
-                'application/x-java-pack200',
-                'application/x-compress',
-                'application/x-gzip',
-                'application/x-bzip2'
-            );
+        if ($mimetype instanceof Zend_Config) {
+            $mimetype = $mimetype->toArray();
         }
 
-        $this->setMimeType($mimetype);
+        $temp    = array();
+        // http://de.wikipedia.org/wiki/Liste_von_Dateiendungen
+            $default = array(
+            'application/arj',
+            'application/gnutar',
+            'application/lha',
+            'application/lzx',
+            'application/vnd.ms-cab-compressed',
+            'application/x-ace-compressed',
+            'application/x-arc',
+            'application/x-archive',
+            'application/x-arj',
+            'application/x-bzip',
+            'application/x-bzip2',
+            'application/x-cab-compressed',
+            'application/x-compress',
+            'application/x-compressed',
+            'application/x-cpio',
+            'application/x-debian-package',
+            'application/x-eet',
+            'application/x-gzip',
+            'application/x-java-pack200',
+            'application/x-lha',
+            'application/x-lharc',
+            'application/x-lzh',
+            'application/x-lzma',
+            'application/x-lzx',
+            'application/x-rar',
+            'application/x-sit',
+            'application/x-stuffit',
+            'application/x-tar',
+            'application/zip',
+            'application/zoo',
+            'multipart/x-gzip',
+        );
+
+        if (is_array($mimetype)) {
+            $temp = $mimetype;
+            if (array_key_exists('magicfile', $temp)) {
+                unset($temp['magicfile']);
+            }
+
+            if (array_key_exists('headerCheck', $temp)) {
+                unset($temp['headerCheck']);
+            }
+
+            if (empty($temp)) {
+                $mimetype += $default;
+            }
+        }
+
+        if (empty($mimetype)) {
+            $mimetype = $default;
+        }
+
+        parent::__construct($mimetype);
     }
 
     /**
-     * Defined by Zend_Validate_Interface
+     * Throws an error of the given type
+     * Duplicates parent method due to OOP Problem with late static binding in PHP 5.2
      *
-     * Returns true if and only if the file is compression with the set compression types
-     *
-     * @param  string  $value Real file to check for compression
-     * @param  array   $file  File data from Zend_File_Transfer
-     * @return boolean
+     * @param  string $file
+     * @param  string $errorType
+     * @return false
      */
-    public function isValid($value, $file = null)
+    protected function _throw($file, $errorType)
     {
-        // Is file readable ?
-        require_once 'Zend/Loader.php';
-        if (!Zend_Loader::isReadable($value)) {
-            return $this->_throw($file, self::NOT_READABLE);
+        $this->_value = $file['name'];
+        switch($errorType) {
+            case Zend_Validate_File_MimeType::FALSE_TYPE :
+                $errorType = self::FALSE_TYPE;
+                break;
+            case Zend_Validate_File_MimeType::NOT_DETECTED :
+                $errorType = self::NOT_DETECTED;
+                break;
+            case Zend_Validate_File_MimeType::NOT_READABLE :
+                $errorType = self::NOT_READABLE;
+                break;
         }
 
-        if ($file !== null) {
-            if (class_exists('finfo', false) && defined('MAGIC')) {
-                $mime = new finfo(FILEINFO_MIME);
-                $this->_type = $mime->file($value);
-                unset($mime);
-            } elseif (function_exists('mime_content_type') && ini_get('mime_magic.magicfile')) {
-                $this->_type = mime_content_type($value);
-            } else {
-                $this->_type = $file['type'];
-            }
-        }
-
-        if (empty($this->_type)) {
-            return $this->_throw($file, self::NOT_DETECTED);
-        }
-
-        $compressions = $this->getMimeType(true);
-        if (in_array($this->_type, $compressions)) {
-            return true;
-        }
-
-        $types = explode('/', $this->_type);
-        $types = array_merge($types, explode('-', $this->_type));
-        foreach ($compressions as $mime) {
-            if (in_array($mime, $types)) {
-                return true;
-            }
-        }
-
-        return $this->_throw($file, self::FALSE_TYPE);
+        $this->_error($errorType);
+        return false;
     }
 }

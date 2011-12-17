@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,22 +14,20 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: StringTrim.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: StringTrim.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
-
 
 /**
  * @see Zend_Filter_Interface
  */
 require_once 'Zend/Filter/Interface.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_StringTrim implements Zend_Filter_Interface
@@ -48,12 +45,22 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
     /**
      * Sets filter options
      *
-     * @param  string $charList
+     * @param  string|array|Zend_Config $charList
      * @return void
      */
     public function __construct($charList = null)
     {
-        $this->_charList = $charList;
+        if ($charList instanceof Zend_Config) {
+            $charList = $charList->toArray();
+        } else if (!is_array($charList)) {
+            $options          = func_get_args();
+            $temp['charlist'] = array_shift($options);
+            $options          = $temp;
+        }
+
+        if (array_key_exists('charlist', $options)) {
+            $this->setCharList($options['charlist']);
+        }
     }
 
     /**
@@ -89,9 +96,29 @@ class Zend_Filter_StringTrim implements Zend_Filter_Interface
     public function filter($value)
     {
         if (null === $this->_charList) {
-            return trim((string) $value);
+            return $this->_unicodeTrim((string) $value);
         } else {
-            return trim((string) $value, $this->_charList);
+            return $this->_unicodeTrim((string) $value, $this->_charList);
         }
+    }
+
+    /**
+     * Unicode aware trim method
+     * Fixes a PHP problem
+     *
+     * @param string $value
+     * @param string $charlist
+     * @return string
+     */
+    protected function _unicodeTrim($value, $charlist = '\\\\s')
+    {
+        $chars = preg_replace(
+            array( '/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'),
+            array( '\\\\\\0', '\\', '\/' ),
+            $charlist
+        );
+
+        $pattern = '^[' . $chars . ']*|[' . $chars . ']*$';
+        return preg_replace("/$pattern/sSD", '', $value);
     }
 }

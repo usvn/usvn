@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Oracle.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -30,16 +31,11 @@ require_once 'Zend/Db/Statement.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 {
-
-    /**
-     * The connection_stmt object.
-     */
-    protected $_stmt;
 
     /**
      * Column names.
@@ -233,16 +229,9 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
     public function _execute(array $params = null)
     {
         $connection = $this->_adapter->getConnection();
+
         if (!$this->_stmt) {
             return false;
-        }
-
-        if (! $this->_stmt) {
-            /**
-             * @see Zend_Db_Adapter_Oracle_Exception
-             */
-            require_once 'Zend/Db/Statement/Oracle/Exception.php';
-            throw new Zend_Db_Statement_Oracle_Exception(oci_error($connection));
         }
 
         if ($params !== null) {
@@ -313,19 +302,19 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
 
         switch ($style) {
             case Zend_Db::FETCH_NUM:
-                $row = oci_fetch_array($this->_stmt, OCI_NUM | $lob_as_string);
+                $row = oci_fetch_array($this->_stmt, OCI_NUM | OCI_RETURN_NULLS | $lob_as_string);
                 break;
             case Zend_Db::FETCH_ASSOC:
-                $row = oci_fetch_array($this->_stmt, OCI_ASSOC | $lob_as_string);
+                $row = oci_fetch_array($this->_stmt, OCI_ASSOC | OCI_RETURN_NULLS | $lob_as_string);
                 break;
             case Zend_Db::FETCH_BOTH:
-                $row = oci_fetch_array($this->_stmt, OCI_BOTH | $lob_as_string);
+                $row = oci_fetch_array($this->_stmt, OCI_BOTH | OCI_RETURN_NULLS | $lob_as_string);
                 break;
             case Zend_Db::FETCH_OBJ:
                 $row = oci_fetch_object($this->_stmt);
                 break;
             case Zend_Db::FETCH_BOUND:
-                $row = oci_fetch_array($this->_stmt, OCI_BOTH | $lob_as_string);
+                $row = oci_fetch_array($this->_stmt, OCI_BOTH | OCI_RETURN_NULLS | $lob_as_string);
                 if ($row !== false) {
                     return $this->_fetchBound($row);
                 }
@@ -350,6 +339,10 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
              */
             require_once 'Zend/Db/Statement/Oracle/Exception.php';
             throw new Zend_Db_Statement_Oracle_Exception($error);
+        }
+
+        if (is_array($row) && array_key_exists('zend_db_rownum', $row)) {
+            unset($row['zend_db_rownum']);
         }
 
         return $row;
@@ -435,6 +428,11 @@ class Zend_Db_Statement_Oracle extends Zend_Db_Statement
             }
             if ($style == Zend_Db::FETCH_COLUMN) {
                 $result = $result[$col];
+            }
+            foreach ($result as &$row) {
+                if (is_array($row) && array_key_exists('zend_db_rownum', $row)) {
+                    unset($row['zend_db_rownum']);
+                }
             }
         } else {
             while (($row = oci_fetch_object($this->_stmt)) !== false) {

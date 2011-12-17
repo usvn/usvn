@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: CamelCaseToUnderscore.php 6779 2007-11-08 15:10:41Z matthew $
+ * @version    $Id: SeparatorToSeparator.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Filter/PregReplace.php';
 /**
  * @category   Zend
  * @package    Zend_Filter
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
@@ -38,7 +38,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
 
     /**
      * Constructor
-     * 
+     *
      * @param  string  $searchSeparator      Seperator to search for
      * @param  string  $replacementSeperator Seperator to replace with
      * @return void
@@ -51,7 +51,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
 
     /**
      * Sets a new seperator to search for
-     * 
+     *
      * @param  string  $separator  Seperator to search for
      * @return $this
      */
@@ -63,7 +63,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
 
     /**
      * Returns the actual set seperator to search for
-     * 
+     *
      * @return  string
      */
     public function getSearchSeparator()
@@ -73,7 +73,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
 
     /**
      * Sets a new seperator which replaces the searched one
-     * 
+     *
      * @param  string  $separator  Seperator which replaces the searched one
      * @return $this
      */
@@ -85,7 +85,7 @@ class Zend_Filter_Word_SeparatorToSeparator extends Zend_Filter_PregReplace
 
     /**
      * Returns the actual set seperator which replaces the searched one
-     * 
+     *
      * @return  string
      */
     public function getReplacementSeparator()

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -15,22 +14,20 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: GreaterThan.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: GreaterThan.php 20358 2010-01-17 19:03:49Z thomas $
  */
-
 
 /**
  * @see Zend_Validate_Abstract
  */
 require_once 'Zend/Validate/Abstract.php';
 
-
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
@@ -42,7 +39,7 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_GREATER => "'%value%' is not greater than '%min%'"
+        self::NOT_GREATER => "'%value%' is not greater than '%min%'",
     );
 
     /**
@@ -62,11 +59,24 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
     /**
      * Sets validator options
      *
-     * @param  mixed $min
+     * @param  mixed|Zend_Config $min
      * @return void
      */
     public function __construct($min)
     {
+        if ($min instanceof Zend_Config) {
+            $min = $min->toArray();
+        }
+
+        if (is_array($min)) {
+            if (array_key_exists('min', $min)) {
+                $min = $min['min'];
+            } else {
+                require_once 'Zend/Validate/Exception.php';
+                throw new Zend_Validate_Exception("Missing option 'min'");
+            }
+        }
+
         $this->setMin($min);
     }
 
@@ -105,7 +115,7 @@ class Zend_Validate_GreaterThan extends Zend_Validate_Abstract
         $this->_setValue($value);
 
         if ($this->_min >= $value) {
-            $this->_error();
+            $this->_error(self::NOT_GREATER);
             return false;
         }
         return true;

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -26,20 +26,20 @@ require_once 'Zend/Form/Decorator/Abstract.php';
  * Zend_Form_Decorator_Errors
  *
  * Any options passed will be used as HTML attributes of the ul tag for the errors.
- * 
+ *
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Errors.php 8064 2008-02-16 10:58:39Z thomas $
+ * @version    $Id: Errors.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 class Zend_Form_Decorator_Errors extends Zend_Form_Decorator_Abstract
 {
     /**
      * Render errors
-     * 
-     * @param  string $content 
+     *
+     * @param  string $content
      * @return string
      */
     public function render($content)
@@ -57,7 +57,7 @@ class Zend_Form_Decorator_Errors extends Zend_Form_Decorator_Abstract
 
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
-        $errors    = $view->formErrors($errors, $this->getOptions()); 
+        $errors    = $view->formErrors($errors, $this->getOptions());
 
         switch ($placement) {
             case self::APPEND:

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlFlash.php 11525 2008-09-26 18:40:19Z norm2782 $
+ * @version    $Id: HtmlFlash.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/View/Helper/HtmlObject.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HtmlFlash extends Zend_View_Helper_HtmlObject
@@ -39,7 +39,7 @@ class Zend_View_Helper_HtmlFlash extends Zend_View_Helper_HtmlObject
      *
      */
     const TYPE = 'application/x-shockwave-flash';
-    
+
     /**
      * Output a flash movie object tag
      *

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Iterator.php 11222 2008-09-04 03:18:34Z mratzloff $
+ * @version    $Id: Iterator.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -25,20 +25,25 @@
 require_once 'Zend/Paginator/Adapter/Interface.php';
 
 /**
+ * @see Zend_Paginator_SerializableLimitIterator
+ */
+require_once 'Zend/Paginator/SerializableLimitIterator.php';
+
+/**
  * @category   Zend
  * @package    Zend_Paginator
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interface
 {
     /**
      * Iterator which implements Countable
-     * 
+     *
      * @var Iterator
      */
     protected $_iterator = null;
-    
+
     /**
      * Item count
      *
@@ -48,7 +53,7 @@ class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interfac
 
     /**
      * Constructor.
-     * 
+     *
      * @param  Iterator $iterator Iterator to paginate
      * @throws Zend_Paginator_Exception
      */
@@ -59,7 +64,7 @@ class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interfac
              * @see Zend_Paginator_Exception
              */
             require_once 'Zend/Paginator/Exception.php';
-            
+
             throw new Zend_Paginator_Exception('Iterator must implement Countable');
         }
 
@@ -80,7 +85,9 @@ class Zend_Paginator_Adapter_Iterator implements Zend_Paginator_Adapter_Interfac
             return array();
         }
 
-        return new LimitIterator($this->_iterator, $offset, $itemCountPerPage);
+        // @link http://bugs.php.net/bug.php?id=49906 | ZF-8084
+        // return new LimitIterator($this->_iterator, $offset, $itemCountPerPage);
+        return new Zend_Paginator_SerializableLimitIterator($this->_iterator, $offset, $itemCountPerPage);
     }
 
     /**

@@ -14,8 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: HttpTestCase.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
 /**
@@ -28,13 +29,13 @@ require_once 'Zend/Controller/Response/Http.php';
  *
  * @uses Zend_Controller_Response_Http
  * @package Zend_Controller
- * @subpackage Request
+ * @subpackage Response
  */
 class Zend_Controller_Response_HttpTestCase extends Zend_Controller_Response_Http
 {
     /**
      * "send" headers by returning array of all headers that would be sent
-     * 
+     *
      * @return array
      */
     public function sendHeaders()
@@ -59,8 +60,8 @@ class Zend_Controller_Response_HttpTestCase extends Zend_Controller_Response_Htt
 
     /**
      * Can we send headers?
-     * 
-     * @param  bool $throw 
+     *
+     * @param  bool $throw
      * @return void
      */
     public function canSendHeaders($throw = false)
@@ -70,7 +71,7 @@ class Zend_Controller_Response_HttpTestCase extends Zend_Controller_Response_Htt
 
     /**
      * Return the concatenated body segments
-     * 
+     *
      * @return string
      */
     public function outputBody()
@@ -84,8 +85,8 @@ class Zend_Controller_Response_HttpTestCase extends Zend_Controller_Response_Htt
 
     /**
      * Get body and/or body segments
-     * 
-     * @param  bool|string $spec 
+     *
+     * @param  bool|string $spec
      * @return string|array|null
      */
     public function getBody($spec = false)
@@ -104,9 +105,9 @@ class Zend_Controller_Response_HttpTestCase extends Zend_Controller_Response_Htt
     /**
      * "send" Response
      *
-     * Concats all response headers, and then final body (separated by two 
+     * Concats all response headers, and then final body (separated by two
      * newlines)
-     * 
+     *
      * @return string
      */
     public function sendResponse()

@@ -44,11 +44,50 @@ class USVN_Project
 				}
 			}
 			if ($tmp_path === $path . DIRECTORY_SEPARATOR) {
-				@mkdir($path, 0700, true);
+			    if ($mod = $config->subversion->chmod) {
+			        $mod = intval($mod, 8);
+			    } else {
+			        $mod = 0700;
+			    }
+				@mkdir($path, $mod, true);
+				@chmod($path, $mod); // mkdir is bogus
+				
 				USVN_SVNUtils::createSVN($path);
+				
 				if ($create_dir) {
 					USVN_SVNUtils::createStandardDirectories($path);
 				}
+				
+				// apply files rights
+				$iterator = new RecursiveIteratorIterator(
+        	        new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
+        	        RecursiveIteratorIterator::CHILD_FIRST
+        	    );
+			    foreach ($iterator as $file) {
+    	            @chmod((string) $file, $mod);
+        	    }
+        	    
+				
+		        // apply special dir rights on repo/db
+			    if ($mod = $config->subversion->chmod_db) {
+			        $mod = intval($mod, 8);
+			        $dbPath = $path.'/db';
+    				@chmod($dbPath, $mod);
+			        
+    			    $iterator = new RecursiveIteratorIterator(
+            	        new RecursiveDirectoryIterator($dbPath, FilesystemIterator::SKIP_DOTS),
+            	        RecursiveIteratorIterator::CHILD_FIRST
+            	    );
+            	    foreach ($iterator as $file) {
+            	        if ($file->isDir()) {
+            	            @chmod((string) $file, $mod);
+            	        }
+            	    }
+			        //$escape_path = escapeshellarg($path);
+			        //USVN_ConsoleUtils::runCmdCaptureMessage("chmod g+s $escape_path/*/db && find $escape_path/*/db -type d ! -perm -g=s | xargs chmod g+s", $return);
+    				//@USVN_DirectoryUtils::chmodRecursive($path.'/db', intval($mod, 8));
+			    }
+				
 			} else {
 				$message = "One of these repository's subfolders is a subversion repository.";
 				throw new USVN_Exception(T_("Can't create subversion repository:<br />%s"), $message);

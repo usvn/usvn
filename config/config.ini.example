@@ -18,6 +18,10 @@ subversion.passwd = "/Library/WebServer/Subversion.htpasswd"
 subversion.authz = "/Library/WebServer/Subversion.authz"
 ;; URL to access the repository
 subversion.url = "http://localhost/svn/"
+;; svn files mod on creation
+subversion.chmod = "0770"
+;; svn repo/db/* directories mod (used on fcgi env)
+subversion.chmod_db = "2770"
 
 ;; Database adapter name
 database.adapterName = "MYSQLI"

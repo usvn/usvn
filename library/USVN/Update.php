@@ -29,30 +29,35 @@ class USVN_Update
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		if ($config->version == '1.0.0')
 		{
-			$config->version = '1.0.5';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->version = '1.0.6';//DONT REPLACE WITH USVN_CONFIG_VERSION
 			$config->save();
 		}
 		else if ($config->version == '1.0.1')//DONT REPLACE WITH USVN_CONFIG_VERSION
 		{
-			$config->version = '1.0.5';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->version = '1.0.6';//DONT REPLACE WITH USVN_CONFIG_VERSION
 			$config->save();
 		}
 		else if ($config->version == '1.0.2')//DONT REPLACE WITH USVN_CONFIG_VERSION
 		{
-			$config->version = '1.0.5';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->version = '1.0.6';//DONT REPLACE WITH USVN_CONFIG_VERSION
 			$config->save();
 		}
         else if ($config->version == '1.0.3')//DONT REPLACE WITH USVN_CONFIG_VERSION
 		{
-			$config->version = '1.0.5';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->version = '1.0.6';//DONT REPLACE WITH USVN_CONFIG_VERSION
 			$config->save();
 		}
         else if ($config->version == '1.0.4')//DONT REPLACE WITH USVN_CONFIG_VERSION
 		{
-			$config->version = '1.0.5';//DONT REPLACE WITH USVN_CONFIG_VERSION
+			$config->version = '1.0.6';//DONT REPLACE WITH USVN_CONFIG_VERSION
 			$config->save();
 		}
-		else
+        else if ($config->version == '1.0.5')//DONT REPLACE WITH USVN_CONFIG_VERSION
+        {
+            $config->version = '1.0.6';//DONT REPLACE WITH USVN_CONFIG_VERSION
+            $config->save();
+        }
+        else
 		{
 			die("Cannot update from version {$config->version}");
 //			$this->view->error = 'Cannot update from this version';

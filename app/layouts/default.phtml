@@ -24,9 +24,9 @@
 		<div id="header">
 			<div id="shaddow">
 				<div id="header-wrapper">
-					<div id="logo" style="background: transparent url('<?= $config->url->base . '/' . $config->site->logo ?>') no-repeat 0px 0px;">
-						&nbsp;
-					</div>
+					<a href="<?= $this->url(array('controller' => $menuLink), 'default', true) ?>">
+						<div id="logo" style="background: transparent url('<?= $config->url->base . '/' . $config->site->logo ?>') no-repeat 0px 0px;"></div>
+					</a>
 					<div id="main-menu">
 						<ul>
 							<? if ($this->isLogged): ?>

@@ -133,8 +133,8 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 		if (empty($login) || preg_match('/^\s+$/', $login)) {
 			throw new USVN_Exception(T_('Login empty.'));
 		}
-		if (!preg_match('/^[0-9a-zA-Z_\-]+$/', $login)) {
-			throw new USVN_Exception(T_('Login invalid.  The login can only include alpha-numeric characters and \'-\' or \'_\'.'));
+		if (!preg_match('/^[0-9a-zA-Z_\-\.]+$/', $login)) {
+			throw new USVN_Exception(T_("Login invalid.  The login can only include alpha-numeric characters and '.', '-' or '_'."));
 		}
 	}
 

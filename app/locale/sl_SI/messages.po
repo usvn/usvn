@@ -1,0 +1,1243 @@
+# Slovenian translations for USVN.
+# Copyright (C) 2013
+# This file is distributed under the same license as the USVN package.
+# Goran Kavrecic <goran.kavrecic@indea.si>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: USVN 1.0.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-12-12 10:26+0100\n"
+"PO-Revision-Date: 2013-11-04 01:59+0100\n"
+"Last-Translator: Goran Kavrecic <goran.kavrecic@indea.si>\n"
+"Language-Team:  <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Language: SLOVENIAN\n"
+
+#: ../../../www//menus/browser.php:32 ../../../www//menus/browserTest.php:47
+msgid "Browser"
+msgstr "Prebiranje"
+
+#: ../../../www//menus/timeline.php:32
+#: ../../../www//views/Timeline/index.phtml:3
+msgid "Timeline"
+msgstr "Časovni trak"
+
+#: ../../../www//menus/configadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:15
+#: ../../../www//views/configadmin/index.phtml:2
+msgid "Configuration"
+msgstr "Konfiguracija"
+
+#: ../../../www//menus/projectadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:21
+#: ../../../www//views/projectadmin/index.phtml:2
+msgid "Projects"
+msgstr "Projekti"
+
+#: ../../../www//menus/projectadmin.php:53
+msgid "New Project"
+msgstr "Nov projekt"
+
+#: ../../../www//menus/groupadmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:27
+#: ../../../www//views/groupadmin/index.phtml:2
+msgid "Groups"
+msgstr "Skupine"
+
+#: ../../../www//menus/groupadmin.php:51
+msgid "Add new group"
+msgstr "Dodaj skupino"
+
+#: ../../../www//menus/systemreportadmin.php:33
+#: ../../../www//views/systemreportadmin/index.phtml:1
+msgid "System report"
+msgstr "Poročilo sistema"
+
+#: ../../../www//menus/useradmin.php:33
+#: ../../../www//views/adminadmin/index.phtml:33
+#: ../../../www//views/useradmin/index.phtml:2
+msgid "Users"
+msgstr "Uporabniki"
+
+#: ../../../www//menus/useradmin.php:53
+msgid "Add new user"
+msgstr "Dodaj uporabnika"
+
+#: ../../../www//menus/useradmin.php:57
+#: ../../../www//views/useradmin/import.phtml:2
+msgid "Import htpasswd"
+msgstr "Uvozi datoteko gesel"
+
+#: ../../../www//USVN/ImportHtpasswd.php:49
+msgid "Invalid htpasswd file."
+msgstr "Neveljavna datoteka gesel."
+
+#: ../../../www//USVN/ImportHtpasswd.php:52
+#, php-format
+msgid "User %s already exist into htpasswd file."
+msgstr "Uporabnik \"%s\" že obstaja v datoteki gesel."
+
+#: ../../../www//USVN/ImportHtpasswd.php:79
+#, php-format
+msgid "Can't add users %s. Import cancel."
+msgstr ""
+"Uvoz uporabnikov iz datoteke uporabnikov je bilo preklicano zaradi napake. "
+"(%s)"
+
+#: ../../../www//USVN/FilesAccessRights.php:42
+#: ../../../www//USVN/FilesAccessRights.php:83
+#, php-format
+msgid "Invalid path %s."
+msgstr "Neveljavna pot %s."
+
+#: ../../../www//USVN/plugins/layout.php:81 ../../../www//USVN/Menu.php:106
+#: ../../../www//views/index/index.phtml:2
+msgid "Homepage"
+msgstr "Spletna stran"
+
+#: ../../../www//USVN/plugins/layout.php:83
+msgid "Logged as"
+msgstr "Prijavljeni kot"
+
+#: ../../../www//USVN/Config/Ini.php:72
+msgid "Can't write config file."
+msgstr "Ne morem ustvariti konfiguracijske datoteke."
+
+#: ../../../www//USVN/Auth/Adapter/Db.php:54 ../../../www//USVN/Project.php:91
+#, php-format
+msgid "Login %s not found"
+msgstr "Ne najdem uporabnika %s"
+
+#: ../../../www//USVN/Auth/Adapter/Db.php:59
+msgid "Incorrect password"
+msgstr "Napačno geslo"
+
+#: ../../../www//USVN/SVNUtils.php:174
+msgid "Commit by USVN"
+msgstr "Shranjeno z USVN"
+
+#: ../../../www//USVN/SVNUtils.php:177
+#, php-format
+msgid ""
+"Can't import into subversion repository.\n"
+"Command:\n"
+"%s\n"
+"\n"
+"Error:\n"
+"%s"
+msgstr ""
+"Ne morem uvoziti v subversion odložišče.\n"
+"Ukaz:\n"
+"%s\n"
+"\n"
+"Napaka:\n"
+"%s"
+
+#: ../../../www//USVN/SVNUtils.php:194 ../../../www//USVN/Project.php:54
+#, php-format
+msgid "Can't create subversion repository: %s"
+msgstr "Ne morem ustvariti subversion odložišča: %s"
+
+#: ../../../www//USVN/SVNUtils.php:234
+#, php-format
+msgid "Can't checkout subversion repository: %s"
+msgstr "Ne morem prebrati(checkout) odložišča: %s"
+
+#: ../../../www//USVN/SVNUtils.php:250
+#, php-format
+msgid "Can't list subversion repository: %s"
+msgstr "Ne morem zlistati subversion odložišča: %s"
+
+#: ../../../www//USVN/Menu.php:58 ../../../www//USVN/Db/Utils.php:33
+#, php-format
+msgid "Can't open file %s."
+msgstr "Ne more odpreti datoteke %s."
+
+#: ../../../www//USVN/Menu.php:97
+msgid "Sign in"
+msgstr "Prijavi se"
+
+#: ../../../www//USVN/Menu.php:130
+msgid "Edit my profile"
+msgstr "Uredi moj profil"
+
+#: ../../../www//USVN/Menu.php:137
+msgid "Admin"
+msgstr "Skrbnik"
+
+#: ../../../www//USVN/Menu.php:146
+msgid "Logout"
+msgstr "Odjava"
+
+#: ../../../www//USVN/DirectoryUtils.php:31
+#, php-format
+msgid "Can't delete directory %s. Permission denied."
+msgstr "Ne morem pobrisati direktorija %s. Pravica zavrnjena."
+
+#: ../../../www//USVN/DirectoryUtils.php:50
+#, php-format
+msgid "Can't delete file %s."
+msgstr "Ne morem pobrisati datoteke %s."
+
+#: ../../../www//USVN/DirectoryUtils.php:58
+#, php-format
+msgid "Can't delete directory %s."
+msgstr "Ne morem pobrisati direktorija %s."
+
+#: ../../../www//USVN/DirectoryUtils.php:75
+#, php-format
+msgid "Can't read directory %s."
+msgstr "Ne morem prebrati direktorija %s."
+
+#: ../../../www//USVN/ImportSVNRepositories.php:35
+#, php-format
+msgid "%s must be a string: %s"
+msgstr "%s mora biti besedilo: %s"
+
+#: ../../../www//USVN/Project.php:105
+#, php-format
+msgid "Autocreated group for project %s"
+msgstr "Skupina je bila samodejno ustvarjena za projekt %s"
+
+#: ../../../www//USVN/Project.php:135
+#, php-format
+msgid "Project %s doesn't exist."
+msgstr "Projekt %s ne obstaja."
+
+#: ../../../www//USVN/SVN.php:32
+#, php-format
+msgid "Invalid project name %s."
+msgstr "%s ni veljavno ime za projekt."
+
+#: ../../../www//USVN/Db/Table/Row/Group.php:138
+#, php-format
+msgid "User %s is not member of group %s"
+msgstr "Uporabnik %s ni član skupine %s"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:62
+#: ../../../www//USVN/Db/Table/Row/Project.php:68
+#, php-format
+msgid "Invalid group %s for project %s."
+msgstr "Neveljavna skupina %s za projekt %s."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:172
+msgid "The project's name is empty."
+msgstr "Ime projekta je prazno."
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:178
+msgid ""
+"The project's name is invalid. A project's name can only include alpha-"
+"numeric characters and '-' or '_'."
+msgstr ""
+"Neveljavno ime projekta. Veljavno ime lahko vsebuje samo črke, številke, "
+"pomišljaje('-') ali podčrtaje('_')"
+
+#: ../../../www//USVN/Db/Table/Row/Project.php:202
+msgid "You can't rename a project."
+msgstr "Ne morete preimenovati projekta."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:129
+#: ../../../www//views/useradmin/js.phtml:9
+#: ../../../www//install/views/step6.html:7
+msgid "Login empty."
+msgstr "Prijava je prazna."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:132
+msgid ""
+"Login invalid.  The login can only include alpha-numeric characters and '-' "
+"or '_'."
+msgstr ""
+"Neveljavna prijava. Uporabniško ime lahko vsebuje samo črke, številke in '-' "
+"ali '_'."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:147
+msgid "Invalid email address."
+msgstr "Neveljaven elektronki naslov."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:161
+#: ../../../www//views/profile/index.phtml:10
+#: ../../../www//views/useradmin/js.phtml:15
+#: ../../../www//install/views/step6.html:18
+msgid "Password empty."
+msgstr "Geslo je prazno."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:164
+#: ../../../www//views/profile/index.phtml:21
+#: ../../../www//views/useradmin/profile.phtml:12
+#: ../../../www//views/useradmin/js.phtml:21
+#: ../../../www//install/views/step6.html:28
+msgid "Password incorrect (need more 8 characters)."
+msgstr "Napačno geslo. Vsebovati mora najmanj 8 znakov."
+
+#: ../../../www//USVN/Db/Table/Row/User.php:195
+#: ../../../www//USVN/Db/Table/Users.php:78
+#, php-format
+msgid "Login %s already exist."
+msgstr "Prijava %s že obstaja."
+
+#: ../../../www//USVN/Db/Table/Groups.php:75
+msgid "The group's name is empty."
+msgstr "Ime skupine je prazno."
+
+#: ../../../www//USVN/Db/Table/Groups.php:78
+msgid ""
+"The group's name is invalid. The group's name can only include alpha-numeric "
+"characters and '-' or '_'."
+msgstr ""
+"Neveljavno ime skupine. Veljavno ime lahko vsebuje samo črke, številke, "
+"pomišljaje('-') ali podčrtaje('_')"
+
+#: ../../../www//USVN/Db/Table/Users.php:127
+#, php-format
+msgid "Can't create or write on htpasswd file %s."
+msgstr "Ne morem vpisati/ustvariti datoteke z gesli (%s)."
+
+#: ../../../www//USVN/Db/Utils.php:46
+#, php-format
+msgid ""
+"Can't load file %s at:\n"
+"%s"
+msgstr ""
+"Ne morem naložiti datoteke %s na:\n"
+"%s"
+
+#: ../../../www//USVN/TranslationTest.php:63
+#: ../../../www//views/login/login.phtml:2
+msgid "Welcome to USVN"
+msgstr "Dobrodošli v USVN"
+
+#: ../../../www//USVN/Config.php:37 ../../../www//install/Install.php:144
+msgid "Invalid language"
+msgstr "Neveljaven jezik"
+
+#: ../../../www//USVN/Config.php:56 ../../../www//install/Install.php:166
+msgid "Invalid timezone"
+msgstr "Neveljaven časovni pas"
+
+#: ../../../www//USVN/Config.php:74
+msgid "Invalid template"
+msgstr "Neveljavna predloga"
+
+#: ../../../www//USVN/User.php:106
+msgid "This user can't be created. A group has the same name."
+msgstr "This user can't be created because a group is already name that way."
+
+#: ../../../www//USVN/SVNLog.php:56
+#, php-format
+msgid "Can't get subversion repository logs: %s"
+msgstr "Ne morem prebrati dnevnika subversion odložišča: %s"
+
+#: ../../../www//controllers/ProfileController.php:38
+msgid "Wrong password"
+msgstr "Napačno geslo"
+
+#: ../../../www//controllers/ProfileController.php:42
+#: ../../../www//controllers/UseradminController.php:46
+msgid "Not the same password."
+msgstr "Gesli nista enaki."
+
+#: ../../../www//controllers/UseradminController.php:35
+msgid "Missing fields."
+msgstr "Manjkajoča polja"
+
+#: ../../../www//controllers/UseradminController.php:101
+#: ../../../www//controllers/UseradminController.php:142
+#, php-format
+msgid "Invalid user %s."
+msgstr "Napačen uporabnik %s."
+
+#: ../../../www//controllers/UseradminController.php:119
+#, php-format
+msgid "User %s does not exist."
+msgstr "Uporabnik %s ne obstaja."
+
+#: ../../../www//controllers/UseradminController.php:145
+msgid "You can't delete yourself."
+msgstr "Ne morete pobrisati sami sebe."
+
+#: ../../../www//controllers/GroupadminController.php:61
+#, php-format
+msgid "Group %s already exist"
+msgstr "Skupine %s že obstaja"
+
+#: ../../../www//controllers/GroupadminController.php:86
+#: ../../../www//controllers/GroupadminController.php:102
+#: ../../../www//controllers/GroupadminController.php:130
+#, php-format
+msgid "Invalid group %s."
+msgstr "Neveljavna skupina %s."
+
+#: ../../../www//controllers/BrowserajaxController.php:55
+#, php-format
+msgid "Apply rights on %s"
+msgstr "Uveljavi pravice na %s."
+
+#: ../../../www//controllers/BrowserajaxController.php:95
+#: ../../../www//views/projectadmin/index.phtml:8
+#: ../../../www//views/projectadmin/form.phtml:24
+#: ../../../www//views/groupadmin/index.phtml:8
+#: ../../../www//views/groupadmin/form.phtml:23
+msgid "Name"
+msgstr "Ime"
+
+#: ../../../www//controllers/BrowserajaxController.php:95
+#: ../../../www//views/projectadmin/index.phtml:10
+#: ../../../www//views/groupadmin/index.phtml:10
+#: ../../../www//views/useradmin/index.phtml:13
+msgid "Action"
+msgstr "Akcija"
+
+#: ../../../www//controllers/BrowserajaxController.php:104
+#: ../../../www//controllers/BrowserajaxController.php:113
+msgid "Folder"
+msgstr "Mapa"
+
+#: ../../../www//controllers/BrowserajaxController.php:116
+msgid "File"
+msgstr "Datoteka"
+
+#: ../../../www//controllers/BrowserajaxController.php:124
+#: ../../../www//helpers/ACLLink.php:33
+msgid "Rights"
+msgstr "Pravice"
+
+#: ../../../www//controllers/BrowserajaxController.php:128
+msgid "You don't have read access to this folder"
+msgstr "Nimate dodeljene pravice za branje te mape"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Group"
+msgstr "Skupina"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Read"
+msgstr "Branje"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Write"
+msgstr "Pisanje"
+
+#: ../../../www//controllers/BrowserajaxController.php:152
+msgid "Recursive"
+msgstr "Rekurzivno"
+
+#: ../../../www//controllers/GroupController.php:45
+#: ../../../www//controllers/GroupController.php:104
+#: ../../../www//controllers/GroupController.php:151
+#: ../../../www//views/Timeline/accesdenied.phtml:1
+msgid "Access denied."
+msgstr "Dostop zavrnjen."
+
+#: ../../../www//controllers/GroupController.php:78
+#: ../../../www//controllers/GroupController.php:88
+#: ../../../www//controllers/GroupController.php:124
+#: ../../../www//controllers/GroupController.php:138
+#, php-format
+msgid "Unknown user %s"
+msgstr "Nepoznan uporabnik %s."
+
+#: ../../../www//views/adminadmin/index.phtml:2
+msgid "Administration"
+msgstr "Administracija"
+
+#: ../../../www//views/adminadmin/index.phtml:3
+msgid "USVN version: "
+msgstr "USVN verzija:"
+
+#: ../../../www//views/adminadmin/index.phtml:7
+#, php-format
+msgid ""
+"Your version of USVN is out of date. A new version %s is available on\n"
+"\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
+msgstr ""
+"Vaša verzija USVN je zastarela. Nova verzija %s je na voljo na\n"
+"\t<a href=\"http://www.usvn.info\">http://www.usvn.info</a>."
+
+#: ../../../www//views/profile/index.phtml:15
+#: ../../../www//views/useradmin/profile.phtml:6
+#: ../../../www//views/useradmin/js.phtml:26
+#: ../../../www//install/views/step6.html:23
+msgid "Password incorrect (not the same)."
+msgstr "Napačno geslo (drugačno)."
+
+#: ../../../www//views/profile/index.phtml:34
+msgid "My account"
+msgstr "Moj račun"
+
+#: ../../../www//views/profile/index.phtml:36
+msgid "Actual password"
+msgstr "Trenutno geslo"
+
+#: ../../../www//views/profile/index.phtml:40
+msgid "New password"
+msgstr "Novo geslo"
+
+#: ../../../www//views/profile/index.phtml:45
+#: ../../../www//views/useradmin/index.phtml:10
+#: ../../../www//views/useradmin/profile.phtml:35
+#: ../../../www//views/useradmin/form.phtml:31
+#: ../../../www//install/views/step6.html:84
+msgid "Lastname"
+msgstr "Priimek"
+
+#: ../../../www//views/profile/index.phtml:48
+#: ../../../www//views/useradmin/index.phtml:9
+#: ../../../www//views/useradmin/profile.phtml:39
+#: ../../../www//views/useradmin/form.phtml:34
+#: ../../../www//install/views/step6.html:67
+msgid "Firstname"
+msgstr "Ime"
+
+#: ../../../www//views/profile/index.phtml:52
+#: ../../../www//views/useradmin/index.phtml:11
+#: ../../../www//views/useradmin/profile.phtml:43
+#: ../../../www//views/useradmin/form.phtml:38
+#: ../../../www//install/views/step6.html:121
+msgid "Email"
+msgstr "e-pošta"
+
+#: ../../../www//views/profile/index.phtml:56
+#: ../../../www//views/projectadmin/form.phtml:49
+#: ../../../www//views/groupadmin/form.phtml:36
+#: ../../../www//views/login/login.phtml:23
+#: ../../../www//views/useradmin/edit.phtml:13
+#: ../../../www//views/useradmin/profile.phtml:48
+#: ../../../www//views/useradmin/new.phtml:18
+msgid "Submit"
+msgstr "Shrani"
+
+#: ../../../www//views/systemreportadmin/index.phtml:3
+msgid "PHP version:"
+msgstr "PHP verzija:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:4
+msgid "USVN version:"
+msgstr "USVN verzija"
+
+#: ../../../www//views/systemreportadmin/index.phtml:5
+msgid "Translation:"
+msgstr "Prevod:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:6
+msgid "Database:"
+msgstr "Baza:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:7
+msgid "Subversion version:"
+msgstr "Subversion verzija:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:8
+msgid "OS:"
+msgstr "OS:"
+
+#: ../../../www//views/systemreportadmin/index.phtml:10
+msgid "Get full report"
+msgstr "Polno poročilo"
+
+#: ../../../www//views/systemreportadmin/index.phtml:11
+msgid "PHP extensions"
+msgstr "PHP dodatki"
+
+#: ../../../www//views/systemreportadmin/index.phtml:18
+msgid "Apache modules"
+msgstr "Apache moduli"
+
+#: ../../../www//views/projectadmin/index.phtml:9
+#: ../../../www//views/projectadmin/form.phtml:28
+#: ../../../www//views/groupadmin/index.phtml:9
+#: ../../../www//views/groupadmin/form.phtml:27
+msgid "Description"
+msgstr "Opis"
+
+#: ../../../www//views/projectadmin/index.phtml:16
+#, php-format
+msgid "Do you really want to delete project %s?"
+msgstr "Ali resnično želite pobrisati projekt %s?"
+
+#: ../../../www//views/projectadmin/form.phtml:10
+msgid "Project's name empty, please fill it."
+msgstr "Ime projekta je prazno. Prosimo, vpišite ga."
+
+#: ../../../www//views/projectadmin/form.phtml:22
+msgid "Project's information"
+msgstr "Informacije projekta"
+
+#: ../../../www//views/projectadmin/form.phtml:35
+msgid "Create group for project:"
+msgstr "Ustvarite skupino za projekt:"
+
+#: ../../../www//views/projectadmin/form.phtml:36
+msgid "Add me to project group:"
+msgstr "Dodaj me projektni skupini:"
+
+#: ../../../www//views/projectadmin/form.phtml:37
+#: ../../../www//views/projectadmin/form.phtml:42
+#: ../../../www//views/projectadmin/form.phtml:44
+msgid "Add me as admin of the project:"
+msgstr "Dodaj me kot administratorja projekta:"
+
+#: ../../../www//views/projectadmin/form.phtml:38
+msgid "Create SVN standard directories (/trunk, /branches and /tags):"
+msgstr "Ustvari običajne SVN direktorije (/trunk, /branches and /tags):"
+
+#: ../../../www//views/browser/index.phtml:133
+msgid "Acces rights for"
+msgstr "Pravice dostopa za"
+
+#: ../../../www//views/browser/index.phtml:160
+msgid "Files list"
+msgstr "Spisek datotek"
+
+#: ../../../www//views/groupadmin/index.phtml:16
+#, php-format
+msgid "Do you really want to delete group %s?"
+msgstr "Ali resnično želite pobrisati skupino %s?"
+
+#: ../../../www//views/groupadmin/form.phtml:10
+msgid "Group's name empty, please fill it."
+msgstr "Ime skupine je prazno. Prosimo, vpišite ga."
+
+#: ../../../www//views/groupadmin/form.phtml:22
+msgid "Group's information"
+msgstr "Informacije skupine"
+
+#: ../../../www//views/groupadmin/form.phtml:33
+msgid "Managing group"
+msgstr "Delovna skupina"
+
+#: ../../../www//views/login/login.phtml:5
+msgid "Please enter your login and your password to connect to USVN."
+msgstr "Prosimo, vpišite vaše uporabniko ime in geslo za prijavo v USVN."
+
+#: ../../../www//views/login/login.phtml:11
+msgid "Authentication"
+msgstr "Prepoznava"
+
+#: ../../../www//views/login/login.phtml:15
+#: ../../../www//views/useradmin/index.phtml:8
+#: ../../../www//views/useradmin/profile.phtml:27
+#: ../../../www//views/useradmin/form.phtml:19
+#: ../../../www//install/views/step5.html:68
+#: ../../../www//install/views/step6.html:50
+msgid "Login"
+msgstr "Prijava"
+
+#: ../../../www//views/login/login.phtml:19
+#: ../../../www//views/useradmin/profile.phtml:30
+#: ../../../www//views/useradmin/form.phtml:23
+#: ../../../www//install/views/step5.html:84
+#: ../../../www//install/views/step6.html:101
+msgid "Password"
+msgstr "Geslo"
+
+#: ../../../www//views/useradmin/import.phtml:4
+msgid ""
+"This form allow you to add to USVN all users contents into an apache "
+"password file."
+msgstr ""
+"Ta maska vam omogoča dodati v USVN vse uporabnike v apache datoteko z gesli."
+
+#: ../../../www//views/useradmin/import.phtml:10
+msgid "Upload"
+msgstr "Naloži"
+
+#: ../../../www//views/useradmin/index.phtml:12
+#: ../../../www//views/useradmin/form.phtml:42
+#: ../../../www//install/views/step6.html:92
+msgid "Administrator"
+msgstr "Skrbnik"
+
+#: ../../../www//views/useradmin/index.phtml:26
+msgid "yes"
+msgstr "da"
+
+#: ../../../www//views/useradmin/index.phtml:28
+msgid "no"
+msgstr "ne"
+
+#: ../../../www//views/useradmin/index.phtml:31
+#, php-format
+msgid "Do you really want to delete user %s?"
+msgstr "Ali resnično želiš pobrisati uporabnika %s?"
+
+#: ../../../www//views/useradmin/profile.phtml:23
+#: ../../../www//views/useradmin/form.phtml:17
+msgid "User account"
+msgstr "Uporabniški račun"
+
+#: ../../../www//views/useradmin/form.phtml:4
+#: ../../../www//views/project/index.phtml:63
+msgid "Affected groups"
+msgstr "Skupine"
+
+#: ../../../www//views/useradmin/form.phtml:27
+#: ../../../www//install/views/step6.html:111
+msgid "Confirm password"
+msgstr "Potrdi geslo"
+
+#: ../../../www//views/useradmin/js.phtml:33
+msgid "Email incorrect."
+msgstr "Napačna e-pošta."
+
+#: ../../../www//views/useradmin/new.phtml:13
+msgid "Create group"
+msgstr "Ustvari skupino"
+
+#: ../../../www//views/configadmin/index.phtml:6
+msgid "General settings"
+msgstr "Splošne nastavitve"
+
+#: ../../../www//views/configadmin/index.phtml:9
+#: ../../../www//install/views/step2.html:8
+msgid "Default language"
+msgstr "Privzeti jezik"
+
+#: ../../../www//views/configadmin/index.phtml:27
+#: ../../../www//install/views/step2.html:32
+msgid "Default timezone"
+msgstr "Privzeti časovni pas"
+
+#: ../../../www//views/configadmin/index.phtml:45
+msgid "Default template"
+msgstr "Privzeta predloga"
+
+#: ../../../www//views/configadmin/index.phtml:62
+msgid "Check for update"
+msgstr "Preveri posodobitev"
+
+#: ../../../www//views/configadmin/index.phtml:67
+#: ../../../www//views/configadmin/index.phtml:71
+msgid "Yes"
+msgstr "Da"
+
+#: ../../../www//views/configadmin/index.phtml:68
+#: ../../../www//views/configadmin/index.phtml:72
+msgid "No"
+msgstr "Ne"
+
+#: ../../../www//views/configadmin/index.phtml:81
+msgid "Site's information"
+msgstr "Informacije strani"
+
+#: ../../../www//views/configadmin/index.phtml:84
+msgid "Title"
+msgstr "Naslov"
+
+#: ../../../www//views/configadmin/index.phtml:90
+msgid "Icone"
+msgstr "Ikona"
+
+#: ../../../www//views/configadmin/index.phtml:96
+msgid "Logo"
+msgstr "Logo"
+
+#: ../../../www//views/configadmin/index.phtml:104
+msgid "Save"
+msgstr "Shrani"
+
+#: ../../../www//views/Timeline/index.phtml:10
+msgid "Start (revision number or date)"
+msgstr "Start (številka revizije ali datum)"
+
+#: ../../../www//views/Timeline/index.phtml:12
+msgid ""
+"You can list 100 revisions since your revision or date. The date format is : "
+"DD/MM/YYYY"
+msgstr ""
+"Prikažete lahko 100 revizij od določene revizije ali datuma. Format datuma "
+"je DD/MM/YYYY"
+
+#: ../../../www//views/Timeline/index.phtml:28
+msgid "End (revision number or date)"
+msgstr "Konec (številka revizije ali datum)"
+
+#: ../../../www//views/Timeline/index.phtml:30
+msgid ""
+"This is optional.The listing is made between start revision/date and this "
+"one."
+msgstr ""
+"To je opcijsko. Spisek je filtriran od startne revizije/datuma do tukaj."
+
+#: ../../../www//views/Timeline/index.phtml:40
+msgid "Search"
+msgstr "Iskanje"
+
+#: ../../../www//views/Timeline/index.phtml:50
+msgid "Last hundred commit"
+msgstr "Zadnjih sto revizij"
+
+#: ../../../www//views/Timeline/index.phtml:54
+#: ../../../www//views/project/index.phtml:87
+#: ../../../www//views/rss/index.phtml:19
+msgid "Revision"
+msgstr "Revizija"
+
+#: ../../../www//views/Timeline/index.phtml:55
+#: ../../../www//views/project/index.phtml:88
+#: ../../../www//views/rss/index.phtml:19
+msgid "Author"
+msgstr "Avtor"
+
+#: ../../../www//views/Timeline/index.phtml:56
+#: ../../../www//views/project/index.phtml:89
+#: ../../../www//views/rss/index.phtml:19
+msgid "Date"
+msgstr "Datum"
+
+#: ../../../www//views/Timeline/index.phtml:57
+#: ../../../www//views/project/index.phtml:90
+#: ../../../www//views/rss/index.phtml:20
+msgid "Message"
+msgstr "Sporočilo"
+
+#: ../../../www//views/group/index.phtml:5
+#, php-format
+msgid "Managing group %s"
+msgstr "Delovna skupina %s"
+
+#: ../../../www//views/group/index.phtml:17
+#: ../../../www//views/group/index.phtml:45
+#: ../../../www//views/project/index.phtml:18
+#: ../../../www//views/project/index.phtml:55
+msgid "Add"
+msgstr "Dodaj"
+
+#: ../../../www//views/group/index.phtml:24
+msgid "Leader Users"
+msgstr "Upravniki skupine"
+
+#: ../../../www//views/group/index.phtml:29
+#: ../../../www//views/group/index.phtml:57
+#: ../../../www//views/project/index.phtml:38
+#: ../../../www//views/project/index.phtml:68
+#: ../../../www//helpers/DeleteLink.php:35
+msgid "Delete"
+msgstr "Pobriši"
+
+#: ../../../www//views/group/index.phtml:30
+#: ../../../www//views/group/index.phtml:58
+#, php-format
+msgid "Do you really want to remove user %s from group %s?"
+msgstr "Ali resnično želite umakniti uporabnika %s iz skupine %s?"
+
+#: ../../../www//views/group/index.phtml:52
+msgid "Affected Users"
+msgstr "Uporabniki skupine"
+
+#: ../../../www//views/project/index.phtml:5
+#, php-format
+msgid "Checkout URL : %s"
+msgstr "SVN Checkout URL: %s"
+
+#: ../../../www//views/project/index.phtml:33
+msgid "Admins users"
+msgstr "Skrbniški uporabniki"
+
+#: ../../../www//views/project/index.phtml:39
+#, php-format
+msgid "Do you really want to remove user %s as admin of project %s?"
+msgstr "Ali resnično želite umakniti uporabnika %s kot skrbnika skupine %s?"
+
+#: ../../../www//views/project/index.phtml:69
+#, php-format
+msgid "Do you really want to remove group %s from project %s?"
+msgstr "Ali resnično želite umakniti skupino %s iz projekta %s?"
+
+#: ../../../www//views/project/index.phtml:79
+msgid "Last five commits"
+msgstr "Zadnjih pet revizij"
+
+#: ../../../www//views/project/index.phtml:82
+msgid "Rss"
+msgstr "RSS"
+
+#: ../../../www//views/index/index.phtml:5
+msgid "Your projects"
+msgstr "Vaši projekti"
+
+#: ../../../www//views/index/index.phtml:15
+msgid "You don't have any project."
+msgstr "Nimate nobenega projekta."
+
+#: ../../../www//views/index/index.phtml:20
+msgid "Your groups"
+msgstr "Vaše skupine"
+
+#: ../../../www//views/index/index.phtml:30
+msgid "You are not assign to a group."
+msgstr "Niste dodeljeni nobeni skupini."
+
+#: ../../../www//views/index/error.phtml:2
+msgid "This page doesn't exist."
+msgstr "Ta stran ne obstaja."
+
+#: ../../../www//install/install-commandline.php:36
+#: ../../../www//install/index.php:87 ../../../www//install/index.php:95
+msgid "Error"
+msgstr "Napaka"
+
+#: ../../../www//install/install-commandline.php:36
+#: ../../../www//install/index.php:87
+msgid "USVN is already install."
+msgstr "USVN je že nameščen."
+
+#: ../../../www//install/views/footer.html:3
+msgid "Copyright USVN"
+msgstr "Copyright USVN"
+
+#: ../../../www//install/views/install_error.html:12
+msgid "Force installation"
+msgstr "Prisilno namesti"
+
+#: ../../../www//install/views/step3.html:2
+#: ../../../www//install/views/step4.html:2
+#: ../../../www//install/views/step8.html:2
+#: ../../../www//install/views/step7.html:2
+#: ../../../www//install/views/step5.html:33
+#: ../../../www//install/views/step6.html:39
+#: ../../../www//install/views/step2.html:2
+msgid "Step"
+msgstr "Korak"
+
+#: ../../../www//install/views/step3.html:2
+msgid "Agreement of the licence"
+msgstr "Licenčna pogodba"
+
+#: ../../../www//install/views/step3.html:3
+msgid "Read and please accept the CeCILL FREE SOFTWARE LICENSE ."
+msgstr ""
+"Preberite in se prosimo strinjajte z dogovorom CeCILL FREE SOFTWARE LICENSE ."
+
+#: ../../../www//install/views/step3.html:1966
+msgid "I understand and accept this license."
+msgstr "Razumem in sprejemam licenco."
+
+#: ../../../www//install/views/step3.html:1969
+#: ../../../www//install/views/step1.html:16
+#: ../../../www//install/views/step4.html:97
+#: ../../../www//install/views/step5.html:133
+#: ../../../www//install/views/step6.html:135
+#: ../../../www//install/views/step2.html:57
+msgid "Next step"
+msgstr "Naslednji korak"
+
+#: ../../../www//install/views/step4.html:2
+msgid "Configure USVN"
+msgstr "Nastavi USVN"
+
+#: ../../../www//install/views/step4.html:3
+msgid ""
+"Settings of general configuration of USVN. You can keep default settings."
+msgstr ""
+"Nastavitve splošne konfiguracije USVN. Lahko pustite privzete lastnosti."
+
+#: ../../../www//install/views/step4.html:12
+msgid "Page title"
+msgstr "Naslov strani"
+
+#: ../../../www//install/views/step4.html:30
+msgid "Subversion repository"
+msgstr "Subversion odložišče"
+
+#: ../../../www//install/views/step4.html:31
+msgid "Location where usvn will create subversion repository."
+msgstr "Lokacija kjer bo USVN ustvaril SVN odložišče."
+
+#: ../../../www//install/views/step4.html:45
+msgid "Subversion password file "
+msgstr "Subversion - datoeka z gesli"
+
+#: ../../../www//install/views/step4.html:46
+msgid "Location where usvn will create password file."
+msgstr "Lokacija kjer bo USVN ustvaril datoteko z gesli."
+
+#: ../../../www//install/views/step4.html:60
+msgid "Subversion access file"
+msgstr "Subversion - datoteka s pravicami"
+
+#: ../../../www//install/views/step4.html:61
+msgid "Location where usvn will create access file."
+msgstr "Lokacija kjer bo USVN ustvaril datoteko dostopov."
+
+#: ../../../www//install/views/step4.html:75
+msgid "Subversion url"
+msgstr "Subversion URL"
+
+#: ../../../www//install/views/step4.html:76
+msgid "The url used by users to checkout projects."
+msgstr "URL, ki ga uporabniki uporabijo za delo z odložiščem."
+
+#: ../../../www//install/views/step8.html:3
+msgid "You can now enjoy of USVN."
+msgstr "Zdaj lahko uživate v USVN"
+
+#: ../../../www//install/views/step8.html:7
+msgid "Apache configuration"
+msgstr "Apache konfiguracija"
+
+#: ../../../www//install/views/step8.html:8
+msgid ""
+"Last step is to configure subversion into apache. Copy past following lines "
+"at the end of your <em>httpd.conf</em>:"
+msgstr ""
+"Zadnji korak za nastavitev SVN v Apache. Kopirajte spodnje vrstice na konec "
+"datoteke <em>httpd.conf</em>:"
+
+#: ../../../www//install/views/step8.html:14
+msgid "And restart your server with <kbd>apache2ctl restart</kbd>."
+msgstr "In ponovno poženite strežnik z <kbd>apache2ctl restart</kbd>."
+
+#: ../../../www//install/views/step8.html:18
+msgid "Connect to USVN"
+msgstr "Poveži se na USVN"
+
+#: ../../../www//install/views/head.html:201
+msgid "USVN installation"
+msgstr "USVN namestitev"
+
+#: ../../../www//install/views/step7.html:2
+msgid "Check for new version"
+msgstr "Preveri za novejšo verzijo"
+
+#: ../../../www//install/views/step7.html:6
+msgid ""
+"\n"
+"<p>During update checks, USVN will send information regarding of your "
+"installation.</p>\n"
+"<p>\n"
+"This information is only collected for statistical purposes and allow\n"
+"us to better know the platforms on which USVN is installed.\n"
+"</p>\n"
+"<p>\n"
+"Here is a list of what we want to collect:\n"
+"<ul>\n"
+"<li>IP (to get geographical position statistics of USVN in the world)</li>\n"
+"<li>The PHP version</li>\n"
+"<li>The SVN version</li>\n"
+"<li>The USVN version</li>\n"
+"<li>The contents of phpinfo()</li>\n"
+"<li>The used database driver</li>\n"
+"<li>The used translation</li>\n"
+"</ul>\n"
+"</p>\n"
+"<p>\n"
+"If you do not want this information to be collected, you juste have to\n"
+"disable the update notification.\n"
+"</p>\n"
+msgstr ""
+"\n"
+"<p>Med preverjanjem novih verzij bo USVN pošiljal informacije o vaši "
+"instalaciji.</p>\n"
+"<p>\n"
+"The informacije se zbirajo samo za statistične namene in nam omogočajo,\n"
+"da polje poznamo okolja v katerih je USVN nameščen.\n"
+"</p>\n"
+"<p>\n"
+"Tukaj je spisek informacij, ki se zbirajo:\n"
+"<ul>\n"
+"<li>IP (za statistični pregled geografske pozicije USVN v svetu)</li>\n"
+"<li>Verzija PHP</li>\n"
+"<li>Verzija SVN</li>\n"
+"<li>Verzija USVN</li>\n"
+"<li>Vsebina phpinfo()</li>\n"
+"<li>Uporabljen tip baze</li>\n"
+"<li>Izbrani prevod</li>\n"
+"</ul>\n"
+"</p>\n"
+"<p>\n"
+"Če ne želite, da se vaši podatki zbirajo, \n"
+"lahko to izključite z izključitvijo obveščanja o posodbitvah.\n"
+"</p>\n"
+
+#: ../../../www//install/views/step7.html:33
+msgid "Allow check update and send statistics informations"
+msgstr "Omogočite preverjanje posodobitev in zbiranje statističnih podatkov."
+
+#: ../../../www//install/views/step7.html:38
+msgid "Don't check update"
+msgstr "Ne preverjaj posodobitev"
+
+#: ../../../www//install/views/step5.html:33
+msgid "Database installation"
+msgstr "Namestitev baze podatkov"
+
+#: ../../../www//install/views/step5.html:34
+msgid "Configuration of database's access."
+msgstr "Nastavitev dostopa do baze."
+
+#: ../../../www//install/views/step5.html:41
+msgid "Database Type"
+msgstr "Tip baze"
+
+#: ../../../www//install/views/step5.html:53
+msgid "Host"
+msgstr "Gostitelj"
+
+#: ../../../www//install/views/step5.html:93
+msgid "Database"
+msgstr "Baza"
+
+#: ../../../www//install/views/step5.html:109
+msgid "Create database ?"
+msgstr "Ustvarim bazo?"
+
+#: ../../../www//install/views/step5.html:117
+msgid "Table prefix"
+msgstr "Prefix tabelam"
+
+#: ../../../www//install/views/step6.html:13
+msgid "Lastname empty."
+msgstr "Priimek je prazen."
+
+#: ../../../www//install/views/step6.html:39
+msgid "Create administrator user"
+msgstr "Ustvari skrbiškega uporabnika"
+
+#: ../../../www//install/views/step6.html:40
+msgid "Creation of the first administrator of USVN."
+msgstr "Kreiranje prvega administratorja USVN."
+
+#: ../../../www//install/views/step6.html:75
+msgid "System"
+msgstr "Sistem"
+
+#: ../../../www//install/index.php:111 ../../../www//install/index.php:125
+msgid "You need to accept the licence to continue installation."
+msgstr "Sprejeti morate licenco, če želite nadaljevati."
+
+#: ../../../www//install/Install.php:64
+msgid "Can't create database\n"
+msgstr "Ne morem ustvariti baze\n"
+
+#: ../../../www//install/Install.php:73
+msgid "Can't connect to database.\n"
+msgstr "Ne morem se povezati na bazo.\n"
+
+#: ../../../www//install/Install.php:86
+#, php-format
+msgid "Invalid adapter %s.\n"
+msgstr "Neveljaven adapter %s.\n"
+
+#: ../../../www//install/Install.php:96
+msgid "Can't load SQL file.\n"
+msgstr "Ne morem naložiti SQL datoteke.\n"
+
+#: ../../../www//install/Install.php:123
+#, php-format
+msgid "Can't write config file %s.\n"
+msgstr "Ne morem zapisati konfiguracijske datoteke %s.\n"
+
+#: ../../../www//install/Install.php:191
+msgid ""
+"Invalide locale\n"
+"Please, install UTF-8 locale."
+msgstr ""
+"Neveljavna lokalizacija.\n"
+"Prosimo, namestite UTF-8."
+
+#: ../../../www//install/Install.php:237
+#, php-format
+msgid "Can't write access file %s.\n"
+msgstr "Ne morem zapisati datoteke s pravicami %s.\n"
+
+#: ../../../www//install/Install.php:241
+#, php-format
+msgid ""
+"Invalid subversion path \"%s\", please check if directory exist and is "
+"writable."
+msgstr ""
+"Neveljavna pot do subversion \"%s\". Prosimo, preverite, da direktorij "
+"obstaja in je zapisljiv."
+
+#: ../../../www//install/Install.php:286
+#, php-format
+msgid "Can't write htaccess file %s.\n"
+msgstr "Ne morem zapisati htaccess datoteke %s.\n"
+
+#: ../../../www//install/Install.php:330
+msgid "Password empty"
+msgstr "Geslo je prazno."
+
+#: ../../../www//install/Install.php:388
+msgid "Need a title."
+msgstr "Potrebuje naslov."
+
+#: ../../../www//install/Install.php:441
+msgid "USVN can't run with php's safe mode."
+msgstr "USVN ne deluje s PHP v varnem načinu."
+
+#: ../../../www//install/Install.php:445
+msgid ""
+"Subversion is not install on your system. If you are under Windows install "
+msgstr ""
+"Subversion ni nameščen na vašem sistemu. Če delate v Windows okolju namestite"
+
+#: ../../../www//install/Install.php:445
+msgid ""
+" and after restart your system (WARNING it's mandatory). \n"
+"\n"
+"Otherwise under UNIX you probably need to install a package named subversion."
+msgstr ""
+"in ponovno začenite vaš sistem (OPOZORILO je obvezno). \n"
+"\n"
+"Drugače, pod Linuxom, morate verjetno naloćiti paket subversion."
+
+#: ../../../www//install/Install.php:457 ../../../www//install/Install.php:465
+msgid "mod_rewrite seems not to be loaded"
+msgstr "mod_rewrite verjetno ni naložen"
+
+#: ../../../www//install/Install.php:474
+msgid "mod_dav_svn seems not to be loaded"
+msgstr "mod_dav_svn verjetno ni naloćen"
+
+#: ../../../www//helpers/EditLink.php:35
+msgid "Edit"
+msgstr "Urejanje"
+
+#: ../../../www//helpers/HomeLinkGroup.php:34
+#: ../../../www//helpers/HomeLink.php:34
+msgid "Home"
+msgstr "Domov"
+
+# ############
+# INSTALLER #
+# ############
+msgid "System Check"
+msgstr "Preverjanje sistema"
+
+msgid "Language Selection"
+msgstr "Izbira jezika"
+
+msgid "License Agreement"
+msgstr "Licenčna pogodba"
+
+msgid "USVN Configuration"
+msgstr "USVN konfiguracija"
+
+msgid "Database Installation"
+msgstr "Namestitev datoeke"
+
+msgid "Administrator User Creation"
+msgstr "Ustvarjanje administrativnega uporabnika"
+
+msgid "Check for a Newer Version"
+msgstr "Preveri za novejšo verzijo"
+
+msgid "Installation is over"
+msgstr "Namestitev je končana"
+
+msgid ""
+"A copy of the old SVN repository has been made, any modification done on the "
+"old one won't interact on the new one. You should disable the old repository "
+"access."
+msgstr ""
+"Narejena je bila kopija SVN odloćišča, kakršnakoli sprememba na staremu se "
+"ne bo odražala na novemu. Priporočamo, da onemogočite dostop do starega "
+"odložišča."

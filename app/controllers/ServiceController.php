@@ -3,8 +3,8 @@
 /**
  * Class to provide funcions to remove integrations
  * 
- * @author Bruno Pittlei Gonçalves (scorninpc) https://github.com/scorninpc
- *
+ * @package USVN (https://github.com/usvn/usvn)
+ * @author Bruno Pittlei Gonçalves (scorninpc - https://github.com/scorninpc)
  */
 class ServiceController extends Zend_Controller_Action
 {
@@ -19,14 +19,6 @@ class ServiceController extends Zend_Controller_Action
 	protected $_userRow;
 	
 	/**
-	 * Make tests
-	 */
-	public function testAction()
-	{
-		die("OK");
-	}
-	
-	/**
 	 * Initialize the service
 	 */
 	public function init()
@@ -38,6 +30,17 @@ class ServiceController extends Zend_Controller_Action
 	
 	/**
 	 * Retrieve project history
+	 * 
+	 * 	http://usvn.localhost/service/history
+	 * 
+	 * 	<?xml version="1.0" encoding="UTF-8"?>
+	 * 	<usvn>
+	 * 		<auth>
+	 * 			<username>USERNAME</username>
+	 * 			<password>PASSWORD</password>
+	 * 		</auth>
+	 * 		<project>PROJECT_NAME</project>
+	 * </usvn>
 	 * 
 	 * @todo Add translation for "You don't have permission to access project %s"
 	 */
@@ -101,13 +104,15 @@ class ServiceController extends Zend_Controller_Action
 	/**
 	 * Return list of projects
 	 * 
-	 *	<?xml version="1.0" encoding="UTF-8"?>
+	 * 	http://usvn.localhost/service/list
+	 * 
+	 * 	<?xml version="1.0" encoding="UTF-8"?>
 	 * 	<usvn>
-	 *		<auth>
-	 *			<username>admin</username>
-	 *			<password>123mudar</password>
+	 * 		<auth>
+	 * 			<username>USERNAME</username>
+	 * 			<password>PASSWORD</password>
 	 * 		</auth>
-	 * 	</usvn>
+	 * </usvn>
 	 */
 	public function listAction()
 	{

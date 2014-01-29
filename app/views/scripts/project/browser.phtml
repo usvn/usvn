@@ -5,7 +5,7 @@ var items_nbgroup;
 
 function getUrlForAction(action)
 {
-	return <?= '"'
+	return <?php echo '"'
 . $this->url(array('controller' => 'browserajax',
 //				   'project' => $this->project->name,
 				   'action' => '"+action+"'),

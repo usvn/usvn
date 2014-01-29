@@ -4,14 +4,14 @@
   <br />
   <table width="100%">
     <tr>
-      <th align="left"><?php echo T_("Language:")." ".(empty($this->language) ? T_('text') : $this->language) ?></th>
+      <th align="left"><?php echo T_("Language:")." ".(empty($this->language) ? T_('text') : $this->language); ?></th>
       <th align="right">
-        <form method="POST" action="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project') ?>" style="display: inline;">
+        <form method="POST" action="<?php echo $this->url(array('action' => 'browser', 'project' => $this->project->name), 'project'); ?>" style="display: inline;">
           <input type="hidden" name="back" value="<?php echo '/'.dirname($this->path).'/' ?>">
-          <input type="submit" value="<?php echo T_('Browser') ?>" />
+          <input type="submit" value="<?php echo T_('Browser'); ?>" />
         </form>
         /
-        <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path) ?>"><?php echo T_('Original') ?></a>
+        <a href="<?php echo USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path); ?>"><?php echo T_('Original'); ?></a>
       </th>
     </tr>
     <tr>
@@ -19,27 +19,27 @@
       <td align="center" style="padding-top: 5px;">
         <input type="hidden" name="post" value="1" />
           <?php if ($this->prev_revision > 0) { ?>
-            <input type="submit" onclick="document.revisions.action=document.revisions.action.split('?',1)+'?rev=<?php echo $this->prev_revision ?>';" value="<?php echo T_('Previous') ?>" />
+            <input type="submit" onclick="document.revisions.action=document.revisions.action.split('?',1)+'?rev=<?php echo $this->prev_revision ?>';" value="<?php echo T_('Previous'); ?>" />
           <?php } else { ?>
-            <input type="submit" value="<?php echo T_('Previous') ?>" disabled />
+            <input type="submit" value="<?php echo T_('Previous'); ?>" disabled />
           <?php } ?>
-          <?php echo T_('Revision: ') ?>
+          <?php echo T_('Revision: '); ?>
           <select onChange="document.revisions.action=document.revisions.action.split('?',1)+'?rev='+this.value;document.revisions.submit();">
             <?php foreach ($this->select_revisions as $rev) { echo '<option value="'.$rev.'"'.($rev == $this->revision ? ' selected' : '').'>'.$rev.'</option>'; } ?>
           </select>
           <?php if ($this->next_revision > 0) { ?>
-            <input type="submit" onclick="document.revisions.action=document.revisions.action.split('?',1)+'?rev=<?php echo $this->next_revision ?>';" value="<?php echo T_('Next') ?>" />
+            <input type="submit" onclick="document.revisions.action=document.revisions.action.split('?',1)+'?rev=<?php echo $this->next_revision ?>';" value="<?php echo T_('Next'); ?>" />
           <?php } else { ?>
-            <input type="submit" value="<?php echo T_('Next') ?>" disabled />
+            <input type="submit" value="<?php echo T_('Next'); ?>" disabled />
           <?php } ?>
           <br />
-          <a href="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $this->revision), 'commit') ?>"><?php echo T_('View the full commit.') ?></a>
+          <a href="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $this->revision), 'commit'); ?>"><?php echo T_('View the full commit.'); ?></a>
       </td>
       <td align="left">
-        <label><input onChange="document.revisions.submit();" type="checkbox" name="color" style="vertical-align: middle;" <?php echo ($this->color_view ? 'checked' : '') ?> /> <?php echo T_('Color view') ?></label><br />
-        <label><input onChange="document.revisions.submit();" type="checkbox" name="diff" style="vertical-align: middle;" <?php echo ($this->diff_view ? 'checked' : '') ?> /> <?php echo T_('Diff view') ?></label>
+        <label><input onChange="document.revisions.submit();" type="checkbox" name="color" style="vertical-align: middle;" <?php echo ($this->color_view ? 'checked' : ''); ?> /> <?php echo T_('Color view'); ?></label><br />
+        <label><input onChange="document.revisions.submit();" type="checkbox" name="diff" style="vertical-align: middle;" <?php echo ($this->diff_view ? 'checked' : ''); ?> /> <?php echo T_('Diff view'); ?></label>
         <input type="hidden" name="drev" value="<?php echo $this->diff_revision ?>" id="drev" />
-        <select onChange="document.getElementById('drev').value=this.value;document.revisions.submit();" <?php echo ($this->diff_view ? '' : 'disabled') ?>>
+        <select onChange="document.getElementById('drev').value=this.value;document.revisions.submit();" <?php echo ($this->diff_view ? '' : 'disabled'); ?>>
           <?php foreach ($this->select_revisions as $rev) {
               if ($rev > $this->revision) { continue; }
               if ($rev == $this->revision) {

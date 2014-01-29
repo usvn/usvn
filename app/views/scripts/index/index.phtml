@@ -1,15 +1,15 @@
 <div class="usvn_info">
-	<h1><?= T_("Homepage") ?></h1>
+	<h1><?php echo T_("Homepage"); ?></h1>
 </div>
 <div id="usvn_index_projects" class="usvn_index_box">
-	<h3><?= T_("Your projects") ?>:</h3>
-<? if (count($this->projects)): ?>
+	<h3><?php echo T_("Your projects"); ?>:</h3>
+<?php if (count($this->projects)): ?>
     <ul class="grid_list">
-	<? foreach ($this->projects as $project): ?>
+	<?php foreach ($this->projects as $project): ?>
 		<li>
-			<a href="<?= $this->url(array('project' => $project->name), 'project'); ?>">
+			<a href="<?php echo $this->url(array('project' => $project->name), 'project'); ?>">
 				<div class="grid_img">
-					<?= $this->img('box48.png') ?>
+					<?php echo $this->img('box48.png'); ?>
 				</div>
 				<div><?php
 					if (strlen($project->name) > $this->maxlen) {
@@ -25,21 +25,21 @@
 				?></div>
 			</a>
 		</li>
-	<? endforeach ?>
+	<?php endforeach; ?>
 	</ul>
-<? else: ?>
-	<p><?= T_("You don't have any project.") ?></p>
-<? endif ?>
+<?php else: ?>
+	<p><?php echo T_("You don't have any project."); ?></p>
+<?php endif; ?>
 </div>
 <div id="usvn_index_groups" class="usvn_index_box">
-	<h3><?= T_("Your groups"); ?>:</h3>
-<? if (count($this->groups)): ?>
+	<h3><?php echo T_("Your groups"); ?>:</h3>
+<?php if (count($this->groups)): ?>
 	<ul class="grid_list">
-	<? foreach ($this->groups as $group): ?>
+	<?php foreach ($this->groups as $group): ?>
 		<li>
-			<a href="<?= $this->url(array('group' => $group->name), 'group') ?>">
+			<a href="<?php echo $this->url(array('group' => $group->name), 'group'); ?>">
 				<div class="grid_img">
-					<?= $this->img('group48.png') ?>
+					<?php echo $this->img('group48.png'); ?>
 				</div>
 				<div><?php
 				 	if (strlen($group->name) > $this->maxlen) {
@@ -55,11 +55,11 @@
 				?></div>
 			</a>
 		</li>
-	<? endforeach ?>
+	<?php endforeach; ?>
 	</ul>
-<? else: ?>
-	<p><?= T_("You are not assign to a group.") ?></p>
-<? endif ?>
+<?php else: ?>
+	<p><?php echo T_("You are not assign to a group."); ?></p>
+<?php endif; ?>
 </div>
 <div style="clear: both;">
 	<img width="1" height="1" src="<?php echo $this->url(array('controller' => 'checkupdate')); ?>" />

@@ -30,7 +30,7 @@
 	</div>
 	<select multiple="multiple" name="groups[]">
 	<?php foreach ($this->groups as $group) : ?>
-		<option value="<?= $group->groups_id; ?>"
+		<option value="<?php echo $group->groups_id; ?>"
 		<?php
 			if ($this->user->isInGroup($group))
 				echo 'selected="selected"';

@@ -5,7 +5,7 @@
 <br />
 <form action="?step=3" method="post">
 	<label class="usvn_label" for="lang">
-		<?= T_('Default language') ?>:
+		<?php echo T_('Default language') ?>:
 	</label>
 	<select name="language" id="lang">
 		<?php
@@ -32,7 +32,7 @@
 	<br />
 	<br />
 	<label class="usvn_label" for="timezone">
-		<?= T_('Default timezone') ?>:
+		<?php echo T_('Default timezone') ?>:
 	</label>
 	<select name="timezone" id="timezone">
 		<?php
@@ -59,6 +59,6 @@
 	<br />
 	<hr />
 	<div>
-		<input type="submit" value="<?= T_('Next step') ?>" />
+		<input type="submit" value="<?php echo T_('Next step') ?>" />
 	</div>
 </form>

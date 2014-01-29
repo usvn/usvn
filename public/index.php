@@ -16,18 +16,18 @@ catch (Exception $e)
 	<title>500 Internal Error</title>
 </head>
 <body>
-	<h1><?= $e->getMessage() ?></h1>
+	<h1><?php echo $e->getMessage() ?></h1>
 	<h2>Trace:</h2>
 	<table>
-		<? foreach ($e->getTrace() as $frame): ?>
+		<?php foreach ($e->getTrace() as $frame): ?>
 		<tr>
-			<td><?= (isset($frame['file']) && isset($frame['file']) ? $frame['file'] . ':' . $frame['line'] : '?') ?></td>
-			<td><?= (isset($frame['class']) ? $frame['class'] . '::' : '') ?><?= $frame['function'] ?></td>
+			<td><?php echo (isset($frame['file']) && isset($frame['file']) ? $frame['file'] . ':' . $frame['line'] : '?') ?></td>
+			<td><?php echo (isset($frame['class']) ? $frame['class'] . '::' : '') ?><?php echo $frame['function'] ?></td>
 			<td>
-				<? join(array_keys($frame), ', ') ?>
+				<?php join(array_keys($frame), ', ') ?>
 			</td>
 		</tr>
-		<? endforeach ?>
+		<?php endforeach ?>
 	</table>
 </body>
 </html>

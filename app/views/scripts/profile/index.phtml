@@ -1,4 +1,4 @@
-<?= $this->error($this) ?>
+<?php echo $this->error($this) ?>
 <script type="text/javascript">
 <!--
 function checkForm() {
@@ -7,18 +7,18 @@ function checkForm() {
 	var user = document.getElementById('user');
 	if ((!user.users_password.value.length || !user.users_password_copy.value.length)
 		&& !user.users_id) {
-		spanError.innerHTML = "<?= T_('Password empty.') ?>";
+		spanError.innerHTML = "<?php echo T_('Password empty.') ?>";
 		spanError.className = "usvn_error";
 		return false;
 	}
 	if (user.users_password.value != user.users_password_copy.value) {
-		spanError.innerHTML = "<?= T_('Password incorrect (not the same).') ?>";
+		spanError.innerHTML = "<?php echo T_('Password incorrect (not the same).') ?>";
 		spanError.className = "usvn_error";
 		return false;
 	}
 	if (user.users_password.value.length < 8 && (!user.users_id ||
 		user.users_password.value.length >= 1)) {
-		spanError.innerHTML = "<?= T_('Password incorrect (need more 8 characters).') ?>";
+		spanError.innerHTML = "<?php echo T_('Password incorrect (need more 8 characters).') ?>";
 		spanError.className = "usvn_error";
 		return false;
 	}
@@ -29,30 +29,30 @@ function checkForm() {
 -->
 </script>
 <div class="usvn_info">
-	<h1><?= T_("My account") ?></h1>
+	<h1><?php echo T_("My account") ?></h1>
 </div>
 <div id="profile">
-	<form id="user" class="usvn_form" method="post" action="<?= $this->url(array("action" => "save")) ?>">
-		<label for="users_password"><?= T_("Actual password") ?><span class="usvn_require">*</span><br />
-			<?= $this->formPassword('users_password',  null) ?>
+	<form id="user" class="usvn_form" method="post" action="<?php echo $this->url(array("action" => "save")) ?>">
+		<label for="users_password"><?php echo T_("Actual password") ?><span class="usvn_require">*</span><br />
+			<?php echo $this->formPassword('users_password',  null) ?>
 		</label>
 		<br />
-		<label><?= T_("New password") ?><br />
-			<?= $this->formPassword('users_new_password',  null) ?>
+		<label><?php echo T_("New password") ?><br />
+			<?php echo $this->formPassword('users_new_password',  null) ?>
 		</label>
-			<?= $this->formPassword('users_new_password_copy',  null) ?>
+			<?php echo $this->formPassword('users_new_password_copy',  null) ?>
 		<br />
-		<label><?= T_("Lastname") ?><br />
-			<?= $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)) ?></label>
+		<label><?php echo T_("Lastname") ?><br />
+			<?php echo $this->formText('users_lastname', $this->user->lastname, array('maxlength' => 100)) ?></label>
 		<br />
-		<label><?= T_("Firstname") ?><br />
-			<?= $this->formText('users_firstname', $this->user->firstname, array('maxlength' => 100)) ?>
-		</label>
-		<br />
-		<label><?= T_("Email") ?><br />
-			<?= $this->formText('users_email', $this->user->email, array('maxlength' => 150)) ?>
+		<label><?php echo T_("Firstname") ?><br />
+			<?php echo $this->formText('users_firstname', $this->user->firstname, array('maxlength' => 100)) ?>
 		</label>
 		<br />
-		<?= $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')) ?>
+		<label><?php echo T_("Email") ?><br />
+			<?php echo $this->formText('users_email', $this->user->email, array('maxlength' => 150)) ?>
+		</label>
+		<br />
+		<?php echo $this->formSubmit('submit', T_("Submit"), array("onclick" => 'return checkForm();')) ?>
 	</form>
 </div>

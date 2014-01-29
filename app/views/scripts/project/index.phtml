@@ -80,7 +80,7 @@
 </div>
 <div class="usvn_info">
 	<h1><?php echo T_("Last five commits"); ?>
-<? /*	echo "<link rel='alternate' type='application/rss+xml' href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."' />";
+<?php /*	echo "<link rel='alternate' type='application/rss+xml' href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."' />";
 	if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
 		echo "  <a href='".$this->url(array("controller" => "rss", "project" => $this->project->name), "rss")."?secret=".$this->secret_id."'>".$this->img('rss.png', T_('Rss'))."</a>"; */
 	 ?></h1>
@@ -94,15 +94,15 @@
 			</tr>
 		</thead>
 		<tbody>
-		<? foreach (array_keys($this->log) as $revision): ?>
-			<? $commit = $this->log[$revision]; ?>
-			<tr onClick="window.location='<?= $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') ?>'">
-				<td class="revision"><?= $revision ?></td>
-				<td class="logname"><?= $commit['author'] ?></td>
-				<td class="date"><?= date("Y-m-d H:i",  $commit["date"]) ?></td>
-				<td class="comment"><?= USVN_SVNLog::formatComment($commit['msg']) ?></td>
+		<?php foreach (array_keys($this->log) as $revision): ?>
+			<?php $commit = $this->log[$revision]; ?>
+			<tr onClick="window.location='<?php echo $this->url(array('project' => $this->project->name, 'action' => 'commit', 'commit' => $revision), 'commit') ?>'">
+				<td class="revision"><?php echo $revision ?></td>
+				<td class="logname"><?php echo $commit['author'] ?></td>
+				<td class="date"><?php echo date("Y-m-d H:i",  $commit["date"]) ?></td>
+				<td class="comment"><?php echo USVN_SVNLog::formatComment($commit['msg']) ?></td>
 			</tr>
-		<? endforeach ?>
+		<?php endforeach ?>
 		</tbody>
 	</table>
 </div>

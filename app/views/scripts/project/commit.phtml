@@ -12,21 +12,21 @@
       <td><?php echo $this->date ?></td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><?= T_('Files') ?>:</td>
+      <td style="vertical-align: top;"><?php echo T_('Files') ?>:</td>
       <td>
         <?php foreach ($this->diff as $file => $diff): ?>
-        <a href="#<?= htmlentities($file) ?>"><?= htmlentities($file) ?></a><br />
+        <a href="#<?php echo htmlentities($file) ?>"><?php echo htmlentities($file) ?></a><br />
         <?php endforeach ?>
       </td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><?= T_('Comment') ?>:</td>
-      <td><?= USVN_SVNLog::formatComment($this->log) ?></td>
+      <td style="vertical-align: top;"><?php echo T_('Comment') ?>:</td>
+      <td><?php echo USVN_SVNLog::formatComment($this->log) ?></td>
     </tr>
   </table>
 </div>
 <div style="font-family:monospace;">
-  <? foreach ($this->diff as $file => $diff): ?>
+  <?php foreach ($this->diff as $file => $diff): ?>
     <table border="0" cellspacing="1px" cellpadding="0" width="100%" style="padding: 2px;">
       <tr height="30px">
         <th style="background-color: #EEEEEE;" width="30px;">r<?php echo $this->base ?></th>
@@ -35,44 +35,44 @@
           <a name="<?php echo htmlentities($file) ?>" href="<?php echo $this->url(array('project' => $this->project->name, 'action' => 'show'), 'project')."/".str_replace('%2F', '/', urlencode(trim($file))).'?rev='.$this->commit ?>"><?php echo htmlentities($file) ?></a>
         </th>
       </tr>
-      <? $i = NULL ?>
-      <? foreach ($diff as $d): ?>
-        <? if ($i !== NULL): ?>
+      <?php $i = NULL ?>
+      <?php foreach ($diff as $d): ?>
+        <?php if ($i !== NULL): ?>
           <tr>
             <td style="background-color: #EEEEEE;">&nbsp;</td>
             <td style="background-color: #EEEEEE;">&nbsp;</td>
             <td style="background-color: #EEEEEE;">&nbsp;</td>
           </tr>
-        <? endif ?>
-        <? for ($i = 0, $basei = $d[$this->base]['begin'], $commiti = $d[$this->commit]['begin']; TRUE; ++$i): ?>
-          <? if (isset($d[$this->base]['content'][$i])): ?>
+        <?php endif ?>
+        <?php for ($i = 0, $basei = $d[$this->base]['begin'], $commiti = $d[$this->commit]['begin']; TRUE; ++$i): ?>
+          <?php if (isset($d[$this->base]['content'][$i])): ?>
             <tr>
-              <td style="background-color: #EEEEEE;"><?= ($basei++) ?></td>
+              <td style="background-color: #EEEEEE;"><?php echo ($basei++) ?></td>
 	          <td style="background-color: #EEEEEE;">&nbsp;</td>
 	          <td style="background-color: #FFDDDD;">
-	            <span><?= spaceToNbsp($d[$this->base]['content'][$i]) ?></span>
+	            <span><?php echo spaceToNbsp($d[$this->base]['content'][$i]) ?></span>
 	          </td>
 	        </tr>
-          <? elseif (isset($d[$this->commit]['content'][$i])): ?>
+          <?php elseif (isset($d[$this->commit]['content'][$i])): ?>
             <tr>
               <td style="background-color: #EEEEEE;">&nbsp;</td>
-	          <td style="background-color: #EEEEEE;"><?= ($commiti++) ?></td>
+	          <td style="background-color: #EEEEEE;"><?php echo ($commiti++) ?></td>
 	          <td style="background-color: #DDFFDD;">
-	            <span><?= spaceToNbsp($d[$this->commit]['content'][$i]) ?></span>
+	            <span><?php echo spaceToNbsp($d[$this->commit]['content'][$i]) ?></span>
 	          </td>
 	        </tr>
-          <? elseif (isset($d['common'][$i])): ?>
+          <?php elseif (isset($d['common'][$i])): ?>
             <tr>
-              <td style="background-color: #EEEEEE;"><?= ($basei++) ?></td>
-	          <td style="background-color: #EEEEEE;"><?=($commiti++) ?></td>
-	          <td><span><?= spaceToNbsp($d['common'][$i]) ?></span></td>
+              <td style="background-color: #EEEEEE;"><?php echo ($basei++) ?></td>
+	          <td style="background-color: #EEEEEE;"><?php echo ($commiti++) ?></td>
+	          <td><span><?php echo spaceToNbsp($d['common'][$i]) ?></span></td>
 	        </tr>
-          <? else: ?>
-            <? break ?>
-          <? endif ?>
-        <? endfor ?>
-      <? endforeach ?>
+          <?php else: ?>
+            <?php break ?>
+          <?php endif ?>
+        <?php endfor ?>
+      <?php endforeach ?>
     </table>
     <br />
-  <? endforeach ?>
+  <?php endforeach ?>
 </div>

@@ -1,38 +1,38 @@
 <div class="usvn_info">
-	<h1><?= T_("Projects") ?></h1>
+	<h1><?php echo T_("Projects") ?></h1>
 </div>
 <table class="sortable" id="projects">
 	<thead>
 		<tr>
-			<th><?= T_('Name') ?></th>
-			<th><?= T_('Description') ?></th>
-			<th class="sorttable_nosort" width="112px"><?= T_('Action') ?></th>
+			<th><?php echo T_('Name') ?></th>
+			<th><?php echo T_('Description') ?></th>
+			<th class="sorttable_nosort" width="112px"><?php echo T_('Action') ?></th>
 		</tr>
 	</thead>
 	<tbody>
 	
-	<? if (!empty($this->projects)): ?>
-	<? $deletetext = T_("Do you really want to delete project %s?"); ?>
-	<? foreach ($this->projects as $project): ?>
-	<? $editurl = $this->url(array('action' => 'edit', 'name' => $project->name)); ?>
+	<?php if (!empty($this->projects)): ?>
+	<?php $deletetext = T_("Do you really want to delete project %s?"); ?>
+	<?php foreach ($this->projects as $project): ?>
+	<?php $editurl = $this->url(array('action' => 'edit', 'name' => $project->name)); ?>
 		<tr>
-			<td><a href="<?= $editurl ?>"><?= $project->projects_name ?></a></td>
-			<td><a href="<?= $editurl ?>"><?= nl2br(htmlspecialchars($project->projects_description)) ?></a></td>
+			<td><a href="<?php echo $editurl ?>"><?php echo $project->projects_name ?></a></td>
+			<td><a href="<?php echo $editurl ?>"><?php echo nl2br(htmlspecialchars($project->projects_description)) ?></a></td>
 			<td class="align-right">
-				<?= $this->homeLink($project->name) ?>
-				<?= $this->editLink('name', $project->name) ?>
-				<?= $this->deleteLink('name', $project->name, $deletetext) ?>
-				<?= $this->ACLLink($project->name) ?>
+				<?php echo $this->homeLink($project->name) ?>
+				<?php echo $this->editLink('name', $project->name) ?>
+				<?php echo $this->deleteLink('name', $project->name, $deletetext) ?>
+				<?php echo $this->ACLLink($project->name) ?>
 			</td>
 		</tr>
-	<? endforeach ?>
-	<? endif ?>
+	<?php endforeach ?>
+	<?php endif ?>
 	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="3" class="align-right">
-				<a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("New Project") ?></a>
-				<?= $this->addLink() ?>
+				<a href="<?php echo $this->url(array('action' => 'new')) ?>"><?php echo T_("New Project") ?></a>
+				<?php echo $this->addLink() ?>
 			</td>
 		</tr>
 	</tfoot>

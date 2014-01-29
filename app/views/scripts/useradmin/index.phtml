@@ -1,56 +1,56 @@
 <div class="usvn_info">
-	<h1><?= T_("Users") ?></h1>
+	<h1><?php echo T_("Users") ?></h1>
 </div>
 
 <table class="sortable" id="users">
 	<thead>
 		<tr>
-			<th><?= T_('Login') ?></th>
-			<th><?= T_('Firstname') ?></th>
-			<th><?= T_('Lastname') ?></th>
-			<th><?= T_('Email') ?></th>
-			<th><?= T_('Administrator') ?></th>
-			<th class="sorttable_nosort" width="56px"><?= T_('Action') ?></th>
+			<th><?php echo T_('Login') ?></th>
+			<th><?php echo T_('Firstname') ?></th>
+			<th><?php echo T_('Lastname') ?></th>
+			<th><?php echo T_('Email') ?></th>
+			<th><?php echo T_('Administrator') ?></th>
+			<th class="sorttable_nosort" width="56px"><?php echo T_('Action') ?></th>
 		</tr>
 	</thead>
 	<tbody>
 
-<? if (!empty($this->users)): ?>
-	<? $me = Zend_Auth::getInstance()->getIdentity();
+<?php if (!empty($this->users)): ?>
+	<?php $me = Zend_Auth::getInstance()->getIdentity();
 	$me = $me['username'] ?>
-	<? $even = true ?>
-	<? foreach ($this->users as $user): ?>
-	<? $even = !$even ?>
-	<? $editurl = $this->url(array('action' => 'edit', 'login' => $user->login)) ?>
-	<? $deletetext = T_("Do you really want to delete user %s?") ?>
-	<tr class="<?= ($even ? 'even' : 'odd') ?>">
-		<td><a href="<?= h_($editurl) ?>"><?= h_($user->login) ?></a></td>
-		<td><a href="<?= h_($editurl) ?>"><?= h_($user->firstname) ?></a></td>
-		<td><a href="<?= h_($editurl) ?>"><?= h_($user->lastname) ?></a></td>
-		<td><a href="mailto:<?= h_($user->email) ?>"><?= h_($user->email) ?></a></td>
-		<td><a href="<?= h_($editurl) ?>"><?= T_($user->is_admin ? "yes" : "no") ?></a></td>
+	<?php $even = true ?>
+	<?php foreach ($this->users as $user): ?>
+	<?php $even = !$even ?>
+	<?php $editurl = $this->url(array('action' => 'edit', 'login' => $user->login)) ?>
+	<?php $deletetext = T_("Do you really want to delete user %s?") ?>
+	<tr class="<?php echo ($even ? 'even' : 'odd') ?>">
+		<td><a href="<?php echo h_($editurl) ?>"><?php echo h_($user->login) ?></a></td>
+		<td><a href="<?php echo h_($editurl) ?>"><?php echo h_($user->firstname) ?></a></td>
+		<td><a href="<?php echo h_($editurl) ?>"><?php echo h_($user->lastname) ?></a></td>
+		<td><a href="mailto:<?php echo h_($user->email) ?>"><?php echo h_($user->email) ?></a></td>
+		<td><a href="<?php echo h_($editurl) ?>"><?php echo T_($user->is_admin ? "yes" : "no") ?></a></td>
 		<td class="align-right">
-			<?= $this->editLink('login', $user->login) ?>
-			<? if ($user->login != $me): ?>
-				<?= $this->deleteLink('login', $user->login, $deletetext) ?>
-			<? else: ?>
-				<?= $this->img('empty.png') ?>
-			<? endif ?>
+			<?php echo $this->editLink('login', $user->login) ?>
+			<?php if ($user->login != $me): ?>
+				<?php echo $this->deleteLink('login', $user->login, $deletetext) ?>
+			<?php else: ?>
+				<?php echo $this->img('empty.png') ?>
+			<?php endif ?>
 		</td>
 	</tr>
-<? endforeach ?>
-<? endif ?>
+<?php endforeach ?>
+<?php endif ?>
 	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="6" class="align-right">
 				<div>
-					<a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("Add new user") ?></a>
-					<?= $this->addLink() ?>
+					<a href="<?php echo $this->url(array('action' => 'new')) ?>"><?php echo T_("Add new user") ?></a>
+					<?php echo $this->addLink() ?>
 				</div>
 				<div>
-					<a href="<?= $this->url(array('action' => 'import')) ?>"><?= T_("Import htpasswd") ?></a>
-					<?= $this->addLink() ?>
+					<a href="<?php echo $this->url(array('action' => 'import')) ?>"><?php echo T_("Import htpasswd") ?></a>
+					<?php echo $this->addLink() ?>
 				</div>
 			</td>
 		</tr>

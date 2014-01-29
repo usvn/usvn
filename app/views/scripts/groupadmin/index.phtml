@@ -1,37 +1,37 @@
 <div class="usvn_info">
-	<h1><?= T_("Groups") ?></h1>
+	<h1><?php echo T_("Groups") ?></h1>
 </div>
 <table class="sortable" id="grps">
 	<thead>
 		<tr>
-			<th><?= T_('Name') ?></th>
-			<th><?= T_('Description') ?></th>
-			<th class="sorttable_nosort" width="84px"><?= T_('Action') ?></th>
+			<th><?php echo T_('Name') ?></th>
+			<th><?php echo T_('Description') ?></th>
+			<th class="sorttable_nosort" width="84px"><?php echo T_('Action') ?></th>
 		</tr>
 	</thead>
 	<tbody>
 
-	<? if (!empty($this->groups)): ?>
-	<? $deletetext = T_("Do you really want to delete group %s?") ?>
-	<? foreach ($this->groups as $group): ?>
-	<? $editurl = $this->url(array('action' => 'edit', 'name' => $group->name)) ?>
+	<?php if (!empty($this->groups)): ?>
+	<?php $deletetext = T_("Do you really want to delete group %s?") ?>
+	<?php foreach ($this->groups as $group): ?>
+	<?php $editurl = $this->url(array('action' => 'edit', 'name' => $group->name)) ?>
 		<tr>
-			<td><a href="<?= $editurl ?>"><?= htmlspecialchars($group->name) ?></a></td>
-			<td><a href="<?= $editurl ?>"><?= htmlspecialchars($group->description) ?></a></td>
+			<td><a href="<?php echo $editurl ?>"><?php echo htmlspecialchars($group->name) ?></a></td>
+			<td><a href="<?php echo $editurl ?>"><?php echo htmlspecialchars($group->description) ?></a></td>
 			<td class="align-right">
-				<?= $this->homeLinkGroup($group->name) ?>
-				<?= $this->editLink('name', $group->name) ?>
-				<?= $this->deleteLink('name', $group->name, $deletetext) ?>
+				<?php echo $this->homeLinkGroup($group->name) ?>
+				<?php echo $this->editLink('name', $group->name) ?>
+				<?php echo $this->deleteLink('name', $group->name, $deletetext) ?>
 			</td>
 		</tr>
-	<? endforeach ?>
-	<? endif ?>
+	<?php endforeach ?>
+	<?php endif ?>
 	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="3" class="align-right">
-				<a href="<?= $this->url(array('action' => 'new')) ?>"><?= T_("Add new group") ?></a>
-				<?= $this->addLink() ?>
+				<a href="<?php echo $this->url(array('action' => 'new')) ?>"><?php echo T_("Add new group") ?></a>
+				<?php echo $this->addLink() ?>
 			</td>
 		</tr>
 	</tfoot>

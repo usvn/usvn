@@ -27,7 +27,7 @@ catch (Exception $e)
 				<?php join(array_keys($frame), ', ') ?>
 			</td>
 		</tr>
-		<?php endforeach ?>
+		<?php endforeach; ?>
 	</table>
 </body>
 </html>

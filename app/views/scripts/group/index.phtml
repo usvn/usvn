@@ -74,7 +74,7 @@
 		<?php if ($right == 1): ?>
 		<?	echo $this->urlConfirm(array("deleteid" => $user->id, "action" => 'managegroup'), $this->img("delete.png", T_("Delete")),
 			sprintf(T_("Do you really want to remove user %s from group %s?"), $user->login, $this->group->name)); ?>
-		<?php endif ?>
+		<?php endif; ?>
 
 		&nbsp;<?php echo $user->login; ?></li>
 	<?php endforeach; ?>

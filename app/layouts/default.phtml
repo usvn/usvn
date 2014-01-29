@@ -39,8 +39,8 @@
 								$array['logout'] = T_('Logout') . ' (' . $this->login . ')';
 								foreach ($array as $menuLink => $menuLabel): ?>
 									<li><a href="<?php echo $this->url(array('controller' => $menuLink), 'default', true) ?>" <?php echo ($menuLink == $this->area ? ' id="selected"' : '') ?>><span><?php echo T_($menuLabel) ?></span></a></li>
-								<?php endforeach ?>
-							<?php endif ?>
+								<?php endforeach; ?>
+							<?php endif; ?>
 						</ul>
 					</div>
 				</div>
@@ -64,12 +64,12 @@
 										</a>
 									<?php else: ?>
 										<h3><?php echo T_($item['label']); ?></h3>
-									<?php endif ?>
+									<?php endif; ?>
 								</li>
-							<?php endforeach ?>
+							<?php endforeach; ?>
 						</ul>
 					</div>
-				<?php endif ?>
+				<?php endif; ?>
 				<div id="main">
 					<?php echo $this->layout()->content ?>
 					<div style="clear:both;"></div>

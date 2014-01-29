@@ -25,11 +25,11 @@
 				?></div>
 			</a>
 		</li>
-	<?php endforeach ?>
+	<?php endforeach; ?>
 	</ul>
 <?php else: ?>
 	<p><?php echo T_("You don't have any project.") ?></p>
-<?php endif ?>
+<?php endif; ?>
 </div>
 <div id="usvn_index_groups" class="usvn_index_box">
 	<h3><?php echo T_("Your groups"); ?>:</h3>
@@ -55,11 +55,11 @@
 				?></div>
 			</a>
 		</li>
-	<?php endforeach ?>
+	<?php endforeach; ?>
 	</ul>
 <?php else: ?>
 	<p><?php echo T_("You are not assign to a group.") ?></p>
-<?php endif ?>
+<?php endif; ?>
 </div>
 <div style="clear: both;">
 	<img width="1" height="1" src="<?php echo $this->url(array('controller' => 'checkupdate')); ?>" />

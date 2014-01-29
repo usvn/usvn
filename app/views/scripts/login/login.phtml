@@ -1,22 +1,22 @@
 <div class="usvn_info">
 	<h1><?php echo T_("Welcome to USVN")?></h1>
 	<p>
-		<?php echo T_("Please enter your login and your password to connect to USVN.") ?>
+		<?php echo T_("Please enter your login and your password to connect to USVN."); ?>
 	</p>
 </div>
 <div>
-	<form method="post" action="<?php echo $this->request->getRequestUri() ?>">
+	<form method="post" action="<?php echo $this->request->getRequestUri(); ?>">
 		<div id="box">
-			<label for="login" id="username"><?php echo T_("Login") ?><br />
-				<?php echo $this->formText('login', (isset($this->login) ? $this->login : "")) ?>
+			<label for="login" id="username"><?php echo T_("Login"); ?><br />
+				<?php echo $this->formText('login', (isset($this->login) ? $this->login : "")); ?>
 			</label>
 			<br />
 			<label for="lbPass" id="pass">
-				<?php echo T_("Password") ?><br />
-				<?php echo $this->formPassword('password') ?>
+				<?php echo T_("Password"); ?><br />
+				<?php echo $this->formPassword('password'); ?>
 			</label>
 			<br />
-			<?php echo $this->formSubmit('submit', T_("Submit")) ?>
+			<?php echo $this->formSubmit('submit', T_("Submit")); ?>
 		</div>
 	</form>
 </div>

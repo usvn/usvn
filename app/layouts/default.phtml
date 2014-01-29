@@ -6,17 +6,17 @@
 		<?php $config = Zend_Registry::get("config"); ?>
 
 		<title><?php echo $config->site->title ?></title>
-		<link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->url(array('action' => 'screen'), 'css') ?>" />
+		<link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->url(array('action' => 'screen'), 'css'); ?>" />
 		<link rel="shortcut icon" href="<?php echo $config->url->base . '/' . $config->site->ico ?>" />
 
-		<script type="text/javascript" src="<?php echo $this->url(array(), 'js') ?>"></script>
+		<script type="text/javascript" src="<?php echo $this->url(array(), 'js'); ?>"></script>
 
 		<?php if (isset($view->csss)): foreach ($view->csss as $css): ?>
-		  <link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->url(array('type' => 'css', 'media' => $config->template->name, 'name' => $css), 'medias') ?>" />
+		  <link type="text/css" rel="stylesheet" media="screen" href="<?php echo $this->url(array('type' => 'css', 'media' => $config->template->name, 'name' => $css), 'medias'); ?>" />
 		<?php endforeach; endif; ?>
 
 		<?php if (isset($view->javascripts)): foreach ($view->javascripts as $js): ?>
-		  <script type="text/javascript" src="<?php echo $this->url(array('type' => 'js', 'media' => $config->template->name, 'name' => $js), 'medias') ?>"></script>
+		  <script type="text/javascript" src="<?php echo $this->url(array('type' => 'js', 'media' => $config->template->name, 'name' => $js), 'medias'); ?>"></script>
 		<?php endforeach; endif; ?>
 
 	</head>
@@ -24,7 +24,7 @@
 		<div id="header">
 			<div id="shaddow">
 				<div id="header-wrapper">
-					<a href="<?php echo $this->url(array('controller' => $menuLink), 'default', true) ?>">
+					<a href="<?php echo $this->url(array('controller' => $menuLink), 'default', true); ?>">
 						<div id="logo" style="background: transparent url('<?php echo $config->url->base . '/' . $config->site->logo ?>') no-repeat 0px 0px;"></div>
 					</a>
 					<div id="main-menu">
@@ -38,9 +38,9 @@
 									$array['admin'] = T_('Admin');
 								$array['logout'] = T_('Logout') . ' (' . $this->login . ')';
 								foreach ($array as $menuLink => $menuLabel): ?>
-									<li><a href="<?php echo $this->url(array('controller' => $menuLink), 'default', true) ?>" <?php echo ($menuLink == $this->area ? ' id="selected"' : '') ?>><span><?php echo T_($menuLabel) ?></span></a></li>
-								<?php endforeach ?>
-							<?php endif ?>
+									<li><a href="<?php echo $this->url(array('controller' => $menuLink), 'default', true); ?>" <?php echo ($menuLink == $this->area ? ' id="selected"' : ''); ?>><span><?php echo T_($menuLabel); ?></span></a></li>
+								<?php endforeach; ?>
+							<?php endif; ?>
 						</ul>
 					</div>
 				</div>
@@ -64,12 +64,12 @@
 										</a>
 									<?php else: ?>
 										<h3><?php echo T_($item['label']); ?></h3>
-									<?php endif ?>
+									<?php endif; ?>
 								</li>
-							<?php endforeach ?>
+							<?php endforeach; ?>
 						</ul>
 					</div>
-				<?php endif ?>
+				<?php endif; ?>
 				<div id="main">
 					<?php echo $this->layout()->content ?>
 					<div style="clear:both;"></div>

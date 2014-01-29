@@ -15,27 +15,27 @@
 			$okstr = T_('%s is installed.');
 			$kostr = T_('%s has not been detected.');
 		?>
-		<td><?php echo ($errors['safe_mode'] == 'ko' ? $ko : $ok) ?></td>
-		<td><?php echo T_($errors['safe_mode'] == 'ko' ? 'PHP safe mode should be disabled.' : 'PHP safe mode is disabled.') ?></td>
+		<td><?php echo ($errors['safe_mode'] == 'ko' ? $ko : $ok); ?></td>
+		<td><?php echo T_($errors['safe_mode'] == 'ko' ? 'PHP safe mode should be disabled.' : 'PHP safe mode is disabled.'); ?></td>
 	</tr>
 	<tr>
-		<td><?php echo ($errors['svn'] == 'ko' ? $ko : $ok) ?></td>
-		<td><?php echo sprintf(($errors['svn'] == 'ko' ? $kostr : $okstr), 'Subversion') ?></td>
+		<td><?php echo ($errors['svn'] == 'ko' ? $ko : $ok); ?></td>
+		<td><?php echo sprintf(($errors['svn'] == 'ko' ? $kostr : $okstr), 'Subversion'); ?></td>
 	</tr>
 	<tr>
-		<td><?php echo ($errors['mod_rewrite'] == 'ko' ? $ko : $ok) ?></td>
-		<td><?php echo sprintf(($errors['mod_rewrite'] == 'ko' ? $kostr : $okstr), 'mod_rewrite') ?></td>
+		<td><?php echo ($errors['mod_rewrite'] == 'ko' ? $ko : $ok); ?></td>
+		<td><?php echo sprintf(($errors['mod_rewrite'] == 'ko' ? $kostr : $okstr), 'mod_rewrite'); ?></td>
 	</tr>
 	<tr>
-		<td><?php echo ($errors['mod_dav_svn'] == 'ko' ? $ko : $ok) ?></td>
-		<td><?php echo sprintf(($errors['mod_dav_svn'] == 'ko' ? $kostr : $okstr), 'mod_dav_svn') ?></td>
+		<td><?php echo ($errors['mod_dav_svn'] == 'ko' ? $ko : $ok); ?></td>
+		<td><?php echo sprintf(($errors['mod_dav_svn'] == 'ko' ? $kostr : $okstr), 'mod_dav_svn'); ?></td>
 	</tr>
 	<tr>
-		<td><?php echo ($errors['mod_authz_svn'] == 'ko' ? $ko : $ok) ?></td>
-		<td><?php echo sprintf(($errors['mod_authz_svn'] == 'ko' ? $kostr : $okstr), 'mod_authz_svn') ?></td>
+		<td><?php echo ($errors['mod_authz_svn'] == 'ko' ? $ko : $ok); ?></td>
+		<td><?php echo sprintf(($errors['mod_authz_svn'] == 'ko' ? $kostr : $okstr), 'mod_authz_svn'); ?></td>
 	</tr>
 	<tr>
-		<td><?php echo ($errors['public'] == 'ko' ? $ko : $ok) ?></td>
+		<td><?php echo ($errors['public'] == 'ko' ? $ko : $ok); ?></td>
 		<td>
       <?php if ($errors['public'] == 'ko'): ?>
       On "public" folder USVN should have:
@@ -45,11 +45,11 @@
       </ul>
       <?php else: ?>
       Good rights on "public".
-      <?php endif ?>
+      <?php endif; ?>
     </td>
 	</tr>
 	<tr>
-		<td><?php echo ($errors['config'] == 'ko' ? $ko : $ok) ?></td>
+		<td><?php echo ($errors['config'] == 'ko' ? $ko : $ok); ?></td>
 		<td>
       <?php if ($errors['config'] == 'ko'): ?>
       On "config" folder USVN should have:
@@ -59,7 +59,7 @@
       </ul>
       <?php else: ?>
       Good rights on "config".
-      <?php endif ?>
+      <?php endif; ?>
     </td>
 	</tr>
 </table>
@@ -71,7 +71,7 @@
 	<hr />
 	<form action="?step=2" method="post">
 		<div>
-			<input type="submit" value="<?php echo T_('Next step') ?>" />
+			<input type="submit" value="<?php echo T_('Next step'); ?>" />
 		</div>
 	</form>
 <?php
@@ -82,7 +82,7 @@ else
 	<br />
 	<form action="?step=1" method="post">
 		<div>
-			<input type="submit" value="<?php echo T_('Refresh') ?>" />
+			<input type="submit" value="<?php echo T_('Refresh'); ?>" />
 		</div>
 	</form>
 	<br />
@@ -93,7 +93,7 @@ else
 			I'm sure: <input type="checkbox" onclick="document.forceForm.ok.disabled = !document.forceForm.forceCheck.checked;" name="forceCheck">
 			<br />
 			<br />
-			<input type="submit" value="<?php echo T_("Force installation") ?>" name="ok" />
+			<input type="submit" value="<?php echo T_("Force installation"); ?>" name="ok" />
 		</div>
 	</form>
 	<script>

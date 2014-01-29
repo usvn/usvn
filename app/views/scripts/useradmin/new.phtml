@@ -8,7 +8,7 @@ echo $this->error($this);
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'js.phtml';
 ?>
 <div id="profile">
-<form id="user" name="user" class="usvn_form" method="post" action="<?php echo $this->url(array("action" => "create")) ?>">
+<form id="user" name="user" class="usvn_form" method="post" action="<?php echo $this->url(array("action" => "create")); ?>">
 <?php
 include dirname(__FILE__) . DIRECTORY_SEPARATOR . "form.phtml";
 ?>

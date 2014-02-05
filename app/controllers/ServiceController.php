@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class to provide funcions to remove integrations
+ * Class to provide funcions external integrations
  * 
  * @package USVN (https://github.com/usvn/usvn)
  * @author Bruno Pittlei Gonçalves (scorninpc - https://github.com/scorninpc)

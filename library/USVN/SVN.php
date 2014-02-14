@@ -32,7 +32,7 @@ class USVN_SVN
             throw new USVN_Exception(T_("Invalid project name %s."), $project);
         }
 		$this->_project = $project;
-		$this->_repository = Zend_Registry::get('config')->subversion->path . '/svn/' . $this->_project;
+		$this->_repository = Zend_Registry::get('config')->subversion->path . $this->_project;
 	}
 
 	/**

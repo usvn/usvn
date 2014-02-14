@@ -247,7 +247,7 @@ class Install
 			$url .= '/';
 		$path = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $path);
 		$config = Install::_loadConfig($config_file);
-		if (file_exists($path) && is_writable($path) && (file_exists($path . DIRECTORY_SEPARATOR . 'svn') || mkdir($path . DIRECTORY_SEPARATOR . 'svn')))
+		if (file_exists($path) && is_writable($path) && (file_exists($path . DIRECTORY_SEPARATOR ) || mkdir($path . DIRECTORY_SEPARATOR )))
 		{
 			$config->subversion = array(
 				'path' => $path,

@@ -30,7 +30,6 @@ class USVN_Project
 		$config = Zend_Registry::get('config');
 		$path = $config->subversion->path
 		. DIRECTORY_SEPARATOR
-		. 'svn'
 		. DIRECTORY_SEPARATOR
 		. $project_name;
 		if (!USVN_SVNUtils::isSVNRepository($path, true)) {
@@ -192,7 +191,6 @@ class USVN_Project
 
 		USVN_DirectoryUtils::removeDirectory(Zend_Registry::get('config')->subversion->path
 		. DIRECTORY_SEPARATOR
-		. 'svn'
 		. DIRECTORY_SEPARATOR
 		. $project_name);
 

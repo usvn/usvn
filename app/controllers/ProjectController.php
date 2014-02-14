@@ -217,7 +217,7 @@ class ProjectController extends USVN_Controller
 		$project_name = str_replace(USVN_URL_SEP, '/',$this->_project->name);
     	$svn_file_path = $this->getRequest()->getParam('file');
     	$this->view->path = $svn_file_path;
-    	$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/".$svn_file_path);
+    	$local_file_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path.$project_name."/".$svn_file_path);
     	$file_ext = pathinfo($svn_file_path, PATHINFO_EXTENSION);
 		$revision = $this->getRequest()->getParam('rev');
 		$file_rev = '';
@@ -391,7 +391,7 @@ class ProjectController extends USVN_Controller
 		$this->view->project = $this->_project;
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$project_name = str_replace(USVN_URL_SEP, '/',$this->_project->name);
-		$local_project_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path."/svn/".$project_name."/");
+		$local_project_path = USVN_SVNUtils::getRepositoryPath($config->subversion->path.$project_name."/");
 		$commit = $this->getRequest()->getParam('commit');
 		$base = $commit - 1;
 		$cmd = USVN_SVNUtils::svnCommand("log --non-interactive --revision {$commit} $local_project_path");

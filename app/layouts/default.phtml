@@ -30,7 +30,7 @@
 					<div id="main-menu">
 						<ul>
 							<?php if ($this->isLogged): ?>
-							<?
+							<?php
 								$array = array();
 								$array['index'] = T_('Home');
 								$array['profile'] = T_('Profile');
@@ -71,7 +71,7 @@
 					</div>
 				<?php endif; ?>
 				<div id="main">
-					<?php echo $this->layout()->content ?>
+					<?php echo $this->layout()->content; ?>
 					<div style="clear:both;"></div>
 				</div>
 				<div id="hspacer">

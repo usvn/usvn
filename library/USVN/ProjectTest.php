@@ -117,6 +117,7 @@ class USVN_ProjectsTest extends USVN_Test_DB {
 		$group = $this->CheckCreateProjectWithGroupWithAdmin($project);
 		$this->checkRightPathForGroup($group, $project, '/', 1, 0);
 		$this->checkRightPathForGroup($group, $project, '/branches', 1, 1);
+		$this->checkRightPathForGroup($group, $project, '/tags', 1, 1);
 		$this->checkRightPathForGroup($group, $project, '/trunk', 1, 1);
 	}
 

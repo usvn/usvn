@@ -24,8 +24,10 @@ define('USVN_CONFIG_VERSION',   '1.0.7');
 
 set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());
 
-require_once 'Zend/Loader.php';
-Zend_Loader::registerAutoload();
+require_once 'Zend/Loader/Autoloader.php';
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->registerNamespace("Zend_");
+$autoloader->registerNamespace("USVN_");
 require_once USVN_APP_DIR . '/functions.php';
 require_once USVN_APP_DIR . '/install/install.class.php';
 

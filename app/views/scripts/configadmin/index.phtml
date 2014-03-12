@@ -17,7 +17,7 @@
 						foreach (USVN_Translation::listTranslation() as $language)
 						{
 							$locale = new Zend_Locale($language);
-							$lang_name = $this->locale->getLanguageTranslation($locale->getLanguage());
+							$lang_name = $this->locale->getTranslation($locale->getLanguage(), "language");
 							if ($language == USVN_Translation::getLanguage())
 								echo "<option value=\"$language\" selected=\"selected\">$lang_name</option>";
 							else

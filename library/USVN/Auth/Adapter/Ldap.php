@@ -20,8 +20,6 @@
 class USVN_Auth_Adapter_Ldap extends Zend_Auth_Adapter_Ldap
 {
 	private $_identityUserName;
-	
-	private $_user_data;
 
 	/**
 	 * Sets username and password for authentication
@@ -50,8 +48,6 @@ class USVN_Auth_Adapter_Ldap extends Zend_Auth_Adapter_Ldap
 				}
 			}
 			parent::__construct($arrayOfOptions, $username, $password);
-			
-			$_user_data = $this->getAccountObject(array('givenName','sn','mail'), array());
 		}
 		catch (Exception $e)
 		{
@@ -69,19 +65,19 @@ class USVN_Auth_Adapter_Ldap extends Zend_Auth_Adapter_Ldap
 		return true;
 	}
 	
-	public function getEmail() 
+	public function getEmail()
 	{
-		$this->_user_data['mail'];
+		return $this->getAccountObject(array('mail'))->mail;
 	}
 	
 	public function getFirstName()
 	{
-		$this->_user_data['givenName'];
+		return $this->getAccountObject(array('givenname'))->givenname;
 	}
 	
 	public function getLastName()
 	{
-		$this->_user_data['sn'];
+		return $this->getAccountObject(array('sn'))->sn;
 	}
 	
 }

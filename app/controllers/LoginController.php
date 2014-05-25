@@ -127,22 +127,19 @@ class LoginController extends USVN_Controller
 					);
 					
 					/* Request firstname, lastname, and username if possible (e.g., can be read from LDAP) */
-					if (in_array("getFirstName", get_class_methods($authAdapter)))
+					$authAdapterClassMethods = get_class_methods($authAdapter);
+					if (in_array('getFirstName', $authAdapterClassMethods))
 					{
-						$firstname = $authAdapter->getFirstName();
-						$data['users_firstname'] = $firstname;
+						$data['users_firstname'] = $authAdapter->getFirstName();
 					};
-					if (in_array("getLastName", get_class_methods($authAdapter)))
+					if (in_array('getLastName', $authAdapterClassMethods))
 					{
-						$lastname = $authAdapter->getLastName();
-						$data['users_lastname'] = $lastname;
+						$data['users_lastname'] = $authAdapter->getLastName();
 					};			
-					if (in_array("getEmail", get_class_methods($authAdapter)))
+					if (in_array('getEmail', $authAdapterClassMethods))
 					{
-						$email = $authAdapter->getEmail();
-						$data['users_email'] = $email;
+						$data['users_email'] = $authAdapter->getEmail();
 					};
-					/* */
 					
 					$user = USVN_User::create($data, $config->$authAdapterMethod->createGroupForUserInDB, null);
 					$user->save();

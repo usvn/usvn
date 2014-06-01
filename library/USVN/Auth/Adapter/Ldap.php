@@ -64,4 +64,20 @@ class USVN_Auth_Adapter_Ldap extends Zend_Auth_Adapter_Ldap
 	{
 		return true;
 	}
+	
+	public function getEmail()
+	{
+		return $this->getAccountObject(array('mail'))->mail;
+	}
+	
+	public function getFirstName()
+	{
+		return $this->getAccountObject(array('givenname'))->givenname;
+	}
+	
+	public function getLastName()
+	{
+		return $this->getAccountObject(array('sn'))->sn;
+	}
+	
 }

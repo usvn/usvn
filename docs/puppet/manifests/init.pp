@@ -25,17 +25,17 @@ class external
 		port     => '80',
 		override => 'All',
 		docroot  => '/vagrant/src/public',
-		custom_fragment => '<Location />
-	ErrorDocument 404 default
-	DAV svn
-	Require valid-user
-	SVNParentPath /usvn/files/svn
-	SVNListParentPath off
-	AuthType Basic
-	AuthName "USVN - Lideran?a"
-	AuthUserFile /usvn/files/htpasswd
-	AuthzSVNAccessFile /usvn/files/authz
-</Location>',
+		#custom_fragment => '<Location />
+#	ErrorDocument 404 default
+#	DAV svn
+#	Require valid-user
+#	SVNParentPath /usvn/files/svn
+#	SVNListParentPath off
+#	AuthType Basic
+#	AuthName "USVN - Lideran?a"
+#	AuthUserFile /usvn/files/htpasswd
+#	AuthzSVNAccessFile /usvn/files/authz
+#</Location>',
 	}
 	class {'phpmyadmin':
 		root_password => 'root',
@@ -45,16 +45,17 @@ class external
 
 class local
 {
-	$files = [
-		'/usvn',
-		'/usvn/files',
-	]
-	file {$files:
-		ensure => directory,
+	File {
 		owner  => 'www-data',
 		group  => 'www-data',
 		mode   => 0777,
 	}
+
+	$dirs = ['/usvn','/usvn/files']
+	file {$dirs: ensure => directory}
+	
+	$files = ['/usvn/files/htpasswd','/usvn/files/authz']
+	file {$files: ensure => present}
 }
 
 class {'external':}

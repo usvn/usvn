@@ -19,15 +19,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network :forwarded_port, guest:    80, host: 8080
-  config.vm.network :forwarded_port, guest:    81, host: 8081
-  config.vm.network :forwarded_port, guest:    82, host: 8082
-  config.vm.network :forwarded_port, guest:    83, host: 8083
-  config.vm.network :forwarded_port, guest:  3306, host: 3366
-  config.vm.network :forwarded_port, guest: 11211, host: 11211
+  config.vm.network :forwarded_port, guest:   80, host: 8080
+  config.vm.network :forwarded_port, guest:   81, host: 8081
+  config.vm.network :forwarded_port, guest: 3306, host: 3366
 
   # Hostname
-  config.vm.host_name = "php-skel.dev"
+  config.vm.host_name = "udev.dev"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -47,7 +44,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder "~/.ssh", "/home/.ssh"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -88,13 +84,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	[ -d /etc/puppet/modules/env        ] || puppet module install leonardothibes-env
 	[ -d /etc/puppet/modules/vim        ] || puppet module install leonardothibes-vim
 	[ -d /etc/puppet/modules/php        ] || puppet module install leonardothibes-php
-	[ -d /etc/puppet/modules/zf         ] || puppet module install leonardothibes-zf
-	[ -d /etc/puppet/modules/openjdk    ] || puppet module install leonardothibes-openjdk
 	[ -d /etc/puppet/modules/phpmyadmin ] || puppet module install leonardothibes-phpmyadmin
 	[ -d /etc/puppet/modules/apache     ] || puppet module install puppetlabs-apache
   "
   config.vm.provision :puppet do |puppet|
-    puppet.module_path    = "docs/puppet/modules"
     puppet.manifests_path = "docs/puppet/manifests"
     puppet.manifest_file  = "init.pp"
   end

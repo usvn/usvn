@@ -45,17 +45,18 @@ class external
 
 class local
 {
-	File {
+	file {'/var/lib/usvn':
+		ensure => directory,
 		owner  => 'www-data',
 		group  => 'www-data',
 		mode   => 0777,
 	}
 
-	$dirs = ['/usvn','/usvn/files']
-	file {$dirs: ensure => directory}
+	#$dirs = ['/var/lib/usvn','/usvn/files']
+	#file {$dirs: ensure => directory}
 	
-	$files = ['/usvn/files/htpasswd','/usvn/files/authz']
-	file {$files: ensure => present}
+	#$files = ['/usvn/files/htpasswd','/usvn/files/authz']
+	#file {$files: ensure => present}
 }
 
 class {'external':}

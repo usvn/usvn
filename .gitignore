@@ -1,0 +1,11 @@
+Thumbs.db
+.DS_Store
+.buildpath
+.project
+.settings
+.vagrant
+*.db
+*.bak
+*.swp
+.htaccess
+config.ini

@@ -1,3 +1,6 @@
+##
+ # Development environment provided by external modules of Puppet Forge.
+##
 class external
 {
 	class {'env':
@@ -43,6 +46,9 @@ class external
 	}
 }
 
+##
+ # Development environment provided by local rules.
+##
 class local
 {
 	$usvn = '/var/lib/usvn'

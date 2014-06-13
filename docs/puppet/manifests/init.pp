@@ -51,12 +51,6 @@ class local
 		group  => 'www-data',
 		mode   => 0777,
 	}
-
-	#$dirs = ['/var/lib/usvn','/usvn/files']
-	#file {$dirs: ensure => directory}
-	
-	#$files = ['/usvn/files/htpasswd','/usvn/files/authz']
-	#file {$files: ensure => present}
 }
 
 class {'external':}

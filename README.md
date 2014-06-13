@@ -34,7 +34,7 @@ make            <-- remove instalation files
 ```
 
 ### Official maintainers
- * ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")[Jean-Philippe](https://github.com/carbonimax)
+ * (https://avatars3.githubusercontent.com/u/1206346?s=460)[Jean-Philippe](https://github.com/carbonimax)
  * [Duponchelle](https://github.com/noplay)
  * [Stéphane Crivisier](https://github.com/stem)
 

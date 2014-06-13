@@ -10,3 +10,8 @@ User-frindly SVN
 **Requirements:**
  * Virtualbox (https://www.virtualbox.org/wiki/Downloads)
  * Vagrant (http://www.vagrantup.com)
+
+**To run:**
+```shell
+vagrant up
+```

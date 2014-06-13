@@ -20,7 +20,7 @@ class external
 	apache::mod {'rewrite':}
 	apache::mod {'dav_svn':}
 	apache::mod {'authz_svn':}
-	apache::vhost {'app':
+	apache::vhost {'usvn':
 		priority => '00',
 		port     => '80',
 		override => 'All',

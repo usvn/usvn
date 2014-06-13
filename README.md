@@ -34,7 +34,7 @@ make            <-- remove instalation files
 ```
 
 ### Official maintainers
- * (https://avatars3.githubusercontent.com/u/1206346?s=460)[Jean-Philippe](https://github.com/carbonimax)
+ * ![Jean-Philippe](https://avatars3.githubusercontent.com/u/1206346?s=460)[Jean-Philippe](https://github.com/carbonimax)
  * [Duponchelle](https://github.com/noplay)
  * [Stéphane Crivisier](https://github.com/stem)
 

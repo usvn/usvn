@@ -2,7 +2,7 @@ User-frindly SVN
 ================
 
 ### Official website
-http://www.usvn.info
+ * http://www.usvn.info
 
 ### Official instalation instructions
-[Installation](https://github.com/usvn/usvn/wiki/Installation)
+ * [Installation](https://github.com/usvn/usvn/wiki/Installation)

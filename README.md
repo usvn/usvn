@@ -25,3 +25,10 @@ vagrant suspend
 ```shell
 vagrant destroy
 ```
+
+### Run USVN installation process again after installed
+
+```shell
+vagrant destroy <-- destroy virtual machine
+make            <-- remove instalation files
+```

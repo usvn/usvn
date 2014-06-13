@@ -15,3 +15,8 @@ User-frindly SVN
 ```shell
 vagrant up
 ```
+
+**To suspend execution:**
+```shell
+vagrant suspend
+```

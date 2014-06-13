@@ -45,11 +45,16 @@ class external
 
 class local
 {
-	file {'/var/lib/usvn':
+	$usvn = '/var/lib/usvn'
+	file {$usvn:
 		ensure => directory,
 		owner  => 'www-data',
 		group  => 'www-data',
-		mode   => 0777,
+		mode   => 0755,
+	}
+	file {'/usvn':
+		ensure => link,
+		target => $usvn,
 	}
 }
 

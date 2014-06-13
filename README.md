@@ -20,3 +20,8 @@ vagrant up
 ```shell
 vagrant suspend
 ```
+
+**To destroy virtual machine:**
+```shell
+vagrant destroy
+```

@@ -34,7 +34,7 @@ make            <-- remove instalation files
 ```
 
 ### Official maintainers
- * [Jean-Philippe](https://github.com/carbonimax)
+ * ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")[Jean-Philippe](https://github.com/carbonimax)
  * [Duponchelle](https://github.com/noplay)
  * [Stéphane Crivisier](https://github.com/stem)
 

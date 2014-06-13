@@ -32,3 +32,9 @@ vagrant destroy
 vagrant destroy <-- destroy virtual machine
 make            <-- remove instalation files
 ```
+
+### Official maintainers
+ * [Jean-Philippe](https://github.com/carbonimax)
+ * [Duponchelle](https://github.com/noplay)
+ * [Stéphane Crivisier](https://github.com/stem)
+

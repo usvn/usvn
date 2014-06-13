@@ -7,6 +7,6 @@ User-frindly SVN
 
 ### Run on Vagrant
 
-**Requirements**
+**Requirements:**
  * Virtualbox (https://www.virtualbox.org/wiki/Downloads)
  * Vagrant (http://www.vagrantup.com)

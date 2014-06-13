@@ -12,23 +12,23 @@ User-frindly SVN
  * Vagrant (http://www.vagrantup.com)
 
 **To run:**
-```shell
+```bash
 vagrant up
 ```
 
 **To suspend execution:**
-```shell
+```bash
 vagrant suspend
 ```
 
 **To destroy virtual machine:**
-```shell
+```bash
 vagrant destroy
 ```
 
 ### Run USVN installation process again after installed
 
-```shell
+```bash
 vagrant destroy <-- destroy virtual machine
 make            <-- remove instalation files
 ```

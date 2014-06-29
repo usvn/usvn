@@ -1,4 +1,4 @@
-User-frindly SVN
+User-friendly SVN
 ================
 
 ### Important links
@@ -34,7 +34,6 @@ make            <-- remove instalation files
 ```
 
 ### Official maintainers
- * [Jean-Philippe](https://github.com/carbonimax)
- * [Duponchelle](https://github.com/noplay)
+ * [Julien Duponchelle](https://github.com/noplay)
  * [Stéphane Crivisier](https://github.com/stem)
 

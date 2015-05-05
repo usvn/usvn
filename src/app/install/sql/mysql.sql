@@ -1,6 +1,6 @@
 create table usvn_files_rights
 (
-   files_rights_id                int                            not null,
+   files_rights_id                int                            not null auto_increment,
    projects_id                    int                            not null,
    files_rights_path            text,
    primary key (files_rights_id)
@@ -14,7 +14,7 @@ create index to_belong_fk on usvn_files_rights
 
 create table usvn_groups
 (
-   groups_id                      int                            not null,
+   groups_id                      int                            not null auto_increment,
    groups_name                    varchar(150)                   not null,
    groups_description             varchar(1000),
    CONSTRAINT GROUPS_NAME_UNQ UNIQUE (groups_name),
@@ -62,7 +62,7 @@ create index usvn_groups_to_projects2_fk on usvn_groups_to_projects
 
 create table usvn_projects
 (
-   projects_id                    int                            not null,
+   projects_id                    int                            not null auto_increment,
    projects_name                  varchar(255)                   not null,
    projects_start_date            datetime                       not null,
    projects_description           varchar(1000),
@@ -73,7 +73,7 @@ ENGINE=InnoDB;
 
 create table usvn_users
 (
-   users_id                       int                            not null,
+   users_id                       int                            not null auto_increment,
    users_login                    varchar(255)                   not null,
    users_password                 varchar(64)                    not null,
    users_lastname                 varchar(100),
@@ -150,8 +150,3 @@ alter table usvn_users_to_projects add constraint fk_usvn_users_to_projects fore
 
 alter table usvn_users_to_projects add constraint fk_usvn_users_to_projects2 foreign key (users_id)
       references usvn_users (users_id) on delete restrict on update restrict;
-
-ALTER TABLE `usvn_groups` CHANGE `groups_id` `groups_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
-ALTER TABLE `usvn_projects` CHANGE `projects_id` `projects_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
-ALTER TABLE `usvn_users` CHANGE `users_id` `users_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;
-ALTER TABLE `usvn_files_rights` CHANGE `files_rights_id` `files_rights_id` INT( 11 ) NOT NULL AUTO_INCREMENT ;

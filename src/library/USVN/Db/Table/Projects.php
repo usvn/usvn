@@ -119,11 +119,11 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	 */
 	public function AddUserToProject($user, $project)
 	{
-		$create = new USVN_Db_Table_UsersToProjects();
-		$check = count($create->fetchRow(array('users_id' => $user->users_id, 'projects_id' => $project->projects_id)));
+		$table = new USVN_Db_Table_UsersToProjects();
+		$check = count($table->fetchRow(array('users_id = ?' => $user->users_id, 'projects_id = ?' => $project->projects_id)));
 		if ($check == 0) {
-			$add = $create->createRow(array('users_id' => $user->users_id, 'projects_id' => $project->projects_id));
-			$add->save();
+			$row = $table->createRow(array('users_id' => $user->users_id, 'projects_id' => $project->projects_id));
+			$row->save();
 		}
 	}
 
@@ -135,10 +135,10 @@ class USVN_Db_Table_Projects extends USVN_Db_TableAuthz {
 	 */
 	public function DeleteUserToProject($user, $project)
 	{
-		$delete = new USVN_Db_Table_UsersToProjects();
-		$check = count($delete->fetchRow(array('users_id' => $user->users_id, 'projects_id' => $project->projects_id)));
+		$table = new USVN_Db_Table_UsersToProjects();
+		$check = count($table->fetchRow(array('users_id = ?' => $user->users_id, 'projects_id = ?' => $project->projects_id)));
 		if ($check == 1) {
-			$delete->delete(array('users_id = ?' => $user->users_id), array('projects_id = ?', $project->projects_id));
+			$table->delete(array('users_id = ?' => $user->users_id, 'projects_id = ?' => $project->projects_id));
 		}
 	}
 

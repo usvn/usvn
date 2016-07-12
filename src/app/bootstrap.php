@@ -31,7 +31,7 @@ define('USVN_CONFIG_VERSION',     '1.0.7');
 
 /* Misc */
 define('USVN_URL_SEP', ':');
-error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
 /* Necessary Includes */
 set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());

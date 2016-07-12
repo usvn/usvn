@@ -69,7 +69,7 @@ catch (Exception $e)
 	// echo '<pre>' . "\n";
 	// echo $e;
 	// echo '</pre>' . "\n";
-	// exit(0);
+	exit(0);
 }
 
 /* USVN Configuration */

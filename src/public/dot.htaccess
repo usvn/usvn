@@ -1,6 +1,9 @@
 <Files *.ini>
-  Order Allow,Deny
-  Deny from all
+  ## For Apache HTTP 2.2
+  #Order Allow,Deny
+  #Deny from all
+  ## For Apache HTTP 2.4
+  Require all denied
 </Files>
 
 php_flag short_open_tag on

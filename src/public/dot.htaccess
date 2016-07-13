@@ -1,16 +1,9 @@
 <Files *.ini>
-Order Allow,Deny
-Deny from all
-</Files>
-RewriteEngine on
-#RewriteCond 
-# Modify This !!
-RewriteBase /usvn
-RewriteRule !\.(js|ico|gif|jpg|png|css)$ index.php
-
-<Files *.ini>
-  Order Allow,Deny
-  Deny from all
+  ## For Apache HTTP 2.2
+  #Order Allow,Deny
+  #Deny from all
+  ## For Apache HTTP 2.4
+  Require all denied
 </Files>
 
 php_flag short_open_tag on
@@ -18,7 +11,8 @@ php_flag magic_quotes_gpc off
 
 RewriteEngine on
 #RewriteCond
-RewriteBase "/usvn-working/"
+RewriteBase "//usvn/"
+RewriteRule ^svn/ - [L,NC]
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d

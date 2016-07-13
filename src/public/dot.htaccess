@@ -12,6 +12,7 @@ php_flag magic_quotes_gpc off
 RewriteEngine on
 #RewriteCond
 RewriteBase "//usvn/"
+RewriteRule ^svn/ - [L,NC]
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d

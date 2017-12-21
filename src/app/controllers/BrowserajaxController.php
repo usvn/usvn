@@ -215,8 +215,8 @@ class BrowserajaxController extends USVN_Controller
 
 			$msg = "Ok";
 
-			$tabgroup = split(",", $_GET['group']);
-			$tabrights = split(",", $_GET['rights']);
+			$tabgroup = explode(",", $_GET['group']);
+			$tabrights = explode(",", $_GET['rights']);
 			$j = 0;
 			foreach ($tabgroup as $group)
 			{

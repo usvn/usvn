@@ -22,7 +22,7 @@ class USVN_Update
 	 * Run update
 	 *
 	 * @author Team USVN
-	 * @return 
+	 * @return
 	 */
 	static public function runUpdate()
 	{
@@ -60,6 +60,11 @@ class USVN_Update
         else if ($config->version == '1.0.6')//DONT REPLACE WITH USVN_CONFIG_VERSION
         {
             $config->version = '1.0.7';//DONT REPLACE WITH USVN_CONFIG_VERSION
+            $config->save();
+        }
+        else if ($config->version == '1.0.7')//DONT REPLACE WITH USVN_CONFIG_VERSION
+        {
+            $config->version = '1.0.8';//DONT REPLACE WITH USVN_CONFIG_VERSION
             $config->save();
         }
         else

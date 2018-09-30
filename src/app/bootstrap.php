@@ -26,7 +26,7 @@ define('USVN_LOCALE_DIR',         USVN_APP_DIR . '/locale');
 /* Config */
 define('USVN_CONFIG_FILE',        USVN_CONFIG_DIR . '/config.ini');
 define('USVN_CONFIG_SECTION',     'general');
-define('USVN_CONFIG_VERSION',     '1.0.7');
+define('USVN_CONFIG_VERSION',     '1.0.8');
 
 
 /* Misc */

@@ -16,7 +16,7 @@ catch (Exception $e)
 	<title>500 Internal Error</title>
 </head>
 <body>
-	<h1><?php echo $e->getMessage(); ?></h1>
+	<h1><?php echo htmlentities($e->getMessage()); ?></h1>
 	<h2>Trace:</h2>
 	<table>
 		<?php foreach ($e->getTrace() as $frame): ?>

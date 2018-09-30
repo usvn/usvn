@@ -7,5 +7,6 @@ Thumbs.db
 *.db
 *.bak
 *.swp
+src/files
 .htaccess
 config.ini

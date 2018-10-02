@@ -20,7 +20,7 @@ define('USVN_HTACCESS_FILE',    USVN_PUB_DIR    . '/.htaccess');
 define('USVN_LOCALE_DIRECTORY', USVN_APP_DIR    . '/locale');
 
 define('USVN_CONFIG_SECTION',   'general');
-define('USVN_CONFIG_VERSION',   '1.0.7');
+define('USVN_CONFIG_VERSION',   '1.0.8');
 
 set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());
 

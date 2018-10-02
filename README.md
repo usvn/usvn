@@ -37,3 +37,7 @@ make            <-- remove instalation files
  * [Julien Duponchelle](https://github.com/noplay)
  * [Stéphane Crivisier](https://github.com/stem)
 
+## Changes
+
+1.0.8 Fix JVN#73794686 Cross-site scripting vulnerability in
+

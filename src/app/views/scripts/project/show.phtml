@@ -59,7 +59,15 @@
   </p>
 </div>
 <?php
-  if (!$this->diff_view) {
+  $finfo = new finfo(FILEINFO_MIME);
+  $mime = $finfo->buffer($this->source);
+  $mime = substr($mime, 0, strpos($mime, "/"));
+  if ($mime == "image") {
+    $file = USVN_SVNUtils::getSubversionUrl($this->project->name, "/".$this->path)."?p=$this->revision";
+    echo "<img src=$file width=100% height=auto/>";
+  } elseif ($mime != "text") {
+    echo T_('Unsupported binary file type.');
+  } elseif (!$this->diff_view) {
     echo $this->highlighted_source;
   }
   else {

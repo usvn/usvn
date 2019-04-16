@@ -369,6 +369,7 @@ class ProjectController extends USVN_Controller
 			$geshi->set_source($source);
 	    	$geshi->set_header_type(GESHI_HEADER_DIV);
 			$this->view->highlighted_source = $geshi->parse_code();
+			$this->view->source = $source;
 			if ($this->view->diff_view)
 			{
 				if (preg_match('#^<div ([^>]*)><ol>(.*)</ol></div>(\s*)$#s', $this->view->highlighted_source, $tmp))

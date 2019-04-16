@@ -78,6 +78,7 @@ date_default_timezone_set($config->timezone);
 USVN_ConsoleUtils::setLocale($config->system->locale);
 USVN_Translation::initTranslation($config->translation->locale, USVN_LOCALE_DIR);
 USVN_Template::initTemplate($config->template->name, USVN_MEDIAS_DIR);
+setlocale(LC_ALL, $config->system->locale);
 
 /* Zend Configuration */
 Zend_Registry::set('config', $config);

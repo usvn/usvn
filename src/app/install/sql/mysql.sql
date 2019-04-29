@@ -63,7 +63,7 @@ create index usvn_groups_to_projects2_fk on usvn_groups_to_projects
 create table usvn_projects
 (
    projects_id                    int                            not null auto_increment,
-   projects_name                  varchar(255)                   not null,
+   projects_name                  varchar(127)                   not null,
    projects_start_date            datetime                       not null,
    projects_description           varchar(1000),
    CONSTRAINT PROJECTS_NAME_UNQ UNIQUE (projects_name),
@@ -74,7 +74,7 @@ ENGINE=InnoDB;
 create table usvn_users
 (
    users_id                       int                            not null auto_increment,
-   users_login                    varchar(255)                   not null,
+   users_login                    varchar(127)                   not null,
    users_password                 varchar(64)                    not null,
    users_lastname                 varchar(100),
    users_firstname                varchar(100),

@@ -108,7 +108,7 @@ function installationOperation(&$step)
 
 		case 2:
 			$errors = Install::check();
-			Install::installUrl(USVN_CONFIG_FILE, USVN_HTACCESS_FILE, $_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'], isset($_SERVER['HTTPS']));
+			Install::installUrl(USVN_CONFIG_FILE, USVN_HTACCESS_FILE, $_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'], isset($_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'));
 			break;
 
 		case 3:

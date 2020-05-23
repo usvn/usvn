@@ -31,7 +31,7 @@ class USVN_SVNLog
 	* Date are unix timestamp
 	*/
 	public static function log($repository, $limit = 0, $start = 0, $end = 0)
-	{		 
+	{
         $repository = USVN_SVNUtils::getRepositoryPath($repository);
         if ($limit) {
 			$limit = escapeshellarg($limit);
@@ -40,17 +40,19 @@ class USVN_SVNLog
 		else {
 			$limit = "";
 		}
-		
+
 		if ($start){
+			$start = escapeshellarg($start);
 			$revision = "-r $start";
 			if ($end){
+				$end = escapeshellarg($end);
 				$revision.=":$end";
 			}
 		}
 		else {
 			$revision = "";
-		} 
-		
+		}
+
 		$message = USVN_ConsoleUtils::runCmdCaptureMessageUnsafe(USVN_SVNUtils::svnCommand("log --xml $revision $limit $repository"), $return);
 		if ($return) {
 			throw new USVN_Exception(T_("Can't get subversion repository logs: %s"), $message);

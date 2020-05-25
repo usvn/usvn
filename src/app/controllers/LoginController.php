@@ -78,6 +78,7 @@ class LoginController extends USVN_Controller
 
 		if (!$result->isValid())
 		{
+			error_log("user : authentication failure");
 			$this->view->login = $_POST['login'];
 			$this->view->messages = $result->getMessages();
 			$this->render('errors');

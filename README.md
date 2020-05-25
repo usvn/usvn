@@ -34,10 +34,15 @@ make            <-- remove instalation files
 ```
 
 ### Official maintainers
+
+The project is not maintain. But if you find a security issue or want to contribute we are happy to help.
+
  * [Julien Duponchelle](https://github.com/noplay)
  * [Stéphane Crivisier](https://github.com/stem)
 
 ## Changes
+
+1.0.9 Fix XSS in SVN logs. Credit to [Sysdream](https://www.sysdream.com)
 
 1.0.8 Fix JVN#73794686 Cross-site scripting vulnerability in
 

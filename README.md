@@ -42,7 +42,16 @@ The project is not maintain. But if you find a security issue or want to contrib
 
 ## Changes
 
-1.0.9 Fix XSS in SVN logs. Credit to [Sysdream](https://www.sysdream.com)
+### 1.0.9
 
-1.0.8 Fix JVN#73794686 Cross-site scripting vulnerability in
+* Fix XSS in SVN logs. Credit to [Sysdream](https://www.sysdream.com)
+* Solve some problems about binary file, locale and mysql importing.
+* Add X-Forwarded-Proto variable check on protocol check
+* Added error_log for fail2ban capture by apache-auth filter
+* Solve the key length error reported by mysql when import the sql.
+* Set the locale by system.locale in the config file.
+* Solve the problem that the binary file is shown by the messy text code.
+
+### 1.0.8
+* Fix JVN#73794686 Cross-site scripting vulnerability in
 

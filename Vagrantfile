@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/focal64"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "shell", inline: "
   apt-get update
-  DEBIAN_FRONTEND=noninteractive apt-get install -y apache2 php libapache2-mod-php mysql-server php-xml php-mysql subversion libapache2-svn zend-framework
+  DEBIAN_FRONTEND=noninteractive apt-get install -y apache2 php libapache2-mod-php mysql-server php-xml php-mysql php-sqlite3 subversion libapache2-mod-svn
 
 cat > /etc/apache2/sites-available/usvn.conf <<EOF
 Alias /usvn /var/sites/usvn/src/public

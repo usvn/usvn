@@ -33,6 +33,11 @@ define('USVN_CONFIG_VERSION',     '1.0.9');
 define('USVN_URL_SEP', ':');
 error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
+// Protection against CSRF
+session_set_cookie_params([
+	"samesite" => "Strict",
+]);
+
 /* Necessary Includes */
 set_include_path(USVN_LIB_DIR . PATH_SEPARATOR . get_include_path());
 

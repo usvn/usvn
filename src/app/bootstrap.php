@@ -1,4 +1,10 @@
 <?php
+define('USVN_MINIMUM_PHP_VERSION', '7.3');
+
+if (version_compare(phpversion(), USVN_MINIMUM_PHP_VERSION, '<')) {
+	echo 'Error: PHP version minimum is ' . USVN_MINIMUM_PHP_VERSION . ' current version is ' . phpversion();
+	exit(1);
+}
 
 /* Defines */
 define('USVN_BASE_DIR',           realpath(dirname(__FILE__) . '/..'));

@@ -44,8 +44,8 @@ The project is not maintain. But if you find a security issue or want to contrib
 
 ## 1.0.10
 
-* Force SameSite Strict on cookies to prevent CSRF.
-* Prevent shell code execution in the commit view
+* Force SameSite Strict on cookies to prevent CSRF CVE-2020-25070
+* Prevent shell code execution in the commit view CVE-2020-25069
 * Minimum recommended PHP version 7.3
 
 ### 1.0.9

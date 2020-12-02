@@ -68,6 +68,11 @@ class USVN_Authz
 				foreach ($files_rights as $group => $rights) {
 					$text .= "@{$group} = {$rights}\n";
 				}
+				if($files_path == "/"){
+                    $text .= "* = r\n";
+                }else{
+                    $text .= "* =\n";
+                }
 				$text .= "\n";
 			}
 		}

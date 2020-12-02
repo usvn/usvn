@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * Command line tools for import password into USVN
+ * Command line tools for update password into USVN
  *
  * @author Team USVN <contact@usvn.info>
  * @link http://www.usvn.info

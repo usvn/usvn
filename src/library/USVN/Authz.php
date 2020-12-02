@@ -156,7 +156,7 @@ class USVN_Authz
                     $group = $table_groups->fetchRow(array('groups_name = ?' => $group_name));
 
                     $table_groups_to_projects = new USVN_Db_Table_GroupsToProjects();
-                    $groups_to_projects = $table_groups_to_projects->fetchRow(array('projects_id' => $project->projects_id, 'groups_id' => $group->groups_id));
+                    $groups_to_projects = $table_groups_to_projects->fetchRow(array('projects_id  = ?' => $project->projects_id, 'groups_id  = ?' => $group->groups_id));
                     if ($groups_to_projects === null){
                         $project->addGroup($group);
                     }

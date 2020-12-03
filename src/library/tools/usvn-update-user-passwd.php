@@ -42,12 +42,16 @@ try {
     $table = new USVN_Db_Table_Users();
     $user = $table->fetchRow(array('users_login = ?' => $username));
 
-    $data = array(
-        'users_password' => $passwd,
-    );
+    if ($user !== null){
+        $data = array(
+            'users_password' => $passwd,
+        );
 
-    $user->setFromArray($data);
-    $user->save();
+        $user->setFromArray($data);
+        $user->save();
+    }else{
+        echo "no such user with users_login: " . $username . "\n";
+    }
 
 }
 catch (Exception $e) {

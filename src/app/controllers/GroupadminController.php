@@ -64,7 +64,7 @@ class GroupadminController extends AdminadminController
 		}
 		try {
 			$group->save();
-			foreach ($_POST['users'] as $user) {
+			foreach ((array)$_POST['users'] as $user) {
 				$group->addUser($user);
 			}
 			$this->_redirect("/admin/group/");

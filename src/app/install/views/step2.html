@@ -24,7 +24,7 @@
 						$selected = 'selected="selected"';
 				}
 				$locale2 = new Zend_Locale($language);
-				$lang_name = $locale->getLanguageTranslation($locale2->getLanguage());
+				$lang_name = $locale->getTranslation( $locale2->getLanguage(), 'language' );
 				echo "<option $selected value=\"$language\">$lang_name</option>";
 			}
 		?>

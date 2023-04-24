@@ -1,19 +1,21 @@
 <?php
 /*
+// --- The Web Booth ------------------------------------------------
 	Replacement Array class for ZendRegistry.
 	This one uses ArrayAccess and doesn't busy loop with PHP8.1
+// --- The Web Booth ------------------------------------------------
 */
 class Zend_Registry implements ArrayAccess
 {
-    private static $_instance = null;
-	private $_values = array( );
+    private static $_instance = null; 	// For Singleton / getInstance
+	private $_values = array( );		// Stored values for array access
 
 
 
-    public function __construct( )
+// BEGIN Constructors
+    private function __construct( )
     {
-
-    }
+	}
 
     public static function getInstance( )
     {
@@ -25,9 +27,11 @@ class Zend_Registry implements ArrayAccess
 		
 		return self::$_instance;
     }
+// END Constructors
 
 
 
+// BEGIN Statics
 	public static function get( $index )
     {
         $instance = self::getInstance( );
@@ -49,13 +53,18 @@ class Zend_Registry implements ArrayAccess
 		$instance = self::getInstance( );
         return $instance->offsetExists( $index );
     }
+// END Statics
 
 
 
+// BEGIN Not Static
     public function offsetExists( $index )
     {
         return isset( $this->_values[ $index ] );
     }
+// END Not Static
+
+
 
 // BEGIN For ArrayAccess
 	public function offsetGet( $offset )

@@ -86,8 +86,11 @@ class USVN_Authz
 		$data = array("*" => "", ); // default values
 		try {
 			$rawdata = self::parse_ini_file($fileName);
+			if( !empty( $rawdata ) )
+			{
 			if (array_key_exists("/", $rawdata)) {
 				$data = $rawdata['/'];
+				}
 			}
 		} catch (Exception $e) {
 			// we can ignore this, cause we preinitialized the data with an empty array.

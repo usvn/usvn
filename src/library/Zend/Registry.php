@@ -67,16 +67,19 @@ class Zend_Registry implements ArrayAccess
 
 
 // BEGIN For ArrayAccess
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset )
 	{
 		return $this->_values[ $offset ];
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value )
 	{
 		$this->_values[ $offset ] = $value;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset )
 	{
 		unset( $this->_values[ $offset ] );

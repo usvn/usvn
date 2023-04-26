@@ -85,11 +85,12 @@ class Zend_Service_Technorati
     public function __construct($apiKey)
     {
 		if (PHP_VERSION_ID < 50600) {
+        	iconv_set_encoding('output_encoding', 'UTF-8');
 			iconv_set_encoding('input_encoding', 'UTF-8');
-			iconv_set_encoding('output_encoding', 'UTF-8');
 			iconv_set_encoding('internal_encoding', 'UTF-8');
 		} else {
 			ini_set('default_charset', 'UTF-8');
+			mb_internal_encoding('UTF-8');
 		}
         $this->_apiKey = $apiKey;
     }

@@ -262,6 +262,7 @@ class Zend_XmlRpc_Client
 			iconv_set_encoding('output_encoding', 'UTF-8');
 			iconv_set_encoding('internal_encoding', 'UTF-8');
 		} else {
+			mb_internal_encoding('UTF-8');
 			ini_set('default_charset', 'UTF-8');
 		}
 

@@ -38,7 +38,7 @@ class USVN_FilesAccessRights
 	public function findByPath($group_id, $path)
 	{
         $path = str_replace('//', '/', $path);
-		if (strlen($path) == 0 || $path{0} !== '/') {
+		if (strlen($path) == 0 || $path[0] !== '/') {
 			throw new USVN_Exception(T_("Invalid path %s."), $path);
 		}
 		$response = array('read' => false, 'write' => false);
@@ -79,7 +79,7 @@ class USVN_FilesAccessRights
 	public function setRightByPath($group_id, $path, $read, $write, $recursive = false)
 	{
 		$path = preg_replace('#[/]{2,}#', '/', $path);
-		if (strlen($path) == 0 || $path{0} !== '/') {
+		if (strlen($path) == 0 || $path[0] !== '/') {
 			throw new USVN_Exception(T_("Invalid path %s."), $path);
 		}
 		$table_files = new USVN_Db_Table_FilesRights();

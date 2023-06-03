@@ -10,3 +10,6 @@ Thumbs.db
 src/files
 .htaccess
 config.ini
+svn-stuff
+.svn
+svnindex.xslt

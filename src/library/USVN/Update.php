@@ -77,6 +77,11 @@ class USVN_Update
             $config->version = '1.0.10';//DONT REPLACE WITH USVN_CONFIG_VERSION
             $config->save();
         }
+        else if ($config->version == '1.0.10')//DONT REPLACE WITH USVN_CONFIG_VERSION
+        {
+            $config->version = '1.0.11';//DONT REPLACE WITH USVN_CONFIG_VERSION
+            $config->save();
+        }
         else
 		{
 			die("Cannot update from version {$config->version}");

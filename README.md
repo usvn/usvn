@@ -42,6 +42,10 @@ The project is not maintain. But if you find a security issue or want to contrib
 
 ## Changes
 
+## 1.0.11
+
+* PHP 8 fixes
+
 ## 1.0.10
 
 * Force SameSite Strict on cookies to prevent CSRF CVE-2020-25070 (Report by Jomar & Serizao)

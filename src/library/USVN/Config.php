@@ -30,7 +30,7 @@ class USVN_Config
 	{
 		if (in_array($language, USVN_Translation::listTranslation())) {
 			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-			$config->translation->locale = $language;
+			$config->translation->locale = filter_var($language, FILTER_SANITIZE_STRING);
 			$config->save();
 		} 
 		else {
@@ -49,7 +49,7 @@ class USVN_Config
 		$availableTimezones = Zend_Locale_Data::getList("en", "WindowsToTimezone");
 		if (array_key_exists($timezone, $availableTimezones)) {
 			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-			$config->timezone = $timezone;
+			$config->timezone = filter_var($timezone, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 			$config->save();
 		}
 		else {
@@ -67,7 +67,7 @@ class USVN_Config
 	{
 		if (in_array($template, USVN_Template::listTemplate())) {
 			$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-			$config->template->name = $template;
+			$config->template->name = filter_var($template, FILTER_SANITIZE_STRING);
 			$config->save();
 		}
 		else {
@@ -83,7 +83,7 @@ class USVN_Config
 	static public function setCheckForUpdate($check)
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-		$config->update = array("checkforupdate" => $check, "lastcheckforupdate" => 0);
+		$config->update = array("checkforupdate" => filter_var($check, FILTER_SANITIZE_STRING), "lastcheckforupdate" => 0);
 		$config->save();
 	}
 
@@ -96,9 +96,9 @@ class USVN_Config
 	static public function setSiteDatas($datas)
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-		$config->site->title = $datas['title'];
-		$config->site->ico = $datas['ico'];
-		$config->site->logo = $datas['logo'];
+		$config->site->title = filter_var($datas['title'], FILTER_SANITIZE_STRING);
+		$config->site->ico = filter_var($datas['ico'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->site->logo = filter_var($datas['logo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		$config->save();
 	}
 
@@ -119,37 +119,37 @@ class USVN_Config
 		{
 			$config->ldap->options = array();
 		}
-		$config->ldap->createGroupForUserInDB = $ldap_options['createGroupForUserInDB'];
-		$config->ldap->createUserInDBOnLogin = $ldap_options['createUserInDBOnLogin'];
-		if (strlen($ldap_options['host'])) $config->ldap->options->host = $ldap_options['host'];
-		if (strlen($ldap_options['port'])) $config->ldap->options->port = $ldap_options['port'];
-		if (strlen($ldap_options['username'])) $config->ldap->options->username = $ldap_options['username'];
-		if (strlen($ldap_options['password'])) $config->ldap->options->password = $ldap_options['password'];
-		if (strlen($ldap_options['useStartTls'])) $config->ldap->options->useStartTls = $ldap_options['useStartTls'];
-		if (strlen($ldap_options['useSsl'])) $config->ldap->options->useSsl = $ldap_options['useSsl'];
-		if (strlen($ldap_options['bindDnFormat'])) $config->ldap->options->bindDnFormat = $ldap_options['bindDnFormat'];
-		if (strlen($ldap_options['bindRequiresDn'])) $config->ldap->options->bindRequiresDn = $ldap_options['bindRequiresDn'];
-		if (strlen($ldap_options['baseDn'])) $config->ldap->options->baseDn = $ldap_options['baseDn'];
-		if (strlen($ldap_options['accountCanonicalForm'])) $config->ldap->options->accountCanonicalForm = $ldap_options['accountCanonicalForm'];
-		if (strlen($ldap_options['accountDomainName'])) $config->ldap->options->accountDomainName = $ldap_options['accountDomainName'];
-		if (strlen($ldap_options['accountDomainNameShort'])) $config->ldap->options->accountDomainNameShort = $ldap_options['accountDomainNameShort'];
-		if (strlen($ldap_options['accountFilterFormat'])) $config->ldap->options->accountFilterFormat = $ldap_options['accountFilterFormat'];
-		if (strlen($ldap_options['allowEmptyPassword'])) $config->ldap->options->allowEmptyPassword = $ldap_options['allowEmptyPassword'];
-		if (strlen($ldap_options['optReferrals'])) $config->ldap->options->optReferrals = $ldap_options['optReferrals'];
+		$config->ldap->createGroupForUserInDB = filter_var($ldap_options['createGroupForUserInDB'], FILTER_SANITIZE_NUMBER_INT);
+		$config->ldap->createUserInDBOnLogin = filter_var($ldap_options['createUserInDBOnLogin'], FILTER_SANITIZE_NUMBER_INT);
+		if (strlen($ldap_options['host'])) $config->ldap->options->host = filter_var($ldap_options['host'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['port'])) $config->ldap->options->port = filter_var($ldap_options['port'], FILTER_SANITIZE_NUMBER_INT);
+		if (strlen($ldap_options['username'])) $config->ldap->options->username = filter_var($ldap_options['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['password'])) $config->ldap->options->password = filter_var($ldap_options['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['useStartTls'])) $config->ldap->options->useStartTls = filter_var($ldap_options['useStartTls'], FILTER_SANITIZE_NUMBER_INT);
+		if (strlen($ldap_options['useSsl'])) $config->ldap->options->useSsl = filter_var($ldap_options['useSsl'], FILTER_SANITIZE_NUMBER_INT);
+		if (strlen($ldap_options['bindDnFormat'])) $config->ldap->options->bindDnFormat = filter_var($ldap_options['bindDnFormat'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['bindRequiresDn'])) $config->ldap->options->bindRequiresDn = filter_var($ldap_options['bindRequiresDn'], FILTER_SANITIZE_NUMBER_INT);
+		if (strlen($ldap_options['baseDn'])) $config->ldap->options->baseDn = filter_var($ldap_options['baseDn'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['accountCanonicalForm'])) $config->ldap->options->accountCanonicalForm = filter_var($ldap_options['accountCanonicalForm'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['accountDomainName'])) $config->ldap->options->accountDomainName = filter_var($ldap_options['accountDomainName'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['accountDomainNameShort'])) $config->ldap->options->accountDomainNameShort = filter_var($ldap_options['accountDomainNameShort'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['accountFilterFormat'])) $config->ldap->options->accountFilterFormat = filter_var($ldap_options['accountFilterFormat'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		if (strlen($ldap_options['allowEmptyPassword'])) $config->ldap->options->allowEmptyPassword = filter_var($ldap_options['allowEmptyPassword'], FILTER_SANITIZE_NUMBER_INT);
+		if (strlen($ldap_options['optReferrals'])) $config->ldap->options->optReferrals = filter_var($ldap_options['optReferrals'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		$config->save();
 	}
 
 	static public function setAuthAdapter($adapterMethod)
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-		$config->authAdapterMethod = $adapterMethod;
+		$config->authAdapterMethod = filter_var($adapterMethod, FILTER_SANITIZE_STRING);
 		$config->save();
 	}
 
 	static public function setDefaultUser($defaultUser)
 	{
 		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
-		$config->alwaysUseDatabaseForLogin = $defaultUser;
+		$config->alwaysUseDatabaseForLogin = filter_var($defaultUser, FILTER_SANITIZE_STRING);
 		$config->save();
 	}
 }

@@ -9,4 +9,6 @@
 
 ## Reporting a Vulnerability
 
-The project is not actively maintain but we are always ready to publish a security patch. You can send it by mail to julien@duponchelle.info
+The project is not actively maintained but we are always ready to publish a security patch. You can send it by mail to the two maintainers:
+ * [Julien Duponchelle](https://github.com/noplay)
+ * [Stéphane Crivisier](https://github.com/stem)

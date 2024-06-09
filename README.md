@@ -42,6 +42,10 @@ The project is not maintain. But if you find a security issue or want to contrib
 
 ## Changes
 
+# 1.0.12
+
+* Security fix XSS injection possible by USVN admins  (Report & fix by Jeffrey Bencteux)
+
 ## 1.0.11
 
 * PHP 8 fixes

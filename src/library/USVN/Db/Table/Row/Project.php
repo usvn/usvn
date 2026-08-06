@@ -65,7 +65,7 @@ class USVN_Db_Table_Row_Project extends USVN_Db_Table_Row
 			$rights = $table_groupstofilesrights->fetchAll($g);
 			$file_rights = new USVN_Db_Table_FilesRights();
 			foreach ($rights as $right) {
-				$file_right = $file_rights->find($right->files_rights_id)->current();
+				$file_right = $file_rights->find((array)$right->files_rights_id)->current();
 				if ($file_right->projects_id == $this->id) {
 					$right->delete();
 				}

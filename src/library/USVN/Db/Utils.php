@@ -61,7 +61,9 @@ class USVN_Db_Utils
 	 */
 	static public function deleteAllTables($db, $prefix = 'usvn_')
 	{
-		$fnc = create_function('$var', "return !strcmp(substr(\$var, 0, strlen('$prefix')), '$prefix');");
+		$fnc = function($var) {
+			return !strcmp(substr($var, 0, strlen($prefix)), $prefix);
+		}
 		$list = $db->listTables();
 		if (count($list)) {
 		    $todelete = array_filter($list, $fnc);

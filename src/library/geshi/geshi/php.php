@@ -959,7 +959,7 @@ $language_data = array(
         4 => array(
             'DEFAULT_INCLUDE_PATH', 'DIRECTORY_SEPARATOR', 'E_ALL',
             'E_COMPILE_ERROR', 'E_COMPILE_WARNING', 'E_CORE_ERROR',
-            'E_CORE_WARNING', 'E_ERROR', 'E_NOTICE', 'E_PARSE', 'E_STRICT',
+            'E_CORE_WARNING', 'E_ERROR', 'E_NOTICE', 'E_PARSE'
             'E_USER_ERROR', 'E_USER_NOTICE', 'E_USER_WARNING', 'E_WARNING',
             'ENT_COMPAT','ENT_QUOTES','ENT_NOQUOTES',
             'false', 'null', 'PEAR_EXTENSION_DIR', 'PEAR_INSTALL_DIR',

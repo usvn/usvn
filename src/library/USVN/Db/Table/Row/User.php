@@ -28,7 +28,7 @@ class USVN_Db_Table_Row_User extends USVN_Db_Table_Row
 	{
 		if (is_numeric($group)) {
 			$groups = new USVN_Db_Table_Groups();
-			$group = $groups->find($group)->current();
+			$group = $groups->find((array)$group)->current();
 		}
 		$group->addUser($this);
 	}

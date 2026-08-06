@@ -37,7 +37,7 @@ define('USVN_CONFIG_VERSION',     '1.0.12');
 
 /* Misc */
 define('USVN_URL_SEP', ':');
-error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 // Protection against CSRF
 session_set_cookie_params([

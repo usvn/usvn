@@ -27,7 +27,7 @@ abstract class USVN_Test_Test extends PHPUnit_Framework_TestCase {
     private $_path;
 
     protected function setUp() {
-        error_reporting(E_ALL | E_STRICT);
+        error_reporting(E_ALL | E_NOTICE);
         date_default_timezone_set('UTC');
         $this->_path = getcwd();
 		$this->setConsoleLocale();

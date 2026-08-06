@@ -31,7 +31,7 @@ catch (Exception $e)
 			<td><?php echo (isset($frame['file']) && isset($frame['file']) ? $frame['file'] . ':' . $frame['line'] : '?'); ?></td>
 			<td><?php echo (isset($frame['class']) ? $frame['class'] . '::' : ''); ?><?php echo $frame['function'] ?></td>
 			<td>
-				<?php join(array_keys($frame), ', '); ?>
+				<?php echo join(', ', array_keys($frame)); ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

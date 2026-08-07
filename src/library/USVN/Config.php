@@ -121,21 +121,22 @@ class USVN_Config
 		}
 		$config->ldap->createGroupForUserInDB = filter_var($ldap_options['createGroupForUserInDB'], FILTER_SANITIZE_NUMBER_INT);
 		$config->ldap->createUserInDBOnLogin = filter_var($ldap_options['createUserInDBOnLogin'], FILTER_SANITIZE_NUMBER_INT);
-		if (strlen($ldap_options['host'])) $config->ldap->options->host = filter_var($ldap_options['host'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['port'])) $config->ldap->options->port = filter_var($ldap_options['port'], FILTER_SANITIZE_NUMBER_INT);
-		if (strlen($ldap_options['username'])) $config->ldap->options->username = filter_var($ldap_options['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['password'])) $config->ldap->options->password = filter_var($ldap_options['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['useStartTls'])) $config->ldap->options->useStartTls = filter_var($ldap_options['useStartTls'], FILTER_SANITIZE_NUMBER_INT);
-		if (strlen($ldap_options['useSsl'])) $config->ldap->options->useSsl = filter_var($ldap_options['useSsl'], FILTER_SANITIZE_NUMBER_INT);
-		if (strlen($ldap_options['bindDnFormat'])) $config->ldap->options->bindDnFormat = filter_var($ldap_options['bindDnFormat'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['bindRequiresDn'])) $config->ldap->options->bindRequiresDn = filter_var($ldap_options['bindRequiresDn'], FILTER_SANITIZE_NUMBER_INT);
-		if (strlen($ldap_options['baseDn'])) $config->ldap->options->baseDn = filter_var($ldap_options['baseDn'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['accountCanonicalForm'])) $config->ldap->options->accountCanonicalForm = filter_var($ldap_options['accountCanonicalForm'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['accountDomainName'])) $config->ldap->options->accountDomainName = filter_var($ldap_options['accountDomainName'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['accountDomainNameShort'])) $config->ldap->options->accountDomainNameShort = filter_var($ldap_options['accountDomainNameShort'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['accountFilterFormat'])) $config->ldap->options->accountFilterFormat = filter_var($ldap_options['accountFilterFormat'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-		if (strlen($ldap_options['allowEmptyPassword'])) $config->ldap->options->allowEmptyPassword = filter_var($ldap_options['allowEmptyPassword'], FILTER_SANITIZE_NUMBER_INT);
-		if (strlen($ldap_options['optReferrals'])) $config->ldap->options->optReferrals = filter_var($ldap_options['optReferrals'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->host = filter_var($ldap_options['host'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->port = filter_var($ldap_options['port'], FILTER_SANITIZE_NUMBER_INT);
+		$config->ldap->options->username = filter_var($ldap_options['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->password = filter_var($ldap_options['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->useStartTls = filter_var($ldap_options['useStartTls'], FILTER_SANITIZE_NUMBER_INT);
+		$config->ldap->options->useSsl = filter_var($ldap_options['useSsl'], FILTER_SANITIZE_NUMBER_INT);
+		$config->ldap->options->bindDnFormat = filter_var($ldap_options['bindDnFormat'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->bindRequiresDn = filter_var($ldap_options['bindRequiresDn'], FILTER_SANITIZE_NUMBER_INT);
+		$config->ldap->options->baseDn = filter_var($ldap_options['baseDn'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->accountCanonicalForm = filter_var($ldap_options['accountCanonicalForm'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->accountDomainName = filter_var($ldap_options['accountDomainName'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->accountDomainNameShort = filter_var($ldap_options['accountDomainNameShort'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$config->ldap->options->accountFilterFormat = filter_var($ldap_options['accountFilterFormat'], FILTER_SANITIZE_URL);
+		$config->ldap->options->tryUsernameSplit = filter_var($ldap_options['tryUsernameSplit'], FILTER_SANITIZE_NUMBER_INT);
+		$config->ldap->options->allowEmptyPassword = filter_var($ldap_options['allowEmptyPassword'], FILTER_SANITIZE_NUMBER_INT);
+		$config->ldap->options->optReferrals = filter_var($ldap_options['optReferrals'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		$config->save();
 	}
 

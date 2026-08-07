@@ -63,6 +63,7 @@ class ProfileController extends USVN_Controller
 
 	public function indexAction()
 	{
+		$this->view->config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
 		$this->view->user = $this->getUser();
 		if ($this->view->user === null) {
 			$this->_redirect("/admin/user/");
@@ -72,18 +73,25 @@ class ProfileController extends USVN_Controller
 	public function saveAction()
 	{
 		$user = $this->getUser();
-		try {
-			$data = $this->getUserData($_POST);
-			if (empty($data)) {
-				$this->_redirect("/profile/");
+		$config = new USVN_Config_Ini(USVN_CONFIG_FILE, USVN_CONFIG_SECTION);
+		if($config->authAdapterMethod!=='ldap' || $config->alwaysUseDatabaseForLogin===$user->users_login) {
+			try {
+				$data = $this->getUserData($_POST);
+				if (empty($data)) {
+					$this->_redirect("/profile/");
+				}
+				$user->setFromArray($data);
+				$user->save();
+				$this->_redirect("/");
 			}
-			$user->setFromArray($data);
-			$user->save();
-			$this->_redirect("/");
-		}
-		catch (Exception $e) {
+			catch (Exception $e) {
+				$this->view->user = $user;
+				$this->view->message = $e->getMessage();
+				$this->render('index');
+			}
+		} else {
 			$this->view->user = $user;
-			$this->view->message = $e->getMessage();
+			$this->view->message = "LDAP user cannot modify profile informations";
 			$this->render('index');
 		}
 	}

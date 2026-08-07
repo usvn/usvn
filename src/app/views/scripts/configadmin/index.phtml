@@ -307,6 +307,25 @@
 			</td>
 		</tr>
 		<tr>
+			<td><label><?php echo T_("Try split username"); ?>:</label></td>
+			<td>
+				<select name="ldap[tryUsernameSplit]">
+					<?php
+						if (!isset($this->config->ldap->options->tryUsernameSplit) || ($this->config->ldap->options->tryUsernameSplit))
+						{
+							echo '<option value="1" selected>' . T_("Yes"). '</option>';
+							echo '<option value="0">' . T_("No"). '</option>';
+						}
+						else
+						{
+							echo '<option value="1">' . T_("Yes"). '</option>';
+							echo '<option value="0" selected>' . T_("No"). '</option>';
+						}
+					?>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<td><label><?php echo T_("Allow empty password"); ?>:</label></td>
 			<td>
 				<select name="ldap[allowEmptyPassword]">

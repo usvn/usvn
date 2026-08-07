@@ -46,6 +46,8 @@
 		try
 		{
 			parent::__construct($filename, $section, true);
+			// Load some mandatory defaults
+			if (!isset($ithis->url)) { $this->url = array(); $this->url->base = ''; }
 		}
 		catch (Exception $e)
 		{
@@ -60,7 +62,8 @@
 			if (is_object($value))
 				$this->dumpLevel($handle, "$prefix$key.", $value);
 			else
-				fwrite($handle, "$prefix$key = \"$value\"\n");
+				if ($value!=='')
+					fwrite($handle, "$prefix$key = \"$value\"\n");
 		}
 	}
 

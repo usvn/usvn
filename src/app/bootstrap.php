@@ -37,7 +37,12 @@ define('USVN_CONFIG_VERSION',     '1.0.12');
 
 /* Misc */
 define('USVN_URL_SEP', ':');
-error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+if (PHP_VERSION_ID >= 70400) {
+	error_reporting(E_ALL & ~E_DEPRECATED);
+}
+else {
+	error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+}
 
 // Protection against CSRF
 session_set_cookie_params([

@@ -78,7 +78,7 @@ class USVN_Db_Table_Users extends USVN_Db_Table {
 			throw new USVN_Exception(sprintf(T_("Login %s already exist."), $user->login));
 		}
 		if (!isset($data['users_is_admin'])) {
-			$data['users_is_admin'] = false;
+			$data['users_is_admin'] = 0;
 		}
 		$data['users_secret_id'] = md5(time().mt_rand());
 		$res = parent::insert($data);

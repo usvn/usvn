@@ -68,12 +68,129 @@ class USVN_Authz
 				foreach ($files_rights as $group => $rights) {
 					$text .= "@{$group} = {$rights}\n";
 				}
+				if($files_path == "/"){
+                    $text .= "* = r\n";
+                }else{
+                    $text .= "* =\n";
+                }
 				$text .= "\n";
 			}
 		}
 
         @file_put_contents($config->subversion->authz, $text);
 	}
+
+	static public function load($fileName){
+        $config = Zend_Registry::get('config');
+
+        $oldUserConfig = self::parse_ini_file($fileName);
+
+        foreach ($oldUserConfig as $key => $value) {
+            if ($key == "groups") {
+                $groups_list = $value;
+                foreach ($groups_list as $group_name => $users_list_str){
+                    $table_groups = new USVN_Db_Table_Groups();
+                    $group = $table_groups->fetchRow(array('groups_name = ?' => $group_name));
+                    if ($group === null) {
+                        $data = array(
+                            'groups_name' => $group_name,
+                            'groups_description' => '',
+                        );
+                        $group = $table_groups->createRow($data);
+                        $group->save();
+                    }
+
+                    $user_list = explode(",", $users_list_str);
+                    foreach ($user_list as $user_name){
+                        $table_users = new USVN_Db_Table_Users();
+                        $user = $table_users->fetchRow(array('users_login = ?' => $user_name));
+                        if ($user === null){
+                            echo $user_name . "\n";
+                            $data = array(
+                                'users_login' => $user_name,
+                                'users_password' => 'ipassword',
+                                'users_is_admin' => 0
+                            );
+                            $user = $table_users->createRow($data);
+                            $user->save();
+                        }
+
+                        $table_users_to_groups = new USVN_Db_Table_UsersToGroups();
+                        $users_to_groups = $table_users_to_groups->fetchRow(array('users_id = ?' => $user->users_id, 'groups_id = ?' => $group->groups_id));
+                        if($users_to_groups === null){
+                            $group->addUser($user);
+                        }
+                    }
+                }
+            }
+
+            if (strpos($key, ":") !== false) {
+                $project_path_pair = explode(":", $key);
+                $project_name = $project_path_pair[0];
+                $path = $project_path_pair[1];
+                $table_projects = new USVN_Db_Table_Projects();
+                $project = $table_projects->fetchRow(array('projects_name = ?' => $project_name));
+                if ($project === null){
+                    $data = array(
+                        'projects_name' => $project_name,
+                        'projects_description' => '',
+                    );
+                    $project = $table_projects->createRow($data);
+                    $project->save();
+                }
+
+                $table_files_rights = new USVN_Db_Table_FilesRights();
+                $file_rights = $table_files_rights->fetchRow(array('projects_id = ?' => $project->projects_id, 'files_rights_path = ?' => $path));
+                if ($file_rights === null){
+                    $data = array(
+                        'projects_id' => $project->id,
+                        'files_rights_path' => $path,
+                    );
+                    $file_rights = $table_files_rights->createRow($data);
+                    $file_rights->save();
+                }
+                $group_rights_list = $value;
+
+                foreach ($group_rights_list as $group_name => $rights){
+                    if ($group_name == "*"){
+                        continue;
+                    }
+
+                    $group_name = str_replace("@", "", $group_name);
+                    $table_groups = new USVN_Db_Table_Groups();
+                    $group = $table_groups->fetchRow(array('groups_name = ?' => $group_name));
+
+                    $table_groups_to_projects = new USVN_Db_Table_GroupsToProjects();
+                    $groups_to_projects = $table_groups_to_projects->fetchRow(array('projects_id  = ?' => $project->projects_id, 'groups_id  = ?' => $group->groups_id));
+                    if ($groups_to_projects === null){
+                        $project->addGroup($group);
+                    }
+
+                    $table_groups_to_files_rights = new USVN_Db_Table_GroupsToFilesRights();
+                    $groups_to_files_rights = $table_groups_to_files_rights->fetchRow(array('files_rights_id = ?' => $file_rights->files_rights_id, 'groups_id = ?' => $group->groups_id));
+
+                    $r = 0;
+                    $w = 0;
+                    if (strpos($rights, "r") !== false) {
+                        $r = 1;
+                    }
+                    if (strpos($rights, "w") !== false) {
+                        $w = 1;
+                    }
+                    if ($groups_to_files_rights === null){
+                        $data = array(
+                            'files_rights_id' => $file_rights->files_rights_id,
+                            'groups_id' => $group->groups_id,
+                            'files_rights_is_readable' => $r,
+                            'files_rights_is_writable' => $w,
+                        );
+                        $groups_to_files_rights = $table_groups_to_files_rights->createRow($data);
+                        $groups_to_files_rights->save();
+                    }
+                }
+            }
+        }
+    }
 
 	/**
 	 * Loads the "/" Section from existing authz file.
